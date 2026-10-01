@@ -37,17 +37,18 @@ original's results; lower is better):
 <!-- accuracy:start -->
 | Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
 |---|---:|---:|---:|---:|---:|---:|
-| Other cartridges (caliber sweep) | 28 | 1.5 % | 4.3 % | 1.0 % | 8.2 % | 4.1 % |
-| Powders (40 powders, one cartridge) | 39 | 1.8 % | 6.2 % | 0.9 % | 5.4 % | 3.9 % |
-| Charge, bullet weight, start pressure, case volume | 24 | 1.9 % | 4.7 % | 0.6 % | 2.1 % | 3.4 % |
-| Barrel length, twist, Sebert factor | 10 | 1.1 % | 3.5 % | 0.4 % | 2.6 % | 4.0 % |
-| Powder temperature | 26 | 0.5 % | 0.7 % | 0.1 % | 0.2 % | 2.6 % |
-| Bullet friction | 11 | 1.2 % | 3.3 % | 0.7 % | 2.4 % | 2.9 % |
-| Almost closed vessel (very heavy bullet) | 9 | 3.7 % | 10.0 % | 1.2 % | 2.3 % | 3.7 % |
-| Fast powders (burn rate, step length, form function) | 21 | 1.7 % | 6.2 % | 0.7 % | 1.2 % | 3.7 % |
-| **All runs** | 168 | 1.6 % | 10.0 % | 0.7 % | 8.2 % | 3.6 % |
+| Other cartridges (caliber sweep) | 28 | 1.4 % | 6.1 % | 1.0 % | 9.0 % | 4.2 % |
+| Powders (40 powders, one cartridge) | 39 | 1.7 % | 5.2 % | 0.9 % | 5.6 % | 4.0 % |
+| Charge, bullet weight, start pressure, case volume | 24 | 1.9 % | 4.8 % | 0.7 % | 2.4 % | 3.4 % |
+| Barrel length, twist, Sebert factor | 10 | 1.2 % | 3.3 % | 0.5 % | 2.3 % | 3.8 % |
+| Powder temperature | 26 | 0.5 % | 0.8 % | 0.3 % | 0.3 % | 2.4 % |
+| Bullet friction | 11 | 1.2 % | 3.4 % | 0.8 % | 2.5 % | 2.9 % |
+| Almost closed vessel (very heavy bullet) | 9 | 3.0 % | 7.4 % | 1.2 % | 2.7 % | 3.9 % |
+| Fast powders (burn rate, step length, form function) | 21 | 1.6 % | 5.4 % | 0.7 % | 1.0 % | 3.8 % |
+| Loading density (charge, case volume, powder density, Qex) | 22 | 4.2 % | 15.7 % | 0.8 % | 2.4 % | 4.9 % |
+| **All runs** | 190 | 1.8 % | 15.7 % | 0.8 % | 9.0 % | 3.8 % |
 
-_Absolute errors against 168 runs of the original program; updated 2026-10-01 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute errors against 190 runs of the original program; updated 2026-10-01 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more.

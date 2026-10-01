@@ -158,7 +158,7 @@ void CoreTest::temperatureCoefficients()
 
 // Measured on the original with fast powders (reference batch exp_ba*): the energy of the burnt powder reaches the
 // gas over the first position steps, so the peak saturates with Ba and falls with the step length (barrel length).
-// The covolume grows for powders of low material density.
+// The covolume grows for powders of low material density; eta has no effect.
 void CoreTest::fastPowdersAndCovolume()
 {
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
@@ -175,6 +175,10 @@ void CoreTest::fastPowdersAndCovolume()
     QCOMPARE_LT(std::abs(pmax(7.0, xe, pc) / pmax(3.5, xe, pc) - 1.0), 0.03);  // original: +0.3 %
     QCOMPARE_LT(pmax(3.0, 2400, pc), 0.85 * pmax(3.0, 150, pc));               // original: -24 %
     QCOMPARE_GT(pmax(1.2, xe, 980.0), 1.05 * pmax(1.2, xe, 1600.0));
+    // the original ignores the covolume factor eta (a load with eta 1.2 gives the identical curve)
+    grt::SimInput eta = grt::SimInput::fromLoad(*lf);
+    eta.covolumeEta = 1.2;
+    QCOMPARE(grt::simulate(eta).maxPressure_bar, grt::simulate(grt::SimInput::fromLoad(*lf)).maxPressure_bar);
 }
 
 void CoreTest::chargeTooHighIsRejected()

@@ -77,16 +77,18 @@ inline constexpr int kMaxLadderSteps = 10;
 // was identified from reference runs of the original program; the values below
 // are *provisional* least-squares calibrations and are expected to change.
 struct Calibration {
-    double impetusFactor{1.05076};        // scales f = (k-1)*Qex
-    double kineticFactor{1.09578};        // scales the kinetic-energy term in the energy balance
-    // covolume b of the powder gas = eta * (covolume_cm3g + covolumeDensityFactor / material density): measured on
-    // the original, powders with a low material density pc have a much larger covolume (b ~ 1.08 / pc)
-    double covolume_cm3g{0.0132223};
-    double covolumeDensityFactor{1.34175};
-    double intrusionFactor{1.32743};      // fraction of the bullet's volume inside the case that reduces the chamber
+    double impetusFactor{1.0454};        // scales f = (k-1)*Qex
+    double kineticFactor{1.07555};        // scales the kinetic-energy term in the energy balance
+    // covolume b of the powder gas = covolume_cm3g + covolumeDensityFactor / material density pc: measured on the
+    // original, powders with a low pc have a much larger covolume (b ~ 1.2 / pc); eta has no effect at all.
+    // The unburnt powder takes solidDensityFactor / pc per kg.
+    double covolume_cm3g{0.0605161};
+    double solidDensityFactor{0.955343};
+    double covolumeDensityFactor{1.17549};
+    double intrusionFactor{1.3548};      // fraction of the bullet's volume inside the case that reduces the chamber
     double chamberOffset_cm3{0.0};     // empirical chamber-volume offset
-    double capacityFactor{1.20396};        // scales the case capacity (database value) in the chamber volume
-    double chamberOffsetLength_mm{0.248693}; // extra chamber length behind the bullet base, times the bore area
+    double capacityFactor{1.16533};        // scales the case capacity (database value) in the chamber volume
+    double chamberOffsetLength_mm{0.754552}; // extra chamber length behind the bullet base, times the bore area
     double hotCoeffDefault{0.000962335};    // relative burn-rate change per K above 21 degC (used if tch == 0)
     double coldCoeffDefault{0.000677371};   // relative burn-rate change per K below 21 degC (used if tcc == 0)
     double explicitColdScale{0.025};        // explicit tcc: relative burn-rate change = scale * tcc * (21 - T)
@@ -103,20 +105,20 @@ struct Calibration {
     double mipFactor{1.975};              // MIP = factor * IPSC
     double manualFrictionFactor{3.49e-4}; // fraction of the pressure force lost per bar of the gfriction input
 
-    double burnIntercept{1.11851};
-    double burnSlopeA0{0.379371};
-    double burnSlopeOffset{-0.0252242};
-    double initialGasFactor{0.546915};          // weight of the initial-gas energy offset (1 = reproduces ps exactly)
+    double burnIntercept{1.1099};
+    double burnSlopeA0{0.399097};
+    double burnSlopeOffset{-0.0303004};
+    double initialGasFactor{0.562642};          // weight of the initial-gas energy offset (1 = reproduces ps exactly)
     double burnZ0Factor{0.0};              // the form function sees z + burnZ0Factor * z0 (initial gas counts as burnt)
-    double burnExponent{-0.0240318};
+    double burnExponent{-0.0139919};
     // Measured on the original with fast powders: the energy of the burnt powder reaches the gas only by the fraction
     // 1 - exp(-ignitionRate * (step + ignitionLead)), counted in position steps (independent of the step length,
     // bullet mass and charge). It limits the peak pressure of fast powders; slow ones have burnt little by then.
-    double ignitionRate{0.157903};
-    double ignitionLead{4.63226};          // dz/dt scales with (p/1000 bar)^burnExponent on top of the linear p
-    double phase2[4]{0.316743, 0.138886, -0.968774, 1.09811};
+    double ignitionRate{0.159743};
+    double ignitionLead{4.41922};          // dz/dt scales with (p/1000 bar)^burnExponent on top of the linear p
+    double phase2[4]{0.280452, 0.111831, -0.833002, 1.05209};
     double phase3Limit{0.7};       // the phase-3 shape is held constant beyond this t = (z - z2)/(1 - z2)
-    double phase3[4]{-3.52729, 4.41272, -1.31126, 0.380902};
+    double phase3[4]{-4.27095, 3.75996, -0.377023, 0.240775};
 };
 
 // Named access to every tunable constant (for calibration tools and tests).

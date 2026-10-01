@@ -41,7 +41,7 @@ struct Model {
     double mc_kg;
     double V0_m3;
     double x0_m;
-    double rho;
+    double solid_m3kg;  // specific volume of the unburnt powder
     double covolume_m3kg;
     double fEnergy;  // impetus-like constant: factor * (k-1) * Qex [J/kg]
     double theta;    // k - 1
@@ -54,7 +54,7 @@ struct Model {
 
     [[nodiscard]] double gasVolume(double z, double x_m) const noexcept
     {
-        return V0_m3 + A_m2 * (x_m - x0_m) - mc_kg * (1.0 - z) / rho - covolume_m3kg * mc_kg * z;
+        return V0_m3 + A_m2 * (x_m - x0_m) - mc_kg * (1.0 - z) * solid_m3kg - covolume_m3kg * mc_kg * z;
     }
 
     // `ignited` is the fraction of the burnt powder whose energy has reached the gas (see Calibration::ignitionRate).
@@ -148,8 +148,9 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     m.mc_kg = in.charge_g * 1e-3;
     m.V0_m3 = chamberVolume_m3(in, cal);
     m.x0_m = x0;
-    m.rho = in.density_kgm3;
-    m.covolume_m3kg = (cal.covolume_cm3g * 1e-3 + cal.covolumeDensityFactor / in.density_kgm3) * in.covolumeEta;
+    m.solid_m3kg = cal.solidDensityFactor / in.density_kgm3;
+    // measured: the original ignores eta (a load with eta 1.2 gives the identical curve)
+    m.covolume_m3kg = cal.covolume_cm3g * 1e-3 + cal.covolumeDensityFactor / in.density_kgm3;
     m.theta = in.kappa - 1.0;
     m.fEnergy = cal.impetusFactor * m.theta * in.heatQex_kJkg * 1e3;
     m.kinetic = cal.kineticFactor;
@@ -303,6 +304,7 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"kineticFactor", &cal.kineticFactor},
             {"covolume_cm3g", &cal.covolume_cm3g},
             {"covolumeDensityFactor", &cal.covolumeDensityFactor},
+            {"solidDensityFactor", &cal.solidDensityFactor},
             {"intrusionFactor", &cal.intrusionFactor},
             {"chamberOffset_cm3", &cal.chamberOffset_cm3},
             {"capacityFactor", &cal.capacityFactor},
