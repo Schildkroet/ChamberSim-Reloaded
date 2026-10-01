@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "database.h"
+#include "recorddialog.h"
 #include "tablebrowser.h"
 
 #include <QMainWindow>
@@ -12,6 +13,7 @@
 
 class LoadView;
 class QAction;
+class QPushButton;
 class QTabWidget;
 
 QT_BEGIN_NAMESPACE
@@ -39,11 +41,22 @@ public:
     // Opens the "New load" dialog (needs an open database).
     void newLoad();
 
+    // Database tab: the table shown and its selected record.
+    [[nodiscard]] grt::Table currentTable() const;
+    // Opens the record dialog (New: empty, Copy/Edit: the selected record) and stores the result.
+    void editRecord(RecordDialog::Mode mode);
+    // Stores a new (New, Copy) or changed (Edit, `id`) record in the own database and shows it; returns its id or -1.
+    int storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values);
+    // Deletes the selected own record after asking (`ask` false: without asking).
+    bool deleteRecord(bool ask = true);
+
 protected:
     void closeEvent(QCloseEvent *event) override;
 
 private:
     [[nodiscard]] QString databaseSummary() const;
+    void updateRecordButtons();
+    [[nodiscard]] TableBrowser *currentBrowser() const;
     void createActions();
     [[nodiscard]] LoadView *currentLoad() const;
     [[nodiscard]] bool maybeSave(LoadView *view);
@@ -56,6 +69,10 @@ private:
     std::unique_ptr<Ui::MainWindow> ui;
     QTabWidget *m_tabs;
     QTabWidget *m_dbTabs;
+    QPushButton *m_newRecord{nullptr};
+    QPushButton *m_copyRecord{nullptr};
+    QPushButton *m_editRecord{nullptr};
+    QPushButton *m_deleteRecord{nullptr};
     std::array<TableBrowser *, 3> m_browsers{};
     grt::Database m_db;
     int m_untitled{0};

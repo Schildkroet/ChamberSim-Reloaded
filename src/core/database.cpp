@@ -241,6 +241,11 @@ QStringList Database::columns(Table t) const
     return out;
 }
 
+std::vector<std::pair<QString, QString>> Database::schema(Table t) const
+{
+    return tableColumns(m_db, u"main"_s, QLatin1String(tableName(t)));
+}
+
 std::optional<QVariantMap> Database::record(Table t, int id) const
 {
     QSqlQuery q(m_db);

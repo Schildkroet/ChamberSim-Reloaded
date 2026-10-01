@@ -21,6 +21,7 @@
 #include <QSettings>
 #include <QSqlQuery>
 #include <QStandardPaths>
+#include <QTableView>
 #include <QTableWidget>
 #include <QTemporaryDir>
 #include <QtTest>
@@ -32,11 +33,13 @@
 #include "database.h"
 #include "loadbuilder.h"
 #include "loadview.h"
+#include "recorddialog.h"
 #include "measurement.h"
 #include "measurementview.h"
 #include "propertypanel.h"
 #include "recentfiles.h"
 #include "reportview.h"
+#include "selectrecorddialog.h"
 #include "settingsdialog.h"
 #include "unitprefs.h"
 #include "mainwindow.h"
@@ -85,6 +88,8 @@ private slots:
     void measurementTabShowsTheFilesResults();
     void measurementsAreEditedAndSaved();
     void originalDatabaseIsChosenInTheSettings();
+    void recordDialogShowsReadableFieldsInUserUnits();
+    void recordsAreAddedCopiedEditedAndDeleted();
 
 private:
     static int idOf(grt::Database &db, grt::Table t, const QString &where);
@@ -96,6 +101,7 @@ void GuiTest::initTestCase()
 {
     // never touch the user's real settings or own database
     QStandardPaths::setTestModeEnabled(true);
+    QFile::remove(grt::Database::defaultOwnPath());  // start every run with an empty own database
     static QTemporaryDir settingsDir;
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, settingsDir.path());
@@ -1210,6 +1216,107 @@ void GuiTest::originalDatabaseIsChosenInTheSettings()
         QVERIFY(w.openDatabase(original));
         QCOMPARE(QSettings().value(u"database/path"_s).toString(), original);
         QVERIFY(browser->selectId(562));  // a powder of the original
+    }
+    QSettings().setValue(u"database/path"_s, before);
+}
+
+void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    const auto powder = m_db.record(grt::Table::Propellant, 562);
+    QVERIFY(powder);
+    RecordDialog copy(m_db, grt::Table::Propellant, RecordDialog::Mode::Copy, *powder);
+    QCOMPARE(copy.text(u"pname"_s), u"N150 (copy)"_s);
+    QCOMPARE(copy.text(u"Ba"_s), u"0.5814"_s);
+    QCOMPARE(copy.text(u"pcd"_s), u"890"_s);  // kg/m3
+    QCOMPARE(copy.text(u"Qex"_s), u"3790"_s);  // no thousands separator in a field
+    QVERIFY(!copy.findChild<QWidget *>(u"geloescht"_s));  // internal columns are not shown
+    bool found = false;
+    for (QLabel *l : copy.findChildren<QLabel *>()) found = found || l->text() == u"Burn rate coefficient (Ba):"_s;
+    QVERIFY(found);
+    QVERIFY(copy.firstError().isEmpty());
+    copy.setText(u"Ba"_s, u"fast"_s);
+    QCOMPARE(copy.firstError(), u"Burn rate coefficient (Ba)"_s);
+    copy.setText(u"Ba"_s, u"0.62"_s);
+    copy.setText(u"pname"_s, QString());
+    QCOMPARE(copy.firstError(), u"Name"_s);  // required
+    copy.setText(u"pname"_s, u"N150 own lot"_s);
+    const QVariantMap v = copy.values();
+    QCOMPARE(v.value(u"Ba"_s).toDouble(), 0.62);
+    QCOMPARE(v.value(u"pname"_s).toString(), u"N150 own lot"_s);
+    QCOMPARE(v.value(u"cdate"_s).toString(), QDate::currentDate().toString(Qt::ISODate));
+    QVERIFY(!v.contains(u"id"_s));
+
+    // the bullet mass is stored in grains but shown and typed in the user's unit (grams here)
+    const auto bullet = m_db.record(grt::Table::Projectile, 4542);
+    QVERIFY(bullet);
+    RecordDialog edit(m_db, grt::Table::Projectile, RecordDialog::Mode::Edit, *bullet);
+    QCOMPARE(edit.text(u"gmass"_s).left(6), u"12.700"_s);  // 196 grain, all digits kept
+    QCOMPARE(edit.text(u"gtailtype"_s), u"boat tail"_s);
+    edit.setText(u"gmass"_s, u"13"_s);
+    QVERIFY(std::abs(edit.values().value(u"gmass"_s).toDouble() - 13.0 / 0.06479891) < 1e-9);
+    QCOMPARE(edit.values().value(u"gtailtype"_s).toInt(), 2);
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+        copy.grab().save(shots + u"/record.png"_s);
+        RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Caliber, 1));
+        cal.grab().save(shots + u"/record_caliber.png"_s);
+    }
+    UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
+{
+    const QString before = QSettings().value(u"database/path"_s).toString();
+    {
+        MainWindow w;
+        QVERIFY(w.openDatabase(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
+        const auto tabs = w.findChildren<QTabWidget *>();
+        QTabWidget *dbTabs = nullptr;
+        for (QTabWidget *t : tabs)
+            if (t->count() == 3 && t->tabText(2) == u"Propellants"_s) dbTabs = t;
+        QVERIFY(dbTabs);
+        dbTabs->setCurrentIndex(2);
+        QCOMPARE(w.currentTable(), grt::Table::Propellant);
+        auto *browser = qobject_cast<TableBrowser *>(dbTabs->currentWidget());
+        QVERIFY(browser->selectId(562));
+        const auto button = [&](const QString &text) {
+            for (QPushButton *b : w.findChildren<QPushButton *>())
+                if (b->text() == text) return b;
+            return static_cast<QPushButton *>(nullptr);
+        };
+        QVERIFY(button(u"Copy…"_s)->isEnabled());
+        QVERIFY(!button(u"Edit…"_s)->isEnabled());  // a record of the original
+        QVERIFY(!button(u"Delete"_s)->isEnabled());
+
+        // a copy goes into the own database and appears in the same list
+        RecordDialog dlg(m_db, grt::Table::Propellant, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Propellant, 562));
+        dlg.setText(u"Ba"_s, u"0.6"_s);
+        const int count = browser->findChild<QTableView *>()->model()->rowCount();
+        const int id = w.storeRecord(grt::Table::Propellant, RecordDialog::Mode::Copy, 562, dlg.values());
+        QCOMPARE(id, grt::Database::kOwnIdBase);
+        QCOMPARE(browser->currentId(), id);
+        QCOMPARE(browser->findChild<QTableView *>()->model()->rowCount(), count + 1);
+        QVERIFY(button(u"Edit…"_s)->isEnabled());
+        QVERIFY(button(u"Delete"_s)->isEnabled());
+
+        // the new powder is offered wherever powders are chosen
+        SelectRecordDialog select(m_db, grt::Table::Propellant, u"x"_s);
+        QVERIFY(select.findChild<TableBrowser *>()->selectId(id));
+
+        // changing it
+        QVariantMap changed = dlg.values();
+        changed.insert(u"Ba"_s, 0.65);
+        QCOMPARE(w.storeRecord(grt::Table::Propellant, RecordDialog::Mode::Edit, id, changed), id);
+        QCOMPARE(m_db.record(grt::Table::Propellant, id)->value(u"Ba"_s).toDouble(), 0.65);
+        QCOMPARE(m_db.record(grt::Table::Propellant, 562)->value(u"Ba"_s).toDouble(), 0.5814);  // the original is unchanged
+
+        // deleting it
+        QVERIFY(w.deleteRecord(false));
+        QCOMPARE(browser->findChild<QTableView *>()->model()->rowCount(), count);
+        QVERIFY(!browser->selectId(id));
+        QVERIFY(browser->selectId(562));
+        QVERIFY(!w.deleteRecord(false));  // records of the original cannot be deleted
+        QCOMPARE(m_db.count(grt::Table::Propellant), count);
     }
     QSettings().setValue(u"database/path"_s, before);
 }

@@ -2,6 +2,8 @@
 #include "./ui_mainwindow.h"
 
 #include "about.h"
+#include "buttonstyle.h"
+#include "dbfields.h"
 #include "loadview.h"
 #include "newloaddialog.h"
 #include "reportview.h"
@@ -17,6 +19,10 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QStyle>
+#include <QVBoxLayout>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QSettings>
@@ -37,11 +43,37 @@ MainWindow::MainWindow(QWidget *parent)
     for (std::size_t i = 0; i < tables.size(); ++i) {
         m_browsers[i] = new TableBrowser(tables[i]);
         m_dbTabs->addTab(m_browsers[i], titles[i]);
+        connect(m_browsers[i], &TableBrowser::currentIdChanged, this, &MainWindow::updateRecordButtons);
+        connect(m_browsers[i], &TableBrowser::idActivated, this, [this](int id) {
+            editRecord(grt::Database::isOwnId(id) ? RecordDialog::Mode::Edit : RecordDialog::Mode::Copy);
+        });
     }
+    connect(m_dbTabs, &QTabWidget::currentChanged, this, &MainWindow::updateRecordButtons);
+
+    // records: new ones (and copies of the original's) go into the own database, only those can be changed
+    m_newRecord = new QPushButton(style()->standardIcon(QStyle::SP_FileIcon), tr("New…"));
+    m_copyRecord = new QPushButton(tr("Copy…"));
+    m_editRecord = new QPushButton(tr("Edit…"));
+    m_deleteRecord = new QPushButton(tr("Delete"));
+    markPrimary(m_newRecord);
+    m_newRecord->setToolTip(tr("Add a new record to the database"));
+    m_copyRecord->setToolTip(tr("Add a changed copy of the selected record (double click on a record of the original database)"));
+    connect(m_newRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::New); });
+    connect(m_copyRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::Copy); });
+    connect(m_editRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::Edit); });
+    connect(m_deleteRecord, &QPushButton::clicked, this, [this] { deleteRecord(); });
+    auto *recordBar = new QHBoxLayout;
+    for (QPushButton *b : {m_newRecord, m_copyRecord, m_editRecord, m_deleteRecord}) recordBar->addWidget(b);
+    recordBar->addStretch(1);
+    auto *dbPage = new QWidget;
+    auto *dbLayout = new QVBoxLayout(dbPage);
+    dbLayout->setContentsMargins(4, 4, 4, 0);
+    dbLayout->addLayout(recordBar);
+    dbLayout->addWidget(m_dbTabs, 1);
 
     m_tabs->setTabsClosable(true);
     m_tabs->setDocumentMode(true);
-    m_tabs->addTab(m_dbTabs, tr("Database"));
+    m_tabs->addTab(dbPage, tr("Database"));
     m_tabs->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);  // the database tab stays
     setCentralWidget(m_tabs);
 
@@ -234,6 +266,7 @@ bool MainWindow::openDatabase(const QString &originalPath, bool complain)
     }
     for (TableBrowser *b : m_browsers) b->setDatabase(&m_db);
     setLoadViewDatabases(true);
+    updateRecordButtons();
     if (!ok && complain)
         QMessageBox::warning(this, tr("Original database"),
                              tr("Cannot use %1:\n%2\n\nThe original GordonsReloadingTool.db is encrypted; "
@@ -251,6 +284,91 @@ QString MainWindow::databaseSummary() const
                                .arg(m_db.count(grt::Table::Propellant));
     return m_db.hasOriginal() ? tr("%1: %2").arg(QFileInfo(m_db.path()).fileName(), counts)
                               : tr("No original database (choose it in File ▸ Settings…): %1").arg(counts);
+}
+
+TableBrowser *MainWindow::currentBrowser() const
+{
+    return m_browsers[static_cast<std::size_t>(std::clamp(m_dbTabs->currentIndex(), 0, 2))];
+}
+
+grt::Table MainWindow::currentTable() const
+{
+    constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
+    return tables[static_cast<std::size_t>(std::clamp(m_dbTabs->currentIndex(), 0, 2))];
+}
+
+void MainWindow::updateRecordButtons()
+{
+    if (!m_newRecord) return;
+    const int id = currentBrowser()->currentId();
+    const bool own = grt::Database::isOwnId(id);
+    m_newRecord->setEnabled(m_db.isOpen());
+    m_copyRecord->setEnabled(id >= 0);
+    m_editRecord->setEnabled(own);
+    m_deleteRecord->setEnabled(own);
+    const QString locked = tr("Records of the original database cannot be changed: make a copy");
+    m_editRecord->setToolTip(id >= 0 && !own ? locked : tr("Change the selected record"));
+    m_deleteRecord->setToolTip(id >= 0 && !own ? locked : tr("Delete the selected record"));
+}
+
+void MainWindow::editRecord(RecordDialog::Mode mode)
+{
+    if (!m_db.isOpen()) return;
+    const grt::Table table = currentTable();
+    const int id = currentBrowser()->currentId();
+    QVariantMap record;
+    if (mode != RecordDialog::Mode::New) {
+        const auto r = m_db.record(table, id);
+        if (!r) return;
+        record = *r;
+        if (mode == RecordDialog::Mode::Edit && !grt::Database::isOwnId(id)) mode = RecordDialog::Mode::Copy;
+    }
+    RecordDialog dlg(m_db, table, mode, record, this);
+    if (dlg.exec() == QDialog::Accepted) storeRecord(table, mode, id, dlg.values());
+}
+
+int MainWindow::storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values)
+{
+    QString error;
+    int stored = -1;
+    if (mode == RecordDialog::Mode::Edit) {
+        if (m_db.update(table, id, values, &error)) stored = id;
+    } else if (const auto newId = m_db.insert(table, values, &error)) {
+        stored = *newId;
+    }
+    if (stored < 0) {
+        QMessageBox::warning(this, tr("Database"), tr("The record could not be stored:\n%1").arg(error));
+        return -1;
+    }
+    TableBrowser *browser = m_browsers[static_cast<std::size_t>(table)];
+    browser->refresh();
+    browser->selectId(stored);
+    updateRecordButtons();
+    statusBar()->showMessage(databaseSummary());
+    return stored;
+}
+
+bool MainWindow::deleteRecord(bool ask)
+{
+    const grt::Table table = currentTable();
+    const int id = currentBrowser()->currentId();
+    if (!grt::Database::isOwnId(id)) return false;
+    const auto record = m_db.record(table, id);
+    if (!record) return false;
+    if (ask && QMessageBox::question(this, tr("Delete record"),
+                                     tr("Delete \"%1\"?\n\nLoad files that use it keep their values.")
+                                         .arg(grt::dbfields::recordTitle(table, *record)))
+                   != QMessageBox::Yes)
+        return false;
+    QString error;
+    if (!m_db.remove(table, id, &error)) {
+        QMessageBox::warning(this, tr("Database"), tr("The record could not be deleted:\n%1").arg(error));
+        return false;
+    }
+    currentBrowser()->refresh();
+    updateRecordButtons();
+    statusBar()->showMessage(databaseSummary());
+    return true;
 }
 
 void MainWindow::showSettings()

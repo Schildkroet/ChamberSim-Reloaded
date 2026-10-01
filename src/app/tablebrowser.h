@@ -31,8 +31,12 @@ public:
     // Row id (primary key) of the selected row, or -1.
     [[nodiscard]] int currentId() const;
 
+    // Reads the table again (after records were added or changed), keeping the selection if possible.
+    void refresh();
+
 signals:
     void currentIdChanged(int id);
+    void idActivated(int id);  // double click / Enter on a row
 
 private:
     void updateCount();

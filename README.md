@@ -21,7 +21,8 @@ your own responsibility.
 
 ## Features
 
-- Cartridge, projectile and propellant records from a database; replace any component of a load
+- Cartridge, projectile and propellant records from a database; replace any component of a load; add your own
+  records or changed copies of existing ones (they are stored in the program's own database)
 - Pressure, energy and velocity curves with markers and pressure bands, burn-rate chart, load ladder
 - Cartridge and chamber drawings with CIP dimensions (hover a table row to see the dimension in the drawing)
 - Measurement results: chronograph velocity and pressure per charge with statistics (mean, SD, ES), compared

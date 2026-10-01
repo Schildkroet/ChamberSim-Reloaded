@@ -6,6 +6,8 @@
 #include <QVariantMap>
 
 #include <optional>
+#include <utility>
+#include <vector>
 
 namespace grt {
 
@@ -57,6 +59,8 @@ public:
 
     // Column names of the table in schema order.
     [[nodiscard]] QStringList columns(Table t) const;
+    // Column names with their SQL types (TEXT, FLOAT, INTEGER, DATE) in schema order.
+    [[nodiscard]] std::vector<std::pair<QString, QString>> schema(Table t) const;
 
     // One row as column-name -> value, or nullopt if the id does not exist.
     [[nodiscard]] std::optional<QVariantMap> record(Table t, int id) const;

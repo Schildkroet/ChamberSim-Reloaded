@@ -44,6 +44,9 @@ TableBrowser::TableBrowser(grt::Table table, QWidget *parent)
     });
     connect(m_view->selectionModel(), &QItemSelectionModel::currentRowChanged, this,
             [this] { emit currentIdChanged(currentId()); });
+    connect(m_view, &QTableView::activated, this, [this] {
+        if (const int id = currentId(); id >= 0) emit idActivated(id);
+    });
 }
 
 TableBrowser::~TableBrowser() = default;
@@ -75,6 +78,16 @@ void TableBrowser::setDatabase(const grt::Database *db)
 QString TableBrowser::baseFilter() const
 {
     return m_rowFilter.isEmpty() ? QStringLiteral("geloescht = 0") : QStringLiteral("geloescht = 0 AND (%1)").arg(m_rowFilter);
+}
+
+void TableBrowser::refresh()
+{
+    if (!m_model) return;
+    const int id = currentId();
+    m_model->select();
+    while (m_model->canFetchMore()) m_model->fetchMore();
+    updateCount();
+    if (id >= 0) selectId(id);
 }
 
 void TableBrowser::setRowFilter(const QString &sqlCondition)
