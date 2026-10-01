@@ -1372,6 +1372,11 @@ void GuiTest::comboBoxesOpenAsAScrollingList()
         QStyleOptionComboBox opt;
         opt.initFrom(&combo);
         QCOMPARE(combo.style()->styleHint(QStyle::SH_ComboBox_Popup, &opt, &combo), 0);
+        if (mode == theme::Mode::Dark) {  // disabled entries (menus use WindowText) must look disabled
+            const QPalette p = app.palette();
+            for (const QPalette::ColorRole role : {QPalette::WindowText, QPalette::Text, QPalette::ButtonText})
+                QCOMPARE_GT(p.color(QPalette::Active, role).lightness() - p.color(QPalette::Disabled, role).lightness(), 80);
+        }
     }
     theme::apply(app, theme::Mode::System);
     auto *proxy = qobject_cast<QProxyStyle *>(app.style());
@@ -1399,6 +1404,16 @@ void GuiTest::loadMenuEntriesNeedALoad()
     QVERIFY(action(u"New load"_s)->isEnabled());
     QVERIFY(action(u"Open load"_s)->isEnabled());
     QVERIFY(action(u"Settings"_s)->isEnabled());
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {  // for looking at the contrast
+        auto &app = *qobject_cast<QApplication *>(QCoreApplication::instance());
+        for (const theme::Mode mode : {theme::Mode::Dark, theme::Mode::Light}) {
+            theme::apply(app, mode);
+            QApplication::processEvents();
+            file->adjustSize();
+            file->grab().save(shots + (mode == theme::Mode::Dark ? u"/menu_dark.png"_s : u"/menu_light.png"_s));
+        }
+        theme::apply(app, theme::Mode::System);
+    }
 
     QVERIFY(w.openLoad(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
     for (const QString &name : needLoad) QVERIFY2(action(name)->isEnabled(), qPrintable(name));

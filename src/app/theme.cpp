@@ -30,8 +30,12 @@ QPalette darkPalette()
     p.setColor(QPalette::Highlight, QColor(0x3b, 0x6e, 0xa8));
     p.setColor(QPalette::HighlightedText, Qt::white);
     p.setColor(QPalette::PlaceholderText, QColor(0x8a, 0x94, 0xa0));
-    p.setColor(QPalette::Disabled, QPalette::Text, QColor(0x7a, 0x84, 0x90));
-    p.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(0x7a, 0x84, 0x90));
+    // disabled: clearly dimmer for every text role (menus and labels use WindowText), no etched shadow
+    const QColor disabled(0x6a, 0x72, 0x7c);
+    for (const QPalette::ColorRole role : {QPalette::WindowText, QPalette::Text, QPalette::ButtonText, QPalette::HighlightedText})
+        p.setColor(QPalette::Disabled, role, disabled);
+    p.setColor(QPalette::Disabled, QPalette::Light, window);
+    p.setColor(QPalette::Disabled, QPalette::Highlight, alt);
     return p;
 }
 // Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the
