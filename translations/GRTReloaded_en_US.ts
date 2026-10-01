@@ -1173,7 +1173,12 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+6"/>
+        <source>– not specified –</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
         <source>Set by the program</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1193,7 +1198,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+85"/>
         <source>Please check the field &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1449,7 +1454,7 @@ Load files that use it keep their values.</source>
 <context>
     <name>grt::dbfields</name>
     <message>
-        <location filename="../src/core/dbfields.cpp" line="+27"/>
+        <location filename="../src/core/dbfields.cpp" line="+29"/>
         <location line="+48"/>
         <location line="+20"/>
         <source>Name</source>

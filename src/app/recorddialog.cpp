@@ -108,6 +108,16 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 combo->addItem(tr("boat tail"), 2);
                 combo->setCurrentIndex(std::max(0, combo->findData(stored.toInt())));
                 w = combo;
+            } else if (f.kind == Kind::Country) {
+                // a fixed list: no free text, so the codes stay consistent
+                auto *combo = new QComboBox;
+                combo->addItem(tr("– not specified –"), QString());
+                for (const auto &[code, country] : grt::dbfields::countries()) combo->addItem(code + u" – "_s + country, code);
+                const QString value = stored.toString();
+                if (!value.isEmpty() && combo->findData(value) < 0) combo->addItem(value, value);  // e.g. "DE/AT"
+                combo->setCurrentIndex(std::max(0, combo->findData(value)));
+                combo->setMaxVisibleItems(20);
+                w = combo;
             } else if (f.kind == Kind::LongText) {
                 auto *edit = new QPlainTextEdit(stored.toString());
                 edit->setMaximumHeight(90);
@@ -173,7 +183,7 @@ QString RecordDialog::text(const QString &column) const
     if (!e) return {};
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) return l->text();
     if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) return p->toPlainText();
-    if (auto *c = qobject_cast<QComboBox *>(e->widget)) return c->currentText();
+    if (auto *c = qobject_cast<QComboBox *>(e->widget)) return e->field.kind == Kind::Country ? c->currentData().toString() : c->currentText();
     return {};
 }
 
@@ -183,7 +193,13 @@ void RecordDialog::setText(const QString &column, const QString &text)
     if (!e) return;
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) l->setText(text);
     else if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) p->setPlainText(text);
-    else if (auto *c = qobject_cast<QComboBox *>(e->widget)) c->setCurrentText(text);
+    else if (auto *c = qobject_cast<QComboBox *>(e->widget)) {
+        if (e->field.kind == Kind::Country) {
+            if (const int i = c->findData(text); i >= 0) c->setCurrentIndex(i);
+        } else {
+            c->setCurrentText(text);
+        }
+    }
 }
 
 std::optional<QVariant> RecordDialog::valueOf(const Editor &e) const

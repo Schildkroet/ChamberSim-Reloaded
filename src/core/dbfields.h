@@ -5,9 +5,12 @@
 
 #include <QString>
 
+#include <utility>
+#include <vector>
+
 namespace grt::dbfields {
 
-enum class Kind { Text, Number, Date, LongText, BaseType, Hidden };
+enum class Kind { Text, Number, Date, LongText, BaseType, Country, Hidden };
 
 // How a database column is shown and edited: a readable label, its group, the physical quantity and the factor from
 // the value stored in the database to the quantity's base unit (bullet masses and case capacities are stored in
@@ -29,6 +32,10 @@ struct Field {
 
 // The groups of a table in display order.
 [[nodiscard]] QStringList groups(Table t);
+
+// Countries for "country of origin": ISO 3166 codes (as the original database uses them) with their English
+// names, plus the historical codes found in it (SU, CS, RSA), sorted by code.
+[[nodiscard]] std::vector<std::pair<QString, QString>> countries();
 
 // "Manufacturer Name (lot)", "cipname" ... : how a record is named in messages.
 [[nodiscard]] QString recordTitle(Table t, const QVariantMap &record);

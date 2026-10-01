@@ -1,7 +1,9 @@
 #include "dbfields.h"
 
 #include <QCoreApplication>
+#include <QLocale>
 
+#include <algorithm>
 #include <array>
 
 using namespace Qt::StringLiterals;
@@ -48,7 +50,7 @@ constexpr Spec kCaliber[] = {
     {"cipname", QT_TRANSLATE_NOOP("grt::dbfields", "Caliber name"), kName, Quantity::None, 1, Kind::Text, ""},
     {"altname", QT_TRANSLATE_NOOP("grt::dbfields", "Other names"), kName, Quantity::None, 1, Kind::Text, ""},
     {"standard", QT_TRANSLATE_NOOP("grt::dbfields", "Standard"), kName, Quantity::None, 1, Kind::Text, ""},
-    {"ciporigin", QT_TRANSLATE_NOOP("grt::dbfields", "Country of origin"), kName, Quantity::None, 1, Kind::Text, ""},
+    {"ciporigin", QT_TRANSLATE_NOOP("grt::dbfields", "Country of origin"), kName, Quantity::None, 1, Kind::Country, ""},
     {"ciptype", QT_TRANSLATE_NOOP("grt::dbfields", "Case type"), kName, Quantity::None, 1, Kind::Text, ""},
     {"cipdate", QT_TRANSLATE_NOOP("grt::dbfields", "Standard date"), kName, Quantity::None, 1, Kind::Text, ""},
     {"ciprevdate", QT_TRANSLATE_NOOP("grt::dbfields", "Revision date"), kName, Quantity::None, 1, Kind::Text, ""},
@@ -185,6 +187,23 @@ QStringList groups(Table t)
     case Table::Propellant: return {tr(kName), tr(kModel), tr(kRecord)};
     }
     return {};
+}
+
+std::vector<std::pair<QString, QString>> countries()
+{
+    std::vector<std::pair<QString, QString>> out;
+    for (int i = 1; i <= static_cast<int>(QLocale::LastTerritory); ++i) {
+        const auto territory = static_cast<QLocale::Territory>(i);
+        const QString code = QLocale::territoryToCode(territory);
+        if (code.size() != 2 || code.front().isDigit()) continue;  // regions like "419" are no countries
+        if (std::ranges::any_of(out, [&](const auto &c) { return c.first == code; })) continue;
+        out.emplace_back(code, QLocale::territoryToString(territory));
+    }
+    out.emplace_back(u"SU"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "Soviet Union")));
+    out.emplace_back(u"CS"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "Czechoslovakia")));
+    out.emplace_back(u"RSA"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "South Africa (RSA)")));
+    std::ranges::sort(out, {}, &std::pair<QString, QString>::first);
+    return out;
 }
 
 QString recordTitle(Table t, const QVariantMap &r)

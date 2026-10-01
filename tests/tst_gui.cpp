@@ -1256,6 +1256,26 @@ void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
     edit.setText(u"gmass"_s, u"13"_s);
     QVERIFY(std::abs(edit.values().value(u"gmass"_s).toDouble() - 13.0 / 0.06479891) < 1e-9);
     QCOMPARE(edit.values().value(u"gtailtype"_s).toInt(), 2);
+    // the country of origin is chosen from a list: no free text
+    RecordDialog caliber(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Caliber, 1));
+    auto *origin = caliber.findChild<QComboBox *>(u"ciporigin"_s);
+    QVERIFY(origin);
+    QVERIFY(!origin->isEditable());
+    QCOMPARE(caliber.text(u"ciporigin"_s), u"US"_s);
+    QVERIFY(origin->findData(u"DE"_s) >= 0);
+    QVERIFY(origin->itemText(origin->findData(u"DE"_s)).contains(u"Germany"_s));
+    QVERIFY(origin->findData(u"SU"_s) >= 0);
+    caliber.setText(u"ciporigin"_s, u"DE"_s);
+    QCOMPARE(caliber.values().value(u"ciporigin"_s).toString(), u"DE"_s);
+    caliber.setText(u"ciporigin"_s, u"Bavaria"_s);  // not a country: ignored
+    QCOMPARE(caliber.values().value(u"ciporigin"_s).toString(), u"DE"_s);
+    origin->setCurrentIndex(0);
+    QCOMPARE(caliber.values().value(u"ciporigin"_s).toString(), QString());  // not specified
+    QVariantMap combined = *m_db.record(grt::Table::Caliber, 1);
+    combined.insert(u"ciporigin"_s, u"DE/AT"_s);
+    RecordDialog keeps(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, combined);
+    QCOMPARE(keeps.text(u"ciporigin"_s), u"DE/AT"_s);  // an unusual value of an existing record is kept
+
     if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
         copy.grab().save(shots + u"/record.png"_s);
         RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Caliber, 1));
