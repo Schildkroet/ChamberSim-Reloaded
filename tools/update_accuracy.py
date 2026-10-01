@@ -19,6 +19,7 @@ GROUPS = [  # (label, name regex)
     ("Powder temperature", r"^(pt_|t_|tc_)"),
     ("Bullet friction", r"^(friction|fr_)"),
     ("Almost closed vessel (very heavy bullet)", r"^cv_"),
+    ("Fast powders (burn rate, step length, form function)", r"^ba3?_"),
 ]
 line = re.compile(r"^(\S+)\s+pmax\s+([+-]?[\d.]+) %\s+vmuz\s+([+-]?[\d.]+) %\s+curve rms\s+([\d.]+) %")
 runs = []

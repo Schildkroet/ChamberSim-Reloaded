@@ -57,9 +57,10 @@ struct Model {
         return V0_m3 + A_m2 * (x_m - x0_m) - mc_kg * (1.0 - z) / rho - covolume_m3kg * mc_kg * z;
     }
 
-    [[nodiscard]] double thermoPressure(double z, double v, double x_m) const noexcept
+    // `ignited` is the fraction of the burnt powder whose energy has reached the gas (see Calibration::ignitionRate).
+    [[nodiscard]] double thermoPressure(double z, double v, double x_m, double ignited = 1.0) const noexcept
     {
-        const double e = fEnergy * mc_kg * (z + z0) - theta * kinetic * 0.5 * mEff_kg * v * v;
+        const double e = fEnergy * mc_kg * (z * ignited + z0) - theta * kinetic * 0.5 * mEff_kg * v * v;
         const double vg = gasVolume(z, x_m);
         return vg > 0.0 ? std::max(e, 0.0) / vg : 0.0;
     }
@@ -127,7 +128,7 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     const double x0 = in.startPosition_mm() * 1e-3;
     const double xe = in.barrelLength_mm * 1e-3;
 
-    const bool inputOk = steps > 1 && in.boreArea_mm2 > 0.0 && in.bulletMass_g > 0.0 && in.charge_g > 0.0
+    const bool inputOk = steps > 1 && in.boreArea_mm2 > 0.0 && in.bulletMass_g > 0.0 && in.charge_g > 0.0 && in.density_kgm3 > 0.0
                          && in.vivacityBa > 0.0 && in.heatQex_kJkg > 0.0 && in.kappa > 1.0
                          && in.caseVolume_cm3 > 0.0 && xe > x0;
     if (!inputOk) return res;
@@ -148,7 +149,7 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     m.V0_m3 = chamberVolume_m3(in, cal);
     m.x0_m = x0;
     m.rho = in.density_kgm3;
-    m.covolume_m3kg = cal.covolume_cm3g * 1e-3 * in.covolumeEta;
+    m.covolume_m3kg = (cal.covolume_cm3g * 1e-3 + cal.covolumeDensityFactor / in.density_kgm3) * in.covolumeEta;
     m.theta = in.kappa - 1.0;
     m.fEnergy = cal.impetusFactor * m.theta * in.heatQex_kJkg * 1e3;
     m.kinetic = cal.kineticFactor;
@@ -166,16 +167,26 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     res.points.reserve(static_cast<std::size_t>(steps));
     res.points.push_back({.x_mm = x0 * 1e3, .z = 0.0, .p_bar = in.startPressure_bar});
 
-    double z = 0.0, v = 0.0, p = p0, t = 0.0;
+    double z = 0.0, v = 0.0, p = p0, pBurn = p0, t = 0.0;
     for (int i = 1; i < steps; ++i) {
         const double x1 = x0 + i * dx;
+        const double ignited = cal.ignitionRate > 0.0 ? 1.0 - std::exp(-cal.ignitionRate * (i + cal.ignitionLead)) : 1.0;
 
-        struct Trial { double pMom, pTh, z; };
+        struct Trial { double pMom, pTh, z, pGas; };
         const auto trial = [&](double v1) -> Trial {
             const double pMom = m.mEff_kg * (v1 * v1 - v * v) / (2.0 * m.A_m2 * dx * (1.0 - manualFriction));
             const double dt = 2.0 * dx / (v + v1);
-            const double zNew = m.advanceBurn(z, p, pMom, dt);
-            return {pMom, m.thermoPressure(zNew, v1, x1), zNew};
+            if (ignited >= 1.0) {
+                const double zNew = m.advanceBurn(z, p, pMom, dt);
+                return {pMom, m.thermoPressure(zNew, v1, x1), zNew, pMom};
+            }
+            // the powder burns at the full gas pressure, the bullet only feels the ignited part of it
+            double zNew = m.advanceBurn(z, pBurn, pBurn, dt), pGas = pBurn;
+            for (int k = 0; k < 4; ++k) {
+                pGas = m.thermoPressure(zNew, v1, x1);
+                zNew = m.advanceBurn(z, pBurn, pGas, dt);
+            }
+            return {pMom, m.thermoPressure(zNew, v1, x1, ignited), zNew, pGas};
         };
 
         double lo = std::max(v, 1e-9);
@@ -200,6 +211,7 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
         t += 2.0 * dx / std::max(v + v1, 1e-12);
         z = fin.z;
         p = fin.pMom;
+        pBurn = fin.pGas;
         v = v1;
         res.points.push_back({.x_mm = x1 * 1e3,
                               .z = z,
@@ -290,6 +302,7 @@ std::vector<NamedParameter> parameters(Calibration &cal)
     return {{"impetusFactor", &cal.impetusFactor},
             {"kineticFactor", &cal.kineticFactor},
             {"covolume_cm3g", &cal.covolume_cm3g},
+            {"covolumeDensityFactor", &cal.covolumeDensityFactor},
             {"intrusionFactor", &cal.intrusionFactor},
             {"chamberOffset_cm3", &cal.chamberOffset_cm3},
             {"capacityFactor", &cal.capacityFactor},
@@ -308,6 +321,8 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"burnExponent", &cal.burnExponent},
             {"burnZ0Factor", &cal.burnZ0Factor},
             {"initialGasFactor", &cal.initialGasFactor},
+            {"ignitionRate", &cal.ignitionRate},
+            {"ignitionLead", &cal.ignitionLead},
             {"phase2_3", &cal.phase2[0]}, {"phase2_2", &cal.phase2[1]}, {"phase2_1", &cal.phase2[2]}, {"phase2_0", &cal.phase2[3]},
             {"phase3Limit", &cal.phase3Limit},
             {"phase3_3", &cal.phase3[0]}, {"phase3_2", &cal.phase3[1]}, {"phase3_1", &cal.phase3[2]}, {"phase3_0", &cal.phase3[3]}};

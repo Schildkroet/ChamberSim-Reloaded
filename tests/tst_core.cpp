@@ -32,6 +32,7 @@ private slots:
     void simInputFromLoad();
     void chargeTooHighIsRejected();
     void temperatureCoefficients();
+    void fastPowdersAndCovolume();
     void solverMatchesMomentumRule();
     void derivedOutputsMatchReference_data();
     void derivedOutputsMatchReference();
@@ -153,6 +154,27 @@ void CoreTest::temperatureCoefficients()
     QCOMPARE(pmax(-20, 0, 0.0668), base);
     QVERIFY(std::abs(pmax(-20, -0.0476, 0) / base - 1.0 + 0.098) < 0.01);  // original: -9.8 %
     QVERIFY(std::abs(pmax(60, 0, 0.0668) / base - 1.0 - 0.138) < 0.01);    // original: +13.8 %
+}
+
+// Measured on the original with fast powders (reference batch exp_ba*): the energy of the burnt powder reaches the
+// gas over the first position steps, so the peak saturates with Ba and falls with the step length (barrel length).
+// The covolume grows for powders of low material density.
+void CoreTest::fastPowdersAndCovolume()
+{
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const auto pmax = [&](double ba, double xe, double pc) {
+        grt::SimInput in = grt::SimInput::fromLoad(*lf);
+        in.vivacityBa = ba;
+        in.barrelLength_mm = xe;
+        in.density_kgm3 = pc;
+        return grt::simulate(in).maxPressure_bar;
+    };
+    const double pc = grt::SimInput::fromLoad(*lf).density_kgm3;
+    const double xe = grt::SimInput::fromLoad(*lf).barrelLength_mm;
+    QCOMPARE_LT(std::abs(pmax(7.0, xe, pc) / pmax(3.5, xe, pc) - 1.0), 0.03);  // original: +0.3 %
+    QCOMPARE_LT(pmax(3.0, 2400, pc), 0.85 * pmax(3.0, 150, pc));               // original: -24 %
+    QCOMPARE_GT(pmax(1.2, xe, 980.0), 1.05 * pmax(1.2, xe, 1600.0));
 }
 
 void CoreTest::chargeTooHighIsRejected()

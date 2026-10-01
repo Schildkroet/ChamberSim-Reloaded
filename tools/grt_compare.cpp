@@ -37,7 +37,8 @@ RunError compare(const grt::SimResult &sim, const grt::ReferenceRun &ref)
     const double refP = ref.number(u"MaxPressure"_s);
     const double refV = ref.number(u"MuzzleVelocity"_s);
     e.pmax = sim.maxPressure_bar / refP - 1.0;
-    e.vmuz = sim.muzzleVelocity_ms / refV - 1.0;
+    // the original reports 0 when the bullet does not leave the barrel: nothing to compare then
+    e.vmuz = refV > 0.0 ? sim.muzzleVelocity_ms / refV - 1.0 : 0.0;
     const std::size_t n = std::min(sim.points.size(), ref.points.size());
     double sum = 0.0;
     std::size_t cnt = 0;
