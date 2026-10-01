@@ -68,7 +68,7 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
-          name: GRTReloaded-linux-appimage
+          name: GRTReloaded-Linux
           path: "*.AppImage"
           if-no-files-found: error
 
@@ -131,7 +131,7 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
-          name: GRTReloaded-windows-x64
+          name: GRTReloaded-Win-x64
           path: "*.zip"
           if-no-files-found: error
 

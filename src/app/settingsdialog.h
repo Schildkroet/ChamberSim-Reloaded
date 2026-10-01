@@ -2,6 +2,7 @@
 
 #include <QDialog>
 
+class QCheckBox;
 class QComboBox;
 class QLabel;
 class QLineEdit;
@@ -22,11 +23,15 @@ public:
 signals:
     // OK or Apply with another original database file (empty: none).
     void originalDatabaseChosen(const QString &path);
+    // OK, Apply or Cancel changed the choice of the program's own title bar.
+    void customTitleBarChanged(bool on);
 
 private:
     void apply();
 
     QSpinBox *m_fontSize;
+    QCheckBox *m_titleBar;
+    bool m_originalTitleBar;
     QComboBox *m_unitSystem;
     QLineEdit *m_database;
     QLabel *m_databaseInfo;

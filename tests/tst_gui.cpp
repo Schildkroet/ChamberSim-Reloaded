@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QCheckBox>
 #include <QComboBox>
 #include <QScrollBar>
 #include <QTextBrowser>
@@ -30,6 +31,7 @@
 
 #include "about.h"
 #include "theme.h"
+#include "titlebar.h"
 #include "appfont.h"
 #include "cartridgeview.h"
 #include "chamberview.h"
@@ -95,6 +97,7 @@ private slots:
     void recordsAreAddedCopiedEditedAndDeleted();
     void comboBoxesOpenAsAScrollingList();
     void loadMenuEntriesNeedALoad();
+    void ownTitleBarCanBeSwitched();
 
 private:
     static int idOf(grt::Database &db, grt::Table t, const QString &where);
@@ -512,7 +515,7 @@ void GuiTest::fileMenuHasSettingsAndPrinting()
 {
     MainWindow w;
     QMenu *file = nullptr;
-    for (QAction *a : w.menuBar()->actions())
+    for (QAction *a : w.mainMenu()->actions())
         if (a->menu() && a->text().remove(u'&') == u"File"_s) file = a->menu();
     QVERIFY(file);
     QStringList items;
@@ -528,7 +531,7 @@ void GuiTest::fileMenuHasSettingsAndPrinting()
 void GuiTest::unitsLiveInSettingsNotInViewMenu()
 {
     MainWindow w;
-    for (QAction *a : w.menuBar()->actions())
+    for (QAction *a : w.mainMenu()->actions())
         if (a->menu() && a->text().remove(u'&') == u"View"_s)
             for (QAction *item : a->menu()->actions()) QVERIFY(item->text().remove(u'&') != u"Units"_s);
 
@@ -596,7 +599,7 @@ void GuiTest::recentFilesAreListedInTheFileMenu()
     recentfiles::store({});
     MainWindow w;
     QMenu *file = nullptr;
-    for (QAction *a : w.menuBar()->actions())
+    for (QAction *a : w.mainMenu()->actions())
         if (a->menu() && a->text().remove(u'&') == u"File"_s) file = a->menu();
     QVERIFY(file);
     QMenu *recent = nullptr;  // the entries are in a submenu, not in the File menu itself
@@ -657,7 +660,7 @@ void GuiTest::helpMenuHasAbout()
     MainWindow w;
     QMenu *help = nullptr;
     QStringList menus;
-    for (QAction *a : w.menuBar()->actions()) {
+    for (QAction *a : w.mainMenu()->actions()) {
         menus << a->text().remove(u'&');
         if (a->menu() && a->text().remove(u'&') == u"Help"_s) help = a->menu();
     }
@@ -1192,7 +1195,7 @@ void GuiTest::originalDatabaseIsChosenInTheSettings()
     {
         MainWindow w;
         // File > Open database is gone: the database is a setting
-        for (QAction *a : w.menuBar()->actions().front()->menu()->actions()) QVERIFY(!a->text().contains(u"database"_s, Qt::CaseInsensitive));
+        for (QAction *a : w.mainMenu()->actions().front()->menu()->actions()) QVERIFY(!a->text().contains(u"database"_s, Qt::CaseInsensitive));
 
         // without an original only the own database is there (searching still works, it is just empty)
             QVERIFY(w.openDatabase(QString(), false));
@@ -1388,7 +1391,7 @@ void GuiTest::comboBoxesOpenAsAScrollingList()
 void GuiTest::loadMenuEntriesNeedALoad()
 {
     MainWindow w;
-    QMenu *file = w.menuBar()->actions().front()->menu();
+    QMenu *file = w.mainMenu()->actions().front()->menu();
     const auto action = [&](const QString &start) {
         for (QAction *a : file->actions())
             if (a->text().remove(u'&').startsWith(start)) return a;
@@ -1431,6 +1434,61 @@ void GuiTest::loadMenuEntriesNeedALoad()
     emit tabs->tabCloseRequested(1);
     QVERIFY(!action(u"Print preview"_s)->isEnabled());
     recentfiles::store({});
+}
+
+// Linux (Wayland): the window draws its own, larger title bar with the menu in it; it can be switched off.
+void GuiTest::ownTitleBarCanBeSwitched()
+{
+    MainWindow w;
+    w.resize(1000, 700);
+    w.setCustomTitleBar(true);
+    w.show();
+    QVERIFY(QTest::qWaitForWindowExposed(&w));
+    auto *bar = w.findChild<TitleBar *>();
+    QVERIFY(bar);
+    QVERIFY(bar->isDecorated());
+    QVERIFY(w.windowFlags() & Qt::FramelessWindowHint);
+    QCOMPARE(w.contentsMargins().left(), 5);  // the border to resize the window
+    QVERIFY(bar->height() >= 34);
+    QVERIFY(w.mainMenu()->isVisible());
+    QCOMPARE(w.mainMenu()->parentWidget(), bar);  // the menu sits in the title bar row
+    for (const char *name : {"minimizeButton", "maximizeButton", "closeButton"}) {
+        auto *b = bar->findChild<QAbstractButton *>(QLatin1String(name));
+        QVERIFY2(b && b->isVisible(), name);
+        QVERIFY(b->width() >= 40);
+    }
+    // the title follows the window (and names the shown load)
+    QVERIFY(w.openLoad(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(w.windowTitle().startsWith(u"8x57is"_s));
+    bool titled = false;
+    for (QLabel *l : bar->findChildren<QLabel *>()) titled = titled || l->text() == w.windowTitle();
+    QVERIFY(titled);
+
+    // switched off: the desktop's title bar, the row only holds the menu
+    w.setCustomTitleBar(false);
+    QVERIFY(!(w.windowFlags() & Qt::FramelessWindowHint));
+    QVERIFY(!bar->isDecorated());
+    QCOMPARE(w.contentsMargins().left(), 0);
+    QVERIFY(!bar->findChild<QAbstractButton *>(u"closeButton"_s)->isVisible());
+    QCOMPARE(w.mainMenu()->actions().size(), 3);  // File, View, Help still there
+    w.setCustomTitleBar(true);
+    QVERIFY(bar->isDecorated());
+    recentfiles::store({});
+
+    // the choice is a setting
+    const bool before = TitleBar::stored();
+    SettingsDialog dlg;
+    QSignalSpy changed(&dlg, &SettingsDialog::customTitleBarChanged);
+    auto *box = dlg.findChild<QCheckBox *>();
+    QVERIFY(box);
+    QCOMPARE(box->isChecked(), before);
+    box->setChecked(!before);
+    dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(TitleBar::stored(), !before);
+    dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Cancel)->click();  // undone
+    QCOMPARE(changed.count(), 2);
+    QCOMPARE(TitleBar::stored(), before);
 }
 
 QTEST_MAIN(GuiTest)

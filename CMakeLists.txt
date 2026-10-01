@@ -114,6 +114,8 @@ add_library(grtui STATIC
     src/app/settingsdialog.h
     src/app/settingsdialog.cpp
     src/app/theme.h
+    src/app/titlebar.h
+    src/app/titlebar.cpp
     src/app/theme.cpp
 )
 target_include_directories(grtui PUBLIC src/app)
@@ -126,6 +128,10 @@ qt_add_executable(GRTReloaded
 )
 
 target_link_libraries(GRTReloaded PRIVATE grtui)
+
+# the program icon (PNG renderings of packaging/linux/grtreloaded.svg: no SVG plugin needed)
+qt_add_resources(GRTReloaded "icons" PREFIX "/"
+    FILES resources/icons/grtreloaded-32.png resources/icons/grtreloaded-64.png resources/icons/grtreloaded-256.png)
 
 set_target_properties(GRTReloaded PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}

@@ -391,11 +391,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
+        <location filename="../src/app/mainwindow.cpp" line="+234"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="+42"/>
+        <location filename="../src/app/mainwindow.cpp" line="-183"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -441,14 +442,14 @@
     </message>
     <message>
         <location line="+16"/>
-        <location line="+188"/>
-        <location line="+76"/>
+        <location line="+209"/>
+        <location line="+157"/>
         <location line="+25"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-255"/>
+        <location line="-354"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -464,12 +465,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+127"/>
+        <location line="+142"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-142"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -520,7 +521,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+118"/>
+        <location line="+136"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -554,7 +555,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+104"/>
         <source>Records of the original database cannot be changed: make a copy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -593,12 +594,12 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+44"/>
         <source>The database cannot be opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-258"/>
+        <location line="-359"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -618,7 +619,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+5"/>
         <source>&amp;Settings…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -679,8 +680,8 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+48"/>
-        <location line="+150"/>
+        <location line="+60"/>
+        <location line="+235"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -703,7 +704,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>New load</source>
         <translation type="unfinished"></translation>
     </message>
@@ -713,7 +714,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+36"/>
         <location line="+6"/>
         <source>Save load</source>
         <translation type="unfinished"></translation>
@@ -1278,7 +1279,12 @@ Load files that use it keep their values.</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+32"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+28"/>
+        <source>Draw the program&apos;s own title bar (larger, with the menu in it)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1303,7 +1309,17 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+6"/>
+        <source>Wayland desktops such as GNOME leave the title bar to the program; Qt&apos;s own is very small. Turn this off to get the desktop&apos;s title bar back.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Title bar:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Units</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1358,7 +1374,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+54"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1385,6 +1401,29 @@ Load files that use it keep their values.</source>
             <numerusform>%1 of %n entry</numerusform>
             <numerusform>%1 of %n entries</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>TitleBar</name>
+    <message>
+        <location filename="../src/app/titlebar.cpp" line="+98"/>
+        <source>Minimize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+64"/>
+        <source>Restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Maximize</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

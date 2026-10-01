@@ -13,6 +13,8 @@
 
 class LoadView;
 class QAction;
+class QMenuBar;
+class TitleBar;
 class QPushButton;
 class QTabWidget;
 
@@ -31,6 +33,11 @@ public:
     ~MainWindow() override;
 
     bool openLoad(const QString &path);
+    // The menu bar (it sits in the title bar row; use this instead of QMainWindow::menuBar()).
+    [[nodiscard]] QMenuBar *mainMenu() const noexcept { return m_menuBar; }
+    // Draws the window's own title bar and border (frameless window) instead of the system's.
+    void setCustomTitleBar(bool on);
+    [[nodiscard]] bool customTitleBar() const noexcept { return m_customTitleBar; }
     // Opens the own database and attaches the original one (empty: none); `complain` shows a message on errors.
     bool openDatabase(const QString &originalPath, bool complain = true);
     // Applies a reference-runner result (*.json) to the current load.
@@ -52,6 +59,11 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event) override;
+    void changeEvent(QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 
 private:
     [[nodiscard]] QString databaseSummary() const;
@@ -65,9 +77,14 @@ private:
     void addRecentFile(const QString &path);
     void updateRecentActions();
     void updateActions();
+    void updateFrame();
+    [[nodiscard]] Qt::Edges edgesAt(const QPoint &pos) const;
     bool saveLoad(LoadView *view, bool saveAs);
 
     std::unique_ptr<Ui::MainWindow> ui;
+    QMenuBar *m_menuBar;
+    TitleBar *m_titleBar;
+    bool m_customTitleBar{false};
     QTabWidget *m_tabs;
     QTabWidget *m_dbTabs;
     QPushButton *m_newRecord{nullptr};

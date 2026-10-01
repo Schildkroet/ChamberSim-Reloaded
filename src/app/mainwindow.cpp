@@ -9,6 +9,7 @@
 #include "reportview.h"
 #include "settingsdialog.h"
 #include "theme.h"
+#include "titlebar.h"
 #include "translation.h"
 #include "recentfiles.h"
 #include "unitprefs.h"
@@ -24,7 +25,11 @@
 #include <QStyle>
 #include <QVBoxLayout>
 #include <QMenuBar>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QWindow>
 #include <QMessageBox>
+#include <QScopeGuard>
 #include <QSettings>
 #include <QStatusBar>
 #include <QTabBar>
@@ -33,10 +38,14 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(std::make_unique<Ui::MainWindow>())
+    , m_menuBar(new QMenuBar)
     , m_tabs(new QTabWidget)
     , m_dbTabs(new QTabWidget)
 {
     ui->setupUi(this);
+    // the menu bar sits in the (own) title bar row; with the system's title bar the row shows just the menu
+    m_titleBar = new TitleBar(m_menuBar, this);
+    setMenuWidget(m_titleBar);
 
     constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
     const std::array titles{tr("Calibers"), tr("Projectiles"), tr("Propellants")};
@@ -85,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     createActions();
+    setCustomTitleBar(TitleBar::stored());
     connect(m_tabs, &QTabWidget::currentChanged, this, &MainWindow::updateActions);
     updateActions();
     resize(1280, 800);
@@ -109,7 +119,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::createActions()
 {
-    QMenu *file = menuBar()->addMenu(tr("&File"));
+    QMenu *file = m_menuBar->addMenu(tr("&File"));
     auto add = [&](const QString &text, const QKeySequence &key, auto slot) {
         QAction *a = file->addAction(text, this, slot);
         a->setShortcut(key);
@@ -162,7 +172,7 @@ void MainWindow::createActions()
     add(tr("&Quit"), QKeySequence::Quit, [this] { close(); });
 
     // View > Theme
-    QMenu *view = menuBar()->addMenu(tr("&View"));
+    QMenu *view = m_menuBar->addMenu(tr("&View"));
     QMenu *themeMenu = view->addMenu(tr("&Theme"));
     auto *themeGroup = new QActionGroup(this);
     const theme::Mode currentTheme = theme::storedMode();
@@ -198,7 +208,7 @@ void MainWindow::createActions()
     for (const QString &l : translation::availableLanguages()) addLanguage(translation::displayName(l), l);
 
     // Help
-    QMenu *help = menuBar()->addMenu(tr("&Help"));
+    QMenu *help = m_menuBar->addMenu(tr("&Help"));
     help->addAction(tr("&About GRT Reloaded…"), this, [this] {
         about::show(this, m_db.isOpen() ? m_db.path() : QString(), m_db.count(grt::Table::Caliber), m_db.count(grt::Table::Projectile),
                     m_db.count(grt::Table::Propellant));
@@ -220,6 +230,9 @@ void MainWindow::addRecentFile(const QString &path)
 void MainWindow::updateActions()
 {
     LoadView *view = currentLoad();
+    // the title names the load that is shown (it appears in the title bar and the task switcher)
+    const QString app = tr("GRT Reloaded");
+    setWindowTitle(view ? QStringLiteral("%1 – %2").arg(m_tabs->tabText(m_tabs->currentIndex()), app) : app);
     for (QAction *a : m_loadActions) a->setEnabled(view != nullptr);
     if (m_saveAction) m_saveAction->setEnabled(view && (view->isModified() || view->path().isEmpty()));
     if (m_clearReferenceAction) m_clearReferenceAction->setEnabled(view && view->hasReference());
@@ -301,6 +314,87 @@ QString MainWindow::databaseSummary() const
                                .arg(m_db.count(grt::Table::Propellant));
     return m_db.hasOriginal() ? tr("%1: %2").arg(QFileInfo(m_db.path()).fileName(), counts)
                               : tr("No original database (choose it in File ▸ Settings…): %1").arg(counts);
+}
+
+namespace {
+constexpr int kBorder = 5;  // resize border of the frameless window
+}
+
+void MainWindow::setCustomTitleBar(bool on)
+{
+    if (on == m_customTitleBar && m_titleBar->isDecorated() == on) return;
+    m_customTitleBar = on;
+    const bool visible = isVisible();
+    setWindowFlag(Qt::FramelessWindowHint, on);  // hides the window; shown again below
+    m_titleBar->setDecorated(on);
+    setMouseTracking(on);
+    updateFrame();
+    if (visible) show();
+}
+
+void MainWindow::updateFrame()
+{
+    const int b = m_customTitleBar && !isMaximized() && !isFullScreen() ? kBorder : 0;
+    setContentsMargins(b, b, b, b);
+    update();
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+    QMainWindow::changeEvent(event);
+    if (event->type() == QEvent::WindowStateChange) updateFrame();
+}
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+    QMainWindow::paintEvent(event);
+    if (!m_customTitleBar || contentsMargins().left() == 0) return;
+    QPainter p(this);
+    p.setPen(palette().color(QPalette::Mid));
+    p.drawRect(rect().adjusted(0, 0, -1, -1));
+}
+
+Qt::Edges MainWindow::edgesAt(const QPoint &pos) const
+{
+    Qt::Edges edges;
+    if (!m_customTitleBar || contentsMargins().left() == 0) return edges;
+    const int corner = 3 * kBorder;  // corners are easier to grab
+    if (pos.x() < kBorder || (pos.x() < corner && (pos.y() < kBorder || pos.y() >= height() - kBorder))) edges |= Qt::LeftEdge;
+    if (pos.x() >= width() - kBorder || (pos.x() >= width() - corner && (pos.y() < kBorder || pos.y() >= height() - kBorder)))
+        edges |= Qt::RightEdge;
+    if (pos.y() < kBorder || (pos.y() < corner && (pos.x() < kBorder || pos.x() >= width() - kBorder))) edges |= Qt::TopEdge;
+    if (pos.y() >= height() - kBorder || (pos.y() >= height() - corner && (pos.x() < kBorder || pos.x() >= width() - kBorder)))
+        edges |= Qt::BottomEdge;
+    return edges;
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    const Qt::Edges edges = edgesAt(event->position().toPoint());
+    if (edges && event->button() == Qt::LeftButton && windowHandle()) {
+        windowHandle()->startSystemResize(edges);
+        return;
+    }
+    QMainWindow::mousePressEvent(event);
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    const Qt::Edges e = edgesAt(event->position().toPoint());
+    const bool diagonal1 = e == (Qt::LeftEdge | Qt::TopEdge) || e == (Qt::RightEdge | Qt::BottomEdge);
+    const bool diagonal2 = e == (Qt::RightEdge | Qt::TopEdge) || e == (Qt::LeftEdge | Qt::BottomEdge);
+    if (diagonal1) setCursor(Qt::SizeFDiagCursor);
+    else if (diagonal2) setCursor(Qt::SizeBDiagCursor);
+    else if (e & (Qt::LeftEdge | Qt::RightEdge)) setCursor(Qt::SizeHorCursor);
+    else if (e & (Qt::TopEdge | Qt::BottomEdge)) setCursor(Qt::SizeVerCursor);
+    else unsetCursor();
+    QMainWindow::mouseMoveEvent(event);
+}
+
+void MainWindow::leaveEvent(QEvent *event)
+{
+    unsetCursor();
+    QMainWindow::leaveEvent(event);
 }
 
 TableBrowser *MainWindow::currentBrowser() const
@@ -392,6 +486,7 @@ void MainWindow::showSettings()
 {
     SettingsDialog dlg(this);
     dlg.setOriginalDatabase(m_db.path(), databaseSummary());
+    connect(&dlg, &SettingsDialog::customTitleBarChanged, this, &MainWindow::setCustomTitleBar);
     connect(&dlg, &SettingsDialog::originalDatabaseChosen, this, [this, &dlg](const QString &path) {
         openDatabase(path);
         dlg.setOriginalDatabase(m_db.path(), databaseSummary());
@@ -452,6 +547,7 @@ void MainWindow::showResultTab(int index)
 
 void MainWindow::updateTabTitle(LoadView *view)
 {
+    const auto refreshTitle = qScopeGuard([this] { updateActions(); });
     const int i = m_tabs->indexOf(view);
     if (i < 0) return;
     QString name = view->path().isEmpty() ? view->property("untitledName").toString() : QFileInfo(view->path()).completeBaseName();

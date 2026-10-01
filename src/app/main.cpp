@@ -6,6 +6,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QIcon>
 #include <QTimer>
 
 int main(int argc, char *argv[])
@@ -14,6 +15,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName(QStringLiteral("GRTReloaded"));
     QCoreApplication::setApplicationName(QStringLiteral("GRTReloaded"));
     QCoreApplication::setApplicationVersion(QStringLiteral(GRT_VERSION));
+    QGuiApplication::setDesktopFileName(QStringLiteral("grtreloaded"));  // Wayland: the icon of the .desktop entry
+    QIcon icon;
+    for (const int size : {32, 64, 256}) icon.addFile(QStringLiteral(":/resources/icons/grtreloaded-%1.png").arg(size));
+    QApplication::setWindowIcon(icon);
 
     QCommandLineParser cli;
     cli.setApplicationDescription(QStringLiteral("Interior ballistics for reloaders"));
