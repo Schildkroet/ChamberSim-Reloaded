@@ -71,6 +71,8 @@ int main(int argc, char *argv[])
         {u"list-params"_s, u"print the calibration constants and exit"_s},
         {u"quiet"_s, u"print only the OBJECTIVE line"_s},
         {u"zweight"_s, u"weight of the burnt-fraction error at the muzzle in the objective"_s, u"w"_s, u"0.5"_s},
+        {u"dump"_s, u"print the curves (solver vs original) of the first run matching --include"_s},
+        {u"stride"_s, u"with --dump: print every n-th point (default: about 40 points)"_s, u"n"_s, u"0"_s},
         {u"residuals"_s, u"print one line \"RES ...\" with the signed errors of all runs (for optimizers)"_s},
     });
     cli.process(app);
@@ -129,6 +131,17 @@ int main(int argc, char *argv[])
             ++n;
             residuals << u"1"_s << u"1"_s << u"1"_s << u"1"_s;
             continue;
+        }
+        if (cli.isSet(u"dump"_s)) {  // x, then time / pressure / burnt fraction / velocity of the original and of the solver
+            const std::size_t m = std::min(sim.points.size(), ref->points.size());
+            out << "# x_mm  t_ref t_sim  p_ref p_sim  z_ref z_sim  v_ref v_sim\n";
+            for (std::size_t i = 0; i < m; i += cli.value(u"stride"_s).toInt() > 0 ? static_cast<std::size_t>(cli.value(u"stride"_s).toInt()) : std::max<std::size_t>(1, m / 40)) {
+                const auto &a = ref->points[i];
+                const auto &b = sim.points[i];
+                out << QString::asprintf("%8.2f  %7.4f %7.4f  %8.1f %8.1f  %6.4f %6.4f  %7.1f %7.1f\n", a.x_mm, a.t_ms, b.t_ms, a.p_bar,
+                                         b.p_bar, a.z, b.z, a.v_ms, b.v_ms);
+            }
+            return 0;
         }
         const RunError e = compare(sim, *ref);
         sumSq += e.pmax * e.pmax + e.vmuz * e.vmuz + e.curve * e.curve + zWeight * zWeight * e.zMuzzle * e.zMuzzle;
