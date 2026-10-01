@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=GRT Reloaded
+GenericName=Interior ballistics
+Comment=Interior ballistics for handloaders
+Exec=GRTReloaded %f
+Icon=grtreloaded
+Terminal=false
+Categories=Qt;Science;Utility;

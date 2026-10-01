@@ -1,0 +1,139 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  QT_VERSION: "6.5.3"
+
+jobs:
+  linux:
+    name: Linux AppImage
+    runs-on: ubuntu-22.04   # old glibc: the AppImage runs on most current distributions
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: System packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-x11-0 libxcb-cursor0 \
+            libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-shape0 \
+            libfontconfig1 libfreetype6 libdbus-1-3
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          modules: qtcharts
+          cache: true
+
+      - name: Configure and build
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+          cmake --build build --target GRTReloaded --parallel
+
+      - name: Smoke test (starts the app offscreen and takes a screenshot)
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: build/GRTReloaded --screenshot "$RUNNER_TEMP/smoke.png" && test -s "$RUNNER_TEMP/smoke.png"
+
+      - name: Install into AppDir
+        run: DESTDIR="$PWD/AppDir" cmake --install build
+
+      - name: Package AppImage
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: "1"     # no FUSE on the runner
+          NO_STRIP: "1"
+          LDAI_OUTPUT: GRTReloaded-${{ github.ref_type == 'tag' && github.ref_name || github.sha }}-x86_64.AppImage
+        run: |
+          # only the SQLite driver is needed; the others would pull in client libraries that are not installed
+          find "$QT_ROOT_DIR/plugins/sqldrivers" -name '*.so' ! -name 'libqsqlite.so' -delete
+          export QMAKE="$QT_ROOT_DIR/bin/qmake"
+          export LD_LIBRARY_PATH="$QT_ROOT_DIR/lib:$LD_LIBRARY_PATH"
+          curl -fsSL -o linuxdeploy https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          curl -fsSL -o linuxdeploy-plugin-qt https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+          chmod +x linuxdeploy linuxdeploy-plugin-qt
+          ./linuxdeploy --appdir AppDir --plugin qt \
+            --desktop-file packaging/linux/grtreloaded.desktop \
+            --icon-file packaging/linux/grtreloaded.svg \
+            --output appimage
+          ls -l *.AppImage
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GRTReloaded-linux-appimage
+          path: "*.AppImage"
+          if-no-files-found: error
+
+  windows:
+    name: Windows
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_msvc2019_64
+          modules: qtcharts
+          cache: true
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure and build
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target GRTReloaded --parallel
+
+      - name: Collect and deploy Qt
+        shell: pwsh
+        run: |
+          cmake --install build --prefix dist
+          windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw dist\bin\GRTReloaded.exe
+          Get-ChildItem dist\bin
+
+      - name: Smoke test (starts the app and takes a screenshot)
+        shell: pwsh
+        run: |
+          dist\bin\GRTReloaded.exe --screenshot "$env:RUNNER_TEMP\smoke.png"
+          if (-not (Test-Path "$env:RUNNER_TEMP\smoke.png")) { throw "no screenshot written" }
+
+      - name: Zip
+        shell: pwsh
+        run: |
+          $name = "GRTReloaded-${{ github.ref_type == 'tag' && github.ref_name || github.sha }}-windows-x64"
+          Move-Item dist\bin $name
+          Compress-Archive -Path $name -DestinationPath "$name.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GRTReloaded-windows-x64
+          path: "*.zip"
+          if-no-files-found: error
+
+  release:
+    name: Release (tags only)
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [linux, windows]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: artifacts/*
