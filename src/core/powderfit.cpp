@@ -3,6 +3,8 @@
 #include "measurement.h"
 #include "solver.h"
 
+#include <QDate>
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -280,6 +282,41 @@ void apply(EntryList &propellant, const Result &result)
 {
     for (std::size_t i = 0; i < result.params.size() && i < result.after.size(); ++i)
         propellant.set(name(result.params[i]), result.after[i]);
+}
+
+QVariantMap toRecord(const EntryList &propellant, const Result &result, const projectdata::Schema &schema, const QString &descr)
+{
+    EntryList fitted = propellant;
+    apply(fitted, result);
+    QVariantMap record;
+    for (const auto &[column, type] : schema) {
+        const Entry *e = fitted.find(column);
+        if (!e || column == u"id" || column == u"geloescht" || column.startsWith(u"image"_s)) continue;
+        record.insert(column, type == u"FLOAT" || type == u"INTEGER" ? QVariant(fitted.number(column)) : QVariant(e->value));
+    }
+    record.insert(u"pt"_s, 21.0);  // the fitted Ba refers to 21 degC (the loads' powder temperatures are converted)
+    record.insert(u"origin"_s, u"own measurements"_s);
+    record.insert(u"cdate"_s, QDate::currentDate().toString(Qt::ISODate));
+    record.insert(u"descr"_s, descr);
+    return record;
+}
+
+QString describe(const Result &result, const std::vector<Sample> &samples)
+{
+    QStringList names, files;
+    for (const Param p : result.params) names << name(p);
+    int shots = 0;
+    for (const Sample &s : samples) {
+        shots += s.shots;
+        if (!files.contains(s.source)) files << s.source;
+    }
+    return u"Fitted with GRT Reloaded (%1) to %2 charges / %3 shots in %4 load(s): %5. Velocity error %6 %."_s
+        .arg(names.join(u", "_s))
+        .arg(samples.size())
+        .arg(shots)
+        .arg(files.size())
+        .arg(files.join(u", "_s))
+        .arg(100 * result.velocityRmsAfter, 0, 'f', 2);
 }
 
 }  // namespace grt::powderfit

@@ -7,6 +7,7 @@
 #include "numeric.h"
 #include "measurementchart.h"
 #include "measurementview.h"
+#include "powderfitdialog.h"
 #include "buttonstyle.h"
 #include "propertypanel.h"
 #include "reportview.h"
@@ -273,6 +274,7 @@ LoadView::LoadView(QWidget *parent)
     applyChartUnits();
     m_report->setDataProvider([this] { return reportData(); });
     connect(m_measurements, &MeasurementView::edited, this, &LoadView::storeMeasurement);
+    connect(m_measurements, &MeasurementView::fitRequested, this, &LoadView::fitPowder);
     connect(m_ladderTabs, &QTabBar::currentChanged, this, [this](int i) { setFocus(i); });
     connect(m_ladderTable, &QTableWidget::cellClicked, this, [this](int row, int) { setFocus(row); });
     connect(m_xAxis, &QComboBox::currentIndexChanged, this, [this] {
@@ -470,6 +472,32 @@ void LoadView::recompute()
     updateLadderUi();
     showResult();
     m_report->invalidate();
+}
+
+void LoadView::fitPowder()
+{
+    QStringList warnings;
+    const QString source = m_path.isEmpty() ? title() : QFileInfo(m_path).fileName();
+    const std::vector<grt::powderfit::Sample> samples = grt::powderfit::samples(m_file, source, &warnings);
+    if (samples.empty()) {
+        QMessageBox::information(this, tr("Fit to measurements"), tr("Enter the measured velocity of the shots first."));
+        return;
+    }
+    PowderFitDialog dlg(samples, warnings, this);
+    if (m_saveRecord && m_db && m_db->isOpen()) {
+        dlg.setSaveHandler([this, &samples](const grt::powderfit::Result &r) {
+            QVariantMap record = grt::powderfit::toRecord(m_file.propellant, r, m_db->schema(grt::Table::Propellant),
+                                                          grt::powderfit::describe(r, samples));
+            record.insert(u"pname"_s, record.value(u"pname"_s).toString() + tr(" (fitted)"));
+            return m_saveRecord(grt::Table::Propellant, record) >= 0;
+        });
+    }
+    dlg.runFit();
+    if (dlg.exec() != QDialog::Accepted || !dlg.result() || !dlg.result()->improved) return;
+    grt::powderfit::apply(m_file.propellant, *dlg.result());
+    rebuildPanels();
+    recompute();
+    setModified(true);
 }
 
 void LoadView::loadMeasurement()

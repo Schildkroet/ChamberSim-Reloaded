@@ -29,6 +29,7 @@
 #include <QTemporaryDir>
 #include <QProxyStyle>
 #include <QStyleOptionComboBox>
+#include <QTimer>
 #include <QtTest>
 
 #include "about.h"
@@ -44,6 +45,7 @@
 #include "measurement.h"
 #include "projectdata.h"
 #include "measurementview.h"
+#include "powderfitdialog.h"
 #include "propertypanel.h"
 #include "recentfiles.h"
 #include "reportview.h"
@@ -54,6 +56,8 @@
 #include "newloaddialog.h"
 #include "solver.h"
 #include "tablebrowser.h"
+
+#include <optional>
 
 using namespace Qt::StringLiterals;
 
@@ -95,6 +99,7 @@ private slots:
     void cartridgeViewDrawsAndHandlesStraightCases();
     void measurementTabShowsTheFilesResults();
     void measurementsAreEditedAndSaved();
+    void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void recordDialogShowsReadableFieldsInUserUnits();
     void recordsAreAddedCopiedEditedAndDeleted();
@@ -1520,6 +1525,77 @@ void GuiTest::ownTitleBarCanBeSwitched()
     dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Cancel)->click();  // undone
     QCOMPARE(changed.count(), 2);
     QCOMPARE(TitleBar::stored(), before);
+}
+
+// Measurements tab > Fit to measurements: the fitted values go into the load, or into an own propellant record.
+void GuiTest::fitToMeasurementsChangesThePowder()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    LoadView view;
+    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload")));
+    auto *button = [&] {
+        for (QPushButton *b : view.measurements()->findChildren<QPushButton *>())
+            if (b->text() == u"Fit to measurements…"_s) return b;
+        return static_cast<QPushButton *>(nullptr);
+    }();
+    QVERIFY(button);
+    QVERIFY(button->isEnabled());  // the template has measured charges
+
+    // the dialog: fits right away, Save hands over the result
+    QStringList warnings;
+    grt::LoadFile file = *grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload"));
+    const auto samples = grt::powderfit::samples(file, u"template"_s, &warnings);
+    QCOMPARE(samples.size(), std::size_t{2});
+    PowderFitDialog dlg(samples, warnings);
+    std::optional<grt::powderfit::Result> saved;
+    dlg.setSaveHandler([&](const grt::powderfit::Result &r) { saved = r; return true; });
+    dlg.runFit();
+    QVERIFY(dlg.result());
+    QVERIFY(dlg.result()->improved);
+    QCOMPARE(dlg.result()->params.size(), std::size_t{1});  // two charges: Ba only
+    QCOMPARE_LT(dlg.result()->velocityRmsAfter, dlg.result()->velocityRmsBefore);
+    QPushButton *save = nullptr;
+    for (QPushButton *b : dlg.findChildren<QPushButton *>())
+        if (b->text().startsWith(u"Save as own propellant"_s)) save = b;
+    QVERIFY(save && save->isEnabled());
+    save->click();
+    QVERIFY(saved);
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) dlg.grab().save(shots + u"/powderfit.png"_s);
+    QVERIFY(dlg.findChild<QTableWidget *>()->item(0, 7)->text().endsWith(u"%"_s));
+
+    // through the button: shots about 5 % faster than simulated need a higher burn rate; "Apply to this load" puts
+    // the fitted value into the propellant
+    const double before = file.propellant.number(u"Ba");
+    MeasurementView *m = view.measurements();
+    m->selectCharge(0);
+    QCOMPARE(m->pasteShots(u"895\n900\n905\n898\n902\n895\n900\n905\n898\n902"_s), 10);
+    m->selectCharge(1);
+    QCOMPARE(m->pasteShots(u"955\n960\n965\n958\n962\n955\n960\n965\n958\n962"_s), 10);
+    view.save(QDir::temp().filePath(u"grt-fit-test.grtload"_s));  // unmodified again: only the fit can modify it now
+    QVariantMap record;
+    view.setRecordSaver([&](grt::Table, const QVariantMap &values) { record = values; return 42; });
+    QTimer::singleShot(0, [&] {
+        auto *fit = qobject_cast<PowderFitDialog *>(QApplication::activeModalWidget());
+        QVERIFY(fit);
+        for (QPushButton *b : fit->findChildren<QPushButton *>())
+            if (b->text() == u"Apply to this load"_s) b->click();
+    });
+    QVERIFY(!view.isModified());
+    button->click();
+    QVERIFY(view.isModified());
+    QFile::remove(QDir::temp().filePath(u"grt-fit-test.grtload"_s));
+    grt::LoadFile after;
+    QTemporaryDir dir;
+    QVERIFY(view.save(dir.filePath(u"fitted.grtload"_s)));
+    after = *grt::LoadFile::read(dir.filePath(u"fitted.grtload"_s));
+    QVERIFY2(after.propellant.number(u"Ba") > before * 1.02, qPrintable(u"Ba %1 -> %2"_s.arg(before).arg(after.propellant.number(u"Ba"))));
+
+    // a record made from it: the database's columns, 21 degC, no image ids of the original
+    const QVariantMap rec = grt::powderfit::toRecord(after.propellant, *saved, m_db.schema(grt::Table::Propellant), u"test"_s);
+    QCOMPARE(rec.value(u"pt"_s).toDouble(), 21.0);
+    QVERIFY(!rec.contains(u"imageUuid"_s));
+    QVERIFY(grt::projectdata::check(grt::Table::Propellant, rec, m_db.schema(grt::Table::Propellant)).isEmpty());
+    UnitPreferences::instance().setSystem(grt::units::System::Original);
 }
 
 QTEST_MAIN(GuiTest)

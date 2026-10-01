@@ -104,6 +104,8 @@ add_library(grtui STATIC
     src/app/measurementview.cpp
     src/app/recorddialog.h
     src/app/recorddialog.cpp
+    src/app/powderfitdialog.h
+    src/app/powderfitdialog.cpp
     src/app/selectrecorddialog.h
     src/app/selectrecorddialog.cpp
     src/app/newloaddialog.h

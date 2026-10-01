@@ -78,6 +78,7 @@ private:
     void addRecentFile(const QString &path);
     void updateRecentActions();
     void updateActions();
+    void setupLoadView(LoadView *view);
     void updateFrame();
     [[nodiscard]] Qt::Edges edgesAt(const QPoint &pos) const;
     bool saveLoad(LoadView *view, bool saveAs);

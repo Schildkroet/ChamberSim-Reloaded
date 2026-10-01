@@ -4,7 +4,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+312"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+311"/>
         <source>No cartridge data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32,7 +32,7 @@
 <context>
     <name>ChamberView</name>
     <message>
-        <location filename="../src/app/chamberview.cpp" line="+172"/>
+        <location filename="../src/app/chamberview.cpp" line="+171"/>
         <source>No chamber data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -99,30 +99,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+344"/>
+        <location filename="../src/app/loadview.cpp" line="+347"/>
         <source>Gun</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-136"/>
-        <location line="+137"/>
-        <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-137"/>
         <location line="+138"/>
+        <source>Projectile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-138"/>
+        <location line="+139"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-125"/>
-        <location line="+153"/>
+        <location line="-126"/>
+        <location line="+154"/>
         <source>No database available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+278"/>
+        <location line="+304"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -132,25 +132,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-534"/>
-        <location line="+566"/>
+        <location line="-561"/>
+        <location line="+593"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-566"/>
-        <location line="+567"/>
+        <location line="-593"/>
+        <location line="+594"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-567"/>
-        <location line="+568"/>
+        <location line="-594"/>
+        <location line="+595"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-568"/>
+        <location line="-595"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -257,17 +257,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+378"/>
+        <location line="+405"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-377"/>
+        <location line="-404"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+94"/>
         <source>Caliber / cartridge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -322,7 +322,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+48"/>
+        <source>Fit to measurements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Enter the measured velocity of the shots first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source> (fitted)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+72"/>
         <source>charge too high</source>
         <translation type="unfinished"></translation>
     </message>
@@ -452,14 +467,14 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+209"/>
+        <location line="+205"/>
         <location line="+159"/>
         <location line="+25"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-356"/>
+        <location line="-352"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -475,12 +490,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+142"/>
+        <location line="+141"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-142"/>
+        <location line="-141"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -527,7 +542,7 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+351"/>
+        <location line="+347"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -600,12 +615,17 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+78"/>
+        <source>Saved as your own record: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>The database cannot be opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-391"/>
+        <location line="-403"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -686,8 +706,8 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+60"/>
-        <location line="+267"/>
+        <location line="+59"/>
+        <location line="+264"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -740,7 +760,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+25"/>
         <source>New load</source>
         <translation type="unfinished"></translation>
     </message>
@@ -750,7 +770,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+32"/>
         <location line="+6"/>
         <source>Save load</source>
         <translation type="unfinished"></translation>
@@ -853,6 +873,11 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>Fit to measurements…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+3"/>
         <source>Title of the measurement series</source>
         <translation type="unfinished"></translation>
@@ -884,6 +909,11 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>Change the propellant&apos;s model values until the simulation agrees with the measured charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Add shots from the clipboard: one shot per line, velocity and optionally the peak pressure in the shown units (e.g. copied from a chronograph export or a spreadsheet)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -898,12 +928,12 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+136"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1094,6 +1124,140 @@ Export it anyway?</source>
     </message>
 </context>
 <context>
+    <name>PowderFitDialog</name>
+    <message>
+        <location filename="../src/app/powderfitdialog.cpp" line="+47"/>
+        <source>Fit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Apply to this load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+87"/>
+        <source>Save as own propellant…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-85"/>
+        <source>Fit to measurements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Changes the propellant&apos;s model values until the simulation agrees with the measured charges. Check the case volume (fired case, water), the bullet length and the cartridge length first: wrong values there give a wrong model.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Values to fit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burn rate (Ba)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Form factor a0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Transition z1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Transition z2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Charge [%1]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Shots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Measured [%1]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Δ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>After</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pressure Δ after</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Put the fitted values into this load&apos;s propellant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Add the propellant with the fitted values to your own records in the database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+61"/>
+        <source>Choose the values to fit and click &lt;b&gt;Fit&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Velocity error (rms): %1 % → &lt;b&gt;%2 %&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>pressure error: %1 % → %2 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The values were not changed: the current ones fit best.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Fewer measured charges than values: the result is not well determined.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PropertyPanel</name>
     <message>
         <location filename="../src/app/propertypanel.cpp" line="+35"/>
@@ -1165,7 +1329,7 @@ Export it anyway?</source>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+76"/>
+        <location filename="../src/app/recorddialog.cpp" line="+74"/>
         <source>caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1408,7 +1572,7 @@ Export it anyway?</source>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+23"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+24"/>
         <source>Your own record (can be changed)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1448,7 +1612,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+115"/>
+        <location line="+121"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n entry</numerusform>
@@ -1886,7 +2050,7 @@ Export it anyway?</source>
 <context>
     <name>grt::units</name>
     <message>
-        <location filename="../src/core/units.cpp" line="+139"/>
+        <location filename="../src/core/units.cpp" line="+138"/>
         <source>Metric (mm, g, bar, m/s)</source>
         <translation type="unfinished"></translation>
     </message>

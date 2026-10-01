@@ -279,11 +279,7 @@ bool MainWindow::openLoad(const QString &path)
         return false;
     }
     LoadView *view = owned.get();
-    view->setDatabase(&m_db);
-    connect(view, &LoadView::modifiedChanged, this, [this, view] {
-        updateTabTitle(view);
-        updateActions();
-    });
+    setupLoadView(view);
     const int idx = m_tabs->addTab(owned.release(), QString());  // the tab widget owns it now
     m_tabs->setCurrentIndex(idx);
     updateTabTitle(view);
@@ -553,6 +549,22 @@ bool MainWindow::overlayReference(const QString &jsonPath)
     return true;
 }
 
+// The database, the tab title and the actions follow the load; records it creates (a fitted propellant) go into
+// the own database and show up in the Database tab.
+void MainWindow::setupLoadView(LoadView *view)
+{
+    view->setDatabase(&m_db);
+    view->setRecordSaver([this](grt::Table table, const QVariantMap &values) {
+        const int id = storeRecord(table, RecordDialog::Mode::New, -1, values);
+        if (id >= 0) statusBar()->showMessage(tr("Saved as your own record: %1").arg(grt::dbfields::recordTitle(table, values)));
+        return id;
+    });
+    connect(view, &LoadView::modifiedChanged, this, [this, view] {
+        updateTabTitle(view);
+        updateActions();
+    });
+}
+
 void MainWindow::newLoad()
 {
     if (!m_db.isOpen()) {
@@ -564,11 +576,7 @@ void MainWindow::newLoad()
     auto *view = new LoadView;
     view->setNewLoad(dlg.result());
     view->setProperty("untitledName", tr("Untitled %1").arg(++m_untitled));
-    view->setDatabase(&m_db);
-    connect(view, &LoadView::modifiedChanged, this, [this, view] {
-        updateTabTitle(view);
-        updateActions();
-    });
+    setupLoadView(view);
     const int idx = m_tabs->addTab(view, QString());
     m_tabs->setCurrentIndex(idx);
     updateTabTitle(view);

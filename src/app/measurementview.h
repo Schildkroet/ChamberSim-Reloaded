@@ -48,6 +48,7 @@ public:
 
 signals:
     void edited();
+    void fitRequested();  // "Fit to measurements…"
 
 protected:
     void showEvent(QShowEvent *event) override;
@@ -88,5 +89,6 @@ private:
     QPushButton *m_addShot;
     QPushButton *m_removeShot;
     QPushButton *m_paste;
+    QPushButton *m_fitButton;
     MeasurementChart *m_chart;
 };

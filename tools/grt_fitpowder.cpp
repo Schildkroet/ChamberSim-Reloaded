@@ -167,28 +167,8 @@ int main(int argc, char *argv[])
             return 2;
         }
         const auto schema = db.schema(grt::Table::Propellant);
-        grt::EntryList prop = loads.front().second.propellant;
-        grt::powderfit::apply(prop, res);
-        QVariantMap record;
-        for (const auto &[column, type] : schema) {
-            const grt::Entry *e = prop.find(column);
-            if (!e || column == u"id" || column == u"geloescht" || column.startsWith(u"image"_s)) continue;  // no images
-            record.insert(column, type == u"FLOAT" || type == u"INTEGER" ? QVariant(e->value.toDouble()) : QVariant(e->value));
-        }
-        record.insert(u"pt"_s, 21.0);  // the fitted Ba refers to 21 degC (the loads' powder temperatures are converted)
-        record.insert(u"origin"_s, u"own measurements"_s);
-        record.insert(u"cdate"_s, QDate::currentDate().toString(Qt::ISODate));
-        record.insert(u"descr"_s, u"Fitted with grt_fitpowder (%1) to %2 charges / %3 shots in %4 load(s): %5. Velocity error %6 %."_s
-                                      .arg(names.join(u", "_s))
-                                      .arg(samples.size())
-                                      .arg(shots)
-                                      .arg(loads.size())
-                                      .arg([&] {
-                                          QStringList files;
-                                          for (const auto &[p, lf] : loads) files << QFileInfo(p).fileName();
-                                          return files.join(u", "_s);
-                                      }())
-                                      .arg(100 * res.velocityRmsAfter, 0, 'f', 2));
+        const QVariantMap record = grt::powderfit::toRecord(loads.front().second.propellant, res, schema,
+                                                            grt::powderfit::describe(res, samples));
         QFile f(cli.value(u"out"_s));
         if (!f.open(QIODevice::WriteOnly) || f.write(grt::projectdata::toJson(record, schema)) < 0) {
             err << "Cannot write " << f.fileName() << '\n';

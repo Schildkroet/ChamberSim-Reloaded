@@ -1,6 +1,7 @@
 #pragma once
 
 #include "loadfile.h"
+#include "projectdata.h"
 #include "simconfig.h"
 
 #include <QString>
@@ -63,5 +64,14 @@ struct Result {
 
 // The fitted values put into a load's propellant section (for saving or exporting).
 void apply(EntryList &propellant, const Result &result);
+
+// A propellant record (database columns of `schema`) from a load's propellant section with the fitted values:
+// reference temperature 21 degC (the fitted Ba refers to it), no image ids of the original's database, the
+// description `descr` and the date.
+[[nodiscard]] QVariantMap toRecord(const EntryList &propellant, const Result &result, const projectdata::Schema &schema,
+                                   const QString &descr);
+
+// "Fitted with ... to N charges / M shots ...": a description of the fit for a record.
+[[nodiscard]] QString describe(const Result &result, const std::vector<Sample> &samples);
 
 }  // namespace grt::powderfit

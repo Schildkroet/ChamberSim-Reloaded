@@ -9,6 +9,7 @@
 #include <QWidget>
 
 #include <array>
+#include <functional>
 #include <optional>
 
 class CartridgeView;
@@ -58,6 +59,12 @@ public:
 
     [[nodiscard]] ReportView *report() const noexcept { return m_report; }
     [[nodiscard]] MeasurementView *measurements() const noexcept { return m_measurements; }
+    // Stores a new record in the (own part of the) database; returns its id or -1. Set by the main window.
+    using RecordSaver = std::function<int(grt::Table, const QVariantMap &)>;
+    void setRecordSaver(RecordSaver saver) { m_saveRecord = std::move(saver); }
+    // "Fit to measurements": fits the propellant to the Measurements tab (dialog).
+    void fitPowder();
+
     // Results, Measurements, Report (the last one used is remembered).
     void showResultTab(int index);
     // Values and rendered diagrams for the report templates.
@@ -108,7 +115,8 @@ private:
     QTabWidget *m_resultTabs;
     ReportView *m_report;
     MeasurementView *m_measurements;
-    bool m_hasMeasurement{false};  // the file has a <Measurement> block
+    bool m_hasMeasurement{false};
+    RecordSaver m_saveRecord;  // the file has a <Measurement> block
     QTabWidget *m_drawings;
     CartridgeView *m_cartridge;
     ChamberView *m_chamber;

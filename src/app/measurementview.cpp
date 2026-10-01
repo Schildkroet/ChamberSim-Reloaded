@@ -82,6 +82,7 @@ MeasurementView::MeasurementView(QWidget *parent)
     , m_addShot(new QPushButton(tr("Add shot")))
     , m_removeShot(new QPushButton(tr("Remove shot")))
     , m_paste(new QPushButton(tr("Paste shots")))
+    , m_fitButton(new QPushButton(tr("Fit to measurements…")))
     , m_chart(new MeasurementChart)
 {
     m_title->setPlaceholderText(tr("Title of the measurement series"));
@@ -91,6 +92,7 @@ MeasurementView::MeasurementView(QWidget *parent)
     m_removeCharge->setToolTip(tr("Remove the selected charge with all its shots"));
     m_addShot->setToolTip(tr("Add a shot to the selected charge"));
     m_removeShot->setToolTip(tr("Remove the selected shots (Del)"));
+    m_fitButton->setToolTip(tr("Change the propellant's model values until the simulation agrees with the measured charges"));
     m_paste->setToolTip(tr("Add shots from the clipboard: one shot per line, velocity and optionally the peak "
                            "pressure in the shown units (e.g. copied from a chronograph export or a spreadsheet)"));
     markPrimary(m_addCharge);
@@ -115,6 +117,7 @@ MeasurementView::MeasurementView(QWidget *parent)
     bar->addWidget(m_addCharge);
     bar->addWidget(m_addLadder);
     bar->addWidget(m_removeCharge);
+    bar->addWidget(m_fitButton);
     bar->addSpacing(16);
     bar->addWidget(new QLabel(tr("Title:")));
     bar->addWidget(m_title, 1);
@@ -163,6 +166,7 @@ MeasurementView::MeasurementView(QWidget *parent)
     connect(m_removeCharge, &QPushButton::clicked, this, &MeasurementView::removeCharge);
     connect(m_addShot, &QPushButton::clicked, this, &MeasurementView::addShot);
     connect(m_removeShot, &QPushButton::clicked, this, &MeasurementView::removeShots);
+    connect(m_fitButton, &QPushButton::clicked, this, &MeasurementView::fitRequested);
     connect(m_paste, &QPushButton::clicked, this, [this] { pasteShots(QApplication::clipboard()->text()); });
     auto *del = new QShortcut(QKeySequence::Delete, m_shots, nullptr, nullptr, Qt::WidgetWithChildrenShortcut);
     connect(del, &QShortcut::activated, this, &MeasurementView::removeShots);
@@ -352,6 +356,7 @@ void MeasurementView::updateButtons()
     m_removeCharge->setEnabled(selected);
     m_addShot->setEnabled(selected);
     m_paste->setEnabled(selected);
+    m_fitButton->setEnabled(std::ranges::any_of(m_data.charges, [](const grt::MeasuredCharge &c) { return grt::velocityStatistics(c).count > 0; }));
     m_removeShot->setEnabled(selected && m_shots->rowCount() > 0);
     m_addLadder->setVisible(m_suggested.size() > 1);
 }
