@@ -2,6 +2,7 @@
 
 #include "simconfig.h"
 
+#include <array>
 #include <cstddef>
 #include <vector>
 
@@ -116,9 +117,9 @@ struct Calibration {
     // bullet mass and charge). It limits the peak pressure of fast powders; slow ones have burnt little by then.
     double ignitionRate{0.159743};
     double ignitionLead{4.41922};          // dz/dt scales with (p/1000 bar)^burnExponent on top of the linear p
-    double phase2[4]{0.280452, 0.111831, -0.833002, 1.05209};
+    std::array<double, 4> phase2{0.280452, 0.111831, -0.833002, 1.05209};
     double phase3Limit{0.7};       // the phase-3 shape is held constant beyond this t = (z - z2)/(1 - z2)
-    double phase3[4]{-4.27095, 3.75996, -0.377023, 0.240775};
+    std::array<double, 4> phase3{-4.27095, 3.75996, -0.377023, 0.240775};
 };
 
 // Named access to every tunable constant (for calibration tools and tests).

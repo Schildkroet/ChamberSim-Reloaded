@@ -1,5 +1,7 @@
 #include "simconfig.h"
 
+#include "numeric.h"
+
 namespace grt {
 
 SimInput SimInput::fromLoad(const LoadFile &lf)
@@ -28,7 +30,7 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.tailLength_mm = p.number(u"gtailh");
     in.tailDiameterA_mm = p.number(u"gTailDiaA");
     in.tailDiameterB_mm = p.number(u"gTailDiaB");
-    in.tailType = static_cast<int>(p.number(u"gTailType"));
+    in.tailType = toIntClamped(p.number(u"gTailType"), 0, 2);
     in.extraFriction_bar = p.number(u"gfriction");
     in.extraFrictionUnlocked = p.flag(u"gfrictionUnlock");
 
@@ -46,7 +48,7 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.coldCoeff = q.number(u"tcc");
     in.hotCoeff = q.number(u"tch");
     in.charge_g = q.number(u"mc");
-    in.ladderCount = static_cast<int>(q.number(u"laddercnt", 1.0));
+    in.ladderCount = toIntClamped(q.number(u"laddercnt", 1.0), 0, 1000);  // the solver limits it further
     in.ladderStep_g = q.number(u"laddermc");
     return in;
 }

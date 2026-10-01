@@ -91,6 +91,7 @@ public:
 
 private:
     [[nodiscard]] bool createOwnTables(QString *error);
+    [[nodiscard]] bool createOwnTablesInTransaction(QString *error);
     [[nodiscard]] bool loadProjectData(QString *error);
     [[nodiscard]] bool createViews(QString *error);
     [[nodiscard]] std::optional<int> insertInto(const QString &schema, Table t, const QVariantMap &values, int id, QString *error);

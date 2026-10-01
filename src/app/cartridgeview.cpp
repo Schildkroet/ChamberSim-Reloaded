@@ -1,6 +1,7 @@
 #include "cartridgeview.h"
 
 #include "loadbuilder.h"
+#include "numeric.h"
 #include "dimensionlabel.h"
 #include "hovermeasure.h"
 #include "unitprefs.h"
@@ -183,9 +184,7 @@ CartridgeView::RoundShape CartridgeView::makeRound(const grt::LoadFile &file, co
 {
     RoundShape r;
     for (const grt::Entry &e : file.caliberFile.entries()) {
-        bool ok = false;
-        const double v = e.value.toDouble(&ok);
-        if (ok) r.dims.insert(e.name, v);
+        if (const auto v = grt::parseFinite(e.value)) r.dims.insert(e.name, *v);
     }
     // the load's own values win where the caliber record has none
     if (r.dims.value(QStringLiteral("L3")) <= 0.0) r.dims.insert(QStringLiteral("L3"), input.caseLength_mm);

@@ -15,7 +15,7 @@ struct FormFunction {
     const Calibration *cal;
     double a0, z1, z2;
 
-    [[nodiscard]] static double poly(const double (&c)[4], double x) noexcept
+    [[nodiscard]] static double poly(const std::array<double, 4> &c, double x) noexcept
     {
         return ((c[0] * x + c[1]) * x + c[2]) * x + c[3];
     }
@@ -128,7 +128,13 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     const double x0 = in.startPosition_mm() * 1e-3;
     const double xe = in.barrelLength_mm * 1e-3;
 
-    const bool inputOk = steps > 1 && in.boreArea_mm2 > 0.0 && in.bulletMass_g > 0.0 && in.charge_g > 0.0 && in.density_kgm3 > 0.0
+    // NaN or infinity anywhere would pass the "> 0" checks below (or skip them) and give NaN results
+    const double all[] = {in.caseLength_mm, in.caseVolume_cm3, in.boreArea_mm2, in.sebert, in.startPressure_bar, in.barrelLength_mm,
+                          in.twistLength_mm, in.gunWeight_kg, in.bulletDiameter_mm, in.bulletMass_g, in.bulletLength_mm,
+                          in.seatingDepth_mm, in.tailLength_mm, in.tailDiameterA_mm, in.tailDiameterB_mm, in.extraFriction_bar,
+                          in.vivacityBa, in.heatQex_kJkg, in.kappa, in.a0, in.a1, in.z1, in.z2, in.density_kgm3,
+                          in.bulkDensity_kgm3, in.temperature_C, in.coldCoeff, in.hotCoeff, in.charge_g};
+    const bool inputOk = std::ranges::all_of(all, [](double v) { return std::isfinite(v); }) && steps > 1 && in.boreArea_mm2 > 0.0 && in.bulletMass_g > 0.0 && in.charge_g > 0.0 && in.density_kgm3 > 0.0
                          && in.vivacityBa > 0.0 && in.heatQex_kJkg > 0.0 && in.kappa > 1.0
                          && in.caseVolume_cm3 > 0.0 && xe > x0;
     if (!inputOk) return res;

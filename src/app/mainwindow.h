@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include "database.h"
 #include "recorddialog.h"
@@ -104,4 +103,3 @@ private:
     std::vector<QAction *> m_recentActions;  // File menu: last used loads (File > Open recent)
     QMenu *m_recentMenu{nullptr};
 };
-#endif // MAINWINDOW_H

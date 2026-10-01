@@ -1,8 +1,10 @@
 #include "loadbuilder.h"
 
 #include "loadspec.h"
+#include "numeric.h"
 
 #include <algorithm>
+#include <cmath>
 #include <span>
 
 using namespace Qt::StringLiterals;
@@ -16,7 +18,7 @@ double num(const QVariantMap &m, const char *key, double fallback = 0.0)
     const QVariant v = m.value(QLatin1String(key));
     bool ok = false;
     const double d = v.toDouble(&ok);
-    return ok ? d : fallback;
+    return ok && std::isfinite(d) ? d : fallback;
 }
 
 QString str(const QVariantMap &m, const char *key)
@@ -132,7 +134,7 @@ QVariantMap projectileFields(const QVariantMap &projectile)
             {u"gtailh"_s, fmt(num(projectile, "gtailh"))},
             {u"gTailDiaA"_s, fmt(num(projectile, "gtaildiaA"))},
             {u"gTailDiaB"_s, fmt(num(projectile, "gtaildiaB"))},
-            {u"gTailType"_s, QString::number(static_cast<int>(num(projectile, "gtailtype")))},
+            {u"gTailType"_s, QString::number(toIntClamped(num(projectile, "gtailtype"), 0, 2))},
             {u"g1bc"_s, fmt(num(projectile, "g1bc"))},
             {u"g7bc"_s, fmt(num(projectile, "g7bc"))},
             {u"gUBCS"_s, str(projectile, "gUBCS")},

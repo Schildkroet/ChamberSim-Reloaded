@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QSortFilterProxyModel>
+#include <QSqlError>
 #include <QSqlTableModel>
 #include <QTableView>
 #include <QVBoxLayout>
@@ -98,8 +99,7 @@ void TableBrowser::setDatabase(const grt::Database *db)
     m_model->setTable(QLatin1String(grt::tableName(m_table)));
     m_model->setFilter(baseFilter());
     m_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    m_model->select();
-    while (m_model->canFetchMore()) m_model->fetchMore();  // the tables are small enough to load completely
+    selectAll();
     m_proxy->setSourceModel(m_model);
     const int idColumn = m_model->fieldIndex(QStringLiteral("id"));
     m_view->sortByColumn(idColumn, Qt::AscendingOrder);  // the view would sort by its first column (the source)
@@ -113,6 +113,15 @@ void TableBrowser::setDatabase(const grt::Database *db)
     updateCount();
 }
 
+void TableBrowser::selectAll()
+{
+    if (!m_model->select()) {
+        qWarning("%s: %s", grt::tableName(m_table), qPrintable(m_model->lastError().text()));
+        return;
+    }
+    while (m_model->canFetchMore()) m_model->fetchMore();
+}
+
 QString TableBrowser::baseFilter() const
 {
     return m_rowFilter.isEmpty() ? QStringLiteral("geloescht = 0") : QStringLiteral("geloescht = 0 AND (%1)").arg(m_rowFilter);
@@ -122,8 +131,7 @@ void TableBrowser::refresh()
 {
     if (!m_model) return;
     const int id = currentId();
-    m_model->select();
-    while (m_model->canFetchMore()) m_model->fetchMore();
+    selectAll();
     updateCount();
     if (id >= 0) selectId(id);
 }
@@ -134,8 +142,7 @@ void TableBrowser::setRowFilter(const QString &sqlCondition)
     m_rowFilter = sqlCondition;
     if (!m_model) return;
     m_model->setFilter(baseFilter());
-    m_model->select();
-    while (m_model->canFetchMore()) m_model->fetchMore();
+    selectAll();
     updateCount();
 }
 

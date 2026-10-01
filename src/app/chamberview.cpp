@@ -2,6 +2,7 @@
 
 #include "dimensionlabel.h"
 #include "hovermeasure.h"
+#include "numeric.h"
 #include "unitprefs.h"
 
 using namespace Qt::StringLiterals;
@@ -138,9 +139,7 @@ void ChamberView::setLoad(const grt::LoadFile &file, const grt::SimInput &input)
 {
     m_dims.clear();
     for (const grt::Entry &e : file.caliberFile.entries()) {
-        bool ok = false;
-        const double v = e.value.toDouble(&ok);
-        if (ok) m_dims.insert(e.name, v);
+        if (const auto v = grt::parseFinite(e.value)) m_dims.insert(e.name, *v);
     }
     m_round = CartridgeView::makeRound(file, input);
     m_topY = std::max({m_round.bulletTip() + 4.0, dim(m_dims, "c_L3") + 12.0, dim(m_dims, "L6")});

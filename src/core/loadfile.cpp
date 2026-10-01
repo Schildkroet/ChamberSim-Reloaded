@@ -1,5 +1,7 @@
 #include "loadfile.h"
 
+#include "numeric.h"
+
 #include <QCoreApplication>
 #include <QFile>
 #include <QSaveFile>
@@ -13,17 +15,17 @@ using namespace Qt::StringLiterals;
 
 namespace grt {
 
-namespace {
-
-QString decode(const QString &s)
+QString percentDecode(const QString &s)
 {
     return s.contains(u'%') ? QUrl::fromPercentEncoding(s.toUtf8()) : s;
 }
 
-QString encode(const QString &s)
+QString percentEncode(const QString &s)
 {
     return QString::fromLatin1(QUrl::toPercentEncoding(s));
 }
+
+namespace {
 
 [[nodiscard]] bool isTextual(const Entry &e)
 {
@@ -33,7 +35,7 @@ QString encode(const QString &s)
 Entry readEntry(const QXmlStreamAttributes &a)
 {
     return {.name = a.value(u"name"_s).toString(),
-            .value = decode(a.value(u"value"_s).toString()),
+            .value = percentDecode(a.value(u"value"_s).toString()),
             .unit = a.value(u"unit"_s).toString(),
             .type = a.value(u"type"_s).toString(),
             .descr = a.value(u"descr"_s).toString()};
@@ -43,7 +45,7 @@ void writeEntry(QXmlStreamWriter &w, const QString &tag, const Entry &e)
 {
     w.writeEmptyElement(tag);
     w.writeAttribute(u"name"_s, e.name);
-    w.writeAttribute(u"value"_s, isTextual(e) ? encode(e.value) : e.value);
+    w.writeAttribute(u"value"_s, isTextual(e) ? percentEncode(e.value) : e.value);
     if (!e.type.isEmpty() || !e.unit.isEmpty() || !e.descr.isEmpty()) {
         w.writeAttribute(u"unit"_s, e.unit);
         w.writeAttribute(u"type"_s, e.type);
@@ -111,9 +113,7 @@ double EntryList::number(QStringView name, double fallback) const
 {
     const Entry *e = find(name);
     if (!e) return fallback;
-    bool ok = false;
-    const double v = e->value.toDouble(&ok);
-    return ok ? v : fallback;
+    return parseFinite(e->value).value_or(fallback);
 }
 
 bool EntryList::flag(QStringView name, bool fallback) const
@@ -171,7 +171,7 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
         while (r.readNextStartElement()) {
             const auto tag = r.name();
             if (tag == u"title") {
-                lf.title = decode(r.readElementText());
+                lf.title = percentDecode(r.readElementText());
             } else if (tag == u"config") {
                 lf.config.entries().push_back(readEntry(r.attributes()));
                 r.skipCurrentElement();
@@ -219,7 +219,7 @@ QByteArray LoadFile::toXml() const
     w.writeStartElement(u"GordonsReloadingTool"_s);
     if (!appVersion.isEmpty()) w.writeAttribute(u"version"_s, appVersion);
     w.writeStartElement(u"InnerBallistikInput"_s);
-    w.writeTextElement(u"title"_s, encode(title));
+    w.writeTextElement(u"title"_s, percentEncode(title));
     for (const Entry &e : config.entries()) writeEntry(w, u"config"_s, e);
     writeList(w, u"caliber"_s, caliber, u"input"_s);
     writeList(w, u"caliberfile"_s, caliberFile, u"var"_s);

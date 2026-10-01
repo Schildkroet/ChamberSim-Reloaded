@@ -13,6 +13,7 @@
 #include "loadbuilder.h"
 #include "loadfile.h"
 #include "measurement.h"
+#include "numeric.h"
 #include "projectdata.h"
 #include "powderfit.h"
 #include "reference.h"
@@ -24,6 +25,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 
 using namespace Qt::StringLiterals;
 
@@ -50,11 +52,13 @@ private slots:
     void bulletBaseTypesChangeTheChamberVolume();
     void ladderStepsDescendFromTheSelectedCharge();
     void ladderEdgeCases();
+    void nonFiniteInputIsRejected();
     void solverVersusReference_data();
     void solverVersusReference();
     void databaseOpensPlainFile();
     void ownDatabaseTakesNewRecords();
     void ownDatabaseWorksWithoutTheOriginal();
+    void ownDatabaseNeverStoresNull();
     void projectRecordsArePartOfTheDatabase();
     void ownRecordsOfOlderVersionsMoveUp();
     void powderFitFindsTheBurnRate();
@@ -439,6 +443,45 @@ void CoreTest::ladderEdgeCases()
     const auto ladder = grt::simulateLadder(grt::SimInput::fromLoad(*lf));
     QCOMPARE(ladder.size(), std::size_t{4});  // mc, 2.5/3.5 mc, 1.5/3.5 mc, 0.5/3.5 mc
     QVERIFY(ladder.back().charge_g > 0.0);
+    // counts out of the int range (or not a number) must not be undefined behaviour
+    lf->propellant.set(u"laddercnt", u"1e300"_s);
+    QCOMPARE(grt::simulateLadder(grt::SimInput::fromLoad(*lf)).size(), std::size_t{4});
+    lf->propellant.set(u"laddercnt", u"-1e300"_s);
+    QCOMPARE(grt::simulateLadder(grt::SimInput::fromLoad(*lf)).size(), std::size_t{1});
+}
+
+// "nan" and "inf" are numbers for QString::toDouble: they must not reach the model.
+void CoreTest::nonFiniteInputIsRejected()
+{
+    QVERIFY(!grt::parseFinite(u"nan"_s));
+    QVERIFY(!grt::parseFinite(u"inf"_s));
+    QVERIFY(!grt::parseFinite(u"-inf"_s));
+    QCOMPARE(grt::parseFinite(u"1.5"_s).value_or(0.0), 1.5);
+    QVERIFY(!grt::units::parseToBase(u"nan"_s, grt::units::unitsOf(grt::units::Quantity::Length).front()));
+    QVERIFY(!grt::units::parseToBase(u"inf"_s, grt::units::unitsOf(grt::units::Quantity::Length).front()));
+    QCOMPARE(grt::toIntClamped(std::nan(""), 0, 2), 0);
+    QCOMPARE(grt::toIntClamped(1e300, 0, 2), 2);
+    QCOMPARE(grt::toIntClamped(-1e300, 0, 2), 0);
+    QCOMPARE(grt::toIntClamped(1.7, 0, 2), 1);
+
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const double z1 = lf->propellant.number(u"z1");
+    lf->propellant.set(u"z1", u"nan"_s);
+    lf->propellant.set(u"gTailType", u"nan"_s);
+    QCOMPARE(lf->propellant.number(u"z1", -1.0), -1.0);  // the fallback, not NaN
+    const grt::SimInput in = grt::SimInput::fromLoad(*lf);
+    QCOMPARE(in.z1, 0.0);
+    QVERIFY(z1 > 0.0);
+
+    // a non-finite value given to the solver directly gives no result instead of NaN curves
+    grt::SimInput bad = grt::SimInput::fromLoad(*grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(grt::simulate(bad).ok());
+    bad.a0 = std::numeric_limits<double>::quiet_NaN();
+    QVERIFY(!grt::simulate(bad).ok());
+    bad.a0 = 0.5;
+    bad.caseVolume_cm3 = std::numeric_limits<double>::infinity();
+    QVERIFY(!grt::simulate(bad).ok());
 }
 
 // Every load the original rejected as "charge too high" is rejected here, and no accepted load is.
@@ -606,6 +649,27 @@ void CoreTest::ownDatabaseWorksWithoutTheOriginal()
     QVERIFY(db.isOpen());
     QVERIFY(!db.hasOriginal());
     QCOMPARE(db.count(grt::Table::Caliber), 1);
+}
+
+// The columns are NOT NULL: missing values, null strings and NaN become the column's empty value.
+void CoreTest::ownDatabaseNeverStoresNull()
+{
+    QTemporaryDir dir;
+    grt::Database db;
+    QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
+    QString err;
+    const auto id = db.insert(grt::Table::Propellant, {{u"pname"_s, u"Test"_s}, {u"Ba"_s, std::numeric_limits<double>::quiet_NaN()},
+                                                      {u"mname"_s, QVariant()}, {u"lotid"_s, QString()}}, &err);
+    QVERIFY2(id, qPrintable(err));
+    auto r = db.record(grt::Table::Propellant, *id);
+    QVERIFY(r);
+    QCOMPARE(r->value(u"Ba"_s).toDouble(), 0.0);
+    QCOMPARE(r->value(u"mname"_s).toString(), QString());
+    QVERIFY2(db.update(grt::Table::Propellant, *id, {{u"Qex"_s, std::numeric_limits<double>::infinity()}, {u"mname"_s, QVariant()},
+                                                    {u"descr"_s, QString()}}, &err), qPrintable(err));
+    r = db.record(grt::Table::Propellant, *id);
+    QCOMPARE(r->value(u"Qex"_s).toDouble(), 0.0);
+    QCOMPARE(r->value(u"pname"_s).toString(), u"Test"_s);
 }
 
 // The project's records (JSON files in data/) appear in the one database, read-only, in their own id range.

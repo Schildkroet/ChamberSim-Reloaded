@@ -272,19 +272,19 @@ bool MainWindow::openLoad(const QString &path)
             return true;
         }
     }
-    auto *view = new LoadView;
+    auto owned = std::make_unique<LoadView>();
     QString error;
-    if (!view->load(path, &error)) {
-        delete view;
+    if (!owned->load(path, &error)) {
         QMessageBox::warning(this, tr("Open load"), tr("Cannot read %1:\n%2").arg(path, error));
         return false;
     }
+    LoadView *view = owned.get();
     view->setDatabase(&m_db);
     connect(view, &LoadView::modifiedChanged, this, [this, view] {
         updateTabTitle(view);
         updateActions();
     });
-    const int idx = m_tabs->addTab(view, QString());
+    const int idx = m_tabs->addTab(owned.release(), QString());  // the tab widget owns it now
     m_tabs->setCurrentIndex(idx);
     updateTabTitle(view);
     addRecentFile(path);

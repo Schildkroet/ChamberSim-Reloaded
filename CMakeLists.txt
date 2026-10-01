@@ -38,6 +38,7 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Sql Xml Charts PrintSupport Test Li
 # ---- core library (no GUI): file formats, database access, ballistics solver ----
 add_library(grtcore STATIC
     src/core/loadfile.h
+    src/core/numeric.h
     src/core/loadfile.cpp
     src/core/solver.h
     src/core/solver.cpp

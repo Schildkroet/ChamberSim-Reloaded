@@ -1,5 +1,6 @@
 #include "recorddialog.h"
 
+#include "numeric.h"
 #include "unitprefs.h"
 
 #include <QComboBox>
@@ -59,10 +60,7 @@ std::optional<double> parseNumber(const grt::dbfields::Field &f, const QString &
         const auto base = grt::units::parseToBase(t, *u);
         return base ? std::optional(*base / f.toBase) : std::nullopt;
     }
-    bool ok = false;
-    double v = QLocale().toDouble(t, &ok);
-    if (!ok) v = QLocale::c().toDouble(t, &ok);
-    return ok ? std::optional(v) : std::nullopt;
+    return grt::parseFiniteLocale(t);
 }
 
 }  // namespace

@@ -4,11 +4,20 @@
 #include <QRegularExpression>
 #include <QStringList>
 
+#include <algorithm>
+
 using namespace Qt::StringLiterals;
 
 namespace grt::report {
 
 namespace {
+
+// value * num / den for image sizes, in double (template sizes like 99999x99999 overflow int); 0 if den <= 0
+int scaled(int value, int num, int den)
+{
+    if (den <= 0) return 0;
+    return static_cast<int>(std::clamp(static_cast<double>(value) * num / den, 0.0, 100'000.0));
+}
 
 QString colorOf(const QString &name)
 {
@@ -57,15 +66,15 @@ QString imageHtml(const QString &inner, const ImageResolver &images, int pageWid
     for (const QString &part : params.split(u'&', Qt::SkipEmptyParts)) {
         static const QRegularExpression whRe(u"^(\\d+)x(\\d+)$"_s), wRe(u"^(\\d+)$"_s), pRe(u"^(\\d+)%$"_s);
         if (const auto m = whRe.match(part); m.hasMatch()) { width = m.captured(1).toInt(); height = m.captured(2).toInt(); }
-        else if (const auto m2 = wRe.match(part); m2.hasMatch()) { const int w = m2.captured(1).toInt(); height = width > 0 ? height * w / width : 0; width = w; }
+        else if (const auto m2 = wRe.match(part); m2.hasMatch()) { const int w = m2.captured(1).toInt(); height = scaled(height, w, width); width = w; }
         else if (const auto m3 = pRe.match(part); m3.hasMatch()) {
-            const int w = pageWidth * m3.captured(1).toInt() / 100;
-            height = width > 0 ? static_cast<int>(static_cast<double>(height) * w / width) : 0;
+            const int w = scaled(pageWidth, m3.captured(1).toInt(), 100);
+            height = scaled(height, w, width);
             width = w;
         } else if (part.startsWith(u"link=")) link = part.mid(5);
     }
     if (width > pageWidth && pageWidth > 0) {  // never wider than the page
-        height = static_cast<int>(static_cast<double>(height) * pageWidth / width);
+        height = scaled(height, pageWidth, width);
         width = pageWidth;
     }
     QString size;

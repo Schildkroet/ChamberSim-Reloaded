@@ -8,6 +8,10 @@
 
 namespace grt {
 
+// Text values of the file format are percent-encoded (UTF-8); decode leaves text without '%' as it is.
+[[nodiscard]] QString percentDecode(const QString &s);
+[[nodiscard]] QString percentEncode(const QString &s);
+
 // One <input .../> (or <var .../>, <config .../>) element.
 // Strings are stored percent-decoded; they are re-encoded on write.
 struct Entry {
@@ -23,6 +27,7 @@ class EntryList {
 public:
     [[nodiscard]] const Entry *find(QStringView name) const noexcept;
     [[nodiscard]] QString text(QStringView name, const QString &fallback = {}) const;
+    // The value as a finite number; `fallback` if missing, not a number, NaN or infinite.
     [[nodiscard]] double number(QStringView name, double fallback = 0.0) const;
     [[nodiscard]] bool flag(QStringView name, bool fallback = false) const;
 

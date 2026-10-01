@@ -4,6 +4,7 @@
 #include "chamberview.h"
 #include "curvechart.h"
 #include "loadbuilder.h"
+#include "numeric.h"
 #include "measurementchart.h"
 #include "measurementview.h"
 #include "buttonstyle.h"
@@ -443,7 +444,7 @@ void LoadView::recompute()
 {
     m_input = grt::SimInput::fromLoad(m_file);
     m_ladder = grt::simulateLadder(m_input);
-    m_focus = std::clamp(static_cast<int>(m_file.config.number(u"CurveFocusIdx", 0.0)), 0, static_cast<int>(m_ladder.size()) - 1);
+    m_focus = grt::toIntClamped(m_file.config.number(u"CurveFocusIdx", 0.0), 0, static_cast<int>(m_ladder.size()) - 1);
     m_result = m_ladder[static_cast<std::size_t>(m_focus)].result;
     m_focusInput = m_input;
     m_focusInput.charge_g = m_ladder[static_cast<std::size_t>(m_focus)].charge_g;

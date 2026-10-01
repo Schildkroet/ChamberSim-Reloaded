@@ -40,6 +40,8 @@ signals:
 
 private:
     void updateCount();
+    // Reads all rows of the model (the tables are small enough to load completely); logs a failed query.
+    void selectAll();
     [[nodiscard]] QString baseFilter() const;
 
     grt::Table m_table;

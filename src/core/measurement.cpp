@@ -1,6 +1,7 @@
 #include "measurement.h"
 
-#include <QUrl>
+#include "loadfile.h"
+
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
@@ -12,16 +13,6 @@ using namespace Qt::StringLiterals;
 namespace grt {
 
 namespace {
-
-QString decode(const QString &s)
-{
-    return s.contains(u'%') ? QUrl::fromPercentEncoding(s.toUtf8()) : s;
-}
-
-QString encode(const QString &s)
-{
-    return QString::fromLatin1(QUrl::toPercentEncoding(s));
-}
 
 QString number(double v)
 {
@@ -69,14 +60,14 @@ MeasuredCharge readCharge(QXmlStreamReader &r)
 {
     MeasuredCharge c;
     c.attributes = rawAttributes(r.attributes());
-    c.name = decode(attribute(c.attributes, u"name"));
-    c.note = decode(attribute(c.attributes, u"note"));
+    c.name = percentDecode(attribute(c.attributes, u"name"));
+    c.note = percentDecode(attribute(c.attributes, u"note"));
     c.charge_kg = attribute(c.attributes, u"value").toDouble();
     QXmlStreamWriter extra(&c.extraXml);
     while (r.readNextStartElement()) {
         if (r.name() == u"shot") {
             const RawAttributes a = rawAttributes(r.attributes());
-            c.shots.push_back({.name = decode(attribute(a, u"name")),
+            c.shots.push_back({.name = percentDecode(attribute(a, u"name")),
                                .velocity_ms = attribute(a, u"velocity").toDouble(),
                                .pressure_bar = attribute(a, u"pressure").toDouble()});
             r.skipCurrentElement();
@@ -90,13 +81,13 @@ MeasuredCharge readCharge(QXmlStreamReader &r)
 void writeBlock(QXmlStreamWriter &w, const Measurement &m)
 {
     w.writeStartElement(u"Measurement"_s);
-    writeAttributes(w, m.attributes, {{u"title"_s, encode(m.title)}});
+    writeAttributes(w, m.attributes, {{u"title"_s, percentEncode(m.title)}});
     for (const MeasuredCharge &c : m.charges) {
         w.writeStartElement(u"charge"_s);
-        writeAttributes(w, c.attributes, {{u"name"_s, encode(c.name)}, {u"note"_s, encode(c.note)}, {u"value"_s, number(c.charge_kg)}});
+        writeAttributes(w, c.attributes, {{u"name"_s, percentEncode(c.name)}, {u"note"_s, percentEncode(c.note)}, {u"value"_s, number(c.charge_kg)}});
         for (const Shot &s : c.shots) {
             w.writeEmptyElement(u"shot"_s);
-            w.writeAttribute(u"name"_s, encode(s.name));
+            w.writeAttribute(u"name"_s, percentEncode(s.name));
             w.writeAttribute(u"velocity"_s, number(s.velocity_ms));
             w.writeAttribute(u"pressure"_s, number(s.pressure_bar));
         }
@@ -170,7 +161,7 @@ std::optional<Measurement> readMeasurement(const QString &appendixXml)
         }
         Measurement m;
         m.attributes = rawAttributes(r.attributes());
-        m.title = decode(attribute(m.attributes, u"title"));
+        m.title = percentDecode(attribute(m.attributes, u"title"));
         while (r.readNextStartElement()) {
             if (r.name() == u"charge") m.charges.push_back(readCharge(r));
             else r.skipCurrentElement();

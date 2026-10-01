@@ -13,6 +13,7 @@
 #include <QUuid>
 
 #include <array>
+#include <cmath>
 
 using namespace Qt::StringLiterals;
 
@@ -107,10 +108,23 @@ std::vector<std::pair<QString, QString>> tableColumns(const QSqlDatabase &db, co
     return out;
 }
 
-// The columns are NOT NULL: a null string is stored as an empty one.
+// The columns are NOT NULL: a null string is stored as an empty one. Values SQLite would store as NULL (no value,
+// NaN) come back invalid: the caller puts the column's empty value there.
 QVariant notNull(const QVariant &v)
 {
-    return v.typeId() == QMetaType::QString && v.toString().isNull() ? QVariant(u""_s) : v;
+    if (v.typeId() == QMetaType::QString) return v.toString().isNull() ? QVariant(u""_s) : v;
+    if (!v.isValid() || v.isNull()) return {};
+    if (v.typeId() == QMetaType::Double && !std::isfinite(v.toDouble())) return {};
+    return v;
+}
+
+// The value a NOT NULL column gets when none is given.
+QVariant emptyValue(const QString &column, const QString &type)
+{
+    if (column == u"geloescht") return 0;
+    if (type == u"DATE") return QDate::currentDate().toString(Qt::ISODate);
+    if (type == u"TEXT") return u""_s;  // not a null string: that would be NULL
+    return 0;
 }
 
 QString &projectLocation()
@@ -149,7 +163,8 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
     m_connection = u"grt-"_s + QUuid::createUuid().toString(QUuid::WithoutBraces);
     m_db = QSqlDatabase::addDatabase(u"QSQLITE"_s, m_connection);
     m_db.setDatabaseName(own);
-    m_db.setConnectOptions(u"QSQLITE_OPEN_URI"_s);  // for attaching the original read-only
+    // URIs for attaching the original read-only; wait for a lock (a second instance, a backup) instead of failing
+    m_db.setConnectOptions(u"QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=5000"_s);
     if (!m_db.open()) {
         if (error) *error = m_db.lastError().text();
         close();
@@ -169,7 +184,7 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
     if (!originalPath.isEmpty()) {
         QSqlQuery q(m_db);
         q.prepare(u"ATTACH DATABASE ? AS grt"_s);
-        q.addBindValue(QUrl::fromLocalFile(QFileInfo(originalPath).absoluteFilePath()).toString() + u"?mode=ro"_s);
+        q.addBindValue(QUrl::fromLocalFile(QFileInfo(originalPath).absoluteFilePath()).toString(QUrl::FullyEncoded) + u"?mode=ro"_s);
         if (!QFileInfo::exists(originalPath)) {
             if (error) *error = QStringLiteral("%1 does not exist").arg(originalPath);
             ok = false;
@@ -196,6 +211,25 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
 }
 
 bool Database::createOwnTables(QString *error)
+{
+    // all tables or none: a migration that stops half-way would leave some records in the old id range
+    if (!m_db.transaction()) {
+        if (error) *error = m_db.lastError().text();
+        return false;
+    }
+    if (!createOwnTablesInTransaction(error)) {
+        m_db.rollback();
+        return false;
+    }
+    if (!m_db.commit()) {
+        if (error) *error = m_db.lastError().text();
+        m_db.rollback();
+        return false;
+    }
+    return true;
+}
+
+bool Database::createOwnTablesInTransaction(QString *error)
 {
     constexpr int kOldOwnIdBase = kProjectIdBase;  // before the project records came, own ids started there
     for (const TableSchema &t : kSchema) {
@@ -227,7 +261,11 @@ bool Database::loadProjectData(QString *error)
         const QString name = QLatin1String(t.name);
         if (!exec(m_db, u"CREATE TABLE proj.%1 (%2)"_s.arg(name, QLatin1String(t.columns)), error)) return false;
     }
-    m_db.transaction();
+    // one transaction for speed; the records live in memory only, a failed commit is an error of the program
+    if (!m_db.transaction()) {
+        if (error) *error = m_db.lastError().text();
+        return false;
+    }
     for (const Table t : {Table::Caliber, Table::Projectile, Table::Propellant}) {
         const projectdata::Loaded loaded = projectdata::load(projectLocation(), t, schema(t));
         m_projectErrors << loaded.errors;
@@ -237,7 +275,11 @@ bool Database::loadProjectData(QString *error)
             if (!insertInto(u"proj"_s, t, record, id++, &err)) m_projectErrors << projectdata::folderName(t) + u": "_s + err;
         }
     }
-    m_db.commit();
+    if (!m_db.commit()) {
+        if (error) *error = m_db.lastError().text();
+        m_db.rollback();
+        return false;
+    }
     return true;
 }
 
@@ -333,7 +375,6 @@ std::optional<int> Database::insert(Table t, const QVariantMap &values, QString 
 std::optional<int> Database::insertInto(const QString &schemaName, Table t, const QVariantMap &values, int id, QString *error)
 {
     const QString name = QLatin1String(tableName(t));
-    const QString today = QDate::currentDate().toString(Qt::ISODate);
     QStringList cols, marks;
     QVariantList binds;
     for (const auto &[col, type] : tableColumns(m_db, u"main"_s, name)) {
@@ -344,12 +385,7 @@ std::optional<int> Database::insertInto(const QString &schemaName, Table t, cons
         }
         for (auto it = values.begin(); col != u"id" && it != values.end(); ++it)
             if (it.key().compare(col, Qt::CaseInsensitive) == 0) v = notNull(it.value());
-        if (!v.isValid()) {
-            if (col == u"geloescht") v = 0;
-            else if (type == u"DATE") v = today;
-            else if (type == u"TEXT") v = u""_s;  // not a null string: that would be NULL
-            else v = 0;
-        }
+        if (!v.isValid()) v = emptyValue(col, type);
         cols << col;
         marks << u"?"_s;
         binds << v;
@@ -377,8 +413,9 @@ bool Database::update(Table t, int id, const QVariantMap &values, QString *error
         if (col == u"id") continue;
         for (auto it = values.begin(); it != values.end(); ++it)
             if (it.key().compare(col, Qt::CaseInsensitive) == 0) {
+                const QVariant v = notNull(it.value());
                 sets << col + u" = ?"_s;
-                binds << notNull(it.value());
+                binds << (v.isValid() ? v : emptyValue(col, type));
             }
     }
     if (sets.isEmpty()) return true;

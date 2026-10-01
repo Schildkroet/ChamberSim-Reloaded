@@ -1,6 +1,7 @@
 #include "report.h"
 
 #include "loadbuilder.h"
+#include "numeric.h"
 #include "reportformat.h"
 
 #include <QFileInfo>
@@ -93,7 +94,8 @@ QString renderReport(const QString &templateText, const Data &data, const Render
         // natural size from the PNG header (IHDR: width and height as big-endian 32 bit numbers)
         const auto be32 = [&](int at) {
             const auto *p = reinterpret_cast<const unsigned char *>(v->png.constData()) + at;
-            return (static_cast<int>(p[0]) << 24) | (p[1] << 16) | (p[2] << 8) | p[3];
+            const quint32 v = (quint32{p[0]} << 24) | (quint32{p[1]} << 16) | (quint32{p[2]} << 8) | quint32{p[3]};
+            return v > 100'000 ? 0 : static_cast<int>(v);  // a broken header: no natural size
         };
         return {u"data:image/png;base64,"_s + QString::fromLatin1(v->png.toBase64()), be32(16), be32(20)};
     };
@@ -140,7 +142,7 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
     num(u"work.mp"_s, p.number(u"mp"), Quantity::BulletMass);
     num(u"work.glen"_s, p.number(u"glen"), Quantity::Length);
     num(u"work.gdepth"_s, p.number(u"gdepth"), Quantity::Length);
-    const int tailType = static_cast<int>(p.number(u"gTailType"));
+    const int tailType = toIntClamped(p.number(u"gTailType"), 0, 2);
     // the guided seating depth is the contact length of the cylindrical part: a boat tail does not guide
     num(u"work.gdepthc"_s, std::max(0.0, p.number(u"gdepth") - (tailType == 2 ? p.number(u"gtailh") : 0.0)), Quantity::Length);
     txt(u"work.gtailtype"_s, tailType == 1 ? u"hollowbase"_s : tailType == 2 ? u"boattail"_s : u"flatbase"_s);

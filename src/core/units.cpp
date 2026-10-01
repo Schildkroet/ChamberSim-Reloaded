@@ -1,5 +1,7 @@
 #include "units.h"
 
+#include "numeric.h"
+
 #include <QCoreApplication>
 #include <QLocale>
 
@@ -125,12 +127,9 @@ QString format(double base, const Unit &u, int decimals)
 
 std::optional<double> parseToBase(const QString &text, const Unit &u)
 {
-    const QString t = text.trimmed();
-    bool ok = false;
-    double v = QLocale().toDouble(t, &ok);
-    if (!ok) v = QLocale::c().toDouble(t, &ok);
-    if (!ok) return std::nullopt;
-    return fromDisplay(v, u);
+    const auto v = parseFiniteLocale(text);
+    if (!v) return std::nullopt;
+    return fromDisplay(*v, u);
 }
 
 QString systemName(System s)
