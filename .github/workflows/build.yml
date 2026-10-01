@@ -51,8 +51,10 @@ jobs:
         env:
           APPIMAGE_EXTRACT_AND_RUN: "1"     # no FUSE on the runner
           NO_STRIP: "1"
-          LDAI_OUTPUT: GRTReloaded-${{ github.ref_type == 'tag' && github.ref_name || github.sha }}-x86_64.AppImage
         run: |
+          # named after the program version (set(GRT_VERSION ...) in CMakeLists.txt)
+          version=$(sed -n 's/^set(GRT_VERSION "\(.*\)")/\1/p' CMakeLists.txt)
+          export LDAI_OUTPUT="GRTReloaded-${version}-x86_64.AppImage"
           # only the SQLite driver is needed; the others would pull in client libraries that are not installed
           find "$QT_ROOT_DIR/plugins/sqldrivers" -name '*.so' ! -name 'libqsqlite.so' -delete
           export QMAKE="$QT_ROOT_DIR/bin/qmake"
@@ -125,7 +127,9 @@ jobs:
       - name: Zip
         shell: pwsh
         run: |
-          $name = "GRTReloaded-${{ github.ref_type == 'tag' && github.ref_name || github.sha }}-windows-x64"
+          # named after the program version (set(GRT_VERSION ...) in CMakeLists.txt)
+          $version = (Select-String -Path CMakeLists.txt -Pattern '^set\(GRT_VERSION "(.*)"\)').Matches[0].Groups[1].Value
+          $name = "GRTReloaded-$version-windows-x64"
           Move-Item dist\bin $name
           Compress-Archive -Path $name -DestinationPath "$name.zip"
 
