@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QPalette>
+#include <QProxyStyle>
 #include <QSettings>
 #include <QStyle>
 #include <QStyleFactory>
@@ -33,6 +34,23 @@ QPalette darkPalette()
     p.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(0x7a, 0x84, 0x90));
     return p;
 }
+// Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the
+// Fusion/GTK popup that covers the field and tries to show every item. A long list (e.g. the countries) does not
+// fit on the screen and gets moved; on Wayland the mouse release then lands outside and closes it at once.
+class ListPopupStyle : public QProxyStyle {
+public:
+    using QProxyStyle::QProxyStyle;
+    int styleHint(StyleHint hint, const QStyleOption *option, const QWidget *widget, QStyleHintReturn *ret) const override
+    {
+        if (hint == SH_ComboBox_Popup) return 0;
+        return QProxyStyle::styleHint(hint, option, widget, ret);
+    }
+};
+
+void setStyle(QApplication &app, const QString &name)
+{
+    app.setStyle(new ListPopupStyle(QStyleFactory::create(name)));
+}
 }  // namespace
 
 Mode storedMode()
@@ -50,19 +68,19 @@ void storeMode(Mode mode)
 
 void apply(QApplication &app, Mode mode)
 {
-    static const QString systemStyle = app.style()->objectName();
+    static const QString systemStyle = app.style()->name();
     static const QPalette systemPalette = app.palette();
     switch (mode) {
     case Mode::System:
-        app.setStyle(systemStyle);
+        setStyle(app, systemStyle);
         app.setPalette(systemPalette);
         break;
     case Mode::Light:
-        app.setStyle(QStyleFactory::create(QStringLiteral("Fusion")));
+        setStyle(app, QStringLiteral("Fusion"));
         app.setPalette(app.style()->standardPalette());
         break;
     case Mode::Dark:
-        app.setStyle(QStyleFactory::create(QStringLiteral("Fusion")));
+        setStyle(app, QStringLiteral("Fusion"));
         app.setPalette(darkPalette());
         break;
     }

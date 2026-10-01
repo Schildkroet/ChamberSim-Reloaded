@@ -24,9 +24,12 @@
 #include <QTableView>
 #include <QTableWidget>
 #include <QTemporaryDir>
+#include <QProxyStyle>
+#include <QStyleOptionComboBox>
 #include <QtTest>
 
 #include "about.h"
+#include "theme.h"
 #include "appfont.h"
 #include "cartridgeview.h"
 #include "chamberview.h"
@@ -90,6 +93,7 @@ private slots:
     void originalDatabaseIsChosenInTheSettings();
     void recordDialogShowsReadableFieldsInUserUnits();
     void recordsAreAddedCopiedEditedAndDeleted();
+    void comboBoxesOpenAsAScrollingList();
 
 private:
     static int idOf(grt::Database &db, grt::Table t, const QString &where);
@@ -1353,6 +1357,25 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QCOMPARE(m_db.count(grt::Table::Propellant), count);
     }
     QSettings().setValue(u"database/path"_s, before);
+}
+
+// Long lists (the countries) must not open as a full-height popup: on Wayland that one closes again at once.
+void GuiTest::comboBoxesOpenAsAScrollingList()
+{
+    auto &app = *qobject_cast<QApplication *>(QCoreApplication::instance());
+    const QString before = app.style()->name();
+    for (const theme::Mode mode : {theme::Mode::System, theme::Mode::Light, theme::Mode::Dark}) {
+        theme::apply(app, mode);
+        QComboBox combo;
+        for (int i = 0; i < 300; ++i) combo.addItem(QString::number(i));
+        QStyleOptionComboBox opt;
+        opt.initFrom(&combo);
+        QCOMPARE(combo.style()->styleHint(QStyle::SH_ComboBox_Popup, &opt, &combo), 0);
+    }
+    theme::apply(app, theme::Mode::System);
+    auto *proxy = qobject_cast<QProxyStyle *>(app.style());
+    QVERIFY(proxy);
+    QCOMPARE(proxy->baseStyle()->name(), before);  // the system style itself is kept
 }
 
 QTEST_MAIN(GuiTest)
