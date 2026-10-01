@@ -391,12 +391,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+234"/>
+        <location filename="../src/app/mainwindow.cpp" line="+241"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-183"/>
+        <location filename="../src/app/mainwindow.cpp" line="-188"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -431,7 +431,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>Export…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Save the selected record as a file to contribute it to the project&apos;s database (see CONTRIBUTING.md)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Add a new record to the database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -441,15 +451,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <location line="+209"/>
-        <location line="+157"/>
+        <location line="+159"/>
         <location line="+25"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-354"/>
+        <location line="-356"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -517,17 +527,18 @@
     </message>
     <message>
         <location line="+1"/>
+        <location line="+351"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="-215"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Original database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -555,12 +566,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+104"/>
-        <source>Records of the original database cannot be changed: make a copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+106"/>
         <source>Change the selected record</source>
         <translation type="unfinished"></translation>
     </message>
@@ -594,12 +600,12 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+74"/>
         <source>The database cannot be opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-359"/>
+        <location line="-391"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -681,13 +687,43 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+60"/>
-        <location line="+235"/>
+        <location line="+267"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-117"/>
+        <source>Only your own records can be changed: make a copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+74"/>
+        <location line="+9"/>
+        <location line="+4"/>
+        <source>Export record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-12"/>
+        <source>This record is not complete for the project&apos;s database:
+%1
+
+Export it anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Record files (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Saved %1: add it to data/%2/ in the project to contribute it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
         <location line="+6"/>
         <location line="+4"/>
         <source>Reference</source>
@@ -1364,7 +1400,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+57"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation type="unfinished"></translation>
     </message>

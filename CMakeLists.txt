@@ -64,6 +64,8 @@ add_library(grtcore STATIC
     src/core/measurement.cpp
     src/core/dbfields.h
     src/core/dbfields.cpp
+    src/core/projectdata.h
+    src/core/projectdata.cpp
 )
 target_include_directories(grtcore PUBLIC src/core)
 target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
@@ -133,6 +135,12 @@ target_link_libraries(GRTReloaded PRIVATE grtui)
 qt_add_resources(GRTReloaded "icons" PREFIX "/"
     FILES resources/icons/grtreloaded-32.png resources/icons/grtreloaded-64.png resources/icons/grtreloaded-256.png)
 
+# the project's records (data/<calibers|projectiles|propellants>/*.json), read at startup as ":/data/..."
+file(GLOB_RECURSE GRT_PROJECT_DATA CONFIGURE_DEPENDS RELATIVE "${CMAKE_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/data/*.json")
+if(GRT_PROJECT_DATA)
+    qt_add_resources(GRTReloaded "projectdata" PREFIX "/" FILES ${GRT_PROJECT_DATA})
+endif()
+
 set_target_properties(GRTReloaded PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -171,6 +179,11 @@ qt_add_translations(GRTReloaded
 qt_finalize_executable(GRTReloaded)
 
 # ---- developer tool: compare the solver with the reference runs of the original program ----
+# checks the project's record files (used by CI): grt_datacheck [data directory]
+add_executable(grt_datacheck tools/grt_datacheck.cpp)
+target_link_libraries(grt_datacheck PRIVATE grtcore)
+target_compile_definitions(grt_datacheck PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+
 add_executable(grt_compare tools/grt_compare.cpp)
 target_link_libraries(grt_compare PRIVATE grtcore)
 target_compile_definitions(grt_compare PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")

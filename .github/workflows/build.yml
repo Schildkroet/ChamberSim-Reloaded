@@ -39,6 +39,11 @@ jobs:
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
           cmake --build build --target GRTReloaded --parallel
 
+      - name: Check the project database (data/)
+        run: |
+          cmake --build build --target grt_datacheck --parallel
+          build/grt_datacheck data
+
       - name: Smoke test (starts the app offscreen and takes a screenshot)
         env:
           QT_QPA_PLATFORM: offscreen

@@ -4,6 +4,7 @@
 #include "about.h"
 #include "buttonstyle.h"
 #include "dbfields.h"
+#include "projectdata.h"
 #include "loadview.h"
 #include "newloaddialog.h"
 #include "reportview.h"
@@ -18,6 +19,7 @@
 #include <QApplication>
 #include <QActionGroup>
 #include <QCloseEvent>
+#include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHBoxLayout>
@@ -64,6 +66,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_copyRecord = new QPushButton(tr("Copy…"));
     m_editRecord = new QPushButton(tr("Edit…"));
     m_deleteRecord = new QPushButton(tr("Delete"));
+    m_exportRecord = new QPushButton(tr("Export…"));
+    m_exportRecord->setToolTip(tr("Save the selected record as a file to contribute it to the project's database "
+                                  "(see CONTRIBUTING.md)"));
     markPrimary(m_newRecord);
     m_newRecord->setToolTip(tr("Add a new record to the database"));
     m_copyRecord->setToolTip(tr("Add a changed copy of the selected record (double click on a record of the original database)"));
@@ -71,9 +76,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_copyRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::Copy); });
     connect(m_editRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::Edit); });
     connect(m_deleteRecord, &QPushButton::clicked, this, [this] { deleteRecord(); });
+    connect(m_exportRecord, &QPushButton::clicked, this, [this] { exportRecord(); });
     auto *recordBar = new QHBoxLayout;
     for (QPushButton *b : {m_newRecord, m_copyRecord, m_editRecord, m_deleteRecord}) recordBar->addWidget(b);
     recordBar->addStretch(1);
+    recordBar->addWidget(m_exportRecord);
     auto *dbPage = new QWidget;
     auto *dbLayout = new QVBoxLayout(dbPage);
     dbLayout->setContentsMargins(4, 4, 4, 0);
@@ -297,6 +304,7 @@ bool MainWindow::openDatabase(const QString &originalPath, bool complain)
     for (TableBrowser *b : m_browsers) b->setDatabase(&m_db);
     setLoadViewDatabases(true);
     updateRecordButtons();
+    for (const QString &problem : m_db.projectErrors()) qWarning("project data: %s", qPrintable(problem));
     if (!ok && complain)
         QMessageBox::warning(this, tr("Original database"),
                              tr("Cannot use %1:\n%2\n\nThe original GordonsReloadingTool.db is encrypted; "
@@ -417,7 +425,8 @@ void MainWindow::updateRecordButtons()
     m_copyRecord->setEnabled(id >= 0);
     m_editRecord->setEnabled(own);
     m_deleteRecord->setEnabled(own);
-    const QString locked = tr("Records of the original database cannot be changed: make a copy");
+    m_exportRecord->setEnabled(own);
+    const QString locked = tr("Only your own records can be changed: make a copy");
     m_editRecord->setToolTip(id >= 0 && !own ? locked : tr("Change the selected record"));
     m_deleteRecord->setToolTip(id >= 0 && !own ? locked : tr("Delete the selected record"));
 }
@@ -479,6 +488,36 @@ bool MainWindow::deleteRecord(bool ask)
     currentBrowser()->refresh();
     updateRecordButtons();
     statusBar()->showMessage(databaseSummary());
+    return true;
+}
+
+bool MainWindow::exportRecord(const QString &path)
+{
+    const grt::Table table = currentTable();
+    const int id = currentBrowser()->currentId();
+    if (!grt::Database::isOwnId(id)) return false;
+    const auto record = m_db.record(table, id);
+    if (!record) return false;
+    const auto schema = m_db.schema(table);
+    if (const QStringList problems = grt::projectdata::check(table, *record, schema); !problems.isEmpty() && path.isEmpty()) {
+        if (QMessageBox::warning(this, tr("Export record"),
+                                 tr("This record is not complete for the project's database:\n%1\n\nExport it anyway?")
+                                     .arg(problems.join(u'\n')),
+                                 QMessageBox::Yes | QMessageBox::No)
+            != QMessageBox::Yes)
+            return false;
+    }
+    QString file = path;
+    if (file.isEmpty())
+        file = QFileDialog::getSaveFileName(this, tr("Export record"), grt::projectdata::fileName(table, *record), tr("Record files (*.json)"));
+    if (file.isEmpty()) return false;
+    QFile out(file);
+    if (!out.open(QIODevice::WriteOnly) || out.write(grt::projectdata::toJson(*record, schema)) < 0) {
+        QMessageBox::warning(this, tr("Export record"), tr("Cannot write %1").arg(file));
+        return false;
+    }
+    statusBar()->showMessage(tr("Saved %1: add it to data/%2/ in the project to contribute it.")
+                                 .arg(QFileInfo(file).fileName(), grt::projectdata::folderName(table)));
     return true;
 }
 

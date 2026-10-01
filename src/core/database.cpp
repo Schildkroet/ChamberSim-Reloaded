@@ -1,5 +1,7 @@
 #include "database.h"
 
+#include "projectdata.h"
+
 #include <QDate>
 #include <QDir>
 #include <QFileInfo>
@@ -111,7 +113,23 @@ QVariant notNull(const QVariant &v)
     return v.typeId() == QMetaType::QString && v.toString().isNull() ? QVariant(u""_s) : v;
 }
 
+QString &projectLocation()
+{
+    static QString location = u":/data"_s;
+    return location;
+}
+
 }  // namespace
+
+void Database::setProjectDataLocation(const QString &location)
+{
+    projectLocation() = location;
+}
+
+QString Database::projectDataLocation()
+{
+    return projectLocation();
+}
 
 Database::~Database()
 {
@@ -142,6 +160,10 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
         return false;
     }
     m_ownPath = own;
+    if (!loadProjectData(error)) {
+        close();
+        return false;
+    }
 
     bool ok = true;
     if (!originalPath.isEmpty()) {
@@ -175,19 +197,51 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
 
 bool Database::createOwnTables(QString *error)
 {
+    constexpr int kOldOwnIdBase = kProjectIdBase;  // before the project records came, own ids started there
     for (const TableSchema &t : kSchema) {
         const QString name = QLatin1String(t.name);
         if (!exec(m_db, u"CREATE TABLE IF NOT EXISTS main.%1 (%2)"_s.arg(name, QLatin1String(t.columns)), error)) return false;
-        // own ids start at kOwnIdBase (AUTOINCREMENT continues after the highest sequence value)
-        if (!exec(m_db, u"INSERT INTO main.sqlite_sequence (name, seq) SELECT '%1', %2 WHERE NOT EXISTS "
-                         "(SELECT 1 FROM main.sqlite_sequence WHERE name = '%1')"_s.arg(name).arg(kOwnIdBase - 1),
+        // own records of older versions move up to the own range (load files keep values, not ids)
+        if (!exec(m_db, u"UPDATE main.%1 SET id = id + %2 WHERE id >= %3 AND id < %4"_s.arg(name).arg(kOwnIdBase - kOldOwnIdBase)
+                             .arg(kOldOwnIdBase).arg(kOwnIdBase),
                   error))
+            return false;
+        // own ids start at kOwnIdBase (AUTOINCREMENT continues after the highest sequence value)
+        if (!exec(m_db, u"INSERT INTO main.sqlite_sequence (name, seq) SELECT '%1', 0 WHERE NOT EXISTS "
+                         "(SELECT 1 FROM main.sqlite_sequence WHERE name = '%1')"_s.arg(name),
+                  error)
+            || !exec(m_db, u"UPDATE main.sqlite_sequence SET seq = max(%2, (SELECT ifnull(max(id), 0) FROM main.%1)) WHERE name = '%1'"_s
+                               .arg(name).arg(kOwnIdBase - 1),
+                     error))
             return false;
     }
     return true;
 }
 
-// temp.<table> = own rows + original rows; unqualified names resolve to the temp schema first.
+// The project's records: an in-memory schema "proj" with the same tables, filled from the JSON files.
+bool Database::loadProjectData(QString *error)
+{
+    m_projectErrors.clear();
+    if (!exec(m_db, u"ATTACH DATABASE ':memory:' AS proj"_s, error)) return false;
+    for (const TableSchema &t : kSchema) {
+        const QString name = QLatin1String(t.name);
+        if (!exec(m_db, u"CREATE TABLE proj.%1 (%2)"_s.arg(name, QLatin1String(t.columns)), error)) return false;
+    }
+    m_db.transaction();
+    for (const Table t : {Table::Caliber, Table::Projectile, Table::Propellant}) {
+        const projectdata::Loaded loaded = projectdata::load(projectLocation(), t, schema(t));
+        m_projectErrors << loaded.errors;
+        int id = kProjectIdBase;
+        for (const QVariantMap &record : loaded.records) {
+            QString err;
+            if (!insertInto(u"proj"_s, t, record, id++, &err)) m_projectErrors << projectdata::folderName(t) + u": "_s + err;
+        }
+    }
+    m_db.commit();
+    return true;
+}
+
+// temp.<table> = own rows + project rows + original rows; unqualified names resolve to the temp schema first.
 bool Database::createViews(QString *error)
 {
     for (const TableSchema &t : kSchema) {
@@ -200,7 +254,8 @@ bool Database::createViews(QString *error)
             const bool there = std::ranges::any_of(original, [&](const auto &c) { return c.first.compare(col, Qt::CaseInsensitive) == 0; });
             originalCols << (there ? col : u"NULL AS "_s + col);
         }
-        QString sql = u"CREATE TEMP VIEW %1 AS SELECT %2 FROM main.%1"_s.arg(name, cols.join(u", "_s));
+        const QString list = cols.join(u", "_s);
+        QString sql = u"CREATE TEMP VIEW %1 AS SELECT %2 FROM main.%1 UNION ALL SELECT %2 FROM proj.%1"_s.arg(name, list);
         if (!original.empty()) sql += u" UNION ALL SELECT %1 FROM grt.%2"_s.arg(originalCols.join(u", "_s), name);
         if (!exec(m_db, u"DROP VIEW IF EXISTS temp.%1"_s.arg(name), error) || !exec(m_db, sql, error)) return false;
     }
@@ -216,6 +271,7 @@ void Database::close()
     m_connection.clear();
     m_originalPath.clear();
     m_ownPath.clear();
+    m_projectErrors.clear();
 }
 
 int Database::count(Table t) const
@@ -223,6 +279,13 @@ int Database::count(Table t) const
     QSqlQuery q(m_db);
     if (q.exec(QStringLiteral("SELECT count(*) FROM %1 WHERE geloescht = 0").arg(QLatin1String(tableName(t)))) && q.next())
         return q.value(0).toInt();
+    return 0;
+}
+
+int Database::projectCount(Table t) const
+{
+    QSqlQuery q(m_db);
+    if (q.exec(QStringLiteral("SELECT count(*) FROM proj.%1").arg(QLatin1String(tableName(t)))) && q.next()) return q.value(0).toInt();
     return 0;
 }
 
@@ -260,14 +323,23 @@ std::optional<QVariantMap> Database::record(Table t, int id) const
 
 std::optional<int> Database::insert(Table t, const QVariantMap &values, QString *error)
 {
+    return insertInto(u"main"_s, t, values, -1, error);
+}
+
+// `id` < 0: the next free one (AUTOINCREMENT)
+std::optional<int> Database::insertInto(const QString &schemaName, Table t, const QVariantMap &values, int id, QString *error)
+{
     const QString name = QLatin1String(tableName(t));
     const QString today = QDate::currentDate().toString(Qt::ISODate);
     QStringList cols, marks;
     QVariantList binds;
     for (const auto &[col, type] : tableColumns(m_db, u"main"_s, name)) {
-        if (col == u"id") continue;
         QVariant v;
-        for (auto it = values.begin(); it != values.end(); ++it)
+        if (col == u"id") {
+            if (id < 0) continue;
+            v = id;
+        }
+        for (auto it = values.begin(); col != u"id" && it != values.end(); ++it)
             if (it.key().compare(col, Qt::CaseInsensitive) == 0) v = notNull(it.value());
         if (!v.isValid()) {
             if (col == u"geloescht") v = 0;
@@ -280,19 +352,19 @@ std::optional<int> Database::insert(Table t, const QVariantMap &values, QString 
         binds << v;
     }
     QSqlQuery q(m_db);
-    q.prepare(u"INSERT INTO main.%1 (%2) VALUES (%3)"_s.arg(name, cols.join(u", "_s), marks.join(u", "_s)));
+    q.prepare(u"INSERT INTO %1.%2 (%3) VALUES (%4)"_s.arg(schemaName, name, cols.join(u", "_s), marks.join(u", "_s)));
     for (const QVariant &v : binds) q.addBindValue(v);
     if (!q.exec()) {
         if (error) *error = lastError(q);
         return std::nullopt;
     }
-    return q.lastInsertId().toInt();
+    return id >= 0 ? id : q.lastInsertId().toInt();
 }
 
 bool Database::update(Table t, int id, const QVariantMap &values, QString *error)
 {
     if (!isOwnId(id)) {
-        if (error) *error = u"records of the original database cannot be changed"_s;
+        if (error) *error = u"only own records can be changed (not those of the original database or the project)"_s;
         return false;
     }
     const QString name = QLatin1String(tableName(t));

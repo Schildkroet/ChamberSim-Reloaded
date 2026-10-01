@@ -1,3 +1,4 @@
+#include <QDir>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -12,6 +13,7 @@
 #include "loadbuilder.h"
 #include "loadfile.h"
 #include "measurement.h"
+#include "projectdata.h"
 #include "reference.h"
 #include "report.h"
 #include "reportformat.h"
@@ -52,6 +54,8 @@ private slots:
     void databaseOpensPlainFile();
     void ownDatabaseTakesNewRecords();
     void ownDatabaseWorksWithoutTheOriginal();
+    void projectRecordsArePartOfTheDatabase();
+    void ownRecordsOfOlderVersionsMoveUp();
     void languageResolution_data();
     void languageResolution();
     void normalizeLanguageTags();
@@ -598,6 +602,93 @@ void CoreTest::ownDatabaseWorksWithoutTheOriginal()
     QVERIFY(db.isOpen());
     QVERIFY(!db.hasOriginal());
     QCOMPARE(db.count(grt::Table::Caliber), 1);
+}
+
+// The project's records (JSON files in data/) appear in the one database, read-only, in their own id range.
+void CoreTest::projectRecordsArePartOfTheDatabase()
+{
+    QTemporaryDir dir;
+    QDir().mkpath(dir.filePath(u"data/propellants"_s));
+    QDir().mkpath(dir.filePath(u"data/calibers"_s));
+    const auto write = [&](const QString &name, const QByteArray &text) {
+        QFile f(dir.filePath(u"data/"_s + name));
+        QVERIFY(f.open(QIODevice::WriteOnly));
+        f.write(text);
+    };
+    write(u"propellants/acme-p1.json"_s, R"({"mname": "Acme", "pname": "P1", "Ba": 0.6, "Qex": 3900, "k": 1.22, "a0": 1.1,
+        "z1": 0.45, "z2": 0.8, "pc": 1600, "pcd": 900, "pt": 21})");
+    write(u"propellants/broken.json"_s, R"({"mname": "Acme", "pname": "P2", "Ba": "fast", "Qex": 3900})");
+    write(u"propellants/not-json.json"_s, "this is not json");
+    write(u"calibers/unknown-column.json"_s, R"({"cipname": "X", "L3": 50, "V": 60, "colour": "red"})");
+
+    grt::Database::setProjectDataLocation(dir.filePath(u"data"_s));
+    grt::Database db;
+    QString err;
+    QVERIFY2(db.open({}, dir.filePath(u"own.db"_s), &err), qPrintable(err));
+    QCOMPARE(db.projectCount(grt::Table::Propellant), 1);
+    QCOMPARE(db.projectCount(grt::Table::Caliber), 0);
+    QCOMPARE(db.count(grt::Table::Propellant), 1);
+    const auto rec = db.record(grt::Table::Propellant, grt::Database::kProjectIdBase);
+    QVERIFY(rec);
+    QVERIFY(grt::Database::isProjectId(grt::Database::kProjectIdBase));
+    QVERIFY(!grt::Database::isOwnId(grt::Database::kProjectIdBase));
+    QCOMPARE(rec->value(u"pname"_s).toString(), u"P1"_s);
+    QCOMPARE(rec->value(u"Ba"_s).toDouble(), 0.6);
+    QCOMPARE(rec->value(u"lotid"_s).toString(), QString());  // not in the file: empty
+    // the bad files are reported with their problem
+    const QString errors = db.projectErrors().join(u'\n');
+    QVERIFY2(errors.contains(u"propellants/broken.json: \"Ba\" must be a number"_s), qPrintable(errors));
+    QVERIFY(errors.contains(u"propellants/not-json.json"_s));
+    QVERIFY(errors.contains(u"calibers/unknown-column.json: unknown column \"colour\""_s));
+    // read-only; a copy becomes an own record
+    QVERIFY(!db.update(grt::Table::Propellant, grt::Database::kProjectIdBase, {{u"Ba"_s, 0.7}}));
+    QVERIFY(!db.remove(grt::Table::Propellant, grt::Database::kProjectIdBase));
+    QCOMPARE(*db.insert(grt::Table::Propellant, *rec), grt::Database::kOwnIdBase);
+    QCOMPARE(db.count(grt::Table::Propellant), 2);
+
+    // an exported record is a valid project file again (round trip), with a readable name
+    const auto schema = db.schema(grt::Table::Propellant);
+    QVariantMap own = *db.record(grt::Table::Propellant, grt::Database::kOwnIdBase);
+    own.insert(u"lotid"_s, u"Lot 7/2024"_s);
+    const QByteArray json = grt::projectdata::toJson(own, schema);
+    QVERIFY(!json.contains("\"id\""));
+    QVERIFY(!json.contains("geloescht"));
+    QVERIFY(json.indexOf("\"mname\"") < json.indexOf("\"Ba\""));  // schema order, one column per line
+    QCOMPARE(grt::projectdata::fileName(grt::Table::Propellant, own), u"acme-p1-lot-7-2024.json"_s);
+    write(u"propellants/"_s + grt::projectdata::fileName(grt::Table::Propellant, own), json);
+    const grt::projectdata::Loaded again = grt::projectdata::load(dir.filePath(u"data"_s), grt::Table::Propellant, schema);
+    QCOMPARE(again.records.size(), std::size_t{2});
+    const auto exported = std::ranges::find_if(again.records, [](const QVariantMap &r) { return r.value(u"lotid"_s) == u"Lot 7/2024"_s; });
+    QVERIFY(exported != again.records.end());
+    QCOMPARE(exported->value(u"Ba"_s).toDouble(), 0.6);
+    QCOMPARE(exported->value(u"pname"_s).toString(), u"P1"_s);
+
+    // the model needs plausible values
+    QVariantMap bad = *exported;
+    bad.insert(u"z1"_s, 0.9);
+    QVERIFY(grt::projectdata::check(grt::Table::Propellant, bad, schema).join(u' ').contains(u"z1 < z2"_s));
+    grt::Database::setProjectDataLocation(u":/data"_s);
+}
+
+// Own records of the version before the project records had ids from 1,000,000 on: they move to the own range.
+void CoreTest::ownRecordsOfOlderVersionsMoveUp()
+{
+    QTemporaryDir dir;
+    const QString own = dir.filePath(u"own.db"_s);
+    {
+        grt::Database db;
+        QVERIFY(db.open({}, own));
+        QVERIFY(db.insert(grt::Table::Caliber, {{u"cipname"_s, u"Old"_s}}));
+        QVERIFY(QSqlQuery(db.handle()).exec(u"UPDATE main.caliber SET id = 1000004"_s));
+        QVERIFY(QSqlQuery(db.handle()).exec(u"UPDATE main.sqlite_sequence SET seq = 1000004 WHERE name = 'caliber'"_s));
+    }
+    grt::Database db;
+    QVERIFY(db.open({}, own));
+    QVERIFY(!db.record(grt::Table::Caliber, 1000004));
+    const auto moved = db.record(grt::Table::Caliber, grt::Database::kOwnIdBase + 4);
+    QVERIFY(moved);
+    QCOMPARE(moved->value(u"cipname"_s).toString(), u"Old"_s);
+    QCOMPARE(*db.insert(grt::Table::Caliber, {{u"cipname"_s, u"New"_s}}), grt::Database::kOwnIdBase + 5);
 }
 
 void CoreTest::languageResolution_data()

@@ -5,7 +5,9 @@
 #include <QTextBrowser>
 #include <QSplitter>
 #include <QSignalSpy>
+#include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QLineEdit>
@@ -40,6 +42,7 @@
 #include "loadview.h"
 #include "recorddialog.h"
 #include "measurement.h"
+#include "projectdata.h"
 #include "measurementview.h"
 #include "propertypanel.h"
 #include "recentfiles.h"
@@ -1341,6 +1344,17 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QVERIFY(button(u"Edit…"_s)->isEnabled());
         QVERIFY(button(u"Delete"_s)->isEnabled());
 
+        // an own record can be exported as a project data file (records of the original cannot)
+        QVERIFY(button(u"Export…"_s)->isEnabled());
+        QTemporaryDir exportDir;
+        const QString exported = exportDir.filePath(u"data/propellants/n150.json"_s);
+        QDir().mkpath(QFileInfo(exported).absolutePath());
+        QVERIFY(w.exportRecord(exported));
+        const auto loaded = grt::projectdata::load(exportDir.filePath(u"data"_s), grt::Table::Propellant, m_db.schema(grt::Table::Propellant));
+        QVERIFY2(loaded.errors.isEmpty(), qPrintable(loaded.errors.join(u'\n')));
+        QCOMPARE(loaded.records.size(), std::size_t{1});
+        QCOMPARE(loaded.records[0].value(u"Ba"_s).toDouble(), 0.6);
+
         // the new powder is offered wherever powders are chosen
         SelectRecordDialog select(m_db, grt::Table::Propellant, u"x"_s);
         QVERIFY(select.findChild<TableBrowser *>()->selectId(id));
@@ -1358,6 +1372,7 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QVERIFY(!browser->selectId(id));
         QVERIFY(browser->selectId(562));
         QVERIFY(!w.deleteRecord(false));  // records of the original cannot be deleted
+        QVERIFY(!button(u"Export…"_s)->isEnabled());
         QCOMPARE(m_db.count(grt::Table::Propellant), count);
     }
     QSettings().setValue(u"database/path"_s, before);

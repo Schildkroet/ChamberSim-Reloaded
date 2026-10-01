@@ -23,14 +23,16 @@ enum class Table { Caliber, Projectile, Propellant };
     return "";
 }
 
-// The records the program works with, seen as ONE database made of two files:
+// The records the program works with, seen as ONE database made of three parts:
 //  * the original program's database (a decrypted, plain copy of GordonsReloadingTool.db), attached read-only;
-//  * an own database (same tables, created on first use) that takes every new record.
-// Each table name ("caliber", ...) is a view over both, so all queries and models see a single table. Records of
-// the own database have ids from kOwnIdBase on and never collide with the original's.
+//  * the project's records (data/*/*.json in the repository, built into the program), loaded read-only into memory;
+//  * the user's own database (same tables, created on first use) that takes every new record.
+// Each table name ("caliber", ...) is a view over all three, so all queries and models see a single table. The id
+// ranges never collide: original below kProjectIdBase, project from kProjectIdBase, own records from kOwnIdBase.
 class Database {
 public:
-    static constexpr int kOwnIdBase = 1'000'000;
+    static constexpr int kProjectIdBase = 1'000'000;
+    static constexpr int kOwnIdBase = 10'000'000;
 
     Database() = default;
     ~Database();
@@ -51,6 +53,13 @@ public:
 
     // Where the own database lives unless told otherwise (the application data folder).
     [[nodiscard]] static QString defaultOwnPath();
+    // Where the project's records are read from (default ":/data", the files built into the program); a directory
+    // works as well. Takes effect with the next open().
+    static void setProjectDataLocation(const QString &location);
+    [[nodiscard]] static QString projectDataLocation();
+    // Number of project records and the problems of files that could not be used (one line each).
+    [[nodiscard]] int projectCount(Table t) const;
+    [[nodiscard]] const QStringList &projectErrors() const noexcept { return m_projectErrors; }
 
     // Number of non-deleted rows ("geloescht" = 0) of both databases.
     [[nodiscard]] int count(Table t) const;
@@ -66,6 +75,7 @@ public:
     [[nodiscard]] std::optional<QVariantMap> record(Table t, int id) const;
 
     [[nodiscard]] static bool isOwnId(int id) noexcept { return id >= kOwnIdBase; }
+    [[nodiscard]] static bool isProjectId(int id) noexcept { return id >= kProjectIdBase && id < kOwnIdBase; }
 
     // Adds a record to the own database; columns that are not given get empty values (0, "", today for dates).
     // Returns the new id.
@@ -77,12 +87,15 @@ public:
 
 private:
     [[nodiscard]] bool createOwnTables(QString *error);
+    [[nodiscard]] bool loadProjectData(QString *error);
     [[nodiscard]] bool createViews(QString *error);
+    [[nodiscard]] std::optional<int> insertInto(const QString &schema, Table t, const QVariantMap &values, int id, QString *error);
 
     QSqlDatabase m_db;
     QString m_originalPath;
     QString m_ownPath;
     QString m_connection;
+    QStringList m_projectErrors;
 };
 
 }  // namespace grt

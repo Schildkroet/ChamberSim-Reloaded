@@ -11,3 +11,6 @@ target_compile_definitions(tst_gui PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
     GRT_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data")
 add_test(NAME gui COMMAND tst_gui)
 set_tests_properties(gui PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+
+# the project's record files must all be usable
+add_test(NAME projectdata COMMAND grt_datacheck "${CMAKE_SOURCE_DIR}/data")

@@ -75,11 +75,16 @@ distributed.
 
 ## Data
 
-The program keeps its **own database** (`GRTReloaded.db` in the application data folder, created on first start)
-for every new record. The records of Gordon's Reloading Tool can be added by choosing a **plain (unencrypted)
-copy** of its database in *File ▸ Settings ▸ Database*; that file is only read. Both appear as one database
-everywhere in the program (own records get ids from 1,000,000 on). No database is included in this repository, and
-the program does not decrypt one.
+The program shows one database made of three parts:
+
+- the **project database**: calibers, projectiles and propellants contributed to this repository (`data/`, one JSON
+  file per record, CC BY-SA 4.0). It is built into the program, so every user has all of it; see
+  [data/README.md](data/README.md) and [CONTRIBUTING.md](CONTRIBUTING.md) to add records;
+- your **own records** (`GRTReloaded.db` in the application data folder): everything you create or copy in the
+  *Database* tab; *Export…* turns one into a project file;
+- optionally the records of Gordon's Reloading Tool: choose a **plain (unencrypted) copy** of its database in
+  *File ▸ Settings ▸ Database*. It is only read; no database of the original is included in this repository, and
+  the program does not decrypt one.
 
 Several tests use sample loads and a database that are not part of the repository; those that need them are skipped
 or have to be supplied locally in `tests/data/` and `tools/`.

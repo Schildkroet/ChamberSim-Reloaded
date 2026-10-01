@@ -56,6 +56,8 @@ public:
     int storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values);
     // Deletes the selected own record after asking (`ask` false: without asking).
     bool deleteRecord(bool ask = true);
+    // Writes the selected own record as a project data file (to contribute it); empty `path`: asks for one.
+    bool exportRecord(const QString &path = {});
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -91,6 +93,7 @@ private:
     QPushButton *m_copyRecord{nullptr};
     QPushButton *m_editRecord{nullptr};
     QPushButton *m_deleteRecord{nullptr};
+    QPushButton *m_exportRecord{nullptr};
     std::array<TableBrowser *, 3> m_browsers{};
     grt::Database m_db;
     int m_untitled{0};
