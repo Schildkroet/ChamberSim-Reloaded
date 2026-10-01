@@ -30,9 +30,26 @@ your own responsibility.
 
 ## Accuracy
 
-The solver is an own lumped-parameter model, calibrated against reference runs; typical deviations are about 1 %
-in muzzle velocity and 3 % in peak pressure, more for unusual loads. It is **not** the algorithm of any other
-program.
+The solver is an own lumped-parameter model, calibrated against reference runs of the original program. It is
+**not** the algorithm of any other program. How far off it currently is (errors of the solver against the
+original's results; lower is better):
+
+<!-- accuracy:start -->
+| Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
+|---|---:|---:|---:|---:|---:|---:|
+| Other cartridges (caliber sweep) | 28 | 2.2 % | 8.0 % | 1.3 % | 10.2 % | 4.5 % |
+| Powders (40 powders, one cartridge) | 39 | 4.2 % | 30.4 % | 1.0 % | 5.3 % | 4.5 % |
+| Charge, bullet weight, start pressure, case volume | 24 | 2.6 % | 8.7 % | 0.7 % | 2.5 % | 3.4 % |
+| Barrel length, twist, Sebert factor | 10 | 0.6 % | 1.6 % | 0.3 % | 1.0 % | 3.2 % |
+| Powder temperature | 14 | 0.4 % | 1.3 % | 0.2 % | 0.3 % | 2.2 % |
+| Bullet friction | 11 | 0.8 % | 2.9 % | 0.8 % | 2.4 % | 3.0 % |
+| Almost closed vessel (very heavy bullet) | 9 | 7.1 % | 12.1 % | 1.0 % | 2.6 % | 5.0 % |
+| **All runs** | 135 | 2.7 % | 30.4 % | 0.9 % | 10.2 % | 3.9 % |
+
+_Absolute errors against 135 runs of the original program; updated 2026-10-01 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+<!-- accuracy:end -->
+
+Unusual loads, other powders and other cartridges than the ones tested can deviate more.
 
 ## Building
 
