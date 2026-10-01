@@ -10,7 +10,7 @@
 
 namespace grt::dbfields {
 
-enum class Kind { Text, Number, Date, LongText, BaseType, Country, Hidden };
+enum class Kind { Text, Number, Date, LongText, BaseType, Choice, Hidden };
 
 // How a database column is shown and edited: a readable label, its group, the physical quantity and the factor from
 // the value stored in the database to the quantity's base unit (bullet masses and case capacities are stored in
@@ -36,6 +36,10 @@ struct Field {
 // Countries for "country of origin": ISO 3166 codes (as the original database uses them) with their English
 // names, plus the historical codes found in it (SU, CS, RSA), sorted by code.
 [[nodiscard]] std::vector<std::pair<QString, QString>> countries();
+
+// The allowed values (stored value, shown text) of a column of kind Choice: country of origin, standard, case
+// type. The stored values are those of the original database (the program reads them: "SAAMI", "4 pistol/revolver").
+[[nodiscard]] std::vector<std::pair<QString, QString>> choices(Table t, const QString &column);
 
 // "Manufacturer Name (lot)", "cipname" ... : how a record is named in messages.
 [[nodiscard]] QString recordTitle(Table t, const QVariantMap &record);

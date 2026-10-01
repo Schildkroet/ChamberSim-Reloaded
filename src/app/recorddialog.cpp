@@ -108,14 +108,20 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 combo->addItem(tr("boat tail"), 2);
                 combo->setCurrentIndex(std::max(0, combo->findData(stored.toInt())));
                 w = combo;
-            } else if (f.kind == Kind::Country) {
-                // a fixed list: no free text, so the codes stay consistent
+            } else if (f.kind == Kind::Choice) {
+                // a fixed list: no free text, so the values stay consistent (the program reads some of them)
                 auto *combo = new QComboBox;
                 combo->addItem(tr("– not specified –"), QString());
-                for (const auto &[code, country] : grt::dbfields::countries()) combo->addItem(code + u" – "_s + country, code);
+                for (const auto &[value, text] : grt::dbfields::choices(table, f.column)) combo->addItem(text, value);
                 const QString value = stored.toString();
-                if (!value.isEmpty() && combo->findData(value) < 0) combo->addItem(value, value);  // e.g. "DE/AT"
-                combo->setCurrentIndex(std::max(0, combo->findData(value)));
+                int index = combo->findData(value);
+                for (int k = 0; index < 0 && k < combo->count(); ++k)  // "Wildcat" is "WildCat"
+                    if (combo->itemData(k).toString().compare(value, Qt::CaseInsensitive) == 0) index = k;
+                if (index < 0 && !value.isEmpty()) {  // an unusual value of an existing record is kept (e.g. "DE/AT")
+                    combo->addItem(value, value);
+                    index = combo->count() - 1;
+                }
+                combo->setCurrentIndex(std::max(0, index));
                 combo->setMaxVisibleItems(20);
                 w = combo;
             } else if (f.kind == Kind::LongText) {
@@ -183,7 +189,7 @@ QString RecordDialog::text(const QString &column) const
     if (!e) return {};
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) return l->text();
     if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) return p->toPlainText();
-    if (auto *c = qobject_cast<QComboBox *>(e->widget)) return e->field.kind == Kind::Country ? c->currentData().toString() : c->currentText();
+    if (auto *c = qobject_cast<QComboBox *>(e->widget)) return e->field.kind == Kind::Choice ? c->currentData().toString() : c->currentText();
     return {};
 }
 
@@ -194,7 +200,7 @@ void RecordDialog::setText(const QString &column, const QString &text)
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) l->setText(text);
     else if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) p->setPlainText(text);
     else if (auto *c = qobject_cast<QComboBox *>(e->widget)) {
-        if (e->field.kind == Kind::Country) {
+        if (e->field.kind == Kind::Choice) {
             if (const int i = c->findData(text); i >= 0) c->setCurrentIndex(i);
         } else {
             c->setCurrentText(text);

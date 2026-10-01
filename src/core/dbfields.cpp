@@ -49,9 +49,9 @@ constexpr Spec kCommon[] = {
 constexpr Spec kCaliber[] = {
     {"cipname", QT_TRANSLATE_NOOP("grt::dbfields", "Caliber name"), kName, Quantity::None, 1, Kind::Text, ""},
     {"altname", QT_TRANSLATE_NOOP("grt::dbfields", "Other names"), kName, Quantity::None, 1, Kind::Text, ""},
-    {"standard", QT_TRANSLATE_NOOP("grt::dbfields", "Standard"), kName, Quantity::None, 1, Kind::Text, ""},
-    {"ciporigin", QT_TRANSLATE_NOOP("grt::dbfields", "Country of origin"), kName, Quantity::None, 1, Kind::Country, ""},
-    {"ciptype", QT_TRANSLATE_NOOP("grt::dbfields", "Case type"), kName, Quantity::None, 1, Kind::Text, ""},
+    {"standard", QT_TRANSLATE_NOOP("grt::dbfields", "Standard"), kName, Quantity::None, 1, Kind::Choice, ""},
+    {"ciporigin", QT_TRANSLATE_NOOP("grt::dbfields", "Country of origin"), kName, Quantity::None, 1, Kind::Choice, ""},
+    {"ciptype", QT_TRANSLATE_NOOP("grt::dbfields", "Case type"), kName, Quantity::None, 1, Kind::Choice, ""},
     {"cipdate", QT_TRANSLATE_NOOP("grt::dbfields", "Standard date"), kName, Quantity::None, 1, Kind::Text, ""},
     {"ciprevdate", QT_TRANSLATE_NOOP("grt::dbfields", "Revision date"), kName, Quantity::None, 1, Kind::Text, ""},
     {"cippdf", QT_TRANSLATE_NOOP("grt::dbfields", "Data sheet (link)"), kName, Quantity::None, 1, Kind::Text, ""},
@@ -204,6 +204,30 @@ std::vector<std::pair<QString, QString>> countries()
     out.emplace_back(u"RSA"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "South Africa (RSA)")));
     std::ranges::sort(out, {}, &std::pair<QString, QString>::first);
     return out;
+}
+
+std::vector<std::pair<QString, QString>> choices(Table t, const QString &column)
+{
+    if (t != Table::Caliber) return {};
+    if (column == u"ciporigin") {
+        std::vector<std::pair<QString, QString>> out;
+        for (const auto &[code, name] : countries()) out.emplace_back(code, code + u" – "_s + name);
+        return out;
+    }
+    if (column == u"standard")
+        return {{u"CIP"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "CIP (C.I.P., Europe)"))},
+                {u"SAAMI"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "SAAMI (USA)"))},
+                {u"WildCat"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "Wildcat (not standardized)"))}};
+    if (column == u"ciptype")
+        return {{u"1 rimless"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "rimless"))},
+                {u"2 rimmed"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "rimmed"))},
+                {u"3 belted"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "belted"))},
+                {u"3 magnum"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "magnum"))},
+                {u"4 pistol/revolver"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "pistol / revolver"))},
+                {u"5 rimfire"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "rimfire"))},
+                {u"7 shotshell"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "shotshell"))},
+                {u"10 other"_s, tr(QT_TRANSLATE_NOOP("grt::dbfields", "other"))}};
+    return {};
 }
 
 QString recordTitle(Table t, const QVariantMap &r)

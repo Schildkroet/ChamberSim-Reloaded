@@ -1276,6 +1276,20 @@ void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
     RecordDialog keeps(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, combined);
     QCOMPARE(keeps.text(u"ciporigin"_s), u"DE/AT"_s);  // an unusual value of an existing record is kept
 
+    // standard and case type too; the stored values stay those of the original database
+    QCOMPARE(caliber.text(u"standard"_s), u"WildCat"_s);
+    QCOMPARE(caliber.text(u"ciptype"_s), u"5 rimfire"_s);
+    QVERIFY(!caliber.findChild<QComboBox *>(u"ciptype"_s)->isEditable());
+    caliber.setText(u"standard"_s, u"SAAMI"_s);
+    caliber.setText(u"ciptype"_s, u"4 pistol/revolver"_s);
+    QCOMPARE(caliber.values().value(u"standard"_s).toString(), u"SAAMI"_s);
+    QCOMPARE(caliber.values().value(u"ciptype"_s).toString(), u"4 pistol/revolver"_s);
+    combined.insert(u"standard"_s, u"Wildcat"_s);  // spelled differently in a few records
+    combined.insert(u"ciptype"_s, u"4 pistol"_s);
+    RecordDialog normalized(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, combined);
+    QCOMPARE(normalized.text(u"standard"_s), u"WildCat"_s);
+    QCOMPARE(normalized.text(u"ciptype"_s), u"4 pistol"_s);
+
     if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
         copy.grab().save(shots + u"/record.png"_s);
         RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Caliber, 1));
