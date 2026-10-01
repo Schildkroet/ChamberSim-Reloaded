@@ -88,17 +88,18 @@ The program shows one database made of three parts:
 
 ### Using the records of Gordon's Reloading Tool
 
-Gordon's Reloading Tool keeps its database encrypted. On Linux, `tools/grt_decrypt_db.sh` makes a plain copy of it:
+Gordon's Reloading Tool keeps its database encrypted. A script makes a plain copy of it; put it into the folder of
+GRT and run it there, then choose the resulting `GordonsReloadingTool.plain.db` in *File ▸ Settings ▸ Database*.
 
-1. Download and unpack the **Linux** version of Gordon's Reloading Tool.
-2. Copy `tools/grt_decrypt_db.sh` into its folder (next to the `GordonsReloadingTool` program and
-   `GordonsReloadingTool.db`) and run it there: `./grt_decrypt_db.sh`
-3. Choose the resulting `GordonsReloadingTool.plain.db` in *File ▸ Settings ▸ Database*.
+- **Linux**: copy `tools/grt_decrypt_db.sh` next to the `GordonsReloadingTool` program of the unpacked **Linux**
+  version and run `./grt_decrypt_db.sh`. It works on Debian/Ubuntu, Fedora, Arch and openSUSE and installs what is
+  missing after asking (gdb and the 32-bit GTK2 runtime; Xvfb when there is no desktop).
+- **Windows**: copy `tools/grt_decrypt_db.cmd` and `tools/grt_decrypt_db.ps1` next to `GordonsReloadingTool.exe` and
+  double-click `grt_decrypt_db.cmd`. It installs what is missing after asking (Python with winget, the Python
+  package frida into a private environment).
 
-The script runs a copy of the program under `gdb` and lets it remove the encryption from a copy of its database;
-the program and its database stay unchanged. It works on Debian/Ubuntu, Fedora, Arch and openSUSE and installs what
-is missing after asking (gdb and the 32-bit GTK2 runtime; Xvfb when there is no desktop). `--check` only reports
-what would be installed, `--help` lists the options.
+Both start a copy of GRT and let it remove the encryption from a copy of its database; GRT and its database stay
+unchanged. `--check` / `-Check` only report what would be installed.
 
 Several tests use sample loads and a database that are not part of the repository; those that need them are skipped
 or have to be supplied locally in `tests/data/` and `tools/`.
