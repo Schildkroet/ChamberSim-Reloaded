@@ -3,7 +3,7 @@
 #include <QIcon>
 #include <QString>
 
-// Small national flags for the language menu, drawn with QPainter (no image files; sharp at every scale).
+// Small national flags for the language menu (resources/flags: SVG sources and the PNG icons built from them).
 namespace flags {
 
 // The flag of a language's country ("de_DE" -> Germany, "en_US" -> USA); a null icon if there is none.

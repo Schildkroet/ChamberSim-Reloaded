@@ -133,6 +133,10 @@ target_include_directories(grtui PUBLIC src/app)
 target_compile_definitions(grtui PUBLIC GRT_VERSION="${GRT_VERSION}")
 target_link_libraries(grtui PUBLIC grtcore Qt6::Widgets Qt6::Charts Qt6::PrintSupport)
 
+# flags for the language menu (PNG renderings of resources/flags/*.svg)
+file(GLOB GRT_FLAG_ICONS RELATIVE "${CMAKE_SOURCE_DIR}" CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/resources/flags/*.png")
+qt_add_resources(grtui "flags" PREFIX "/" FILES ${GRT_FLAG_ICONS})
+
 qt_add_executable(GRTReloaded
     MANUAL_FINALIZATION
     src/app/main.cpp
