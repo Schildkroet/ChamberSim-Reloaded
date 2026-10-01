@@ -85,15 +85,13 @@ struct Model {
 {
     const double dT = in.temperature_C - 21.0;
     if (dT == 0.0) return in.vivacityBa;
-    // Measured on the original: an explicit coefficient acts on the burn rate almost linearly in coefficient * |dT|,
-    // with the sign of the coefficient (a positive tcc raises the rate when cold) and a much weaker effect than the
-    // documented Ba(21) - Ba(T) per K would give.
-    if (dT > 0.0) {
-        return in.hotCoeff != 0.0 ? in.vivacityBa * (1.0 + cal.explicitCoeffScale * in.hotCoeff * dT)
-                                  : in.vivacityBa * (1.0 + cal.hotCoeffDefault * dT);
-    }
-    return in.coldCoeff != 0.0 ? in.vivacityBa * (1.0 + cal.explicitCoeffScale * in.coldCoeff * -dT)
-                               : in.vivacityBa * (1.0 + cal.coldCoeffDefault * dT);
+    // Measured on the original: with both coefficients 0 the built-in defaults apply. Otherwise each side uses its
+    // own coefficient, and a side whose coefficient is 0 has NO effect. An explicit coefficient acts on the burn
+    // rate linearly in coefficient * |dT| with the sign of the coefficient (a positive tcc raises the rate when
+    // cold), and far weaker than the documented Ba(21) - Ba(T) per K would give.
+    if (in.coldCoeff == 0.0 && in.hotCoeff == 0.0)
+        return in.vivacityBa * (1.0 + (dT > 0.0 ? cal.hotCoeffDefault : cal.coldCoeffDefault) * dT);
+    return in.vivacityBa * (1.0 + (dT > 0.0 ? cal.explicitHotScale * in.hotCoeff * dT : cal.explicitColdScale * in.coldCoeff * -dT));
 }
 
 }  // namespace
@@ -302,7 +300,8 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"manualFrictionFactor", &cal.manualFrictionFactor},
             {"hotCoeffDefault", &cal.hotCoeffDefault},
             {"coldCoeffDefault", &cal.coldCoeffDefault},
-            {"explicitCoeffScale", &cal.explicitCoeffScale},
+            {"explicitColdScale", &cal.explicitColdScale},
+            {"explicitHotScale", &cal.explicitHotScale},
             {"burnIntercept", &cal.burnIntercept},
             {"burnSlopeA0", &cal.burnSlopeA0},
             {"burnSlopeOffset", &cal.burnSlopeOffset},

@@ -148,6 +148,11 @@ void CoreTest::temperatureCoefficients()
     QVERIFY(pmax(-20, -0.0476, 0) < base * 0.92);
     QVERIFY(pmax(60, 0, 0.0668) > base * 1.10);
     QCOMPARE_LT(std::abs(pmax(-20, 0.0016, 0) / base - 1.0), 0.01);  // ... but only slightly (original: +0.3 %)
+    // as soon as one coefficient is set, a side with coefficient 0 has no effect at all (no fallback to the default)
+    QCOMPARE(pmax(60, -0.0476, 0), base);
+    QCOMPARE(pmax(-20, 0, 0.0668), base);
+    QVERIFY(std::abs(pmax(-20, -0.0476, 0) / base - 1.0 + 0.098) < 0.01);  // original: -9.8 %
+    QVERIFY(std::abs(pmax(60, 0, 0.0668) / base - 1.0 - 0.138) < 0.01);    // original: +13.8 %
 }
 
 void CoreTest::chargeTooHighIsRejected()
