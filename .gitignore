@@ -26,8 +26,7 @@ tools/GRTRef/jobs_all/
 tools/GRTRef/jobs_done/
 analysis/calibrated.json
 
-# scripts and reports about extracting the database key / decrypting the database
-tools/grt_decrypt_db.sh
+# scripts and reports about extracting the database key (and the decryption reports)
 tools/grt_extract_key.sh
 tools/grt_*report*.txt
 

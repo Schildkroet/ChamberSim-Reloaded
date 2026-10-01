@@ -86,6 +86,20 @@ The program shows one database made of three parts:
   *File ▸ Settings ▸ Database*. It is only read; no database of the original is included in this repository, and
   the program does not decrypt one.
 
+### Using the records of Gordon's Reloading Tool
+
+Gordon's Reloading Tool keeps its database encrypted. On Linux, `tools/grt_decrypt_db.sh` makes a plain copy of it:
+
+1. Download and unpack the **Linux** version of Gordon's Reloading Tool.
+2. Copy `tools/grt_decrypt_db.sh` into its folder (next to the `GordonsReloadingTool` program and
+   `GordonsReloadingTool.db`) and run it there: `./grt_decrypt_db.sh`
+3. Choose the resulting `GordonsReloadingTool.plain.db` in *File ▸ Settings ▸ Database*.
+
+The script runs a copy of the program under `gdb` and lets it remove the encryption from a copy of its database;
+the program and its database stay unchanged. It works on Debian/Ubuntu, Fedora, Arch and openSUSE and installs what
+is missing after asking (gdb and the 32-bit GTK2 runtime; Xvfb when there is no desktop). `--check` only reports
+what would be installed, `--help` lists the options.
+
 Several tests use sample loads and a database that are not part of the repository; those that need them are skipped
 or have to be supplied locally in `tests/data/` and `tools/`.
 
