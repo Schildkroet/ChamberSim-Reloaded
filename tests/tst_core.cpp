@@ -551,7 +551,9 @@ void CoreTest::ownDatabaseTakesNewRecords()
     QCOMPARE(rec->value(u"Ba"_s).toDouble(), 0.61);
     QCOMPARE(rec->value(u"geloescht"_s).toInt(), 0);
     QVERIFY(!rec->value(u"cdate"_s).toString().isEmpty());
-    QCOMPARE(db.columns(grt::Table::Propellant).size(), rec->size());
+    QCOMPARE(db.columns(grt::Table::Propellant).size() + 1, rec->size());  // + "source"
+    QCOMPARE(rec->value(u"source"_s).toString(), u"own"_s);
+    QCOMPARE(db.record(grt::Table::Propellant, 1)->value(u"source"_s).toString(), u"original"_s);
 
     // a query over the table sees both databases
     QSqlQuery q(db.handle());
@@ -634,6 +636,7 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
     QVERIFY(!grt::Database::isOwnId(grt::Database::kProjectIdBase));
     QCOMPARE(rec->value(u"pname"_s).toString(), u"P1"_s);
     QCOMPARE(rec->value(u"Ba"_s).toDouble(), 0.6);
+    QCOMPARE(rec->value(u"source"_s).toString(), u"project"_s);
     QCOMPARE(rec->value(u"lotid"_s).toString(), QString());  // not in the file: empty
     // the bad files are reported with their problem
     const QString errors = db.projectErrors().join(u'\n');

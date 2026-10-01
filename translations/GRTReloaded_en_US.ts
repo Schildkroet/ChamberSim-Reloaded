@@ -1408,12 +1408,47 @@ Export it anyway?</source>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+19"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+23"/>
+        <source>Your own record (can be changed)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Record of the project&apos;s database (read-only)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Record of Gordon&apos;s Reloading Tool&apos;s database (read-only)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Personal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Original GRT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Filter (all columns)…</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+112"/>
+        <location line="+115"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n entry</numerusform>

@@ -8,6 +8,41 @@
 #include <QTableView>
 #include <QVBoxLayout>
 
+namespace {
+
+// Shows the "source" column (which part of the database a record comes from) as readable text.
+class RecordModel : public QSqlTableModel {
+public:
+    using QSqlTableModel::QSqlTableModel;
+
+    QVariant data(const QModelIndex &index, int role) const override
+    {
+        if (index.column() == sourceColumn() && (role == Qt::DisplayRole || role == Qt::ToolTipRole)) {
+            const QString code = QSqlTableModel::data(index, Qt::DisplayRole).toString();
+            if (role == Qt::ToolTipRole) {
+                if (code == QLatin1String(grt::Database::kSourceOwn)) return TableBrowser::tr("Your own record (can be changed)");
+                if (code == QLatin1String(grt::Database::kSourceProject)) return TableBrowser::tr("Record of the project's database (read-only)");
+                return TableBrowser::tr("Record of Gordon's Reloading Tool's database (read-only)");
+            }
+            if (code == QLatin1String(grt::Database::kSourceOwn)) return TableBrowser::tr("Personal");
+            if (code == QLatin1String(grt::Database::kSourceProject)) return TableBrowser::tr("Project");
+            return TableBrowser::tr("Original GRT");
+        }
+        return QSqlTableModel::data(index, role);
+    }
+
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override
+    {
+        if (orientation == Qt::Horizontal && section == sourceColumn() && role == Qt::DisplayRole) return TableBrowser::tr("Source");
+        return QSqlTableModel::headerData(section, orientation, role);
+    }
+
+private:
+    [[nodiscard]] int sourceColumn() const { return fieldIndex(QStringLiteral("source")); }
+};
+
+}  // namespace
+
 TableBrowser::TableBrowser(grt::Table table, QWidget *parent)
     : QWidget(parent)
     , m_table(table)
@@ -59,19 +94,22 @@ void TableBrowser::setDatabase(const grt::Database *db)
         updateCount();
         return;
     }
-    m_model = new QSqlTableModel(this, db->handle());
+    m_model = new RecordModel(this, db->handle());
     m_model->setTable(QLatin1String(grt::tableName(m_table)));
     m_model->setFilter(baseFilter());
     m_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     m_model->select();
     while (m_model->canFetchMore()) m_model->fetchMore();  // the tables are small enough to load completely
     m_proxy->setSourceModel(m_model);
-    m_proxy->sort(m_model->fieldIndex(QStringLiteral("id")), Qt::AscendingOrder);
+    const int idColumn = m_model->fieldIndex(QStringLiteral("id"));
+    m_view->sortByColumn(idColumn, Qt::AscendingOrder);  // the view would sort by its first column (the source)
     for (const char *hidden : {"geloescht"})
         m_view->setColumnHidden(m_model->fieldIndex(QLatin1String(hidden)), true);
     m_view->resizeColumnsToContents();
     for (int c = 0; c < m_model->columnCount(); ++c)
         m_view->setColumnWidth(c, std::min(m_view->columnWidth(c), 220));
+    // own records have 8-digit ids (only the visible rows were measured)
+    m_view->setColumnWidth(idColumn, std::max(m_view->columnWidth(idColumn), m_view->fontMetrics().horizontalAdvance(QStringLiteral("00000000")) + 16));
     updateCount();
 }
 

@@ -32,6 +32,10 @@ enum class Table { Caliber, Projectile, Propellant };
 class Database {
 public:
     static constexpr int kProjectIdBase = 1'000'000;
+    // Every row of the combined tables has a column "source" with one of these values (not stored in a file).
+    static constexpr const char *kSourceOwn = "own";
+    static constexpr const char *kSourceProject = "project";
+    static constexpr const char *kSourceOriginal = "original";
     static constexpr int kOwnIdBase = 10'000'000;
 
     Database() = default;
@@ -71,7 +75,7 @@ public:
     // Column names with their SQL types (TEXT, FLOAT, INTEGER, DATE) in schema order.
     [[nodiscard]] std::vector<std::pair<QString, QString>> schema(Table t) const;
 
-    // One row as column-name -> value, or nullopt if the id does not exist.
+    // One row as column-name -> value (with "source"), or nullopt if the id does not exist.
     [[nodiscard]] std::optional<QVariantMap> record(Table t, int id) const;
 
     [[nodiscard]] static bool isOwnId(int id) noexcept { return id >= kOwnIdBase; }

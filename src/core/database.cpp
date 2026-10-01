@@ -254,9 +254,12 @@ bool Database::createViews(QString *error)
             const bool there = std::ranges::any_of(original, [&](const auto &c) { return c.first.compare(col, Qt::CaseInsensitive) == 0; });
             originalCols << (there ? col : u"NULL AS "_s + col);
         }
+        // "source": which part a row comes from (Database::kSource...)
         const QString list = cols.join(u", "_s);
-        QString sql = u"CREATE TEMP VIEW %1 AS SELECT %2 FROM main.%1 UNION ALL SELECT %2 FROM proj.%1"_s.arg(name, list);
-        if (!original.empty()) sql += u" UNION ALL SELECT %1 FROM grt.%2"_s.arg(originalCols.join(u", "_s), name);
+        QString sql = u"CREATE TEMP VIEW %1 AS SELECT '%3' AS source, %2 FROM main.%1 UNION ALL SELECT '%4', %2 FROM proj.%1"_s.arg(
+            name, list, QLatin1String(kSourceOwn), QLatin1String(kSourceProject));
+        if (!original.empty())
+            sql += u" UNION ALL SELECT '%1', %2 FROM grt.%3"_s.arg(QLatin1String(kSourceOriginal), originalCols.join(u", "_s), name);
         if (!exec(m_db, u"DROP VIEW IF EXISTS temp.%1"_s.arg(name), error) || !exec(m_db, sql, error)) return false;
     }
     return true;

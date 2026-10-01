@@ -1344,6 +1344,22 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QVERIFY(button(u"Edit…"_s)->isEnabled());
         QVERIFY(button(u"Delete"_s)->isEnabled());
 
+        // the first column says where a record comes from; the filter finds them by it
+        auto *view = browser->findChild<QTableView *>();
+        QCOMPARE(view->model()->headerData(0, Qt::Horizontal).toString(), u"Source"_s);
+        QCOMPARE(view->currentIndex().siblingAtColumn(0).data().toString(), u"Personal"_s);
+        QVERIFY(browser->selectId(562));
+        QCOMPARE(view->currentIndex().siblingAtColumn(0).data().toString(), u"Original GRT"_s);
+        browser->findChild<QLineEdit *>()->setText(u"Personal"_s);
+        QCOMPARE(view->model()->rowCount(), 1);
+        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+            w.resize(1100, 400);
+            browser->findChild<QLineEdit *>()->setText(u"N150"_s);
+            w.grab().save(shots + u"/dbsource.png"_s);
+        }
+        browser->findChild<QLineEdit *>()->clear();
+        QVERIFY(browser->selectId(id));
+
         // an own record can be exported as a project data file (records of the original cannot)
         QVERIFY(button(u"Export…"_s)->isEnabled());
         QTemporaryDir exportDir;
