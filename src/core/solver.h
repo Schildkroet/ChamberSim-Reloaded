@@ -86,6 +86,7 @@ struct Calibration {
     double chamberOffsetLength_mm{1.83834}; // extra chamber length behind the bullet base, times the bore area
     double hotCoeffDefault{0.000962335};    // relative burn-rate change per K above 21 degC (used if tch == 0)
     double coldCoeffDefault{0.000677371};   // relative burn-rate change per K below 21 degC (used if tcc == 0)
+    double explicitCoeffScale{0.04};       // explicit tcc/tch: relative burn-rate change = scale * coefficient * |T - 21|
 
     // Burn law dz/dt = Ba * p[bar] * phi(z). Identified from the reference powder sweep:
     //   phase 1 (z < z1):   phi = burnIntercept + (burnSlopeA0 * a0 + burnSlopeOffset) * z

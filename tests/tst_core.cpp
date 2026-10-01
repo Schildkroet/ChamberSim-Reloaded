@@ -31,6 +31,7 @@ private slots:
     void loadFileKeepsAppendix();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
+    void temperatureCoefficients();
     void solverMatchesMomentumRule();
     void derivedOutputsMatchReference_data();
     void derivedOutputsMatchReference();
@@ -124,6 +125,29 @@ void CoreTest::simInputFromLoad()
     QCOMPARE(in.effectiveMass_g(), 12.700586359951799 + 0.5 * 2.721554219989671);
     QCOMPARE(in.vivacityBa, 0.5814);
     QCOMPARE(in.startPressure_bar, 250.0);
+}
+
+// Measured on the original: the default coefficients make cold powder weaker and hot powder stronger; explicit
+// coefficients act linearly with their own sign (a positive tcc raises the burn rate when cold).
+void CoreTest::temperatureCoefficients()
+{
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const auto pmax = [&](double T, double tcc, double tch) {
+        grt::SimInput in = grt::SimInput::fromLoad(*lf);
+        in.temperature_C = T;
+        in.coldCoeff = tcc;
+        in.hotCoeff = tch;
+        const grt::SimResult r = grt::simulate(in);
+        return r.maxPressure_bar;
+    };
+    const double base = pmax(21, 0, 0);
+    QVERIFY(pmax(-20, 0, 0) < base * 0.97);   // default: about -4 % when cold
+    QVERIFY(pmax(60, 0, 0) > base * 1.05);    // and about +8 % when hot
+    QVERIFY(pmax(-20, 0.0016, 0) > base);     // explicit positive tcc: slightly more pressure (the original does the same)
+    QVERIFY(pmax(-20, -0.0476, 0) < base * 0.92);
+    QVERIFY(pmax(60, 0, 0.0668) > base * 1.10);
+    QCOMPARE_LT(std::abs(pmax(-20, 0.0016, 0) / base - 1.0), 0.01);  // ... but only slightly (original: +0.3 %)
 }
 
 void CoreTest::chargeTooHighIsRejected()
