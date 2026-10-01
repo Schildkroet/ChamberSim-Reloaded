@@ -68,11 +68,6 @@ cmake --preset release && cmake --build --preset release --parallel
 ctest --preset release
 ```
 
-The version is set once, at the top of `CMakeLists.txt` (`GRT_VERSION`).
-
-Qt Charts is only available under the GPL (or a commercial license), which affects how the application may be
-distributed.
-
 ## Data
 
 The program shows one database made of three parts:
@@ -151,24 +146,38 @@ Use a good chronograph (for example MagnetoSpeed or LabRadar). Measurements of t
 5. Open the tab *Measurements*.
 6. Add each charge. Type the velocity of each shot. If you have pressure values, type them too.
 7. Save the load files.
-8. Run the tool `grt_fitpowder` with all load files of the propellant:
+8. Run the tool `grt_fitpowder` with all load files of the propellant. Give the name of the record file with
+   `--out`. Use the name `<manufacturer>-<name>-<lot>.json`:
 
    ```
-   grt_fitpowder --out vendor-powder-lot.json load1.grtload load2.grtload load3.grtload load4.grtload
+   grt_fitpowder --out vihtavuori-n150-lot123.json 8x57-196gr.grtload 8x57-170gr.grtload 308-150gr.grtload 308-168gr.grtload
    ```
 
    The tool changes the values Ba, a0, z1 and z2 of the propellant. The simulation then agrees with your
-   measurements. The tool shows the difference for each charge before and after the change.
+   measurements. The tool shows the difference for each charge before and after the change. The tool does not
+   change your load files.
 9. Read the warnings of the tool. Correct the load files if necessary. Then do step 8 again.
 10. Make sure that the difference for each charge is small (less than approximately 2 %).
-11. Make sure that the values Qex, k, pc and pcd come from the manufacturer or from your measurements.
-    The tool copies these values from the load file without a change.
-12. Put the `.json` file into `data/propellants/`.
-13. Put the load files into `data/measurements/`. Other users can then make the model again.
-14. Do procedure 3.
+11. Open the `.json` file. Make sure that the values Qex, k, pc and pcd come from the manufacturer or from your
+    measurements. The tool copies these values from the load file without a change. Make sure that `mname`,
+    `pname` and `lotid` are correct.
+12. Copy the files into the repository:
 
-Note: To use the new values in your loads, add the option `--save`. The tool then writes a copy of each load file
-with the new values (`<name>-fitted.grtload`).
+    | File | Copy to |
+    |---|---|
+    | the `.json` file from step 8 (one file) | `data/propellants/` |
+    | your load files from step 7 (not the `-fitted` files) | `data/measurements/<manufacturer>-<name>-<lot>/` |
+
+    Other users can then do step 8 again with your load files and get the same model.
+13. Do procedure 3.
+
+Use the option `--save` only for your own loads. Add it to the command of step 8. The tool then also writes a
+copy of each load file with the new values (`<name>-fitted.grtload`, in the folder of the load file). Open these
+files to continue your load development with the new model. You do not have to wait until the record is in the
+program. Do not copy the `-fitted` files into `data/`.
+
+Note: The program contains the records of `data/` when it is built. After step 12, build the program again to see
+the new propellant in the tab *Database*.
 
 ### Procedure 3: Send the data
 
