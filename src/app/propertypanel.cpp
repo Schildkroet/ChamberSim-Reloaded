@@ -1,5 +1,7 @@
 #include "propertypanel.h"
 
+#include "fieldnames.h"
+
 #include "unitprefs.h"
 
 using namespace Qt::StringLiterals;
@@ -207,15 +209,18 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
         for (const grt::Entry &e : s.entries->entries()) {
             const int r = m_table->rowCount();
             m_table->insertRow(r);
-            QString label = e.descr.isEmpty() ? e.name : e.descr;
-            if (label.startsWith(u"true if "_s, Qt::CaseInsensitive)) label.remove(0, 8);  // boolean flags: "true if shotshell" -> "Shotshell"
+            // a translated description is the finished label; the English one is tidied up here
+            const QString translated = grt::translatedDescription(e.descr);
+            const bool english = translated == e.descr;
+            QString label = e.descr.isEmpty() ? e.name : translated;
+            if (english && label.startsWith(u"true if "_s, Qt::CaseInsensitive)) label.remove(0, 8);  // "true if shotshell" -> "Shotshell"
             // explanations in brackets ("ladder steps (1 to 10, ...)") go to the tooltip, the label stays short
             QString hint;
             if (const qsizetype open = label.indexOf(u" ("); open > 0 && label.endsWith(u')')) {
                 hint = label.mid(open + 2, label.size() - open - 3);
                 label.truncate(open);
             }
-            capitalizeWords(label);
+            if (english) capitalizeWords(label);
             auto *name = new QTableWidgetItem(label);
             name->setToolTip(hint.isEmpty() ? e.name : QStringLiteral("%1\n%2").arg(e.name, hint));
             name->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);

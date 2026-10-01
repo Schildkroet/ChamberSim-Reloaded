@@ -33,8 +33,8 @@ QString html(const QString &databasePath, int calibers, int projectiles, int pro
                                            "project and is not affiliated with or supported by the original program or its author.</p>")
                        .arg(version.toHtmlEscaped());
     text += QApplication::translate("about", "<h3>Accuracy</h3>"
-                                    "<p>The simulation was calibrated against more than 100 runs of the original program on 36 "
-                                    "cartridges: typically about 1&nbsp;% in muzzle velocity and 3&nbsp;% in peak pressure. "
+                                    "<p>The simulation was calibrated against 190 runs of the original program on 36 "
+                                    "cartridges: typically about 1&nbsp;% in muzzle velocity and 2&nbsp;% in peak pressure. "
                                     "Unusual loads can deviate more.</p>");
     text += QApplication::translate("about", "<h3>Safety</h3>"
                                     "<ul>"

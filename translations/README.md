@@ -4,6 +4,13 @@ American English (`en_US`) is the **source language and the default**. Source st
 English; no translation file is needed to run in English. `GRTReloaded_en_US.ts` only carries the
 English *plural forms* (`%n entry` / `%n entries`).
 
+Translations: German (`de_DE`), French (`fr_FR`), Italian (`it_IT`).
+
+The labels of the input panels come from the load files (`descr="case volume"`). The known descriptions are
+translatable in the context `grt::fields` (src/core/fieldnames.cpp); there the translation is the finished label
+(capitalised as the language needs, a part in brackets becomes the tooltip). Without a translation the English
+description is shown in title case.
+
 ## Adding a language (e.g. German)
 
 1. In `CMakeLists.txt` change `set(GRT_LANGUAGES en_US)` to `set(GRT_LANGUAGES en_US de_DE)`.

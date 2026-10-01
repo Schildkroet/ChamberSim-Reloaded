@@ -69,6 +69,8 @@ add_library(grtcore STATIC
     src/core/projectdata.cpp
     src/core/powderfit.h
     src/core/powderfit.cpp
+    src/core/fieldnames.h
+    src/core/fieldnames.cpp
 )
 target_include_directories(grtcore PUBLIC src/core)
 target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
@@ -165,7 +167,7 @@ install(TARGETS GRTReloaded
 # code here (e.g. de_DE), run the `update_translations` target to create/refresh
 # translations/GRTReloaded_<lang>.ts, translate it in Qt Linguist, and rebuild: the .qm files are
 # generated and embedded automatically (resource prefix :/i18n) and show up in View > Language.
-set(GRT_LANGUAGES en_US)
+set(GRT_LANGUAGES en_US de_DE fr_FR it_IT)
 set(GRT_TS_FILES "")
 foreach(lang IN LISTS GRT_LANGUAGES)
     list(APPEND GRT_TS_FILES ${CMAKE_SOURCE_DIR}/translations/GRTReloaded_${lang}.ts)
