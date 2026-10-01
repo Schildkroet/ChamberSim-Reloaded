@@ -37,7 +37,7 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
-          cmake --build build --target GRTReloaded --parallel
+          cmake --build build --target GRTReloaded grt_fitpowder --parallel
 
       - name: Check the project database (data/)
         run: |
@@ -112,12 +112,13 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-          cmake --build build --target GRTReloaded --parallel
+          cmake --build build --target GRTReloaded grt_fitpowder --parallel
 
       - name: Collect and deploy Qt
         shell: pwsh
         run: |
           cmake --install build --prefix dist
+          if ($LASTEXITCODE -ne 0) { throw "cmake --install failed" }
           windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw dist\bin\GRTReloaded.exe
           Get-ChildItem dist\bin
 
