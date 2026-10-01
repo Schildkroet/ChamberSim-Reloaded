@@ -3,6 +3,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSqlQuery>
+#include <QStandardPaths>
 #include <QTemporaryDir>
 #include <QtTest>
 
@@ -27,6 +28,7 @@ class CoreTest : public QObject {
     Q_OBJECT
 
 private slots:
+    void initTestCase();
     void loadFileReadsSections();
     void loadFileRoundTrip();
     void loadFileKeepsAppendix();
@@ -48,6 +50,8 @@ private slots:
     void solverVersusReference_data();
     void solverVersusReference();
     void databaseOpensPlainFile();
+    void ownDatabaseTakesNewRecords();
+    void ownDatabaseWorksWithoutTheOriginal();
     void languageResolution_data();
     void languageResolution();
     void normalizeLanguageTags();
@@ -72,6 +76,11 @@ private slots:
     void replacingTheBulletUpdatesGeometry();
     void replacingTheCaliberCanResetDependentValues();
 };
+
+void CoreTest::initTestCase()
+{
+    QStandardPaths::setTestModeEnabled(true);  // the own database must not be the user's
+}
 
 void CoreTest::loadFileReadsSections()
 {
@@ -499,7 +508,10 @@ void CoreTest::databaseOpensPlainFile()
     if (!QFile::exists(dbPath)) QSKIP("plain database not available");
     grt::Database db;
     QString err;
-    QVERIFY2(db.open(dbPath, true, &err), qPrintable(err));
+    QTemporaryDir own;
+    QVERIFY2(db.open(dbPath, own.filePath(u"own.db"_s), &err), qPrintable(err));
+    QVERIFY(db.hasOriginal());
+    QCOMPARE(db.path(), dbPath);
     QVERIFY(db.count(grt::Table::Propellant) > 600);
     QVERIFY(db.count(grt::Table::Projectile) > 5000);
     QVERIFY(db.count(grt::Table::Caliber) > 500);
@@ -507,6 +519,85 @@ void CoreTest::databaseOpensPlainFile()
     QVERIFY(rec);
     QCOMPARE(rec->value(u"mname"_s).toString(), u"Accurate"_s);
     QVERIFY(!db.record(grt::Table::Propellant, -5));
+}
+
+// New records go into the own database; searching sees one database with the original's records and the own ones.
+void CoreTest::ownDatabaseTakesNewRecords()
+{
+    const QString dbPath = QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
+    if (!QFile::exists(dbPath)) QSKIP("plain database not available");
+    QTemporaryDir dir;
+    const QString ownPath = dir.filePath(u"sub/own.db"_s);
+    grt::Database db;
+    QString err;
+    QVERIFY2(db.open(dbPath, ownPath, &err), qPrintable(err));
+    QVERIFY(QFile::exists(ownPath));
+    const int before = db.count(grt::Table::Propellant);
+    QCOMPARE(db.ownCount(grt::Table::Propellant), 0);
+
+    const auto id = db.insert(grt::Table::Propellant, {{u"mname"_s, u"Own"_s}, {u"pname"_s, u"Test powder"_s}, {u"Ba"_s, 0.61}}, &err);
+    QVERIFY2(id, qPrintable(err));
+    QVERIFY(grt::Database::isOwnId(*id));
+    QCOMPARE(*id, grt::Database::kOwnIdBase);
+    QCOMPARE(db.count(grt::Table::Propellant), before + 1);
+    QCOMPARE(db.ownCount(grt::Table::Propellant), 1);
+    auto rec = db.record(grt::Table::Propellant, *id);
+    QVERIFY(rec);
+    QCOMPARE(rec->value(u"pname"_s).toString(), u"Test powder"_s);
+    QCOMPARE(rec->value(u"Ba"_s).toDouble(), 0.61);
+    QCOMPARE(rec->value(u"geloescht"_s).toInt(), 0);
+    QVERIFY(!rec->value(u"cdate"_s).toString().isEmpty());
+    QCOMPARE(db.columns(grt::Table::Propellant).size(), rec->size());
+
+    // a query over the table sees both databases
+    QSqlQuery q(db.handle());
+    QVERIFY(q.exec(u"SELECT count(*) FROM propellant WHERE mname IN ('Own', 'Accurate')"_s) && q.next());
+    QVERIFY(q.value(0).toInt() > 1);
+
+    QVERIFY(db.update(grt::Table::Propellant, *id, {{u"Ba"_s, 0.7}}, &err));
+    QCOMPARE(db.record(grt::Table::Propellant, *id)->value(u"Ba"_s).toDouble(), 0.7);
+    // the original stays untouched
+    QVERIFY(!db.update(grt::Table::Propellant, 1, {{u"Ba"_s, 9.0}}));
+    QVERIFY(!QSqlQuery(db.handle()).exec(u"UPDATE grt.propellant SET Ba = 9 WHERE id = 1"_s));
+    QVERIFY(db.record(grt::Table::Propellant, 1)->value(u"Ba"_s).toDouble() < 9.0);
+
+    // ids keep counting in the own range, and the records survive reopening
+    const auto second = db.insert(grt::Table::Propellant, {{u"pname"_s, u"Second"_s}});
+    QCOMPARE(*second, grt::Database::kOwnIdBase + 1);
+    QVERIFY(db.remove(grt::Table::Propellant, *second));
+    QCOMPARE(db.count(grt::Table::Propellant), before + 1);
+    db.close();
+    QVERIFY(db.open(dbPath, ownPath));
+    QCOMPARE(db.record(grt::Table::Propellant, *id)->value(u"pname"_s).toString(), u"Test powder"_s);
+    QCOMPARE(db.count(grt::Table::Propellant), before + 1);
+}
+
+void CoreTest::ownDatabaseWorksWithoutTheOriginal()
+{
+    QTemporaryDir dir;
+    grt::Database db;
+    QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
+    QVERIFY(db.isOpen());
+    QVERIFY(!db.hasOriginal());
+    QCOMPARE(db.count(grt::Table::Caliber), 0);
+    QVERIFY(db.columns(grt::Table::Caliber).contains(u"cipname"_s));
+    QVERIFY(db.insert(grt::Table::Caliber, {{u"cipname"_s, u"Own caliber"_s}}));
+    QCOMPARE(db.count(grt::Table::Caliber), 1);
+
+    // an unusable original (missing, or encrypted = not a database) is reported, the own database stays usable
+    QString err;
+    QVERIFY(!db.open(dir.filePath(u"missing.db"_s), dir.filePath(u"own.db"_s), &err));
+    QVERIFY(!err.isEmpty());
+    QVERIFY(db.isOpen());
+    QCOMPARE(db.count(grt::Table::Caliber), 1);
+    QFile junk(dir.filePath(u"encrypted.db"_s));
+    QVERIFY(junk.open(QIODevice::WriteOnly));
+    junk.write(QByteArray(4096, '\x5a'));
+    junk.close();
+    QVERIFY(!db.open(junk.fileName(), dir.filePath(u"own.db"_s), &err));
+    QVERIFY(db.isOpen());
+    QVERIFY(!db.hasOriginal());
+    QCOMPARE(db.count(grt::Table::Caliber), 1);
 }
 
 void CoreTest::languageResolution_data()

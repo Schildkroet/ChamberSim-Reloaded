@@ -29,10 +29,12 @@ public:
     ~MainWindow() override;
 
     bool openLoad(const QString &path);
-    bool openDatabase(const QString &path);
+    // Opens the own database and attaches the original one (empty: none); `complain` shows a message on errors.
+    bool openDatabase(const QString &originalPath, bool complain = true);
     // Applies a reference-runner result (*.json) to the current load.
     bool overlayReference(const QString &jsonPath);
     void showTab(int index);
+    void showSettings();
     void showResultTab(int index);
     // Opens the "New load" dialog (needs an open database).
     void newLoad();
@@ -41,6 +43,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private:
+    [[nodiscard]] QString databaseSummary() const;
     void createActions();
     [[nodiscard]] LoadView *currentLoad() const;
     [[nodiscard]] bool maybeSave(LoadView *view);

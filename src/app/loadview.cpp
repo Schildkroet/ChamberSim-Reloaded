@@ -218,7 +218,7 @@ LoadView::LoadView(QWidget *parent)
         m_selectButtons[i]->setIcon(style()->standardIcon(QStyle::SP_FileDialogContentsView));
         markPrimary(m_selectButtons[i]);
         m_selectButtons[i]->setEnabled(false);
-        m_selectButtons[i]->setToolTip(tr("Open a database first (File ▸ Open database…)"));
+        m_selectButtons[i]->setToolTip(tr("No database available"));
         auto *page = new QWidget;
         auto *pl = new QVBoxLayout(page);
         pl->setContentsMargins(0, 4, 0, 0);
@@ -371,7 +371,7 @@ void LoadView::setDatabase(const grt::Database *db)
     for (QPushButton *b : m_selectButtons) {
         b->setEnabled(on);
         b->setToolTip(on ? tr("Replace this component by another record of the database")
-                         : tr("Open a database first (File ▸ Open database…)"));
+                         : tr("No database available"));
     }
 }
 

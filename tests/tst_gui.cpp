@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QDialogButtonBox>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -19,6 +20,7 @@
 #include <QTabWidget>
 #include <QSettings>
 #include <QSqlQuery>
+#include <QStandardPaths>
 #include <QTableWidget>
 #include <QTemporaryDir>
 #include <QtTest>
@@ -82,6 +84,7 @@ private slots:
     void cartridgeViewDrawsAndHandlesStraightCases();
     void measurementTabShowsTheFilesResults();
     void measurementsAreEditedAndSaved();
+    void originalDatabaseIsChosenInTheSettings();
 
 private:
     static int idOf(grt::Database &db, grt::Table t, const QString &where);
@@ -91,7 +94,8 @@ private:
 
 void GuiTest::initTestCase()
 {
-    // never touch the user's real settings
+    // never touch the user's real settings or own database
+    QStandardPaths::setTestModeEnabled(true);
     static QTemporaryDir settingsDir;
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, settingsDir.path());
@@ -1168,6 +1172,46 @@ void GuiTest::measurementsAreEditedAndSaved()
     QVERIFY(again.load(path));
     QCOMPARE(again.measurements()->measurement().charges.size(), std::size_t{1});
     UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+void GuiTest::originalDatabaseIsChosenInTheSettings()
+{
+    const QString original = QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
+    const QString before = QSettings().value(u"database/path"_s).toString();
+    {
+        MainWindow w;
+        // File > Open database is gone: the database is a setting
+        for (QAction *a : w.menuBar()->actions().front()->menu()->actions()) QVERIFY(!a->text().contains(u"database"_s, Qt::CaseInsensitive));
+
+        // without an original only the own database is there (searching still works, it is just empty)
+            QVERIFY(w.openDatabase(QString(), false));
+        QCOMPARE(QSettings().value(u"database/path"_s).toString(), QString());
+        auto *browser = w.findChild<TableBrowser *>();
+        QVERIFY(browser);
+
+        SettingsDialog dlg;
+        dlg.setOriginalDatabase(QString(), u"none"_s);
+        QSignalSpy chosen(&dlg, &SettingsDialog::originalDatabaseChosen);
+        auto *edit = dlg.findChild<QLineEdit *>(u"originalDatabase"_s);
+        QVERIFY(edit);
+        QVERIFY(edit->text().isEmpty());
+        edit->setText(original);
+        dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
+        QCOMPARE(chosen.count(), 1);
+        QCOMPARE(chosen.front().front().toString(), original);
+        dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
+        QCOMPARE(chosen.count(), 1);  // unchanged: nothing to do
+        dlg.setOriginalDatabase(original, u"GordonsReloadingTool.plain.db: 578 calibers, 5659 projectiles, 683 propellants"_s);
+        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {  // for looking at the layout
+            dlg.adjustSize();
+            dlg.grab().save(shots + u"/settings.png"_s);
+        }
+
+        QVERIFY(w.openDatabase(original));
+        QCOMPARE(QSettings().value(u"database/path"_s).toString(), original);
+        QVERIFY(browser->selectId(562));  // a powder of the original
+    }
+    QSettings().setValue(u"database/path"_s, before);
 }
 
 QTEST_MAIN(GuiTest)

@@ -116,7 +116,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+306"/>
+        <location line="-125"/>
+        <location line="+153"/>
+        <source>No database available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+278"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -235,13 +241,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
-        <location line="+153"/>
-        <source>Open a database first (File ▸ Open database…)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-137"/>
+        <location line="+20"/>
         <source>Cartridge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -411,16 +411,12 @@
     </message>
     <message>
         <location line="+8"/>
+        <location line="+188"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>No database loaded: use File ▸ Open database…</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="-154"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -436,12 +432,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+132"/>
+        <location line="+127"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-132"/>
+        <location line="-127"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -492,23 +488,46 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Open &amp;database…</source>
+        <location line="+118"/>
+        <source>Cannot open the database %1:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Original database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+118"/>
-        <source>Open database</source>
+        <source>Cannot use %1:
+%2
+
+The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (GordonsReloadingTool.plain.db).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-118"/>
-        <source>SQLite databases (*.db *.sqlite);;All files (*)</source>
+        <location line="+9"/>
+        <source>%1 calibers, %2 projectiles, %3 propellants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
+        <source>%1: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>No original database (choose it in File ▸ Settings…): %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>The database cannot be opened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-172"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,26 +609,13 @@
     </message>
     <message>
         <location line="+48"/>
-        <location line="+44"/>
+        <location line="+64"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-25"/>
-        <source>Cannot open %1:
-%2
-
-The original GordonsReloadingTool.db is encrypted; use a decrypted copy (see tools/grt_decrypt_db.sh).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>%1: %2 calibers, %3 projectiles, %4 propellants</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+12"/>
+        <location line="-6"/>
         <location line="+6"/>
         <location line="+4"/>
         <source>Reference</source>
@@ -628,11 +634,6 @@ The original GordonsReloadingTool.db is encrypted; use a decrypted copy (see too
     <message>
         <location line="+8"/>
         <source>New load</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Open a database first (File ▸ Open database…).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1128,7 +1129,7 @@ The original GordonsReloadingTool.db is encrypted; use a decrypted copy (see too
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+26"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+32"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1170,6 +1171,46 @@ The original GordonsReloadingTool.db is encrypted; use a decrypted copy (see too
     <message>
         <location line="+1"/>
         <source>Forget the units chosen for single fields; every field follows the unit system again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Original database:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>GordonsReloadingTool.plain.db</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The decrypted database of Gordon&apos;s Reloading Tool. It is only read; new records go into the program&apos;s own database, and both appear as one database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Browse…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Original database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SQLite databases (*.db *.sqlite);;All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

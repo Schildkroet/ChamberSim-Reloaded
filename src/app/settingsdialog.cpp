@@ -1,12 +1,16 @@
 #include "settingsdialog.h"
 
 #include "appfont.h"
+#include "database.h"
 #include "unitprefs.h"
 #include "units.h"
 
 #include <QApplication>
 #include <QComboBox>
 #include <QDialogButtonBox>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QLineEdit>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QLabel>
@@ -20,6 +24,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     : QDialog(parent)
     , m_fontSize(new QSpinBox)
     , m_unitSystem(new QComboBox)
+    , m_database(new QLineEdit)
+    , m_databaseInfo(new QLabel)
     , m_originalSize(appfont::storedSize())
     , m_originalSystem(static_cast<int>(UnitPreferences::instance().system()))
 {
@@ -61,16 +67,41 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     unitGrid->addWidget(m_unitSystem, 0, 1);
     unitGrid->addWidget(resetUnits, 0, 2);
 
-    // the reset buttons share one width, the controls share the middle column
-    const int buttonWidth = std::max(reset->sizeHint().width(), resetUnits->sizeHint().width());
+    auto *database = new QGroupBox(tr("Database"));
+    auto *databaseGrid = makeForm(database);
+    auto *databaseLabel = new QLabel(tr("Original database:"));
+    databaseLabel->setBuddy(m_database);
+    m_database->setObjectName(QStringLiteral("originalDatabase"));
+    m_database->setClearButtonEnabled(true);
+    m_database->setPlaceholderText(tr("GordonsReloadingTool.plain.db"));
+    m_database->setToolTip(tr("The decrypted database of Gordon's Reloading Tool. It is only read; new records go "
+                              "into the program's own database, and both appear as one database."));
+    auto *browse = new QPushButton(tr("Browse…"));
+    connect(browse, &QPushButton::clicked, this, [this] {
+        const QString start = m_database->text().isEmpty() ? QString() : QFileInfo(m_database->text()).absolutePath();
+        const QString f = QFileDialog::getOpenFileName(this, tr("Original database"), start,
+                                                       tr("SQLite databases (*.db *.sqlite);;All files (*)"));
+        if (!f.isEmpty()) m_database->setText(f);
+    });
+    m_databaseInfo->setWordWrap(true);
+    m_databaseInfo->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    databaseGrid->addWidget(databaseLabel, 0, 0);
+    databaseGrid->addWidget(m_database, 0, 1);
+    databaseGrid->addWidget(browse, 0, 2);
+    databaseGrid->addWidget(m_databaseInfo, 1, 1, 1, 2);
+
+    // the buttons share one width, the controls share the middle column
+    const int buttonWidth = std::max({reset->sizeHint().width(), resetUnits->sizeHint().width(), browse->sizeHint().width()});
     reset->setMinimumWidth(buttonWidth);
     resetUnits->setMinimumWidth(buttonWidth);
+    browse->setMinimumWidth(buttonWidth);
     m_fontSize->setMinimumWidth(110);
     m_unitSystem->setMinimumWidth(110);
     m_fontSize->setAlignment(Qt::AlignRight);
-    const int labelWidth = std::max(fontLabel->sizeHint().width(), systemLabel->sizeHint().width());
+    const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width()});
     fontLabel->setMinimumWidth(labelWidth);
     systemLabel->setMinimumWidth(labelWidth);
+    databaseLabel->setMinimumWidth(labelWidth);
 
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
     connect(buttons->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &SettingsDialog::apply);
@@ -89,9 +120,23 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     layout->setSpacing(12);
     layout->addWidget(appearance);
     layout->addWidget(units);
+    layout->addWidget(database);
     layout->addStretch(1);
     layout->addWidget(buttons);
-    setMinimumWidth(460);
+    setMinimumWidth(560);
+}
+
+void SettingsDialog::setOriginalDatabase(const QString &path, const QString &summary)
+{
+    m_databasePath = path;
+    m_database->setText(path);
+    m_databaseInfo->setText(tr("<small>%1<br>New records are stored in the program's own database:<br>%2</small>")
+                                .arg(summary.toHtmlEscaped(), grt::Database::defaultOwnPath().toHtmlEscaped()));
+}
+
+QString SettingsDialog::originalDatabase() const
+{
+    return m_database->text().trimmed();
 }
 
 int SettingsDialog::fontSize() const
@@ -105,4 +150,8 @@ void SettingsDialog::apply()
     appfont::storeSize(applied);
     m_fontSize->setValue(applied);
     UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_unitSystem->currentData().toInt()));
+    if (originalDatabase() != m_databasePath) {
+        m_databasePath = originalDatabase();
+        emit originalDatabaseChosen(m_databasePath);
+    }
 }

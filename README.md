@@ -74,9 +74,11 @@ distributed.
 
 ## Data
 
-The program needs a **plain (unencrypted) SQLite database** with the tables `caliber`, `projectile`, `propellant`
-and `gun` in the layout used by Gordon's Reloading Tool. Open it with *File ▸ Open database…*; the last used
-database is remembered. No database is included in this repository, and the program does not decrypt one.
+The program keeps its **own database** (`GRTReloaded.db` in the application data folder, created on first start)
+for every new record. The records of Gordon's Reloading Tool can be added by choosing a **plain (unencrypted)
+copy** of its database in *File ▸ Settings ▸ Database*; that file is only read. Both appear as one database
+everywhere in the program (own records get ids from 1,000,000 on). No database is included in this repository, and
+the program does not decrypt one.
 
 Several tests use sample loads and a database that are not part of the repository; those that need them are skipped
 or have to be supplied locally in `tests/data/` and `tools/`.

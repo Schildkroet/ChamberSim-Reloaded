@@ -56,11 +56,8 @@ MainWindow::MainWindow(QWidget *parent)
     resize(1280, 800);
     restoreGeometry(QSettings().value(QStringLiteral("window/geometry")).toByteArray());
 
-    const QString lastDb = QSettings().value(QStringLiteral("database/path")).toString();
-    if (!lastDb.isEmpty() && QFileInfo::exists(lastDb))
-        openDatabase(lastDb);
-    else
-        statusBar()->showMessage(tr("No database loaded: use File ▸ Open database…"));
+    // the own database is always there; the original one is chosen in the settings
+    openDatabase(QSettings().value(QStringLiteral("database/path")).toString(), false);
 }
 
 // Hands the database to every open load (or takes it away while it is being replaced).
@@ -117,18 +114,13 @@ void MainWindow::createActions()
         if (!path.isEmpty() && !v->report()->exportPdf(path)) QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
     });
     file->addSeparator();
-    add(tr("Open &database…"), {}, [this] {
-        const QString f = QFileDialog::getOpenFileName(this, tr("Open database"), {}, tr("SQLite databases (*.db *.sqlite);;All files (*)"));
-        if (!f.isEmpty()) openDatabase(f);
-    });
-    file->addSeparator();
     add(tr("Overlay &reference result…"), QKeySequence(Qt::CTRL | Qt::Key_R), [this] {
         const QString f = QFileDialog::getOpenFileName(this, tr("Reference result"), {}, tr("Reference results (*.json)"));
         if (!f.isEmpty()) overlayReference(f);
     });
     add(tr("&Clear reference overlay"), {}, [this] { if (auto *v = currentLoad()) v->setReference(std::nullopt); });
     file->addSeparator();
-    add(tr("&Settings…"), QKeySequence(Qt::CTRL | Qt::Key_Comma), [this] { SettingsDialog(this).exec(); });
+    add(tr("&Settings…"), QKeySequence(Qt::CTRL | Qt::Key_Comma), [this] { showSettings(); });
     file->addSeparator();
     add(tr("&Quit"), QKeySequence::Quit, [this] { close(); });
 
@@ -230,26 +222,46 @@ bool MainWindow::openLoad(const QString &path)
     return true;
 }
 
-bool MainWindow::openDatabase(const QString &path)
+bool MainWindow::openDatabase(const QString &originalPath, bool complain)
 {
     for (TableBrowser *b : m_browsers) b->setDatabase(nullptr);  // release the old connection first
     setLoadViewDatabases(false);
     QString error;
-    if (!m_db.open(path, true, &error)) {
-        QMessageBox::warning(this, tr("Open database"),
-                             tr("Cannot open %1:\n%2\n\nThe original GordonsReloadingTool.db is encrypted; "
-                                "use a decrypted copy (see tools/grt_decrypt_db.sh).").arg(path, error));
+    const bool ok = m_db.open(originalPath, {}, &error);
+    if (!m_db.isOpen()) {  // not even the own database: nothing to show
+        QMessageBox::warning(this, tr("Database"), tr("Cannot open the database %1:\n%2").arg(grt::Database::defaultOwnPath(), error));
         return false;
     }
     for (TableBrowser *b : m_browsers) b->setDatabase(&m_db);
     setLoadViewDatabases(true);
-    QSettings().setValue(QStringLiteral("database/path"), path);
-    statusBar()->showMessage(tr("%1: %2 calibers, %3 projectiles, %4 propellants")
-                                 .arg(QFileInfo(path).fileName())
-                                 .arg(m_db.count(grt::Table::Caliber))
-                                 .arg(m_db.count(grt::Table::Projectile))
-                                 .arg(m_db.count(grt::Table::Propellant)));
-    return true;
+    if (!ok && complain)
+        QMessageBox::warning(this, tr("Original database"),
+                             tr("Cannot use %1:\n%2\n\nThe original GordonsReloadingTool.db is encrypted; "
+                                "choose a decrypted copy (GordonsReloadingTool.plain.db).").arg(originalPath, error));
+    if (ok || originalPath.isEmpty()) QSettings().setValue(QStringLiteral("database/path"), originalPath);
+    statusBar()->showMessage(databaseSummary());
+    return ok;
+}
+
+QString MainWindow::databaseSummary() const
+{
+    const QString counts = tr("%1 calibers, %2 projectiles, %3 propellants")
+                               .arg(m_db.count(grt::Table::Caliber))
+                               .arg(m_db.count(grt::Table::Projectile))
+                               .arg(m_db.count(grt::Table::Propellant));
+    return m_db.hasOriginal() ? tr("%1: %2").arg(QFileInfo(m_db.path()).fileName(), counts)
+                              : tr("No original database (choose it in File ▸ Settings…): %1").arg(counts);
+}
+
+void MainWindow::showSettings()
+{
+    SettingsDialog dlg(this);
+    dlg.setOriginalDatabase(m_db.path(), databaseSummary());
+    connect(&dlg, &SettingsDialog::originalDatabaseChosen, this, [this, &dlg](const QString &path) {
+        openDatabase(path);
+        dlg.setOriginalDatabase(m_db.path(), databaseSummary());
+    });
+    dlg.exec();
 }
 
 bool MainWindow::overlayReference(const QString &jsonPath)
@@ -274,7 +286,7 @@ bool MainWindow::overlayReference(const QString &jsonPath)
 void MainWindow::newLoad()
 {
     if (!m_db.isOpen()) {
-        QMessageBox::information(this, tr("New load"), tr("Open a database first (File ▸ Open database…)."));
+        QMessageBox::information(this, tr("New load"), tr("The database cannot be opened."));
         return;
     }
     NewLoadDialog dlg(m_db, this);
