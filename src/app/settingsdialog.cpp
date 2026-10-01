@@ -42,7 +42,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     const auto makeForm = [](QGroupBox *box) {
         auto *grid = new QGridLayout(box);
         grid->setColumnStretch(1, 1);
-        grid->setHorizontalSpacing(48);
+        grid->setHorizontalSpacing(12);
         grid->setVerticalSpacing(8);
         return grid;
     };
@@ -107,7 +107,10 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_fontSize->setMinimumWidth(110);
     m_unitSystem->setMinimumWidth(110);
     m_fontSize->setAlignment(Qt::AlignRight);
-    const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width()});
+    const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
+                                     titleBarLabel->sizeHint().width()}) + 36;
+    // 48 px from the labels to the fields (the grid's 12 px plus this margin)
+    for (QLabel *l : {fontLabel, titleBarLabel, systemLabel, databaseLabel}) l->setContentsMargins(0, 0, 36, 0);
     fontLabel->setMinimumWidth(labelWidth);
     systemLabel->setMinimumWidth(labelWidth);
     databaseLabel->setMinimumWidth(labelWidth);
@@ -136,7 +139,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     layout->addWidget(database);
     layout->addStretch(1);
     layout->addWidget(buttons);
-    setMinimumWidth(560);
+    setMinimumWidth(620);
 }
 
 void SettingsDialog::setOriginalDatabase(const QString &path, const QString &summary)
