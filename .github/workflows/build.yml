@@ -30,7 +30,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           host: linux
           target: desktop
-          arch: linux_gcc_64
+          arch: gcc_64
           modules: qtcharts
           cache: true
 
@@ -105,7 +105,9 @@ jobs:
       - name: Smoke test (starts the app and takes a screenshot)
         shell: pwsh
         run: |
-          dist\bin\GRTReloaded.exe --screenshot "$env:RUNNER_TEMP\smoke.png"
+          # a GUI program: start-process waits until it has exited
+          $p = Start-Process -FilePath dist\bin\GRTReloaded.exe -ArgumentList '--screenshot', "$env:RUNNER_TEMP\smoke.png" -Wait -PassThru
+          Write-Host "exit code: $($p.ExitCode)"
           if (-not (Test-Path "$env:RUNNER_TEMP\smoke.png")) { throw "no screenshot written" }
 
       - name: Zip
