@@ -41,10 +41,9 @@ original's results; lower is better):
 | Powders (40 powders, one cartridge) | 39 | 4.2 % | 30.4 % | 1.0 % | 5.3 % | 4.5 % |
 | Charge, bullet weight, start pressure, case volume | 24 | 2.6 % | 8.7 % | 0.7 % | 2.5 % | 3.4 % |
 | Barrel length, twist, Sebert factor | 10 | 0.6 % | 1.6 % | 0.3 % | 1.0 % | 3.2 % |
-| Powder temperature | 14 | 0.4 % | 1.3 % | 0.2 % | 0.3 % | 2.2 % |
+| Powder temperature | 26 | 0.3 % | 1.3 % | 0.2 % | 0.3 % | 2.3 % |
 | Bullet friction | 11 | 0.8 % | 2.9 % | 0.8 % | 2.4 % | 3.0 % |
 | Almost closed vessel (very heavy bullet) | 9 | 7.1 % | 12.1 % | 1.0 % | 2.6 % | 5.0 % |
-| Other | 12 | 0.1 % | 0.1 % | 0.1 % | 0.3 % | 2.4 % |
 | **All runs** | 147 | 2.5 % | 30.4 % | 0.8 % | 10.2 % | 3.8 % |
 
 _Absolute errors against 147 runs of the original program; updated 2026-10-01 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._

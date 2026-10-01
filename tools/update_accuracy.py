@@ -16,7 +16,7 @@ GROUPS = [  # (label, name regex)
     ("Powders (40 powders, one cartridge)", r"^pw_"),
     ("Charge, bullet weight, start pressure, case volume", r"^(base|mc_|mp_|ps_|casevol_|lad_)"),
     ("Barrel length, twist, Sebert factor", r"^(xe_|twist_|sebert_)"),
-    ("Powder temperature", r"^(pt_|t_)"),
+    ("Powder temperature", r"^(pt_|t_|tc_)"),
     ("Bullet friction", r"^(friction|fr_)"),
     ("Almost closed vessel (very heavy bullet)", r"^cv_"),
 ]
