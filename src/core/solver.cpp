@@ -1,0 +1,313 @@
+#include "solver.h"
+
+#include <algorithm>
+#include <cmath>
+#include <numbers>
+
+namespace grt {
+
+namespace {
+
+constexpr double kBar = 1.0e5;  // Pa per bar
+
+// Three-phase form function phi(z) of the burn law dz/dt = Ba * p[bar] * phi(z).
+struct FormFunction {
+    const Calibration *cal;
+    double a0, z1, z2;
+
+    [[nodiscard]] static double poly(const double (&c)[4], double x) noexcept
+    {
+        return ((c[0] * x + c[1]) * x + c[2]) * x + c[3];
+    }
+
+    [[nodiscard]] double phase1(double z) const noexcept
+    {
+        return cal->burnIntercept + (cal->burnSlopeA0 * a0 + cal->burnSlopeOffset) * z;
+    }
+
+    [[nodiscard]] double operator()(double z) const noexcept
+    {
+        constexpr double kFloor = 0.02;  // the burn rate never reverses
+        if (z < z1) return std::max(phase1(z), kFloor);
+        const double phi1 = std::max(phase1(z1), kFloor);
+        if (z < z2) return std::max(phi1 * poly(cal->phase2, (z - z1) / std::max(z2 - z1, 1e-9)), kFloor);
+        return std::max(phi1 * poly(cal->phase3, std::min((z - z2) / std::max(1.0 - z2, 1e-9), cal->phase3Limit)), kFloor);
+    }
+};
+
+struct Model {
+    double A_m2;
+    double mEff_kg;
+    double mc_kg;
+    double V0_m3;
+    double x0_m;
+    double rho;
+    double covolume_m3kg;
+    double fEnergy;  // impetus-like constant: factor * (k-1) * Qex [J/kg]
+    double theta;    // k - 1
+    double kinetic;  // kinetic factor
+    double z0;       // initial gas "burn fraction" reproducing the start pressure
+    double burnBa;
+    double burnExponent;
+    double burnZ0Factor;
+    FormFunction phi;
+
+    [[nodiscard]] double gasVolume(double z, double x_m) const noexcept
+    {
+        return V0_m3 + A_m2 * (x_m - x0_m) - mc_kg * (1.0 - z) / rho - covolume_m3kg * mc_kg * z;
+    }
+
+    [[nodiscard]] double thermoPressure(double z, double v, double x_m) const noexcept
+    {
+        const double e = fEnergy * mc_kg * (z + z0) - theta * kinetic * 0.5 * mEff_kg * v * v;
+        const double vg = gasVolume(z, x_m);
+        return vg > 0.0 ? std::max(e, 0.0) / vg : 0.0;
+    }
+
+    [[nodiscard]] double burnRate(double z, double p_Pa) const noexcept
+    {
+        if (z >= 1.0) return 0.0;
+        const double pBar = p_Pa / kBar;
+        const double boost = burnExponent == 0.0 ? 1.0 : std::pow(std::max(pBar, 1.0) / 1000.0, burnExponent);
+        return burnBa * pBar * boost * phi(z + burnZ0Factor * z0);
+    }
+
+    [[nodiscard]] double advanceBurn(double zPrev, double pPrev, double pNew, double dt) const noexcept
+    {
+        const double r0 = burnRate(zPrev, pPrev);
+        double z = zPrev;
+        for (int k = 0; k < 3; ++k) z = std::min(1.0, zPrev + 0.5 * (r0 + burnRate(z, pNew)) * dt);
+        return z;
+    }
+};
+
+[[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal) noexcept
+{
+    const double dT = in.temperature_C - 21.0;
+    if (dT == 0.0) return in.vivacityBa;
+    if (dT > 0.0) {
+        return in.hotCoeff != 0.0 ? in.vivacityBa + in.hotCoeff * dT
+                                  : in.vivacityBa * (1.0 + cal.hotCoeffDefault * dT);
+    }
+    return in.coldCoeff != 0.0 ? in.vivacityBa + in.coldCoeff * dT
+                               : in.vivacityBa * (1.0 + cal.coldCoeffDefault * dT);
+}
+
+}  // namespace
+
+double bulletIntrusion_m3(const SimInput &in)
+{
+    namespace n = std::numbers;
+    const double D = in.bulletDiameter_mm * 1e-3;
+    const double depth = in.seatingDepth_mm * 1e-3;
+    const double h = in.tailLength_mm * 1e-3;
+    const double areaBullet = n::pi / 4.0 * D * D;
+    double inside = areaBullet * depth;
+    if ((in.tailType == 1 || in.tailType == 2) && h > 0.0 && depth >= h) {
+        // the tail is a cone between the diameters A and B over the length h (the order does not matter)
+        const double R = (in.tailDiameterA_mm > 0.0 ? in.tailDiameterA_mm * 1e-3 : D) / 2.0;
+        const double r = in.tailDiameterB_mm * 1e-3 / 2.0;
+        const double cone = n::pi * h / 3.0 * (R * R + R * r + r * r);
+        if (in.tailType == 2) inside -= areaBullet * h - cone;  // boat tail: the cone is missing from the cylinder
+        else inside -= cone;                                    // hollow base: the cavity adds combustion volume
+    }
+    return inside;
+}
+
+double chamberVolume_m3(const SimInput &in, const Calibration &cal)
+{
+    return cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - cal.intrusionFactor * bulletIntrusion_m3(in)
+           + cal.chamberOffset_cm3 * 1e-6 + in.boreArea_mm2 * cal.chamberOffsetLength_mm * 1e-9;
+}
+
+SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
+{
+    SimResult res;
+    const double x0 = in.startPosition_mm() * 1e-3;
+    const double xe = in.barrelLength_mm * 1e-3;
+
+    const bool inputOk = steps > 1 && in.boreArea_mm2 > 0.0 && in.bulletMass_g > 0.0 && in.charge_g > 0.0
+                         && in.vivacityBa > 0.0 && in.heatQex_kJkg > 0.0 && in.kappa > 1.0
+                         && in.caseVolume_cm3 > 0.0 && xe > x0;
+    if (!inputOk) return res;
+
+    // The original rejects charges that do not fit: measured on its accepted/rejected loads, the limit is
+    // 1.2 x bulk density in the volume left after the bullet intrudes into the case (accepted loads reach
+    // 1.10, rejected ones start at 1.29).
+    const double freeVolume_cm3 = in.caseVolume_cm3 - bulletIntrusion_m3(in) * 1e6;
+    if (freeVolume_cm3 <= 0.0 || in.charge_g / freeVolume_cm3 > 1.2 * in.bulkDensity_kgm3 * 1e-3) {
+        res.status = SimStatus::ChargeTooHigh;
+        return res;
+    }
+
+    Model m{};
+    m.A_m2 = in.boreArea_mm2 * 1e-6;
+    m.mEff_kg = in.effectiveMass_g() * 1e-3;
+    m.mc_kg = in.charge_g * 1e-3;
+    m.V0_m3 = chamberVolume_m3(in, cal);
+    m.x0_m = x0;
+    m.rho = in.density_kgm3;
+    m.covolume_m3kg = cal.covolume_cm3g * 1e-3 * in.covolumeEta;
+    m.theta = in.kappa - 1.0;
+    m.fEnergy = cal.impetusFactor * m.theta * in.heatQex_kJkg * 1e3;
+    m.kinetic = cal.kineticFactor;
+    m.burnBa = burnCoefficient(in, cal);
+    m.burnExponent = cal.burnExponent;
+    m.burnZ0Factor = cal.burnZ0Factor;
+    m.phi = {.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+    if (m.V0_m3 <= 0.0) return res;
+
+    const double manualFriction = in.extraFrictionUnlocked ? std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9) : 0.0;
+    const double p0 = in.startPressure_bar * kBar;
+    m.z0 = cal.initialGasFactor * p0 * m.gasVolume(0.0, x0) / (m.fEnergy * m.mc_kg);  // initial gas energy reproduces the start pressure p(z=0,v=0)=ps
+
+    const double dx = (xe - x0) / steps;
+    res.points.reserve(static_cast<std::size_t>(steps));
+    res.points.push_back({.x_mm = x0 * 1e3, .z = 0.0, .p_bar = in.startPressure_bar});
+
+    double z = 0.0, v = 0.0, p = p0, t = 0.0;
+    for (int i = 1; i < steps; ++i) {
+        const double x1 = x0 + i * dx;
+
+        struct Trial { double pMom, pTh, z; };
+        const auto trial = [&](double v1) -> Trial {
+            const double pMom = m.mEff_kg * (v1 * v1 - v * v) / (2.0 * m.A_m2 * dx * (1.0 - manualFriction));
+            const double dt = 2.0 * dx / (v + v1);
+            const double zNew = m.advanceBurn(z, p, pMom, dt);
+            return {pMom, m.thermoPressure(zNew, v1, x1), zNew};
+        };
+
+        double lo = std::max(v, 1e-9);
+        double hi = std::max(2.0 * v, 1.0);
+        if (const Trial a = trial(lo); a.pMom >= a.pTh) {
+            hi = lo;  // stalled: nothing to solve
+        } else {
+            for (int g = 0; g < 60; ++g) {
+                const Trial b = trial(hi);
+                if (b.pMom >= b.pTh) break;
+                lo = hi;
+                hi *= 2.0;
+            }
+            for (int it = 0; it < 70; ++it) {
+                const double mid = 0.5 * (lo + hi);
+                const Trial b = trial(mid);
+                (b.pMom < b.pTh ? lo : hi) = mid;
+            }
+        }
+        const double v1 = 0.5 * (lo + hi);
+        const Trial fin = trial(v1);
+        t += 2.0 * dx / std::max(v + v1, 1e-12);
+        z = fin.z;
+        p = fin.pMom;
+        v = v1;
+        res.points.push_back({.x_mm = x1 * 1e3,
+                              .z = z,
+                              .p_bar = p / kBar,
+                              .v_ms = v,
+                              .e_J = 0.5 * in.bulletMass_g * 1e-3 * v * v,
+                              .t_ms = t * 1e3});
+    }
+
+    // summary
+    const auto &pts = res.points;
+    const auto pmax = std::ranges::max_element(pts, {}, &SimPoint::p_bar);
+    res.indexPmax = static_cast<std::size_t>(pmax - pts.begin());
+    res.maxPressure_bar = pmax->p_bar;
+    const SimPoint &last = pts.back();
+    res.muzzlePressure_bar = last.p_bar;
+    res.muzzleVelocity_ms = last.v_ms;
+    res.muzzleEnergy_J = last.e_J;
+    res.muzzleTime_ms = last.t_ms;
+    res.burntFraction = last.z;
+    res.efficiency = last.e_J / (in.charge_g * 1e-3 * in.heatQex_kJkg * 1e3);
+    const auto burnout = std::ranges::find_if(pts, [](const SimPoint &q) { return q.z >= 1.0; });
+    res.burnoutInBarrel = burnout != pts.end();
+    res.indexBurnout = static_cast<std::size_t>((res.burnoutInBarrel ? burnout : pts.end() - 1) - pts.begin());
+
+    // markers and ratios
+    const auto firstAtLeast = [&](auto value, double limit) {
+        const auto it = std::ranges::find_if(pts, [&](const SimPoint &q) { return value(q) >= limit; });
+        return it == pts.end() ? std::size_t{0} : static_cast<std::size_t>(it - pts.begin());
+    };
+    res.indexZ1 = firstAtLeast([](const SimPoint &q) { return q.z; }, in.z1);
+    res.indexZ2 = firstAtLeast([](const SimPoint &q) { return q.z; }, in.z2);
+    res.indexEnergy95 = firstAtLeast([](const SimPoint &q) { return q.e_J; }, 0.95 * last.e_J);
+    res.effectiveCaseVolume_cm3 = freeVolume_cm3;
+    res.loadRatio = in.charge_g / (in.bulkDensity_kgm3 * 1e-3 * freeVolume_cm3);
+    if (in.twistLength_mm > 0.0) res.muzzleRpm = last.v_ms / (in.twistLength_mm * 1e-3) * 60.0;
+
+    // derived quantities
+    constexpr double kFtPerM = 3.280839895;
+    const double mc = in.charge_g * 1e-3, mp = in.bulletMass_g * 1e-3;
+    res.burnoutPressure_bar = pts[res.indexBurnout].p_bar;
+    res.propellantEnergy_J = in.heatQex_kJkg * 1e3 * mc * last.z;
+    res.frictionForce_N = cal.frictionStress_MPa * std::numbers::pi * in.bulletDiameter_mm * in.bulletLength_mm;
+    res.muzzleFrictionEnergy_J = res.frictionForce_N * (last.x_mm - pts.front().x_mm) * 1e-3;
+    res.ipscFactor = in.bulletMass_g / 0.06479890999975 * last.v_ms * kFtPerM / 1000.0;
+    res.mipFactor = cal.mipFactor * res.ipscFactor;
+    res.projectileImpulse_Ns = mp * last.v_ms;
+    res.propellantImpulse_Ns = in.sebert * mc * last.v_ms;
+    res.gasImpulse_Ns = cal.gasImpulseFactor * mc * last.v_ms;
+    res.recoilImpulse_Ns = res.projectileImpulse_Ns + res.propellantImpulse_Ns + res.gasImpulse_Ns;
+    if (last.t_ms > 0.0) res.meanRecoilForce_N = res.recoilImpulse_Ns / (last.t_ms * 1e-3);
+    if (in.gunWeight_kg > 0.0) {
+        res.recoilVelocity_ms = res.recoilImpulse_Ns / in.gunWeight_kg;
+        res.recoilEnergy_J = 0.5 * in.gunWeight_kg * res.recoilVelocity_ms * res.recoilVelocity_ms;
+        res.recoilAcceleration_ms2 = res.meanRecoilForce_N / in.gunWeight_kg;
+    }
+    res.status = SimStatus::Ok;
+    return res;
+}
+
+std::vector<LadderStep> simulateLadder(const SimInput &in, const Calibration &cal, int steps)
+{
+    std::vector<LadderStep> out;
+    const int count = in.ladderCount < 2 || in.ladderStep_g <= 0.0 ? 1 : std::min(in.ladderCount, kMaxLadderSteps);
+    for (int i = 0; i < count; ++i) {
+        SimInput step = in;
+        step.charge_g = in.charge_g - i * in.ladderStep_g;
+        if (step.charge_g <= 0.0) break;
+        out.push_back({.charge_g = step.charge_g, .result = simulate(step, cal, steps)});
+    }
+    if (out.empty()) out.push_back({.charge_g = in.charge_g, .result = simulate(in, cal, steps)});
+    return out;
+}
+
+std::vector<double> vivacityCurve(const SimInput &in, const Calibration &cal, int n)
+{
+    std::vector<double> out;
+    if (n < 2) return out;
+    out.reserve(static_cast<std::size_t>(n));
+    const FormFunction phi{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+    const double ba = burnCoefficient(in, cal);
+    for (int i = 0; i < n; ++i) out.push_back(ba * phi(static_cast<double>(i) / (n - 1)));
+    return out;
+}
+
+std::vector<NamedParameter> parameters(Calibration &cal)
+{
+    return {{"impetusFactor", &cal.impetusFactor},
+            {"kineticFactor", &cal.kineticFactor},
+            {"covolume_cm3g", &cal.covolume_cm3g},
+            {"intrusionFactor", &cal.intrusionFactor},
+            {"chamberOffset_cm3", &cal.chamberOffset_cm3},
+            {"capacityFactor", &cal.capacityFactor},
+            {"chamberOffsetLength_mm", &cal.chamberOffsetLength_mm},
+            {"frictionStress_MPa", &cal.frictionStress_MPa},
+            {"gasImpulseFactor", &cal.gasImpulseFactor},
+            {"mipFactor", &cal.mipFactor},
+            {"manualFrictionFactor", &cal.manualFrictionFactor},
+            {"hotCoeffDefault", &cal.hotCoeffDefault},
+            {"coldCoeffDefault", &cal.coldCoeffDefault},
+            {"burnIntercept", &cal.burnIntercept},
+            {"burnSlopeA0", &cal.burnSlopeA0},
+            {"burnSlopeOffset", &cal.burnSlopeOffset},
+            {"burnExponent", &cal.burnExponent},
+            {"burnZ0Factor", &cal.burnZ0Factor},
+            {"initialGasFactor", &cal.initialGasFactor},
+            {"phase2_3", &cal.phase2[0]}, {"phase2_2", &cal.phase2[1]}, {"phase2_1", &cal.phase2[2]}, {"phase2_0", &cal.phase2[3]},
+            {"phase3Limit", &cal.phase3Limit},
+            {"phase3_3", &cal.phase3[0]}, {"phase3_2", &cal.phase3[1]}, {"phase3_1", &cal.phase3[2]}, {"phase3_0", &cal.phase3[3]}};
+}
+
+}  // namespace grt

@@ -1,0 +1,253 @@
+#include "loadfile.h"
+
+#include <QCoreApplication>
+#include <QFile>
+#include <QSaveFile>
+#include <QUrl>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+
+#include <algorithm>
+
+using namespace Qt::StringLiterals;
+
+namespace grt {
+
+namespace {
+
+QString decode(const QString &s)
+{
+    return s.contains(u'%') ? QUrl::fromPercentEncoding(s.toUtf8()) : s;
+}
+
+QString encode(const QString &s)
+{
+    return QString::fromLatin1(QUrl::toPercentEncoding(s));
+}
+
+[[nodiscard]] bool isTextual(const Entry &e)
+{
+    return e.type.isEmpty() || e.type == u"string";
+}
+
+Entry readEntry(const QXmlStreamAttributes &a)
+{
+    return {.name = a.value(u"name"_s).toString(),
+            .value = decode(a.value(u"value"_s).toString()),
+            .unit = a.value(u"unit"_s).toString(),
+            .type = a.value(u"type"_s).toString(),
+            .descr = a.value(u"descr"_s).toString()};
+}
+
+void writeEntry(QXmlStreamWriter &w, const QString &tag, const Entry &e)
+{
+    w.writeEmptyElement(tag);
+    w.writeAttribute(u"name"_s, e.name);
+    w.writeAttribute(u"value"_s, isTextual(e) ? encode(e.value) : e.value);
+    if (!e.type.isEmpty() || !e.unit.isEmpty() || !e.descr.isEmpty()) {
+        w.writeAttribute(u"unit"_s, e.unit);
+        w.writeAttribute(u"type"_s, e.type);
+        w.writeAttribute(u"descr"_s, e.descr);
+    }
+}
+
+// Copies the remaining content of the current element (without its end tag) to the writer.
+void copyChildren(QXmlStreamReader &r, QXmlStreamWriter &w)
+{
+    int depth = 0;
+    while (!r.atEnd()) {
+        switch (r.readNext()) {
+        case QXmlStreamReader::StartElement:
+            w.writeStartElement(r.name().toString());
+            w.writeAttributes(r.attributes());
+            ++depth;
+            break;
+        case QXmlStreamReader::EndElement:
+            if (depth == 0) return;
+            w.writeEndElement();
+            --depth;
+            break;
+        case QXmlStreamReader::Characters:
+            if (!r.isWhitespace()) w.writeCharacters(r.text().toString());
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void readList(QXmlStreamReader &r, EntryList &list, QStringView childTag)
+{
+    while (r.readNextStartElement()) {
+        if (r.name() == childTag) list.entries().push_back(readEntry(r.attributes()));
+        r.skipCurrentElement();
+    }
+}
+
+void writeList(QXmlStreamWriter &w, const QString &tag, const EntryList &list, const QString &childTag)
+{
+    w.writeStartElement(tag);
+    for (const Entry &e : list.entries()) writeEntry(w, childTag, e);
+    w.writeEndElement();
+}
+
+}  // namespace
+
+// ---- EntryList ------------------------------------------------------------
+
+const Entry *EntryList::find(QStringView name) const noexcept
+{
+    const auto it = std::ranges::find_if(m_entries, [&](const Entry &e) { return e.name == name; });
+    return it == m_entries.end() ? nullptr : &*it;
+}
+
+QString EntryList::text(QStringView name, const QString &fallback) const
+{
+    const Entry *e = find(name);
+    return e ? e->value : fallback;
+}
+
+double EntryList::number(QStringView name, double fallback) const
+{
+    const Entry *e = find(name);
+    if (!e) return fallback;
+    bool ok = false;
+    const double v = e->value.toDouble(&ok);
+    return ok ? v : fallback;
+}
+
+bool EntryList::flag(QStringView name, bool fallback) const
+{
+    const Entry *e = find(name);
+    if (!e) return fallback;
+    return e->value.compare(u"true", Qt::CaseInsensitive) == 0 || e->value == u"1";
+}
+
+void EntryList::set(QStringView name, const QString &value)
+{
+    if (auto it = std::ranges::find_if(m_entries, [&](const Entry &e) { return e.name == name; });
+        it != m_entries.end()) {
+        it->value = value;
+    } else {
+        m_entries.push_back({.name = name.toString(), .value = value, .unit = {}, .type = {}, .descr = {}});
+    }
+}
+
+void EntryList::set(QStringView name, double value)
+{
+    set(name, QString::number(value, 'g', 17));
+}
+
+// ---- LoadFile -------------------------------------------------------------
+
+std::optional<LoadFile> LoadFile::read(const QString &path, QString *error)
+{
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly)) {
+        if (error) *error = f.errorString();
+        return std::nullopt;
+    }
+    return parse(f.readAll(), error);
+}
+
+std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
+{
+    QXmlStreamReader r(xml);
+    LoadFile lf;
+    bool found = false;
+
+    if (!r.readNextStartElement() || r.name() != u"GordonsReloadingTool") {
+        if (error) *error = QCoreApplication::translate("grt::LoadFile", "Not a GordonsReloadingTool file");
+        return std::nullopt;
+    }
+    lf.appVersion = r.attributes().value(u"version"_s).toString();
+
+    while (r.readNextStartElement()) {
+        if (r.name() != u"InnerBallistikInput") {
+            r.skipCurrentElement();
+            continue;
+        }
+        found = true;
+        while (r.readNextStartElement()) {
+            const auto tag = r.name();
+            if (tag == u"title") {
+                lf.title = decode(r.readElementText());
+            } else if (tag == u"config") {
+                lf.config.entries().push_back(readEntry(r.attributes()));
+                r.skipCurrentElement();
+            } else if (tag == u"caliber") {
+                readList(r, lf.caliber, u"input");
+            } else if (tag == u"caliberfile") {
+                readList(r, lf.caliberFile, u"var");
+            } else if (tag == u"gun") {
+                readList(r, lf.gun, u"input");
+            } else if (tag == u"projectile") {
+                readList(r, lf.projectile, u"input");
+            } else if (tag == u"propellant") {
+                readList(r, lf.propellant, u"input");
+            } else if (tag == u"appendix") {
+                QByteArray inner;
+                QXmlStreamWriter w(&inner);
+                w.setAutoFormatting(true);
+                w.setAutoFormattingIndent(2);
+                copyChildren(r, w);
+                lf.appendixXml = QString::fromUtf8(inner);
+            } else {
+                r.skipCurrentElement();
+            }
+        }
+    }
+
+    if (r.hasError()) {
+        if (error) *error = r.errorString();
+        return std::nullopt;
+    }
+    if (!found) {
+        if (error) *error = QCoreApplication::translate("grt::LoadFile", "The file contains no load data (<InnerBallistikInput> is missing)");
+        return std::nullopt;
+    }
+    return lf;
+}
+
+QByteArray LoadFile::toXml() const
+{
+    QByteArray out;
+    QXmlStreamWriter w(&out);
+    w.setAutoFormatting(true);
+    w.setAutoFormattingIndent(2);
+    w.writeStartDocument(u"1.0"_s, true);
+    w.writeStartElement(u"GordonsReloadingTool"_s);
+    if (!appVersion.isEmpty()) w.writeAttribute(u"version"_s, appVersion);
+    w.writeStartElement(u"InnerBallistikInput"_s);
+    w.writeTextElement(u"title"_s, encode(title));
+    for (const Entry &e : config.entries()) writeEntry(w, u"config"_s, e);
+    writeList(w, u"caliber"_s, caliber, u"input"_s);
+    writeList(w, u"caliberfile"_s, caliberFile, u"var"_s);
+    writeList(w, u"gun"_s, gun, u"input"_s);
+    writeList(w, u"projectile"_s, projectile, u"input"_s);
+    writeList(w, u"propellant"_s, propellant, u"input"_s);
+    w.writeStartElement(u"appendix"_s);
+    if (!appendixXml.isEmpty()) {
+        // appendix content is already well-formed XML: splice it in verbatim
+        QXmlStreamReader ar(u"<a>"_s + appendixXml + u"</a>"_s);
+        ar.readNextStartElement();
+        copyChildren(ar, w);
+    }
+    w.writeEndElement();  // appendix
+    w.writeEndElement();  // InnerBallistikInput
+    w.writeEndElement();  // GordonsReloadingTool
+    w.writeEndDocument();
+    return out;
+}
+
+bool LoadFile::write(const QString &path, QString *error) const
+{
+    QSaveFile f(path);
+    if (!f.open(QIODevice::WriteOnly) || f.write(toXml()) < 0 || !f.commit()) {
+        if (error) *error = f.errorString();
+        return false;
+    }
+    return true;
+}
+
+}  // namespace grt

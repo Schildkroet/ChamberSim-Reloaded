@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<GordonsReloadingTool>
+  <plugin
+    name           = "GRT Reference Runner"
+    id             = "com.grt.plugin.grtref"
+    version        = "1.0.0"
+    provider       = "local"
+    description    = "Loads every .grtload from jobs/ and stores the simulation results as JSON in results/."
+    launch-windows = "grtref.py"
+    launch-linux   = "grtref.py"
+    launch-type    = "permanent"
+    launch-args    = ""
+    start-timeout  = "30.0"
+    enabled        = "true"
+  >
+    <registerevent>
+      <event name="TabComputed" enabled="true" />
+    </registerevent>
+  </plugin>
+</GordonsReloadingTool>

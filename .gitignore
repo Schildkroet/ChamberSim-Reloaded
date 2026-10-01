@@ -1,0 +1,46 @@
+# ---- build output and IDE files -------------------------------------------------------------
+/build/
+/build-*/
+CMakeLists.txt.user*
+*.autosave
+.cache/
+compile_commands.json
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ---- material that comes from the original program: do NOT publish ---------------------------
+# (the original's license forbids reverse engineering and redistribution; keep these local)
+
+# the original's database (decrypted copy) and anything derived from it
+*.db
+*.db.gz
+*.sqlite
+tools/GordonsReloadingTool*
+reference/
+tools/GRTRef/calibers.json
+tools/GRTRef/powders.json
+tools/GRTRef/jobs/
+tools/GRTRef/jobs_all/
+tools/GRTRef/jobs_done/
+analysis/calibrated.json
+
+# scripts and reports about extracting the database key / decrypting the database
+tools/grt_decrypt_db.sh
+tools/grt_extract_key.sh
+tools/grt_*report*.txt
+
+# sample loads and screenshots taken from the original program
+*.grtload
+tests/data/
+main.png
+cap.png
+
+# reverse-engineering notes and the project instructions that describe them
+CLAUDE.md
+.claude/
+
+# files exchanged with the VM that runs the original program
+results/
+*.log
