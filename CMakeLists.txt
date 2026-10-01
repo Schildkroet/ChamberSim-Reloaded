@@ -66,6 +66,8 @@ add_library(grtcore STATIC
     src/core/dbfields.cpp
     src/core/projectdata.h
     src/core/projectdata.cpp
+    src/core/powderfit.h
+    src/core/powderfit.cpp
 )
 target_include_directories(grtcore PUBLIC src/core)
 target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
@@ -183,6 +185,11 @@ qt_finalize_executable(GRTReloaded)
 add_executable(grt_datacheck tools/grt_datacheck.cpp)
 target_link_libraries(grt_datacheck PRIVATE grtcore)
 target_compile_definitions(grt_datacheck PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+
+# fits a propellant model to the measurements in *.grtload files: grt_fitpowder --help
+add_executable(grt_fitpowder tools/grt_fitpowder.cpp)
+target_link_libraries(grt_fitpowder PRIVATE grtcore)
+install(TARGETS grt_fitpowder RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_executable(grt_compare tools/grt_compare.cpp)
 target_link_libraries(grt_compare PRIVATE grtcore)

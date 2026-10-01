@@ -14,6 +14,7 @@
 #include "loadfile.h"
 #include "measurement.h"
 #include "projectdata.h"
+#include "powderfit.h"
 #include "reference.h"
 #include "report.h"
 #include "reportformat.h"
@@ -56,6 +57,7 @@ private slots:
     void ownDatabaseWorksWithoutTheOriginal();
     void projectRecordsArePartOfTheDatabase();
     void ownRecordsOfOlderVersionsMoveUp();
+    void powderFitFindsTheBurnRate();
     void languageResolution_data();
     void languageResolution();
     void normalizeLanguageTags();
@@ -692,6 +694,47 @@ void CoreTest::ownRecordsOfOlderVersionsMoveUp()
     QVERIFY(moved);
     QCOMPARE(moved->value(u"cipname"_s).toString(), u"Old"_s);
     QCOMPARE(*db.insert(grt::Table::Caliber, {{u"cipname"_s, u"New"_s}}), grt::Database::kOwnIdBase + 5);
+}
+
+// Measurements made with a known burn rate: the fit must find it again from another start value.
+void CoreTest::powderFitFindsTheBurnRate()
+{
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const double trueBa = 0.65;
+    grt::SimInput truth = grt::SimInput::fromLoad(*lf);
+    truth.vivacityBa = trueBa;
+    grt::Measurement m{.title = u"M"_s, .charges = {}, .attributes = {}};
+    for (const double g : {2.4, 2.6, 2.75}) {
+        truth.charge_g = g;
+        const grt::SimResult r = grt::simulate(truth);
+        QVERIFY(r.ok());
+        grt::MeasuredCharge c = grt::MeasuredCharge::create(u"c"_s, g);
+        for (const double d : {-3.0, -1.0, 0.0, 1.0, 3.0}) c.shots.push_back({.velocity_ms = r.muzzleVelocity_ms + d});  // scatter, mean exact
+        m.charges.push_back(c);
+    }
+    lf->appendixXml = grt::writeMeasurement(lf->appendixXml, m);
+    lf->propellant.set(u"Ba", 0.58);  // the start value
+
+    QStringList warnings;
+    const auto samples = grt::powderfit::samples(*lf, u"8x57"_s, &warnings);
+    QCOMPARE(samples.size(), std::size_t{3});
+    QCOMPARE(samples[0].shots, 5);
+    QCOMPARE(grt::powderfit::defaultParams(samples).size(), std::size_t{2});  // Ba, a0 for three charges
+    const auto res = grt::powderfit::fit(samples, {.params = {grt::powderfit::Param::Ba}, .pressureWeight = 1.0, .maxIterations = 60});
+    QVERIFY(res.improved);
+    QCOMPARE_LT(std::abs(res.after[0] / trueBa - 1.0), 0.002);
+    QCOMPARE_LT(res.velocityRmsAfter, 0.001);
+    QCOMPARE_GT(res.velocityRmsBefore, 0.01);
+
+    // the fitted value goes into the load
+    grt::powderfit::apply(lf->propellant, res);
+    QCOMPARE_LT(std::abs(lf->propellant.number(u"Ba") - trueBa), 0.002);
+
+    QString error;
+    QCOMPARE(grt::powderfit::parse(u"Ba, z1"_s, &error).size(), std::size_t{2});
+    QVERIFY(grt::powderfit::parse(u"Ba,colour"_s, &error).empty());
+    QVERIFY(error.contains(u"colour"_s));
 }
 
 void CoreTest::languageResolution_data()

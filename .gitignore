@@ -32,6 +32,7 @@ tools/grt_*report*.txt
 
 # sample loads and screenshots taken from the original program
 *.grtload
+!data/measurements/*.grtload
 tests/data/
 main.png
 cap.png
