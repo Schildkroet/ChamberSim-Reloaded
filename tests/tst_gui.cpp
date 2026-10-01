@@ -94,6 +94,7 @@ private slots:
     void recordDialogShowsReadableFieldsInUserUnits();
     void recordsAreAddedCopiedEditedAndDeleted();
     void comboBoxesOpenAsAScrollingList();
+    void loadMenuEntriesNeedALoad();
 
 private:
     static int idOf(grt::Database &db, grt::Table t, const QString &where);
@@ -1376,6 +1377,45 @@ void GuiTest::comboBoxesOpenAsAScrollingList()
     auto *proxy = qobject_cast<QProxyStyle *>(app.style());
     QVERIFY(proxy);
     QCOMPARE(proxy->baseStyle()->name(), before);  // the system style itself is kept
+}
+
+// File menu entries that act on a load are disabled while none is shown.
+void GuiTest::loadMenuEntriesNeedALoad()
+{
+    MainWindow w;
+    QMenu *file = w.menuBar()->actions().front()->menu();
+    const auto action = [&](const QString &start) {
+        for (QAction *a : file->actions())
+            if (a->text().remove(u'&').startsWith(start)) return a;
+        return static_cast<QAction *>(nullptr);
+    };
+    const QStringList needLoad{u"Save as"_s, u"Print preview"_s, u"Print…"_s, u"Export report"_s, u"Overlay reference"_s};
+    for (const QString &name : needLoad) {
+        QVERIFY2(action(name), qPrintable(name));
+        QVERIFY2(!action(name)->isEnabled(), qPrintable(name));
+    }
+    QVERIFY(!action(u"Save"_s)->isEnabled());
+    QVERIFY(!action(u"Clear reference"_s)->isEnabled());
+    QVERIFY(action(u"New load"_s)->isEnabled());
+    QVERIFY(action(u"Open load"_s)->isEnabled());
+    QVERIFY(action(u"Settings"_s)->isEnabled());
+
+    QVERIFY(w.openLoad(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    for (const QString &name : needLoad) QVERIFY2(action(name)->isEnabled(), qPrintable(name));
+    QVERIFY(!action(u"Save"_s)->isEnabled());             // nothing changed yet
+    QVERIFY(!action(u"Clear reference"_s)->isEnabled());  // no overlay
+
+    // back on the database tab nothing refers to a load
+    auto *tabs = qobject_cast<QTabWidget *>(w.centralWidget());
+    tabs->setCurrentIndex(0);
+    QVERIFY(!action(u"Print preview"_s)->isEnabled());
+    tabs->setCurrentIndex(1);
+    QVERIFY(action(u"Print preview"_s)->isEnabled());
+
+    // closing the load disables them again
+    emit tabs->tabCloseRequested(1);
+    QVERIFY(!action(u"Print preview"_s)->isEnabled());
+    recentfiles::store({});
 }
 
 QTEST_MAIN(GuiTest)

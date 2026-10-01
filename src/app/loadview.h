@@ -65,6 +65,7 @@ public:
 
     // Draws the original program's curves dashed and shows deltas in the summary.
     void setReference(std::optional<grt::ReferenceRun> ref);
+    [[nodiscard]] bool hasReference() const noexcept { return m_reference.has_value(); }
 
 signals:
     void modifiedChanged(bool modified);

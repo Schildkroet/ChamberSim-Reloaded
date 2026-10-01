@@ -85,6 +85,8 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     createActions();
+    connect(m_tabs, &QTabWidget::currentChanged, this, &MainWindow::updateActions);
+    updateActions();
     resize(1280, 800);
     restoreGeometry(QSettings().value(QStringLiteral("window/geometry")).toByteArray());
 
@@ -118,8 +120,8 @@ void MainWindow::createActions()
         const QStringList files = QFileDialog::getOpenFileNames(this, tr("Open load"), {}, tr("GRT loads (*.grtload);;All files (*)"));
         for (const QString &f : files) openLoad(f);
     });
-    add(tr("&Save"), QKeySequence::Save, [this] { if (auto *v = currentLoad()) saveLoad(v, false); });
-    add(tr("Save &as…"), QKeySequence::SaveAs, [this] { if (auto *v = currentLoad()) saveLoad(v, true); });
+    m_saveAction = add(tr("&Save"), QKeySequence::Save, [this] { if (auto *v = currentLoad()) saveLoad(v, false); });
+    m_loadActions.push_back(add(tr("Save &as…"), QKeySequence::SaveAs, [this] { if (auto *v = currentLoad()) saveLoad(v, true); }));
     // last used loads: a submenu next to "Open load", empty = disabled
     m_recentMenu = file->addMenu(tr("Open &recent"));
     for (int i = 0; i < recentfiles::kMaxFiles; ++i) {
@@ -137,20 +139,23 @@ void MainWindow::createActions()
     }
     updateRecentActions();
     file->addSeparator();
-    add(tr("Print pre&view…"), {}, [this] { if (auto *v = currentLoad()) v->report()->showPrintPreview(this); });
-    add(tr("&Print…"), QKeySequence::Print, [this] { if (auto *v = currentLoad()) v->report()->showPrintDialog(this); });
-    add(tr("Export report as P&DF…"), {}, [this] {
+    m_loadActions.push_back(add(tr("Print pre&view…"), {}, [this] { if (auto *v = currentLoad()) v->report()->showPrintPreview(this); }));
+    m_loadActions.push_back(add(tr("&Print…"), QKeySequence::Print, [this] { if (auto *v = currentLoad()) v->report()->showPrintDialog(this); }));
+    m_loadActions.push_back(add(tr("Export report as P&DF…"), {}, [this] {
         auto *v = currentLoad();
         if (!v) return;
         const QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
         if (!path.isEmpty() && !v->report()->exportPdf(path)) QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
-    });
+    }));
     file->addSeparator();
-    add(tr("Overlay &reference result…"), QKeySequence(Qt::CTRL | Qt::Key_R), [this] {
+    m_loadActions.push_back(add(tr("Overlay &reference result…"), QKeySequence(Qt::CTRL | Qt::Key_R), [this] {
         const QString f = QFileDialog::getOpenFileName(this, tr("Reference result"), {}, tr("Reference results (*.json)"));
         if (!f.isEmpty()) overlayReference(f);
+    }));
+    m_clearReferenceAction = add(tr("&Clear reference overlay"), {}, [this] {
+        if (auto *v = currentLoad()) v->setReference(std::nullopt);
+        updateActions();
     });
-    add(tr("&Clear reference overlay"), {}, [this] { if (auto *v = currentLoad()) v->setReference(std::nullopt); });
     file->addSeparator();
     add(tr("&Settings…"), QKeySequence(Qt::CTRL | Qt::Key_Comma), [this] { showSettings(); });
     file->addSeparator();
@@ -211,6 +216,15 @@ void MainWindow::addRecentFile(const QString &path)
     updateRecentActions();
 }
 
+// File menu entries that need a load work only while one is shown (and Save only with something to save).
+void MainWindow::updateActions()
+{
+    LoadView *view = currentLoad();
+    for (QAction *a : m_loadActions) a->setEnabled(view != nullptr);
+    if (m_saveAction) m_saveAction->setEnabled(view && (view->isModified() || view->path().isEmpty()));
+    if (m_clearReferenceAction) m_clearReferenceAction->setEnabled(view && view->hasReference());
+}
+
 void MainWindow::updateRecentActions()
 {
     const QStringList files = recentfiles::load();
@@ -246,7 +260,10 @@ bool MainWindow::openLoad(const QString &path)
         return false;
     }
     view->setDatabase(&m_db);
-    connect(view, &LoadView::modifiedChanged, this, [this, view] { updateTabTitle(view); });
+    connect(view, &LoadView::modifiedChanged, this, [this, view] {
+        updateTabTitle(view);
+        updateActions();
+    });
     const int idx = m_tabs->addTab(view, QString());
     m_tabs->setCurrentIndex(idx);
     updateTabTitle(view);
@@ -398,6 +415,7 @@ bool MainWindow::overlayReference(const QString &jsonPath)
     if (ref->stale)
         QMessageBox::warning(this, tr("Reference"), tr("This reference run is marked stale (the wrong tab was read)."));
     view->setReference(std::move(ref));
+    updateActions();
     return true;
 }
 
@@ -413,7 +431,10 @@ void MainWindow::newLoad()
     view->setNewLoad(dlg.result());
     view->setProperty("untitledName", tr("Untitled %1").arg(++m_untitled));
     view->setDatabase(&m_db);
-    connect(view, &LoadView::modifiedChanged, this, [this, view] { updateTabTitle(view); });
+    connect(view, &LoadView::modifiedChanged, this, [this, view] {
+        updateTabTitle(view);
+        updateActions();
+    });
     const int idx = m_tabs->addTab(view, QString());
     m_tabs->setCurrentIndex(idx);
     updateTabTitle(view);
