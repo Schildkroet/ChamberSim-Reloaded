@@ -1279,12 +1279,7 @@ Load files that use it keep their values.</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+28"/>
-        <source>Draw the program&apos;s own title bar (larger, with the menu in it)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+36"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1310,16 +1305,11 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+6"/>
-        <source>Wayland desktops such as GNOME leave the title bar to the program; Qt&apos;s own is very small. Turn this off to get the desktop&apos;s title bar back.</source>
+        <source>Custom Title Bar:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Title bar:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>Units</source>
         <translation type="unfinished"></translation>
     </message>

@@ -25,7 +25,7 @@
 SettingsDialog::SettingsDialog(QWidget *parent)
     : QDialog(parent)
     , m_fontSize(new QSpinBox)
-    , m_titleBar(new QCheckBox(tr("Draw the program's own title bar (larger, with the menu in it)")))
+    , m_titleBar(new QCheckBox)
     , m_originalTitleBar(TitleBar::stored())
     , m_unitSystem(new QComboBox)
     , m_database(new QLineEdit)
@@ -57,9 +57,9 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     appearanceGrid->addWidget(m_fontSize, 0, 1);
     appearanceGrid->addWidget(reset, 0, 2);
     m_titleBar->setChecked(m_originalTitleBar);
-    m_titleBar->setToolTip(tr("Wayland desktops such as GNOME leave the title bar to the program; Qt's own is very small. "
-                              "Turn this off to get the desktop's title bar back."));
-    appearanceGrid->addWidget(new QLabel(tr("Title bar:")), 1, 0);
+    auto *titleBarLabel = new QLabel(tr("Custom Title Bar:"));
+    titleBarLabel->setBuddy(m_titleBar);
+    appearanceGrid->addWidget(titleBarLabel, 1, 0);
     appearanceGrid->addWidget(m_titleBar, 1, 1, 1, 2);
 
     for (const grt::units::System sys : {grt::units::System::Original, grt::units::System::Metric, grt::units::System::Imperial})
