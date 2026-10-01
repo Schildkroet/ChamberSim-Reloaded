@@ -42,7 +42,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     const auto makeForm = [](QGroupBox *box) {
         auto *grid = new QGridLayout(box);
         grid->setColumnStretch(1, 1);
-        grid->setHorizontalSpacing(12);
+        grid->setHorizontalSpacing(24);
         grid->setVerticalSpacing(8);
         return grid;
     };
