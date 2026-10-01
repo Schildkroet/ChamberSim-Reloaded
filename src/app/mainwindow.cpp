@@ -4,6 +4,7 @@
 #include "about.h"
 #include "buttonstyle.h"
 #include "dbfields.h"
+#include "flags.h"
 #include "projectdata.h"
 #include "loadview.h"
 #include "newloaddialog.h"
@@ -202,8 +203,14 @@ void MainWindow::createActions()
     auto *group = new QActionGroup(this);
     const QString stored = translation::storedLanguage();
     auto addLanguage = [&](const QString &text, const QString &value) {
-        QAction *a = lang->addAction(text);
+        QAction *a = lang->addAction(flags::forLanguage(value), text);
         a->setCheckable(true);
+        // with an icon the style shows the check only as a faint frame: the chosen language is bold as well
+        connect(a, &QAction::toggled, a, [a](bool on) {
+            QFont f = a->font();
+            f.setBold(on);
+            a->setFont(f);
+        });
         a->setChecked(stored == value);
         group->addAction(a);
         connect(a, &QAction::triggered, this, [this, value] {

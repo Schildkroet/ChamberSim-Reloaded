@@ -34,6 +34,7 @@
 
 #include "about.h"
 #include "theme.h"
+#include "flags.h"
 #include "titlebar.h"
 #include "appfont.h"
 #include "cartridgeview.h"
@@ -106,6 +107,7 @@ private slots:
     void comboBoxesOpenAsAScrollingList();
     void loadMenuEntriesNeedALoad();
     void ownTitleBarCanBeSwitched();
+    void languagesHaveFlags();
 
 private:
     static int idOf(grt::Database &db, grt::Table t, const QString &where);
@@ -1571,7 +1573,7 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QCOMPARE(m->pasteShots(u"895\n900\n905\n898\n902\n895\n900\n905\n898\n902"_s), 10);
     m->selectCharge(1);
     QCOMPARE(m->pasteShots(u"955\n960\n965\n958\n962\n955\n960\n965\n958\n962"_s), 10);
-    view.save(QDir::temp().filePath(u"grt-fit-test.grtload"_s));  // unmodified again: only the fit can modify it now
+    QVERIFY(view.save(QDir::temp().filePath(u"grt-fit-test.grtload"_s)));  // unmodified again: only the fit can modify it now
     QVariantMap record;
     view.setRecordSaver([&](grt::Table, const QVariantMap &values) { record = values; return 42; });
     QTimer::singleShot(0, [&] {
@@ -1596,6 +1598,50 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QVERIFY(!rec.contains(u"imageUuid"_s));
     QVERIFY(grt::projectdata::check(grt::Table::Propellant, rec, m_db.schema(grt::Table::Propellant)).isEmpty());
     UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+// View > Language shows the flag of each language's country (drawn, no image files).
+void GuiTest::languagesHaveFlags()
+{
+    for (const char *lang : {"en_US", "de_DE", "fr_FR", "it_IT"}) {
+        const QIcon icon = flags::forLanguage(QLatin1String(lang));
+        QVERIFY2(!icon.isNull(), lang);
+        const QImage img = icon.pixmap(32, 32).toImage();
+        QCOMPARE(img.width(), 32);
+        QVERIFY(img.pixelColor(16, 16).alpha() == 255);  // the flag fills the middle
+        QVERIFY(img.pixelColor(16, 2).alpha() == 0);     // 3:2 flag in a square icon: transparent above
+    }
+    // the colors are the country's: black-red-gold, blue-white-red, green-white-red
+    const auto at = [](const char *lang, int x, int y) { return flags::forLanguage(QLatin1String(lang)).pixmap(48, 48).toImage().pixelColor(x, y); };
+    QCOMPARE(at("de_DE", 24, 10), QColor(Qt::black));
+    QCOMPARE(at("fr_FR", 6, 24), QColor(0x00, 0x55, 0xa4));
+    QCOMPARE(at("it_IT", 6, 24), QColor(0x00, 0x92, 0x46));
+    QVERIFY(flags::forLanguage(u"xx"_s).isNull());
+
+    MainWindow w;
+    QMenu *view = nullptr;
+    for (QAction *a : w.mainMenu()->actions())
+        if (a->text() == u"&View"_s) view = a->menu();
+    QVERIFY(view);
+    QMenu *lang = nullptr;
+    for (QAction *a : view->actions())
+        if (a->text() == u"&Language"_s) lang = a->menu();
+    QVERIFY(lang);
+    QVERIFY(lang->actions().front()->icon().isNull());  // "System default"
+    for (QAction *a : lang->actions()) QCOMPARE(a->font().bold(), a->isChecked());  // the chosen language is bold
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+        lang->addAction(flags::forLanguage(u"de_DE"_s), u"Deutsch (test)"_s);
+        lang->addAction(flags::forLanguage(u"fr_FR"_s), u"français (test)"_s);
+        lang->addAction(flags::forLanguage(u"it_IT"_s), u"italiano (test)"_s);
+        lang->addAction(flags::forLanguage(u"en_US"_s), u"English (test)"_s);
+        for (const theme::Mode mode : {theme::Mode::Light, theme::Mode::Dark}) {
+            theme::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), mode);
+            QApplication::processEvents();
+            lang->adjustSize();
+            lang->grab().save(shots + (mode == theme::Mode::Dark ? u"/flags_dark.png"_s : u"/flags_light.png"_s));
+        }
+        theme::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), theme::Mode::System);
+    }
 }
 
 QTEST_MAIN(GuiTest)

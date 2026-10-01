@@ -125,6 +125,8 @@ add_library(grtui STATIC
     src/app/theme.h
     src/app/titlebar.h
     src/app/titlebar.cpp
+    src/app/flags.h
+    src/app/flags.cpp
     src/app/theme.cpp
 )
 target_include_directories(grtui PUBLIC src/app)
