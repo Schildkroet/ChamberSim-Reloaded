@@ -4,6 +4,8 @@
 #include "chamberview.h"
 #include "curvechart.h"
 #include "loadbuilder.h"
+#include "measurementchart.h"
+#include "measurementview.h"
 #include "buttonstyle.h"
 #include "propertypanel.h"
 #include "reportview.h"
@@ -23,6 +25,7 @@
 #include <QPushButton>
 #include <QTabWidget>
 #include <QScrollArea>
+#include <QSettings>
 #include "layoutstate.h"
 #include <QSplitter>
 #include <QStyle>
@@ -113,6 +116,7 @@ LoadView::LoadView(QWidget *parent)
     , m_cartridgePanel(new PropertyPanel)
     , m_resultTabs(new QTabWidget)
     , m_report(new ReportView)
+    , m_measurements(new MeasurementView)
     , m_drawings(new QTabWidget)
     , m_cartridge(new CartridgeView)
     , m_chamber(new ChamberView)
@@ -243,7 +247,10 @@ LoadView::LoadView(QWidget *parent)
     split->addWidget(leftColumn);
     m_resultTabs->setDocumentMode(true);
     m_resultTabs->addTab(right, tr("Results"));
+    m_resultTabs->addTab(m_measurements, tr("Measurements"));
     m_resultTabs->addTab(m_report, tr("Report"));
+    m_resultTabs->setCurrentIndex(QSettings().value(u"layout/resultTab"_s, 0).toInt());
+    connect(m_resultTabs, &QTabWidget::currentChanged, this, [](int i) { QSettings().setValue(u"layout/resultTab"_s, i); });
     split->addWidget(m_resultTabs);
     split->setStretchFactor(0, 0);
     split->setStretchFactor(1, 1);
@@ -264,11 +271,17 @@ LoadView::LoadView(QWidget *parent)
     });
     applyChartUnits();
     m_report->setDataProvider([this] { return reportData(); });
+    connect(m_measurements, &MeasurementView::edited, this, &LoadView::storeMeasurement);
     connect(m_ladderTabs, &QTabBar::currentChanged, this, [this](int i) { setFocus(i); });
     connect(m_ladderTable, &QTableWidget::cellClicked, this, [this](int row, int) { setFocus(row); });
     connect(m_xAxis, &QComboBox::currentIndexChanged, this, [this] {
         m_chart->setXAxis(static_cast<CurveChart::XAxis>(m_xAxis->currentData().toInt()));
     });
+}
+
+void LoadView::showResultTab(int index)
+{
+    if (index >= 0 && index < m_resultTabs->count()) m_resultTabs->setCurrentIndex(index);
 }
 
 QString LoadView::title() const
@@ -294,6 +307,7 @@ bool LoadView::load(const QString &path, QString *error)
     m_file = std::move(*lf);
     m_path = path;
     rebuildPanels();
+    loadMeasurement();
     recompute();
     setModified(false);
     return true;
@@ -304,6 +318,7 @@ void LoadView::setNewLoad(grt::LoadFile file)
     m_file = std::move(file);
     m_path.clear();
     rebuildPanels();
+    loadMeasurement();
     recompute();
     setModified(true);
 }
@@ -442,8 +457,36 @@ void LoadView::recompute()
     m_chamber->setLoad(m_file, m_focusInput);
     if (m_input.vivacityBa > 0.0) m_vivacity->setCurve(grt::vivacityCurve(m_input), m_input.z1, m_input.z2);
     else m_vivacity->clear();
+    m_measurements->setPredictor([in = m_input](double charge_g) {
+        grt::SimInput i = in;
+        i.charge_g = charge_g;
+        return grt::simulate(i);
+    });
+    std::vector<double> charges{m_focusInput.charge_g};
+    for (const grt::LadderStep &step : m_ladder)
+        if (std::abs(step.charge_g - m_focusInput.charge_g) > 1e-9) charges.push_back(step.charge_g);
+    m_measurements->setSuggestedCharges(std::move(charges));
     updateLadderUi();
     showResult();
+    m_report->invalidate();
+}
+
+void LoadView::loadMeasurement()
+{
+    const auto m = grt::readMeasurement(m_file.appendixXml);
+    m_hasMeasurement = m.has_value();
+    m_measurements->setMeasurement(m.value_or(grt::Measurement{.title = u"MEASUREMENTS"_s, .charges = {}, .attributes = {}}));
+}
+
+// The measurement tab edits the appendix of the file; a load without measurements gets a block only once there is
+// something in it.
+void LoadView::storeMeasurement()
+{
+    const grt::Measurement &m = m_measurements->measurement();
+    if (!m_hasMeasurement && m.charges.empty()) return;
+    m_file.appendixXml = grt::writeMeasurement(m_file.appendixXml, m);
+    m_hasMeasurement = true;
+    setModified(true);
     m_report->invalidate();
 }
 
@@ -536,7 +579,54 @@ grt::report::Data LoadView::reportData() const
     chamber.setTableVisible(false);
     chamber.setLoad(m_file, m_focusInput);
     d.set(u"caliber.chamber.png"_s, Value::ofImage(pngBytes(renderOffscreen(chamber, {420, 760}))));
+    addMeasurementReport(d);
     return d;
+}
+
+// "measurement.section": heading, a table of the measured charges against the simulation and the chart, as report
+// markup in the user's units; "measurement.chart.png" alone for custom templates.
+void LoadView::addMeasurementReport(grt::report::Data &d) const
+{
+    using grt::report::Value;
+    using grt::units::Quantity;
+    const grt::Measurement &m = m_measurements->measurement();
+    if (m.charges.empty()) return;
+    const UnitPreferences &u = UnitPreferences::instance();
+    const auto sym = [&](Quantity q) { return QString::fromUtf8(u.unitFor(q).symbol); };
+    const auto val = [&](double base, Quantity q, int decimals) { return grt::units::format(base, u.unitFor(q), decimals); };
+    const auto cell = [](QString text) { return text.replace(u'|', u'/').replace(u'^', u' '); };
+
+    std::vector<MeasurementChart::Prediction> curve;
+    QString table = tr("^ Charge ^ Name ^ Shots ^ Velocity ^ SD ^ ES ^ Simulated ^ Δ ^ Pressure ^ Simulated ^ Δ ^") + u'\n';
+    for (const grt::MeasuredCharge &c : m.charges) {
+        grt::SimInput in = m_input;
+        in.charge_g = c.charge_g();
+        const grt::SimResult r = grt::simulate(in);
+        if (r.ok()) curve.push_back({.charge_g = c.charge_g(), .velocity_ms = r.muzzleVelocity_ms, .pressure_bar = r.maxPressure_bar});
+        const grt::ShotStatistics v = grt::velocityStatistics(c);
+        const grt::ShotStatistics p = grt::pressureStatistics(c);
+        const auto delta = [](double sim, double meas) {
+            return sim > 0.0 && meas > 0.0 ? QStringLiteral("%1 %").arg(QLocale().toString(100.0 * (sim / meas - 1.0), 'f', 1)) : QString();
+        };
+        table += QStringLiteral("| %1 %2 | %3 | %4 | %5 | %6 | %7 | %8 | %9 |")
+                     .arg(val(c.charge_g(), Quantity::BulletMass, -1), sym(Quantity::BulletMass), cell(c.name), QString::number(v.count),
+                          v.count ? val(v.mean, Quantity::Velocity, 1) + u' ' + sym(Quantity::Velocity) : QString(),
+                          v.count > 1 ? val(v.sd, Quantity::Velocity, 1) : QString(),
+                          v.count > 1 ? val(v.extremeSpread(), Quantity::Velocity, 1) : QString(),
+                          r.ok() ? val(r.muzzleVelocity_ms, Quantity::Velocity, 1) : QString(), delta(r.muzzleVelocity_ms, v.mean))
+                 + QStringLiteral(" %1 | %2 | %3 |\n")
+                       .arg(p.count ? val(p.mean, Quantity::Pressure, 0) + u' ' + sym(Quantity::Pressure) : QString(),
+                            r.ok() && p.count ? val(r.maxPressure_bar, Quantity::Pressure, 0) : QString(),
+                            p.count ? delta(r.maxPressure_bar, p.mean) : QString());
+    }
+    std::ranges::sort(curve, {}, &MeasurementChart::Prediction::charge_g);
+    MeasurementChart chart;
+    chart.setUnits(u.unitFor(Quantity::BulletMass), u.unitFor(Quantity::Velocity), u.unitFor(Quantity::Pressure));
+    chart.setData(m, curve);
+    d.set(u"measurement.chart.png"_s, Value::ofImage(pngBytes(renderOffscreen(chart, {1100, 480}))));
+    d.set(u"measurement.title"_s, Value::ofText(m.title));
+    const QString title = m.title.isEmpty() ? tr("Measurements") : cell(m.title);
+    d.set(u"measurement.section"_s, Value::ofText(QStringLiteral("===== %1 =====\n%2\n{{measurement.chart.png?100%}}\n").arg(title, table)));
 }
 
 void LoadView::applyChartUnits()
@@ -586,8 +676,8 @@ void LoadView::showResult()
         clearAll();
         return;
     }
-    m_status->setText(tr("<i>Calibrated against 100+ runs of the original program on 36 cartridges: typical deviation "
-                         "about 1 % in velocity and 3 % in peak pressure; unusual loads can deviate more.</i>"));
+    m_status->setText(tr("<i>Calibrated against 190 runs of the original program on 36 cartridges: typical deviation "
+                         "about 1 % in velocity and 2 % in peak pressure; unusual loads can deviate more.</i>"));
 
     const grt::SimResult &r = m_result;
     using grt::units::Quantity;

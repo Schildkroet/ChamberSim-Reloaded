@@ -24,6 +24,8 @@ your own responsibility.
 - Cartridge, projectile and propellant records from a database; replace any component of a load
 - Pressure, energy and velocity curves with markers and pressure bands, burn-rate chart, load ladder
 - Cartridge and chamber drawings with CIP dimensions (hover a table row to see the dimension in the drawing)
+- Measurement results: chronograph velocity and pressure per charge with statistics (mean, SD, ES), compared
+  with the simulation in a table and a chart over the charge; stored in the load file like the original does
 - Reports with a template editor, print preview and PDF export, adjustable scale
 - Metric / imperial / original units, also per field; themes (light, dark); global font size
 - Translations (American English is the source language)

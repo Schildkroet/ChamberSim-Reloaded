@@ -112,6 +112,9 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
     txt(u"file.caption"_s, file.path.isEmpty() ? lf.title : fi.completeBaseName());
     txt(u"file.name"_s, file.path.isEmpty() ? QString() : fi.fileName());
     txt(u"file.path"_s, file.path);
+    // measurement results: a whole report section (heading, table, chart) filled in by the application, which
+    // knows the user's units; empty when the load has no measurements
+    txt(u"measurement.section"_s, QString());
 
     // ---- work: the user's inputs ----
     const auto &c = lf.caliber;
@@ -187,6 +190,9 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
         if (in.gunWeight_kg > 0.0) {
             num(u"result.RecoilVelocity"_s, r.recoilVelocity_ms, Quantity::Velocity);
             num(u"result.RecoilEnergy"_s, r.recoilEnergy_J, Quantity::Energy);
+        } else {  // needs the gun weight
+            txt(u"result.RecoilVelocity"_s, u"–"_s);
+            txt(u"result.RecoilEnergy"_s, u"–"_s);
         }
     }
 
@@ -231,6 +237,8 @@ QString defaultTemplate()
 {{result.diagramCurves.png?100%}}
 
 {{caliber.drawing.png?27%}} {{caliber.chamber.png?27%}} {{result.diagramPropellant.png?40%}}
+
+~~measurement.section~~
 
 ----
 <size 80%>The results are calculated and can differ considerably from reality. Compare every load with the current

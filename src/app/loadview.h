@@ -14,6 +14,7 @@
 class CartridgeView;
 class ChamberView;
 class CurveChart;
+class MeasurementView;
 class PropertyPanel;
 class QComboBox;
 class QPushButton;
@@ -56,6 +57,9 @@ public:
     bool applyRecord(Component component, int id, bool resetDependent = false);
 
     [[nodiscard]] ReportView *report() const noexcept { return m_report; }
+    [[nodiscard]] MeasurementView *measurements() const noexcept { return m_measurements; }
+    // Results, Measurements, Report (the last one used is remembered).
+    void showResultTab(int index);
     // Values and rendered diagrams for the report templates.
     [[nodiscard]] grt::report::Data reportData() const;
 
@@ -81,6 +85,9 @@ private:
     [[nodiscard]] QVariantMap caliberRecord() const;
     void showResult();
     [[nodiscard]] QString headingHtml() const;
+    void loadMeasurement();
+    void storeMeasurement();
+    void addMeasurementReport(grt::report::Data &d) const;
 
     grt::LoadFile m_file;
     grt::SimResult m_result;                    // the selected (focus) ladder step
@@ -99,6 +106,8 @@ private:
     PropertyPanel *m_cartridgePanel;
     QTabWidget *m_resultTabs;
     ReportView *m_report;
+    MeasurementView *m_measurements;
+    bool m_hasMeasurement{false};  // the file has a <Measurement> block
     QTabWidget *m_drawings;
     CartridgeView *m_cartridge;
     ChamberView *m_chamber;

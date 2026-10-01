@@ -33,6 +33,7 @@ public:
     // Applies a reference-runner result (*.json) to the current load.
     bool overlayReference(const QString &jsonPath);
     void showTab(int index);
+    void showResultTab(int index);
     // Opens the "New load" dialog (needs an open database).
     void newLoad();
 

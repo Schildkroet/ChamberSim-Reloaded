@@ -30,6 +30,8 @@
 #include "database.h"
 #include "loadbuilder.h"
 #include "loadview.h"
+#include "measurement.h"
+#include "measurementview.h"
 #include "propertypanel.h"
 #include "recentfiles.h"
 #include "reportview.h"
@@ -78,6 +80,8 @@ private slots:
     void drawingPanelHasCartridgeAndChamberTabs();
     void cartridgeGeometryMatchesTheCaseCapacity();
     void cartridgeViewDrawsAndHandlesStraightCases();
+    void measurementTabShowsTheFilesResults();
+    void measurementsAreEditedAndSaved();
 
 private:
     static int idOf(grt::Database &db, grt::Table t, const QString &where);
@@ -610,7 +614,7 @@ void GuiTest::layoutIsRemembered()
         QVERIFY(splitters.size() >= 3);
         QSplitter *main = nullptr;
         for (auto *sp : splitters)
-            if (sp->orientation() == Qt::Horizontal) main = sp;
+            if (sp->parentWidget() == &view) main = sp;  // the main splitter (others live in the tabs)
         QVERIFY(main);
         main->setSizes({600, 800});
         emit main->splitterMoved(600, 1);
@@ -625,7 +629,7 @@ void GuiTest::layoutIsRemembered()
     again.show();
     QSplitter *main = nullptr;
     for (auto *sp : again.findChildren<QSplitter *>())
-        if (sp->orientation() == Qt::Horizontal) main = sp;
+        if (sp->parentWidget() == &again) main = sp;
     QVERIFY(main);
     QVERIFY2(main->sizes().first() > 500, qPrintable(QString::number(main->sizes().first())));
     auto *table = tableOf(*again.findChildren<PropertyPanel *>().back());
@@ -1093,6 +1097,77 @@ void GuiTest::cartridgeViewDrawsAndHandlesStraightCases()
     QVERIFY(!view.grab().toImage().isNull());
     view.clear();
     QVERIFY(!view.geometry().valid);
+}
+
+void GuiTest::measurementTabShowsTheFilesResults()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    LoadView view;
+    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload")));
+    view.showResultTab(1);
+    view.resize(1400, 900);
+    view.show();
+    QVERIFY(QTest::qWaitForWindowExposed(&view));
+    MeasurementView *m = view.measurements();
+    QVERIFY(m->isVisible());
+    auto *charges = m->findChild<QTableWidget *>(u"charges"_s);
+    QVERIFY(charges);
+    QCOMPARE(charges->rowCount(), 2);
+    QCOMPARE(charges->item(0, 0)->text(), u"Charge 1"_s);
+    QCOMPARE(charges->item(0, 2)->text(), u"4"_s);
+    QCOMPARE(charges->item(0, 3)->text(), u"848.3"_s);                // mean of the four shots [m/s]
+    QVERIFY(charges->item(0, 6)->text() != u"–"_s);                   // simulated for comparison
+    QVERIFY(charges->item(0, 7)->text().endsWith(u" %"_s));
+    QCOMPARE(m->currentCharge(), 0);
+    QVERIFY(!view.isModified());
+    // the default report gets a measurement section with the table and the chart
+    view.report()->refresh();
+    const QString html = view.report()->html();
+    QVERIFY(html.contains(u"MEASUREMENTS"_s));
+    QVERIFY(html.contains(u"Charge 1"_s));
+    QVERIFY(html.contains(u"848.3 m/s"_s));
+    QVERIFY(!html.contains(u"measurement.section?"_s));
+    UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+void GuiTest::measurementsAreEditedAndSaved()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    LoadView view;
+    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    MeasurementView *m = view.measurements();
+    QVERIFY(m->measurement().charges.empty());
+    QVERIFY(!view.isModified());
+
+    m->addCharge();  // the load's charge
+    QVERIFY(view.isModified());
+    QCOMPARE(m->measurement().charges.size(), std::size_t{1});
+    QCOMPARE(m->measurement().charges[0].charge_g(), view.focusCharge_g());
+    QCOMPARE(m->pasteShots(u"Velocity\tPressure\n812.5\t3500\n815.5\n\n818.0;3600\n"_s), 3);
+    const grt::ShotStatistics v = grt::velocityStatistics(m->measurement().charges[0]);
+    QCOMPARE(v.count, 3);
+    QCOMPARE(v.max, 818.0);
+    QCOMPARE(grt::pressureStatistics(m->measurement().charges[0]).count, 2);
+
+    QTemporaryDir dir;
+    const QString path = dir.filePath(u"m.grtload"_s);
+    QVERIFY(view.save(path));
+    const auto lf = grt::LoadFile::read(path);
+    QVERIFY(lf);
+    const auto saved = grt::readMeasurement(lf->appendixXml);
+    QVERIFY(saved);
+    QCOMPARE(saved->charges.size(), std::size_t{1});
+    QCOMPARE(saved->charges[0].shots.size(), std::size_t{3});
+    QCOMPARE(saved->charges[0].shots[0].pressure_bar, 3500.0);
+
+    // removing everything keeps an (empty) block, and reopening shows it again
+    m->selectCharge(0);
+    m->removeCharge();
+    QVERIFY(m->measurement().charges.empty());
+    LoadView again;
+    QVERIFY(again.load(path));
+    QCOMPARE(again.measurements()->measurement().charges.size(), std::size_t{1});
+    UnitPreferences::instance().setSystem(grt::units::System::Original);
 }
 
 QTEST_MAIN(GuiTest)

@@ -10,6 +10,7 @@
 #include "language.h"
 #include "loadbuilder.h"
 #include "loadfile.h"
+#include "measurement.h"
 #include "reference.h"
 #include "report.h"
 #include "reportformat.h"
@@ -29,6 +30,9 @@ private slots:
     void loadFileReadsSections();
     void loadFileRoundTrip();
     void loadFileKeepsAppendix();
+    void measurementReadsTheOriginalsBlock();
+    void measurementWritesBackWithoutLosingData();
+    void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
     void temperatureCoefficients();
@@ -115,6 +119,85 @@ void CoreTest::loadFileKeepsAppendix()
     QVERIFY(b);
     QCOMPARE(b->appendixXml.count(u"<shot "_s), a->appendixXml.count(u"<shot "_s));
     QCOMPARE(b->appendixXml.count(u"<charge "_s), 2);
+}
+
+void CoreTest::measurementReadsTheOriginalsBlock()
+{
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload"));
+    QVERIFY(lf);
+    const auto m = grt::readMeasurement(lf->appendixXml);
+    QVERIFY(m);
+    QCOMPARE(m->title, u"MEASUREMENTS"_s);
+    QCOMPARE(m->charges.size(), std::size_t{2});
+    QCOMPARE(m->charges[0].name, u"Charge 1"_s);
+    QCOMPARE(m->charges[0].note, u"EXAMPLE ONLY! DO NOT USE THIS LOAD"_s);
+    QCOMPARE(m->charges[0].charge_g(), 2.462358579991);
+    QCOMPARE(m->charges[0].shots.size(), std::size_t{4});
+    QCOMPARE(m->charges[1].shots.size(), std::size_t{5});
+    QCOMPARE(m->charges[0].shots[0].velocity_ms, 844.60080000000607);
+    QVERIFY(!grt::readMeasurement(u"<note index=\"1\" title=\"x\" />"_s));
+}
+
+void CoreTest::measurementWritesBackWithoutLosingData()
+{
+    // a block like the original writes it, with a pressure trace inside a charge and a note before it
+    const QString appendix = uR"(<note index="1" title="N" text="hello%20world" />
+<Measurement index="2" showinreport="false" title="Measurement%20MagnetoSpeed">
+  <charge name="168.00%20grain" showinreport="true" expanded="true" note="PT%20II" value="0.003175146589988" menu="" source="PressureTrace" sourceoptions="%7B%7D">
+    <shot name="" velocity="814.73040000000583" pressure="3614.8908349318885" />
+    <shot name="" velocity="815.34" pressure="3500.05" />
+    <PressureTraceFile name="a.ptc" type="ptc" overlayidx="-1"><property name="Barrel" type="string" value="24 inch" /></PressureTraceFile>
+  </charge>
+</Measurement>)"_s;
+    auto m = grt::readMeasurement(appendix);
+    QVERIFY(m);
+    QCOMPARE(m->charges[0].shots[0].pressure_bar, 3614.8908349318885);
+    m->charges[0].shots.push_back({.velocity_ms = 820.0});
+    m->charges[0].note = u"edited note"_s;
+    m->charges.push_back(grt::MeasuredCharge::create(u"Charge 2"_s, 3.3));
+    const QString written = grt::writeMeasurement(appendix, *m);
+    QVERIFY(written.contains(u"hello%20world"_s));           // the note block is untouched
+    QVERIFY(written.contains(u"<PressureTraceFile"_s));        // so is the pressure trace
+    QVERIFY(written.contains(u"value=\"24 inch\""_s));
+    QVERIFY(written.contains(u"source=\"PressureTrace\""_s));  // and the attributes this program does not edit
+    QVERIFY(written.contains(u"showinreport=\"false\""_s));
+    QCOMPARE(written.count(u"<Measurement"_s), 1);
+    const auto back = grt::readMeasurement(written);
+    QVERIFY(back);
+    QCOMPARE(back->title, u"Measurement MagnetoSpeed"_s);
+    QCOMPARE(back->charges.size(), std::size_t{2});
+    QCOMPARE(back->charges[0].shots.size(), std::size_t{3});
+    QCOMPARE(back->charges[0].shots[0].velocity_ms, 814.73040000000583);
+    QCOMPARE(back->charges[0].note, u"edited note"_s);
+    QCOMPARE(back->charges[1].charge_g(), 3.3);
+    QCOMPARE(back->charges[0].extraXml.count(u"<property"_s), 1);
+
+    // a load without measurements gets a new block with the next free tab index; the file stays readable
+    grt::Measurement fresh{.title = u"MEASUREMENTS"_s, .charges = {grt::MeasuredCharge::create(u"A"_s, 2.5)}, .attributes = {}};
+    const QString added = grt::writeMeasurement(u"<note index=\"1\" title=\"N\" />"_s, fresh);
+    QVERIFY(added.contains(u"<Measurement index=\"2\""_s));
+    QVERIFY(added.contains(u"<note"_s));
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    lf->appendixXml = grt::writeMeasurement(lf->appendixXml, fresh);
+    const auto reread = grt::LoadFile::parse(lf->toXml());
+    QVERIFY(reread);
+    const auto again = grt::readMeasurement(reread->appendixXml);
+    QVERIFY(again);
+    QCOMPARE(again->charges.size(), std::size_t{1});
+    QCOMPARE(again->charges[0].charge_g(), 2.5);
+}
+
+void CoreTest::measurementStatistics()
+{
+    const std::array values{844.6, 850.1, 0.0, 848.0, 850.4};  // 0 = not measured
+    const grt::ShotStatistics s = grt::statistics(values);
+    QCOMPARE(s.count, 4);
+    QCOMPARE_LT(std::abs(s.mean - 848.275), 1e-9);
+    QCOMPARE_LT(std::abs(s.extremeSpread() - 5.8), 1e-9);
+    QCOMPARE_LT(std::abs(s.sd - 2.67255), 1e-4);
+    QCOMPARE(grt::statistics(std::array{0.0}).count, 0);
+    QCOMPARE(grt::statistics(std::array{900.0}).sd, 0.0);
 }
 
 void CoreTest::simInputFromLoad()

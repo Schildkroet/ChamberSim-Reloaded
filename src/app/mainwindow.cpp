@@ -294,6 +294,11 @@ void MainWindow::showTab(int index)
     if (index >= 0 && index < m_tabs->count()) m_tabs->setCurrentIndex(index);
 }
 
+void MainWindow::showResultTab(int index)
+{
+    if (LoadView *view = currentLoad()) view->showResultTab(index);
+}
+
 void MainWindow::updateTabTitle(LoadView *view)
 {
     const int i = m_tabs->indexOf(view);

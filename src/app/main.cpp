@@ -23,10 +23,11 @@ int main(int argc, char *argv[])
     const QCommandLineOption refOpt({QStringLiteral("r"), QStringLiteral("reference")}, QStringLiteral("reference result (*.json) to overlay on the first load"), QStringLiteral("file"));
     const QCommandLineOption shotOpt(QStringLiteral("screenshot"), QStringLiteral("save a screenshot of the window and exit"), QStringLiteral("png"));
     const QCommandLineOption tabOpt(QStringLiteral("tab"), QStringLiteral("tab index to show for --screenshot"), QStringLiteral("index"));
+    const QCommandLineOption resultTabOpt(QStringLiteral("result-tab"), QStringLiteral("result tab to show for --screenshot (0 results, 1 measurements, 2 report)"), QStringLiteral("index"));
     const QCommandLineOption langOpt(QStringLiteral("language"), QStringLiteral("user interface language, e.g. en_US or de_DE"), QStringLiteral("lang"));
     const QCommandLineOption themeOpt(QStringLiteral("theme"), QStringLiteral("light or dark (overrides the saved choice)"), QStringLiteral("mode"));
     const QCommandLineOption unitsOpt(QStringLiteral("units"), QStringLiteral("unit system: metric, imperial or original (saved)"), QStringLiteral("system"));
-    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, langOpt, themeOpt, unitsOpt});
+    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, langOpt, themeOpt, unitsOpt});
     cli.process(a);
     appfont::apply(a, appfont::storedSize());  // the platform font is remembered before the first change
     translation::install(a, cli.value(langOpt));
@@ -46,6 +47,7 @@ int main(int argc, char *argv[])
     if (cli.isSet(shotOpt)) {
         QTimer::singleShot(1200, &w, [&] {
             if (cli.isSet(tabOpt)) w.showTab(cli.value(tabOpt).toInt());
+            if (cli.isSet(resultTabOpt)) w.showResultTab(cli.value(resultTabOpt).toInt());
             QTimer::singleShot(600, &w, [&] {
                 w.grab().save(cli.value(shotOpt));
                 a.quit();

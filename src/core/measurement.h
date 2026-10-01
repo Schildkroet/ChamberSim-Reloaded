@@ -1,0 +1,69 @@
+#pragma once
+
+#include <QString>
+
+#include <optional>
+#include <span>
+#include <utility>
+#include <vector>
+
+namespace grt {
+
+// Attributes in file order with their raw (still percent-encoded) values.
+using RawAttributes = std::vector<std::pair<QString, QString>>;
+
+// One shot of a measured charge: chronograph velocity and peak pressure (0 = not measured).
+struct Shot {
+    QString name;
+    double velocity_ms{};
+    double pressure_bar{};
+};
+
+// One charge of the <Measurement> block of a load file's appendix. The file stores the charge in kg, velocities in
+// m/s and pressures in bar. Attributes and child elements this program does not edit (menu, source, a
+// <PressureTraceFile>, ...) are kept and written back unchanged.
+struct MeasuredCharge {
+    QString name;
+    double charge_kg{};
+    QString note;
+    std::vector<Shot> shots;
+    RawAttributes attributes;  // all attributes as read (name, note and value are taken from the fields above)
+    QString extraXml;          // child elements other than <shot>, verbatim
+
+    [[nodiscard]] double charge_g() const noexcept { return charge_kg * 1e3; }
+    void setCharge_g(double g) noexcept { charge_kg = g * 1e-3; }
+
+    // A new charge with the attributes the original program writes.
+    [[nodiscard]] static MeasuredCharge create(const QString &name, double charge_g);
+};
+
+// The measurement results of a load ("Measurement" tab of the original program).
+struct Measurement {
+    QString title;
+    std::vector<MeasuredCharge> charges;
+    RawAttributes attributes;  // index, showinreport, title, ... as read
+};
+
+struct ShotStatistics {
+    int count{};
+    double mean{};
+    double sd{};  // sample standard deviation (n - 1)
+    double min{};
+    double max{};
+
+    [[nodiscard]] double extremeSpread() const noexcept { return max - min; }
+};
+
+// Statistics over the values above 0 (0 means "not measured").
+[[nodiscard]] ShotStatistics statistics(std::span<const double> values);
+[[nodiscard]] ShotStatistics velocityStatistics(const MeasuredCharge &charge);
+[[nodiscard]] ShotStatistics pressureStatistics(const MeasuredCharge &charge);
+
+// Reads the first <Measurement> block of an appendix (see LoadFile::appendixXml); nullopt if there is none.
+[[nodiscard]] std::optional<Measurement> readMeasurement(const QString &appendixXml);
+
+// The appendix with its first <Measurement> block replaced by `m`, or with `m` appended (with the next free tab
+// index) if there was none. Everything else in the appendix is kept.
+[[nodiscard]] QString writeMeasurement(const QString &appendixXml, const Measurement &m);
+
+}  // namespace grt

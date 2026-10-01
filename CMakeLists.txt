@@ -60,6 +60,8 @@ add_library(grtcore STATIC
     src/core/reference.cpp
     src/core/database.h
     src/core/database.cpp
+    src/core/measurement.h
+    src/core/measurement.cpp
 )
 target_include_directories(grtcore PUBLIC src/core)
 target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
@@ -89,6 +91,10 @@ add_library(grtui STATIC
     src/app/propertypanel.cpp
     src/app/vivacitychart.h
     src/app/vivacitychart.cpp
+    src/app/measurementchart.h
+    src/app/measurementchart.cpp
+    src/app/measurementview.h
+    src/app/measurementview.cpp
     src/app/selectrecorddialog.h
     src/app/selectrecorddialog.cpp
     src/app/newloaddialog.h
