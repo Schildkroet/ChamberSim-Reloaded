@@ -79,8 +79,10 @@ steel shot), two Reload Swiss loads (12/70, RS12 / RS20) and 12 loads of the Hod
 Universal and W244); the last 14 with measured pressure. The published velocities are measured 1-3 m in front of the
 muzzle and converted to the muzzle with the air drag of the pellets. Result: muzzle velocity typically 5-7 % low (up
 to 15 %); pressure right on average, but **up to 30 % too high or too low depending on the powder** (the powders'
-models were made for rifles and handguns; Universal and RS12 come out high, W244 and Nitro 100 low). Always check a
-shotgun load against the powder maker's data. Enter a shotgun load like this, the fit depends on it:
+models were made for rifles and handguns; Universal and RS12 come out high, W244 and Nitro 100 low). For comparison,
+the original program with the same 50 Vihtavuori loads: velocity +3 % on average (typically 4.8 % off) - closer - but
+pressures of the maximum loads up to 1800 bar, where the guide's loads are pressure-tested within the CIP limit of
+1050 bar (its shotshell setting changes little). Always check a shotgun load against the powder maker's data. Enter a shotgun load like this, the fit depends on it:
 
 - *Projectile*: mass = shot + wad (about 2.5 g for a plastic wad), length = height of the shot column
   (shot weight / (shot density x 0.62) / bore area) + height of the wad, diameter = bore diameter;
