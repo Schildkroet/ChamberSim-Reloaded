@@ -156,8 +156,8 @@ void TitleBar::updateSizes()
     // the window title: bold and larger than the menu entries (it follows the application font size)
     QFont titleFont = font();
     titleFont.setBold(true);
-    if (titleFont.pointSizeF() > 0.0) titleFont.setPointSizeF(titleFont.pointSizeF() * 1.3);
-    else if (titleFont.pixelSize() > 0) titleFont.setPixelSize(static_cast<int>(titleFont.pixelSize() * 1.3));
+    if (titleFont.pointSizeF() > 0.0) titleFont.setPointSizeF(titleFont.pointSizeF() * 1.1);
+    else if (titleFont.pixelSize() > 0) titleFont.setPixelSize(static_cast<int>(titleFont.pixelSize() * 1.1));
     m_title->setFont(titleFont);
 }
 

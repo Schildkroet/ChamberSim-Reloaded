@@ -1,0 +1,44 @@
+# Style of the existing code (4 spaces, braces of functions on their own line, 140 columns).
+# Format only what you touch (clang-format -i file, or "format selection" in the editor): the code base has not
+# been reformatted as a whole.
+Language: Cpp
+BasedOnStyle: LLVM
+Standard: c++20
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 140
+AccessModifierOffset: -4
+NamespaceIndentation: None
+PointerAlignment: Right
+ReferenceAlignment: Right
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterClass: false
+  AfterStruct: false
+  AfterEnum: false
+  AfterNamespace: false
+  AfterControlStatement: Never
+  BeforeElse: false
+  BeforeCatch: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+AllowShortLambdasOnASingleLine: Inline
+AllowShortCaseLabelsOnASingleLine: true
+IndentCaseLabels: false
+BinPackArguments: true
+BinPackParameters: true
+AlignAfterOpenBracket: Align
+AlignTrailingComments: true
+SpacesBeforeTrailingComments: 2
+ConstructorInitializerIndentWidth: 4
+BreakConstructorInitializers: BeforeComma
+PackConstructorInitializers: Never
+IncludeBlocks: Preserve
+SortIncludes: Never
+ReflowComments: false
+FixNamespaceComments: true
+SpaceAfterTemplateKeyword: true
+BreakTemplateDeclarations: Yes
