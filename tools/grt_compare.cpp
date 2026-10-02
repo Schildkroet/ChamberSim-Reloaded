@@ -82,6 +82,8 @@ int main(int argc, char *argv[])
         {u"include"_s, u"only runs whose name matches this regex"_s, u"re"_s},
         {u"exclude"_s, u"skip runs whose name matches this regex"_s, u"re"_s, u"^(casevol_x1\\.25|cv_mp200_casevol1\\.5)$"_s},
         {u"set"_s, u"override a calibration constant (name=value)"_s, u"kv"_s},
+        {u"loads"_s, u"only simulate every exp_*.grtload of this directory and print one line each (name, ok, pmax, v0, load ratio)"_s,
+         u"dir"_s},
         {u"steps"_s, u"number of position steps of the solver (default 2000, like the original)"_s, u"n"_s, u"2000"_s},
         {u"list-params"_s, u"print the calibration constants and exit"_s},
         {u"quiet"_s, u"print only the OBJECTIVE line"_s},
@@ -112,12 +114,29 @@ int main(int argc, char *argv[])
         *it->value = kv.section(u'=', 1).toDouble();
     }
 
+    const int steps = cli.value(u"steps"_s).toInt();
+    if (cli.isSet(u"loads"_s))
+    {  // a check of generated jobs: does the solver accept them, and what do they look like
+        for (const QFileInfo &fi : QDir(cli.value(u"loads"_s)).entryInfoList({u"exp_*.grtload"_s}, QDir::Files, QDir::Name))
+        {
+            const auto lf = grt::LoadFile::read(fi.absoluteFilePath());
+            if (!lf)
+            {
+                out << QString::asprintf("%-32s UNREADABLE\n", qPrintable(fi.completeBaseName()));
+                continue;
+            }
+            const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(*lf), cal, steps);
+            out << QString::asprintf("%-32s %s pmax %8.1f  v0 %7.1f  burnt %.2f  ratio %.3f\n", qPrintable(fi.completeBaseName()),
+                                     r.ok() ? "ok " : "BAD", r.maxPressure_bar, r.muzzleVelocity_ms, r.burntFraction, r.loadRatio);
+        }
+        return 0;
+    }
+
     const QRegularExpression include(cli.value(u"include"_s));
     const QRegularExpression exclude(cli.value(u"exclude"_s));
     const QDir resDir(cli.value(u"results"_s));
     const QDir jobDir(cli.value(u"jobs"_s));
     const double zWeight = cli.value(u"zweight"_s).toDouble();
-    const int steps = cli.value(u"steps"_s).toInt();
     const bool quiet = cli.isSet(u"quiet"_s) || cli.isSet(u"residuals"_s);
     QStringList residuals;
 

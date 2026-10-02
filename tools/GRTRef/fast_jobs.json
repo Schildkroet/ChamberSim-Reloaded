@@ -1,0 +1,114 @@
+{
+ "fp_9mm_titegroup": {
+  "caliber": "9 mm Luger",
+  "powder": "Hodgdon Titegroup",
+  "Ba": 4.5022,
+  "bullet": "H&N KS HS",
+  "mp_gr": 135.0,
+  "ratio": 0.45
+ },
+ "fp_9mm_n320": {
+  "caliber": "9 mm Luger",
+  "powder": "Vihtavuori N320",
+  "Ba": 3.5668,
+  "bullet": "H&N KS HS",
+  "mp_gr": 135.0,
+  "ratio": 0.45
+ },
+ "fp_45acp_titegroup": {
+  "caliber": ".45 Auto",
+  "powder": "Hodgdon Titegroup",
+  "Ba": 4.5022,
+  "bullet": "WM-Bullets RN-HB WMEX 2045",
+  "mp_gr": 265.0,
+  "ratio": 0.45
+ },
+ "fp_45acp_bullseye": {
+  "caliber": ".45 Auto",
+  "powder": "Alliant Bullseye",
+  "Ba": 3.4918,
+  "bullet": "WM-Bullets RN-HB WMEX 2045",
+  "mp_gr": 265.0,
+  "ratio": 0.45
+ },
+ "fp_38spl_hp38": {
+  "caliber": ".38 Special",
+  "powder": "Hodgdon HP-38",
+  "Ba": 3.7955,
+  "bullet": "H&N KS HS",
+  "mp_gr": 135.0,
+  "ratio": 0.45
+ },
+ "fp_38spl_n340": {
+  "caliber": ".38 Special",
+  "powder": "Vihtavuori N340",
+  "Ba": 2.9203,
+  "bullet": "H&N KS HS",
+  "mp_gr": 135.0,
+  "ratio": 0.45
+ },
+ "fp_357mag_n340": {
+  "caliber": ".357 Mag.",
+  "powder": "Vihtavuori N340",
+  "Ba": 2.9203,
+  "bullet": "H&N KS HS",
+  "mp_gr": 135.0,
+  "ratio": 0.45
+ },
+ "fp_357mag_n350": {
+  "caliber": ".357 Mag.",
+  "powder": "Vihtavuori N350",
+  "Ba": 2.5002,
+  "bullet": "H&N KS HS",
+  "mp_gr": 135.0,
+  "ratio": 0.45
+ },
+ "fp_40sw_n320": {
+  "caliber": ".40 S&W",
+  "powder": "Vihtavuori N320",
+  "Ba": 3.5668,
+  "bullet": "Xtreme 180 RNFP",
+  "mp_gr": 180.0,
+  "ratio": 0.45
+ },
+ "fp_40sw_hp38": {
+  "caliber": ".40 S&W",
+  "powder": "Hodgdon HP-38",
+  "Ba": 3.7955,
+  "bullet": "Xtreme 180 RNFP",
+  "mp_gr": 180.0,
+  "ratio": 0.45
+ },
+ "fp_44mag_n350": {
+  "caliber": ".44 Rem. Mag.",
+  "powder": "Vihtavuori N350",
+  "Ba": 2.5002,
+  "bullet": "Speer LSWC 4660",
+  "mp_gr": 240.0,
+  "ratio": 0.45
+ },
+ "fp_44mag_n340": {
+  "caliber": ".44 Rem. Mag.",
+  "powder": "Vihtavuori N340",
+  "Ba": 2.9203,
+  "bullet": "Speer LSWC 4660",
+  "mp_gr": 240.0,
+  "ratio": 0.45
+ },
+ "fp_9mm_hp38": {
+  "caliber": "9 mm Luger",
+  "powder": "Hodgdon HP-38",
+  "Ba": 3.7955,
+  "bullet": "H&N KS HS",
+  "mp_gr": 135.0,
+  "ratio": 0.45
+ },
+ "fp_45acp_n320": {
+  "caliber": ".45 Auto",
+  "powder": "Vihtavuori N320",
+  "Ba": 3.5668,
+  "bullet": "WM-Bullets RN-HB WMEX 2045",
+  "mp_gr": 265.0,
+  "ratio": 0.45
+ }
+}
