@@ -25,6 +25,7 @@ tools/GRTRef/jobs/
 tools/GRTRef/jobs_all/
 tools/GRTRef/jobs_done/
 tools/GRTRef/jobs[0-9]*/
+tools/GRTRef/jobs_*/
 analysis/calibrated.json
 
 # scripts and reports about extracting the database key (and the decryption reports)

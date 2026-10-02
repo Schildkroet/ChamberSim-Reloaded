@@ -415,7 +415,7 @@
     </message>
     <message>
         <location line="+5"/>
-        <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: typical deviation about 6 % in velocity.</source>
+        <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 6-8 % low, pressure on the high side.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -73,10 +73,12 @@ the original burns more slowly there than this model, and the curve shape is off
 transition (z2 below about 0.5) and start pressures above about 400 bar are also not covered well.
 
 **Shotgun loads** (caliber with *Shotshell* = yes) use their own model terms: the wad and the shot column are the
-projectile, the plastic wad seals the bore, and the powder space, the friction of wad and shot and the gas energy are
-fitted to 50 published shotgun loads (Vihtavuori Reloading Guide, 12/76, lead and steel shot), not to the original
-program: velocity error mean -1.4 %, typical 6 %, up to 15 %. Slow powders (N105) come out too fast, fast ones
-(N320, N340, 3N37) a few percent too slow. Enter a shotgun load like this, the fit depends on it:
+projectile, the plastic wad seals the bore, and the powder space and the friction of wad and shot are fitted to 52
+published shotgun loads, not to the original program: the 50 loads of the Vihtavuori Reloading Guide (12/76, lead and
+steel shot) and two Reload Swiss loads with measured pressure (12/70, RS12 / RS20). The published velocities are
+measured 2.5-3 m in front of the muzzle and converted to the muzzle with the air drag of the pellets. Result: muzzle
+velocity typically 6-8 % low (up to 16 %), pressure of the two measured loads +34 % and 0 % - the model errs on the
+safe side. Slow powders (N105) come out relatively fast, fast ones (N320, N340, 3N37) slow. Enter a shotgun load like this, the fit depends on it:
 
 - *Projectile*: mass = shot + wad (about 2.5 g for a plastic wad), length = height of the shot column
   (shot weight / (shot density x 0.62) / bore area) + height of the wad, diameter = bore diameter;

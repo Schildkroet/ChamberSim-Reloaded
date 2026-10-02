@@ -36,6 +36,7 @@ for i, r in enumerate(rows):
             name = f"sg_{i:02d}_{which}_{flag}"
             write(name, setv(s, "caliber", "shotshell", "true" if flag == "on" else "false"))
             meta[name] = dict(row=i, which=which, shotshell=flag, shot=f'{r["shot_g"]} g {r["shot_type"]}', powder=r["powder"],
-                              charge_g=float(r[f"{which}_g"]), v_ms=float(r[f"{which}_ms"]))
+                              charge_g=float(r[f"{which}_g"]), v_ms=float(r[f"{which}_ms"]), distance_m=2.5,
+                              pellet_mm=3.0, material=r["shot_type"], limit_bar=1050.0 if which == "max" else 0.0)
 json.dump(meta, open(os.path.join(jobgen.OUT, "shotgun_meta.json"), "w"), indent=1)
 print(write.n, "jobs written to", jobgen.OUT)

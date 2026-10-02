@@ -799,7 +799,7 @@ void LoadView::showResult()
     if (m_input.shotshell)
         status += u"<br>"_s + tr("<b>Shotshell:</b> wad and shot column as the projectile (shot + wad mass, column length, "
                                  "seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published "
-                                 "shotgun loads: typical deviation about 6 % in velocity.");
+                                 "shotgun loads: velocity typically 6-8 % low, pressure on the high side.");
     m_status->setText(status);
 
     const grt::SimResult &r = m_result;
