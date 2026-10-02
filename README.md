@@ -25,10 +25,16 @@ your own responsibility.
   records or changed copies of existing ones (they are stored in the program's own database)
 - Pressure, energy and velocity curves with markers and pressure bands, burn-rate chart, load ladder
 - Cartridge and chamber drawings with CIP dimensions (hover a table row to see the dimension in the drawing)
-- Measurement results: chronograph velocity and pressure per charge with statistics (mean, SD, ES), compared
-  with the simulation in a table and a chart over the charge; stored in the load file like the original does
+- Measurements tab: chronograph velocity and pressure per charge with statistics (mean, SD, ES), compared with the
+  simulation in a table and a chart over the charge; several measurement series per load; import of MagnetoSpeed
+  and Labradar files; stored in the load file like the original does
+- **Fit to measurements**: changes the powder's model values (Ba, a0, z1, z2) until the simulation agrees with
+  your chronograph (and pressure) data, and saves the result as your own propellant
+- Photos of the powder (overview and detail, with a scale bar) from the database; you can add your own photos to
+  your own propellant records
 - Reports with a template editor, print preview and PDF export, adjustable scale
-- Metric / imperial / original units, also per field; themes (light, dark); global font size
+- Metric / imperial / original units, also per field; themes (light, dark); global font size; own title bar on Linux
+- Logging (level, console, log file) that you can set in the settings
 - Translations (American English is the source language)
 
 ## Accuracy
@@ -57,7 +63,10 @@ original's results; lower is better):
 _Absolute errors against 284 runs of the original program; updated 2026-10-02 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
-Unusual loads, other powders and other cartridges than the ones tested can deviate more.
+Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is
+slow powders at low pressure (below about 150 bar, for example a slow powder with a small charge in a pistol case):
+the original burns more slowly there than this model, and the curve shape is off. Loads with a very early second
+transition (z2 below about 0.5) and start pressures above about 400 bar are also not covered well.
 
 ## Building
 
@@ -99,8 +108,60 @@ GRT and run it there, then choose the resulting `GordonsReloadingTool.plain.db` 
 Both start a copy of GRT and let it remove the encryption from a copy of its database; GRT and its database stay
 unchanged. `--check` / `-Check` only report what would be installed.
 
+The build runs `clang-format -i` (see `.clang-format`: Allman braces, 140 columns) on the sources before it
+compiles. It only changes files that are not yet formatted, and it is skipped when `clang-format` is not installed.
+Turn it off with `-DGRT_FORMAT_ON_BUILD=OFF`. Release builds use `-O2`. For code completion in VS Code or clangd,
+configure once with `cmake --preset debug` (it writes `build/debug/compile_commands.json`; `.vscode/settings.json`
+and `.clangd` point to it).
+
 Several tests use sample loads and a database that are not part of the repository; those that need them are skipped
 or have to be supplied locally in `tests/data/` and `tools/`.
+
+## Add a new powder from your own measurements
+
+You can make a propellant model for your own use directly in the program. The model values (Ba, a0, z1, z2) are
+fitted to your chronograph data. The result is saved as an own record, so you can use the powder in every load.
+(To contribute a powder to the project database, see [Procedure 2](#procedure-2-make-a-propellant-model-from-measurements).)
+
+CAUTION: Reloading is dangerous. Use only loads from the current load data of the manufacturer, and start low.
+The result is only as good as the measurements and the data of the powder.
+
+What you need: a chronograph (for example MagnetoSpeed or Labradar) and, if you can, a pressure measurement. The more
+different loads you measure (2 or more calibers, 2 or more bullet weights, 2 or more charges each, at least 5 shots
+per charge), the better the model fits other loads. One load with few charges only determines Ba.
+
+1. **Start from a similar powder.** Open the tab *Database*, select the *Propellants* list, select a powder with
+   a similar burn rate and click *Copy…*. (Or click *New…* if you know all values.) Type the name, the
+   manufacturer and the lot. Check the values that you know: explosion heat `Qex`, ratio of specific heats `k`,
+   material density `pc`, bulk density `pcd` and the reference temperature `pt`. These do not come from the fit.
+   Optionally add an overview photo and a detail photo (*Choose file…*, with the scale in px/mm if you know it).
+   Click *Save*.
+2. **Make a load with the new powder.** Create a load with *File ▸ New load…* (or open a `.grtload` file). On the
+   tab *Propellant* click *Select from database…* and choose your new powder.
+3. **Measure the case and the cartridge.** Measure the volume of a fired case with water and type it into *Case
+   Volume*. Measure the length of the bullets and the cartridges and type the mean values into *Projectile Overall
+   Length* and *Cartridge Overall Length*. A good case volume makes the fit much better.
+4. **Type the measurements.** Open the tab *Measurements*. Click *Add charge* for each charge (or *Add ladder
+   charges*). Select a charge and type the velocity of each shot in the shot list (and the pressure, if you
+   measured it). You can also use *Paste shots* (one shot per line, velocity and optionally pressure), or click
+   *Import chronograph file…* and choose a MagnetoSpeed `.csv` or a Labradar `Report.csv`. The files do not contain
+   the powder charge: type it for each series in the import dialog. The table shows the mean velocity, SD and ES
+   and the difference to the simulation.
+   Use *New series* if you have several measurement series for the load (for example one for each range day).
+5. **Fit the model.** Click *Fit to measurements…*. Check which values to fit (the default depends on the data: Ba alone for fewer than 3 measured
+   charges, Ba and a0 for 3 to 5, all four values for 6 or more charges from at least 2 load files) and click *Fit*. The dialog shows the velocity and
+   pressure of each charge before and after the fit. Read the warnings, for example when the case volume is only the
+   database value or when there are fewer charges than values.
+6. **Check the result.** The differences after the fit should be small (less than approximately 2 % in velocity).
+   If they are not, check the measurements, the case volume and the bullet and powder data.
+7. **Save the model.** Click *Save as own propellant…* in the dialog. The program makes a new record
+   "<name> (fitted)" in your own database and keeps the photos of the powder. Select it in other loads with
+   *Select from database…*. You can also click *Apply to this load* to put the fitted values into this load only.
+8. Fit again later with more loads: the fit uses all measurement series of the load, and the command-line tool
+   `grt_fitpowder` (see Procedure 2) fits one model to several load files.
+
+The fit is made for one load at a time. A powder that is fitted to one caliber and one bullet only can give wrong
+results in other cartridges. Check every new load with a measurement before you trust the model.
 
 ## Add data to the project database
 
@@ -197,6 +258,14 @@ push again.
 Stored with `QSettings` (organization and application name `GRTReloaded`): on Linux in
 `~/.config/GRTReloaded/GRTReloaded.conf`, on Windows in the registry under
 `HKEY_CURRENT_USER\Software\GRTReloaded\GRTReloaded`.
+
+### Logging
+
+*File ▸ Settings ▸ Logging* sets the log level (Debug, Info, Warning, Error or Off), whether the messages go to
+the console (stderr) and whether they go to a log file (`GRTReloaded.log` in the application data folder; it is
+renamed to `.log.1` at 1 MB). The default is Warning, to the console only. For one run, `--log-level debug` (or
+`info`, `warning`, `error`, `off`) overrides the saved level. In the code use `LOG_Debug()`, `LOG_Info()`,
+`LOG_Warn()` and `LOG_Error()` (header `log.h`) like a stream: `LOG_Info() << "Load opened:" << path;`.
 
 ## Translations
 
