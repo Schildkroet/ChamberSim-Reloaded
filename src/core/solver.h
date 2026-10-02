@@ -112,16 +112,17 @@ struct Calibration
     // ---- shotshells (caliber flag "shotshell") ----
     // The "projectile" is the wad with the shot column; the plastic wad seals the bore like a driving band, so the gas
     // keeps pushing after the crimp has opened (start pressure ps = crimp release, about 20 bar). What differs from a
-    // bullet, fitted (analysis/fit_shotgun.py) to 52 published shotgun loads: the 50 of the Vihtavuori Reloading Guide
-    // 2026 (12/76, velocities 2.5 m from the muzzle, CIP pressure as the upper limit of the maximum loads) and two of
-    // Reload Swiss (12/70, velocity at 3 m and measured maximum pressure); the downrange velocities are converted to
-    // the muzzle with the air drag of the pellets. Muzzle velocity mean -5.9 %, mean |error| 7.5 %; pressure of the
-    // two measured loads +34 % and 0 %: errs on the safe side. The gas energy is held at 1 (a free fit raises it to
-    // 1.25 - more than the powder delivers - and then underestimates a measured pressure by 11 %).
+    // bullet, fitted (analysis/fit_shotgun.py) to 64 published shotgun loads whose powders the database has: 50 of the
+    // Vihtavuori Reloading Guide 2026 (12/76, velocity 2.5 m from the muzzle, CIP pressure as the upper limit of the
+    // maximum loads), 2 of Reload Swiss (12/70, velocity at 3 m, measured pressure) and 12 of the Hodgdon Reloading
+    // Data Center (12/70, Universal and W244, velocity at 3 ft, measured pressure). Downrange velocities are converted
+    // to the muzzle with the air drag of the pellets. Muzzle velocity mean -4.4 %, mean |error| 6.7 %; pressure of the
+    // 14 measured loads about right on average but -11 ... +64 % per powder (the powders' models, made for rifles and
+    // handguns, differ most). The gas energy stays at 1 (fitted free it is 1.03 once measured pressures are included).
     // The fit assumes the input convention of the README (shot + wad as the projectile, column inside the hull).
     // NOT matched to the original: its shotshell mode follows no physical mechanism we could identify.
-    double shotCapacityFactor{1.976};  // powder space x factor: the wad cushion compresses, the plastic hull expands
-    double shotFrictionShare{0.0365};  // share of the pressure force lost to the wad and shot sliding in the bore
+    double shotCapacityFactor{1.863};  // powder space x factor: the wad cushion compresses, the plastic hull expands
+    double shotFrictionShare{0.0317};  // share of the pressure force lost to the wad and shot sliding in the bore
     double shotEnergyFactor{1.0};      // gas energy x factor (gas and heat losses; not above 1)
 
     // ---- derived outputs (do not affect the curves) ----

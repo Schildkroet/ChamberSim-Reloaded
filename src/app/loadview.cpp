@@ -797,9 +797,11 @@ void LoadView::showResult()
                         "loads can deviate more.</i>");
     // shotshells: an own model, fitted to published shotgun loads (not to the original program)
     if (m_input.shotshell)
-        status += u"<br>"_s + tr("<b>Shotshell:</b> wad and shot column as the projectile (shot + wad mass, column length, "
-                                 "seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published "
-                                 "shotgun loads: velocity typically 6-8 % low, pressure on the high side.");
+        status += u"<br>"_s +
+                  tr("<b>Shotshell:</b> wad and shot column as the projectile (shot + wad mass, column length, "
+                     "seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published "
+                     "shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - "
+                     "check against the powder maker's data.");
     m_status->setText(status);
 
     const grt::SimResult &r = m_result;

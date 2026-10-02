@@ -46,3 +46,4 @@ CLAUDE.md
 # files exchanged with the VM that runs the original program
 results/
 *.log
+/load.pdf

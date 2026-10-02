@@ -38,14 +38,24 @@ def residuals(x, weight_p=1.0):
     return np.array(r)
 
 # the gas energy cannot exceed what the powder delivers: factor <= 1 (above it the fit trades it against the volume)
-sol = least_squares(residuals, np.array([1.5, 0.1, 0.9]), bounds=([0.5, 0.0, 0.5], [4.0, 0.8, 1.0]), diff_step=1e-3)
+sol = least_squares(residuals, np.array([1.5, 0.1, 0.9]), bounds=([0.5, 0.0, 0.5], [4.0, 0.8, float(os.environ.get("GRT_ENERGY_MAX", "1.0"))]), diff_step=1e-3)
 sim = run(sol.x)
 print("fitted:", " ".join(f"{n}={v:.4g}" for n, v in zip(names, sol.x)))
 ev = [100 * (sim[k][2] / muzzle_velocity(m) - 1) for k, m in meta.items() if sim[k][0]]
 print("muzzle velocity error: mean %+.1f %%, mean |e| %.1f %%, max |e| %.1f %%" % (np.mean(ev), np.mean(np.abs(ev)), np.max(np.abs(ev))))
 for k, m in meta.items():
-    if m.get("p_bar"):
+    if m.get("p_bar") and k.startswith("rs"):
         print("  %-6s pressure %4.0f bar (measured %4.0f), muzzle velocity %4.0f m/s (measured %4.0f at %.1f m = %4.0f at the muzzle)"
               % (k, sim[k][1], m["p_bar"], sim[k][2], m["v_ms"], m["distance_m"], muzzle_velocity(m)))
+# by source (job name prefix): velocity and pressure errors
+groups = {}
+for k, m in meta.items():
+    if not sim[k][0]: continue
+    g = groups.setdefault(re.sub(r"[_\d].*", "", k), ([], []))
+    g[0].append(100 * (sim[k][2] / muzzle_velocity(m) - 1))
+    if m.get("p_bar"): g[1].append(100 * (sim[k][1] / m["p_bar"] - 1))
+for g, (ev_, ep_) in groups.items():
+    print("  %-4s n=%3d  velocity mean %+5.1f %% |e| %4.1f %%   pressure %s" % (g, len(ev_), np.mean(ev_), np.mean(np.abs(ev_)),
+          "mean %+5.1f %% |e| %4.1f %% (n=%d)" % (np.mean(ep_), np.mean(np.abs(ep_)), len(ep_)) if ep_ else "-"))
 pm = [sim[k][1] for k, m in meta.items() if sim[k][0] and m.get("limit_bar")]
 print("guide maximum loads: pmax %.0f .. %.0f bar" % (min(pm), max(pm)))

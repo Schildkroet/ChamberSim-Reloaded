@@ -152,29 +152,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+147"/>
-        <location line="+684"/>
+        <location line="+686"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-684"/>
-        <location line="+685"/>
+        <location line="-686"/>
+        <location line="+687"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-685"/>
+        <location line="-687"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+686"/>
+        <location line="+688"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-685"/>
+        <location line="-687"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -414,12 +414,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 6-8 % low, pressure on the high side.</source>
+        <location line="+6"/>
+        <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
