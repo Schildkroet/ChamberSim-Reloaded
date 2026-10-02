@@ -1,3 +1,36 @@
+// Interior ballistics solver: a lumped-parameter (Resal / Lagrange) model of the gun, integrated over equal steps
+// of the bullet's position.
+//
+// The model
+// ---------
+// State per step: bullet position x, velocity v, burnt fraction of the powder z (0..1). Units inside: SI (m, kg,
+// Pa, s); the burn law and the results use bar.
+//
+//  * Burn law:        dz/dt = Ba * p[bar] * (p / 1000 bar)^n * phi(z)         (FormFunction, Model::burnRate)
+//    Ba is the powder's vivacity (corrected for the powder temperature, burnCoefficient), phi(z) the three-phase form
+//    function of the powder (a0, z1, z2) and n = Calibration::burnExponent (about 0: the rate is linear in p).
+//  * Energy balance (Resal):  p * Vgas = f * mc * (z + z0) - (k - 1) * kin * 1/2 * mEff * v^2   (thermoPressure)
+//    with the impetus f = impetusFactor * (k - 1) * Qex, the effective moving mass mEff = mp + sebert * mc (the
+//    Sebert / Lagrange correction for the moving gas and powder), and z0 an initial gas energy that reproduces the
+//    start pressure ps at z = 0, v = 0.
+//  * Gas volume:      Vgas = V0 + A * (x - x0) - mc * (1 - z) * solid - mc * z * covolume              (gasVolume)
+//    V0 = chamber volume behind the bullet (chamberVolume_m3), A = bore area, solid = specific volume of the unburnt
+//    powder, covolume = covolume of the gas; both depend on the material density pc of the powder.
+//  * Momentum:        mEff * dv/dt = A * p   ->   over a step dx:  p = mEff * (v1^2 - v0^2) / (2 * A * dx)
+//    (the pressure shown in the results is this "momentum pressure" at the bullet base).
+//  * Ignition ramp:   only the fraction 1 - exp(-ignitionRate * (step + ignitionLead)) of the burnt powder's energy
+//    reaches the gas that pushes the bullet; the powder itself burns at the full gas pressure. This was measured on
+//    the original with fast powders and limits their peak pressure.
+//
+// One step (simulate): the velocity v1 at the end of the step is the unknown. For a trial v1 the momentum equation
+// gives the pressure the bullet needs (pMom), the burn law (trapezoid rule, iterated) gives the new z, and the
+// energy balance gives the pressure the gas has (pTh). pMom grows with v1 and pTh falls with it, so v1 is found by
+// bracketing and bisection where both agree. The time step follows from dt = 2 dx / (v0 + v1).
+//
+// Where it comes from: the structure follows the original program's documentation and what its results show; the
+// numbers in Calibration are least-squares fits against reference runs of the original (analysis/calibrate.py,
+// tools/grt_compare.cpp). It is NOT the original's algorithm. Known gaps are listed in the README ("Accuracy").
+
 #include "solver.h"
 
 #include <algorithm>
@@ -13,7 +46,10 @@ namespace
 constexpr double kBar = 1.0e5;              // Pa per bar
 constexpr double kReferenceSteps = 2000.0;  // position steps of the original program
 
-// Three-phase form function phi(z) of the burn law dz/dt = Ba * p[bar] * phi(z).
+// Three-phase form function phi(z) of the burn law dz/dt = Ba * p[bar] * phi(z): progressive up to z1 (a straight
+// line whose slope follows the powder's a0), primary degressive from z1 to z2, secondary degressive from z2 to 1. The
+// shapes of phases 2 and 3 are cubics fitted to the original's results (Calibration::phase2 / phase3); the phases
+// join without jumps.
 struct FormFunction
 {
     const Calibration *cal;
@@ -25,6 +61,7 @@ struct FormFunction
         return ((c[0] * x + c[1]) * x + c[2]) * x + c0;
     }
 
+    // phase 1: phi(0) = burnIntercept, rising (a0 > 0: progressive powder) or falling with z
     [[nodiscard]] double phase1(double z) const noexcept { return cal->burnIntercept + (cal->burnSlopeA0 * a0 + cal->burnSlopeOffset) * z; }
 
     [[nodiscard]] double operator()(double z) const noexcept
@@ -38,30 +75,35 @@ struct FormFunction
     }
 };
 
+// The constants of one simulation (from the load and the calibration) and the equations of the model.
 struct Model
 {
-    double A_m2;
-    double mEff_kg;
-    double mc_kg;
-    double V0_m3;
-    double x0_m;
-    double solid_m3kg;  // specific volume of the unburnt powder
-    double covolume_m3kg;
-    double fEnergy;  // impetus-like constant: factor * (k-1) * Qex [J/kg]
-    double theta;    // k - 1
-    double kinetic;  // kinetic factor
-    double z0;       // initial gas "burn fraction" reproducing the start pressure
-    double burnBa;
-    double burnExponent;
-    double burnZ0Factor;
+    double A_m2;           // bore area (effective cross section)
+    double mEff_kg;        // moving mass: bullet + Sebert share of the charge
+    double mc_kg;          // powder charge
+    double V0_m3;          // chamber volume behind the bullet at the start
+    double x0_m;           // start position of the bullet base (from the case head)
+    double solid_m3kg;     // specific volume of the unburnt powder
+    double covolume_m3kg;  // covolume of the powder gas
+    double fEnergy;        // impetus-like constant: factor * (k-1) * Qex [J/kg]
+    double theta;          // k - 1
+    double kinetic;        // kinetic factor
+    double z0;             // initial gas "burn fraction" reproducing the start pressure
+    double burnBa;         // vivacity Ba at the powder temperature
+    double burnExponent;   // pressure exponent of the burn law on top of the linear p
+    double burnZ0Factor;   // share of the initial gas the form function counts as burnt
     FormFunction phi;
 
+    // Free gas volume with the bullet base at x and the fraction z burnt: chamber + bore behind the bullet, minus the
+    // unburnt powder and the covolume of the gas.
     [[nodiscard]] double gasVolume(double z, double x_m) const noexcept
     {
         return V0_m3 + A_m2 * (x_m - x0_m) - mc_kg * (1.0 - z) * solid_m3kg - covolume_m3kg * mc_kg * z;
     }
 
-    // `ignited` is the fraction of the burnt powder whose energy has reached the gas (see Calibration::ignitionRate).
+    // Gas pressure from the energy balance (Resal): energy of the gas (burnt powder + initial gas) minus the kinetic
+    // energy of the moving mass, divided by the free volume. `ignited` is the fraction of the burnt powder whose energy
+    // has reached the gas (see Calibration::ignitionRate).
     [[nodiscard]] double thermoPressure(double z, double v, double x_m, double ignited = 1.0) const noexcept
     {
         const double e = fEnergy * mc_kg * (z * ignited + z0) - theta * kinetic * 0.5 * mEff_kg * v * v;
@@ -69,6 +111,7 @@ struct Model
         return vg > 0.0 ? std::max(e, 0.0) / vg : 0.0;
     }
 
+    // dz/dt at the burnt fraction z and the pressure p [Pa]; 0 once everything has burnt.
     [[nodiscard]] double burnRate(double z, double p_Pa) const noexcept
     {
         if (z >= 1.0) return 0.0;
@@ -77,6 +120,8 @@ struct Model
         return burnBa * pBar * boost * phi(z + burnZ0Factor * z0);
     }
 
+    // z after a time step dt: trapezoid rule between the rate at the start (zPrev, pPrev) and at the end (z, pNew),
+    // iterated because the end rate depends on the new z. Clamped at 1.
     [[nodiscard]] double advanceBurn(double zPrev, double pPrev, double pNew, double dt) const noexcept
     {
         const double r0 = burnRate(zPrev, pPrev);
@@ -86,6 +131,7 @@ struct Model
     }
 };
 
+// Vivacity Ba at the powder temperature (the powder data refers to 21 degC).
 [[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal) noexcept
 {
     const double dT = in.temperature_C - 21.0;
@@ -121,6 +167,9 @@ double bulletIntrusion_m3(const SimInput &in)
     return inside;
 }
 
+// Chamber volume behind the bullet at the start: the case capacity (scaled: the database value is a water capacity,
+// the effective volume is larger), minus the bullet inside the case, plus empirical offsets (one of them a length
+// of bore behind the bullet base).
 double chamberVolume_m3(const SimInput &in, const Calibration &cal)
 {
     return cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - cal.intrusionFactor * bulletIntrusion_m3(in) + cal.chamberOffset_cm3 * 1e-6 +
@@ -178,6 +227,7 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
         return res;
     }
 
+    // ---- the constants of this load ----
     Model m{};
     m.A_m2 = in.boreArea_mm2 * 1e-6;
     m.mEff_kg = in.effectiveMass_g() * 1e-3;
@@ -196,15 +246,19 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     m.phi = {.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
     if (m.V0_m3 <= 0.0) return res;
 
+    // "gfriction" of the original (only when unlocked): a share of the pressure force that is lost to friction
     const double manualFriction = in.extraFrictionUnlocked ? std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9) : 0.0;
     const double p0 = in.startPressure_bar * kBar;
     m.z0 = cal.initialGasFactor * p0 * m.gasVolume(0.0, x0) /
            (m.fEnergy * m.mc_kg);  // initial gas energy reproduces the start pressure p(z=0,v=0)=ps
 
+    // ---- integration over equal steps of the bullet's position (the original uses 2000) ----
     const double dx = (xe - x0) / steps;
     res.points.reserve(static_cast<std::size_t>(steps));
     res.points.push_back({.x_mm = x0 * 1e3, .z = 0.0, .p_bar = in.startPressure_bar});
 
+    // state at the start of a step: burnt fraction, velocity, bullet (momentum) pressure, gas pressure the powder
+    // burns at, time
     double z = 0.0, v = 0.0, p = p0, pBurn = p0, t = 0.0;
     for (int i = 1; i < steps; ++i)
     {
@@ -213,6 +267,9 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
         const double ignited =
             cal.ignitionRate > 0.0 ? 1.0 - std::exp(-cal.ignitionRate * (i * (kReferenceSteps / steps) + cal.ignitionLead)) : 1.0;
 
+        // What a trial end velocity v1 implies: the pressure the bullet needs for it (pMom, momentum equation), the
+        // pressure the gas has (pTh, energy balance with the powder burnt over the step), the new z and the gas
+        // pressure the powder burnt at.
         struct Trial
         {
             double pMom, pTh, z, pGas;
@@ -236,6 +293,9 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
             return {pMom, m.thermoPressure(zNew, v1, x1, ignited), zNew, pGas};
         };
 
+        // Solve pMom(v1) = pTh(v1): pMom rises with v1, pTh falls (more expansion, more kinetic energy). Bracket the
+        // root by doubling, then bisect. If even the smallest step forward needs more pressure than the gas has, the
+        // bullet does not accelerate in this step.
         double lo = std::max(v, 1e-9);
         double hi = std::max(2.0 * v, 1.0);
         if (const Trial a = trial(lo); a.pMom >= a.pTh)
@@ -269,7 +329,7 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
             {.x_mm = x1 * 1e3, .z = z, .p_bar = p / kBar, .v_ms = v, .e_J = 0.5 * in.bulletMass_g * 1e-3 * v * v, .t_ms = t * 1e3});
     }
 
-    // summary
+    // ---- summary values of the curve ----
     const auto &pts = res.points;
     const auto pmax = std::ranges::max_element(pts, {}, &SimPoint::p_bar);
     res.indexPmax = static_cast<std::size_t>(pmax - pts.begin());
@@ -298,7 +358,7 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     res.loadRatio = in.charge_g / (in.bulkDensity_kgm3 * 1e-3 * freeVolume_cm3);
     if (in.twistLength_mm > 0.0) res.muzzleRpm = last.v_ms / (in.twistLength_mm * 1e-3) * 60.0;
 
-    // derived quantities
+    // ---- derived quantities (formulas identified from the original's results) ----
     constexpr double kFtPerM = 3.280839895;
     const double mc = in.charge_g * 1e-3, mp = in.bulletMass_g * 1e-3;
     res.burnoutPressure_bar = pts[res.indexBurnout].p_bar;

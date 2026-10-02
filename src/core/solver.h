@@ -9,6 +9,7 @@
 namespace grt
 {
 
+// One point of the curves, at the end of a position step.
 struct SimPoint
 {
     double x_mm{};   // bullet base position measured from the case head
@@ -26,6 +27,7 @@ enum class SimStatus
     ChargeTooHigh,  // charge exceeds the bulk-density capacity of the case
 };
 
+// Curves and summary values of one simulation. Only meaningful when ok().
 struct SimResult
 {
     SimStatus status{SimStatus::InvalidInput};
@@ -78,12 +80,14 @@ struct LadderStep
 
 inline constexpr int kMaxLadderSteps = 10;
 
-// Tunable constants of the gas model. The structure of the model (uniform
-// position steps, implicit momentum balance, Sebert mass, initial gas energy)
-// was identified from reference runs of the original program; the values below
-// are *provisional* least-squares calibrations and are expected to change.
+// Tunable constants of the model (see the overview at the top of solver.cpp). The structure of the model (uniform
+// position steps, implicit momentum balance, Sebert mass, initial gas energy, ignition ramp) was identified from
+// reference runs of the original program; the values are least-squares calibrations against those runs
+// (analysis/calibrate.py) and change when the model or the reference data change. The README's accuracy table shows
+// how well the current values fit. Names with a unit suffix are in that unit; the others are factors.
 struct Calibration
 {
+    // ---- gas and energy ----
     double impetusFactor{1.01455};  // scales f = (k-1)*Qex
     double kineticFactor{1.00787};  // scales the kinetic-energy term in the energy balance
     // covolume b of the powder gas = covolume_cm3g + covolumeDensityFactor / material density pc: measured on the
@@ -92,38 +96,43 @@ struct Calibration
     double covolume_cm3g{0.0905643};
     double solidDensityFactor{0.955343};
     double covolumeDensityFactor{1.06641};
+    // ---- chamber volume (chamberVolume_m3) ----
     double intrusionFactor{1.13549};           // fraction of the bullet's volume inside the case that reduces the chamber
     double chamberOffset_cm3{0.0};             // empirical chamber-volume offset
     double capacityFactor{1.10205};            // scales the case capacity (database value) in the chamber volume
     double chamberOffsetLength_mm{-0.139628};  // extra chamber length behind the bullet base, times the bore area
-    double hotCoeffDefault{0.000962335};       // relative burn-rate change per K above 21 degC (used if tch == 0)
-    double coldCoeffDefault{0.000677371};      // relative burn-rate change per K below 21 degC (used if tcc == 0)
-    double explicitColdScale{0.025};           // explicit tcc: relative burn-rate change = scale * tcc * (21 - T)
-    double explicitHotScale{0.0272};           // explicit tch: relative burn-rate change = scale * tch * (T - 21)
+    // ---- bullet friction set by the user (gfriction, only when unlocked) ----
+    double manualFrictionFactor{3.49e-4};  // fraction of the pressure force lost per bar of the gfriction input
+    // ---- powder temperature (burnCoefficient) ----
+    double hotCoeffDefault{0.000962335};   // relative burn-rate change per K above 21 degC (used if tch == 0)
+    double coldCoeffDefault{0.000677371};  // relative burn-rate change per K below 21 degC (used if tcc == 0)
+    double explicitColdScale{0.025};       // explicit tcc: relative burn-rate change = scale * tcc * (21 - T)
+    double explicitHotScale{0.0272};       // explicit tch: relative burn-rate change = scale * tch * (T - 21)
 
-    // Burn law dz/dt = Ba * p[bar] * phi(z). Identified from the reference powder sweep:
+    // ---- derived outputs (do not affect the curves) ----
+    double frictionStress_MPa{0.907};  // built-in friction force = stress * pi * D * bullet length
+    double gasImpulseFactor{1.1622};   // gas impulse after the muzzle = factor * mc * v
+    double mipFactor{1.975};           // MIP = factor * IPSC
+
+    // ---- burn law dz/dt = Ba * p[bar] * (p / 1000 bar)^burnExponent * phi(z), identified from the powder sweeps ----
     //   phase 1 (z < z1):   phi = burnIntercept + (burnSlopeA0 * a0 + burnSlopeOffset) * z
     //   phase 2 (z1..z2):   phi = phi(z1) * poly2(s),  s = (z - z1) / (z2 - z1),  poly2(0) = 1
     //   phase 3 (z > z2):   phi = phi(z1) * poly3(t),  t = (z - z2) / (1 - z2),   poly3(0) = poly2(1)
     // The polynomials are cubic; the coefficients are listed from the highest power down WITHOUT the constant term,
     // which follows from the continuity of phi at z1 and z2 (the original's curve has no jumps).
-    // Derived outputs.
-    double frictionStress_MPa{0.907};      // built-in friction force = stress * pi * D * bullet length
-    double gasImpulseFactor{1.1622};       // gas impulse after the muzzle = factor * mc * v
-    double mipFactor{1.975};               // MIP = factor * IPSC
-    double manualFrictionFactor{3.49e-4};  // fraction of the pressure force lost per bar of the gfriction input
-
     double burnIntercept{1.09171};
     double burnSlopeA0{0.434982};
     double burnSlopeOffset{0.00638254};
+    double burnExponent{-0.00810765};  // about 0: the rate is linear in p (measured: 200..1500 bar within 2 %)
+    // ---- start of the shot ----
     double initialGasFactor{0.536312};  // weight of the initial-gas energy offset (1 = reproduces ps exactly)
     double burnZ0Factor{0.0};           // the form function sees z + burnZ0Factor * z0 (initial gas counts as burnt)
-    double burnExponent{-0.00810765};
     // Measured on the original with fast powders: the energy of the burnt powder reaches the gas only by the fraction
-    // 1 - exp(-ignitionRate * (step + ignitionLead)), counted in position steps (independent of the step length,
-    // bullet mass and charge). It limits the peak pressure of fast powders; slow ones have burnt little by then.
+    // 1 - exp(-ignitionRate * (step + ignitionLead)), counted in steps of the original's 2000 point position grid
+    // (independent of the bullet mass and charge; simulate() converts other step counts). It limits the peak pressure of fast powders; slow ones have burnt little by then.
     double ignitionRate{0.132};
-    double ignitionLead{7.17663};  // dz/dt scales with (p/1000 bar)^burnExponent on top of the linear p
+    double ignitionLead{7.17663};  // steps the ramp is ahead (the gas has energy before the first step)
+    // shape of the form function in phases 2 and 3 (see above); held at t = phase3Limit beyond it
     std::array<double, 3> phase2{-0.0867208, -0.0659705, -0.461006};
     double phase3Limit{1.0};  // the phase-3 shape is held constant beyond this t = (z - z2)/(1 - z2) (1: not at all)
     std::array<double, 3> phase3{-0.103524, -0.0695024, 0.00958064};
@@ -137,7 +146,9 @@ struct NamedParameter
 };
 [[nodiscard]] std::vector<NamedParameter> parameters(Calibration &cal);
 
-// Runs the simulation over `steps` equal position steps from the start position to the muzzle.
+// Runs the simulation over `steps` equal position steps from the start position to the muzzle. The result is not
+// ok() for invalid input (non-finite or non-positive values) or a charge that does not fit into the case (the
+// original's limit: 1.2 x bulk density in the volume left by the bullet).
 [[nodiscard]] SimResult simulate(const SimInput &in, const Calibration &cal = {}, int steps = 2000);
 
 // Burn-rate coefficient Ba * phi(z) for n values of z in [0, 1] (the "vivacity" curve).
