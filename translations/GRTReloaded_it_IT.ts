@@ -525,13 +525,14 @@
     <message>
         <location line="+18"/>
         <location line="+219"/>
-        <location line="+162"/>
+        <location line="+159"/>
+        <location line="+10"/>
         <location line="+25"/>
         <source>Database</source>
         <translation>Banca dati</translation>
     </message>
     <message>
-        <location line="-369"/>
+        <location line="-376"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
@@ -599,12 +600,12 @@
     </message>
     <message>
         <location line="+6"/>
-        <location line="+359"/>
+        <location line="+366"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
     <message>
-        <location line="-355"/>
+        <location line="-362"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Sovrapponi un &amp;risultato di riferimento…</translation>
     </message>
@@ -686,14 +687,14 @@
     </message>
     <message>
         <location line="+59"/>
-        <location line="+269"/>
+        <location line="+276"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossibile leggere %1:
 %2</translation>
     </message>
     <message>
-        <location line="-249"/>
+        <location line="-256"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossibile aprire la banca dati %1:
@@ -746,7 +747,13 @@ Il file originale GordonsReloadingTool.db è cifrato; scegli una copia decifrata
         <translation>Elimina il record scelto</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+26"/>
+        <source>The photo could not be stored:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>The record could not be stored:
 %1</source>
         <translation>Non è stato possibile salvare il record:
@@ -1503,7 +1510,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+74"/>
+        <location filename="../src/app/recorddialog.cpp" line="+83"/>
         <source>caliber</source>
         <translation>calibro</translation>
     </message>
@@ -1533,7 +1540,7 @@ Esportarlo comunque?</translation>
         <translation>Modifica %1 – %2</translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+25"/>
         <source>flat base</source>
         <translation>fondello piatto</translation>
     </message>
@@ -1563,7 +1570,7 @@ Esportarlo comunque?</translation>
         <translation>Colonna della banca dati: %1</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source> (copy)</source>
         <translation> (copia)</translation>
     </message>
@@ -1573,7 +1580,72 @@ Esportarlo comunque?</translation>
         <translation>&lt;small&gt;I campi con * sono obbligatori. I numeri sono mostrati nelle tue unità (File ▸ Impostazioni).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+67"/>
+        <source>Overview photo:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Detail photo:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Photos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Pixels per millimeter of the new photo (for the scale bar); empty: unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Choose file…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Pictures (*.jpg *.jpeg *.png *.bmp);;All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 is not a picture this program can read.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Scale [px/mm]:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>No photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The photo is not available in the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 (%2 px/mm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+79"/>
         <source>Please check the field &quot;%1&quot;.</source>
         <translation>Controlla il campo «%1».</translation>
     </message>

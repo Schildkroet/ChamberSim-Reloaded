@@ -296,7 +296,7 @@ QVariantMap toRecord(const EntryList &propellant, const Result &result, const pr
     QVariantMap record;
     for (const auto &[column, type] : schema) {
         const Entry *e = fitted.find(column);
-        if (!e || column == u"id" || column == u"geloescht" || column.startsWith(u"image"_s)) continue;
+        if (!e || column == u"id" || column == u"geloescht") continue;  // the photos stay (saving the record copies them into the own database)
         record.insert(column, type == u"FLOAT" || type == u"INTEGER" ? QVariant(fitted.number(column)) : QVariant(e->value));
     }
     record.insert(u"pt"_s, 21.0);  // the fitted Ba refers to 21 degC (the loads' powder temperatures are converted)

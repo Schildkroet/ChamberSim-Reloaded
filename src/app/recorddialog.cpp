@@ -3,9 +3,17 @@
 #include "numeric.h"
 #include "unitprefs.h"
 
+#include <QBuffer>
 #include <QComboBox>
 #include <QDate>
 #include <QDialogButtonBox>
+#include <QDir>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QHBoxLayout>
+#include <QImage>
+#include <QPixmap>
+#include <QUuid>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QLabel>
@@ -67,6 +75,7 @@ std::optional<double> parseNumber(const grt::dbfields::Field &f, const QString &
 
 RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode, const QVariantMap &record, QWidget *parent)
     : QDialog(parent)
+    , m_db(&db)
     , m_table(table)
     , m_mode(mode)
     , m_record(record)
@@ -85,6 +94,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     std::map<QString, std::vector<grt::dbfields::Field>> byGroup;
     for (const auto &[column, type] : db.schema(table)) {
         const grt::dbfields::Field f = grt::dbfields::describe(table, column, type);
+        if (table == grt::Table::Propellant && column.startsWith(u"image"_s)) continue;  // the photo editor below
         if (f.kind != Kind::Hidden) byGroup[f.group].push_back(f);
     }
     for (const QString &group : grt::dbfields::groups(table)) {
@@ -151,6 +161,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
         }
         cl->addWidget(box);
     }
+    if (table == grt::Table::Propellant) addPhotoGroup(cl);
     cl->addStretch(1);
 
     // a copy is a new record: name it so that it can be told apart, and forget the program's dates
@@ -215,6 +226,126 @@ std::optional<QVariant> RecordDialog::valueOf(const Editor &e) const
     return v ? std::optional<QVariant>(*v) : std::nullopt;
 }
 
+namespace {
+
+constexpr int kMaxPhotoSide = 1200;  // longer sides are scaled down: the photos live in the database
+
+QImage thumbnail(const QImage &img)
+{
+    return img.scaled(112, 96, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+}
+
+}  // namespace
+
+void RecordDialog::addPhotoGroup(QVBoxLayout *layout)
+{
+    const std::array<QString, 2> columns{u"imageUuid"_s, u"imageDetailUuid"_s};
+    const std::array<QString, 2> titles{tr("Overview photo:"), tr("Detail photo:")};
+    auto *box = new QGroupBox(tr("Photos"));
+    auto *grid = new QGridLayout(box);
+    grid->setColumnStretch(2, 1);
+    for (int i = 0; i < 2; ++i) {
+        PhotoSlot &slot = m_photos[static_cast<std::size_t>(i)];
+        slot.column = columns[static_cast<std::size_t>(i)];
+        slot.uuid = m_record.value(slot.column).toString();
+        slot.preview = new QLabel;
+        slot.preview->setObjectName(slot.column + u"Preview"_s);
+        slot.preview->setFixedSize(116, 100);
+        slot.preview->setFrameShape(QFrame::StyledPanel);
+        slot.preview->setAlignment(Qt::AlignCenter);
+        slot.info = new QLabel;
+        slot.info->setWordWrap(true);
+        slot.scale = new QLineEdit;
+        slot.scale->setObjectName(slot.column + u"Scale"_s);
+        slot.scale->setAlignment(Qt::AlignRight);
+        slot.scale->setMaximumWidth(90);
+        slot.scale->setToolTip(tr("Pixels per millimeter of the new photo (for the scale bar); empty: unknown"));
+        auto *choose = new QPushButton(tr("Choose file…"));
+        auto *remove = new QPushButton(tr("Remove"));
+        connect(choose, &QPushButton::clicked, this, [this, i] {
+            const QString path = QFileDialog::getOpenFileName(this, tr("Photo"), QString(), tr("Pictures (*.jpg *.jpeg *.png *.bmp);;All files (*)"));
+            if (path.isEmpty()) return;
+            const QImage img(path);
+            if (img.isNull()) {
+                QMessageBox::warning(this, windowTitle(), tr("%1 is not a picture this program can read.").arg(QDir::toNativeSeparators(path)));
+                return;
+            }
+            const auto scale = grt::parseFiniteLocale(m_photos[static_cast<std::size_t>(i)].scale->text());
+            setPhoto(i, img, scale && *scale > 0.0 ? *scale : 0.0, QFileInfo(path).fileName());
+        });
+        connect(remove, &QPushButton::clicked, this, [this, i] { removePhoto(i); });
+        grid->addWidget(new QLabel(titles[static_cast<std::size_t>(i)]), 3 * i, 0, 1, 2);
+        grid->addWidget(slot.preview, 3 * i + 1, 0, 2, 1);
+        grid->addWidget(slot.info, 3 * i + 1, 1, 1, 3, Qt::AlignTop);
+        auto *row = new QHBoxLayout;
+        row->addWidget(choose);
+        row->addWidget(remove);
+        row->addWidget(new QLabel(tr("Scale [px/mm]:")));
+        row->addWidget(slot.scale);
+        row->addStretch(1);
+        grid->addLayout(row, 3 * i + 2, 1, 1, 3);
+        showPhoto(i);
+    }
+    layout->insertWidget(std::min(1, layout->count()), box);  // below the name
+}
+
+// The preview and the text of a slot: the pending picture, else the stored one, else "none".
+void RecordDialog::showPhoto(int slotIndex)
+{
+    PhotoSlot &slot = m_photos[static_cast<std::size_t>(slotIndex)];
+    std::optional<grt::Database::Image> img = slot.pending;
+    if (!img && !slot.uuid.isEmpty()) img = m_db->image(slot.uuid);
+    if (!img) {
+        slot.preview->clear();
+        slot.info->setText(slot.uuid.isEmpty() ? tr("No photo") : tr("The photo is not available in the database."));
+        return;
+    }
+    slot.preview->setPixmap(QPixmap::fromImage(thumbnail(QImage::fromData(img->data))));
+    slot.info->setText(img->scaleUnit == u"px/mm" && img->scale > 0.0 ? tr("%1 (%2 px/mm)").arg(img->name, QLocale().toString(img->scale, 'f', 1))
+                                                                      : img->name);
+}
+
+void RecordDialog::setPhoto(int slotIndex, const QImage &image, double pxPerMm, const QString &name)
+{
+    if (slotIndex < 0 || slotIndex > 1 || image.isNull()) return;
+    QImage img = image;
+    if (std::max(img.width(), img.height()) > kMaxPhotoSide) {
+        img = img.scaled(kMaxPhotoSide, kMaxPhotoSide, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        if (pxPerMm > 0.0) pxPerMm *= static_cast<double>(img.width()) / image.width();
+    }
+    QByteArray bytes;
+    QBuffer buffer(&bytes);
+    buffer.open(QIODevice::WriteOnly);
+    if (!img.convertToFormat(QImage::Format_RGB32).save(&buffer, "JPG", 88)) return;
+    PhotoSlot &slot = m_photos[static_cast<std::size_t>(slotIndex)];
+    grt::Database::Image stored;
+    stored.uuid = QUuid::createUuid().toString(QUuid::Id128);
+    stored.name = name;
+    stored.scale = pxPerMm;
+    stored.scaleUnit = pxPerMm > 0.0 ? u"px/mm"_s : QString();
+    stored.data = bytes;
+    slot.uuid = stored.uuid;
+    slot.pending = std::move(stored);
+    showPhoto(slotIndex);
+}
+
+void RecordDialog::removePhoto(int slotIndex)
+{
+    if (slotIndex < 0 || slotIndex > 1) return;
+    PhotoSlot &slot = m_photos[static_cast<std::size_t>(slotIndex)];
+    slot.uuid.clear();
+    slot.pending.reset();
+    showPhoto(slotIndex);
+}
+
+std::vector<grt::Database::Image> RecordDialog::pendingImages() const
+{
+    std::vector<grt::Database::Image> out;
+    for (const PhotoSlot &slot : m_photos)
+        if (slot.pending) out.push_back(*slot.pending);
+    return out;
+}
+
 QString RecordDialog::firstError() const
 {
     for (const Editor &e : m_editors) {
@@ -229,6 +360,8 @@ QVariantMap RecordDialog::values() const
     QVariantMap out;
     for (const Editor &e : m_editors)
         if (const auto v = valueOf(e)) out.insert(e.field.column, *v);
+    if (m_table == grt::Table::Propellant)
+        for (const PhotoSlot &slot : m_photos) out.insert(slot.column, slot.uuid);
     const QString today = QDate::currentDate().toString(Qt::ISODate);
     if (m_mode == Mode::Edit) {
         out.insert(u"mdate"_s, today);

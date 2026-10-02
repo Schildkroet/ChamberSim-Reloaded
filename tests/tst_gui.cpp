@@ -105,6 +105,7 @@ private slots:
     void measurementSeriesAreEditedAndSaved();
     void chronographImportAddsCharges();
     void propellantPhotoIsShown();
+    void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void recordDialogShowsReadableFieldsInUserUnits();
@@ -1208,6 +1209,56 @@ void GuiTest::propellantPhotoIsShown()
     QVERIFY(!photo->hasPhotos());
 }
 
+void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
+{
+    QTemporaryDir dir;
+    grt::Database own;  // only the program's own database: no original GRT database
+    QVERIFY(own.open({}, dir.filePath(u"own.db"_s)));
+
+    RecordDialog dlg(own, grt::Table::Propellant, RecordDialog::Mode::New);
+    dlg.setText(u"pname"_s, u"Home powder"_s);
+    QVERIFY(dlg.pendingImages().empty());
+    QVERIFY(dlg.values().value(u"imageUuid"_s).toString().isEmpty());
+    QImage big(2400, 1600, QImage::Format_RGB32);  // larger than stored: scaled down, the scale follows
+    big.fill(Qt::darkGray);
+    dlg.setPhoto(0, big, 200.0, u"grains.png"_s);
+    QImage close(300, 200, QImage::Format_RGB32);
+    close.fill(Qt::lightGray);
+    dlg.setPhoto(1, close, 0.0, u"grain.png"_s);
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+        dlg.resize(620, 900);
+        dlg.grab().save(shots + u"/recordphotos.png"_s);
+    }
+    const auto pending = dlg.pendingImages();
+    QCOMPARE(pending.size(), std::size_t{2});
+    QCOMPARE(dlg.values().value(u"imageUuid"_s).toString(), pending[0].uuid);
+    QCOMPARE(dlg.values().value(u"imageDetailUuid"_s).toString(), pending[1].uuid);
+    QCOMPARE(pending[0].scaleUnit, u"px/mm"_s);
+    QCOMPARE_LT(std::abs(pending[0].scale - 100.0), 0.5);  // 2400 -> 1200 px: half the scale
+    QVERIFY(pending[1].scaleUnit.isEmpty());
+    QVERIFY(!QImage::fromData(pending[0].data).isNull());
+    QCOMPARE(QImage::fromData(pending[0].data).width(), 1200);
+
+    for (const auto &img : pending) QVERIFY(own.addImage(img));
+    const auto id = own.insert(grt::Table::Propellant, dlg.values());
+    QVERIFY(id);
+
+    // a load that uses the record shows the photo (Powder tab) from the own database alone
+    LoadView view;
+    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    view.setDatabase(&own);
+    QVERIFY(view.applyRecord(LoadView::Component::Propellant, *id));
+    const auto *photo = view.findChild<PhotoView *>();
+    QVERIFY(photo && photo->hasPhotos());
+
+    // an edit that removes the detail photo
+    RecordDialog edit(own, grt::Table::Propellant, RecordDialog::Mode::Edit, *own.record(grt::Table::Propellant, *id));
+    edit.removePhoto(1);
+    QVERIFY(edit.values().value(u"imageDetailUuid"_s).toString().isEmpty());
+    QCOMPARE(edit.values().value(u"imageUuid"_s).toString(), pending[0].uuid);
+    QVERIFY(edit.pendingImages().empty());
+}
+
 void GuiTest::chronographImportAddsCharges()
 {
     LoadView view;
@@ -1694,10 +1745,10 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     after = *grt::LoadFile::read(dir.filePath(u"fitted.grtload"_s));
     QVERIFY2(after.propellant.number(u"Ba") > before * 1.02, qPrintable(u"Ba %1 -> %2"_s.arg(before).arg(after.propellant.number(u"Ba"))));
 
-    // a record made from it: the database's columns, 21 degC, no image ids of the original
+    // a record made from it: the database's columns, 21 degC, the photos of the powder
     const QVariantMap rec = grt::powderfit::toRecord(after.propellant, *saved, m_db.schema(grt::Table::Propellant), u"test"_s);
     QCOMPARE(rec.value(u"pt"_s).toDouble(), 21.0);
-    QVERIFY(!rec.contains(u"imageUuid"_s));
+    QVERIFY(rec.contains(u"imageUuid"_s));
     QVERIFY(grt::projectdata::check(grt::Table::Propellant, rec, m_db.schema(grt::Table::Propellant)).isEmpty());
     UnitPreferences::instance().setSystem(grt::units::System::Original);
 }

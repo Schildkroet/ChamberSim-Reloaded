@@ -6,9 +6,14 @@
 #include <QDialog>
 #include <QVariantMap>
 
+#include <array>
 #include <optional>
 #include <vector>
 
+class QImage;
+class QVBoxLayout;
+class QLabel;
+class QLineEdit;
 class QWidget;
 
 // Creates or edits a caliber, projectile or propellant record: all columns in groups with readable labels, numbers
@@ -28,6 +33,13 @@ public:
     [[nodiscard]] QString text(const QString &column) const;
     void setText(const QString &column, const QString &text);
 
+    // Photos of a propellant (slot 0 overview, 1 detail): a picture chosen by the user is scaled down and kept
+    // here, the caller stores it with Database::addImage before the record (see pendingImages). `pxPerMm` 0: no scale.
+    void setPhoto(int slot, const QImage &image, double pxPerMm, const QString &name);
+    void removePhoto(int slot);
+    // The new pictures (with their uuids, which values() refers to); empty without a change.
+    [[nodiscard]] std::vector<grt::Database::Image> pendingImages() const;
+
     // Checks the input; returns the label of the first wrong field (empty: all fine).
     [[nodiscard]] QString firstError() const;
 
@@ -42,6 +54,19 @@ private:
     [[nodiscard]] const Editor *editor(const QString &column) const;
     [[nodiscard]] std::optional<QVariant> valueOf(const Editor &e) const;
 
+    struct PhotoSlot {
+        QString column;                           // imageUuid / imageDetailUuid
+        QString uuid;                             // the picture the record refers to ("": none)
+        std::optional<grt::Database::Image> pending;
+        QLabel *preview{};
+        QLabel *info{};
+        QLineEdit *scale{};
+    };
+    void addPhotoGroup(QVBoxLayout *layout);
+    void showPhoto(int slot);
+
+    const grt::Database *m_db;
+    std::array<PhotoSlot, 2> m_photos;
     grt::Table m_table;
     Mode m_mode;
     QVariantMap m_record;

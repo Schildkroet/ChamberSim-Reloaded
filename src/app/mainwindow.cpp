@@ -459,13 +459,20 @@ void MainWindow::editRecord(RecordDialog::Mode mode)
         if (mode == RecordDialog::Mode::Edit && !grt::Database::isOwnId(id)) mode = RecordDialog::Mode::Copy;
     }
     RecordDialog dlg(m_db, table, mode, record, this);
-    if (dlg.exec() == QDialog::Accepted) storeRecord(table, mode, id, dlg.values());
+    if (dlg.exec() == QDialog::Accepted) storeRecord(table, mode, id, dlg.values(), dlg.pendingImages());
 }
 
-int MainWindow::storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values)
+int MainWindow::storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values,
+                            const std::vector<grt::Database::Image> &images)
 {
     QString error;
     int stored = -1;
+    for (const grt::Database::Image &image : images) {  // the record refers to them
+        if (!m_db.addImage(image, &error)) {
+            QMessageBox::warning(this, tr("Database"), tr("The photo could not be stored:\n%1").arg(error));
+            return -1;
+        }
+    }
     if (mode == RecordDialog::Mode::Edit) {
         if (m_db.update(table, id, values, &error)) stored = id;
     } else if (const auto newId = m_db.insert(table, values, &error)) {

@@ -81,14 +81,19 @@ public:
 
     // A picture of the image table (propellant photos): the encoded file (JPEG/PNG) and its scale.
     struct Image {
+        QString uuid;         // empty for a new picture: addImage() makes one
         QString name;
         QString descr;
         double scale{};       // as stored, e.g. 29.5 with the unit "px/mm"
         QString scaleUnit;
         QByteArray data;      // decoded (the database stores it as base64 text)
+        QString type = QStringLiteral("jpg");  // file type of `data`
     };
     // The image with this uuid (propellant.imageUuid / imageDetailUuid), or nullopt if there is none.
     [[nodiscard]] std::optional<Image> image(const QString &uuid) const;
+    // Stores a picture in the own database (so a record's photos do not depend on the original database); returns
+    // its uuid. A picture whose uuid the own database already has is not stored again.
+    [[nodiscard]] std::optional<QString> addImage(const Image &image, QString *error = nullptr);
 
     [[nodiscard]] static bool isOwnId(int id) noexcept { return id >= kOwnIdBase; }
     [[nodiscard]] static bool isProjectId(int id) noexcept { return id >= kProjectIdBase && id < kOwnIdBase; }
@@ -106,6 +111,8 @@ private:
     [[nodiscard]] bool createOwnTablesInTransaction(QString *error);
     [[nodiscard]] bool loadProjectData(QString *error);
     [[nodiscard]] bool createViews(QString *error);
+    // Copies the pictures a record refers to (imageUuid, imageDetailUuid) into the own database.
+    void keepImages(const QVariantMap &values);
     [[nodiscard]] std::optional<int> insertInto(const QString &schema, Table t, const QVariantMap &values, int id, QString *error);
 
     QSqlDatabase m_db;

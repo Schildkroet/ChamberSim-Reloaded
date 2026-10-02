@@ -66,8 +66,8 @@ struct Result {
 void apply(EntryList &propellant, const Result &result);
 
 // A propellant record (database columns of `schema`) from a load's propellant section with the fitted values:
-// reference temperature 21 degC (the fitted Ba refers to it), no image ids of the original's database, the
-// description `descr` and the date.
+// reference temperature 21 degC (the fitted Ba refers to it), the photos of the powder (Database::insert copies them
+// into the own database), the description `descr` and the date.
 [[nodiscard]] QVariantMap toRecord(const EntryList &propellant, const Result &result, const projectdata::Schema &schema,
                                    const QString &descr);
 

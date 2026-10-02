@@ -4,6 +4,7 @@
 #include "projectdata.h"
 
 #include <QDate>
+#include <QDateTime>
 #include <QDir>
 #include <QFileInfo>
 #include <QSqlError>
@@ -378,18 +379,63 @@ std::optional<Database::Image> Database::image(const QString &uuid) const
 {
     if (uuid.isEmpty() || !m_db.isOpen()) return std::nullopt;
     QSqlQuery q(m_db);
-    q.prepare(u"SELECT name, descr, scale, scaleunit, data FROM image WHERE uuid = ? AND geloescht = 0 LIMIT 1"_s);
+    q.prepare(u"SELECT name, descr, scale, scaleunit, data, type FROM image WHERE uuid = ? AND geloescht = 0 LIMIT 1"_s);
     q.addBindValue(uuid);
     if (!q.exec() || !q.next()) return std::nullopt;
-    Image img{.name = q.value(0).toString(), .descr = q.value(1).toString(), .scale = q.value(2).toDouble(),
-              .scaleUnit = q.value(3).toString(), .data = QByteArray::fromBase64(q.value(4).toString().toLatin1())};
+    Image img{.uuid = uuid, .name = q.value(0).toString(), .descr = q.value(1).toString(), .scale = q.value(2).toDouble(),
+              .scaleUnit = q.value(3).toString(), .data = QByteArray::fromBase64(q.value(4).toString().toLatin1()),
+              .type = q.value(5).toString()};
     if (img.data.isEmpty()) return std::nullopt;
     return img;
 }
 
+std::optional<QString> Database::addImage(const Image &image, QString *error)
+{
+    if (!m_db.isOpen() || image.data.isEmpty()) {
+        if (error) *error = u"no picture data"_s;
+        return std::nullopt;
+    }
+    const QString uuid = image.uuid.isEmpty() ? QUuid::createUuid().toString(QUuid::Id128) : image.uuid;
+    QSqlQuery exists(m_db);
+    exists.prepare(u"SELECT 1 FROM main.image WHERE uuid = ? AND geloescht = 0"_s);
+    exists.addBindValue(uuid);
+    if (exists.exec() && exists.next()) return uuid;
+    QSqlQuery q(m_db);
+    q.prepare(u"INSERT INTO main.image (uuid, name, descr, scale, scaleunit, data, cdate, cby, type, mode, status, geloescht) "
+              "VALUES (?, ?, ?, ?, ?, ?, ?, '', ?, '', '', 0)"_s);
+    const auto text = [](const QString &t) { return t.isNull() ? QStringLiteral("") : t; };  // the columns are NOT NULL
+    q.addBindValue(uuid);
+    q.addBindValue(text(image.name));
+    q.addBindValue(text(image.descr));
+    q.addBindValue(image.scale);
+    q.addBindValue(text(image.scaleUnit));
+    q.addBindValue(QString::fromLatin1(image.data.toBase64()));
+    q.addBindValue(QDateTime::currentDateTime().toString(u"yyyy-MM-dd HH:mm:ss"_s));
+    q.addBindValue(text(image.type));
+    if (!q.exec()) {
+        if (error) *error = lastError(q);
+        LOG_Warn() << "Cannot store picture" << image.name << ":" << lastError(q);
+        return std::nullopt;
+    }
+    LOG_Info() << "Picture stored:" << image.name << uuid << "(" << image.data.size() << "bytes )";
+    return uuid;
+}
+
+void Database::keepImages(const QVariantMap &values)
+{
+    for (const QString &column : {u"imageUuid"_s, u"imageDetailUuid"_s}) {
+        const QString uuid = values.value(column).toString();
+        if (uuid.isEmpty()) continue;
+        if (const auto img = image(uuid)) (void)addImage(*img);  // a no-op when the own database has it
+        else LOG_Warn() << "Picture" << uuid << "of a saved record was not found";
+    }
+}
+
 std::optional<int> Database::insert(Table t, const QVariantMap &values, QString *error)
 {
-    return insertInto(u"main"_s, t, values, -1, error);
+    const auto id = insertInto(u"main"_s, t, values, -1, error);
+    if (id) keepImages(values);
+    return id;
 }
 
 // `id` < 0: the next free one (AUTOINCREMENT)
@@ -454,6 +500,7 @@ bool Database::update(Table t, int id, const QVariantMap &values, QString *error
         return false;
     }
     LOG_Info() << "Record changed:" << name << "id" << id << "fields" << sets.size();
+    keepImages(values);
     return true;
 }
 

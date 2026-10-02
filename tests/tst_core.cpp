@@ -46,6 +46,7 @@ private slots:
     void chronographFiles();
     void loggingFiltersByLevel();
     void databaseImages();
+    void ownRecordsKeepTheirPhotos();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -343,6 +344,50 @@ void CoreTest::databaseImages()
     QCOMPARE(img->scaleUnit, u"px/mm"_s);
     QCOMPARE(img->data, bytes);  // decoded from base64
     QVERIFY(!db.image({}));
+}
+
+void CoreTest::ownRecordsKeepTheirPhotos()
+{
+    QTemporaryDir dir;
+    const QString own = dir.filePath(u"own.db"_s);
+    QString uuid, detail;
+    {
+        grt::Database db;
+        QVERIFY(db.open(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db"), own));
+        QSqlQuery q(db.handle());
+        QVERIFY(q.exec(u"SELECT id FROM propellant WHERE imageUuid != '' AND imageDetailUuid != '' AND geloescht = 0 ORDER BY id LIMIT 1"_s) && q.next());
+        const auto record = db.record(grt::Table::Propellant, q.value(0).toInt());
+        QVERIFY(record);
+        uuid = record->value(u"imageUuid"_s).toString();
+        detail = record->value(u"imageDetailUuid"_s).toString();
+        QVERIFY(db.image(uuid) && db.image(detail));
+        QSqlQuery inOwn(db.handle());
+        QVERIFY(inOwn.exec(u"SELECT count(*) FROM main.image"_s) && inOwn.next());
+        QCOMPARE(inOwn.value(0).toInt(), 0);  // the pictures are in the original database only
+        QVERIFY(db.insert(grt::Table::Propellant, *record));  // a copy of the powder as an own record
+        QVERIFY(inOwn.exec(u"SELECT count(*) FROM main.image"_s) && inOwn.next());
+        QCOMPARE(inOwn.value(0).toInt(), 2);  // ... now copied
+        QVERIFY(db.insert(grt::Table::Propellant, *record));
+        QVERIFY(inOwn.exec(u"SELECT count(*) FROM main.image"_s) && inOwn.next());
+        QCOMPARE(inOwn.value(0).toInt(), 2);  // not twice
+    }
+    grt::Database alone;  // without the original database
+    QVERIFY(alone.open({}, own));
+    const auto img = alone.image(uuid);
+    QVERIFY(img);
+    QVERIFY(img->data.size() > 1000);
+    QVERIFY(alone.image(detail));
+    QCOMPARE(img->uuid, uuid);
+    QCOMPARE(img->type, u"jpg"_s);
+
+    // a new picture: stored with a generated uuid, once
+    grt::Database::Image fresh{.name = u"mine.jpg"_s, .scale = 80.0, .scaleUnit = u"px/mm"_s, .data = QByteArray("jpeg bytes")};
+    const auto id = alone.addImage(fresh);
+    QVERIFY(id && !id->isEmpty());
+    fresh.uuid = *id;
+    QCOMPARE(alone.addImage(fresh), id);
+    QCOMPARE(alone.image(*id)->scale, 80.0);
+    QVERIFY(!alone.addImage({}));  // no data
 }
 
 void CoreTest::measurementStatistics()

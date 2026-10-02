@@ -53,7 +53,8 @@ public:
     // Opens the record dialog (New: empty, Copy/Edit: the selected record) and stores the result.
     void editRecord(RecordDialog::Mode mode);
     // Stores a new (New, Copy) or changed (Edit, `id`) record in the own database and shows it; returns its id or -1.
-    int storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values);
+    int storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values,
+                    const std::vector<grt::Database::Image> &images = {});
     // Deletes the selected own record after asking (`ask` false: without asking).
     bool deleteRecord(bool ask = true);
     // Writes the selected own record as a project data file (to contribute it); empty `path`: asks for one.
