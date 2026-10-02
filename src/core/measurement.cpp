@@ -150,10 +150,11 @@ ShotStatistics pressureStatistics(const MeasuredCharge &charge)
     return statistics(v);
 }
 
-std::optional<Measurement> readMeasurement(const QString &appendixXml)
+std::vector<Measurement> readMeasurements(const QString &appendixXml)
 {
+    std::vector<Measurement> out;
     QXmlStreamReader r(u"<a>"_s + appendixXml + u"</a>"_s);
-    if (!r.readNextStartElement()) return std::nullopt;
+    if (!r.readNextStartElement()) return out;
     while (r.readNextStartElement()) {
         if (r.name() != u"Measurement") {
             r.skipCurrentElement();
@@ -166,17 +167,17 @@ std::optional<Measurement> readMeasurement(const QString &appendixXml)
             if (r.name() == u"charge") m.charges.push_back(readCharge(r));
             else r.skipCurrentElement();
         }
-        return m;
+        out.push_back(std::move(m));
     }
-    return std::nullopt;
+    return out;
 }
 
-QString writeMeasurement(const QString &appendixXml, const Measurement &m)
+QString writeMeasurements(const QString &appendixXml, std::span<const Measurement> series)
 {
     QString out;
     QXmlStreamWriter w(&out);
     QXmlStreamReader r(u"<a>"_s + appendixXml + u"</a>"_s);
-    bool replaced = false;
+    std::size_t next = 0;  // the series that replaces the next <Measurement> block
     int lastIndex = 0;
     int depth = 0;
     while (!r.atEnd()) {
@@ -185,11 +186,11 @@ QString writeMeasurement(const QString &appendixXml, const Measurement &m)
         if (r.isStartElement()) {
             if (++depth == 1) continue;  // the wrapper
             if (depth == 2) lastIndex = std::max(lastIndex, r.attributes().value(u"index"_s).toInt());
-            if (depth == 2 && !replaced && r.name() == u"Measurement") {
-                writeBlock(w, m);
+            if (depth == 2 && r.name() == u"Measurement") {
+                if (next < series.size()) writeBlock(w, series[next]);
+                ++next;  // blocks beyond the given series were removed
                 r.skipCurrentElement();
                 --depth;
-                replaced = true;
                 continue;
             }
         } else if (r.isEndElement()) {
@@ -197,15 +198,30 @@ QString writeMeasurement(const QString &appendixXml, const Measurement &m)
         }
         w.writeCurrentToken(r);
     }
-    if (!replaced) {
-        Measurement added = m;
+    for (; next < series.size(); ++next) {
+        Measurement added = series[next];
         if (attribute(added.attributes, u"index").isEmpty())
-            added.attributes.insert(added.attributes.begin(), {u"index"_s, QString::number(lastIndex + 1)});
+            added.attributes.insert(added.attributes.begin(), {u"index"_s, QString::number(++lastIndex)});
         if (attribute(added.attributes, u"showinreport").isEmpty()) added.attributes.emplace_back(u"showinreport"_s, u"true"_s);
         if (!out.trimmed().isEmpty() && !out.endsWith(u'\n')) out += u'\n';
         writeBlock(w, added);
     }
     return out;
+}
+
+std::optional<Measurement> readMeasurement(const QString &appendixXml)
+{
+    auto all = readMeasurements(appendixXml);
+    if (all.empty()) return std::nullopt;
+    return std::move(all.front());
+}
+
+QString writeMeasurement(const QString &appendixXml, const Measurement &m)
+{
+    auto all = readMeasurements(appendixXml);
+    if (all.empty()) all.push_back(m);
+    else all.front() = m;
+    return writeMeasurements(appendixXml, all);
 }
 
 }  // namespace grt

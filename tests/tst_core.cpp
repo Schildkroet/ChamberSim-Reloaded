@@ -8,6 +8,7 @@
 #include <QTemporaryDir>
 #include <QtTest>
 
+#include "chronograph.h"
 #include "database.h"
 #include "language.h"
 #include "loadbuilder.h"
@@ -39,6 +40,8 @@ private slots:
     void loadFileKeepsAppendix();
     void measurementReadsTheOriginalsBlock();
     void measurementWritesBackWithoutLosingData();
+    void measurementSeveralBlocks();
+    void chronographFiles();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -205,6 +208,78 @@ void CoreTest::measurementWritesBackWithoutLosingData()
     QVERIFY(again);
     QCOMPARE(again->charges.size(), std::size_t{1});
     QCOMPARE(again->charges[0].charge_g(), 2.5);
+}
+
+void CoreTest::measurementSeveralBlocks()
+{
+    const QString appendix = uR"(<note index="1" title="N" text="hello" />
+<Measurement index="2" showinreport="true" title="Session%201">
+  <charge name="A" value="0.0025" note=""><shot name="" velocity="800" pressure="0" /></charge>
+</Measurement>
+<Measurement index="3" showinreport="false" title="Session%202">
+  <charge name="B" value="0.0026" note=""><shot name="" velocity="820" pressure="0" /></charge>
+</Measurement>)"_s;
+    auto series = grt::readMeasurements(appendix);
+    QCOMPARE(series.size(), std::size_t{2});
+    QCOMPARE(series[1].title, u"Session 2"_s);
+    QCOMPARE(series[1].charges[0].name, u"B"_s);
+    QCOMPARE(grt::readMeasurement(appendix)->title, u"Session 1"_s);  // the first-block API still works
+
+    // the second block is edited, the first stays, a third is added with the next free index
+    series[1].charges[0].shots.push_back({.velocity_ms = 822.0});
+    series.push_back({.title = u"Session 3"_s, .charges = {grt::MeasuredCharge::create(u"C"_s, 2.7)}, .attributes = {}});
+    QString written = grt::writeMeasurements(appendix, series);
+    QVERIFY(written.contains(u"hello"_s));
+    QCOMPARE(written.count(u"<Measurement"_s), 3);
+    QVERIFY(written.contains(u"<Measurement index=\"4\""_s));
+    QVERIFY(written.contains(u"showinreport=\"false\""_s));
+    const auto back = grt::readMeasurements(written);
+    QCOMPARE(back.size(), std::size_t{3});
+    QCOMPARE(back[1].charges[0].shots.size(), std::size_t{2});
+    QCOMPARE(back[2].charges[0].charge_g(), 2.7);
+
+    // removing a series removes its block; replacing only the first keeps the others
+    series.erase(series.begin());
+    written = grt::writeMeasurements(appendix, std::span<const grt::Measurement>(series).first(1));
+    QCOMPARE(written.count(u"<Measurement"_s), 1);
+    QCOMPARE(grt::readMeasurements(written)[0].title, u"Session 2"_s);
+    grt::Measurement first = *grt::readMeasurement(appendix);
+    first.title = u"Renamed"_s;
+    const auto kept = grt::readMeasurements(grt::writeMeasurement(appendix, first));
+    QCOMPARE(kept.size(), std::size_t{2});
+    QCOMPARE(kept[0].title, u"Renamed"_s);
+    QCOMPARE(kept[1].title, u"Session 2"_s);
+}
+
+void CoreTest::chronographFiles()
+{
+    const QByteArray ms = "Series,15, Shots:,3\r\nMin,2721, Max,2770  \r\nAvg,2746 ,S-D,10.1  \r\nES ,  49\r\n\r\n"
+                          "Series,Shot,Speed   \r\n15, 1, 2721, ft/s   \r\n15, 2, 2722, ft/s   \r\n15, 3, 2745, ft/s   \r\n"
+                          "----,----,----,---- \r\n\r\nSeries,16, Shots:,2\r\nSeries,Shot,Speed\r\n16, 1, 830.5, m/s\r\n16, 2, 0, m/s\r\n";
+    QString error;
+    const auto m = grt::readChronograph(ms, &error);
+    QVERIFY2(m, qPrintable(error));
+    QCOMPARE(m->format, grt::ChronographFormat::MagnetoSpeed);
+    QCOMPARE(m->series.size(), std::size_t{2});
+    QCOMPARE(m->series[0].name, u"Series 15"_s);
+    QCOMPARE(m->series[0].velocities_ms.size(), std::size_t{3});
+    QCOMPARE_LT(std::abs(m->series[0].velocities_ms[0] - 2721 * 0.3048), 1e-9);
+    QCOMPARE(m->series[1].velocities_ms, std::vector<double>{830.5});  // a 0 is a missed shot
+
+    // the Labradar report: NUL padded lines, V0 column, unit from the header
+    static constexpr char kLabradar[] = "sep=;\r\nDevice ID;LBR-1;;\0   \r\n\0Series No;0003;;\0  \r\n\0Units velocity;fps;;\0  \r\n\0\r\n"
+                    "Shot ID;V0;V1;V2;Ke0\r\n0001;2755;2754;2752;2393;\r\n0002;;2752;2751;;\r\n0003;2754;2753;2751;2391;\r\n";
+    const auto l = grt::readChronograph(QByteArray(kLabradar, sizeof kLabradar - 1), &error);
+    QVERIFY2(l, qPrintable(error));
+    QCOMPARE(l->format, grt::ChronographFormat::Labradar);
+    QCOMPARE(l->series.size(), std::size_t{1});
+    QCOMPARE(l->series[0].name, u"SR0003"_s);
+    QCOMPARE(l->series[0].velocities_ms.size(), std::size_t{2});
+    QCOMPARE_LT(std::abs(l->series[0].velocities_ms[1] - 2754 * 0.3048), 1e-9);
+
+    QVERIFY(!grt::readChronograph("a,b,c\n1,2,3\n", &error));
+    QVERIFY(!error.isEmpty());
+    QVERIFY(!grt::readChronograph("Series,1, Shots:,0\r\n", &error));
 }
 
 void CoreTest::measurementStatistics()

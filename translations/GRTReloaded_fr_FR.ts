@@ -49,6 +49,58 @@
     </message>
 </context>
 <context>
+    <name>ChronographImportDialog</name>
+    <message>
+        <location filename="../src/app/chronographimportdialog.cpp" line="+40"/>
+        <source>Import chronograph file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+27"/>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-27"/>
+        <source>Series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Shots</source>
+        <translation type="unfinished">Tirs</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Velocity [%1]</source>
+        <translation type="unfinished">Vitesse [%1]</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SD</source>
+        <translation type="unfinished">Écart type</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Charge [%1]</source>
+        <translation type="unfinished">Charge [%1]</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The powder charge of this series (the file does not contain it)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+21"/>
+        <source>%1 file with %n series. Every ticked series becomes a charge with its shots.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>CurveChart</name>
     <message>
         <location filename="../src/app/curvechart.cpp" line="+62"/>
@@ -100,29 +152,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+143"/>
-        <location line="+593"/>
+        <location line="+595"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-593"/>
-        <location line="+594"/>
+        <location line="-595"/>
+        <location line="+596"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-594"/>
+        <location line="-596"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+595"/>
+        <location line="+597"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-594"/>
+        <location line="-596"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -204,29 +256,29 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+138"/>
+        <location line="+139"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-138"/>
-        <location line="+139"/>
+        <location line="-139"/>
+        <location line="+140"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-130"/>
+        <location line="-131"/>
         <source>Select from database…</source>
         <translation>Choisir dans la base de données…</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+154"/>
+        <location line="+155"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location line="-139"/>
         <source>Cartridge</source>
         <translation>Cartouche</translation>
     </message>
@@ -242,17 +294,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+405"/>
+        <location line="+407"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-404"/>
+        <location line="-406"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+95"/>
         <source>Caliber / cartridge</source>
         <translation>Calibre / cartouche</translation>
     </message>
@@ -327,7 +379,7 @@
         <translation> (ajustée)</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+73"/>
         <source>charge too high</source>
         <translation>charge trop élevée</translation>
     </message>
@@ -406,12 +458,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+241"/>
+        <location filename="../src/app/mainwindow.cpp" line="+248"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-188"/>
+        <location filename="../src/app/mainwindow.cpp" line="-194"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -467,14 +519,14 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+205"/>
+        <location line="+211"/>
         <location line="+159"/>
         <location line="+25"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-352"/>
+        <location line="-358"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -490,12 +542,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+141"/>
+        <location line="+147"/>
         <source>Open load</source>
         <translation>Ouvrir un chargement</translation>
     </message>
     <message>
-        <location line="-141"/>
+        <location line="-147"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation>Chargements GRT (*.grtload);;Tous les fichiers (*)</translation>
     </message>
@@ -542,12 +594,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+347"/>
+        <location line="+353"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-344"/>
+        <location line="-350"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -588,12 +640,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+28"/>
+        <location line="+34"/>
         <source>System default</source>
         <translation>Valeur par défaut du système</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-33"/>
         <source>Light</source>
         <translation>Clair</translation>
     </message>
@@ -608,7 +660,7 @@
         <translation>&amp;Langue</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+16"/>
         <source>Language</source>
         <translation>Langue</translation>
     </message>
@@ -856,7 +908,17 @@ L&apos;exporter quand même ?</translation>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+79"/>
+        <location filename="../src/app/measurementview.cpp" line="+81"/>
+        <source>New series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Remove series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Add charge</source>
         <translation>Ajouter une charge</translation>
     </message>
@@ -887,6 +949,11 @@ L&apos;exporter quand même ?</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Import chronograph file…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Fit to measurements…</source>
         <translation>Ajuster aux mesures…</translation>
     </message>
@@ -894,6 +961,21 @@ L&apos;exporter quand même ?</translation>
         <location line="+3"/>
         <source>Title of the measurement series</source>
         <translation>Titre de la série de mesures</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The measurement series of this load (for example one per range session or rifle)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Start another, empty measurement series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Remove the shown series with all its charges (the last one stays, but is emptied)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -931,7 +1013,12 @@ L&apos;exporter quand même ?</translation>
         <translation>Ajouter des tirs depuis le presse-papiers : un tir par ligne, la vitesse et éventuellement la pression maximale dans les unités affichées (par ex. copiés d&apos;un export de chronographe ou d&apos;un tableur)</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+2"/>
+        <source>Read the shots of a MagnetoSpeed or Labradar file (Labradar: the &quot;Report.csv&quot; of a series)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Note (rifle, chronograph, conditions, …)</source>
         <translation>Note (arme, chronographe, conditions, …)</translation>
     </message>
@@ -941,12 +1028,27 @@ L&apos;exporter quand même ?</translation>
         <translation>&lt;i&gt;Saisissez ici les résultats du chronographe : ajoutez une charge, puis ses tirs (vitesse et, si mesurée, pression maximale). Les statistiques sont comparées à la simulation de ce chargement.&lt;/i&gt;</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
+        <source>Series:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Title:</source>
         <translation>Titre :</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+98"/>
+        <source>MEASUREMENTS %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Series %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+95"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
@@ -1046,6 +1148,22 @@ L&apos;exporter quand même ?</translation>
         <location line="+1"/>
         <source>&lt;b&gt;Shots&lt;/b&gt; – select a charge</source>
         <translation>&lt;b&gt;Tirs&lt;/b&gt; – choisissez une charge</translation>
+    </message>
+    <message>
+        <location line="+148"/>
+        <location line="+10"/>
+        <source>Import chronograph file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-9"/>
+        <source>Chronograph files (*.csv *.CSV);;All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>%1 cannot be imported: %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1713,6 +1831,35 @@ L&apos;exporter quand même ?</translation>
         <location line="+13"/>
         <source>About GRT Reloaded</source>
         <translation>À propos de GRT Reloaded</translation>
+    </message>
+</context>
+<context>
+    <name>grt</name>
+    <message>
+        <location filename="../src/core/chronograph.cpp" line="+54"/>
+        <source>Series %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <location line="+31"/>
+        <source>The file contains no shots.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-4"/>
+        <source>The velocity unit of the file is unknown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Not a MagnetoSpeed or Labradar file.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

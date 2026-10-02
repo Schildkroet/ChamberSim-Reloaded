@@ -274,6 +274,7 @@ LoadView::LoadView(QWidget *parent)
     applyChartUnits();
     m_report->setDataProvider([this] { return reportData(); });
     connect(m_measurements, &MeasurementView::edited, this, &LoadView::storeMeasurement);
+    connect(m_measurements, &MeasurementView::seriesChanged, this, [this] { m_report->invalidate(); });
     connect(m_measurements, &MeasurementView::fitRequested, this, &LoadView::fitPowder);
     connect(m_ladderTabs, &QTabBar::currentChanged, this, [this](int i) { setFocus(i); });
     connect(m_ladderTable, &QTableWidget::cellClicked, this, [this](int row, int) { setFocus(row); });
@@ -502,18 +503,19 @@ void LoadView::fitPowder()
 
 void LoadView::loadMeasurement()
 {
-    const auto m = grt::readMeasurement(m_file.appendixXml);
-    m_hasMeasurement = m.has_value();
-    m_measurements->setMeasurement(m.value_or(grt::Measurement{.title = u"MEASUREMENTS"_s, .charges = {}, .attributes = {}}));
+    auto series = grt::readMeasurements(m_file.appendixXml);
+    m_hasMeasurement = !series.empty();
+    m_measurements->setMeasurements(std::move(series));
 }
 
 // The measurement tab edits the appendix of the file; a load without measurements gets a block only once there is
 // something in it.
 void LoadView::storeMeasurement()
 {
-    const grt::Measurement &m = m_measurements->measurement();
-    if (!m_hasMeasurement && m.charges.empty()) return;
-    m_file.appendixXml = grt::writeMeasurement(m_file.appendixXml, m);
+    const auto &series = m_measurements->allMeasurements();
+    const bool empty = std::ranges::all_of(series, [](const grt::Measurement &m) { return m.charges.empty(); });
+    if (!m_hasMeasurement && empty) return;
+    m_file.appendixXml = grt::writeMeasurements(m_file.appendixXml, series);
     m_hasMeasurement = true;
     setModified(true);
     m_report->invalidate();

@@ -6,13 +6,20 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QComboBox>
+#include <QDir>
+#include <QFile>
+#include <QFileDialog>
+#include <QFileInfo>
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QRegularExpression>
+#include <QSettings>
 #include <QShortcut>
 #include <QSplitter>
 #include <QStyle>
@@ -70,6 +77,9 @@ QString percent(double value, double reference)
 
 MeasurementView::MeasurementView(QWidget *parent)
     : QWidget(parent)
+    , m_seriesBox(new QComboBox)
+    , m_newSeries(new QPushButton(tr("New series")))
+    , m_removeSeries(new QPushButton(tr("Remove series")))
     , m_title(new QLineEdit)
     , m_charges(new QTableWidget(0, ColumnCount))
     , m_shots(new QTableWidget(0, 2))
@@ -82,10 +92,14 @@ MeasurementView::MeasurementView(QWidget *parent)
     , m_addShot(new QPushButton(tr("Add shot")))
     , m_removeShot(new QPushButton(tr("Remove shot")))
     , m_paste(new QPushButton(tr("Paste shots")))
+    , m_import(new QPushButton(tr("Import chronograph file…")))
     , m_fitButton(new QPushButton(tr("Fit to measurements…")))
     , m_chart(new MeasurementChart)
 {
     m_title->setPlaceholderText(tr("Title of the measurement series"));
+    m_seriesBox->setToolTip(tr("The measurement series of this load (for example one per range session or rifle)"));
+    m_newSeries->setToolTip(tr("Start another, empty measurement series"));
+    m_removeSeries->setToolTip(tr("Remove the shown series with all its charges (the last one stays, but is emptied)"));
     m_addCharge->setIcon(style()->standardIcon(QStyle::SP_FileDialogNewFolder));
     m_addCharge->setToolTip(tr("Add a charge (the load's selected charge, or the next one of the ladder)"));
     m_addLadder->setToolTip(tr("Add every charge of the load development ladder that is not listed yet"));
@@ -95,6 +109,7 @@ MeasurementView::MeasurementView(QWidget *parent)
     m_fitButton->setToolTip(tr("Change the propellant's model values until the simulation agrees with the measured charges"));
     m_paste->setToolTip(tr("Add shots from the clipboard: one shot per line, velocity and optionally the peak "
                            "pressure in the shown units (e.g. copied from a chronograph export or a spreadsheet)"));
+    m_import->setToolTip(tr("Read the shots of a MagnetoSpeed or Labradar file (Labradar: the \"Report.csv\" of a series)"));
     markPrimary(m_addCharge);
 
     m_charges->setObjectName(u"charges"_s);
@@ -117,10 +132,18 @@ MeasurementView::MeasurementView(QWidget *parent)
     bar->addWidget(m_addCharge);
     bar->addWidget(m_addLadder);
     bar->addWidget(m_removeCharge);
+    bar->addWidget(m_import);
     bar->addWidget(m_fitButton);
-    bar->addSpacing(16);
-    bar->addWidget(new QLabel(tr("Title:")));
-    bar->addWidget(m_title, 1);
+    bar->addStretch(1);
+
+    auto *seriesBar = new QHBoxLayout;
+    seriesBar->addWidget(new QLabel(tr("Series:")));
+    seriesBar->addWidget(m_seriesBox);
+    seriesBar->addWidget(m_newSeries);
+    seriesBar->addWidget(m_removeSeries);
+    seriesBar->addSpacing(16);
+    seriesBar->addWidget(new QLabel(tr("Title:")));
+    seriesBar->addWidget(m_title, 1);
 
     auto *shotBar = new QHBoxLayout;
     shotBar->addWidget(m_addShot);
@@ -147,6 +170,7 @@ MeasurementView::MeasurementView(QWidget *parent)
     auto *top = new QWidget;
     auto *tl = new QVBoxLayout(top);
     tl->setContentsMargins(0, 0, 0, 0);
+    tl->addLayout(seriesBar);
     tl->addLayout(bar);
     tl->addWidget(m_hint);
     tl->addWidget(m_charges, 1);
@@ -167,6 +191,12 @@ MeasurementView::MeasurementView(QWidget *parent)
     connect(m_addShot, &QPushButton::clicked, this, &MeasurementView::addShot);
     connect(m_removeShot, &QPushButton::clicked, this, &MeasurementView::removeShots);
     connect(m_fitButton, &QPushButton::clicked, this, &MeasurementView::fitRequested);
+    connect(m_newSeries, &QPushButton::clicked, this, &MeasurementView::addSeries);
+    connect(m_removeSeries, &QPushButton::clicked, this, &MeasurementView::removeSeries);
+    connect(m_seriesBox, &QComboBox::currentIndexChanged, this, [this](int i) {
+        if (!m_updating) selectSeries(i);
+    });
+    connect(m_import, &QPushButton::clicked, this, &MeasurementView::importChronograph);
     connect(m_paste, &QPushButton::clicked, this, [this] { pasteShots(QApplication::clipboard()->text()); });
     auto *del = new QShortcut(QKeySequence::Delete, m_shots, nullptr, nullptr, Qt::WidgetWithChildrenShortcut);
     connect(del, &QShortcut::activated, this, &MeasurementView::removeShots);
@@ -178,25 +208,84 @@ MeasurementView::MeasurementView(QWidget *parent)
         updateButtons();
     });
     connect(m_title, &QLineEdit::editingFinished, this, [this] {
-        if (m_title->text() == m_data.title) return;
-        m_data.title = m_title->text();
+        if (m_title->text() == data().title) return;
+        data().title = m_title->text();
+        refreshSeriesBox();
         emit edited();
     });
     connect(m_note, &QLineEdit::editingFinished, this, [this] {
         const int i = currentCharge();
-        if (i < 0 || m_note->text() == m_data.charges[static_cast<std::size_t>(i)].note) return;
-        m_data.charges[static_cast<std::size_t>(i)].note = m_note->text();
+        if (i < 0 || m_note->text() == data().charges[static_cast<std::size_t>(i)].note) return;
+        data().charges[static_cast<std::size_t>(i)].note = m_note->text();
         emit edited();
     });
     connect(&UnitPreferences::instance(), &UnitPreferences::changed, this, &MeasurementView::refreshAll);
     refreshAll();
 }
 
+void MeasurementView::setMeasurements(std::vector<grt::Measurement> series, int current)
+{
+    m_series = std::move(series);
+    if (m_series.empty()) m_series.push_back(emptySeries(1));
+    m_index = std::clamp(current, 0, static_cast<int>(m_series.size()) - 1);
+    refreshSeriesBox();
+    refreshAll();
+    if (!data().charges.empty()) selectCharge(0);
+}
+
 void MeasurementView::setMeasurement(const grt::Measurement &m)
 {
-    m_data = m;
+    setMeasurements({m});
+}
+
+grt::Measurement MeasurementView::emptySeries(int number)
+{
+    return {.title = number > 1 ? tr("MEASUREMENTS %1").arg(number) : u"MEASUREMENTS"_s, .charges = {}, .attributes = {}};
+}
+
+void MeasurementView::refreshSeriesBox()
+{
+    const bool was = m_updating;
+    m_updating = true;
+    m_seriesBox->clear();
+    for (std::size_t i = 0; i < m_series.size(); ++i)
+        m_seriesBox->addItem(m_series[i].title.isEmpty() ? tr("Series %1").arg(i + 1) : m_series[i].title);
+    m_seriesBox->setCurrentIndex(m_index);
+    m_seriesBox->setEnabled(m_series.size() > 1);
+    m_removeSeries->setEnabled(m_series.size() > 1 || !data().charges.empty());
+    m_updating = was;
+}
+
+void MeasurementView::selectSeries(int index)
+{
+    if (index < 0 || index >= static_cast<int>(m_series.size()) || index == m_index) return;
+    m_index = index;
+    refreshSeriesBox();
     refreshAll();
-    if (!m_data.charges.empty()) selectCharge(0);
+    if (!data().charges.empty()) selectCharge(0);
+    emit seriesChanged();
+}
+
+void MeasurementView::addSeries()
+{
+    m_series.push_back(emptySeries(static_cast<int>(m_series.size()) + 1));
+    m_index = static_cast<int>(m_series.size()) - 1;
+    refreshSeriesBox();
+    refreshAll();
+    emit seriesChanged();
+    emit edited();
+}
+
+void MeasurementView::removeSeries()
+{
+    if (m_series.size() == 1) data() = emptySeries(1);  // the load keeps one (empty) series
+    else m_series.erase(m_series.begin() + m_index);
+    m_index = std::min(m_index, static_cast<int>(m_series.size()) - 1);
+    refreshSeriesBox();
+    refreshAll();
+    if (!data().charges.empty()) selectCharge(0);
+    emit seriesChanged();
+    emit edited();
 }
 
 void MeasurementView::setPredictor(Predictor predictor)
@@ -253,7 +342,7 @@ MeasurementView::Simulated MeasurementView::simulated(double charge_g)
 
 void MeasurementView::refreshAll()
 {
-    m_title->setText(m_data.title);
+    m_title->setText(data().title);
     m_charges->setHorizontalHeaderLabels(
         {tr("Name"), tr("Charge [%1]").arg(symbol(Quantity::BulletMass)), tr("Shots"), tr("Velocity [%1]").arg(symbol(Quantity::Velocity)),
          tr("SD"), tr("ES"), tr("Simulated"), tr("Δ"), tr("Pressure [%1]").arg(symbol(Quantity::Pressure)), tr("Simulated"), tr("Δ")});
@@ -277,9 +366,9 @@ void MeasurementView::refreshCharges()
 {
     const int keep = currentCharge();
     m_updating = true;
-    m_charges->setRowCount(static_cast<int>(m_data.charges.size()));
+    m_charges->setRowCount(static_cast<int>(data().charges.size()));
     for (int row = 0; row < m_charges->rowCount(); ++row) {
-        const grt::MeasuredCharge &c = m_data.charges[static_cast<std::size_t>(row)];
+        const grt::MeasuredCharge &c = data().charges[static_cast<std::size_t>(row)];
         const grt::ShotStatistics v = grt::velocityStatistics(c);
         const grt::ShotStatistics p = grt::pressureStatistics(c);
         const Simulated sim = simulated(c.charge_g());
@@ -299,7 +388,7 @@ void MeasurementView::refreshCharges()
             for (int col : {SimVelocity, SimPressure}) m_charges->item(row, col)->setToolTip(tr("This charge cannot be simulated (does not fit into the case?)"));
     }
     if (keep >= 0 && keep < m_charges->rowCount()) m_charges->selectRow(keep);
-    m_hint->setVisible(m_data.charges.empty());
+    m_hint->setVisible(data().charges.empty());
     m_updating = false;
 }
 
@@ -307,7 +396,7 @@ void MeasurementView::refreshShots()
 {
     m_updating = true;
     const int i = currentCharge();
-    const grt::MeasuredCharge *c = i >= 0 ? &m_data.charges[static_cast<std::size_t>(i)] : nullptr;
+    const grt::MeasuredCharge *c = i >= 0 ? &data().charges[static_cast<std::size_t>(i)] : nullptr;
     m_shots->setRowCount(c ? static_cast<int>(c->shots.size()) : 0);
     for (int row = 0; c && row < m_shots->rowCount(); ++row) {
         const grt::Shot &s = c->shots[static_cast<std::size_t>(row)];
@@ -333,7 +422,7 @@ void MeasurementView::refreshChart()
             hi = any ? std::max(hi, g) : g;
             any = true;
         };
-        for (const grt::MeasuredCharge &c : m_data.charges) take(c.charge_g());
+        for (const grt::MeasuredCharge &c : data().charges) take(c.charge_g());
         if (!any && !m_suggested.empty()) take(m_suggested.front());
         if (any) {
             const double span = std::max(hi - lo, 0.1 * hi);
@@ -347,7 +436,7 @@ void MeasurementView::refreshChart()
             }
         }
     }
-    m_chart->setData(m_data, curve);
+    m_chart->setData(data(), curve);
 }
 
 void MeasurementView::updateButtons()
@@ -356,7 +445,7 @@ void MeasurementView::updateButtons()
     m_removeCharge->setEnabled(selected);
     m_addShot->setEnabled(selected);
     m_paste->setEnabled(selected);
-    m_fitButton->setEnabled(std::ranges::any_of(m_data.charges, [](const grt::MeasuredCharge &c) { return grt::velocityStatistics(c).count > 0; }));
+    m_fitButton->setEnabled(std::ranges::any_of(data().charges, [](const grt::MeasuredCharge &c) { return grt::velocityStatistics(c).count > 0; }));
     m_removeShot->setEnabled(selected && m_shots->rowCount() > 0);
     m_addLadder->setVisible(m_suggested.size() > 1);
 }
@@ -377,14 +466,14 @@ void MeasurementView::addCharge()
     // the selected charge first; if it is already listed, the next ladder charge that is not
     double charge = m_suggested.empty() ? 0.0 : m_suggested.front();
     for (double g : m_suggested) {
-        const bool listed = std::ranges::any_of(m_data.charges, [&](const grt::MeasuredCharge &c) { return std::abs(c.charge_g() - g) < 1e-6; });
+        const bool listed = std::ranges::any_of(data().charges, [&](const grt::MeasuredCharge &c) { return std::abs(c.charge_g() - g) < 1e-6; });
         if (!listed) { charge = g; break; }
     }
-    if (charge <= 0.0 && !m_data.charges.empty()) charge = m_data.charges.back().charge_g();
+    if (charge <= 0.0 && !data().charges.empty()) charge = data().charges.back().charge_g();
     const QString name = QStringLiteral("%1 %2").arg(shownValue(charge, Quantity::BulletMass), symbol(Quantity::BulletMass));
-    m_data.charges.push_back(grt::MeasuredCharge::create(name, charge));
+    data().charges.push_back(grt::MeasuredCharge::create(name, charge));
     refreshCharges();
-    selectCharge(static_cast<int>(m_data.charges.size()) - 1);
+    selectCharge(static_cast<int>(data().charges.size()) - 1);
     changed();
 }
 
@@ -394,8 +483,8 @@ void MeasurementView::addLadderCharges()
     std::vector<double> sorted = m_suggested;
     std::ranges::sort(sorted);
     for (double g : sorted) {
-        if (std::ranges::any_of(m_data.charges, [&](const grt::MeasuredCharge &c) { return std::abs(c.charge_g() - g) < 1e-6; })) continue;
-        m_data.charges.push_back(grt::MeasuredCharge::create(QStringLiteral("%1 %2").arg(shownValue(g, Quantity::BulletMass), symbol(Quantity::BulletMass)), g));
+        if (std::ranges::any_of(data().charges, [&](const grt::MeasuredCharge &c) { return std::abs(c.charge_g() - g) < 1e-6; })) continue;
+        data().charges.push_back(grt::MeasuredCharge::create(QStringLiteral("%1 %2").arg(shownValue(g, Quantity::BulletMass), symbol(Quantity::BulletMass)), g));
         added = true;
     }
     if (!added) return;
@@ -408,9 +497,9 @@ void MeasurementView::removeCharge()
 {
     const int i = currentCharge();
     if (i < 0) return;
-    m_data.charges.erase(m_data.charges.begin() + i);
+    data().charges.erase(data().charges.begin() + i);
     refreshCharges();
-    selectCharge(std::min(i, static_cast<int>(m_data.charges.size()) - 1));
+    selectCharge(std::min(i, static_cast<int>(data().charges.size()) - 1));
     changed();
 }
 
@@ -418,7 +507,7 @@ void MeasurementView::addShot()
 {
     const int i = currentCharge();
     if (i < 0) return;
-    m_data.charges[static_cast<std::size_t>(i)].shots.push_back({});
+    data().charges[static_cast<std::size_t>(i)].shots.push_back({});
     changed();
     const int row = m_shots->rowCount() - 1;
     m_shots->setCurrentCell(row, 0);
@@ -433,7 +522,7 @@ void MeasurementView::removeShots()
     for (const QModelIndex &idx : m_shots->selectionModel()->selectedIndexes()) rows.insert(idx.row());
     if (rows.empty() && m_shots->currentRow() >= 0) rows.insert(m_shots->currentRow());
     if (rows.empty()) return;
-    auto &shots = m_data.charges[static_cast<std::size_t>(i)].shots;
+    auto &shots = data().charges[static_cast<std::size_t>(i)].shots;
     for (auto it = rows.rbegin(); it != rows.rend(); ++it)
         if (*it < static_cast<int>(shots.size())) shots.erase(shots.begin() + *it);
     changed();
@@ -443,7 +532,7 @@ int MeasurementView::pasteShots(const QString &text)
 {
     const int i = currentCharge();
     if (i < 0) return 0;
-    auto &shots = m_data.charges[static_cast<std::size_t>(i)].shots;
+    auto &shots = data().charges[static_cast<std::size_t>(i)].shots;
     int added = 0;
     static const QRegularExpression separators(QStringLiteral("[\\t;\\s]+"));
     for (const QString &line : text.split(u'\n')) {
@@ -461,10 +550,45 @@ int MeasurementView::pasteShots(const QString &text)
     return added;
 }
 
+void MeasurementView::importChronograph()
+{
+    QSettings settings;
+    const QString dir = settings.value(u"files/importDir"_s).toString();
+    const QString path = QFileDialog::getOpenFileName(this, tr("Import chronograph file"), dir,
+                                                      tr("Chronograph files (*.csv *.CSV);;All files (*)"));
+    if (path.isEmpty()) return;
+    settings.setValue(u"files/importDir"_s, QFileInfo(path).absolutePath());
+    QFile f(path);
+    QString error;
+    std::optional<grt::ChronographFile> file;
+    if (f.open(QIODevice::ReadOnly)) file = grt::readChronograph(f.readAll(), &error);
+    else error = f.errorString();
+    if (!file) {
+        QMessageBox::warning(this, tr("Import chronograph file"), tr("%1 cannot be imported: %2").arg(QDir::toNativeSeparators(path), error));
+        return;
+    }
+    ChronographImportDialog dialog(std::move(*file), m_suggested.empty() ? 0.0 : m_suggested.front(), this);
+    if (dialog.exec() == QDialog::Accepted) importCharges(dialog.selected());
+}
+
+int MeasurementView::importCharges(const std::vector<ImportedCharge> &charges)
+{
+    for (const ImportedCharge &c : charges) {
+        grt::MeasuredCharge charge = grt::MeasuredCharge::create(c.series.name, c.charge_g);
+        for (double v : c.series.velocities_ms) charge.shots.push_back({.velocity_ms = v});
+        data().charges.push_back(std::move(charge));
+    }
+    if (charges.empty()) return 0;
+    refreshCharges();
+    selectCharge(static_cast<int>(data().charges.size()) - 1);
+    changed();
+    return static_cast<int>(charges.size());
+}
+
 void MeasurementView::onChargeChanged(int row, int column)
 {
-    if (m_updating || row < 0 || row >= static_cast<int>(m_data.charges.size())) return;
-    grt::MeasuredCharge &c = m_data.charges[static_cast<std::size_t>(row)];
+    if (m_updating || row < 0 || row >= static_cast<int>(data().charges.size())) return;
+    grt::MeasuredCharge &c = data().charges[static_cast<std::size_t>(row)];
     const QString text = m_charges->item(row, column)->text();
     if (column == Name) {
         c.name = text;
@@ -481,7 +605,7 @@ void MeasurementView::onShotChanged(int row, int column)
 {
     const int i = currentCharge();
     if (m_updating || i < 0) return;
-    auto &shots = m_data.charges[static_cast<std::size_t>(i)].shots;
+    auto &shots = data().charges[static_cast<std::size_t>(i)].shots;
     if (row < 0 || row >= static_cast<int>(shots.size())) return;
     const QString text = m_shots->item(row, column)->text().trimmed();
     const Quantity q = column == 0 ? Quantity::Velocity : Quantity::Pressure;

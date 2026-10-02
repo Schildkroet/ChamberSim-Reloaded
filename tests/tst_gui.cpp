@@ -39,6 +39,7 @@
 #include "appfont.h"
 #include "cartridgeview.h"
 #include "chamberview.h"
+#include "chronographimportdialog.h"
 #include "database.h"
 #include "loadbuilder.h"
 #include "loadview.h"
@@ -100,6 +101,8 @@ private slots:
     void cartridgeViewDrawsAndHandlesStraightCases();
     void measurementTabShowsTheFilesResults();
     void measurementsAreEditedAndSaved();
+    void measurementSeriesAreEditedAndSaved();
+    void chronographImportAddsCharges();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void recordDialogShowsReadableFieldsInUserUnits();
@@ -1156,6 +1159,58 @@ void GuiTest::measurementTabShowsTheFilesResults()
     QVERIFY(html.contains(u"848.3 m/s"_s));
     QVERIFY(!html.contains(u"measurement.section?"_s));
     UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+void GuiTest::chronographImportAddsCharges()
+{
+    LoadView view;
+    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    MeasurementView *m = view.measurements();
+    const auto file = grt::readChronograph(QByteArray("Series, 1, Shots:,2\r\n 1, 1, 800.0, m/s\r\n 1, 2, 810.0, m/s\r\nSeries, 2, Shots:,1\r\n 2, 1, 820.0, m/s\r\n"));
+    QVERIFY(file);
+    ChronographImportDialog dialog(*file, 3.0);
+    dialog.setChecked(1, false);
+    const auto picked = dialog.selected();
+    QCOMPARE(picked.size(), std::size_t{1});
+    QCOMPARE(picked[0].charge_g, 3.0);
+    QCOMPARE(m->importCharges(picked), 1);
+    QCOMPARE(m->measurement().charges.size(), std::size_t{1});
+    QCOMPARE(grt::velocityStatistics(m->measurement().charges[0]).count, 2);
+    QVERIFY(view.isModified());
+}
+
+void GuiTest::measurementSeriesAreEditedAndSaved()
+{
+    LoadView view;
+    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    MeasurementView *m = view.measurements();
+    m->addCharge();
+    m->addSeries();  // a second, empty series is shown
+    QCOMPARE(m->allMeasurements().size(), std::size_t{2});
+    QCOMPARE(m->currentSeries(), 1);
+    QVERIFY(m->measurement().charges.empty());
+    m->addCharge();
+    m->addShot();
+    m->selectSeries(0);
+    QCOMPARE(m->measurement().charges.size(), std::size_t{1});
+    QVERIFY(m->measurement().charges[0].shots.empty());
+
+    QTemporaryDir dir;
+    const QString path = dir.filePath(u"s.grtload"_s);
+    QVERIFY(view.save(path));
+    const auto lf = grt::LoadFile::read(path);
+    QVERIFY(lf);
+    QCOMPARE(grt::readMeasurements(lf->appendixXml).size(), std::size_t{2});
+
+    LoadView again;
+    QVERIFY(again.load(path));
+    QCOMPARE(again.measurements()->allMeasurements().size(), std::size_t{2});
+    QCOMPARE(again.measurements()->allMeasurements()[1].charges[0].shots.size(), std::size_t{1});
+    again.measurements()->selectSeries(1);
+    again.measurements()->removeSeries();
+    QCOMPARE(again.measurements()->allMeasurements().size(), std::size_t{1});
+    QVERIFY(again.save(path));
+    QCOMPARE(grt::readMeasurements(grt::LoadFile::read(path)->appendixXml).size(), std::size_t{1});
 }
 
 void GuiTest::measurementsAreEditedAndSaved()

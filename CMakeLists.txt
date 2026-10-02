@@ -14,6 +14,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Release builds use -O2 (CMake's default would be -O3).
+if(NOT MSVC)
+    set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG" CACHE STRING "Flags used by the CXX compiler during Release builds." FORCE)
+endif()
+
 # ---- build speed: use all cores and cache compiler output ----
 # Ninja (see CMakePresets.json) builds in parallel on all cores by default. With "Unix Makefiles" pass
 # -j<N> or set CMAKE_BUILD_PARALLEL_LEVEL (cmake --build . --parallel).
@@ -63,6 +68,8 @@ add_library(grtcore STATIC
     src/core/database.cpp
     src/core/measurement.h
     src/core/measurement.cpp
+    src/core/chronograph.h
+    src/core/chronograph.cpp
     src/core/dbfields.h
     src/core/dbfields.cpp
     src/core/projectdata.h
@@ -104,6 +111,8 @@ add_library(grtui STATIC
     src/app/measurementchart.cpp
     src/app/measurementview.h
     src/app/measurementview.cpp
+    src/app/chronographimportdialog.h
+    src/app/chronographimportdialog.cpp
     src/app/recorddialog.h
     src/app/recorddialog.cpp
     src/app/powderfitdialog.h

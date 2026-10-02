@@ -163,19 +163,20 @@ std::vector<Param> parse(const QString &list, QString *error)
 std::vector<Sample> samples(const LoadFile &load, const QString &source, QStringList *warnings)
 {
     std::vector<Sample> out;
-    const auto m = readMeasurement(load.appendixXml);
-    if (!m) {
+    const auto series = readMeasurements(load.appendixXml);
+    if (series.empty()) {
         if (warnings) *warnings << u"%1: no Measurements tab"_s.arg(source);
         return out;
     }
     const SimInput in = SimInput::fromLoad(load);
-    for (const MeasuredCharge &c : m->charges) {
-        const ShotStatistics v = velocityStatistics(c);
-        if (v.count == 0) continue;
-        const ShotStatistics p = pressureStatistics(c);
-        out.push_back({.source = source, .input = in, .charge_g = c.charge_g(), .shots = v.count, .velocity_ms = v.mean,
-                       .pressureShots = p.count, .pressure_bar = p.mean});
-    }
+    for (const Measurement &m : series)
+        for (const MeasuredCharge &c : m.charges) {
+            const ShotStatistics v = velocityStatistics(c);
+            if (v.count == 0) continue;
+            const ShotStatistics p = pressureStatistics(c);
+            out.push_back({.source = source, .input = in, .charge_g = c.charge_g(), .shots = v.count, .velocity_ms = v.mean,
+                           .pressureShots = p.count, .pressure_bar = p.mean});
+        }
     if (out.empty() && warnings) *warnings << u"%1: no charge with velocity shots"_s.arg(source);
     if (warnings && !out.empty()) {
         // the CIP capacity of the caliber record vs. the case volume of the load

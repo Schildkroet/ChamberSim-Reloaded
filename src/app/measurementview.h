@@ -1,6 +1,7 @@
 #pragma once
 
 #include "measurement.h"
+#include "chronographimportdialog.h"
 #include "measurementchart.h"
 #include "solver.h"
 
@@ -10,6 +11,7 @@
 #include <map>
 #include <vector>
 
+class QComboBox;
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -26,8 +28,16 @@ public:
 
     explicit MeasurementView(QWidget *parent = nullptr);
 
-    void setMeasurement(const grt::Measurement &m);
-    [[nodiscard]] const grt::Measurement &measurement() const noexcept { return m_data; }
+    // All measurement series of the load (the original has one <Measurement> block per series); `current` is shown.
+    void setMeasurements(std::vector<grt::Measurement> series, int current = 0);
+    void setMeasurement(const grt::Measurement &m);  // a single series
+    [[nodiscard]] const std::vector<grt::Measurement> &allMeasurements() const noexcept { return m_series; }
+    // The shown series.
+    [[nodiscard]] const grt::Measurement &measurement() const noexcept { return m_series[static_cast<std::size_t>(m_index)]; }
+    [[nodiscard]] int currentSeries() const noexcept { return m_index; }
+    void selectSeries(int index);
+    void addSeries();
+    void removeSeries();
 
     void setPredictor(Predictor predictor);
     // Charges offered by "Add charge" / "Add ladder charges": the selected charge first, then the ladder steps.
@@ -45,9 +55,14 @@ public:
     // Reads shots from text: one shot per line, velocity and optionally pressure (in the shown units), separated by
     // tabs, semicolons or spaces; lines without a number are skipped. Returns the number of shots added.
     int pasteShots(const QString &text);
+    // "Import chronograph file…": asks for a MagnetoSpeed / Labradar file and the charges of its series.
+    void importChronograph();
+    // Adds a charge with its shots for every entry; returns the number of charges added.
+    int importCharges(const std::vector<ImportedCharge> &charges);
 
 signals:
     void edited();
+    void seriesChanged();  // another series is shown (the chart and the report follow it)
     void fitRequested();  // "Fit to measurements…"
 
 protected:
@@ -61,6 +76,9 @@ private:
     };
 
     [[nodiscard]] Simulated simulated(double charge_g);
+    [[nodiscard]] grt::Measurement &data() noexcept { return m_series[static_cast<std::size_t>(m_index)]; }
+    [[nodiscard]] static grt::Measurement emptySeries(int number);
+    void refreshSeriesBox();
     void refreshAll();
     void refreshCharges();
     void refreshShots();
@@ -70,13 +88,17 @@ private:
     void onShotChanged(int row, int column);
     void changed();
 
-    grt::Measurement m_data;
+    std::vector<grt::Measurement> m_series{emptySeries(1)};  // never empty
+    int m_index{0};
     Predictor m_predictor;
     std::vector<double> m_suggested;
     std::map<long long, Simulated> m_cache;  // by charge in micrograms
     bool m_updating{false};
     bool m_stale{false};  // simulated values were skipped while hidden
 
+    QComboBox *m_seriesBox;
+    QPushButton *m_newSeries;
+    QPushButton *m_removeSeries;
     QLineEdit *m_title;
     QTableWidget *m_charges;
     QTableWidget *m_shots;
@@ -89,6 +111,7 @@ private:
     QPushButton *m_addShot;
     QPushButton *m_removeShot;
     QPushButton *m_paste;
+    QPushButton *m_import;
     QPushButton *m_fitButton;
     MeasurementChart *m_chart;
 };

@@ -59,11 +59,16 @@ struct ShotStatistics {
 [[nodiscard]] ShotStatistics velocityStatistics(const MeasuredCharge &charge);
 [[nodiscard]] ShotStatistics pressureStatistics(const MeasuredCharge &charge);
 
-// Reads the first <Measurement> block of an appendix (see LoadFile::appendixXml); nullopt if there is none.
-[[nodiscard]] std::optional<Measurement> readMeasurement(const QString &appendixXml);
+// Reads all <Measurement> blocks of an appendix (see LoadFile::appendixXml), in file order (one per series).
+[[nodiscard]] std::vector<Measurement> readMeasurements(const QString &appendixXml);
 
-// The appendix with its first <Measurement> block replaced by `m`, or with `m` appended (with the next free tab
-// index) if there was none. Everything else in the appendix is kept.
+// The appendix with its <Measurement> blocks replaced, in order, by `series`: blocks beyond the given series are
+// removed, further series are appended (with the next free tab index). Everything else in the appendix is kept.
+[[nodiscard]] QString writeMeasurements(const QString &appendixXml, std::span<const Measurement> series);
+
+// The first block only: nullopt if there is none, or the appendix with the first block replaced by `m` (appended if
+// there was none) and the other blocks kept.
+[[nodiscard]] std::optional<Measurement> readMeasurement(const QString &appendixXml);
 [[nodiscard]] QString writeMeasurement(const QString &appendixXml, const Measurement &m);
 
 }  // namespace grt
