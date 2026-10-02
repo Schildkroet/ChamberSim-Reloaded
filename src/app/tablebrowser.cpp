@@ -1,4 +1,5 @@
 #include "tablebrowser.h"
+#include "log.h"
 
 #include <QHeaderView>
 #include <QLabel>
@@ -116,7 +117,7 @@ void TableBrowser::setDatabase(const grt::Database *db)
 void TableBrowser::selectAll()
 {
     if (!m_model->select()) {
-        qWarning("%s: %s", grt::tableName(m_table), qPrintable(m_model->lastError().text()));
+        LOG_Warn() << grt::tableName(m_table) << ":" << m_model->lastError().text();
         return;
     }
     while (m_model->canFetchMore()) m_model->fetchMore();

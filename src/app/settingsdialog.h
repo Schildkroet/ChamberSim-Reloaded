@@ -1,5 +1,7 @@
 #pragma once
 
+#include "log.h"
+
 #include <QDialog>
 
 class QCheckBox;
@@ -28,11 +30,16 @@ signals:
 
 private:
     void apply();
+    [[nodiscard]] grt::log::Config logConfig() const;
 
     QSpinBox *m_fontSize;
     QCheckBox *m_titleBar;
     bool m_originalTitleBar;
     QComboBox *m_unitSystem;
+    QComboBox *m_logLevel;
+    QCheckBox *m_logConsole;
+    QCheckBox *m_logFile;
+    grt::log::Config m_originalLog;
     QLineEdit *m_database;
     QLabel *m_databaseInfo;
     QString m_databasePath;

@@ -9,6 +9,7 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDesktopServices>
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -18,6 +19,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QSpinBox>
+#include <QUrl>
 #include <QVBoxLayout>
 
 #include <algorithm>
@@ -28,6 +30,10 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     , m_titleBar(new QCheckBox)
     , m_originalTitleBar(TitleBar::stored())
     , m_unitSystem(new QComboBox)
+    , m_logLevel(new QComboBox)
+    , m_logConsole(new QCheckBox(tr("Write to the console (stderr)")))
+    , m_logFile(new QCheckBox(tr("Write to the log file")))
+    , m_originalLog(grt::log::config())
     , m_database(new QLineEdit)
     , m_databaseInfo(new QLabel)
     , m_originalSize(appfont::storedSize())
@@ -99,21 +105,50 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     databaseGrid->addWidget(browse, 0, 2);
     databaseGrid->addWidget(m_databaseInfo, 1, 1, 1, 2);
 
+    for (const auto level : {grt::log::Level::Debug, grt::log::Level::Info, grt::log::Level::Warn, grt::log::Level::Error, grt::log::Level::Off})
+        m_logLevel->addItem(level == grt::log::Level::Off ? tr("Off") : grt::log::levelName(level), static_cast<int>(level));
+    m_logLevel->setCurrentIndex(std::max(0, m_logLevel->findData(static_cast<int>(m_originalLog.level))));
+    m_logLevel->setToolTip(tr("Messages of this level and above are logged: Debug (everything), Info, Warning, Error"));
+    m_logConsole->setChecked(m_originalLog.console);
+    m_logFile->setChecked(m_originalLog.file);
+    auto *logging = new QGroupBox(tr("Logging"));
+    auto *logGrid = makeForm(logging);
+    auto *logLabel = new QLabel(tr("Log level:"));
+    logLabel->setBuddy(m_logLevel);
+    auto *logPath = new QLabel(QStringLiteral("<small>%1</small>").arg(grt::log::activePath().toHtmlEscaped()));
+    logPath->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    logPath->setWordWrap(true);
+    auto *openLog = new QPushButton(tr("Open log file"));
+    connect(openLog, &QPushButton::clicked, this, [] { QDesktopServices::openUrl(QUrl::fromLocalFile(grt::log::activePath())); });
+    auto *clearLog = new QPushButton(tr("Clear log file"));
+    connect(clearLog, &QPushButton::clicked, this, [] { grt::log::clearFile(); });
+    logGrid->addWidget(logLabel, 0, 0);
+    logGrid->addWidget(m_logLevel, 0, 1);
+    logGrid->addWidget(m_logConsole, 1, 1, 1, 2);
+    logGrid->addWidget(m_logFile, 2, 1);
+    logGrid->addWidget(openLog, 2, 2);
+    logGrid->addWidget(logPath, 3, 1);
+    logGrid->addWidget(clearLog, 3, 2);
+
     // the buttons share one width, the controls share the middle column
     const int buttonWidth = std::max({reset->sizeHint().width(), resetUnits->sizeHint().width(), browse->sizeHint().width()});
     reset->setMinimumWidth(buttonWidth);
     resetUnits->setMinimumWidth(buttonWidth);
     browse->setMinimumWidth(buttonWidth);
+    openLog->setMinimumWidth(buttonWidth);
+    clearLog->setMinimumWidth(buttonWidth);
+    m_logLevel->setMinimumWidth(110);
     m_fontSize->setMinimumWidth(110);
     m_unitSystem->setMinimumWidth(110);
     m_fontSize->setAlignment(Qt::AlignRight);
     const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
-                                     titleBarLabel->sizeHint().width()}) + 36;
+                                     titleBarLabel->sizeHint().width(), logLabel->sizeHint().width()}) + 36;
     // 48 px from the labels to the fields (the grid's 12 px plus this margin)
-    for (QLabel *l : {fontLabel, titleBarLabel, systemLabel, databaseLabel}) l->setContentsMargins(0, 0, 36, 0);
+    for (QLabel *l : {fontLabel, titleBarLabel, systemLabel, databaseLabel, logLabel}) l->setContentsMargins(0, 0, 36, 0);
     fontLabel->setMinimumWidth(labelWidth);
     systemLabel->setMinimumWidth(labelWidth);
     databaseLabel->setMinimumWidth(labelWidth);
+    logLabel->setMinimumWidth(labelWidth);
 
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
     connect(buttons->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &SettingsDialog::apply);
@@ -126,6 +161,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
         appfont::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), m_originalSize);
         appfont::storeSize(m_originalSize);
         UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_originalSystem));
+        grt::log::setConfig(m_originalLog);
+        grt::log::storeConfig(m_originalLog);
         if (TitleBar::stored() != m_originalTitleBar) {
             TitleBar::store(m_originalTitleBar);
             emit customTitleBarChanged(m_originalTitleBar);
@@ -137,6 +174,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     layout->addWidget(appearance);
     layout->addWidget(units);
     layout->addWidget(database);
+    layout->addWidget(logging);
     layout->addStretch(1);
     layout->addWidget(buttons);
     setMinimumWidth(620);
@@ -160,8 +198,21 @@ int SettingsDialog::fontSize() const
     return m_fontSize->value();
 }
 
+grt::log::Config SettingsDialog::logConfig() const
+{
+    grt::log::Config c = grt::log::config();  // keeps a custom file path
+    c.level = static_cast<grt::log::Level>(m_logLevel->currentData().toInt());
+    c.console = m_logConsole->isChecked();
+    c.file = m_logFile->isChecked();
+    return c;
+}
+
 void SettingsDialog::apply()
 {
+    const grt::log::Config log = logConfig();
+    grt::log::setConfig(log);
+    grt::log::storeConfig(log);
+    LOG_Info() << "Logging set to" << grt::log::levelName(log.level) << "console" << log.console << "file" << log.file;
     const int applied = appfont::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), m_fontSize->value());
     appfont::storeSize(applied);
     m_fontSize->setValue(applied);

@@ -9,6 +9,7 @@
 #include <QtTest>
 
 #include "chronograph.h"
+#include "log.h"
 #include "database.h"
 #include "language.h"
 #include "loadbuilder.h"
@@ -42,6 +43,7 @@ private slots:
     void measurementWritesBackWithoutLosingData();
     void measurementSeveralBlocks();
     void chronographFiles();
+    void loggingFiltersByLevel();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -280,6 +282,42 @@ void CoreTest::chronographFiles()
     QVERIFY(!grt::readChronograph("a,b,c\n1,2,3\n", &error));
     QVERIFY(!error.isEmpty());
     QVERIFY(!grt::readChronograph("Series,1, Shots:,0\r\n", &error));
+}
+
+void CoreTest::loggingFiltersByLevel()
+{
+    QTemporaryDir dir;
+    const QString path = dir.filePath(u"test.log"_s);
+    const grt::log::Config before = grt::log::config();
+    grt::log::setConfig({.level = grt::log::Level::Warn, .console = false, .file = true, .path = path});
+    LOG_Debug() << "hidden debug";
+    LOG_Info() << "hidden info";
+    LOG_Warn() << "shown" << u"warning"_s << 42;
+    LOG_Error() << "shown error";
+    grt::log::setConfig({.level = grt::log::Level::Off, .console = false, .file = true, .path = path});
+    LOG_Error() << "off: not written";
+    grt::log::setConfig({.level = grt::log::Level::Debug, .console = false, .file = true, .path = path});
+    LOG_Debug() << "now visible";
+    QCOMPARE(grt::log::activePath(), path);
+
+    QFile f(path);
+    QVERIFY(f.open(QIODevice::ReadOnly));
+    const QString text = QString::fromUtf8(f.readAll());
+    QVERIFY(!text.contains(u"hidden"_s));
+    QVERIFY(!text.contains(u"not written"_s));
+    QVERIFY(text.contains(u"[WARN ]"_s));
+    QVERIFY(text.contains(u"shown warning 42"_s));  // QString without quotes
+    QVERIFY(text.contains(u"[ERROR]"_s));
+    QVERIFY(text.contains(u"[DEBUG]"_s));
+    QVERIFY(text.contains(u"tst_core.cpp:"_s));
+    QCOMPARE(text.count(u'\n'), 3);
+
+    QCOMPARE(grt::log::levelFromName(u"warning"_s), grt::log::Level::Warn);
+    QCOMPARE(grt::log::levelFromName(u"WARN"_s), grt::log::Level::Warn);
+    QVERIFY(!grt::log::levelFromName(u"loud"_s));
+    grt::log::clearFile();
+    QVERIFY(!QFile::exists(path));
+    grt::log::setConfig(before);
 }
 
 void CoreTest::measurementStatistics()

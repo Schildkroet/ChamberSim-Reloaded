@@ -1,4 +1,5 @@
 #include "loadview.h"
+#include "log.h"
 
 #include "cartridgeview.h"
 #include "chamberview.h"
@@ -307,7 +308,11 @@ grt::EntryList &LoadView::section(int id)
 bool LoadView::load(const QString &path, QString *error)
 {
     auto lf = grt::LoadFile::read(path, error);
-    if (!lf) return false;
+    if (!lf) {
+        LOG_Warn() << "Cannot read load" << path << ":" << (error ? *error : QString());
+        return false;
+    }
+    LOG_Info() << "Load opened:" << path;
     m_file = std::move(*lf);
     m_path = path;
     rebuildPanels();
@@ -329,7 +334,11 @@ void LoadView::setNewLoad(grt::LoadFile file)
 
 bool LoadView::save(const QString &path, QString *error)
 {
-    if (!m_file.write(path, error)) return false;
+    if (!m_file.write(path, error)) {
+        LOG_Error() << "Cannot write load" << path << ":" << (error ? *error : QString());
+        return false;
+    }
+    LOG_Info() << "Load saved:" << path;
     m_path = path;
     setModified(false);
     return true;

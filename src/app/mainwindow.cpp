@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include "about.h"
+#include "log.h"
 #include "buttonstyle.h"
 #include "dbfields.h"
 #include "flags.h"
@@ -301,13 +302,16 @@ bool MainWindow::openDatabase(const QString &originalPath, bool complain)
     QString error;
     const bool ok = m_db.open(originalPath, {}, &error);
     if (!m_db.isOpen()) {  // not even the own database: nothing to show
+        LOG_Error() << "Cannot open the program's database" << grt::Database::defaultOwnPath() << ":" << error;
         QMessageBox::warning(this, tr("Database"), tr("Cannot open the database %1:\n%2").arg(grt::Database::defaultOwnPath(), error));
         return false;
     }
     for (TableBrowser *b : m_browsers) b->setDatabase(&m_db);
     setLoadViewDatabases(true);
     updateRecordButtons();
-    for (const QString &problem : m_db.projectErrors()) qWarning("project data: %s", qPrintable(problem));
+    if (ok) LOG_Info() << "Database opened:" << (originalPath.isEmpty() ? QStringLiteral("(own records only)") : originalPath);
+    else LOG_Warn() << "Original database not usable:" << originalPath << ":" << error;
+    for (const QString &problem : m_db.projectErrors()) LOG_Warn() << "project data:" << problem;
     if (!ok && complain)
         QMessageBox::warning(this, tr("Original database"),
                              tr("Cannot use %1:\n%2\n\nThe original GordonsReloadingTool.db is encrypted; "

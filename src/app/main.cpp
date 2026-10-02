@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "appfont.h"
+#include "log.h"
 #include "theme.h"
 #include "translation.h"
 #include "unitprefs.h"
@@ -32,8 +33,15 @@ int main(int argc, char *argv[])
     const QCommandLineOption langOpt(QStringLiteral("language"), QStringLiteral("user interface language, e.g. en_US or de_DE"), QStringLiteral("lang"));
     const QCommandLineOption themeOpt(QStringLiteral("theme"), QStringLiteral("light or dark (overrides the saved choice)"), QStringLiteral("mode"));
     const QCommandLineOption unitsOpt(QStringLiteral("units"), QStringLiteral("unit system: metric, imperial or original (saved)"), QStringLiteral("system"));
-    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, langOpt, themeOpt, unitsOpt});
+    const QCommandLineOption logOpt(QStringLiteral("log-level"), QStringLiteral("log level for this run: debug, info, warning, error or off (overrides the settings)"), QStringLiteral("level"));
+    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, langOpt, themeOpt, unitsOpt, logOpt});
     cli.process(a);
+    grt::log::Config logConfig = grt::log::storedConfig();
+    if (cli.isSet(logOpt))
+        if (const auto level = grt::log::levelFromName(cli.value(logOpt))) logConfig.level = *level;
+    grt::log::setConfig(logConfig);
+    grt::log::installMessageHandler();
+    LOG_Info() << "GRT Reloaded" << GRT_VERSION << "started";
     appfont::apply(a, appfont::storedSize());  // the platform font is remembered before the first change
     translation::install(a, cli.value(langOpt));
     theme::apply(a, cli.isSet(themeOpt) ? (cli.value(themeOpt) == QLatin1String("dark") ? theme::Mode::Dark : theme::Mode::Light) : theme::storedMode());

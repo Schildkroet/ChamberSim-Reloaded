@@ -151,30 +151,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+143"/>
-        <location line="+595"/>
+        <location filename="../src/app/loadview.cpp" line="+144"/>
+        <location line="+603"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-595"/>
-        <location line="+596"/>
+        <location line="-603"/>
+        <location line="+604"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-596"/>
+        <location line="-604"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+597"/>
+        <location line="+605"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-596"/>
+        <location line="-604"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -256,29 +256,29 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+139"/>
+        <location line="+147"/>
         <source>Projectile</source>
         <translation>Geschoss</translation>
     </message>
     <message>
-        <location line="-139"/>
-        <location line="+140"/>
+        <location line="-147"/>
+        <location line="+148"/>
         <source>Propellant</source>
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="-131"/>
+        <location line="-139"/>
         <source>Select from database…</source>
         <translation>Aus Datenbank wählen…</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+155"/>
+        <location line="+163"/>
         <source>No database available</source>
         <translation>Keine Datenbank verfügbar</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location line="-147"/>
         <source>Cartridge</source>
         <translation>Patrone</translation>
     </message>
@@ -294,17 +294,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+407"/>
+        <location line="+415"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-406"/>
+        <location line="-414"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+103"/>
         <source>Caliber / cartridge</source>
         <translation>Kaliber / Patrone</translation>
     </message>
@@ -458,7 +458,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+248"/>
+        <location filename="../src/app/mainwindow.cpp" line="+249"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
@@ -519,14 +519,14 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+211"/>
-        <location line="+159"/>
+        <location line="+212"/>
+        <location line="+161"/>
         <location line="+25"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
     <message>
-        <location line="-358"/>
+        <location line="-361"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -594,12 +594,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+353"/>
+        <location line="+356"/>
         <source>Cannot write %1</source>
         <translation>%1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location line="-350"/>
+        <location line="-353"/>
         <source>Overlay &amp;reference result…</source>
         <translation>&amp;Referenzergebnis überlagern…</translation>
     </message>
@@ -681,21 +681,21 @@
     </message>
     <message>
         <location line="+59"/>
-        <location line="+264"/>
+        <location line="+267"/>
         <source>Cannot read %1:
 %2</source>
         <translation>%1 kann nicht gelesen werden:
 %2</translation>
     </message>
     <message>
-        <location line="-245"/>
+        <location line="-247"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Die Datenbank %1 kann nicht geöffnet werden:
 %2</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Original database</source>
         <translation>Originaldatenbank</translation>
     </message>
@@ -908,7 +908,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+81"/>
+        <location filename="../src/app/measurementview.cpp" line="+82"/>
         <source>New series</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1151,17 +1151,17 @@ Trotzdem exportieren?</translation>
     </message>
     <message>
         <location line="+148"/>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-10"/>
         <source>Chronograph files (*.csv *.CSV);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>%1 cannot be imported: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1610,7 +1610,17 @@ Trotzdem exportieren?</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+36"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <source>Write to the console (stderr)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Write to the log file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -1695,7 +1705,37 @@ Trotzdem exportieren?</translation>
         <translation>SQLite-Datenbanken (*.db *.sqlite);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+11"/>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Messages of this level and above are logged: Debug (everything), Info, Warning, Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Logging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Log level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Open log file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Clear log file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+64"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation>&lt;small&gt;%1&lt;br&gt;Neue Datensätze werden in der eigenen Datenbank des Programms gespeichert:&lt;br&gt;%2&lt;/small&gt;</translation>
     </message>
@@ -1703,7 +1743,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+24"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+25"/>
         <source>Your own record (can be changed)</source>
         <translation>Eigener Datensatz (änderbar)</translation>
     </message>

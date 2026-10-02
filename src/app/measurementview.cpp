@@ -2,6 +2,7 @@
 
 #include "buttonstyle.h"
 #include "layoutstate.h"
+#include "log.h"
 #include "unitprefs.h"
 
 #include <QApplication>
@@ -564,6 +565,7 @@ void MeasurementView::importChronograph()
     if (f.open(QIODevice::ReadOnly)) file = grt::readChronograph(f.readAll(), &error);
     else error = f.errorString();
     if (!file) {
+        LOG_Warn() << "Chronograph import failed:" << path << ":" << error;
         QMessageBox::warning(this, tr("Import chronograph file"), tr("%1 cannot be imported: %2").arg(QDir::toNativeSeparators(path), error));
         return;
     }
@@ -579,6 +581,7 @@ int MeasurementView::importCharges(const std::vector<ImportedCharge> &charges)
         data().charges.push_back(std::move(charge));
     }
     if (charges.empty()) return 0;
+    LOG_Info() << "Imported" << charges.size() << "chronograph series";
     refreshCharges();
     selectCharge(static_cast<int>(data().charges.size()) - 1);
     changed();
