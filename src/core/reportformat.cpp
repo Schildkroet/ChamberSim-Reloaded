@@ -5,9 +5,11 @@
 #include <algorithm>
 #include <cmath>
 
-namespace grt::report {
+namespace grt::report
+{
 
-namespace {
+namespace
+{
 
 constexpr QStringView kNumeric = u"#0.,";
 
@@ -21,7 +23,8 @@ double roundTo(double v, int decimals)
 QString groupThousands(const QString &digits)
 {
     QString out;
-    for (qsizetype i = 0; i < digits.size(); ++i) {
+    for (qsizetype i = 0; i < digits.size(); ++i)
+    {
         if (i > 0 && (digits.size() - i) % 3 == 0) out += u',';
         out += digits[i];
     }
@@ -36,19 +39,23 @@ QString formatNumber(double value, const QString &format)
     if (std::isinf(value)) return value < 0 ? QStringLiteral("-INF") : QStringLiteral("INF");
 
     // split: prefix | numeric pattern | suffix
-    const qsizetype first = [&] {
+    const qsizetype first = [&]
+    {
         for (qsizetype i = 0; i < format.size(); ++i)
             if (format[i] == u'#' || format[i] == u'0' || format[i] == u'.') return i;
         return qsizetype(-1);
     }();
     QString prefix, pattern, suffix = format;
-    if (first >= 0) {
+    if (first >= 0)
+    {
         prefix = format.left(first);
         qsizetype end = first;
         while (end < format.size() && kNumeric.contains(format[end])) ++end;
         pattern = format.mid(first, end - first);
         suffix = format.mid(end);
-    } else {
+    }
+    else
+    {
         pattern = QStringLiteral("#.##");  // no pattern given: a sensible default, the text is kept
         prefix = format;
         suffix.clear();
@@ -57,7 +64,8 @@ QString formatNumber(double value, const QString &format)
     // scientific notation: "E+00" / "E00" directly after the pattern
     bool scientific = false, expPlus = false;
     int expDigits = 2;
-    if (suffix.startsWith(u'E')) {
+    if (suffix.startsWith(u'E'))
+    {
         qsizetype i = 1;
         if (i < suffix.size() && (suffix[i] == u'+' || suffix[i] == u'-')) expPlus = suffix[i++] == u'+';
         qsizetype zeros = 0;
@@ -72,10 +80,12 @@ QString formatNumber(double value, const QString &format)
     const QString decPattern = dot < 0 ? QString() : pattern.mid(dot + 1);
     const bool thousands = pattern.contains(u',');
     const int minInt = static_cast<int>(std::count(intPattern.begin(), intPattern.end(), u'0'));
-    const int decimals = static_cast<int>(std::count_if(decPattern.begin(), decPattern.end(), [](QChar c) { return c == u'#' || c == u'0'; }));
+    const int decimals =
+        static_cast<int>(std::count_if(decPattern.begin(), decPattern.end(), [](QChar c) { return c == u'#' || c == u'0'; }));
     const int minDec = [&] {  // '0' placeholders force digits up to the last '0'
         int last = 0, pos = 0;
-        for (QChar c : decPattern) {
+        for (QChar c : decPattern)
+        {
             if (c == u'#' || c == u'0') ++pos;
             if (c == u'0') last = pos;
         }
@@ -90,12 +100,18 @@ QString formatNumber(double value, const QString &format)
 
     int exponent = 0;
     double v = value;
-    if (scientific) {
+    if (scientific)
+    {
         v = std::fabs(value);
-        if (v != 0.0) {
+        if (v != 0.0)
+        {
             exponent = static_cast<int>(std::floor(std::log10(v)));
             v /= std::pow(10.0, exponent);
-            if (roundTo(v, decimals) >= 10.0) { v /= 10.0; ++exponent; }  // 9.999 -> 10.0 -> 1.0E+1
+            if (roundTo(v, decimals) >= 10.0)
+            {
+                v /= 10.0;
+                ++exponent;
+            }  // 9.999 -> 10.0 -> 1.0E+1
         }
         v = std::copysign(v, value);
     }
@@ -105,26 +121,29 @@ QString formatNumber(double value, const QString &format)
     QString number = QString::number(std::fabs(rounded), 'f', decimals);
     QString intPart = number.section(u'.', 0, 0), decPart = number.section(u'.', 1, 1);
     while (decPart.size() > minDec && decPart.endsWith(u'0')) decPart.chop(1);  // '#' positions: no trailing zeros
-    if (intPart == u"0" && minInt == 0 && !decPart.isEmpty()) intPart.clear();    // "#.00" shows ".50" for 0.5
+    if (intPart == u"0" && minInt == 0 && !decPart.isEmpty()) intPart.clear();  // "#.00" shows ".50" for 0.5
     while (intPart.size() < minInt) intPart.prepend(u'0');
     if (thousands) intPart = groupThousands(intPart);
     QString text = intPart + (decPart.isEmpty() ? QString() : u'.' + decPart);
     if (text.isEmpty()) text = QStringLiteral("0");
 
-    if (scientific) {
+    if (scientific)
+    {
         QString e = QString::number(std::abs(exponent)).rightJustified(expDigits, u'0');
         text += u'E' + (exponent < 0 ? QStringLiteral("-") : expPlus ? QStringLiteral("+") : QString()) + e;
     }
 
     // signs: explicit markers are replaced by the sign, otherwise a minus precedes the number
     const QString signText = negative ? QStringLiteral("-") : (plusMode ? QStringLiteral("+") : QString());
-    const auto fill = [&](QString part) {
+    const auto fill = [&](QString part)
+    {
         part.replace(u'%', percent ? QStringLiteral("%") : QString());
         if (plusMode) part.replace(u'+', signText);
         else if (minusMode) part.replace(u'-', negative ? QStringLiteral("-") : QString());
         return part;
     };
-    const bool signPlaced = (plusMode || minusMode) && (prefix.contains(u'+') || prefix.contains(u'-') || suffix.contains(u'+') || suffix.contains(u'-'));
+    const bool signPlaced =
+        (plusMode || minusMode) && (prefix.contains(u'+') || prefix.contains(u'-') || suffix.contains(u'+') || suffix.contains(u'-'));
     const QString lead = signPlaced ? QString() : (negative ? QStringLiteral("-") : QString());
     return fill(prefix) + lead + text + fill(suffix);
 }

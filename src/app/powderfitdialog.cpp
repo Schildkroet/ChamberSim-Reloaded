@@ -15,7 +15,8 @@
 using grt::units::Quantity;
 using namespace Qt::StringLiterals;
 
-namespace {
+namespace
+{
 
 QString shown(double base, Quantity q, int decimals)
 {
@@ -57,10 +58,12 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
     // the values to fit, preset for the amount of data
     auto *paramRow = new QHBoxLayout;
     paramRow->addWidget(new QLabel(tr("Values to fit:")));
-    const std::vector<std::pair<grt::powderfit::Param, QString>> params{
-        {grt::powderfit::Param::Ba, tr("Burn rate (Ba)")}, {grt::powderfit::Param::A0, tr("Form factor a0")},
-        {grt::powderfit::Param::Z1, tr("Transition z1")},  {grt::powderfit::Param::Z2, tr("Transition z2")}};
-    for (const auto &[p, label] : params) {
+    const std::vector<std::pair<grt::powderfit::Param, QString>> params{{grt::powderfit::Param::Ba, tr("Burn rate (Ba)")},
+                                                                        {grt::powderfit::Param::A0, tr("Form factor a0")},
+                                                                        {grt::powderfit::Param::Z1, tr("Transition z1")},
+                                                                        {grt::powderfit::Param::Z2, tr("Transition z2")}};
+    for (const auto &[p, label] : params)
+    {
         auto *box = new QCheckBox(label);
         m_params[p] = box;
         paramRow->addWidget(box);
@@ -97,9 +100,11 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
     m_saveButton->setToolTip(tr("Add the propellant with the fitted values to your own records in the database"));
     connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(m_apply, &QPushButton::clicked, this, &QDialog::accept);
-    connect(m_saveButton, &QPushButton::clicked, this, [this] {
-        if (m_result && m_save && m_save(*m_result)) m_saveButton->setText(tr("Saved"));
-    });
+    connect(m_saveButton, &QPushButton::clicked, this,
+            [this]
+            {
+                if (m_result && m_save && m_save(*m_result)) m_saveButton->setText(tr("Saved"));
+            });
     connect(m_fit, &QPushButton::clicked, this, &PowderFitDialog::runFit);
 
     auto *layout = new QVBoxLayout(this);
@@ -140,7 +145,8 @@ void PowderFitDialog::runFit()
 void PowderFitDialog::showResult()
 {
     m_table->setRowCount(static_cast<int>(m_samples.size()));
-    for (int row = 0; row < m_table->rowCount(); ++row) {
+    for (int row = 0; row < m_table->rowCount(); ++row)
+    {
         const grt::powderfit::Sample &s = m_samples[static_cast<std::size_t>(row)];
         auto *name = new QTableWidgetItem(s.source);
         name->setFlags(name->flags() & ~Qt::ItemIsEditable);
@@ -158,7 +164,8 @@ void PowderFitDialog::showResult()
     m_table->setColumnHidden(8, std::ranges::none_of(m_samples, [](const auto &s) { return s.pressureShots > 0; }));
     m_apply->setEnabled(m_result && m_result->improved);
     m_saveButton->setEnabled(m_result && m_result->improved);
-    if (!m_result) {
+    if (!m_result)
+    {
         m_summary->setText(tr("Choose the values to fit and click <b>Fit</b>."));
         return;
     }
@@ -167,14 +174,17 @@ void PowderFitDialog::showResult()
         values << QStringLiteral("%1: %2 → <b>%3</b>")
                       .arg(grt::powderfit::name(m_result->params[i]), QLocale().toString(m_result->before[i], 'f', 4),
                            QLocale().toString(m_result->after[i], 'f', 4));
-    QString text = values.join(u", &nbsp; "_s) + u"<br>"_s
-                   + tr("Velocity error (rms): %1 % → <b>%2 %</b>")
-                         .arg(QLocale().toString(100 * m_result->velocityRmsBefore, 'f', 2), QLocale().toString(100 * m_result->velocityRmsAfter, 'f', 2));
+    QString text = values.join(u", &nbsp; "_s) + u"<br>"_s +
+                   tr("Velocity error (rms): %1 % → <b>%2 %</b>")
+                       .arg(QLocale().toString(100 * m_result->velocityRmsBefore, 'f', 2),
+                            QLocale().toString(100 * m_result->velocityRmsAfter, 'f', 2));
     if (m_result->pressureRmsBefore > 0.0)
-        text += u", "_s + tr("pressure error: %1 % → %2 %").arg(QLocale().toString(100 * m_result->pressureRmsBefore, 'f', 1),
-                                                               QLocale().toString(100 * m_result->pressureRmsAfter, 'f', 1));
+        text += u", "_s + tr("pressure error: %1 % → %2 %")
+                              .arg(QLocale().toString(100 * m_result->pressureRmsBefore, 'f', 1),
+                                   QLocale().toString(100 * m_result->pressureRmsAfter, 'f', 1));
     if (!m_result->improved) text += u"<br>"_s + tr("The values were not changed: the current ones fit best.");
     if (m_samples.size() < m_result->params.size())
-        text += u"<br><span style='color:#c0392b'>"_s + tr("Fewer measured charges than values: the result is not well determined.") + u"</span>"_s;
+        text += u"<br><span style='color:#c0392b'>"_s + tr("Fewer measured charges than values: the result is not well determined.") +
+                u"</span>"_s;
     m_summary->setText(text);
 }

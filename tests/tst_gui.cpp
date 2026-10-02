@@ -64,7 +64,8 @@
 
 using namespace Qt::StringLiterals;
 
-class GuiTest : public QObject {
+class GuiTest : public QObject
+{
     Q_OBJECT
 
 private slots:
@@ -180,7 +181,7 @@ void GuiTest::newLoadDialogBuildsARunnableLoad()
     const grt::LoadFile lf = dlg.result();
     QCOMPARE(lf.caliber.text(u"CaliberName"), u"8 x 57 IS (8 x 57 JS)"_s);
     QCOMPARE(lf.propellant.text(u"pname"), u"N150"_s);
-    QCOMPARE(lf.gun.number(u"xe"), 600.0);                       // rifle default
+    QCOMPARE(lf.gun.number(u"xe"), 600.0);                            // rifle default
     QVERIFY(std::abs(lf.projectile.number(u"gdepth") - 7.9) < 0.01);  // default: cartridge at its maximum length (57 + 32.9 - 82)
     const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(lf));
     QVERIFY(r.ok());
@@ -194,7 +195,8 @@ void GuiTest::newLoadDialogNeedsAllThreeRecords()
     QVERIFY(dlg.result().propellant.entries().empty());  // nothing selected yet
 }
 
-namespace {
+namespace
+{
 
 QTableWidget *tableOf(PropertyPanel &p)
 {
@@ -214,8 +216,12 @@ int rowOf(QTableWidget *t, const QString &key)
 void GuiTest::codedFieldsShowReadableText()
 {
     grt::EntryList list;
-    const auto add = [&](const char *name, const char *value, const char *descr) {
-        list.entries().push_back({.name = QString::fromLatin1(name), .value = QString::fromLatin1(value), .unit = {}, .type = u"decimal"_s,
+    const auto add = [&](const char *name, const char *value, const char *descr)
+    {
+        list.entries().push_back({.name = QString::fromLatin1(name),
+                                  .value = QString::fromLatin1(value),
+                                  .unit = {},
+                                  .type = u"decimal"_s,
                                   .descr = QString::fromLatin1(descr)});
     };
     add("gTailType", "2", "projectile base type");
@@ -225,7 +231,7 @@ void GuiTest::codedFieldsShowReadableText()
     panel.setSections({{0, u"projectile"_s, u"Projectile"_s, &list}});
     QTableWidget *t = tableOf(panel);
     const int rTail = rowOf(t, u"gTailType"_s), rLock = rowOf(t, u"gfrictionUnlock"_s), rShell = rowOf(t, u"shotshell"_s);
-    QCOMPARE(t->item(rTail, 1)->text(), u"boat tail"_s);   // not "2"
+    QCOMPARE(t->item(rTail, 1)->text(), u"boat tail"_s);  // not "2"
     QCOMPARE(t->item(rLock, 1)->text(), u"locked"_s);
     QCOMPARE(t->item(rShell, 1)->text(), u"yes"_s);
     QCOMPARE(t->item(rShell, 0)->text(), u"Shotshell"_s);
@@ -257,8 +263,10 @@ void GuiTest::panelShowsAndEditsInTheChosenUnit()
 {
     using grt::units::System;
     grt::EntryList list;
-    list.entries().push_back({.name = u"mp"_s, .value = u"12.700586359951799"_s, .unit = u"g"_s, .type = u"decimal"_s, .descr = u"projectile weight"_s});
-    list.entries().push_back({.name = u"Dbul"_s, .value = u"8.2"_s, .unit = u"mm"_s, .type = u"decimal"_s, .descr = u"projectile diameter"_s});
+    list.entries().push_back(
+        {.name = u"mp"_s, .value = u"12.700586359951799"_s, .unit = u"g"_s, .type = u"decimal"_s, .descr = u"projectile weight"_s});
+    list.entries().push_back(
+        {.name = u"Dbul"_s, .value = u"8.2"_s, .unit = u"mm"_s, .type = u"decimal"_s, .descr = u"projectile diameter"_s});
     list.entries().push_back({.name = u"Qex"_s, .value = u"3790"_s, .unit = u"kJ/kg"_s, .type = u"decimal"_s, .descr = u"heat"_s});
     PropertyPanel panel;
     panel.setSections({{0, u"projectile"_s, u"Projectile"_s, &list}});
@@ -299,7 +307,8 @@ void GuiTest::perFieldUnitOverridesTheSystem()
     using grt::units::Quantity;
     using grt::units::System;
     grt::EntryList list;
-    list.entries().push_back({.name = u"mp"_s, .value = u"12.700586359951799"_s, .unit = u"g"_s, .type = u"decimal"_s, .descr = u"weight"_s});
+    list.entries().push_back(
+        {.name = u"mp"_s, .value = u"12.700586359951799"_s, .unit = u"g"_s, .type = u"decimal"_s, .descr = u"weight"_s});
     list.entries().push_back({.name = u"glen"_s, .value = u"25.4"_s, .unit = u"mm"_s, .type = u"decimal"_s, .descr = u"length"_s});
     PropertyPanel panel;
     panel.setSections({{0, u"projectile"_s, u"Projectile"_s, &list}});
@@ -310,7 +319,7 @@ void GuiTest::perFieldUnitOverridesTheSystem()
 
     prefs.setFieldUnit(u"projectile/glen"_s, Quantity::Length, u"in"_s);  // only this field in inches
     QCOMPARE(t->item(rLen, 1)->text(), u"1.000"_s);
-    QCOMPARE(t->item(rMp, 2)->text(), u"g"_s);                           // other fields keep the system's unit
+    QCOMPARE(t->item(rMp, 2)->text(), u"g"_s);  // other fields keep the system's unit
     prefs.setSystem(System::Imperial);
     QCOMPARE(t->item(rLen, 2)->text(), u"in"_s);
     prefs.setFieldUnit(u"projectile/mp"_s, Quantity::BulletMass, u"oz"_s);
@@ -330,7 +339,8 @@ void GuiTest::resultsFollowTheUnitSystem()
     LoadView view;
     QString error;
     QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
-    const auto allText = [&] {
+    const auto allText = [&]
+    {
         QStringList s;
         for (const QLabel *l : view.findChildren<QLabel *>()) s << l->text();
         return s.join(u'\n');
@@ -419,7 +429,8 @@ void GuiTest::ladderCurvesAndFocus()
     for (QTabBar *b : plain.findChildren<QTabBar *>())
         if (b->count() == 0) QVERIFY(!b->isVisible());
     for (QTableWidget *w : plain.findChildren<QTableWidget *>())
-        if (w->columnCount() == 5 && w->horizontalHeaderItem(0) && w->horizontalHeaderItem(0)->text() == u"Charge"_s) QVERIFY(!w->isVisible());
+        if (w->columnCount() == 5 && w->horizontalHeaderItem(0) && w->horizontalHeaderItem(0)->text() == u"Charge"_s)
+            QVERIFY(!w->isVisible());
 }
 
 void GuiTest::fontSizeIsLimitedAndStored()
@@ -432,15 +443,15 @@ void GuiTest::fontSizeIsLimitedAndStored()
     const int system = appfont::systemSize();
     QVERIFY(system >= appfont::kMinSize && system <= appfont::kMaxSize);
 
-    appfont::storeSize(system);                       // the default is no setting at all
+    appfont::storeSize(system);  // the default is no setting at all
     QVERIFY(!appfont::hasCustomSize());
     QCOMPARE(appfont::storedSize(), system);
     appfont::storeSize(system == 14 ? 15 : 14);
     QVERIFY(appfont::hasCustomSize());
     QCOMPARE(appfont::storedSize(), system == 14 ? 15 : 14);
-    appfont::storeSize(500);                          // out of range is limited when stored ...
+    appfont::storeSize(500);  // out of range is limited when stored ...
     QCOMPARE(appfont::storedSize(), appfont::kMaxSize);
-    QSettings().setValue(u"ui/fontSize"_s, 2);        // ... and when read back from a hand-edited file
+    QSettings().setValue(u"ui/fontSize"_s, 2);  // ... and when read back from a hand-edited file
     QCOMPARE(appfont::storedSize(), appfont::kMinSize);
     QSettings().setValue(u"ui/fontSize"_s, u"abc"_s);  // garbage falls back to the default
     QCOMPARE(appfont::storedSize(), system);
@@ -467,7 +478,8 @@ void GuiTest::fontSizeAppliesToTheWholeApplication()
     QString error;
     QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.show();
-    const auto axisLabelSize = [&] {
+    const auto axisLabelSize = [&]
+    {
         for (QChartView *cv : view.findChildren<QChartView *>())
             if (cv->chart()->axes(Qt::Vertical).size() >= 3) return cv->chart()->axes(Qt::Vertical).first()->labelsFont().pointSizeF();
         return -1.0;
@@ -488,11 +500,11 @@ void GuiTest::settingsDialogChangesAndRevertsTheFont()
     const int system = appfont::systemSize();
     appfont::storeSize(system);
     appfont::apply(app, system);
-    {   // OK applies and stores
+    {  // OK applies and stores
         SettingsDialog dlg;
         auto *spin = dlg.findChild<QSpinBox *>();
         QVERIFY(spin);
-        QCOMPARE(spin->minimum(), appfont::kMinSize);   // the dialog cannot leave the allowed range
+        QCOMPARE(spin->minimum(), appfont::kMinSize);  // the dialog cannot leave the allowed range
         QCOMPARE(spin->maximum(), appfont::kMaxSize);
         QCOMPARE(spin->value(), system);
         spin->setValue(system == 13 ? 14 : 13);
@@ -504,7 +516,7 @@ void GuiTest::settingsDialogChangesAndRevertsTheFont()
         QCOMPARE(static_cast<int>(QApplication::font().pointSizeF()), chosen);
         QCOMPARE(appfont::storedSize(), chosen);
     }
-    {   // Apply is live; Cancel afterwards puts everything back
+    {  // Apply is live; Cancel afterwards puts everything back
         SettingsDialog dlg;
         auto *spin = dlg.findChild<QSpinBox *>();
         const int before = static_cast<int>(QApplication::font().pointSizeF());
@@ -515,7 +527,7 @@ void GuiTest::settingsDialogChangesAndRevertsTheFont()
         QCOMPARE(static_cast<int>(QApplication::font().pointSizeF()), before);
         QCOMPARE(appfont::storedSize(), before);
     }
-    {   // the default button
+    {  // the default button
         SettingsDialog dlg;
         auto *spin = dlg.findChild<QSpinBox *>();
         spin->setValue(spin->maximum());
@@ -557,8 +569,8 @@ void GuiTest::unitsLiveInSettingsNotInViewMenu()
         auto *combo = dlg.findChild<QComboBox *>();
         QVERIFY(combo);
         dlg.show();
-        const int target = combo->findData(static_cast<int>(original == grt::units::System::Imperial ? grt::units::System::Metric
-                                                                                                       : grt::units::System::Imperial));
+        const int target = combo->findData(
+            static_cast<int>(original == grt::units::System::Imperial ? grt::units::System::Metric : grt::units::System::Imperial));
         QVERIFY(target >= 0);
         combo->setCurrentIndex(target);
         dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
@@ -576,14 +588,16 @@ void GuiTest::hoveringATableRowShowsItsMeasureInTheDrawing()
     view.resize(1400, 900);
     view.show();
     QVERIFY(QTest::qWaitForWindowExposed(&view));
-    for (QWidget *w : {static_cast<QWidget *>(view.findChild<CartridgeView *>()), static_cast<QWidget *>(view.findChild<ChamberView *>())}) {
+    for (QWidget *w : {static_cast<QWidget *>(view.findChild<CartridgeView *>()), static_cast<QWidget *>(view.findChild<ChamberView *>())})
+    {
         QVERIFY(w);
         if (auto *tabs = qobject_cast<QTabWidget *>(w->parentWidget()->parentWidget())) tabs->setCurrentWidget(w);
         QTest::qWait(50);
         const QImage before = w->grab().toImage();
         // sweep the mouse down the table half of the widget: some row must change the picture
         bool changed = false;
-        for (int y = 60; y < w->height() - 10 && !changed; y += 6) {
+        for (int y = 60; y < w->height() - 10 && !changed; y += 6)
+        {
             QTest::mouseMove(w, QPoint(w->width() - 40, y));
             changed = w->grab().toImage() != before;
         }
@@ -624,7 +638,8 @@ void GuiTest::recentFilesAreListedInTheFileMenu()
     QVERIFY(recent);
     for (QAction *a : file->actions()) QVERIFY(a->data().toString().isEmpty());
     QVERIFY(!recent->isEnabled());
-    const auto visibleRecent = [&] {
+    const auto visibleRecent = [&]
+    {
         QStringList items;
         for (QAction *a : recent->actions())
             if (a->isVisible() && !a->data().toString().isEmpty()) items << a->text();
@@ -676,12 +691,13 @@ void GuiTest::helpMenuHasAbout()
     MainWindow w;
     QMenu *help = nullptr;
     QStringList menus;
-    for (QAction *a : w.mainMenu()->actions()) {
+    for (QAction *a : w.mainMenu()->actions())
+    {
         menus << a->text().remove(u'&');
         if (a->menu() && a->text().remove(u'&') == u"Help"_s) help = a->menu();
     }
     QVERIFY2(help, qPrintable(menus.join(u'|')));
-    QCOMPARE(menus.last(), u"Help"_s);                       // Help is the last menu, as usual
+    QCOMPARE(menus.last(), u"Help"_s);  // Help is the last menu, as usual
     QStringList items;
     for (QAction *a : help->actions()) items << a->text().remove(u'&');
     QVERIFY(items.contains(u"About GRT Reloaded…"_s));
@@ -694,7 +710,8 @@ void GuiTest::helpMenuHasAbout()
     QVERIFY(plain.contains(u"Qt"_s) && plain.contains(QString::fromLatin1(qVersion())));
     QVERIFY(plain.contains(u"Safety"_s) && plain.contains(u"at your own risk"_s));
     QVERIFY(plain.contains(u"not affiliated"_s));
-    QVERIFY(plain.contains(u"Disclaimer"_s) && plain.contains(u"without warranty"_s) && plain.contains(u"no responsibility or liability"_s));
+    QVERIFY(plain.contains(u"Disclaimer"_s) && plain.contains(u"without warranty"_s) &&
+            plain.contains(u"no responsibility or liability"_s));
     QVERIFY(!plain.contains(u"Database:"_s));
     const QString withDb = about::html(u"/some/dir/data <1>.db"_s, 578, 5659, 683);
     QVERIFY(withDb.contains(u"Database:"_s) && withDb.contains(u"578 calibers"_s) && withDb.contains(u"683 propellants"_s));
@@ -702,15 +719,19 @@ void GuiTest::helpMenuHasAbout()
     // the real dialog: about twice as wide as a default message box
     int shownWidth = 0;
     bool noHorizontalScroll = false;
-    QTimer::singleShot(100, [&] {
-        if (auto *box = qobject_cast<QDialog *>(QApplication::activeModalWidget())) {
-            shownWidth = box->width();
-            // nothing may be cut off: the text browser needs no horizontal scrolling
-            if (auto *tb = box->findChild<QTextBrowser *>()) noHorizontalScroll = tb->horizontalScrollBar()->maximum() == 0;
-            box->grab().save(QDir::temp().filePath(u"grt_about.png"_s));
-            box->accept();
-        }
-    });
+    QTimer::singleShot(100,
+                       [&]
+                       {
+                           if (auto *box = qobject_cast<QDialog *>(QApplication::activeModalWidget()))
+                           {
+                               shownWidth = box->width();
+                               // nothing may be cut off: the text browser needs no horizontal scrolling
+                               if (auto *tb = box->findChild<QTextBrowser *>())
+                                   noHorizontalScroll = tb->horizontalScrollBar()->maximum() == 0;
+                               box->grab().save(QDir::temp().filePath(u"grt_about.png"_s));
+                               box->accept();
+                           }
+                       });
     about::show(nullptr, u"GordonsReloadingTool.plain.db"_s, 578, 5659, 683);
     QVERIFY2(shownWidth >= 700, qPrintable(QString::number(shownWidth)));
     QVERIFY(noHorizontalScroll);
@@ -734,7 +755,9 @@ void GuiTest::reportTabRendersTheLoad()
     QVERIFY(!html.contains(u"[work."_s) && !html.contains(u"[result."_s));  // nothing unresolved
     // the diagrams are in the report as pictures (chart + drawing)
     const grt::report::Data d = view.reportData();
-    for (const char *name : {"result.diagramm.png", "result.diagramCurves.png", "result.diagramPropellant.png", "caliber.drawing.png", "caliber.chamber.png"}) {
+    for (const char *name :
+         {"result.diagramm.png", "result.diagramCurves.png", "result.diagramPropellant.png", "caliber.drawing.png", "caliber.chamber.png"})
+    {
         const auto *v = d.find(QLatin1String(name));
         QVERIFY2(v && v->kind == grt::report::Value::Kind::Image, name);
         QVERIFY2(QImage::fromData(v->png).width() > 300, name);
@@ -764,14 +787,15 @@ void GuiTest::reportTemplateIsCustomisable()
     QString error;
     QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
     ReportView *report = view.report();
-    ReportView::storeTemplate(u"====== My report ======\nCaliber: ~~work.CaliberName~~, Pmax ~~result.MaxPressure(\"0\")~~ bar.\n~~work.nothing~~"_s);
+    ReportView::storeTemplate(
+        u"====== My report ======\nCaliber: ~~work.CaliberName~~, Pmax ~~result.MaxPressure(\"0\")~~ bar.\n~~work.nothing~~"_s);
     QVERIFY(ReportView::hasCustomTemplate());
     report->refresh();
     const QString html = report->html();
     QVERIFY(html.contains(u"My report"_s));
     QVERIFY(html.contains(u"Caliber: 8 x 57 IS"_s));
-    QVERIFY(html.contains(u"[work.nothing?]"_s));            // a missing value is visible
-    QVERIFY(!html.contains(u"Input data"_s));                // the default report is gone
+    QVERIFY(html.contains(u"[work.nothing?]"_s));  // a missing value is visible
+    QVERIFY(!html.contains(u"Input data"_s));      // the default report is gone
     // writing the default template (or nothing) removes the custom one
     ReportView::storeTemplate(grt::report::defaultTemplate());
     QVERIFY(!ReportView::hasCustomTemplate());
@@ -788,12 +812,13 @@ void GuiTest::actionButtonsAreEasyToSee()
     view.resize(1500, 950);
     view.show();
     int select = 0;
-    for (QPushButton *b : view.findChildren<QPushButton *>()) {
+    for (QPushButton *b : view.findChildren<QPushButton *>())
+    {
         if (!b->text().contains(u"Select from database"_s)) continue;
         ++select;
-        QVERIFY(b->styleSheet().contains(u"palette(highlight)"_s));   // filled with the theme's accent color
+        QVERIFY(b->styleSheet().contains(u"palette(highlight)"_s));  // filled with the theme's accent color
         QVERIFY(b->styleSheet().contains(u"bold"_s));
-        QVERIFY(b->styleSheet().contains(u":disabled"_s));            // and a different look when it cannot be used
+        QVERIFY(b->styleSheet().contains(u":disabled"_s));  // and a different look when it cannot be used
         QVERIFY(b->minimumHeight() >= 28);
         QVERIFY(!b->icon().isNull());
         QCOMPARE(b->cursor().shape(), Qt::PointingHandCursor);
@@ -802,7 +827,8 @@ void GuiTest::actionButtonsAreEasyToSee()
     // the report's output buttons stand out as well
     int output = 0;
     for (QPushButton *b : view.report()->findChildren<QPushButton *>())
-        if (b->text().contains(u"Print"_s) || b->text().contains(u"PDF"_s)) {
+        if (b->text().contains(u"Print"_s) || b->text().contains(u"PDF"_s))
+        {
             ++output;
             QVERIFY(b->styleSheet().contains(u"palette(highlight)"_s));
         }
@@ -825,14 +851,14 @@ void GuiTest::reportScaleIsLimitedAndStored()
     QCOMPARE(ReportView::clampScale(120), 120);
     ReportView::storeScale(100);
     QCOMPARE(ReportView::storedScale(), 100);
-    QVERIFY(!QSettings().contains(u"report/scale"_s));      // 100 % is the default: no setting
+    QVERIFY(!QSettings().contains(u"report/scale"_s));  // 100 % is the default: no setting
     ReportView::storeScale(150);
     QCOMPARE(ReportView::storedScale(), 150);
     ReportView::storeScale(9999);
     QCOMPARE(ReportView::storedScale(), ReportView::kMaxScale);
-    QSettings().setValue(u"report/scale"_s, 3);              // hand-edited out-of-range value
+    QSettings().setValue(u"report/scale"_s, 3);  // hand-edited out-of-range value
     QCOMPARE(ReportView::storedScale(), ReportView::kMinScale);
-    QSettings().setValue(u"report/scale"_s, u"abc"_s);       // garbage
+    QSettings().setValue(u"report/scale"_s, u"abc"_s);  // garbage
     QCOMPARE(ReportView::storedScale(), 100);
     ReportView::storeScale(100);
 }
@@ -874,7 +900,8 @@ void GuiTest::reportScaleChangesTheLayout()
 
     // the PDF follows the scale: more pages at 200 % than at 50 %
     QTemporaryDir dir;
-    const auto pdfPages = [&](int scale) {
+    const auto pdfPages = [&](int scale)
+    {
         report->setScale(scale);
         const QString path = dir.filePath(u"r%1.pdf"_s.arg(scale));
         if (!report->exportPdf(path)) return -1;
@@ -894,8 +921,10 @@ void GuiTest::propertyNamesStartWithACapital()
 {
     grt::EntryList list;
     list.entries().push_back({.name = u"casevol"_s, .value = u"1"_s, .unit = u"cm3"_s, .type = u"decimal"_s, .descr = u"case volume"_s});
-    list.entries().push_back({.name = u"xe"_s, .value = u"1"_s, .unit = {}, .type = u"decimal"_s, .descr = {}});          // no description: the key is shown
-    list.entries().push_back({.name = u"Dz"_s, .value = u"1"_s, .unit = {}, .type = u"decimal"_s, .descr = u"Groove caliber"_s});  // already capital
+    list.entries().push_back(
+        {.name = u"xe"_s, .value = u"1"_s, .unit = {}, .type = u"decimal"_s, .descr = {}});  // no description: the key is shown
+    list.entries().push_back(
+        {.name = u"Dz"_s, .value = u"1"_s, .unit = {}, .type = u"decimal"_s, .descr = u"Groove caliber"_s});  // already capital
     PropertyPanel panel;
     panel.setSections({{0, u"caliber"_s, u"Caliber"_s, &list}});
     QTableWidget *t = tableOf(panel);
@@ -906,7 +935,10 @@ void GuiTest::propertyNamesStartWithACapital()
     QCOMPARE(t->item(rowOf(t, u"casevol"_s), 0)->toolTip(), u"casevol"_s);
     {
         grt::EntryList l;
-        l.entries().push_back({.name = u"laddercnt"_s, .value = u"1"_s, .unit = {}, .type = u"decimal"_s,
+        l.entries().push_back({.name = u"laddercnt"_s,
+                               .value = u"1"_s,
+                               .unit = {},
+                               .type = u"decimal"_s,
                                .descr = u"ladder steps (1 to 10, below 2: disabled)"_s});
         PropertyPanel pp;
         pp.setSections({{0, u"propellant"_s, u"Propellant"_s, &l}});
@@ -922,7 +954,8 @@ void GuiTest::propertyNamesStartWithACapital()
     QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
     int labels = 0;
     for (PropertyPanel *p : view.findChildren<PropertyPanel *>())
-        for (int r = 0; r < tableOf(*p)->rowCount(); ++r) {
+        for (int r = 0; r < tableOf(*p)->rowCount(); ++r)
+        {
             const QTableWidgetItem *it = tableOf(*p)->item(r, 0);
             if (!it || it->text().isEmpty() || !tableOf(*p)->item(r, 1)) continue;  // section header rows have no value cell
             ++labels;
@@ -948,7 +981,7 @@ void GuiTest::reportExportsAPdf()
     QVERIFY(f.open(QIODevice::ReadOnly));
     const QByteArray data = f.readAll();
     QVERIFY(data.startsWith("%PDF"));
-    QVERIFY(data.size() > 20000);                            // text, tables and the embedded diagrams
+    QVERIFY(data.size() > 20000);  // text, tables and the embedded diagrams
     QVERIFY(data.contains("/Type /Page") || data.contains("/Type/Page"));
     QFile::copy(pdf, QDir::temp().filePath(u"grt_report_sample.pdf"_s));
 }
@@ -969,7 +1002,8 @@ void GuiTest::inputsAreGroupedInThreeTabs()
     const auto buttons = view.findChildren<QPushButton *>();
     int selectButtons = 0;
     for (QPushButton *b : buttons)
-        if (b->text().contains(u"Select from database"_s)) {
+        if (b->text().contains(u"Select from database"_s))
+        {
             ++selectButtons;
             QVERIFY(!b->isEnabled());
         }
@@ -987,7 +1021,8 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
     QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.setDatabase(&m_db);
     QSignalSpy modified(&view, &LoadView::modifiedChanged);
-    const auto allText = [&] {
+    const auto allText = [&]
+    {
         QStringList s;
         for (const QLabel *l : view.findChildren<QLabel *>()) s << l->text();
         return s.join(u'\n');
@@ -1039,16 +1074,18 @@ void GuiTest::chamberGeometryFollowsTheDimensions()
     QCOMPARE(g.lands, 7.89);
     QCOMPARE(g.grooves, 8.2);
     QCOMPARE(g.throatY, 57.3);
-    const auto radiusAt = [&](double y) {
+    const auto radiusAt = [&](double y)
+    {
         for (std::size_t i = 1; i < g.cavity.size(); ++i)
             if (y >= g.cavity[i - 1].y() && y <= g.cavity[i].y() && g.cavity[i].y() > g.cavity[i - 1].y())
-                return g.cavity[i - 1].x() + (g.cavity[i].x() - g.cavity[i - 1].x()) * (y - g.cavity[i - 1].y()) / (g.cavity[i].y() - g.cavity[i - 1].y());
+                return g.cavity[i - 1].x() +
+                       (g.cavity[i].x() - g.cavity[i - 1].x()) * (y - g.cavity[i - 1].y()) / (g.cavity[i].y() - g.cavity[i - 1].y());
         return -1.0;
     };
-    QVERIFY(std::abs(radiusAt(46.16) * 2 - 10.98) < 1e-6);   // P2 at L1
-    QVERIFY(std::abs(radiusAt(48.85) * 2 - 9.11) < 1e-6);    // H1 at L2
-    QVERIFY(std::abs(radiusAt(57.3) * 2 - 9.10) < 1e-6);     // H2 at L3
-    QVERIFY(std::abs(g.cavity.back().y() - 90.0) < 1e-9);    // drawn up to the requested height
+    QVERIFY(std::abs(radiusAt(46.16) * 2 - 10.98) < 1e-6);  // P2 at L1
+    QVERIFY(std::abs(radiusAt(48.85) * 2 - 9.11) < 1e-6);   // H1 at L2
+    QVERIFY(std::abs(radiusAt(57.3) * 2 - 9.10) < 1e-6);    // H2 at L3
+    QVERIFY(std::abs(g.cavity.back().y() - 90.0) < 1e-9);   // drawn up to the requested height
     // leade cone: from G1 (8.24) at the throat to the lands diameter (7.89) over 35 mm, never wider than G1
     QVERIFY(radiusAt(60.0) * 2 <= 8.24 + 1e-9 && radiusAt(60.0) * 2 > 7.89);
     QVERIFY(g.cavity.back().x() * 2 < 8.24);
@@ -1149,8 +1186,8 @@ void GuiTest::measurementTabShowsTheFilesResults()
     QCOMPARE(charges->rowCount(), 2);
     QCOMPARE(charges->item(0, 0)->text(), u"Charge 1"_s);
     QCOMPARE(charges->item(0, 2)->text(), u"4"_s);
-    QCOMPARE(charges->item(0, 3)->text(), u"848.3"_s);                // mean of the four shots [m/s]
-    QVERIFY(charges->item(0, 6)->text() != u"–"_s);                   // simulated for comparison
+    QCOMPARE(charges->item(0, 3)->text(), u"848.3"_s);  // mean of the four shots [m/s]
+    QVERIFY(charges->item(0, 6)->text() != u"–"_s);     // simulated for comparison
     QVERIFY(charges->item(0, 7)->text().endsWith(u" %"_s));
     QCOMPARE(m->currentCharge(), 0);
     QVERIFY(!view.isModified());
@@ -1225,7 +1262,8 @@ void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
     QImage close(300, 200, QImage::Format_RGB32);
     close.fill(Qt::lightGray);
     dlg.setPhoto(1, close, 0.0, u"grain.png"_s);
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    {
         dlg.resize(620, 900);
         dlg.grab().save(shots + u"/recordphotos.png"_s);
     }
@@ -1264,7 +1302,8 @@ void GuiTest::chronographImportAddsCharges()
     LoadView view;
     QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
     MeasurementView *m = view.measurements();
-    const auto file = grt::readChronograph(QByteArray("Series, 1, Shots:,2\r\n 1, 1, 800.0, m/s\r\n 1, 2, 810.0, m/s\r\nSeries, 2, Shots:,1\r\n 2, 1, 820.0, m/s\r\n"));
+    const auto file = grt::readChronograph(
+        QByteArray("Series, 1, Shots:,2\r\n 1, 1, 800.0, m/s\r\n 1, 2, 810.0, m/s\r\nSeries, 2, Shots:,1\r\n 2, 1, 820.0, m/s\r\n"));
     QVERIFY(file);
     ChronographImportDialog dialog(*file, 3.0);
     dialog.setChecked(1, false);
@@ -1358,10 +1397,11 @@ void GuiTest::originalDatabaseIsChosenInTheSettings()
     {
         MainWindow w;
         // File > Open database is gone: the database is a setting
-        for (QAction *a : w.mainMenu()->actions().front()->menu()->actions()) QVERIFY(!a->text().contains(u"database"_s, Qt::CaseInsensitive));
+        for (QAction *a : w.mainMenu()->actions().front()->menu()->actions())
+            QVERIFY(!a->text().contains(u"database"_s, Qt::CaseInsensitive));
 
         // without an original only the own database is there (searching still works, it is just empty)
-            QVERIFY(w.openDatabase(QString(), false));
+        QVERIFY(w.openDatabase(QString(), false));
         QCOMPARE(QSettings().value(u"database/path"_s).toString(), QString());
         auto *browser = w.findChild<TableBrowser *>();
         QVERIFY(browser);
@@ -1379,7 +1419,8 @@ void GuiTest::originalDatabaseIsChosenInTheSettings()
         dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
         QCOMPARE(chosen.count(), 1);  // unchanged: nothing to do
         dlg.setOriginalDatabase(original, u"GordonsReloadingTool.plain.db: 578 calibers, 5659 projectiles, 683 propellants"_s);
-        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {  // for looking at the layout
+        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+        {  // for looking at the layout
             dlg.adjustSize();
             dlg.grab().save(shots + u"/settings.png"_s);
         }
@@ -1399,8 +1440,8 @@ void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
     RecordDialog copy(m_db, grt::Table::Propellant, RecordDialog::Mode::Copy, *powder);
     QCOMPARE(copy.text(u"pname"_s), u"N150 (copy)"_s);
     QCOMPARE(copy.text(u"Ba"_s), u"0.5814"_s);
-    QCOMPARE(copy.text(u"pcd"_s), u"890"_s);  // kg/m3
-    QCOMPARE(copy.text(u"Qex"_s), u"3790"_s);  // no thousands separator in a field
+    QCOMPARE(copy.text(u"pcd"_s), u"890"_s);              // kg/m3
+    QCOMPARE(copy.text(u"Qex"_s), u"3790"_s);             // no thousands separator in a field
     QVERIFY(!copy.findChild<QWidget *>(u"geloescht"_s));  // internal columns are not shown
     bool found = false;
     for (QLabel *l : copy.findChildren<QLabel *>()) found = found || l->text() == u"Burn rate coefficient (Ba):"_s;
@@ -1461,7 +1502,8 @@ void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
     QCOMPARE(normalized.text(u"standard"_s), u"WildCat"_s);
     QCOMPARE(normalized.text(u"ciptype"_s), u"4 pistol"_s);
 
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    {
         copy.grab().save(shots + u"/record.png"_s);
         RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Caliber, 1));
         cal.grab().save(shots + u"/record_caliber.png"_s);
@@ -1484,7 +1526,8 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QCOMPARE(w.currentTable(), grt::Table::Propellant);
         auto *browser = qobject_cast<TableBrowser *>(dbTabs->currentWidget());
         QVERIFY(browser->selectId(562));
-        const auto button = [&](const QString &text) {
+        const auto button = [&](const QString &text)
+        {
             for (QPushButton *b : w.findChildren<QPushButton *>())
                 if (b->text() == text) return b;
             return static_cast<QPushButton *>(nullptr);
@@ -1512,7 +1555,8 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QCOMPARE(view->currentIndex().siblingAtColumn(0).data().toString(), u"Original GRT"_s);
         browser->findChild<QLineEdit *>()->setText(u"Personal"_s);
         QCOMPARE(view->model()->rowCount(), 1);
-        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+        {
             w.resize(1100, 400);
             browser->findChild<QLineEdit *>()->setText(u"N150"_s);
             w.grab().save(shots + u"/dbsource.png"_s);
@@ -1526,7 +1570,8 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         const QString exported = exportDir.filePath(u"data/propellants/n150.json"_s);
         QDir().mkpath(QFileInfo(exported).absolutePath());
         QVERIFY(w.exportRecord(exported));
-        const auto loaded = grt::projectdata::load(exportDir.filePath(u"data"_s), grt::Table::Propellant, m_db.schema(grt::Table::Propellant));
+        const auto loaded =
+            grt::projectdata::load(exportDir.filePath(u"data"_s), grt::Table::Propellant, m_db.schema(grt::Table::Propellant));
         QVERIFY2(loaded.errors.isEmpty(), qPrintable(loaded.errors.join(u'\n')));
         QCOMPARE(loaded.records.size(), std::size_t{1});
         QCOMPARE(loaded.records[0].value(u"Ba"_s).toDouble(), 0.6);
@@ -1559,14 +1604,16 @@ void GuiTest::comboBoxesOpenAsAScrollingList()
 {
     auto &app = *qobject_cast<QApplication *>(QCoreApplication::instance());
     const QString before = app.style()->name();
-    for (const theme::Mode mode : {theme::Mode::System, theme::Mode::Light, theme::Mode::Dark}) {
+    for (const theme::Mode mode : {theme::Mode::System, theme::Mode::Light, theme::Mode::Dark})
+    {
         theme::apply(app, mode);
         QComboBox combo;
         for (int i = 0; i < 300; ++i) combo.addItem(QString::number(i));
         QStyleOptionComboBox opt;
         opt.initFrom(&combo);
         QCOMPARE(combo.style()->styleHint(QStyle::SH_ComboBox_Popup, &opt, &combo), 0);
-        if (mode == theme::Mode::Dark) {  // disabled entries (menus use WindowText) must look disabled
+        if (mode == theme::Mode::Dark)
+        {  // disabled entries (menus use WindowText) must look disabled
             const QPalette p = app.palette();
             for (const QPalette::ColorRole role : {QPalette::WindowText, QPalette::Text, QPalette::ButtonText})
                 QCOMPARE_GT(p.color(QPalette::Active, role).lightness() - p.color(QPalette::Disabled, role).lightness(), 80);
@@ -1583,13 +1630,15 @@ void GuiTest::loadMenuEntriesNeedALoad()
 {
     MainWindow w;
     QMenu *file = w.mainMenu()->actions().front()->menu();
-    const auto action = [&](const QString &start) {
+    const auto action = [&](const QString &start)
+    {
         for (QAction *a : file->actions())
             if (a->text().remove(u'&').startsWith(start)) return a;
         return static_cast<QAction *>(nullptr);
     };
     const QStringList needLoad{u"Save as"_s, u"Print preview"_s, u"Print…"_s, u"Export report"_s, u"Overlay reference"_s};
-    for (const QString &name : needLoad) {
+    for (const QString &name : needLoad)
+    {
         QVERIFY2(action(name), qPrintable(name));
         QVERIFY2(!action(name)->isEnabled(), qPrintable(name));
     }
@@ -1598,9 +1647,11 @@ void GuiTest::loadMenuEntriesNeedALoad()
     QVERIFY(action(u"New load"_s)->isEnabled());
     QVERIFY(action(u"Open load"_s)->isEnabled());
     QVERIFY(action(u"Settings"_s)->isEnabled());
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {  // for looking at the contrast
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    {  // for looking at the contrast
         auto &app = *qobject_cast<QApplication *>(QCoreApplication::instance());
-        for (const theme::Mode mode : {theme::Mode::Dark, theme::Mode::Light}) {
+        for (const theme::Mode mode : {theme::Mode::Dark, theme::Mode::Light})
+        {
             theme::apply(app, mode);
             QApplication::processEvents();
             file->adjustSize();
@@ -1643,7 +1694,8 @@ void GuiTest::ownTitleBarCanBeSwitched()
     QVERIFY(bar->height() >= 34);
     QVERIFY(w.mainMenu()->isVisible());
     QCOMPARE(w.mainMenu()->parentWidget(), bar);  // the menu sits in the title bar row
-    for (const char *name : {"minimizeButton", "maximizeButton", "closeButton"}) {
+    for (const char *name : {"minimizeButton", "maximizeButton", "closeButton"})
+    {
         auto *b = bar->findChild<QAbstractButton *>(QLatin1String(name));
         QVERIFY2(b && b->isVisible(), name);
         QVERIFY(b->width() >= 40);
@@ -1688,7 +1740,8 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     UnitPreferences::instance().setSystem(grt::units::System::Metric);
     LoadView view;
     QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload")));
-    auto *button = [&] {
+    auto *button = [&]
+    {
         for (QPushButton *b : view.measurements()->findChildren<QPushButton *>())
             if (b->text() == u"Fit to measurements…"_s) return b;
         return static_cast<QPushButton *>(nullptr);
@@ -1703,7 +1756,12 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QCOMPARE(samples.size(), std::size_t{2});
     PowderFitDialog dlg(samples, warnings);
     std::optional<grt::powderfit::Result> saved;
-    dlg.setSaveHandler([&](const grt::powderfit::Result &r) { saved = r; return true; });
+    dlg.setSaveHandler(
+        [&](const grt::powderfit::Result &r)
+        {
+            saved = r;
+            return true;
+        });
     dlg.runFit();
     QVERIFY(dlg.result());
     QVERIFY(dlg.result()->improved);
@@ -1728,13 +1786,20 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QCOMPARE(m->pasteShots(u"955\n960\n965\n958\n962\n955\n960\n965\n958\n962"_s), 10);
     QVERIFY(view.save(QDir::temp().filePath(u"grt-fit-test.grtload"_s)));  // unmodified again: only the fit can modify it now
     QVariantMap record;
-    view.setRecordSaver([&](grt::Table, const QVariantMap &values) { record = values; return 42; });
-    QTimer::singleShot(0, [&] {
-        auto *fit = qobject_cast<PowderFitDialog *>(QApplication::activeModalWidget());
-        QVERIFY(fit);
-        for (QPushButton *b : fit->findChildren<QPushButton *>())
-            if (b->text() == u"Apply to this load"_s) b->click();
-    });
+    view.setRecordSaver(
+        [&](grt::Table, const QVariantMap &values)
+        {
+            record = values;
+            return 42;
+        });
+    QTimer::singleShot(0,
+                       [&]
+                       {
+                           auto *fit = qobject_cast<PowderFitDialog *>(QApplication::activeModalWidget());
+                           QVERIFY(fit);
+                           for (QPushButton *b : fit->findChildren<QPushButton *>())
+                               if (b->text() == u"Apply to this load"_s) b->click();
+                       });
     QVERIFY(!view.isModified());
     button->click();
     QVERIFY(view.isModified());
@@ -1756,7 +1821,8 @@ void GuiTest::fitToMeasurementsChangesThePowder()
 // View > Language shows the flag of each language's country (drawn, no image files).
 void GuiTest::languagesHaveFlags()
 {
-    for (const char *lang : {"en_US", "de_DE", "fr_FR", "it_IT"}) {
+    for (const char *lang : {"en_US", "de_DE", "fr_FR", "it_IT"})
+    {
         const QIcon icon = flags::forLanguage(QLatin1String(lang));
         QVERIFY2(!icon.isNull(), lang);
         const QImage img = icon.pixmap(32, 32).toImage();
@@ -1765,7 +1831,8 @@ void GuiTest::languagesHaveFlags()
         QVERIFY(img.pixelColor(16, 2).alpha() == 0);     // 3:2 flag in a square icon: transparent above
     }
     // the colors are the country's: black-red-gold, blue-white-red, green-white-red
-    const auto at = [](const char *lang, int x, int y) { return flags::forLanguage(QLatin1String(lang)).pixmap(48, 48).toImage().pixelColor(x, y); };
+    const auto at = [](const char *lang, int x, int y)
+    { return flags::forLanguage(QLatin1String(lang)).pixmap(48, 48).toImage().pixelColor(x, y); };
     QCOMPARE(at("de_DE", 24, 10), QColor(Qt::black));
     QCOMPARE(at("fr_FR", 6, 24), QColor(0x00, 0x55, 0xa4));
     QCOMPARE(at("it_IT", 6, 24), QColor(0x00, 0x92, 0x46));
@@ -1780,14 +1847,16 @@ void GuiTest::languagesHaveFlags()
     for (QAction *a : view->actions())
         if (a->text() == u"&Language"_s) lang = a->menu();
     QVERIFY(lang);
-    QVERIFY(lang->actions().front()->icon().isNull());  // "System default"
+    QVERIFY(lang->actions().front()->icon().isNull());                              // "System default"
     for (QAction *a : lang->actions()) QCOMPARE(a->font().bold(), a->isChecked());  // the chosen language is bold
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) {
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    {
         lang->addAction(flags::forLanguage(u"de_DE"_s), u"Deutsch (test)"_s);
         lang->addAction(flags::forLanguage(u"fr_FR"_s), u"français (test)"_s);
         lang->addAction(flags::forLanguage(u"it_IT"_s), u"italiano (test)"_s);
         lang->addAction(flags::forLanguage(u"en_US"_s), u"English (test)"_s);
-        for (const theme::Mode mode : {theme::Mode::Light, theme::Mode::Dark}) {
+        for (const theme::Mode mode : {theme::Mode::Light, theme::Mode::Dark})
+        {
             theme::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), mode);
             QApplication::processEvents();
             lang->adjustSize();

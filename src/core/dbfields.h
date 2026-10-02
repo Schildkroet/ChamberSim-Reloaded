@@ -8,14 +8,25 @@
 #include <utility>
 #include <vector>
 
-namespace grt::dbfields {
+namespace grt::dbfields
+{
 
-enum class Kind { Text, Number, Date, LongText, BaseType, Choice, Hidden };
+enum class Kind
+{
+    Text,
+    Number,
+    Date,
+    LongText,
+    BaseType,
+    Choice,
+    Hidden
+};
 
 // How a database column is shown and edited: a readable label, its group, the physical quantity and the factor from
 // the value stored in the database to the quantity's base unit (bullet masses and case capacities are stored in
 // grains). Columns that are not described get their name as the label and are shown as plain values.
-struct Field {
+struct Field
+{
     QString column;
     QString label;
     QString group;

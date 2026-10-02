@@ -2,7 +2,8 @@
 
 #include <QString>
 
-namespace grt::report {
+namespace grt::report
+{
 
 // Formats a number with a format string of the report language (see the original's "Format string" page):
 //   #  digit if present        0  digit, or a zero            .  decimal point

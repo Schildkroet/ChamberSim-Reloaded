@@ -16,7 +16,8 @@ class QTableWidget;
 // "Fit to measurements": changes the load's propellant values (Ba, a0, z1, z2) until the simulation agrees with the
 // measured charges, shows the difference per charge before and after, and applies the values to the load or saves
 // them as an own propellant record.
-class PowderFitDialog : public QDialog {
+class PowderFitDialog : public QDialog
+{
     Q_OBJECT
 public:
     PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QStringList warnings, QWidget *parent = nullptr);

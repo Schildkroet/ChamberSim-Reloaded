@@ -7,7 +7,8 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt {
+namespace grt
+{
 
 double ReferenceRun::number(const QString &key, double fallback) const
 {
@@ -20,13 +21,15 @@ double ReferenceRun::number(const QString &key, double fallback) const
 std::optional<ReferenceRun> readReferenceRun(const QString &jsonPath, QString *error)
 {
     QFile f(jsonPath);
-    if (!f.open(QIODevice::ReadOnly)) {
+    if (!f.open(QIODevice::ReadOnly))
+    {
         if (error) *error = f.errorString();
         return std::nullopt;
     }
     QJsonParseError pe;
     const QJsonDocument doc = QJsonDocument::fromJson(f.readAll(), &pe);
-    if (!doc.isObject()) {
+    if (!doc.isObject())
+    {
         if (error) *error = pe.errorString();
         return std::nullopt;
     }
@@ -36,7 +39,8 @@ std::optional<ReferenceRun> readReferenceRun(const QString &jsonPath, QString *e
     run.stale = o[u"stale"_s].toBool(false);
     const QJsonArray pts = o[u"points"_s].toArray();
     run.points.reserve(static_cast<std::size_t>(pts.size()));
-    for (const QJsonValue &v : pts) {
+    for (const QJsonValue &v : pts)
+    {
         const QJsonObject p = v.toObject();
         run.points.push_back({.x_mm = p[u"x"_s].toDouble(),
                               .z = p[u"z"_s].toDouble(),

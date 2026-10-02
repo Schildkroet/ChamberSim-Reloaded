@@ -5,9 +5,10 @@ class QApplication;
 // The application-wide font size, chosen by the user in the settings. Only the point size changes; the
 // font family and style stay those of the platform. The size is limited to a range in which the program's
 // layouts stay usable.
-namespace appfont {
+namespace appfont
+{
 
-inline constexpr int kMinSize = 8;   // points
+inline constexpr int kMinSize = 8;  // points
 inline constexpr int kMaxSize = 20;
 
 // Limits a requested size to [kMinSize, kMaxSize].

@@ -4,14 +4,17 @@
 #include <cmath>
 #include <numbers>
 
-namespace grt {
+namespace grt
+{
 
-namespace {
+namespace
+{
 
 constexpr double kBar = 1.0e5;  // Pa per bar
 
 // Three-phase form function phi(z) of the burn law dz/dt = Ba * p[bar] * phi(z).
-struct FormFunction {
+struct FormFunction
+{
     const Calibration *cal;
     double a0, z1, z2;
 
@@ -21,10 +24,7 @@ struct FormFunction {
         return ((c[0] * x + c[1]) * x + c[2]) * x + c0;
     }
 
-    [[nodiscard]] double phase1(double z) const noexcept
-    {
-        return cal->burnIntercept + (cal->burnSlopeA0 * a0 + cal->burnSlopeOffset) * z;
-    }
+    [[nodiscard]] double phase1(double z) const noexcept { return cal->burnIntercept + (cal->burnSlopeA0 * a0 + cal->burnSlopeOffset) * z; }
 
     [[nodiscard]] double operator()(double z) const noexcept
     {
@@ -37,7 +37,8 @@ struct FormFunction {
     }
 };
 
-struct Model {
+struct Model
+{
     double A_m2;
     double mEff_kg;
     double mc_kg;
@@ -107,7 +108,8 @@ double bulletIntrusion_m3(const SimInput &in)
     const double h = in.tailLength_mm * 1e-3;
     const double areaBullet = n::pi / 4.0 * D * D;
     double inside = areaBullet * depth;
-    if ((in.tailType == 1 || in.tailType == 2) && h > 0.0 && depth >= h) {
+    if ((in.tailType == 1 || in.tailType == 2) && h > 0.0 && depth >= h)
+    {
         // the tail is a cone between the diameters A and B over the length h (the order does not matter)
         const double R = (in.tailDiameterA_mm > 0.0 ? in.tailDiameterA_mm * 1e-3 : D) / 2.0;
         const double r = in.tailDiameterB_mm * 1e-3 / 2.0;
@@ -120,8 +122,8 @@ double bulletIntrusion_m3(const SimInput &in)
 
 double chamberVolume_m3(const SimInput &in, const Calibration &cal)
 {
-    return cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - cal.intrusionFactor * bulletIntrusion_m3(in)
-           + cal.chamberOffset_cm3 * 1e-6 + in.boreArea_mm2 * cal.chamberOffsetLength_mm * 1e-9;
+    return cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - cal.intrusionFactor * bulletIntrusion_m3(in) + cal.chamberOffset_cm3 * 1e-6 +
+           in.boreArea_mm2 * cal.chamberOffsetLength_mm * 1e-9;
 }
 
 SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
@@ -131,21 +133,46 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     const double xe = in.barrelLength_mm * 1e-3;
 
     // NaN or infinity anywhere would pass the "> 0" checks below (or skip them) and give NaN results
-    const double all[] = {in.caseLength_mm, in.caseVolume_cm3, in.boreArea_mm2, in.sebert, in.startPressure_bar, in.barrelLength_mm,
-                          in.twistLength_mm, in.gunWeight_kg, in.bulletDiameter_mm, in.bulletMass_g, in.bulletLength_mm,
-                          in.seatingDepth_mm, in.tailLength_mm, in.tailDiameterA_mm, in.tailDiameterB_mm, in.extraFriction_bar,
-                          in.vivacityBa, in.heatQex_kJkg, in.kappa, in.a0, in.a1, in.z1, in.z2, in.density_kgm3,
-                          in.bulkDensity_kgm3, in.temperature_C, in.coldCoeff, in.hotCoeff, in.charge_g};
-    const bool inputOk = std::ranges::all_of(all, [](double v) { return std::isfinite(v); }) && steps > 1 && in.boreArea_mm2 > 0.0 && in.bulletMass_g > 0.0 && in.charge_g > 0.0 && in.density_kgm3 > 0.0
-                         && in.vivacityBa > 0.0 && in.heatQex_kJkg > 0.0 && in.kappa > 1.0
-                         && in.caseVolume_cm3 > 0.0 && xe > x0;
+    const double all[] = {in.caseLength_mm,
+                          in.caseVolume_cm3,
+                          in.boreArea_mm2,
+                          in.sebert,
+                          in.startPressure_bar,
+                          in.barrelLength_mm,
+                          in.twistLength_mm,
+                          in.gunWeight_kg,
+                          in.bulletDiameter_mm,
+                          in.bulletMass_g,
+                          in.bulletLength_mm,
+                          in.seatingDepth_mm,
+                          in.tailLength_mm,
+                          in.tailDiameterA_mm,
+                          in.tailDiameterB_mm,
+                          in.extraFriction_bar,
+                          in.vivacityBa,
+                          in.heatQex_kJkg,
+                          in.kappa,
+                          in.a0,
+                          in.a1,
+                          in.z1,
+                          in.z2,
+                          in.density_kgm3,
+                          in.bulkDensity_kgm3,
+                          in.temperature_C,
+                          in.coldCoeff,
+                          in.hotCoeff,
+                          in.charge_g};
+    const bool inputOk = std::ranges::all_of(all, [](double v) { return std::isfinite(v); }) && steps > 1 && in.boreArea_mm2 > 0.0 &&
+                         in.bulletMass_g > 0.0 && in.charge_g > 0.0 && in.density_kgm3 > 0.0 && in.vivacityBa > 0.0 &&
+                         in.heatQex_kJkg > 0.0 && in.kappa > 1.0 && in.caseVolume_cm3 > 0.0 && xe > x0;
     if (!inputOk) return res;
 
     // The original rejects charges that do not fit: measured on its accepted/rejected loads, the limit is
     // 1.2 x bulk density in the volume left after the bullet intrudes into the case (accepted loads reach
     // 1.10, rejected ones start at 1.29).
     const double freeVolume_cm3 = in.caseVolume_cm3 - bulletIntrusion_m3(in) * 1e6;
-    if (freeVolume_cm3 <= 0.0 || in.charge_g / freeVolume_cm3 > 1.2 * in.bulkDensity_kgm3 * 1e-3) {
+    if (freeVolume_cm3 <= 0.0 || in.charge_g / freeVolume_cm3 > 1.2 * in.bulkDensity_kgm3 * 1e-3)
+    {
         res.status = SimStatus::ChargeTooHigh;
         return res;
     }
@@ -170,28 +197,36 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
 
     const double manualFriction = in.extraFrictionUnlocked ? std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9) : 0.0;
     const double p0 = in.startPressure_bar * kBar;
-    m.z0 = cal.initialGasFactor * p0 * m.gasVolume(0.0, x0) / (m.fEnergy * m.mc_kg);  // initial gas energy reproduces the start pressure p(z=0,v=0)=ps
+    m.z0 = cal.initialGasFactor * p0 * m.gasVolume(0.0, x0) /
+           (m.fEnergy * m.mc_kg);  // initial gas energy reproduces the start pressure p(z=0,v=0)=ps
 
     const double dx = (xe - x0) / steps;
     res.points.reserve(static_cast<std::size_t>(steps));
     res.points.push_back({.x_mm = x0 * 1e3, .z = 0.0, .p_bar = in.startPressure_bar});
 
     double z = 0.0, v = 0.0, p = p0, pBurn = p0, t = 0.0;
-    for (int i = 1; i < steps; ++i) {
+    for (int i = 1; i < steps; ++i)
+    {
         const double x1 = x0 + i * dx;
         const double ignited = cal.ignitionRate > 0.0 ? 1.0 - std::exp(-cal.ignitionRate * (i + cal.ignitionLead)) : 1.0;
 
-        struct Trial { double pMom, pTh, z, pGas; };
-        const auto trial = [&](double v1) -> Trial {
+        struct Trial
+        {
+            double pMom, pTh, z, pGas;
+        };
+        const auto trial = [&](double v1) -> Trial
+        {
             const double pMom = m.mEff_kg * (v1 * v1 - v * v) / (2.0 * m.A_m2 * dx * (1.0 - manualFriction));
             const double dt = 2.0 * dx / (v + v1);
-            if (ignited >= 1.0) {
+            if (ignited >= 1.0)
+            {
                 const double zNew = m.advanceBurn(z, p, pMom, dt);
                 return {pMom, m.thermoPressure(zNew, v1, x1), zNew, pMom};
             }
             // the powder burns at the full gas pressure, the bullet only feels the ignited part of it
             double zNew = m.advanceBurn(z, pBurn, pBurn, dt), pGas = pBurn;
-            for (int k = 0; k < 4; ++k) {
+            for (int k = 0; k < 4; ++k)
+            {
                 pGas = m.thermoPressure(zNew, v1, x1);
                 zNew = m.advanceBurn(z, pBurn, pGas, dt);
             }
@@ -200,16 +235,21 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
 
         double lo = std::max(v, 1e-9);
         double hi = std::max(2.0 * v, 1.0);
-        if (const Trial a = trial(lo); a.pMom >= a.pTh) {
+        if (const Trial a = trial(lo); a.pMom >= a.pTh)
+        {
             hi = lo;  // stalled: nothing to solve
-        } else {
-            for (int g = 0; g < 60; ++g) {
+        }
+        else
+        {
+            for (int g = 0; g < 60; ++g)
+            {
                 const Trial b = trial(hi);
                 if (b.pMom >= b.pTh) break;
                 lo = hi;
                 hi *= 2.0;
             }
-            for (int it = 0; it < 70; ++it) {
+            for (int it = 0; it < 70; ++it)
+            {
                 const double mid = 0.5 * (lo + hi);
                 const Trial b = trial(mid);
                 (b.pMom < b.pTh ? lo : hi) = mid;
@@ -222,12 +262,8 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
         p = fin.pMom;
         pBurn = fin.pGas;
         v = v1;
-        res.points.push_back({.x_mm = x1 * 1e3,
-                              .z = z,
-                              .p_bar = p / kBar,
-                              .v_ms = v,
-                              .e_J = 0.5 * in.bulletMass_g * 1e-3 * v * v,
-                              .t_ms = t * 1e3});
+        res.points.push_back(
+            {.x_mm = x1 * 1e3, .z = z, .p_bar = p / kBar, .v_ms = v, .e_J = 0.5 * in.bulletMass_g * 1e-3 * v * v, .t_ms = t * 1e3});
     }
 
     // summary
@@ -247,7 +283,8 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     res.indexBurnout = static_cast<std::size_t>((res.burnoutInBarrel ? burnout : pts.end() - 1) - pts.begin());
 
     // markers and ratios
-    const auto firstAtLeast = [&](auto value, double limit) {
+    const auto firstAtLeast = [&](auto value, double limit)
+    {
         const auto it = std::ranges::find_if(pts, [&](const SimPoint &q) { return value(q) >= limit; });
         return it == pts.end() ? std::size_t{0} : static_cast<std::size_t>(it - pts.begin());
     };
@@ -272,7 +309,8 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     res.gasImpulse_Ns = cal.gasImpulseFactor * mc * last.v_ms;
     res.recoilImpulse_Ns = res.projectileImpulse_Ns + res.propellantImpulse_Ns + res.gasImpulse_Ns;
     if (last.t_ms > 0.0) res.meanRecoilForce_N = res.recoilImpulse_Ns / (last.t_ms * 1e-3);
-    if (in.gunWeight_kg > 0.0) {
+    if (in.gunWeight_kg > 0.0)
+    {
         res.recoilVelocity_ms = res.recoilImpulse_Ns / in.gunWeight_kg;
         res.recoilEnergy_J = 0.5 * in.gunWeight_kg * res.recoilVelocity_ms * res.recoilVelocity_ms;
         res.recoilAcceleration_ms2 = res.meanRecoilForce_N / in.gunWeight_kg;
@@ -285,7 +323,8 @@ std::vector<LadderStep> simulateLadder(const SimInput &in, const Calibration &ca
 {
     std::vector<LadderStep> out;
     const int count = in.ladderCount < 2 || in.ladderStep_g <= 0.0 ? 1 : std::min(in.ladderCount, kMaxLadderSteps);
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
+    {
         SimInput step = in;
         step.charge_g = in.charge_g - i * in.ladderStep_g;
         if (step.charge_g <= 0.0) break;
@@ -333,9 +372,13 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"initialGasFactor", &cal.initialGasFactor},
             {"ignitionRate", &cal.ignitionRate},
             {"ignitionLead", &cal.ignitionLead},
-            {"phase2_3", &cal.phase2[0]}, {"phase2_2", &cal.phase2[1]}, {"phase2_1", &cal.phase2[2]},
+            {"phase2_3", &cal.phase2[0]},
+            {"phase2_2", &cal.phase2[1]},
+            {"phase2_1", &cal.phase2[2]},
             {"phase3Limit", &cal.phase3Limit},
-            {"phase3_3", &cal.phase3[0]}, {"phase3_2", &cal.phase3[1]}, {"phase3_1", &cal.phase3[2]}};
+            {"phase3_3", &cal.phase3[0]},
+            {"phase3_2", &cal.phase3[1]},
+            {"phase3_1", &cal.phase3[2]}};
 }
 
 }  // namespace grt

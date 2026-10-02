@@ -10,13 +10,20 @@
 #include <utility>
 #include <vector>
 
-namespace grt {
+namespace grt
+{
 
-enum class Table { Caliber, Projectile, Propellant };
+enum class Table
+{
+    Caliber,
+    Projectile,
+    Propellant
+};
 
 [[nodiscard]] constexpr const char *tableName(Table t) noexcept
 {
-    switch (t) {
+    switch (t)
+    {
     case Table::Caliber: return "caliber";
     case Table::Projectile: return "projectile";
     case Table::Propellant: return "propellant";
@@ -30,7 +37,8 @@ enum class Table { Caliber, Projectile, Propellant };
 //  * the user's own database (same tables, created on first use) that takes every new record.
 // Each table name ("caliber", ...) is a view over all three, so all queries and models see a single table. The id
 // ranges never collide: original below kProjectIdBase, project from kProjectIdBase, own records from kOwnIdBase.
-class Database {
+class Database
+{
 public:
     static constexpr int kProjectIdBase = 1'000'000;
     // Every row of the combined tables has a column "source" with one of these values (not stored in a file).
@@ -80,13 +88,14 @@ public:
     [[nodiscard]] std::optional<QVariantMap> record(Table t, int id) const;
 
     // A picture of the image table (propellant photos): the encoded file (JPEG/PNG) and its scale.
-    struct Image {
-        QString uuid;         // empty for a new picture: addImage() makes one
+    struct Image
+    {
+        QString uuid;  // empty for a new picture: addImage() makes one
         QString name;
         QString descr;
-        double scale{};       // as stored, e.g. 29.5 with the unit "px/mm"
+        double scale{};  // as stored, e.g. 29.5 with the unit "px/mm"
         QString scaleUnit;
-        QByteArray data;      // decoded (the database stores it as base64 text)
+        QByteArray data;                       // decoded (the database stores it as base64 text)
         QString type = QStringLiteral("jpg");  // file type of `data`
     };
     // The image with this uuid (propellant.imageUuid / imageDetailUuid), or nullopt if there is none.

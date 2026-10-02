@@ -11,7 +11,8 @@ class QLineEdit;
 class QSpinBox;
 
 // File > Settings: options that apply to the whole application. Changes take effect with OK or Apply.
-class SettingsDialog : public QDialog {
+class SettingsDialog : public QDialog
+{
     Q_OBJECT
 public:
     explicit SettingsDialog(QWidget *parent = nullptr);

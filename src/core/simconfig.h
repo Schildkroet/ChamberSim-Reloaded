@@ -2,11 +2,13 @@
 
 #include "loadfile.h"
 
-namespace grt {
+namespace grt
+{
 
 // All inputs of one interior-ballistics simulation. Units are those of the
 // *.grtload file and are part of the member names.
-struct SimInput {
+struct SimInput
+{
     // caliber / cartridge
     double caseLength_mm{};
     double caseVolume_cm3{};
@@ -35,7 +37,7 @@ struct SimInput {
     // propellant
     double vivacityBa{};
     double heatQex_kJkg{};
-    double kappa{1.22};      // ratio of specific heats k
+    double kappa{1.22};  // ratio of specific heats k
     double a0{};
     double a1{};
     double z1{};
@@ -47,8 +49,8 @@ struct SimInput {
     double coldCoeff{};
     double hotCoeff{};
     double charge_g{};
-    int ladderCount{1};          // load development ladder: number of curves (below 2: no ladder)
-    double ladderStep_g{};       // charge difference between two ladder steps
+    int ladderCount{1};     // load development ladder: number of curves (below 2: no ladder)
+    double ladderStep_g{};  // charge difference between two ladder steps
 
     // Reads the numeric inputs out of a load file (missing values keep their defaults).
     [[nodiscard]] static SimInput fromLoad(const LoadFile &lf);

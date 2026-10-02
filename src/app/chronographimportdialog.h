@@ -8,7 +8,8 @@ class QLabel;
 class QTableWidget;
 
 // One series of the file with the charge it was shot with.
-struct ImportedCharge {
+struct ImportedCharge
+{
     grt::ChronographSeries series;
     double charge_g{};
 };
@@ -16,7 +17,8 @@ struct ImportedCharge {
 // "Import chronograph file": lists the series of a MagnetoSpeed / Labradar file with their statistics. The files
 // do not know the powder charge, so it is entered here (default: the load's charge) and every ticked series
 // becomes a charge with its shots in the Measurements tab.
-class ChronographImportDialog : public QDialog {
+class ChronographImportDialog : public QDialog
+{
     Q_OBJECT
 public:
     ChronographImportDialog(grt::ChronographFile file, double defaultCharge_g, QWidget *parent = nullptr);

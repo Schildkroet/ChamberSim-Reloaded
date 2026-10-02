@@ -6,9 +6,11 @@
 
 #include <algorithm>
 
-namespace appfont {
+namespace appfont
+{
 
-namespace {
+namespace
+{
 constexpr auto kKey = "ui/fontSize";
 
 // The font of the platform as it was when the program started, so "default" stays reachable later.

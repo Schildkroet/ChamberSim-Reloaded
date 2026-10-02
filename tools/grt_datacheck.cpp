@@ -27,16 +27,19 @@ int main(int argc, char *argv[])
     grt::Database::setProjectDataLocation(dataDir);
     grt::Database db;
     QString error;
-    if (!db.open({}, tmp.filePath(u"own.db"_s), &error)) {
+    if (!db.open({}, tmp.filePath(u"own.db"_s), &error))
+    {
         out << "cannot open a database: " << error << '\n';
         return 2;
     }
 
     QStringList problems = db.projectErrors();
-    for (const grt::Table t : {grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant}) {
+    for (const grt::Table t : {grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant})
+    {
         const grt::projectdata::Loaded loaded = grt::projectdata::load(dataDir, t, db.schema(t));
         QSet<QString> names;
-        for (const QVariantMap &r : loaded.records) {
+        for (const QVariantMap &r : loaded.records)
+        {
             const QString name = grt::dbfields::recordTitle(t, r).toLower();
             if (names.contains(name))
                 problems << grt::projectdata::folderName(t) + u": two records named \""_s + grt::dbfields::recordTitle(t, r) + u'"';

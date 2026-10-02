@@ -45,7 +45,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_fontSize->setValue(m_originalSize);
 
     // Two groups with the same grid: label | control | reset button, so the fields line up.
-    const auto makeForm = [](QGroupBox *box) {
+    const auto makeForm = [](QGroupBox *box)
+    {
         auto *grid = new QGridLayout(box);
         grid->setColumnStretch(1, 1);
         grid->setHorizontalSpacing(12);
@@ -92,12 +93,14 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_database->setToolTip(tr("The decrypted database of Gordon's Reloading Tool. It is only read; new records go "
                               "into the program's own database, and both appear as one database."));
     auto *browse = new QPushButton(tr("Browse…"));
-    connect(browse, &QPushButton::clicked, this, [this] {
-        const QString start = m_database->text().isEmpty() ? QString() : QFileInfo(m_database->text()).absolutePath();
-        const QString f = QFileDialog::getOpenFileName(this, tr("Original database"), start,
-                                                       tr("SQLite databases (*.db *.sqlite);;All files (*)"));
-        if (!f.isEmpty()) m_database->setText(f);
-    });
+    connect(browse, &QPushButton::clicked, this,
+            [this]
+            {
+                const QString start = m_database->text().isEmpty() ? QString() : QFileInfo(m_database->text()).absolutePath();
+                const QString f = QFileDialog::getOpenFileName(this, tr("Original database"), start,
+                                                               tr("SQLite databases (*.db *.sqlite);;All files (*)"));
+                if (!f.isEmpty()) m_database->setText(f);
+            });
     m_databaseInfo->setWordWrap(true);
     m_databaseInfo->setTextInteractionFlags(Qt::TextSelectableByMouse);
     databaseGrid->addWidget(databaseLabel, 0, 0);
@@ -105,7 +108,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     databaseGrid->addWidget(browse, 0, 2);
     databaseGrid->addWidget(m_databaseInfo, 1, 1, 1, 2);
 
-    for (const auto level : {grt::log::Level::Debug, grt::log::Level::Info, grt::log::Level::Warn, grt::log::Level::Error, grt::log::Level::Off})
+    for (const auto level :
+         {grt::log::Level::Debug, grt::log::Level::Info, grt::log::Level::Warn, grt::log::Level::Error, grt::log::Level::Off})
         m_logLevel->addItem(level == grt::log::Level::Off ? tr("Off") : grt::log::levelName(level), static_cast<int>(level));
     m_logLevel->setCurrentIndex(std::max(0, m_logLevel->findData(static_cast<int>(m_originalLog.level))));
     m_logLevel->setToolTip(tr("Messages of this level and above are logged: Debug (everything), Info, Warning, Error"));
@@ -142,7 +146,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_unitSystem->setMinimumWidth(110);
     m_fontSize->setAlignment(Qt::AlignRight);
     const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
-                                     titleBarLabel->sizeHint().width(), logLabel->sizeHint().width()}) + 36;
+                                     titleBarLabel->sizeHint().width(), logLabel->sizeHint().width()}) +
+                           36;
     // 48 px from the labels to the fields (the grid's 12 px plus this margin)
     for (QLabel *l : {fontLabel, titleBarLabel, systemLabel, databaseLabel, logLabel}) l->setContentsMargins(0, 0, 36, 0);
     fontLabel->setMinimumWidth(labelWidth);
@@ -152,23 +157,28 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
     connect(buttons->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &SettingsDialog::apply);
-    connect(buttons, &QDialogButtonBox::accepted, this, [this] {
-        apply();
-        accept();
-    });
-    connect(buttons, &QDialogButtonBox::rejected, this, [this] {
-        // undo what Apply has done
-        appfont::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), m_originalSize);
-        appfont::storeSize(m_originalSize);
-        UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_originalSystem));
-        grt::log::setConfig(m_originalLog);
-        grt::log::storeConfig(m_originalLog);
-        if (TitleBar::stored() != m_originalTitleBar) {
-            TitleBar::store(m_originalTitleBar);
-            emit customTitleBarChanged(m_originalTitleBar);
-        }
-        reject();
-    });
+    connect(buttons, &QDialogButtonBox::accepted, this,
+            [this]
+            {
+                apply();
+                accept();
+            });
+    connect(buttons, &QDialogButtonBox::rejected, this,
+            [this]
+            {
+                // undo what Apply has done
+                appfont::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), m_originalSize);
+                appfont::storeSize(m_originalSize);
+                UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_originalSystem));
+                grt::log::setConfig(m_originalLog);
+                grt::log::storeConfig(m_originalLog);
+                if (TitleBar::stored() != m_originalTitleBar)
+                {
+                    TitleBar::store(m_originalTitleBar);
+                    emit customTitleBarChanged(m_originalTitleBar);
+                }
+                reject();
+            });
     auto *layout = new QVBoxLayout(this);
     layout->setSpacing(12);
     layout->addWidget(appearance);
@@ -217,11 +227,13 @@ void SettingsDialog::apply()
     appfont::storeSize(applied);
     m_fontSize->setValue(applied);
     UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_unitSystem->currentData().toInt()));
-    if (m_titleBar->isChecked() != TitleBar::stored()) {
+    if (m_titleBar->isChecked() != TitleBar::stored())
+    {
         TitleBar::store(m_titleBar->isChecked());
         emit customTitleBarChanged(m_titleBar->isChecked());
     }
-    if (originalDatabase() != m_databasePath) {
+    if (originalDatabase() != m_databasePath)
+    {
         m_databasePath = originalDatabase();
         emit originalDatabaseChosen(m_databasePath);
     }

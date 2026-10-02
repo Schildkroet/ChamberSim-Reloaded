@@ -8,9 +8,11 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::report {
+namespace grt::report
+{
 
-namespace {
+namespace
+{
 
 // value * num / den for image sizes, in double (template sizes like 99999x99999 overflow int); 0 if den <= 0
 int scaled(int value, int num, int den)
@@ -21,20 +23,38 @@ int scaled(int value, int num, int den)
 
 QString colorOf(const QString &name)
 {
-    static const QHash<QString, QString> names{
-        {u"red"_s, u"#e02020"_s},       {u"lightred"_s, u"#ff8080"_s},       {u"darkred"_s, u"#800000"_s},
-        {u"green"_s, u"#20a020"_s},     {u"lightgreen"_s, u"#80ff80"_s},     {u"darkgreen"_s, u"#006000"_s},
-        {u"blue"_s, u"#2040e0"_s},      {u"lightblue"_s, u"#8099ff"_s},      {u"darkblue"_s, u"#000080"_s},
-        {u"orange"_s, u"#ff8000"_s},    {u"lightorange"_s, u"#ffc080"_s},    {u"darkorange"_s, u"#b05000"_s},
-        {u"grey"_s, u"#808080"_s},      {u"lightgrey"_s, u"#c0c0c0"_s},      {u"darkgrey"_s, u"#404040"_s},
-        {u"yellow"_s, u"#e0e000"_s},    {u"lightyellow"_s, u"#ffff90"_s},    {u"darkyellow"_s, u"#808000"_s},
-        {u"magenta"_s, u"#e000e0"_s},   {u"lightmagenta"_s, u"#ff90ff"_s},  {u"darkmagenta"_s, u"#800080"_s},
-        {u"cyan"_s, u"#00c0c0"_s},      {u"lightcyan"_s, u"#90ffff"_s},      {u"darkcyan"_s, u"#006060"_s},
-        {u"black"_s, u"#000000"_s},     {u"white"_s, u"#ffffff"_s},
-        // names of the program's color scheme
-        {u"color_diagram_pressure"_s, u"#d05050"_s}, {u"color_diagram_energy"_s, u"#20a090"_s},
-        {u"color_diagram_velocity"_s, u"#5060d0"_s}, {u"color_diagram_range"_s, u"#a06020"_s},
-        {u"color_window_infotext"_s, u"#606060"_s}};
+    static const QHash<QString, QString> names{{u"red"_s, u"#e02020"_s},
+                                               {u"lightred"_s, u"#ff8080"_s},
+                                               {u"darkred"_s, u"#800000"_s},
+                                               {u"green"_s, u"#20a020"_s},
+                                               {u"lightgreen"_s, u"#80ff80"_s},
+                                               {u"darkgreen"_s, u"#006000"_s},
+                                               {u"blue"_s, u"#2040e0"_s},
+                                               {u"lightblue"_s, u"#8099ff"_s},
+                                               {u"darkblue"_s, u"#000080"_s},
+                                               {u"orange"_s, u"#ff8000"_s},
+                                               {u"lightorange"_s, u"#ffc080"_s},
+                                               {u"darkorange"_s, u"#b05000"_s},
+                                               {u"grey"_s, u"#808080"_s},
+                                               {u"lightgrey"_s, u"#c0c0c0"_s},
+                                               {u"darkgrey"_s, u"#404040"_s},
+                                               {u"yellow"_s, u"#e0e000"_s},
+                                               {u"lightyellow"_s, u"#ffff90"_s},
+                                               {u"darkyellow"_s, u"#808000"_s},
+                                               {u"magenta"_s, u"#e000e0"_s},
+                                               {u"lightmagenta"_s, u"#ff90ff"_s},
+                                               {u"darkmagenta"_s, u"#800080"_s},
+                                               {u"cyan"_s, u"#00c0c0"_s},
+                                               {u"lightcyan"_s, u"#90ffff"_s},
+                                               {u"darkcyan"_s, u"#006060"_s},
+                                               {u"black"_s, u"#000000"_s},
+                                               {u"white"_s, u"#ffffff"_s},
+                                               // names of the program's color scheme
+                                               {u"color_diagram_pressure"_s, u"#d05050"_s},
+                                               {u"color_diagram_energy"_s, u"#20a090"_s},
+                                               {u"color_diagram_velocity"_s, u"#5060d0"_s},
+                                               {u"color_diagram_range"_s, u"#a06020"_s},
+                                               {u"color_window_infotext"_s, u"#606060"_s}};
     const QString n = name.trimmed().toLower();
     if (const auto it = names.constFind(n); it != names.constEnd()) return it.value();
     static const QRegularExpression hex(u"^#[0-9a-f]{6}$"_s, QRegularExpression::CaseInsensitiveOption);
@@ -63,17 +83,30 @@ QString imageHtml(const QString &inner, const ImageResolver &images, int pageWid
     // requested size: "80" (width in px), "15%" (of the page width), "100x50", or none (natural, at most page width)
     int width = image.width, height = image.height;
     QString link;
-    for (const QString &part : params.split(u'&', Qt::SkipEmptyParts)) {
+    for (const QString &part : params.split(u'&', Qt::SkipEmptyParts))
+    {
         static const QRegularExpression whRe(u"^(\\d+)x(\\d+)$"_s), wRe(u"^(\\d+)$"_s), pRe(u"^(\\d+)%$"_s);
-        if (const auto m = whRe.match(part); m.hasMatch()) { width = m.captured(1).toInt(); height = m.captured(2).toInt(); }
-        else if (const auto m2 = wRe.match(part); m2.hasMatch()) { const int w = m2.captured(1).toInt(); height = scaled(height, w, width); width = w; }
-        else if (const auto m3 = pRe.match(part); m3.hasMatch()) {
+        if (const auto m = whRe.match(part); m.hasMatch())
+        {
+            width = m.captured(1).toInt();
+            height = m.captured(2).toInt();
+        }
+        else if (const auto m2 = wRe.match(part); m2.hasMatch())
+        {
+            const int w = m2.captured(1).toInt();
+            height = scaled(height, w, width);
+            width = w;
+        }
+        else if (const auto m3 = pRe.match(part); m3.hasMatch())
+        {
             const int w = scaled(pageWidth, m3.captured(1).toInt(), 100);
             height = scaled(height, w, width);
             width = w;
-        } else if (part.startsWith(u"link=")) link = part.mid(5);
+        }
+        else if (part.startsWith(u"link=")) link = part.mid(5);
     }
-    if (width > pageWidth && pageWidth > 0) {  // never wider than the page
+    if (width > pageWidth && pageWidth > 0)
+    {  // never wider than the page
         height = scaled(height, pageWidth, width);
         width = pageWidth;
     }
@@ -98,7 +131,8 @@ QString inlineHtml(const QString &raw, const ImageResolver &images, int pageWidt
         static const QRegularExpression re(u"\\{\\{(.+?)\\}\\}"_s);
         QString out;
         qsizetype pos = 0;
-        for (auto it = re.globalMatch(text); it.hasNext();) {
+        for (auto it = re.globalMatch(text); it.hasNext();)
+        {
             const auto m = it.next();
             out += text.mid(pos, m.capturedStart() - pos);
             out += QChar(static_cast<char16_t>(0xE000 + imageHtmls.size()));  // private-use placeholder
@@ -113,7 +147,8 @@ QString inlineHtml(const QString &raw, const ImageResolver &images, int pageWidt
         static const QRegularExpression re(u"''(.+?)''"_s);
         QString out;
         qsizetype pos = 0;
-        for (auto it = re.globalMatch(text); it.hasNext();) {
+        for (auto it = re.globalMatch(text); it.hasNext();)
+        {
             const auto m = it.next();
             out += text.mid(pos, m.capturedStart() - pos);
             out += QChar(static_cast<char16_t>(0xE100 + monoSpans.size()));
@@ -128,7 +163,8 @@ QString inlineHtml(const QString &raw, const ImageResolver &images, int pageWidt
         static const QRegularExpression re(u"\\[\\[(.+?)\\]\\]"_s);
         QString out;
         qsizetype pos = 0;
-        for (auto it = re.globalMatch(text); it.hasNext();) {
+        for (auto it = re.globalMatch(text); it.hasNext();)
+        {
             const auto m = it.next();
             out += text.mid(pos, m.capturedStart() - pos);
             out += QChar(static_cast<char16_t>(0xE200 + links.size()));
@@ -150,7 +186,8 @@ QString inlineHtml(const QString &raw, const ImageResolver &images, int pageWidt
     {
         QString out;
         qsizetype pos = 0;
-        for (auto it = colorOpen.globalMatch(text); it.hasNext();) {
+        for (auto it = colorOpen.globalMatch(text); it.hasNext();)
+        {
             const auto m = it.next();
             out += text.mid(pos, m.capturedStart() - pos);
             const QString c = colorOf(m.captured(1));
@@ -160,7 +197,8 @@ QString inlineHtml(const QString &raw, const ImageResolver &images, int pageWidt
         text = out + text.mid(pos);
         out.clear();
         pos = 0;
-        for (auto it = sizeOpen.globalMatch(text); it.hasNext();) {
+        for (auto it = sizeOpen.globalMatch(text); it.hasNext();)
+        {
             const auto m = it.next();
             out += text.mid(pos, m.capturedStart() - pos);
             const double n = m.captured(1).toDouble();
@@ -203,34 +241,47 @@ QString inlineHtml(const QString &raw, const ImageResolver &images, int pageWidt
 QString tableHtml(const QStringList &rows, const ImageResolver &images, int pageWidth)
 {
     QString html = u"<table border=\"1\" cellspacing=\"0\" cellpadding=\"4\">\n"_s;
-    for (const QString &row : rows) {
+    for (const QString &row : rows)
+    {
         const QString line = row.trimmed();
         // cells are delimited by ^ and |; the delimiter before a cell decides header or normal
-        struct Cell { bool header; QString text; int span; };
+        struct Cell
+        {
+            bool header;
+            QString text;
+            int span;
+        };
         QList<Cell> cells;
         QString current;
         bool header = line.startsWith(u'^');
-        for (qsizetype i = 1; i < line.size(); ++i) {
+        for (qsizetype i = 1; i < line.size(); ++i)
+        {
             const QChar c = line[i];
-            if (c == u'^' || c == u'|') {  // every delimiter closes the cell before it
+            if (c == u'^' || c == u'|')
+            {  // every delimiter closes the cell before it
                 cells.push_back({header, current, 1});
                 current.clear();
                 header = c == u'^';
-            } else {
+            }
+            else
+            {
                 current += c;
             }
         }
         if (!current.trimmed().isEmpty()) cells.push_back({header, current, 1});  // a row without closing delimiter
         // an empty cell (two delimiters in a row) extends the cell before it
         QList<Cell> merged;
-        for (const Cell &c : cells) {
+        for (const Cell &c : cells)
+        {
             if (c.text.isEmpty() && !merged.isEmpty()) ++merged.last().span;
             else merged.push_back(c);
         }
         html += u"<tr>"_s;
-        for (const Cell &c : merged) {
+        for (const Cell &c : merged)
+        {
             const QString tag = c.header ? u"th"_s : u"td"_s;
-            html += u"<%1%2>%3</%1>"_s.arg(tag, c.span > 1 ? u" colspan=\"%1\""_s.arg(c.span) : QString(), inlineHtml(c.text.trimmed(), images, pageWidth));
+            html += u"<%1%2>%3</%1>"_s.arg(tag, c.span > 1 ? u" colspan=\"%1\""_s.arg(c.span) : QString(),
+                                           inlineHtml(c.text.trimmed(), images, pageWidth));
         }
         html += u"</tr>\n"_s;
     }
@@ -247,7 +298,8 @@ QString wikiToHtml(const QString &source, const ImageResolver &images, int pageW
 
     QString html;
     QStringList paragraph;
-    const auto flushParagraph = [&] {
+    const auto flushParagraph = [&]
+    {
         if (paragraph.isEmpty()) return;
         html += u"<p>%1</p>\n"_s.arg(inlineHtml(paragraph.join(u'\n'), images, pageWidth).replace(u'\n', u' '));
         paragraph.clear();
@@ -255,25 +307,32 @@ QString wikiToHtml(const QString &source, const ImageResolver &images, int pageW
 
     static const QRegularExpression headRe(u"^\\s*(={2,6})\\s*(.+?)\\s*=*\\s*$"_s), listRe(u"^(\\s{2,})([*-])\\s+(.*)$"_s);
     QList<int> listDepth;  // open <ul> levels
-    const auto closeLists = [&](int toDepth = 0) {
-        while (static_cast<int>(listDepth.size()) > toDepth) {
+    const auto closeLists = [&](int toDepth = 0)
+    {
+        while (static_cast<int>(listDepth.size()) > toDepth)
+        {
             html += u"</ul>\n"_s;
             listDepth.removeLast();
         }
     };
 
-    for (qsizetype i = 0; i < lines.size(); ++i) {
+    for (qsizetype i = 0; i < lines.size(); ++i)
+    {
         const QString &line = lines[i];
         const QString trimmed = line.trimmed();
 
-        if (trimmed.startsWith(u"<code>")) {  // literal block
+        if (trimmed.startsWith(u"<code>"))
+        {  // literal block
             flushParagraph();
             closeLists();
             QStringList code;
             QString first = trimmed.mid(6);
-            if (first.contains(u"</code>")) {
+            if (first.contains(u"</code>"))
+            {
                 code << first.left(first.indexOf(u"</code>"));
-            } else {
+            }
+            else
+            {
                 if (!first.isEmpty()) code << first;
                 for (++i; i < lines.size() && !lines[i].contains(u"</code>"); ++i) code << lines[i];
                 if (i < lines.size()) code << lines[i].left(lines[i].indexOf(u"</code>"));
@@ -283,35 +342,41 @@ QString wikiToHtml(const QString &source, const ImageResolver &images, int pageW
             html += u"<pre>%1</pre>\n"_s.arg(escape(code.join(u'\n')));
             continue;
         }
-        if (trimmed.isEmpty()) {
+        if (trimmed.isEmpty())
+        {
             flushParagraph();
             closeLists();
             continue;
         }
-        if (trimmed == u"<pagebreak>") {  // a page break for printing (not part of the original's markup)
+        if (trimmed == u"<pagebreak>")
+        {  // a page break for printing (not part of the original's markup)
             flushParagraph();
             closeLists();
             html += u"<p style=\"page-break-before:always\">&nbsp;</p>\n"_s;
             continue;
         }
-        if (trimmed == u"----" || (trimmed.size() >= 4 && trimmed.count(u'-') == trimmed.size())) {
+        if (trimmed == u"----" || (trimmed.size() >= 4 && trimmed.count(u'-') == trimmed.size()))
+        {
             flushParagraph();
             closeLists();
             html += u"<hr>\n"_s;
             continue;
         }
-        if (const auto m = headRe.match(line); m.hasMatch() && line.trimmed().startsWith(u'=') && m.captured(1).size() >= 2) {
+        if (const auto m = headRe.match(line); m.hasMatch() && line.trimmed().startsWith(u'=') && m.captured(1).size() >= 2)
+        {
             flushParagraph();
             closeLists();
             const int level = std::clamp(7 - static_cast<int>(m.captured(1).size()), 1, 5);  // ====== is level 1
             html += u"<h%1>%2</h%1>\n"_s.arg(level).arg(inlineHtml(m.captured(2), images, pageWidth));
             continue;
         }
-        if (trimmed.startsWith(u'^') || trimmed.startsWith(u'|')) {  // table: collect consecutive rows
+        if (trimmed.startsWith(u'^') || trimmed.startsWith(u'|'))
+        {  // table: collect consecutive rows
             flushParagraph();
             closeLists();
             QStringList rows;
-            for (; i < lines.size(); ++i) {
+            for (; i < lines.size(); ++i)
+            {
                 const QString t = lines[i].trimmed();
                 if (!(t.startsWith(u'^') || t.startsWith(u'|'))) break;
                 rows << t;
@@ -320,14 +385,19 @@ QString wikiToHtml(const QString &source, const ImageResolver &images, int pageW
             html += tableHtml(rows, images, pageWidth);
             continue;
         }
-        if (const auto m = listRe.match(line); m.hasMatch() && m.captured(2) == u"*") {
+        if (const auto m = listRe.match(line); m.hasMatch() && m.captured(2) == u"*")
+        {
             flushParagraph();
             const int depth = static_cast<int>(m.captured(1).size() / 2);
-            if (listDepth.isEmpty() || listDepth.last() < depth) {
+            if (listDepth.isEmpty() || listDepth.last() < depth)
+            {
                 listDepth.push_back(depth);
                 html += u"<ul>\n"_s;
-            } else {
-                while (!listDepth.isEmpty() && listDepth.last() > depth) {
+            }
+            else
+            {
+                while (!listDepth.isEmpty() && listDepth.last() > depth)
+                {
                     html += u"</ul>\n"_s;
                     listDepth.removeLast();
                 }

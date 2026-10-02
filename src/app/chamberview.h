@@ -14,7 +14,8 @@
 // The "Chamber" tab of the drawing panel: a section through the rifle's chamber and the first part of the
 // barrel, from the caliber's chamber dimensions (the c_* values of the caliber record), with the loaded
 // round seated in it.
-class ChamberView : public QWidget {
+class ChamberView : public QWidget
+{
     Q_OBJECT
 public:
     explicit ChamberView(QWidget *parent = nullptr);
@@ -23,7 +24,8 @@ public:
     void clear();
     void setTableVisible(bool visible);  // for reports: only the measure A below the drawing
 
-    struct Geometry {
+    struct Geometry
+    {
         std::vector<QPointF> cavity;  // (radius, y) in mm from the breech face up to the end of the drawn barrel
         double lands{0.0};            // bore diameter over the lands
         double grooves{0.0};          // diameter over the grooves
@@ -41,7 +43,8 @@ protected:
     void leaveEvent(QEvent *event) override;
 
 private:
-    struct RowHit {
+    struct RowHit
+    {
         QRectF rect;
         QString key, label, value;
     };

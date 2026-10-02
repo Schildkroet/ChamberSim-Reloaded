@@ -4,7 +4,8 @@
 
 class QWidget;
 
-namespace about {
+namespace about
+{
 
 // The text of the About box as rich text (version, purpose, calibration, safety notice, versions of the
 // libraries in use, and the open database if there is one).

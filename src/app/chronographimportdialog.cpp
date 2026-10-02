@@ -12,9 +12,19 @@
 
 using grt::units::Quantity;
 
-namespace {
+namespace
+{
 
-enum Column { Use, Name, Shots, Mean, Sd, Charge, ColumnCount };
+enum Column
+{
+    Use,
+    Name,
+    Shots,
+    Mean,
+    Sd,
+    Charge,
+    ColumnCount
+};
 
 const grt::units::Unit &unitOf(Quantity q)
 {
@@ -39,13 +49,15 @@ ChronographImportDialog::ChronographImportDialog(grt::ChronographFile file, doub
 {
     setWindowTitle(tr("Import chronograph file"));
     const QString chargeUnit = QString::fromUtf8(unitOf(Quantity::BulletMass).symbol);
-    m_table->setHorizontalHeaderLabels({tr("Import"), tr("Series"), tr("Shots"), tr("Velocity [%1]").arg(QString::fromUtf8(unitOf(Quantity::Velocity).symbol)),
-                                        tr("SD"), tr("Charge [%1]").arg(chargeUnit)});
+    m_table->setHorizontalHeaderLabels({tr("Import"), tr("Series"), tr("Shots"),
+                                        tr("Velocity [%1]").arg(QString::fromUtf8(unitOf(Quantity::Velocity).symbol)), tr("SD"),
+                                        tr("Charge [%1]").arg(chargeUnit)});
     m_table->horizontalHeaderItem(Charge)->setToolTip(tr("The powder charge of this series (the file does not contain it)"));
     m_table->verticalHeader()->hide();
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     m_table->horizontalHeader()->setSectionResizeMode(Name, QHeaderView::Stretch);
-    for (int row = 0; row < m_table->rowCount(); ++row) {
+    for (int row = 0; row < m_table->rowCount(); ++row)
+    {
         const auto &s = m_file.series[static_cast<std::size_t>(row)];
         const grt::ShotStatistics st = grt::statistics(s.velocities_ms);
         auto *use = new QTableWidgetItem;
@@ -62,8 +74,9 @@ ChronographImportDialog::ChronographImportDialog(grt::ChronographFile file, doub
         m_table->setItem(row, Charge, charge);
     }
 
-    auto *intro = new QLabel(tr("%1 file with %n series. Every ticked series becomes a charge with its shots.", nullptr, static_cast<int>(m_file.series.size()))
-                                 .arg(grt::formatName(m_file.format)));
+    auto *intro = new QLabel(
+        tr("%1 file with %n series. Every ticked series becomes a charge with its shots.", nullptr, static_cast<int>(m_file.series.size()))
+            .arg(grt::formatName(m_file.format)));
     intro->setWordWrap(true);
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     buttons->button(QDialogButtonBox::Ok)->setText(tr("Import"));
@@ -80,12 +93,14 @@ ChronographImportDialog::ChronographImportDialog(grt::ChronographFile file, doub
 std::vector<ImportedCharge> ChronographImportDialog::selected() const
 {
     std::vector<ImportedCharge> out;
-    for (int row = 0; row < m_table->rowCount(); ++row) {
+    for (int row = 0; row < m_table->rowCount(); ++row)
+    {
         if (m_table->item(row, Use)->checkState() != Qt::Checked) continue;
         // the shown text is rounded: an untouched charge keeps its exact value
         const QString text = m_table->item(row, Charge)->text();
-        const auto g = text == grt::units::format(m_default, unitOf(Quantity::BulletMass)) ? std::nullopt
-                                                                                           : grt::units::parseToBase(text, unitOf(Quantity::BulletMass));
+        const auto g = text == grt::units::format(m_default, unitOf(Quantity::BulletMass))
+                           ? std::nullopt
+                           : grt::units::parseToBase(text, unitOf(Quantity::BulletMass));
         out.push_back({.series = m_file.series[static_cast<std::size_t>(row)], .charge_g = g && *g > 0.0 ? *g : m_default});
     }
     return out;

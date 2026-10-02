@@ -15,7 +15,8 @@ class QTabWidget;
 
 // Pick a caliber, a bullet and a powder from the database, set the charge and gun data, and
 // get a ready-to-simulate load.
-class NewLoadDialog : public QDialog {
+class NewLoadDialog : public QDialog
+{
     Q_OBJECT
 public:
     NewLoadDialog(const grt::Database &db, QWidget *parent = nullptr);

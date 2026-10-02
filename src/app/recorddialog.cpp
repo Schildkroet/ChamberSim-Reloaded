@@ -31,7 +31,8 @@
 using namespace Qt::StringLiterals;
 using grt::dbfields::Kind;
 
-namespace {
+namespace
+{
 
 const grt::units::Unit *unitOf(const grt::dbfields::Field &f)
 {
@@ -53,7 +54,8 @@ QString shownNumber(const grt::dbfields::Field &f, double stored)
     locale.setNumberOptions(QLocale::OmitGroupSeparator);
     const auto *u = unitOf(f);
     const double v = u ? grt::units::toDisplay(stored * f.toBase, *u) : stored;
-    for (int d = u ? u->decimals : 0; d < 8; ++d) {
+    for (int d = u ? u->decimals : 0; d < 8; ++d)
+    {
         const double scale = std::pow(10.0, d);
         if (std::abs(std::round(v * scale) / scale - v) <= 1e-9 * std::max(1.0, std::abs(v))) return locale.toString(v, 'f', d);
     }
@@ -64,7 +66,8 @@ std::optional<double> parseNumber(const grt::dbfields::Field &f, const QString &
 {
     const QString t = text.trimmed();
     if (t.isEmpty()) return 0.0;
-    if (const auto *u = unitOf(f)) {
+    if (const auto *u = unitOf(f))
+    {
         const auto base = grt::units::parseToBase(t, *u);
         return base ? std::optional(*base / f.toBase) : std::nullopt;
     }
@@ -92,12 +95,14 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     auto *content = new QWidget;
     auto *cl = new QVBoxLayout(content);
     std::map<QString, std::vector<grt::dbfields::Field>> byGroup;
-    for (const auto &[column, type] : db.schema(table)) {
+    for (const auto &[column, type] : db.schema(table))
+    {
         const grt::dbfields::Field f = grt::dbfields::describe(table, column, type);
         if (table == grt::Table::Propellant && column.startsWith(u"image"_s)) continue;  // the photo editor below
         if (f.kind != Kind::Hidden) byGroup[f.group].push_back(f);
     }
-    for (const QString &group : grt::dbfields::groups(table)) {
+    for (const QString &group : grt::dbfields::groups(table))
+    {
         const auto it = byGroup.find(group);
         if (it == byGroup.end()) continue;
         auto *box = new QGroupBox(group);
@@ -106,17 +111,21 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
         const int pairs = it->second.size() > 10 ? 2 : 1;
         for (int c = 0; c < pairs; ++c) grid->setColumnStretch(2 * c + 1, 1);
         int i = 0;
-        for (const grt::dbfields::Field &f : it->second) {
+        for (const grt::dbfields::Field &f : it->second)
+        {
             const QVariant stored = record.value(f.column);
             QWidget *w = nullptr;
-            if (f.kind == Kind::BaseType) {
+            if (f.kind == Kind::BaseType)
+            {
                 auto *combo = new QComboBox;
                 combo->addItem(tr("flat base"), 0);
                 combo->addItem(tr("hollow base"), 1);
                 combo->addItem(tr("boat tail"), 2);
                 combo->setCurrentIndex(std::max(0, combo->findData(stored.toInt())));
                 w = combo;
-            } else if (f.kind == Kind::Choice) {
+            }
+            else if (f.kind == Kind::Choice)
+            {
                 // a fixed list: no free text, so the values stay consistent (the program reads some of them)
                 auto *combo = new QComboBox;
                 combo->addItem(tr("– not specified –"), QString());
@@ -125,23 +134,31 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 int index = combo->findData(value);
                 for (int k = 0; index < 0 && k < combo->count(); ++k)  // "Wildcat" is "WildCat"
                     if (combo->itemData(k).toString().compare(value, Qt::CaseInsensitive) == 0) index = k;
-                if (index < 0 && !value.isEmpty()) {  // an unusual value of an existing record is kept (e.g. "DE/AT")
+                if (index < 0 && !value.isEmpty())
+                {  // an unusual value of an existing record is kept (e.g. "DE/AT")
                     combo->addItem(value, value);
                     index = combo->count() - 1;
                 }
                 combo->setCurrentIndex(std::max(0, index));
                 combo->setMaxVisibleItems(20);
                 w = combo;
-            } else if (f.kind == Kind::LongText) {
+            }
+            else if (f.kind == Kind::LongText)
+            {
                 auto *edit = new QPlainTextEdit(stored.toString());
                 edit->setMaximumHeight(90);
                 w = edit;
-            } else {
+            }
+            else
+            {
                 auto *edit = new QLineEdit;
-                if (f.kind == Kind::Number) {
+                if (f.kind == Kind::Number)
+                {
                     edit->setText(stored.isValid() ? shownNumber(f, stored.toDouble()) : QString());
                     edit->setAlignment(Qt::AlignRight);
-                } else {
+                }
+                else
+                {
                     edit->setText(stored.toString());
                 }
                 edit->setReadOnly(f.readOnly);
@@ -165,7 +182,8 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     cl->addStretch(1);
 
     // a copy is a new record: name it so that it can be told apart, and forget the program's dates
-    if (mode == Mode::Copy) {
+    if (mode == Mode::Copy)
+    {
         const QString nameColumn = table == grt::Table::Caliber ? u"cipname"_s : u"pname"_s;
         setText(nameColumn, text(nameColumn) + tr(" (copy)"));
     }
@@ -198,7 +216,8 @@ QString RecordDialog::text(const QString &column) const
     if (!e) return {};
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) return l->text();
     if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) return p->toPlainText();
-    if (auto *c = qobject_cast<QComboBox *>(e->widget)) return e->field.kind == Kind::Choice ? c->currentData().toString() : c->currentText();
+    if (auto *c = qobject_cast<QComboBox *>(e->widget))
+        return e->field.kind == Kind::Choice ? c->currentData().toString() : c->currentText();
     return {};
 }
 
@@ -208,10 +227,14 @@ void RecordDialog::setText(const QString &column, const QString &text)
     if (!e) return;
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) l->setText(text);
     else if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) p->setPlainText(text);
-    else if (auto *c = qobject_cast<QComboBox *>(e->widget)) {
-        if (e->field.kind == Kind::Choice) {
+    else if (auto *c = qobject_cast<QComboBox *>(e->widget))
+    {
+        if (e->field.kind == Kind::Choice)
+        {
             if (const int i = c->findData(text); i >= 0) c->setCurrentIndex(i);
-        } else {
+        }
+        else
+        {
             c->setCurrentText(text);
         }
     }
@@ -226,7 +249,8 @@ std::optional<QVariant> RecordDialog::valueOf(const Editor &e) const
     return v ? std::optional<QVariant>(*v) : std::nullopt;
 }
 
-namespace {
+namespace
+{
 
 constexpr int kMaxPhotoSide = 1200;  // longer sides are scaled down: the photos live in the database
 
@@ -244,7 +268,8 @@ void RecordDialog::addPhotoGroup(QVBoxLayout *layout)
     auto *box = new QGroupBox(tr("Photos"));
     auto *grid = new QGridLayout(box);
     grid->setColumnStretch(2, 1);
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         PhotoSlot &slot = m_photos[static_cast<std::size_t>(i)];
         slot.column = columns[static_cast<std::size_t>(i)];
         slot.uuid = m_record.value(slot.column).toString();
@@ -262,17 +287,22 @@ void RecordDialog::addPhotoGroup(QVBoxLayout *layout)
         slot.scale->setToolTip(tr("Pixels per millimeter of the new photo (for the scale bar); empty: unknown"));
         auto *choose = new QPushButton(tr("Choose file…"));
         auto *remove = new QPushButton(tr("Remove"));
-        connect(choose, &QPushButton::clicked, this, [this, i] {
-            const QString path = QFileDialog::getOpenFileName(this, tr("Photo"), QString(), tr("Pictures (*.jpg *.jpeg *.png *.bmp);;All files (*)"));
-            if (path.isEmpty()) return;
-            const QImage img(path);
-            if (img.isNull()) {
-                QMessageBox::warning(this, windowTitle(), tr("%1 is not a picture this program can read.").arg(QDir::toNativeSeparators(path)));
-                return;
-            }
-            const auto scale = grt::parseFiniteLocale(m_photos[static_cast<std::size_t>(i)].scale->text());
-            setPhoto(i, img, scale && *scale > 0.0 ? *scale : 0.0, QFileInfo(path).fileName());
-        });
+        connect(choose, &QPushButton::clicked, this,
+                [this, i]
+                {
+                    const QString path = QFileDialog::getOpenFileName(this, tr("Photo"), QString(),
+                                                                      tr("Pictures (*.jpg *.jpeg *.png *.bmp);;All files (*)"));
+                    if (path.isEmpty()) return;
+                    const QImage img(path);
+                    if (img.isNull())
+                    {
+                        QMessageBox::warning(this, windowTitle(),
+                                             tr("%1 is not a picture this program can read.").arg(QDir::toNativeSeparators(path)));
+                        return;
+                    }
+                    const auto scale = grt::parseFiniteLocale(m_photos[static_cast<std::size_t>(i)].scale->text());
+                    setPhoto(i, img, scale && *scale > 0.0 ? *scale : 0.0, QFileInfo(path).fileName());
+                });
         connect(remove, &QPushButton::clicked, this, [this, i] { removePhoto(i); });
         grid->addWidget(new QLabel(titles[static_cast<std::size_t>(i)]), 3 * i, 0, 1, 2);
         grid->addWidget(slot.preview, 3 * i + 1, 0, 2, 1);
@@ -295,21 +325,24 @@ void RecordDialog::showPhoto(int slotIndex)
     PhotoSlot &slot = m_photos[static_cast<std::size_t>(slotIndex)];
     std::optional<grt::Database::Image> img = slot.pending;
     if (!img && !slot.uuid.isEmpty()) img = m_db->image(slot.uuid);
-    if (!img) {
+    if (!img)
+    {
         slot.preview->clear();
         slot.info->setText(slot.uuid.isEmpty() ? tr("No photo") : tr("The photo is not available in the database."));
         return;
     }
     slot.preview->setPixmap(QPixmap::fromImage(thumbnail(QImage::fromData(img->data))));
-    slot.info->setText(img->scaleUnit == u"px/mm" && img->scale > 0.0 ? tr("%1 (%2 px/mm)").arg(img->name, QLocale().toString(img->scale, 'f', 1))
-                                                                      : img->name);
+    slot.info->setText(img->scaleUnit == u"px/mm" && img->scale > 0.0
+                           ? tr("%1 (%2 px/mm)").arg(img->name, QLocale().toString(img->scale, 'f', 1))
+                           : img->name);
 }
 
 void RecordDialog::setPhoto(int slotIndex, const QImage &image, double pxPerMm, const QString &name)
 {
     if (slotIndex < 0 || slotIndex > 1 || image.isNull()) return;
     QImage img = image;
-    if (std::max(img.width(), img.height()) > kMaxPhotoSide) {
+    if (std::max(img.width(), img.height()) > kMaxPhotoSide)
+    {
         img = img.scaled(kMaxPhotoSide, kMaxPhotoSide, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         if (pxPerMm > 0.0) pxPerMm *= static_cast<double>(img.width()) / image.width();
     }
@@ -348,7 +381,8 @@ std::vector<grt::Database::Image> RecordDialog::pendingImages() const
 
 QString RecordDialog::firstError() const
 {
-    for (const Editor &e : m_editors) {
+    for (const Editor &e : m_editors)
+    {
         if (e.field.required && text(e.field.column).trimmed().isEmpty()) return e.field.label;
         if (!valueOf(e)) return e.field.label;
     }
@@ -363,9 +397,12 @@ QVariantMap RecordDialog::values() const
     if (m_table == grt::Table::Propellant)
         for (const PhotoSlot &slot : m_photos) out.insert(slot.column, slot.uuid);
     const QString today = QDate::currentDate().toString(Qt::ISODate);
-    if (m_mode == Mode::Edit) {
+    if (m_mode == Mode::Edit)
+    {
         out.insert(u"mdate"_s, today);
-    } else {
+    }
+    else
+    {
         out.insert(u"cdate"_s, today);
         out.insert(u"mdate"_s, QString());
     }
@@ -375,11 +412,13 @@ QVariantMap RecordDialog::values() const
 void RecordDialog::accept()
 {
     const QString wrong = firstError();
-    for (const Editor &e : m_editors) {
+    for (const Editor &e : m_editors)
+    {
         const bool bad = (e.field.required && text(e.field.column).trimmed().isEmpty()) || !valueOf(e);
         e.widget->setStyleSheet(bad ? u"background: #f6c6c6; color: black;"_s : QString());
     }
-    if (!wrong.isEmpty()) {
+    if (!wrong.isEmpty())
+    {
         QMessageBox::warning(this, windowTitle(), tr("Please check the field \"%1\".").arg(wrong));
         const auto it = std::ranges::find_if(m_editors, [&](const Editor &x) { return x.field.label == wrong; });
         if (it != m_editors.end()) it->widget->setFocus();

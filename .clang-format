@@ -1,6 +1,5 @@
-# Style of the existing code (4 spaces, braces of functions on their own line, 140 columns).
-# Format only what you touch (clang-format -i file, or "format selection" in the editor): the code base has not
-# been reformatted as a whole.
+# Allman braces, 4 spaces, 140 columns. The build runs clang-format -i on the sources (CMake option
+# GRT_FORMAT_ON_BUILD); do not fight it, change this file instead.
 Language: Cpp
 BasedOnStyle: LLVM
 Standard: c++20
@@ -12,16 +11,7 @@ AccessModifierOffset: -4
 NamespaceIndentation: None
 PointerAlignment: Right
 ReferenceAlignment: Right
-BreakBeforeBraces: Custom
-BraceWrapping:
-  AfterFunction: true
-  AfterClass: false
-  AfterStruct: false
-  AfterEnum: false
-  AfterNamespace: false
-  AfterControlStatement: Never
-  BeforeElse: false
-  BeforeCatch: false
+BreakBeforeBraces: Allman
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLoopsOnASingleLine: true

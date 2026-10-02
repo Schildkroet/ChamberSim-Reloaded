@@ -30,8 +30,9 @@ void UnitPreferences::load()
 void UnitPreferences::save() const
 {
     QSettings s;
-    s.setValue(QStringLiteral("units/system"),
-               m_system == System::Metric ? QStringLiteral("metric") : m_system == System::Imperial ? QStringLiteral("imperial") : QStringLiteral("original"));
+    s.setValue(QStringLiteral("units/system"), m_system == System::Metric     ? QStringLiteral("metric")
+                                               : m_system == System::Imperial ? QStringLiteral("imperial")
+                                                                              : QStringLiteral("original"));
     s.remove(QStringLiteral("units/field"));
     s.beginGroup(QStringLiteral("units/field"));
     for (auto it = m_fieldUnits.cbegin(); it != m_fieldUnits.cend(); ++it) s.setValue(it.key(), it.value());

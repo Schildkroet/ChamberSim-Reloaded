@@ -7,9 +7,11 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt {
+namespace grt
+{
 
-namespace {
+namespace
+{
 
 // Metres per second for the unit texts the chronographs print; 0 = unknown.
 double velocityFactor(QString unit)
@@ -48,9 +50,11 @@ QString tr(const char *text)
 std::optional<ChronographFile> readMagnetoSpeed(const QStringList &lines, QString *error)
 {
     ChronographFile file{.format = ChronographFormat::MagnetoSpeed, .series = {}};
-    for (const QString &line : lines) {
+    for (const QString &line : lines)
+    {
         const QStringList f = splitLine(line, u',');
-        if (f.size() >= 4 && f[0].compare(u"Series", Qt::CaseInsensitive) == 0 && f[2].compare(u"Shots:", Qt::CaseInsensitive) == 0) {
+        if (f.size() >= 4 && f[0].compare(u"Series", Qt::CaseInsensitive) == 0 && f[2].compare(u"Shots:", Qt::CaseInsensitive) == 0)
+        {
             file.series.push_back({.name = tr("Series %1").arg(f[1]), .velocities_ms = {}});
             continue;
         }
@@ -64,7 +68,8 @@ std::optional<ChronographFile> readMagnetoSpeed(const QStringList &lines, QStrin
         if (*v > 0.0) file.series.back().velocities_ms.push_back(*v * factor);
     }
     std::erase_if(file.series, [](const ChronographSeries &s) { return s.velocities_ms.empty(); });
-    if (file.series.empty()) {
+    if (file.series.empty())
+    {
         if (error) *error = tr("The file contains no shots.");
         return std::nullopt;
     }
@@ -77,10 +82,12 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QString *e
     ChronographSeries series;
     double factor = 0.0;
     int v0 = -1;
-    for (const QString &line : lines) {
+    for (const QString &line : lines)
+    {
         const QStringList f = splitLine(line, u';');
         if (f.isEmpty()) continue;
-        if (v0 < 0) {
+        if (v0 < 0)
+        {
             if (f[0] == u"Series No" && f.size() > 1) series.name = u"SR"_s + f[1];
             else if (f[0] == u"Units velocity" && f.size() > 1) factor = velocityFactor(f[1]);
             else if (f[0] == u"Shot ID") v0 = static_cast<int>(f.indexOf(u"V0"_s));
@@ -91,11 +98,13 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QString *e
         if (!idOk || v0 >= f.size()) continue;
         if (const auto v = number(f[v0]); v && *v > 0.0) series.velocities_ms.push_back(*v * factor);
     }
-    if (factor <= 0.0) {
+    if (factor <= 0.0)
+    {
         if (error) *error = tr("The velocity unit of the file is unknown.");
         return std::nullopt;
     }
-    if (series.velocities_ms.empty()) {
+    if (series.velocities_ms.empty())
+    {
         if (error) *error = tr("The file contains no shots.");
         return std::nullopt;
     }
@@ -108,7 +117,8 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QString *e
 
 QString formatName(ChronographFormat f)
 {
-    switch (f) {
+    switch (f)
+    {
     case ChronographFormat::MagnetoSpeed: return u"MagnetoSpeed"_s;
     case ChronographFormat::Labradar: return u"Labradar"_s;
     default: return {};
@@ -123,7 +133,8 @@ std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *
     const QStringList lines = QString::fromUtf8(bytes).split(u'\n');
     const bool labradar = std::ranges::any_of(lines, [](const QString &l) { return l.trimmed().startsWith(u"Shot ID;"); });
     if (labradar) return readLabradar(lines, error);
-    const bool magneto = std::ranges::any_of(lines, [](const QString &l) { return l.contains(u"Shots:", Qt::CaseInsensitive) && l.trimmed().startsWith(u"Series"); });
+    const bool magneto = std::ranges::any_of(lines, [](const QString &l)
+                                             { return l.contains(u"Shots:", Qt::CaseInsensitive) && l.trimmed().startsWith(u"Series"); });
     if (magneto) return readMagnetoSpeed(lines, error);
     if (error) *error = tr("Not a MagnetoSpeed or Labradar file.");
     return std::nullopt;

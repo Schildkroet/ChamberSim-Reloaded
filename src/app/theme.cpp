@@ -8,9 +8,11 @@
 #include <QStyle>
 #include <QStyleFactory>
 
-namespace theme {
+namespace theme
+{
 
-namespace {
+namespace
+{
 constexpr auto kKey = "ui/theme";
 
 QPalette darkPalette()
@@ -42,7 +44,8 @@ QPalette darkPalette()
 // Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the
 // Fusion/GTK popup that covers the field and tries to show every item. A long list (e.g. the countries) does not
 // fit on the screen and gets moved; on Wayland the mouse release then lands outside and closes it at once.
-class ListPopupStyle : public QProxyStyle {
+class ListPopupStyle : public QProxyStyle
+{
 public:
     using QProxyStyle::QProxyStyle;
     int styleHint(StyleHint hint, const QStyleOption *option, const QWidget *widget, QStyleHintReturn *ret) const override
@@ -76,7 +79,8 @@ void apply(QApplication &app, Mode mode)
 {
     static const QString systemStyle = app.style()->name();
     static const QPalette systemPalette = app.palette();
-    switch (mode) {
+    switch (mode)
+    {
     case Mode::System:
         setStyle(app, systemStyle);
         app.setPalette(systemPalette);

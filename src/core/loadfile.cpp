@@ -13,7 +13,8 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt {
+namespace grt
+{
 
 QString percentDecode(const QString &s)
 {
@@ -25,7 +26,8 @@ QString percentEncode(const QString &s)
     return QString::fromLatin1(QUrl::toPercentEncoding(s));
 }
 
-namespace {
+namespace
+{
 
 [[nodiscard]] bool isTextual(const Entry &e)
 {
@@ -46,7 +48,8 @@ void writeEntry(QXmlStreamWriter &w, const QString &tag, const Entry &e)
     w.writeEmptyElement(tag);
     w.writeAttribute(u"name"_s, e.name);
     w.writeAttribute(u"value"_s, isTextual(e) ? percentEncode(e.value) : e.value);
-    if (!e.type.isEmpty() || !e.unit.isEmpty() || !e.descr.isEmpty()) {
+    if (!e.type.isEmpty() || !e.unit.isEmpty() || !e.descr.isEmpty())
+    {
         w.writeAttribute(u"unit"_s, e.unit);
         w.writeAttribute(u"type"_s, e.type);
         w.writeAttribute(u"descr"_s, e.descr);
@@ -57,8 +60,10 @@ void writeEntry(QXmlStreamWriter &w, const QString &tag, const Entry &e)
 void copyChildren(QXmlStreamReader &r, QXmlStreamWriter &w)
 {
     int depth = 0;
-    while (!r.atEnd()) {
-        switch (r.readNext()) {
+    while (!r.atEnd())
+    {
+        switch (r.readNext())
+        {
         case QXmlStreamReader::StartElement:
             w.writeStartElement(r.name().toString());
             w.writeAttributes(r.attributes());
@@ -72,15 +77,15 @@ void copyChildren(QXmlStreamReader &r, QXmlStreamWriter &w)
         case QXmlStreamReader::Characters:
             if (!r.isWhitespace()) w.writeCharacters(r.text().toString());
             break;
-        default:
-            break;
+        default: break;
         }
     }
 }
 
 void readList(QXmlStreamReader &r, EntryList &list, QStringView childTag)
 {
-    while (r.readNextStartElement()) {
+    while (r.readNextStartElement())
+    {
         if (r.name() == childTag) list.entries().push_back(readEntry(r.attributes()));
         r.skipCurrentElement();
     }
@@ -125,10 +130,12 @@ bool EntryList::flag(QStringView name, bool fallback) const
 
 void EntryList::set(QStringView name, const QString &value)
 {
-    if (auto it = std::ranges::find_if(m_entries, [&](const Entry &e) { return e.name == name; });
-        it != m_entries.end()) {
+    if (auto it = std::ranges::find_if(m_entries, [&](const Entry &e) { return e.name == name; }); it != m_entries.end())
+    {
         it->value = value;
-    } else {
+    }
+    else
+    {
         m_entries.push_back({.name = name.toString(), .value = value, .unit = {}, .type = {}, .descr = {}});
     }
 }
@@ -143,7 +150,8 @@ void EntryList::set(QStringView name, double value)
 std::optional<LoadFile> LoadFile::read(const QString &path, QString *error)
 {
     QFile f(path);
-    if (!f.open(QIODevice::ReadOnly)) {
+    if (!f.open(QIODevice::ReadOnly))
+    {
         if (error) *error = f.errorString();
         return std::nullopt;
     }
@@ -156,54 +164,78 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
     LoadFile lf;
     bool found = false;
 
-    if (!r.readNextStartElement() || r.name() != u"GordonsReloadingTool") {
+    if (!r.readNextStartElement() || r.name() != u"GordonsReloadingTool")
+    {
         if (error) *error = QCoreApplication::translate("grt::LoadFile", "Not a GordonsReloadingTool file");
         return std::nullopt;
     }
     lf.appVersion = r.attributes().value(u"version"_s).toString();
 
-    while (r.readNextStartElement()) {
-        if (r.name() != u"InnerBallistikInput") {
+    while (r.readNextStartElement())
+    {
+        if (r.name() != u"InnerBallistikInput")
+        {
             r.skipCurrentElement();
             continue;
         }
         found = true;
-        while (r.readNextStartElement()) {
+        while (r.readNextStartElement())
+        {
             const auto tag = r.name();
-            if (tag == u"title") {
+            if (tag == u"title")
+            {
                 lf.title = percentDecode(r.readElementText());
-            } else if (tag == u"config") {
+            }
+            else if (tag == u"config")
+            {
                 lf.config.entries().push_back(readEntry(r.attributes()));
                 r.skipCurrentElement();
-            } else if (tag == u"caliber") {
+            }
+            else if (tag == u"caliber")
+            {
                 readList(r, lf.caliber, u"input");
-            } else if (tag == u"caliberfile") {
+            }
+            else if (tag == u"caliberfile")
+            {
                 readList(r, lf.caliberFile, u"var");
-            } else if (tag == u"gun") {
+            }
+            else if (tag == u"gun")
+            {
                 readList(r, lf.gun, u"input");
-            } else if (tag == u"projectile") {
+            }
+            else if (tag == u"projectile")
+            {
                 readList(r, lf.projectile, u"input");
-            } else if (tag == u"propellant") {
+            }
+            else if (tag == u"propellant")
+            {
                 readList(r, lf.propellant, u"input");
-            } else if (tag == u"appendix") {
+            }
+            else if (tag == u"appendix")
+            {
                 QByteArray inner;
                 QXmlStreamWriter w(&inner);
                 w.setAutoFormatting(true);
                 w.setAutoFormattingIndent(2);
                 copyChildren(r, w);
                 lf.appendixXml = QString::fromUtf8(inner);
-            } else {
+            }
+            else
+            {
                 r.skipCurrentElement();
             }
         }
     }
 
-    if (r.hasError()) {
+    if (r.hasError())
+    {
         if (error) *error = r.errorString();
         return std::nullopt;
     }
-    if (!found) {
-        if (error) *error = QCoreApplication::translate("grt::LoadFile", "The file contains no load data (<InnerBallistikInput> is missing)");
+    if (!found)
+    {
+        if (error)
+            *error = QCoreApplication::translate("grt::LoadFile", "The file contains no load data (<InnerBallistikInput> is missing)");
         return std::nullopt;
     }
     return lf;
@@ -227,7 +259,8 @@ QByteArray LoadFile::toXml() const
     writeList(w, u"projectile"_s, projectile, u"input"_s);
     writeList(w, u"propellant"_s, propellant, u"input"_s);
     w.writeStartElement(u"appendix"_s);
-    if (!appendixXml.isEmpty()) {
+    if (!appendixXml.isEmpty())
+    {
         // appendix content is already well-formed XML: splice it in verbatim
         QXmlStreamReader ar(u"<a>"_s + appendixXml + u"</a>"_s);
         ar.readNextStartElement();
@@ -243,7 +276,8 @@ QByteArray LoadFile::toXml() const
 bool LoadFile::write(const QString &path, QString *error) const
 {
     QSaveFile f(path);
-    if (!f.open(QIODevice::WriteOnly) || f.write(toXml()) < 0 || !f.commit()) {
+    if (!f.open(QIODevice::WriteOnly) || f.write(toXml()) < 0 || !f.commit())
+    {
         if (error) *error = f.errorString();
         return false;
     }

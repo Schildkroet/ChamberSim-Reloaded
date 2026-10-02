@@ -13,7 +13,8 @@ class QSqlTableModel;
 class QTableView;
 
 // Sortable, filterable view of one database table (caliber, projectile, propellant).
-class TableBrowser : public QWidget {
+class TableBrowser : public QWidget
+{
     Q_OBJECT
 public:
     explicit TableBrowser(grt::Table table, QWidget *parent = nullptr);

@@ -5,11 +5,20 @@
 
 #include <optional>
 
-namespace grt::log {
+namespace grt::log
+{
 
-enum class Level { Debug, Info, Warn, Error, Off };  // Off: nothing is logged
+enum class Level
+{
+    Debug,
+    Info,
+    Warn,
+    Error,
+    Off
+};  // Off: nothing is logged
 
-struct Config {
+struct Config
+{
     Level level{Level::Warn};  // messages below this level are dropped
     bool console{true};        // write to stderr
     bool file{false};          // write to `path`
@@ -37,9 +46,15 @@ void installMessageHandler();
 void write(Level level, const char *file, int line, const QString &message);
 
 // LOG_Info() << "opened" << path;   one line per statement, formatted like qDebug (QString without quotes).
-class Line {
+class Line
+{
 public:
-    Line(Level level, const char *file, int line) : m_level(level), m_file(file), m_line(line), m_active(enabled(level)), m_stream(&m_text)
+    Line(Level level, const char *file, int line)
+        : m_level(level)
+        , m_file(file)
+        , m_line(line)
+        , m_active(enabled(level))
+        , m_stream(&m_text)
     {
         m_stream.noquote();
     }

@@ -14,7 +14,8 @@
 // record in data/<calibers|projectiles|propellants>/, the values in the units of the database columns (as in the
 // original program's database: bullet mass and case capacity in grains, lengths in mm, pressures in bar, ...).
 // The files are built into the program and loaded into a read-only part of the database at startup.
-namespace grt::projectdata {
+namespace grt::projectdata
+{
 
 // Column name -> SQL type of a table, in schema order (Database::schema).
 using Schema = std::vector<std::pair<QString, QString>>;
@@ -22,7 +23,8 @@ using Schema = std::vector<std::pair<QString, QString>>;
 // "calibers", "projectiles", "propellants".
 [[nodiscard]] QString folderName(Table t);
 
-struct Loaded {
+struct Loaded
+{
     std::vector<QVariantMap> records;  // sorted by file name; no "id"
     QStringList errors;                // "file: problem", one per problem
 };

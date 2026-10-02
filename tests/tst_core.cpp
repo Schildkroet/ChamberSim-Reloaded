@@ -32,7 +32,8 @@
 
 using namespace Qt::StringLiterals;
 
-class CoreTest : public QObject {
+class CoreTest : public QObject
+{
     Q_OBJECT
 
 private slots:
@@ -124,12 +125,14 @@ void CoreTest::loadFileRoundTrip()
     QVERIFY(b);
     QCOMPARE(b->title, a->title);
     QCOMPARE(b->caliberFile.entries().size(), a->caliberFile.entries().size());
-    for (const auto sel : {&grt::LoadFile::caliber, &grt::LoadFile::gun, &grt::LoadFile::projectile,
-                            &grt::LoadFile::propellant, &grt::LoadFile::caliberFile, &grt::LoadFile::config}) {
+    for (const auto sel : {&grt::LoadFile::caliber, &grt::LoadFile::gun, &grt::LoadFile::projectile, &grt::LoadFile::propellant,
+                           &grt::LoadFile::caliberFile, &grt::LoadFile::config})
+    {
         const auto &ea = ((*a).*sel).entries();
         const auto &eb = ((*b).*sel).entries();
         QCOMPARE(eb.size(), ea.size());
-        for (std::size_t i = 0; i < ea.size(); ++i) {
+        for (std::size_t i = 0; i < ea.size(); ++i)
+        {
             QCOMPARE(eb[i].name, ea[i].name);
             QCOMPARE(eb[i].value, ea[i].value);
             QCOMPARE(eb[i].unit, ea[i].unit);
@@ -184,8 +187,8 @@ void CoreTest::measurementWritesBackWithoutLosingData()
     m->charges[0].note = u"edited note"_s;
     m->charges.push_back(grt::MeasuredCharge::create(u"Charge 2"_s, 3.3));
     const QString written = grt::writeMeasurement(appendix, *m);
-    QVERIFY(written.contains(u"hello%20world"_s));           // the note block is untouched
-    QVERIFY(written.contains(u"<PressureTraceFile"_s));        // so is the pressure trace
+    QVERIFY(written.contains(u"hello%20world"_s));       // the note block is untouched
+    QVERIFY(written.contains(u"<PressureTraceFile"_s));  // so is the pressure trace
     QVERIFY(written.contains(u"value=\"24 inch\""_s));
     QVERIFY(written.contains(u"source=\"PressureTrace\""_s));  // and the attributes this program does not edit
     QVERIFY(written.contains(u"showinreport=\"false\""_s));
@@ -273,8 +276,9 @@ void CoreTest::chronographFiles()
     QCOMPARE(m->series[1].velocities_ms, std::vector<double>{830.5});  // a 0 is a missed shot
 
     // the Labradar report: NUL padded lines, V0 column, unit from the header
-    static constexpr char kLabradar[] = "sep=;\r\nDevice ID;LBR-1;;\0   \r\n\0Series No;0003;;\0  \r\n\0Units velocity;fps;;\0  \r\n\0\r\n"
-                    "Shot ID;V0;V1;V2;Ke0\r\n0001;2755;2754;2752;2393;\r\n0002;;2752;2751;;\r\n0003;2754;2753;2751;2391;\r\n";
+    static constexpr char kLabradar[] =
+        "sep=;\r\nDevice ID;LBR-1;;\0   \r\n\0Series No;0003;;\0  \r\n\0Units velocity;fps;;\0  \r\n\0\r\n"
+        "Shot ID;V0;V1;V2;Ke0\r\n0001;2755;2754;2752;2393;\r\n0002;;2752;2751;;\r\n0003;2754;2753;2751;2391;\r\n";
     const auto l = grt::readChronograph(QByteArray(kLabradar, sizeof kLabradar - 1), &error);
     QVERIFY2(l, qPrintable(error));
     QCOMPARE(l->format, grt::ChronographFormat::Labradar);
@@ -356,7 +360,9 @@ void CoreTest::ownRecordsKeepTheirPhotos()
         grt::Database db;
         QVERIFY(db.open(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db"), own));
         QSqlQuery q(db.handle());
-        QVERIFY(q.exec(u"SELECT id FROM propellant WHERE imageUuid != '' AND imageDetailUuid != '' AND geloescht = 0 ORDER BY id LIMIT 1"_s) && q.next());
+        QVERIFY(
+            q.exec(u"SELECT id FROM propellant WHERE imageUuid != '' AND imageDetailUuid != '' AND geloescht = 0 ORDER BY id LIMIT 1"_s) &&
+            q.next());
         const auto record = db.record(grt::Table::Propellant, q.value(0).toInt());
         QVERIFY(record);
         uuid = record->value(u"imageUuid"_s).toString();
@@ -364,7 +370,7 @@ void CoreTest::ownRecordsKeepTheirPhotos()
         QVERIFY(db.image(uuid) && db.image(detail));
         QSqlQuery inOwn(db.handle());
         QVERIFY(inOwn.exec(u"SELECT count(*) FROM main.image"_s) && inOwn.next());
-        QCOMPARE(inOwn.value(0).toInt(), 0);  // the pictures are in the original database only
+        QCOMPARE(inOwn.value(0).toInt(), 0);                  // the pictures are in the original database only
         QVERIFY(db.insert(grt::Table::Propellant, *record));  // a copy of the powder as an own record
         QVERIFY(inOwn.exec(u"SELECT count(*) FROM main.image"_s) && inOwn.next());
         QCOMPARE(inOwn.value(0).toInt(), 2);  // ... now copied
@@ -395,7 +401,8 @@ void CoreTest::ownRecordsKeepTheirPhotos()
 // and the curve drops towards z = 1.
 void CoreTest::burnRateCurveIsContinuous()
 {
-    for (const char *file : {"/8x57is.grtload", "/POWDER-MEASURE-TEMPLATE.grtload"}) {
+    for (const char *file : {"/8x57is.grtload", "/POWDER-MEASURE-TEMPLATE.grtload"})
+    {
         const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR) + QLatin1String(file));
         QVERIFY(lf);
         const grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -431,7 +438,7 @@ void CoreTest::simInputFromLoad()
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimInput in = grt::SimInput::fromLoad(*lf);
-    QCOMPARE(in.startPosition_mm(), 46.6);                       // 57 - 10.4
+    QCOMPARE(in.startPosition_mm(), 46.6);  // 57 - 10.4
     QCOMPARE(in.effectiveMass_g(), 12.700586359951799 + 0.5 * 2.721554219989671);
     QCOMPARE(in.vivacityBa, 0.5814);
     QCOMPARE(in.startPressure_bar, 250.0);
@@ -443,7 +450,8 @@ void CoreTest::temperatureCoefficients()
 {
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
-    const auto pmax = [&](double T, double tcc, double tch) {
+    const auto pmax = [&](double T, double tcc, double tch)
+    {
         grt::SimInput in = grt::SimInput::fromLoad(*lf);
         in.temperature_C = T;
         in.coldCoeff = tcc;
@@ -452,9 +460,9 @@ void CoreTest::temperatureCoefficients()
         return r.maxPressure_bar;
     };
     const double base = pmax(21, 0, 0);
-    QVERIFY(pmax(-20, 0, 0) < base * 0.97);   // default: about -4 % when cold
-    QVERIFY(pmax(60, 0, 0) > base * 1.05);    // and about +8 % when hot
-    QVERIFY(pmax(-20, 0.0016, 0) > base);     // explicit positive tcc: slightly more pressure (the original does the same)
+    QVERIFY(pmax(-20, 0, 0) < base * 0.97);  // default: about -4 % when cold
+    QVERIFY(pmax(60, 0, 0) > base * 1.05);   // and about +8 % when hot
+    QVERIFY(pmax(-20, 0.0016, 0) > base);    // explicit positive tcc: slightly more pressure (the original does the same)
     QVERIFY(pmax(-20, -0.0476, 0) < base * 0.92);
     QVERIFY(pmax(60, 0, 0.0668) > base * 1.10);
     QCOMPARE_LT(std::abs(pmax(-20, 0.0016, 0) / base - 1.0), 0.01);  // ... but only slightly (original: +0.3 %)
@@ -472,7 +480,8 @@ void CoreTest::fastPowdersAndCovolume()
 {
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
-    const auto pmax = [&](double ba, double xe, double pc) {
+    const auto pmax = [&](double ba, double xe, double pc)
+    {
         grt::SimInput in = grt::SimInput::fromLoad(*lf);
         in.vivacityBa = ba;
         in.barrelLength_mm = xe;
@@ -515,7 +524,8 @@ void CoreTest::solverMatchesMomentumRule()
     QVERIFY(std::abs(dx - (600.0 - 46.6) / 2000 * 1e-3) < 1e-12);
     const double m = in.effectiveMass_g() * 1e-3;
     const double A = in.boreArea_mm2 * 1e-6;
-    for (std::size_t i = 1; i < r.points.size(); ++i) {
+    for (std::size_t i = 1; i < r.points.size(); ++i)
+    {
         const double dK = 0.5 * m * (std::pow(r.points[i].v_ms, 2) - std::pow(r.points[i - 1].v_ms, 2));
         const double W = A * dx * r.points[i].p_bar * 1e5;
         QVERIFY2(std::abs(dK / W - 1.0) < 1e-6, qPrintable(u"step %1"_s.arg(i)));
@@ -583,7 +593,8 @@ void CoreTest::bulletBaseTypesChangeTheChamberVolume()
 {
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
-    const auto effective = [&](int type) {
+    const auto effective = [&](int type)
+    {
         lf->projectile.set(u"gTailType", static_cast<double>(type));
         return grt::simulate(grt::SimInput::fromLoad(*lf)).effectiveCaseVolume_cm3;
     };
@@ -592,7 +603,7 @@ void CoreTest::bulletBaseTypesChangeTheChamberVolume()
     QVERIFY(std::abs(flat - (lf->caliber.number(u"casevol") - M_PI / 4 * dBul * dBul * depth * 1e-3)) < 1e-6);
     // cone between A = 8.2 mm and B = 6.8 mm over 5.1 mm
     const double R = 4.1, r = 3.4, h = 5.1;
-    const double cone = M_PI * h / 3.0 * (R * R + R * r + r * r) * 1e-3;       // cm3
+    const double cone = M_PI * h / 3.0 * (R * R + R * r + r * r) * 1e-3;  // cm3
     const double cylinder = M_PI * R * R * h * 1e-3;
     QVERIFY(std::abs(hollow - (flat + cone)) < 1e-6);
     QVERIFY(std::abs(boat - (flat + cylinder - cone)) < 1e-6);
@@ -613,12 +624,14 @@ void CoreTest::ladderStepsDescendFromTheSelectedCharge()
     lf->propellant.set(u"laddermc", 0.2);
     const auto ladder = grt::simulateLadder(grt::SimInput::fromLoad(*lf));
     QCOMPARE(ladder.size(), std::size_t{4});
-    for (std::size_t i = 0; i < ladder.size(); ++i) {
+    for (std::size_t i = 0; i < ladder.size(); ++i)
+    {
         QVERIFY(ladder[i].result.ok());
         QVERIFY(std::abs(ladder[i].charge_g - (mc - 0.2 * static_cast<double>(i))) < 1e-12);
     }
     // less powder, less pressure and less speed
-    for (std::size_t i = 1; i < ladder.size(); ++i) {
+    for (std::size_t i = 1; i < ladder.size(); ++i)
+    {
         QVERIFY(ladder[i].result.maxPressure_bar < ladder[i - 1].result.maxPressure_bar);
         QVERIFY(ladder[i].result.muzzleVelocity_ms < ladder[i - 1].result.muzzleVelocity_ms);
     }
@@ -697,7 +710,8 @@ void CoreTest::chargeRuleMatchesTheOriginal()
     const QDir results(QStringLiteral(GRT_SOURCE_DIR "/reference/results"));
     const QDir jobs(QStringLiteral(GRT_SOURCE_DIR "/tools/GRTRef/jobs_all"));
     int rejected = 0, accepted = 0;
-    for (const QFileInfo &fi : results.entryInfoList({u"exp_*.json"_s}, QDir::Files)) {
+    for (const QFileInfo &fi : results.entryInfoList({u"exp_*.json"_s}, QDir::Files))
+    {
         const QString name = fi.completeBaseName().mid(4);
         const auto ref = grt::readReferenceRun(fi.absoluteFilePath());
         const auto lf = grt::LoadFile::read(jobs.filePath(u"exp_%1.grtload"_s.arg(name)));
@@ -705,10 +719,13 @@ void CoreTest::chargeRuleMatchesTheOriginal()
         const bool tooHigh = ref->summary.value(u"PropellantChargeTooHigh"_s).toString() == u"true"_s;
         if (ref->points.empty() && !tooHigh) continue;  // e.g. the first job of a batch, read too early
         const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(*lf));
-        if (tooHigh) {
+        if (tooHigh)
+        {
             QVERIFY2(r.status == grt::SimStatus::ChargeTooHigh, qPrintable(name));
             ++rejected;
-        } else {
+        }
+        else
+        {
             QVERIFY2(r.ok(), qPrintable(name));
             ++accepted;
         }
@@ -721,10 +738,11 @@ void CoreTest::chargeRuleMatchesTheOriginal()
 void CoreTest::solverVersusReference_data()
 {
     QTest::addColumn<QString>("name");
-    QTest::addColumn<double>("pTol");   // relative tolerance on max pressure
-    QTest::addColumn<double>("vTol");   // relative tolerance on muzzle velocity
+    QTest::addColumn<double>("pTol");  // relative tolerance on max pressure
+    QTest::addColumn<double>("vTol");  // relative tolerance on muzzle velocity
     // Provisional model: tolerances are loose and meant to be tightened as the solver improves.
-    for (const char *n : {"base", "mc_x0.8", "mc_x1.2", "mp_x0.5", "mp_x2.0", "sebert_0.0", "sebert_1.0", "xe_400", "xe_1000", "pw_562", "pw_599", "pw_675"})
+    for (const char *n : {"base", "mc_x0.8", "mc_x1.2", "mp_x0.5", "mp_x2.0", "sebert_0.0", "sebert_1.0", "xe_400", "xe_1000", "pw_562",
+                          "pw_599", "pw_675"})
         QTest::newRow(n) << QString::fromLatin1(n) << 0.10 << 0.035;
     // other cartridges (case volumes 1.2 .. 13.7 cm3, bore areas 24 .. 130 mm2)
     for (const char *n : {"cal_04", "cal_08", "cal_12", "cal_16", "cal_20", "cal_24", "cal_29", "cal_31", "cal_35"})
@@ -865,15 +883,18 @@ void CoreTest::ownDatabaseNeverStoresNull()
     grt::Database db;
     QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
     QString err;
-    const auto id = db.insert(grt::Table::Propellant, {{u"pname"_s, u"Test"_s}, {u"Ba"_s, std::numeric_limits<double>::quiet_NaN()},
-                                                      {u"mname"_s, QVariant()}, {u"lotid"_s, QString()}}, &err);
+    const auto id = db.insert(
+        grt::Table::Propellant,
+        {{u"pname"_s, u"Test"_s}, {u"Ba"_s, std::numeric_limits<double>::quiet_NaN()}, {u"mname"_s, QVariant()}, {u"lotid"_s, QString()}},
+        &err);
     QVERIFY2(id, qPrintable(err));
     auto r = db.record(grt::Table::Propellant, *id);
     QVERIFY(r);
     QCOMPARE(r->value(u"Ba"_s).toDouble(), 0.0);
     QCOMPARE(r->value(u"mname"_s).toString(), QString());
-    QVERIFY2(db.update(grt::Table::Propellant, *id, {{u"Qex"_s, std::numeric_limits<double>::infinity()}, {u"mname"_s, QVariant()},
-                                                    {u"descr"_s, QString()}}, &err), qPrintable(err));
+    QVERIFY2(db.update(grt::Table::Propellant, *id,
+                       {{u"Qex"_s, std::numeric_limits<double>::infinity()}, {u"mname"_s, QVariant()}, {u"descr"_s, QString()}}, &err),
+             qPrintable(err));
     r = db.record(grt::Table::Propellant, *id);
     QCOMPARE(r->value(u"Qex"_s).toDouble(), 0.0);
     QCOMPARE(r->value(u"pname"_s).toString(), u"Test"_s);
@@ -885,7 +906,8 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
     QTemporaryDir dir;
     QDir().mkpath(dir.filePath(u"data/propellants"_s));
     QDir().mkpath(dir.filePath(u"data/calibers"_s));
-    const auto write = [&](const QString &name, const QByteArray &text) {
+    const auto write = [&](const QString &name, const QByteArray &text)
+    {
         QFile f(dir.filePath(u"data/"_s + name));
         QVERIFY(f.open(QIODevice::WriteOnly));
         f.write(text);
@@ -976,12 +998,14 @@ void CoreTest::powderFitFindsTheBurnRate()
     grt::SimInput truth = grt::SimInput::fromLoad(*lf);
     truth.vivacityBa = trueBa;
     grt::Measurement m{.title = u"M"_s, .charges = {}, .attributes = {}};
-    for (const double g : {2.4, 2.6, 2.75}) {
+    for (const double g : {2.4, 2.6, 2.75})
+    {
         truth.charge_g = g;
         const grt::SimResult r = grt::simulate(truth);
         QVERIFY(r.ok());
         grt::MeasuredCharge c = grt::MeasuredCharge::create(u"c"_s, g);
-        for (const double d : {-3.0, -1.0, 0.0, 1.0, 3.0}) c.shots.push_back({.velocity_ms = r.muzzleVelocity_ms + d});  // scatter, mean exact
+        for (const double d : {-3.0, -1.0, 0.0, 1.0, 3.0})
+            c.shots.push_back({.velocity_ms = r.muzzleVelocity_ms + d});  // scatter, mean exact
         m.charges.push_back(c);
     }
     lf->appendixXml = grt::writeMeasurement(lf->appendixXml, m);
@@ -1044,7 +1068,8 @@ void CoreTest::normalizeLanguageTags()
     QCOMPARE(grt::normalizeLanguage({}), QString());
 }
 
-namespace {
+namespace
+{
 
 // First non-deleted record of `table` matching the SQL condition.
 std::optional<QVariantMap> findRecord(grt::Database &db, grt::Table t, const QString &where)
@@ -1069,10 +1094,10 @@ void CoreTest::loadBuilderMatchesOriginal()
     QVERIFY(cal && prj && pro);
 
     // the same choices as in the sample load of the original program
-    const grt::LoadFile built = grt::buildLoad(*cal, *prj, *pro,
-                                               {.charge_g = 2.721554219989671, .barrelLength_mm = 600.0, .seatingDepth_mm = 10.4,
-                                                .twistLength_mm = 240.0, .gunWeight_kg = 3.7},
-                                               db.columns(grt::Table::Caliber));
+    const grt::LoadFile built = grt::buildLoad(
+        *cal, *prj, *pro,
+        {.charge_g = 2.721554219989671, .barrelLength_mm = 600.0, .seatingDepth_mm = 10.4, .twistLength_mm = 240.0, .gunWeight_kg = 3.7},
+        db.columns(grt::Table::Caliber));
     const auto orig = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(orig);
 
@@ -1087,16 +1112,19 @@ void CoreTest::loadBuilderMatchesOriginal()
     for (const char16_t *k : {u"xe", u"twistlen", u"mgun"}) QCOMPARE(built.gun.number(k), orig->gun.number(k));
     for (const char16_t *k : {u"Dbul", u"mp", u"gdepth", u"glen", u"gpressure", u"gtailh", u"gTailDiaA", u"gTailDiaB", u"gTailType"})
         QCOMPARE(built.projectile.number(k), orig->projectile.number(k));
-    QCOMPARE(QString(built.projectile.text(u"ProjectileName")).remove(u'#'), QString(orig->projectile.text(u"ProjectileName")).remove(u'#'));
+    QCOMPARE(QString(built.projectile.text(u"ProjectileName")).remove(u'#'),
+             QString(orig->projectile.text(u"ProjectileName")).remove(u'#'));
     for (const char16_t *k : {u"Ba", u"Qex", u"k", u"a0", u"z1", u"z2", u"pc", u"pcd", u"mc", u"laddermc"})
         QCOMPARE(built.propellant.number(k), orig->propellant.number(k));
 
     // same set and order of fields as the original program writes
-    for (const auto sel : {&grt::LoadFile::caliber, &grt::LoadFile::gun, &grt::LoadFile::projectile, &grt::LoadFile::propellant}) {
+    for (const auto sel : {&grt::LoadFile::caliber, &grt::LoadFile::gun, &grt::LoadFile::projectile, &grt::LoadFile::propellant})
+    {
         const auto &a = (built.*sel).entries();
         const auto &b = ((*orig).*sel).entries();
         QCOMPARE(a.size(), b.size());
-        for (std::size_t i = 0; i < a.size(); ++i) {
+        for (std::size_t i = 0; i < a.size(); ++i)
+        {
             QCOMPARE(a[i].name, b[i].name);
             QCOMPARE(a[i].unit, b[i].unit);
             QCOMPARE(a[i].type, b[i].type);
@@ -1139,9 +1167,8 @@ void CoreTest::unitConversions_data()
     QTest::addColumn<QString>("unit");
     QTest::addColumn<double>("base");
     QTest::addColumn<double>("shown");
-    const auto row = [](const char *name, Quantity q, const char *unit, double base, double shown) {
-        QTest::newRow(name) << static_cast<int>(q) << QString::fromLatin1(unit) << base << shown;
-    };
+    const auto row = [](const char *name, Quantity q, const char *unit, double base, double shown)
+    { QTest::newRow(name) << static_cast<int>(q) << QString::fromLatin1(unit) << base << shown; };
     row("25.4 mm = 1 in", Quantity::Length, "in", 25.4, 1.0);
     row("8.2 mm in cm", Quantity::Length, "cm", 8.2, 0.82);
     row("1 grain", Quantity::BulletMass, "grain", 0.06479890999975, 1.0);
@@ -1198,13 +1225,15 @@ void CoreTest::unitSystemsAndParsing()
     QCOMPARE(grt::units::format(25.4, *grt::units::findUnit(Quantity::Length, u"in"_s)), u"1.000"_s);
 }
 
-namespace {
+namespace
+{
 
 // The 24 bytes of a PNG that the report engine reads: signature, IHDR chunk length and tag, width, height.
 QByteArray fakePng(int w, int h)
 {
     QByteArray b("\x89PNG\r\n\x1a\n\0\0\0\x0dIHDR", 16);
-    for (int v : {w, h}) {
+    for (int v : {w, h})
+    {
         b.append(static_cast<char>((v >> 24) & 0xff));
         b.append(static_cast<char>((v >> 16) & 0xff));
         b.append(static_cast<char>((v >> 8) & 0xff));
@@ -1213,7 +1242,8 @@ QByteArray fakePng(int w, int h)
     return b;
 }
 
-struct Records {
+struct Records
+{
     grt::Database db;
     std::optional<QVariantMap> cal, prj, pro;
     grt::LoadFile load;
@@ -1228,8 +1258,13 @@ bool makeBaseLoad(Records &r)
     r.prj = findRecord(r.db, grt::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
     r.pro = findRecord(r.db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
     if (!r.cal || !r.prj || !r.pro) return false;
-    r.load = grt::buildLoad(*r.cal, *r.prj, *r.pro, {.charge_g = 2.5, .barrelLength_mm = 650.0, .seatingDepth_mm = 9.0, .twistLength_mm = 240.0,
-                                                      .gunWeight_kg = 3.7, .powderTemperature_C = 15.0},
+    r.load = grt::buildLoad(*r.cal, *r.prj, *r.pro,
+                            {.charge_g = 2.5,
+                             .barrelLength_mm = 650.0,
+                             .seatingDepth_mm = 9.0,
+                             .twistLength_mm = 240.0,
+                             .gunWeight_kg = 3.7,
+                             .powderTemperature_C = 15.0},
                             r.db.columns(grt::Table::Caliber));
     return true;
 }
@@ -1247,10 +1282,10 @@ void CoreTest::replacingThePowderKeepsTheRest()
     QCOMPARE(lf.propellant.text(u"pname"), u"N340"_s);
     QCOMPARE(lf.propellant.number(u"Ba"), n340->value(u"Ba"_s).toDouble());
     QVERIFY(lf.propellant.number(u"Ba") != r.load.propellant.number(u"Ba"));
-    QCOMPARE(lf.propellant.number(u"mc"), 2.5);            // the charge is kept
-    QCOMPARE(lf.propellant.number(u"pt"), 15.0);           // and the temperature
-    QCOMPARE(lf.gun.number(u"xe"), 650.0);                 // gun data untouched
-    QCOMPARE(lf.projectile.number(u"gdepth"), 9.0);        // so is the bullet
+    QCOMPARE(lf.propellant.number(u"mc"), 2.5);      // the charge is kept
+    QCOMPARE(lf.propellant.number(u"pt"), 15.0);     // and the temperature
+    QCOMPARE(lf.gun.number(u"xe"), 650.0);           // gun data untouched
+    QCOMPARE(lf.projectile.number(u"gdepth"), 9.0);  // so is the bullet
     QCOMPARE(lf.projectile.text(u"pname"), r.load.projectile.text(u"pname"));
     QVERIFY(lf.title.contains(u"N340"_s) && !lf.title.contains(u"N150"_s));
     QCOMPARE(lf.propellant.entries().size(), r.load.propellant.entries().size());  // same fields, same order
@@ -1267,7 +1302,8 @@ void CoreTest::replacingTheBulletUpdatesGeometry()
 {
     Records r;
     if (!makeBaseLoad(r)) QSKIP("plain database not available");
-    const auto other = findRecord(r.db, grt::Table::Projectile, u"caliber = '.323' AND gmass > 150 AND id <> %1"_s.arg(r.prj->value(u"id"_s).toInt()));
+    const auto other =
+        findRecord(r.db, grt::Table::Projectile, u"caliber = '.323' AND gmass > 150 AND id <> %1"_s.arg(r.prj->value(u"id"_s).toInt()));
     QVERIFY(other);
     grt::LoadFile lf = r.load;
     grt::applyProjectile(lf, *other);
@@ -1295,14 +1331,14 @@ void CoreTest::replacingTheCaliberCanResetDependentValues()
     QCOMPARE(kept.caliber.text(u"CaliberName"), u".45 Auto (.45 ACP)"_s);
     QCOMPARE(kept.caliberFile.text(u"cipname"), u".45 Auto"_s);
     QCOMPARE(kept.caliber.number(u"caselen"), auto45->value(u"L3"_s).toDouble());
-    QCOMPARE(kept.gun.number(u"xe"), 650.0);                // nothing else changes without the reset
+    QCOMPARE(kept.gun.number(u"xe"), 650.0);  // nothing else changes without the reset
     QCOMPARE(kept.propellant.number(u"mc"), 2.5);
     QCOMPARE(kept.projectile.number(u"gdepth"), 9.0);
     QVERIFY(kept.title.startsWith(u".45 Auto"_s));
 
     grt::LoadFile reset = r.load;
     grt::applyCaliber(reset, *auto45, r.db.columns(grt::Table::Caliber), true, &*r.prj, &*r.pro);
-    QCOMPARE(reset.gun.number(u"xe"), 150.0);              // pistol barrel
+    QCOMPARE(reset.gun.number(u"xe"), 150.0);  // pistol barrel
     QVERIFY(std::abs(reset.projectile.number(u"gdepth") - grt::defaultSeatingDepth_mm(*auto45, *r.prj)) < 1e-9);
     QVERIFY(std::abs(reset.propellant.number(u"mc") - grt::defaultCharge_g(*auto45, *r.pro)) < 1e-12);
     QCOMPARE(reset.caliberFile.entries().size(), r.load.caliberFile.entries().size());
@@ -1313,9 +1349,8 @@ void CoreTest::reportNumberFormats_data()
     QTest::addColumn<double>("value");
     QTest::addColumn<QString>("format");
     QTest::addColumn<QString>("expected");
-    const auto row = [](const char *name, double v, const char *f, const char *e) {
-        QTest::newRow(name) << v << QString::fromUtf8(f) << QString::fromUtf8(e);
-    };
+    const auto row = [](const char *name, double v, const char *f, const char *e)
+    { QTest::newRow(name) << v << QString::fromUtf8(f) << QString::fromUtf8(e); };
     // the examples of the original's manual
     row("manual: #.000", 51.78, "#.000", "51.780");
     row("manual: with unit text", 51.78, "#.000 mm²", "51.780 mm²");
@@ -1429,11 +1464,11 @@ void CoreTest::wikiImagesLinksAndTags()
 {
     using grt::report::wikiToHtml;
     // known.png is 400 x 200 pixels
-    const auto resolver = [](const QString &name) -> grt::report::ImageSource {
-        return name == u"known.png"_s ? grt::report::ImageSource(u"data:image/png;base64,AAA"_s, 400, 200) : grt::report::ImageSource();
-    };
+    const auto resolver = [](const QString &name) -> grt::report::ImageSource
+    { return name == u"known.png"_s ? grt::report::ImageSource(u"data:image/png;base64,AAA"_s, 400, 200) : grt::report::ImageSource(); };
     // no size given: natural size
-    QVERIFY(wikiToHtml(u"{{known.png}}"_s, resolver, 1000).contains(u"<img src=\"data:image/png;base64,AAA\" width=\"400\" height=\"200\">"_s));
+    QVERIFY(
+        wikiToHtml(u"{{known.png}}"_s, resolver, 1000).contains(u"<img src=\"data:image/png;base64,AAA\" width=\"400\" height=\"200\">"_s));
     // a width in pixels keeps the aspect ratio
     const QString w80 = wikiToHtml(u"{{known.png?80}}"_s, resolver, 1000);
     QVERIFY(w80.contains(u"width=\"80\""_s) && w80.contains(u"height=\"40\""_s));
@@ -1568,8 +1603,16 @@ void CoreTest::reportDataFromALoad()
     const grt::SimResult r = grt::simulate(in);
     QVERIFY(r.ok());
     const grt::report::Data d = grt::report::buildData(*lf, in, r, {QStringLiteral("/some/dir/my load.grtload")});
-    const auto number = [&](const char *key) { const auto *v = d.find(QLatin1String(key)); return v ? v->number : -1e99; };
-    const auto text = [&](const char *key) { const auto *v = d.find(QLatin1String(key)); return v ? v->text : QString(); };
+    const auto number = [&](const char *key)
+    {
+        const auto *v = d.find(QLatin1String(key));
+        return v ? v->number : -1e99;
+    };
+    const auto text = [&](const char *key)
+    {
+        const auto *v = d.find(QLatin1String(key));
+        return v ? v->text : QString();
+    };
 
     QCOMPARE(text("file.caption"), u"my load"_s);
     QCOMPARE(text("file.name"), u"my load.grtload"_s);
@@ -1577,11 +1620,11 @@ void CoreTest::reportDataFromALoad()
     QCOMPARE(text("work.PropellantName"), u"Vihtavuori N150"_s);
     QCOMPARE(number("work.Dbul"), 8.2);
     QCOMPARE(number("work.xe"), 600.0);
-    QCOMPARE(number("work.xeEff"), 600.0 - 46.6);                  // the projectile path
+    QCOMPARE(number("work.xeEff"), 600.0 - 46.6);  // the projectile path
     QCOMPARE(text("work.gtailtype"), u"boattail"_s);
     QVERIFY(std::abs(number("work.gdepthc") - (10.4 - 5.1)) < 1e-9);  // guided seating depth: depth minus the boat tail
     QVERIFY(std::abs(number("work.Vb") - r.effectiveCaseVolume_cm3) < 1e-12);
-    QVERIFY(std::abs(number("work.caliber") - 0.3228) < 0.001);        // inches
+    QVERIFY(std::abs(number("work.caliber") - 0.3228) < 0.001);  // inches
     // results come straight from the simulation
     QCOMPARE(number("result.MaxPressure"), r.maxPressure_bar);
     QCOMPARE(number("result.MuzzleVelocity"), r.muzzleVelocity_ms);

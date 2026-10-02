@@ -6,17 +6,25 @@
 #include <optional>
 #include <vector>
 
-namespace grt {
+namespace grt
+{
 
-enum class ChronographFormat { Unknown, MagnetoSpeed, Labradar };
+enum class ChronographFormat
+{
+    Unknown,
+    MagnetoSpeed,
+    Labradar
+};
 
 // One series of a chronograph file: the velocities in m/s in shot order (missed shots are left out).
-struct ChronographSeries {
+struct ChronographSeries
+{
     QString name;
     std::vector<double> velocities_ms;
 };
 
-struct ChronographFile {
+struct ChronographFile
+{
     ChronographFormat format{ChronographFormat::Unknown};
     std::vector<ChronographSeries> series;
 };

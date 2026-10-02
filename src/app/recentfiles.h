@@ -6,7 +6,8 @@
 #include <QStringList>
 
 // The most recently used load files (File menu), newest first, kept in the settings.
-namespace recentfiles {
+namespace recentfiles
+{
 
 inline constexpr int kMaxFiles = 12;
 

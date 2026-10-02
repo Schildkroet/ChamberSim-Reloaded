@@ -15,7 +15,8 @@ class QTextDocument;
 // The "Report" tab: the load rendered through the report template, with printing and PDF export.
 // The template (wiki-like text with ~~source.property~~ placeholders) is the user's own and is stored in
 // the settings; without one the default report is used.
-class ReportView : public QWidget {
+class ReportView : public QWidget
+{
     Q_OBJECT
 public:
     explicit ReportView(QWidget *parent = nullptr);
@@ -38,9 +39,9 @@ public:
     static constexpr int kMinScale = 50;
     static constexpr int kMaxScale = 200;
     [[nodiscard]] static int clampScale(int percent);
-    [[nodiscard]] static int storedScale();       // 100 if none was stored
-    static void storeScale(int percent);          // clamped; 100 removes the setting
-    void setScale(int percent);                   // stores, updates the control and the report
+    [[nodiscard]] static int storedScale();  // 100 if none was stored
+    static void storeScale(int percent);     // clamped; 100 removes the setting
+    void setScale(int percent);              // stores, updates the control and the report
     [[nodiscard]] int scale() const { return storedScale(); }
     // Number of printed pages of the current report on a page of this size (in points) at the current scale.
     [[nodiscard]] int printedPageCount(const QSizeF &pagePoints);

@@ -6,29 +6,32 @@
 #include <optional>
 #include <span>
 
-namespace grt::units {
+namespace grt::units
+{
 
 // The physical quantities of the program. Values in load files and in the database are stored in
 // the *base unit* of their quantity (mm, g, kg, bar, m/s, mm2, cm3, kg/m3, Cel, J, Ns, N).
-enum class Quantity {
-    None,        // no conversion (dimensionless, text, specialised units such as kJ/kg)
-    Length,      // base mm
-    BulletMass,  // base g
-    GunMass,     // base kg
-    Pressure,    // base bar
-    Velocity,    // base m/s
-    Area,        // base mm2
-    Volume,      // base cm3
-    Density,     // base kg/m3
-    Temperature, // base Cel
-    Energy,      // base J
-    Impulse,     // base Ns
-    Force,       // base N
-    Time,        // base ms
+enum class Quantity
+{
+    None,         // no conversion (dimensionless, text, specialised units such as kJ/kg)
+    Length,       // base mm
+    BulletMass,   // base g
+    GunMass,      // base kg
+    Pressure,     // base bar
+    Velocity,     // base m/s
+    Area,         // base mm2
+    Volume,       // base cm3
+    Density,      // base kg/m3
+    Temperature,  // base Cel
+    Energy,       // base J
+    Impulse,      // base Ns
+    Force,        // base N
+    Time,         // base ms
 };
 
 // One way of showing a quantity: shown = (base - offset) / factor  (offset only for temperatures).
-struct Unit {
+struct Unit
+{
     const char *id;      // stable key, used in the settings
     const char *symbol;  // shown to the user
     double factor;       // base units per shown unit (1 inch = 25.4 mm)
@@ -37,7 +40,12 @@ struct Unit {
 };
 
 // Unit systems: a preset choice of one unit per quantity.
-enum class System { Metric, Imperial, Original };
+enum class System
+{
+    Metric,
+    Imperial,
+    Original
+};
 
 [[nodiscard]] std::span<const Unit> unitsOf(Quantity q);
 [[nodiscard]] const Unit &systemUnit(Quantity q, System s);

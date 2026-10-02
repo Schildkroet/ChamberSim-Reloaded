@@ -9,7 +9,8 @@ class QCheckBox;
 class QDialogButtonBox;
 
 // Pick one record of a database table (caliber, projectile or propellant).
-class SelectRecordDialog : public QDialog {
+class SelectRecordDialog : public QDialog
+{
     Q_OBJECT
 public:
     SelectRecordDialog(const grt::Database &db, grt::Table table, const QString &title, QWidget *parent = nullptr);

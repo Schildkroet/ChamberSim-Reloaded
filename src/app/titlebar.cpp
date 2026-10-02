@@ -13,7 +13,8 @@
 #include <algorithm>
 #include <cmath>
 
-namespace {
+namespace
+{
 constexpr auto kKey = "ui/customTitleBar";
 }
 
@@ -50,7 +51,8 @@ void WindowButton::paintEvent(QPaintEvent *)
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
     const bool close = m_kind == Kind::Close;
-    if (m_hover || isDown()) {
+    if (m_hover || isDown())
+    {
         QColor bg = close ? QColor(0xc4, 0x2b, 0x1c) : palette().color(QPalette::Text);
         if (!close) bg.setAlphaF(isDown() ? 0.22 : 0.12);
         else if (isDown()) bg = bg.darker(120);
@@ -62,14 +64,18 @@ void WindowButton::paintEvent(QPaintEvent *)
     const QPointF c = QRectF(rect()).center();
     p.setPen(QPen(fg, std::max(1.0, height() / 30.0)));
     p.setBrush(Qt::NoBrush);
-    switch (m_kind) {
+    switch (m_kind)
+    {
     case Kind::Minimize: p.drawLine(QPointF(c.x() - s / 2, c.y()), QPointF(c.x() + s / 2, c.y())); break;
     case Kind::Maximize: p.drawRect(QRectF(c.x() - s / 2, c.y() - s / 2, s, s)); break;
-    case Kind::Restore: {
+    case Kind::Restore:
+    {
         const double d = s * 0.25;
         p.drawRect(QRectF(c.x() - s / 2, c.y() - s / 2 + d, s - d, s - d));
-        p.drawPolyline(QList<QPointF>{{c.x() - s / 2 + d, c.y() - s / 2 + d}, {c.x() - s / 2 + d, c.y() - s / 2},
-                                      {c.x() + s / 2, c.y() - s / 2}, {c.x() + s / 2, c.y() + s / 2 - d},
+        p.drawPolyline(QList<QPointF>{{c.x() - s / 2 + d, c.y() - s / 2 + d},
+                                      {c.x() - s / 2 + d, c.y() - s / 2},
+                                      {c.x() + s / 2, c.y() - s / 2},
+                                      {c.x() + s / 2, c.y() + s / 2 - d},
                                       {c.x() + s / 2 - d, c.y() + s / 2 - d}});
         break;
     }
@@ -182,18 +188,27 @@ void TitleBar::startMove()
 
 bool TitleBar::eventFilter(QObject *watched, QEvent *event)
 {
-    if (watched == m_window) {
-        switch (event->type()) {
+    if (watched == m_window)
+    {
+        switch (event->type())
+        {
         case QEvent::WindowTitleChange:
         case QEvent::WindowStateChange:
-        case QEvent::WindowIconChange: updateState(); if (event->type() == QEvent::WindowIconChange) updateSizes(); break;
+        case QEvent::WindowIconChange:
+            updateState();
+            if (event->type() == QEvent::WindowIconChange) updateSizes();
+            break;
         default: break;
         }
-    } else if (watched == m_menu && m_decorated) {
+    }
+    else if (watched == m_menu && m_decorated)
+    {
         // the empty part of the menu bar belongs to the title bar
-        if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonDblClick) {
+        if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonDblClick)
+        {
             auto *me = static_cast<QMouseEvent *>(event);
-            if (me->button() == Qt::LeftButton && !m_menu->actionAt(me->position().toPoint())) {
+            if (me->button() == Qt::LeftButton && !m_menu->actionAt(me->position().toPoint()))
+            {
                 if (event->type() == QEvent::MouseButtonDblClick) toggleMaximized();
                 else startMove();
                 return true;

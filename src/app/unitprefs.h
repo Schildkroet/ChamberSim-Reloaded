@@ -8,7 +8,8 @@
 // The user's unit choices: one preset system for everything, plus per-field overrides (the "ruler"
 // of the original program). Persisted in the application settings. Everything stored in files and
 // in the database stays in the base units; this only changes what is shown and typed.
-class UnitPreferences : public QObject {
+class UnitPreferences : public QObject
+{
     Q_OBJECT
 public:
     static UnitPreferences &instance();

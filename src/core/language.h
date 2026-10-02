@@ -3,7 +3,8 @@
 #include <QString>
 #include <QStringList>
 
-namespace grt {
+namespace grt
+{
 
 // The source strings of the program are American English; it is the default
 // language and needs no translation file.

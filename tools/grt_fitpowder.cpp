@@ -30,7 +30,8 @@
 
 using namespace Qt::StringLiterals;
 
-namespace {
+namespace
+{
 
 QString pct(double value, double reference)
 {
@@ -54,7 +55,8 @@ int main(int argc, char *argv[])
     cli.process(app);
     QTextStream out(stdout);
     QTextStream err(stderr);
-    if (cli.positionalArguments().isEmpty()) {
+    if (cli.positionalArguments().isEmpty())
+    {
         err << "No load files given (see --help).\n";
         return 2;
     }
@@ -64,10 +66,12 @@ int main(int argc, char *argv[])
     std::vector<grt::powderfit::Sample> samples;
     std::vector<std::pair<QString, grt::LoadFile>> loads;
     std::set<QString> powders;
-    for (const QString &path : cli.positionalArguments()) {
+    for (const QString &path : cli.positionalArguments())
+    {
         QString error;
         auto lf = grt::LoadFile::read(path, &error);
-        if (!lf) {
+        if (!lf)
+        {
             err << "Cannot read " << path << ": " << error << '\n';
             return 2;
         }
@@ -76,29 +80,37 @@ int main(int argc, char *argv[])
         powders.insert((lf->propellant.text(u"mname") + u' ' + lf->propellant.text(u"pname")).trimmed());
         loads.emplace_back(path, std::move(*lf));
     }
-    if (powders.size() > 1) warnings << u"the loads use different powders (%1): one model is fitted for all"_s.arg(QStringList(powders.begin(), powders.end()).join(u", "_s));
-    if (samples.empty()) {
+    if (powders.size() > 1)
+        warnings << u"the loads use different powders (%1): one model is fitted for all"_s.arg(
+            QStringList(powders.begin(), powders.end()).join(u", "_s));
+    if (samples.empty())
+    {
         for (const QString &w : warnings) err << "WARNING " << w << '\n';
         err << "No measured charges found.\n";
         return 1;
     }
 
     grt::powderfit::Options options;
-    if (cli.isSet(u"params"_s)) {
+    if (cli.isSet(u"params"_s))
+    {
         QString error;
         options.params = grt::powderfit::parse(cli.value(u"params"_s), &error);
-        if (options.params.empty()) {
+        if (options.params.empty())
+        {
             err << error << '\n';
             return 2;
         }
-    } else {
+    }
+    else
+    {
         options.params = grt::powderfit::defaultParams(samples);
     }
     options.pressureWeight = cli.value(u"pressure-weight"_s).toDouble();
     int shots = 0;
     for (const auto &s : samples) shots += s.shots;
     if (static_cast<std::size_t>(samples.size()) < options.params.size())
-        warnings << u"%1 measured charges for %2 values: the result is not determined well"_s.arg(samples.size()).arg(options.params.size());
+        warnings
+            << u"%1 measured charges for %2 values: the result is not determined well"_s.arg(samples.size()).arg(options.params.size());
 
     QStringList names;
     for (const auto p : options.params) names << grt::powderfit::name(p);
@@ -114,7 +126,8 @@ int main(int argc, char *argv[])
     out << QString::asprintf("%-34s %9s %5s %9s %9s %7s %9s %7s", "file", "charge g", "shots", "v meas", "v before", "%", "v after", "%")
         << '\n';
     bool pressure = false;
-    for (std::size_t i = 0; i < samples.size(); ++i) {
+    for (std::size_t i = 0; i < samples.size(); ++i)
+    {
         const auto &s = samples[i];
         const auto &r = res.samples[i];
         out << QString::asprintf("%-34s %9.4f %5d %9.1f %9.1f %7s %9.1f %7s", qPrintable(s.source.left(34)), s.charge_g, s.shots,
@@ -123,9 +136,12 @@ int main(int argc, char *argv[])
             << '\n';
         pressure = pressure || s.pressureShots > 0;
     }
-    if (pressure) {
-        out << '\n' << QString::asprintf("%-34s %9s %9s %9s %7s %9s %7s", "file", "charge g", "p meas", "p before", "%", "p after", "%") << '\n';
-        for (std::size_t i = 0; i < samples.size(); ++i) {
+    if (pressure)
+    {
+        out << '\n'
+            << QString::asprintf("%-34s %9s %9s %9s %7s %9s %7s", "file", "charge g", "p meas", "p before", "%", "p after", "%") << '\n';
+        for (std::size_t i = 0; i < samples.size(); ++i)
+        {
             const auto &s = samples[i];
             if (s.pressureShots == 0) continue;
             const auto &r = res.samples[i];
@@ -137,40 +153,48 @@ int main(int argc, char *argv[])
     }
     out << "\nModel values:\n";
     for (std::size_t i = 0; i < res.params.size(); ++i)
-        out << QString::asprintf("  %-3s %10.5f -> %10.5f", qPrintable(grt::powderfit::name(res.params[i])), res.before[i], res.after[i]) << '\n';
+        out << QString::asprintf("  %-3s %10.5f -> %10.5f", qPrintable(grt::powderfit::name(res.params[i])), res.before[i], res.after[i])
+            << '\n';
     out << QString::asprintf("\nVelocity error (rms): %.2f %% -> %.2f %%", 100 * res.velocityRmsBefore, 100 * res.velocityRmsAfter);
-    if (pressure) out << QString::asprintf(";  pressure error (rms): %.2f %% -> %.2f %%", 100 * res.pressureRmsBefore, 100 * res.pressureRmsAfter);
+    if (pressure)
+        out << QString::asprintf(";  pressure error (rms): %.2f %% -> %.2f %%", 100 * res.pressureRmsBefore, 100 * res.pressureRmsAfter);
     out << QString::asprintf("  (%d iterations)\n", res.iterations);
     if (!res.improved) out << "The model values were not changed: the start values fit best.\n";
 
     // ---- results as files ----
-    if (cli.isSet(u"save"_s)) {
-        for (auto &[path, lf] : loads) {
+    if (cli.isSet(u"save"_s))
+    {
+        for (auto &[path, lf] : loads)
+        {
             grt::powderfit::apply(lf.propellant, res);
             const QFileInfo fi(path);
             const QString target = fi.dir().filePath(fi.completeBaseName() + u"-fitted.grtload"_s);
             QString error;
-            if (!lf.write(target, &error)) {
+            if (!lf.write(target, &error))
+            {
                 err << "Cannot write " << target << ": " << error << '\n';
                 return 2;
             }
             out << "Saved " << target << '\n';
         }
     }
-    if (cli.isSet(u"out"_s)) {
+    if (cli.isSet(u"out"_s))
+    {
         // the propellant of the first load, with the fitted values, in the database's columns
         QTemporaryDir tmp;
         grt::Database db;
         grt::Database::setProjectDataLocation(tmp.path());
-        if (!db.open({}, tmp.filePath(u"own.db"_s))) {
+        if (!db.open({}, tmp.filePath(u"own.db"_s)))
+        {
             err << "Cannot create the record (database)\n";
             return 2;
         }
         const auto schema = db.schema(grt::Table::Propellant);
-        const QVariantMap record = grt::powderfit::toRecord(loads.front().second.propellant, res, schema,
-                                                            grt::powderfit::describe(res, samples));
+        const QVariantMap record =
+            grt::powderfit::toRecord(loads.front().second.propellant, res, schema, grt::powderfit::describe(res, samples));
         QFile f(cli.value(u"out"_s));
-        if (!f.open(QIODevice::WriteOnly) || f.write(grt::projectdata::toJson(record, schema)) < 0) {
+        if (!f.open(QIODevice::WriteOnly) || f.write(grt::projectdata::toJson(record, schema)) < 0)
+        {
             err << "Cannot write " << f.fileName() << '\n';
             return 2;
         }

@@ -5,15 +5,17 @@
 #include <QStringList>
 #include <QVariantMap>
 
-namespace grt {
+namespace grt
+{
 
 inline constexpr double kGrainToGram = 0.06479890999975;  // the exact factor of the original program
 
 // What the user chooses besides the three database records. A value of 0 means "use the default".
-struct LoadParams {
-    double charge_g{};              // default: 70 % of the bulk-density capacity of the case
-    double barrelLength_mm{};       // default: depends on the cartridge type (pistol/rimfire/rifle)
-    double seatingDepth_mm{};       // default: overall length = the cartridge's maximum length
+struct LoadParams
+{
+    double charge_g{};         // default: 70 % of the bulk-density capacity of the case
+    double barrelLength_mm{};  // default: depends on the cartridge type (pistol/rimfire/rifle)
+    double seatingDepth_mm{};  // default: overall length = the cartridge's maximum length
     double twistLength_mm{240.0};
     double gunWeight_kg{};
     double powderTemperature_C{21.0};

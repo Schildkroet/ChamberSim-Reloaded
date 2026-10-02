@@ -30,7 +30,8 @@ class VivacityChart;
 
 // One opened *.grtload laid out like the original program's main screen: input panels for
 // cartridge/gun, projectile and propellant, the key results, and the pressure/energy/velocity chart.
-class LoadView : public QWidget {
+class LoadView : public QWidget
+{
     Q_OBJECT
 public:
     explicit LoadView(QWidget *parent = nullptr);
@@ -53,7 +54,12 @@ public:
     // The database that "Select from database…" reads from (may be null; then the buttons are disabled).
     void setDatabase(const grt::Database *db);
 
-    enum class Component { Caliber, Projectile, Propellant };
+    enum class Component
+    {
+        Caliber,
+        Projectile,
+        Propellant
+    };
     // Replaces one component by the database record with this id and recomputes. `resetDependent`
     // also sets the values that depend on it (charge, seating depth, barrel) to their defaults.
     bool applyRecord(Component component, int id, bool resetDependent = false);
@@ -81,7 +87,13 @@ signals:
     void modifiedChanged(bool modified);
 
 private:
-    enum SectionId { Caliber, Gun, Projectile, Propellant };
+    enum SectionId
+    {
+        Caliber,
+        Gun,
+        Projectile,
+        Propellant
+    };
 
     [[nodiscard]] grt::EntryList &section(int id);
     void rebuildPanels();
@@ -102,9 +114,9 @@ private:
     void addMeasurementReport(grt::report::Data &d) const;
 
     grt::LoadFile m_file;
-    grt::SimResult m_result;                    // the selected (focus) ladder step
+    grt::SimResult m_result;  // the selected (focus) ladder step
     std::vector<grt::LadderStep> m_ladder;
-    grt::SimInput m_focusInput;                 // the input with the focus step's charge
+    grt::SimInput m_focusInput;  // the input with the focus step's charge
     int m_focus{0};
     grt::SimInput m_input;
     std::optional<grt::ReferenceRun> m_reference;

@@ -2,9 +2,11 @@
 // units, types and descriptions, in file order. Used to create new loads in the same format.
 #pragma once
 
-namespace grt::spec {
+namespace grt::spec
+{
 
-struct Field {
+struct Field
+{
     const char *name;
     const char *unit;
     const char *type;

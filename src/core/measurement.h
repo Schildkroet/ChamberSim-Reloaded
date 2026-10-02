@@ -7,13 +7,15 @@
 #include <utility>
 #include <vector>
 
-namespace grt {
+namespace grt
+{
 
 // Attributes in file order with their raw (still percent-encoded) values.
 using RawAttributes = std::vector<std::pair<QString, QString>>;
 
 // One shot of a measured charge: chronograph velocity and peak pressure (0 = not measured).
-struct Shot {
+struct Shot
+{
     QString name;
     double velocity_ms{};
     double pressure_bar{};
@@ -22,7 +24,8 @@ struct Shot {
 // One charge of the <Measurement> block of a load file's appendix. The file stores the charge in kg, velocities in
 // m/s and pressures in bar. Attributes and child elements this program does not edit (menu, source, a
 // <PressureTraceFile>, ...) are kept and written back unchanged.
-struct MeasuredCharge {
+struct MeasuredCharge
+{
     QString name;
     double charge_kg{};
     QString note;
@@ -38,13 +41,15 @@ struct MeasuredCharge {
 };
 
 // The measurement results of a load ("Measurement" tab of the original program).
-struct Measurement {
+struct Measurement
+{
     QString title;
     std::vector<MeasuredCharge> charges;
     RawAttributes attributes;  // index, showinreport, title, ... as read
 };
 
-struct ShotStatistics {
+struct ShotStatistics
+{
     int count{};
     double mean{};
     double sd{};  // sample standard deviation (n - 1)

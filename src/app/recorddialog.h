@@ -18,10 +18,16 @@ class QWidget;
 
 // Creates or edits a caliber, projectile or propellant record: all columns in groups with readable labels, numbers
 // in the user's units. The caller stores the result (Database::insert / update).
-class RecordDialog : public QDialog {
+class RecordDialog : public QDialog
+{
     Q_OBJECT
 public:
-    enum class Mode { New, Copy, Edit };
+    enum class Mode
+    {
+        New,
+        Copy,
+        Edit
+    };
 
     // `record` is the record to copy or edit (empty for a new one).
     RecordDialog(const grt::Database &db, grt::Table table, Mode mode, const QVariantMap &record = {}, QWidget *parent = nullptr);
@@ -46,7 +52,8 @@ public:
     void accept() override;
 
 private:
-    struct Editor {
+    struct Editor
+    {
         grt::dbfields::Field field;
         QWidget *widget;
     };
@@ -54,9 +61,10 @@ private:
     [[nodiscard]] const Editor *editor(const QString &column) const;
     [[nodiscard]] std::optional<QVariant> valueOf(const Editor &e) const;
 
-    struct PhotoSlot {
-        QString column;                           // imageUuid / imageDetailUuid
-        QString uuid;                             // the picture the record refers to ("": none)
+    struct PhotoSlot
+    {
+        QString column;  // imageUuid / imageDetailUuid
+        QString uuid;    // the picture the record refers to ("": none)
         std::optional<grt::Database::Image> pending;
         QLabel *preview{};
         QLabel *info{};

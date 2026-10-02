@@ -16,7 +16,8 @@ using namespace Qt::StringLiterals;
 #include <algorithm>
 #include <cmath>
 
-namespace {
+namespace
+{
 
 double dim(const QMap<QString, double> &d, const char *key)
 {
@@ -26,9 +27,11 @@ double dim(const QMap<QString, double> &d, const char *key)
 // Radius of a polyline of (radius, y) points at height y.
 double radiusAt(const std::vector<QPointF> &pts, double y)
 {
-    for (std::size_t i = 1; i < pts.size(); ++i) {
+    for (std::size_t i = 1; i < pts.size(); ++i)
+    {
         const QPointF &a = pts[i - 1], &b = pts[i];
-        if (y >= a.y() && y <= b.y()) {
+        if (y >= a.y() && y <= b.y())
+        {
             if (b.y() == a.y()) return std::max(a.x(), b.x());
             return a.x() + (b.x() - a.x()) * (y - a.y()) / (b.y() - a.y());
         }
@@ -50,7 +53,8 @@ void ChamberView::mouseMoveEvent(QMouseEvent *event)
     QString key;
     for (const RowHit &h : m_rowHits)
         if (h.rect.contains(event->position())) key = h.key;
-    if (key != m_hoverKey) {
+    if (key != m_hoverKey)
+    {
         m_hoverKey = key;
         update();
     }
@@ -58,7 +62,8 @@ void ChamberView::mouseMoveEvent(QMouseEvent *event)
 
 void ChamberView::leaveEvent(QEvent *)
 {
-    if (!m_hoverKey.isEmpty()) {
+    if (!m_hoverKey.isEmpty())
+    {
         m_hoverKey.clear();
         update();
     }
@@ -104,15 +109,18 @@ ChamberView::Geometry ChamberView::buildGeometry(const QMap<QString, double> &d,
     const double head = R1 > 0.0 ? R1 : bodyStart;
     auto &c = g.cavity;
     c.push_back({0.0, 0.0});
-    c.push_back({head / 2.0, 0.0});            // breech recess for the case head
+    c.push_back({head / 2.0, 0.0});  // breech recess for the case head
     if (R > 0.0) c.push_back({head / 2.0, R});
     c.push_back({bodyStart / 2.0, std::max(R, 0.0)});
     c.push_back({bodyStart / 2.0, std::max(E, R)});
-    if (L1 > E && P2 > 0.0 && H1 > 0.0 && L2 > L1) {  // bottleneck chamber
+    if (L1 > E && P2 > 0.0 && H1 > 0.0 && L2 > L1)
+    {  // bottleneck chamber
         c.push_back({P2 / 2.0, L1});
         c.push_back({H1 / 2.0, L2});
         c.push_back({(H2 > 0.0 ? H2 : H1) / 2.0, L3});
-    } else {                                           // straight chamber
+    }
+    else
+    {  // straight chamber
         c.push_back({(H2 > 0.0 ? H2 : bodyStart) / 2.0, L3});
     }
     g.throatY = L3;
@@ -126,7 +134,8 @@ ChamberView::Geometry ChamberView::buildGeometry(const QMap<QString, double> &d,
 
     // cut at the top of the drawing
     if (topY > c.back().y()) c.push_back({c.back().x(), topY});
-    else {
+    else
+    {
         const double r = radiusAt(c, topY);
         while (c.size() > 1 && c.back().y() > topY) c.pop_back();
         c.push_back({r, topY});
@@ -138,7 +147,8 @@ ChamberView::Geometry ChamberView::buildGeometry(const QMap<QString, double> &d,
 void ChamberView::setLoad(const grt::LoadFile &file, const grt::SimInput &input)
 {
     m_dims.clear();
-    for (const grt::Entry &e : file.caliberFile.entries()) {
+    for (const grt::Entry &e : file.caliberFile.entries())
+    {
         if (const auto v = grt::parseFinite(e.value)) m_dims.insert(e.name, *v);
     }
     m_round = CartridgeView::makeRound(file, input);
@@ -166,7 +176,8 @@ void ChamberView::paintEvent(QPaintEvent *)
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
     p.fillRect(rect(), palette().base());
-    if (!m_hasLoad || !m_geometry.valid) {
+    if (!m_hasLoad || !m_geometry.valid)
+    {
         p.setPen(palette().color(QPalette::PlaceholderText));
         p.drawText(rect(), Qt::AlignCenter, tr("No chamber data"));
         return;
@@ -215,10 +226,12 @@ void ChamberView::paintEvent(QPaintEvent *)
     CartridgeView::paintRound(p, m_round, X, Y, dark);
 
     // grooves: the barrel is wider over the grooves than over the lands
-    if (m_geometry.grooves > m_geometry.lands && m_geometry.lands > 0.0) {
+    if (m_geometry.grooves > m_geometry.lands && m_geometry.lands > 0.0)
+    {
         p.setPen(QPen(palette().color(QPalette::Text), 0.8, Qt::DashLine));
         const double y0 = m_geometry.throatY + 1.0;
-        for (double sign : {-1.0, 1.0}) p.drawLine(QPointF(X(sign * m_geometry.grooves / 2.0), Y(y0)), QPointF(X(sign * m_geometry.grooves / 2.0), Y(m_topY)));
+        for (double sign : {-1.0, 1.0})
+            p.drawLine(QPointF(X(sign * m_geometry.grooves / 2.0), Y(y0)), QPointF(X(sign * m_geometry.grooves / 2.0), Y(m_topY)));
     }
 
     // dimension line with a horizontal label beside its top end (soft background, kept inside the widget)
@@ -239,15 +252,19 @@ void ChamberView::paintEvent(QPaintEvent *)
                           palette().color(QPalette::Text));
     }
 
-    if (m_showTable) {
+    if (m_showTable)
+    {
         drawTable(p, tableArea);
-        for (const RowHit &hit : m_rowHits) {
+        for (const RowHit &hit : m_rowHits)
+        {
             if (hit.key != m_hoverKey) continue;
             if (const auto m = hoverMeasure(hit.key, hit.label, hit.value))
                 drawHoverMeasure(p, *m, X, Y, X(std::max(dim(m_dims, "c_R1"), dim(m_dims, "c_P1")) / 2.0) + 14.0, drawArea.right(), dfm,
                                  palette().color(QPalette::Highlight), palette().color(QPalette::Base));
         }
-    } else {
+    }
+    else
+    {
         const grt::units::Unit &u = UnitPreferences::instance().unitFor(grt::units::Quantity::Length);
         const QFont f = legendFont;
         QFont bold = f;
@@ -265,23 +282,24 @@ void ChamberView::paintEvent(QPaintEvent *)
 void ChamberView::drawTable(QPainter &p, const QRectF &area) const
 {
     using grt::units::Quantity;
-    struct Row {
+    struct Row
+    {
         const char *key;
         const char *label;
         Quantity quantity;
         const char *suffix;
     };
     static const Row rows[] = {
-        {"c_F", "F", Quantity::Length, ""},     {"c_Z", "Z", Quantity::Length, ""},       {"c_L1", "L1", Quantity::Length, ""},
-        {"c_L2", "L2", Quantity::Length, ""},   {"c_L3", "L3", Quantity::Length, ""},     {"c_R", "R", Quantity::Length, ""},
-        {"c_R1", "R1", Quantity::Length, ""},   {"c_R2", "R2", Quantity::Length, ""},     {"c_r_", "r", Quantity::Length, ""},
-        {"c_R3", "R3", Quantity::Length, ""},   {"c_E", "E", Quantity::Length, ""},       {"c_P1", "P1", Quantity::Length, ""},
-        {"c_P2", "P2", Quantity::Length, ""},   {"c_alpha", "α", Quantity::None, "°"},    {"c_S", "S", Quantity::Length, ""},
+        {"c_F", "F", Quantity::Length, ""},         {"c_Z", "Z", Quantity::Length, ""},    {"c_L1", "L1", Quantity::Length, ""},
+        {"c_L2", "L2", Quantity::Length, ""},       {"c_L3", "L3", Quantity::Length, ""},  {"c_R", "R", Quantity::Length, ""},
+        {"c_R1", "R1", Quantity::Length, ""},       {"c_R2", "R2", Quantity::Length, ""},  {"c_r_", "r", Quantity::Length, ""},
+        {"c_R3", "R3", Quantity::Length, ""},       {"c_E", "E", Quantity::Length, ""},    {"c_P1", "P1", Quantity::Length, ""},
+        {"c_P2", "P2", Quantity::Length, ""},       {"c_alpha", "α", Quantity::None, "°"}, {"c_S", "S", Quantity::Length, ""},
         {"c_r1max", "r1max", Quantity::Length, ""}, {"c_r2_", "r2", Quantity::Length, ""}, {"c_H1", "H1", Quantity::Length, ""},
-        {"c_H2", "H2", Quantity::Length, ""},   {"c_G1", "G1", Quantity::Length, ""},     {"c_G", "G", Quantity::Length, ""},
-        {"c_alpha1", "α1", Quantity::None, "°"}, {"c_h_", "h", Quantity::Length, ""},     {"c_s_", "s", Quantity::Length, ""},
-        {"c_i_", "i", Quantity::None, "°"},     {"c_b_", "b", Quantity::Length, ""},      {"c_N", "N", Quantity::None, ""},
-        {"c_u_", "u", Quantity::Length, ""},    {"c_Q", "Q", Quantity::Area, ""},
+        {"c_H2", "H2", Quantity::Length, ""},       {"c_G1", "G1", Quantity::Length, ""},  {"c_G", "G", Quantity::Length, ""},
+        {"c_alpha1", "α1", Quantity::None, "°"},    {"c_h_", "h", Quantity::Length, ""},   {"c_s_", "s", Quantity::Length, ""},
+        {"c_i_", "i", Quantity::None, "°"},         {"c_b_", "b", Quantity::Length, ""},   {"c_N", "N", Quantity::None, ""},
+        {"c_u_", "u", Quantity::Length, ""},        {"c_Q", "Q", Quantity::Area, ""},
     };
     QFont f = font();
     f.setPointSizeF(std::max(7.0, font().pointSizeF() * 0.82));
@@ -298,9 +316,10 @@ void ChamberView::drawTable(QPainter &p, const QRectF &area) const
         p.setFont(bold);
         p.drawText(QPointF(area.left(), y + fm.ascent()), u"A"_s);
         p.setFont(f);
-        p.drawText(QRectF(area.left() + 14, y, area.width() - 14, lineH), Qt::AlignLeft | Qt::AlignVCenter,
-                   fm.elidedText(tr("Chamber length %1").arg(grt::units::format(m_dims.value(u"c_L3"_s), u) + u' ' + QString::fromUtf8(u.symbol)),
-                                 Qt::ElideRight, static_cast<int>(area.width() - 14)));
+        p.drawText(
+            QRectF(area.left() + 14, y, area.width() - 14, lineH), Qt::AlignLeft | Qt::AlignVCenter,
+            fm.elidedText(tr("Chamber length %1").arg(grt::units::format(m_dims.value(u"c_L3"_s), u) + u' ' + QString::fromUtf8(u.symbol)),
+                          Qt::ElideRight, static_cast<int>(area.width() - 14)));
         y += lineH + 4;
         p.setPen(palette().color(QPalette::PlaceholderText));
         p.drawLine(QPointF(area.left(), y), QPointF(area.right(), y));
@@ -309,20 +328,25 @@ void ChamberView::drawTable(QPainter &p, const QRectF &area) const
     }
     p.drawText(QPointF(area.left(), y + fm.ascent()), tr("Chamber dimensions"));
     y += lineH + 2;
-    for (const Row &r : rows) {
+    for (const Row &r : rows)
+    {
         if (y + lineH > area.bottom()) break;
         const double v = m_dims.value(QLatin1String(r.key), 0.0);
         if (v == 0.0) continue;
         QString value;
-        if (r.quantity == Quantity::None) {
+        if (r.quantity == Quantity::None)
+        {
             value = QLocale().toString(v, 'f', r.suffix[0] ? 2 : 0) + QString::fromUtf8(r.suffix);
-        } else {
+        }
+        else
+        {
             const grt::units::Unit &u = UnitPreferences::instance().unitFor(r.quantity);
             value = grt::units::format(v, u) + u' ' + QString::fromUtf8(u.symbol);
         }
         const QRectF rowRect(area.left(), y, area.width(), lineH);
         m_rowHits.push_back({rowRect, QString::fromLatin1(r.key), QString::fromUtf8(r.label), value});
-        if (m_hoverKey == QLatin1String(r.key)) {
+        if (m_hoverKey == QLatin1String(r.key))
+        {
             QColor hl = palette().color(QPalette::Highlight);
             hl.setAlpha(60);
             p.fillRect(rowRect, hl);

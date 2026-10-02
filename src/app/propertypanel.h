@@ -13,12 +13,14 @@ class QTableWidgetItem;
 // the original program. Edits are reported with the section id and the entry key.
 class QResizeEvent;
 
-class PropertyPanel : public QWidget {
+class PropertyPanel : public QWidget
+{
     Q_OBJECT
 public:
-    struct Section {
+    struct Section
+    {
         int id;
-        QString key;    // "caliber", "gun", ... (settings key of the field units)
+        QString key;  // "caliber", "gun", ... (settings key of the field units)
         QString title;
         const grt::EntryList *entries;
     };
@@ -36,7 +38,15 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 
 private:
-    enum Role { SectionRole = Qt::UserRole, KeyRole, FieldRole, QuantityRole, BaseRole, ChoiceRole };
+    enum Role
+    {
+        SectionRole = Qt::UserRole,
+        KeyRole,
+        FieldRole,
+        QuantityRole,
+        BaseRole,
+        ChoiceRole
+    };
     friend class UnitDelegate;
     friend class ValueDelegate;
     void onItemChanged(QTableWidgetItem *item);

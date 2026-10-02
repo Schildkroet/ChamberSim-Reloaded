@@ -4,16 +4,23 @@
 
 #include <functional>
 
-namespace grt::report {
+namespace grt::report
+{
 
 // What an image name ({{name}}) resolves to: something an <img src=...> understands (e.g. a data: URI) and,
 // if known, the natural size in pixels. An empty `src` shows a text placeholder instead.
-struct ImageSource {
+struct ImageSource
+{
     QString src;
     int width{0};
     int height{0};
     ImageSource() = default;
-    ImageSource(QString source, int w = 0, int h = 0) : src(std::move(source)), width(w), height(h) {}
+    ImageSource(QString source, int w = 0, int h = 0)
+        : src(std::move(source))
+        , width(w)
+        , height(h)
+    {
+    }
 };
 using ImageResolver = std::function<ImageSource(const QString &name)>;
 

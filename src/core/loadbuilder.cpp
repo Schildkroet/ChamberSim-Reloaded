@@ -10,9 +10,11 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt {
+namespace grt
+{
 
-namespace {
+namespace
+{
 
 double num(const QVariantMap &m, const char *key, double fallback = 0.0)
 {
@@ -40,7 +42,8 @@ QString textOf(const QVariant &v)
 
 void fill(EntryList &list, std::span<const spec::Field> fields, const QVariantMap &values)
 {
-    for (const spec::Field &f : fields) {
+    for (const spec::Field &f : fields)
+    {
         list.entries().push_back({.name = QString::fromLatin1(f.name),
                                   .value = values.value(QString::fromLatin1(f.name)).toString(),
                                   .unit = QString::fromLatin1(f.unit),
@@ -76,7 +79,8 @@ double defaultCharge_g(const QVariantMap &caliber, const QVariantMap &propellant
     return 0.70 * num(propellant, "pcd") * 1e-3 * caseVolume_cm3(caliber);
 }
 
-namespace {
+namespace
+{
 
 QString caliberDisplayName(const QVariantMap &caliber)
 {
@@ -116,7 +120,8 @@ void fillCaliberFile(LoadFile &lf, const QVariantMap &caliber, const QStringList
 {
     lf.caliberFile.entries().clear();
     const QStringList columns = !caliberColumns.isEmpty() ? caliberColumns : QStringList(caliber.keys());
-    for (const QString &col : columns) {
+    for (const QString &col : columns)
+    {
         if (col == u"id" || col == u"geloescht" || !caliber.contains(col)) continue;
         lf.caliberFile.entries().push_back({.name = col, .value = textOf(caliber.value(col)), .unit = {}, .type = {}, .descr = {}});
     }
@@ -145,13 +150,23 @@ QVariantMap projectileFields(const QVariantMap &projectile)
 
 QVariantMap propellantFields(const QVariantMap &propellant)
 {
-    return {{u"mname"_s, str(propellant, "mname")}, {u"pname"_s, str(propellant, "pname")}, {u"lotid"_s, str(propellant, "lotid")},
-            {u"Ba"_s, fmt(num(propellant, "Ba"))},   {u"Qex"_s, fmt(num(propellant, "Qex"))}, {u"k"_s, fmt(num(propellant, "k"))},
-            {u"a0"_s, fmt(num(propellant, "a0"))},   {u"a1"_s, fmt(num(propellant, "a1"))},   {u"z1"_s, fmt(num(propellant, "z1"))},
-            {u"z2"_s, fmt(num(propellant, "z2"))},   {u"eta"_s, fmt(num(propellant, "eta", 1.0))},
-            {u"pc"_s, fmt(num(propellant, "pc"))},   {u"pcd"_s, fmt(num(propellant, "pcd"))},
-            {u"tcc"_s, fmt(num(propellant, "tcc"))}, {u"tch"_s, fmt(num(propellant, "tch"))},
-            {u"imageUuid"_s, str(propellant, "imageUuid")}, {u"imageDetailUuid"_s, str(propellant, "imageDetailUuid")}};
+    return {{u"mname"_s, str(propellant, "mname")},
+            {u"pname"_s, str(propellant, "pname")},
+            {u"lotid"_s, str(propellant, "lotid")},
+            {u"Ba"_s, fmt(num(propellant, "Ba"))},
+            {u"Qex"_s, fmt(num(propellant, "Qex"))},
+            {u"k"_s, fmt(num(propellant, "k"))},
+            {u"a0"_s, fmt(num(propellant, "a0"))},
+            {u"a1"_s, fmt(num(propellant, "a1"))},
+            {u"z1"_s, fmt(num(propellant, "z1"))},
+            {u"z2"_s, fmt(num(propellant, "z2"))},
+            {u"eta"_s, fmt(num(propellant, "eta", 1.0))},
+            {u"pc"_s, fmt(num(propellant, "pc"))},
+            {u"pcd"_s, fmt(num(propellant, "pcd"))},
+            {u"tcc"_s, fmt(num(propellant, "tcc"))},
+            {u"tch"_s, fmt(num(propellant, "tch"))},
+            {u"imageUuid"_s, str(propellant, "imageUuid")},
+            {u"imageDetailUuid"_s, str(propellant, "imageDetailUuid")}};
 }
 
 void setFields(EntryList &list, const QVariantMap &values)
@@ -161,8 +176,8 @@ void setFields(EntryList &list, const QVariantMap &values)
 
 void refreshTitleAndLength(LoadFile &lf)
 {
-    lf.title = u"%1 %2 %3 %4"_s.arg(lf.caliber.text(u"CaliberName"), lf.projectile.text(u"ProjectileName"),
-                                    lf.propellant.text(u"mname"), lf.propellant.text(u"pname"));
+    lf.title = u"%1 %2 %3 %4"_s.arg(lf.caliber.text(u"CaliberName"), lf.projectile.text(u"ProjectileName"), lf.propellant.text(u"mname"),
+                                    lf.propellant.text(u"pname"));
     lf.caliber.set(u"oal", lf.caliber.number(u"caselen") + lf.projectile.number(u"glen") - lf.projectile.number(u"gdepth"));
     lf.caliber.set(u"ps", lf.projectile.number(u"gpressure", 250.0));
 }
@@ -175,7 +190,8 @@ void applyCaliber(LoadFile &lf, const QVariantMap &caliber, const QStringList &c
     LOG_Debug() << "Load: caliber replaced, reset dependent values" << resetDependent;
     setFields(lf.caliber, caliberFields(caliber));
     fillCaliberFile(lf, caliber, caliberColumns);
-    if (resetDependent) {
+    if (resetDependent)
+    {
         lf.gun.set(u"xe", defaultBarrelLength_mm(caliber));
         if (projectile) lf.projectile.set(u"gdepth", defaultSeatingDepth_mm(caliber, *projectile));
         if (propellant) lf.propellant.set(u"mc", defaultCharge_g(caliber, *propellant));
@@ -200,8 +216,8 @@ void applyPropellant(LoadFile &lf, const QVariantMap &propellant, bool resetDepe
     refreshTitleAndLength(lf);
 }
 
-LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, const QVariantMap &propellant,
-                   LoadParams p, const QStringList &caliberColumns)
+LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, const QVariantMap &propellant, LoadParams p,
+                   const QStringList &caliberColumns)
 {
     if (p.charge_g <= 0.0) p.charge_g = defaultCharge_g(caliber, propellant);
     if (p.barrelLength_mm <= 0.0) p.barrelLength_mm = defaultBarrelLength_mm(caliber);
@@ -209,8 +225,8 @@ LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, co
 
     LoadFile lf;
     lf.appVersion = u"2021.2030-NIGHTLY"_s;
-    lf.config.entries().push_back({.name = u"CurveFocusIdx"_s, .value = u"0"_s, .unit = {}, .type = u"integer"_s,
-                                   .descr = u"selected ladder curve for display"_s});
+    lf.config.entries().push_back(
+        {.name = u"CurveFocusIdx"_s, .value = u"0"_s, .unit = {}, .type = u"integer"_s, .descr = u"selected ladder curve for display"_s});
 
     QVariantMap cal = caliberFields(caliber);
     cal.insert(u"oal"_s, fmt(num(caliber, "L3") + num(projectile, "glen") - p.seatingDepth_mm));

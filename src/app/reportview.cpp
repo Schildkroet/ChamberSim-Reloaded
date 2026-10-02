@@ -24,10 +24,11 @@
 #include <algorithm>
 #include <QVBoxLayout>
 
-namespace {
+namespace
+{
 constexpr auto kTemplateKey = "report/template";
 constexpr auto kScaleKey = "report/scale";
-}
+}  // namespace
 
 ReportView::ReportView(QWidget *parent)
     : QWidget(parent)
@@ -64,10 +65,12 @@ ReportView::ReportView(QWidget *parent)
     connect(edit, &QPushButton::clicked, this, [this] { editTemplate(this); });
     connect(preview, &QPushButton::clicked, this, [this] { showPrintPreview(this); });
     connect(print, &QPushButton::clicked, this, [this] { showPrintDialog(this); });
-    connect(pdf, &QPushButton::clicked, this, [this] {
-        const QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
-        if (!path.isEmpty() && !exportPdf(path)) QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
-    });
+    connect(pdf, &QPushButton::clicked, this,
+            [this]
+            {
+                const QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
+                if (!path.isEmpty() && !exportPdf(path)) QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
+            });
     connect(m_scale, &QSpinBox::valueChanged, this, [this](int v) { setScale(v); });
     connect(&UnitPreferences::instance(), &UnitPreferences::changed, this, &ReportView::invalidate);
 }

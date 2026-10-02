@@ -5,9 +5,15 @@
 class QApplication;
 
 // Light / dark appearance. "System" keeps the platform's palette.
-namespace theme {
+namespace theme
+{
 
-enum class Mode { System, Light, Dark };
+enum class Mode
+{
+    System,
+    Light,
+    Dark
+};
 
 [[nodiscard]] Mode storedMode();
 void storeMode(Mode mode);

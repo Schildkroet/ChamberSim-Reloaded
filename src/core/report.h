@@ -11,11 +11,18 @@
 
 #include <functional>
 
-namespace grt::report {
+namespace grt::report
+{
 
 // A value a report can show: a number (in the file's base unit, with its quantity), text, or a PNG image.
-struct Value {
-    enum class Kind { Number, Text, Image };
+struct Value
+{
+    enum class Kind
+    {
+        Number,
+        Text,
+        Image
+    };
     Kind kind{Kind::Text};
     double number{0.0};
     units::Quantity quantity{units::Quantity::None};
@@ -30,7 +37,8 @@ struct Value {
 };
 
 // All values of a report, addressed by "source.property" (case-insensitive).
-class Data {
+class Data
+{
 public:
     void set(const QString &key, Value value) { m_values.insert(key.toLower(), std::move(value)); }
     [[nodiscard]] const Value *find(const QString &key) const
@@ -45,7 +53,8 @@ private:
     QHash<QString, Value> m_values;
 };
 
-struct RenderOptions {
+struct RenderOptions
+{
     // Unit for automatic formatting (no format string). Default: the base unit.
     std::function<const units::Unit &(units::Quantity)> unitFor;
     // Width of the page in layout pixels; images given in percent are sized against it.
@@ -63,7 +72,8 @@ struct RenderOptions {
 // The complete report as HTML: pragmas expanded, markup converted, images embedded as data: URIs.
 [[nodiscard]] QString renderReport(const QString &templateText, const Data &data, const RenderOptions &options = {});
 
-struct FileInfo {
+struct FileInfo
+{
     QString path;  // may be empty for an unsaved load
 };
 

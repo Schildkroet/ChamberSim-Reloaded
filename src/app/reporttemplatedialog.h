@@ -10,7 +10,8 @@ class QTextBrowser;
 class QTimer;
 
 // Edit the report template with a live preview and a menu that inserts values.
-class ReportTemplateDialog : public QDialog {
+class ReportTemplateDialog : public QDialog
+{
     Q_OBJECT
 public:
     ReportTemplateDialog(grt::report::Data data, const QString &templateText, QWidget *parent = nullptr);

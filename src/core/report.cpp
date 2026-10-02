@@ -11,7 +11,8 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::report {
+namespace grt::report
+{
 
 Value Value::ofNumber(double base, units::Quantity q)
 {
@@ -45,15 +46,16 @@ Value Value::ofImage(QByteArray png)
     return v;
 }
 
-namespace {
+namespace
+{
 
 QString automatic(const Value &v, const RenderOptions &o)
 {
     if (v.percent) return formatNumber(v.number, u"0.0 %"_s);
     if (v.quantity == units::Quantity::None) return formatNumber(v.number, u"0.####"_s);
     const units::Unit &u = o.unitFor ? o.unitFor(v.quantity) : units::unitsOf(v.quantity).front();
-    return formatNumber(units::toDisplay(v.number, u), u"0"_s + (u.decimals > 0 ? u"."_s + QString(u.decimals, u'0') : QString()))
-           + u' ' + QString::fromUtf8(u.symbol);
+    return formatNumber(units::toDisplay(v.number, u), u"0"_s + (u.decimals > 0 ? u"."_s + QString(u.decimals, u'0') : QString())) + u' ' +
+           QString::fromUtf8(u.symbol);
 }
 
 }  // namespace
@@ -63,23 +65,24 @@ QString expandPragmas(const QString &text, const Data &data, const RenderOptions
     static const QRegularExpression re(u"~~\\s*([A-Za-z_][A-Za-z0-9_.]*)\\s*(?:\\(\\s*\"([^\"]*)\"\\s*\\))?\\s*~~"_s);
     QString out;
     qsizetype pos = 0;
-    for (auto it = re.globalMatch(text); it.hasNext();) {
+    for (auto it = re.globalMatch(text); it.hasNext();)
+    {
         const auto m = it.next();
         out += text.mid(pos, m.capturedStart() - pos);
         pos = m.capturedEnd();
         const QString key = m.captured(1);
         const bool hasFormat = m.capturedStart(2) >= 0;
         const Value *v = data.find(key);
-        if (!v) {
+        if (!v)
+        {
             out += u"<color red>[%1?]</color>"_s.arg(key);
             continue;
         }
-        switch (v->kind) {
+        switch (v->kind)
+        {
         case Value::Kind::Text: out += v->text; break;
         case Value::Kind::Image: out += u"{{%1%2}}"_s.arg(key, hasFormat ? m.captured(2) : QString()); break;
-        case Value::Kind::Number:
-            out += hasFormat ? formatNumber(v->number, m.captured(2)) : automatic(*v, options);
-            break;
+        case Value::Kind::Number: out += hasFormat ? formatNumber(v->number, m.captured(2)) : automatic(*v, options); break;
         }
     }
     return out + text.mid(pos);
@@ -88,11 +91,13 @@ QString expandPragmas(const QString &text, const Data &data, const RenderOptions
 QString renderReport(const QString &templateText, const Data &data, const RenderOptions &options)
 {
     const QString expanded = expandPragmas(templateText, data, options);
-    const ImageResolver resolver = [&](const QString &name) -> ImageSource {
+    const ImageResolver resolver = [&](const QString &name) -> ImageSource
+    {
         const Value *v = data.find(name);
         if (!v || v->kind != Value::Kind::Image || v->png.size() < 24) return {};
         // natural size from the PNG header (IHDR: width and height as big-endian 32 bit numbers)
-        const auto be32 = [&](int at) {
+        const auto be32 = [&](int at)
+        {
             const auto *p = reinterpret_cast<const unsigned char *>(v->png.constData()) + at;
             const quint32 v = (quint32{p[0]} << 24) | (quint32{p[1]} << 16) | (quint32{p[2]} << 8) | quint32{p[3]};
             return v > 100'000 ? 0 : static_cast<int>(v);  // a broken header: no natural size
@@ -169,7 +174,8 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
     num(u"work.laddermc"_s, q.number(u"laddermc"), Quantity::BulletMass);
 
     // ---- result: the simulation (only when it ran) ----
-    if (r.ok()) {
+    if (r.ok())
+    {
         num(u"result.MaxPressure"_s, r.maxPressure_bar, Quantity::Pressure);
         num(u"result.MuzzlePressure"_s, r.muzzlePressure_bar, Quantity::Pressure);
         num(u"result.MuzzleEnergy"_s, r.muzzleEnergy_J, Quantity::Energy);
@@ -177,7 +183,8 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
         num(u"result.MuzzleTime"_s, r.muzzleTime_ms, Quantity::Time);
         d.set(u"result.LoadRatio"_s, Value::ofFraction(r.loadRatio));
         d.set(u"result.BurnRatio"_s, Value::ofFraction(r.burntFraction));
-        if (r.burnoutInBarrel) {
+        if (r.burnoutInBarrel)
+        {
             num(u"result.BurnOutTime"_s, r.points[r.indexBurnout].t_ms, Quantity::Time);
             num(u"result.BurnOutPos"_s, r.points[r.indexBurnout].x_mm, Quantity::Length);
         }
@@ -189,10 +196,13 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
         num(u"result.Impulse"_s, r.recoilImpulse_Ns, Quantity::Impulse);
         if (in.charge_g > 0.0) num(u"result.OutflowVelocity"_s, r.gasImpulse_Ns / (in.charge_g * 1e-3), Quantity::Velocity);
         num(u"result.RecoilForce"_s, r.meanRecoilForce_N, Quantity::Force);
-        if (in.gunWeight_kg > 0.0) {
+        if (in.gunWeight_kg > 0.0)
+        {
             num(u"result.RecoilVelocity"_s, r.recoilVelocity_ms, Quantity::Velocity);
             num(u"result.RecoilEnergy"_s, r.recoilEnergy_J, Quantity::Energy);
-        } else {  // needs the gun weight
+        }
+        else
+        {  // needs the gun weight
             txt(u"result.RecoilVelocity"_s, u"–"_s);
             txt(u"result.RecoilEnergy"_s, u"–"_s);
         }

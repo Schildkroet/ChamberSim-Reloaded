@@ -39,12 +39,14 @@ ReportTemplateDialog::ReportTemplateDialog(grt::report::Data data, const QString
     QStringList keys = m_data.keys();
     keys.sort();
     QMap<QString, QMenu *> groups;
-    for (const QString &key : keys) {
+    for (const QString &key : keys)
+    {
         const QString source = key.section(u'.', 0, 0);
         if (!groups.contains(source)) groups.insert(source, menu->addMenu(source));
         const bool image = m_data.find(key)->kind == grt::report::Value::Kind::Image;
         QAction *a = groups[source]->addAction(key.section(u'.', 1));
-        connect(a, &QAction::triggered, this, [this, key, image] { insertAtCursor(image ? QStringLiteral("~~%1~~").arg(key) : QStringLiteral("~~%1~~").arg(key)); });
+        connect(a, &QAction::triggered, this,
+                [this, key, image] { insertAtCursor(image ? QStringLiteral("~~%1~~").arg(key) : QStringLiteral("~~%1~~").arg(key)); });
     }
     insert->setMenu(menu);
 

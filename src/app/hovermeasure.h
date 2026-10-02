@@ -13,7 +13,8 @@
 
 // A dimension of the drawing that is shown while the mouse rests on its entry in the table: either a length
 // along the axis (from y = a to y = b, mm) or a diameter (width b at height a).
-struct HoverMeasure {
+struct HoverMeasure
+{
     bool diameter{false};
     double a{0.0};
     double b{0.0};
@@ -33,7 +34,8 @@ inline void drawHoverMeasure(QPainter &p, const HoverMeasure &m, const std::func
     p.setBrush(Qt::NoBrush);
     QPen guide(accent, 1.0, Qt::DotLine);
     QPen line(accent, 1.8);
-    if (!m.diameter) {
+    if (!m.diameter)
+    {
         const double x = std::min(dimensionX, maxX - fm.height() - 6.0);
         p.setPen(guide);
         for (double y : {m.a, m.b}) p.drawLine(QPointF(X(0.0), Y(y)), QPointF(x, Y(y)));
@@ -41,7 +43,9 @@ inline void drawHoverMeasure(QPainter &p, const HoverMeasure &m, const std::func
         p.drawLine(QPointF(x, Y(m.a)), QPointF(x, Y(m.b)));
         for (double y : {m.a, m.b}) p.drawLine(QPointF(x - 4, Y(y)), QPointF(x + 4, Y(y)));
         drawVerticalLabel(p, QPointF(x + 5.0, (Y(m.a) + Y(m.b)) / 2.0), m.text, fm, background, accent);
-    } else {
+    }
+    else
+    {
         const double y = Y(m.a), x0 = X(-m.b / 2.0), x1 = X(m.b / 2.0);
         p.setPen(line);
         p.drawLine(QPointF(x0, y), QPointF(x1, y));

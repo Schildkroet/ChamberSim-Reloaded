@@ -20,7 +20,8 @@ class QTableWidget;
 // The "Measurements" tab: chronograph (and pressure) results per charge with their statistics, compared with the
 // simulated velocity and peak pressure, and a chart over the charge. Stored in the load file's appendix like the
 // original program does (<Measurement>).
-class MeasurementView : public QWidget {
+class MeasurementView : public QWidget
+{
     Q_OBJECT
 public:
     // Simulates the load with another charge [g].
@@ -63,13 +64,14 @@ public:
 signals:
     void edited();
     void seriesChanged();  // another series is shown (the chart and the report follow it)
-    void fitRequested();  // "Fit to measurements…"
+    void fitRequested();   // "Fit to measurements…"
 
 protected:
     void showEvent(QShowEvent *event) override;
 
 private:
-    struct Simulated {
+    struct Simulated
+    {
         bool ok{false};
         double velocity_ms{};
         double pressure_bar{};

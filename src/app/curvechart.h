@@ -16,10 +16,15 @@ class QValueAxis;
 // Pressure, bullet energy and velocity over time (or position) with the markers of the original
 // program: z1, Pmax, z2, 95 % energy and burnout, plus warning bands below the permitted pressure.
 // A reference run (the original's curves) can be drawn dashed underneath.
-class CurveChart : public QChartView {
+class CurveChart : public QChartView
+{
     Q_OBJECT
 public:
-    enum class XAxis { Time, Position };
+    enum class XAxis
+    {
+        Time,
+        Position
+    };
 
     explicit CurveChart(QWidget *parent = nullptr);
 
@@ -39,7 +44,8 @@ protected:
     void changeEvent(QEvent *event) override;
 
 private:
-    struct Marker {
+    struct Marker
+    {
         QLineSeries *line;
         QGraphicsSimpleTextItem *label;
         double x{0.0};

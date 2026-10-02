@@ -2,7 +2,8 @@
 
 #include <algorithm>
 
-namespace grt {
+namespace grt
+{
 
 QString normalizeLanguage(const QString &tag)
 {
@@ -20,7 +21,8 @@ QString resolveLanguage(const QStringList &requested, const QStringList &availab
     avail.reserve(available.size());
     std::ranges::transform(available, std::back_inserter(avail), normalizeLanguage);
 
-    for (const QString &raw : requested) {
+    for (const QString &raw : requested)
+    {
         const QString want = normalizeLanguage(raw);
         if (want.isEmpty()) continue;
         if (avail.contains(want)) return want;

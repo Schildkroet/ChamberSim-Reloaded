@@ -19,72 +19,70 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt {
+namespace grt
+{
 
-namespace {
+namespace
+{
 
 // The tables of the original program's database (same columns), created in the own database.
-struct TableSchema {
+struct TableSchema
+{
     const char *name;
     const char *columns;
 };
 constexpr std::array<TableSchema, 5> kSchema{{
-    {"caliber",
-     "id INTEGER PRIMARY KEY AUTOINCREMENT, cipname TEXT NOT NULL, altname TEXT NOT NULL, "
-     "standard TEXT NOT NULL, ciporigin TEXT NOT NULL, ciptype TEXT NOT NULL, cipdate DATE NOT NULL, "
-     "ciprevdate DATE NOT NULL, cippdf TEXT NOT NULL, L0 FLOAT NOT NULL, L1 FLOAT NOT NULL, "
-     "L2 FLOAT NOT NULL, L3 FLOAT NOT NULL, L4 FLOAT NOT NULL, L5 FLOAT NOT NULL, L6 FLOAT NOT NULL, "
-     "R FLOAT NOT NULL, R1 FLOAT NOT NULL, R3 FLOAT NOT NULL, E FLOAT NOT NULL, E1 FLOAT NOT NULL, "
-     "Emin FLOAT NOT NULL, delta TEXT NOT NULL, FG FLOAT NOT NULL, beta TEXT NOT NULL, P0 FLOAT NOT NULL, "
-     "P1 FLOAT NOT NULL, P2 FLOAT NOT NULL, alpha TEXT NOT NULL, S FLOAT NOT NULL, r1min FLOAT NOT NULL, "
-     "r2 FLOAT NOT NULL, H1 FLOAT NOT NULL, H2 FLOAT NOT NULL, G1 FLOAT NOT NULL, G2 FLOAT NOT NULL, "
-     "f FLOAT NOT NULL, L3G FLOAT NOT NULL, Pmax FLOAT NOT NULL, PK FLOAT NOT NULL, PE FLOAT NOT NULL, "
-     "EE FLOAT NOT NULL, V FLOAT NOT NULL, M TEXT NOT NULL, c_L0 FLOAT NOT NULL, c_L1 FLOAT NOT NULL, "
-     "c_L2 FLOAT NOT NULL, c_L3 FLOAT NOT NULL, c_R FLOAT NOT NULL, c_R1 FLOAT NOT NULL, "
-     "c_R2 FLOAT NOT NULL, c_R3 FLOAT NOT NULL, c_r_ FLOAT NOT NULL, c_E FLOAT NOT NULL, "
-     "c_P0 FLOAT NOT NULL, c_P1 FLOAT NOT NULL, c_P2 FLOAT NOT NULL, c_alpha FLOAT NOT NULL, "
-     "c_S FLOAT NOT NULL, c_r1max FLOAT NOT NULL, c_r2_ FLOAT NOT NULL, c_H1 FLOAT NOT NULL, "
-     "c_H2 FLOAT NOT NULL, c_G FLOAT NOT NULL, c_G1 FLOAT NOT NULL, c_alpha1 FLOAT NOT NULL, "
-     "c_h_ FLOAT NOT NULL, c_s_ FLOAT NOT NULL, c_i_ FLOAT NOT NULL, c_w_ FLOAT NOT NULL, "
-     "c_F FLOAT NOT NULL, c_Z FLOAT NOT NULL, c_b_ FLOAT NOT NULL, c_N FLOAT NOT NULL, "
-     "c_u_ FLOAT NOT NULL, c_Q FLOAT NOT NULL, c_delta FLOAT NOT NULL, c_Fe FLOAT NOT NULL, "
-     "c_Fe_proof FLOAT NOT NULL, c_Fe_auto FLOAT NOT NULL, sebert FLOAT NOT NULL, cdate DATE NOT NULL, "
-     "cby TEXT NOT NULL, mdate DATE NOT NULL, mby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, "
-     "status TEXT NOT NULL, origin TEXT NOT NULL, descr TEXT NOT NULL, geloescht INTEGER NOT NULL"},
-    {"projectile",
-     "id INTEGER PRIMARY KEY AUTOINCREMENT, mname TEXT COLLATE NOCASE NOT NULL, "
-     "pname TEXT COLLATE NOCASE NOT NULL, lotid TEXT COLLATE NOCASE NOT NULL, "
-     "caliber TEXT COLLATE NOCASE NOT NULL, gdia FLOAT NOT NULL, glen FLOAT NOT NULL, "
-     "gmass FLOAT NOT NULL, gpressure FLOAT NOT NULL, gfriction FLOAT NOT NULL, gtaildiaA FLOAT NOT NULL, "
-     "gtaildiaB FLOAT NOT NULL, gtailh FLOAT NOT NULL, gtailtype INTEGER NOT NULL, "
-     "gdepthmax FLOAT NOT NULL, g1bc FLOAT NOT NULL, g7bc FLOAT NOT NULL, "
-     "gUBCS TEXT COLLATE NOCASE NOT NULL, cdate DATE NOT NULL, cby TEXT COLLATE NOCASE NOT NULL, "
-     "mdate DATE NOT NULL, mby TEXT COLLATE NOCASE NOT NULL, type TEXT COLLATE NOCASE NOT NULL, "
-     "mode TEXT COLLATE NOCASE NOT NULL, status TEXT COLLATE NOCASE NOT NULL, "
-     "origin TEXT COLLATE NOCASE NOT NULL, descr TEXT COLLATE NOCASE NOT NULL, imageUuid TEXT NOT NULL, "
-     "geloescht INTEGER NOT NULL"},
-    {"propellant",
-     "id INTEGER PRIMARY KEY AUTOINCREMENT, mname TEXT COLLATE NOCASE NOT NULL, "
-     "pname TEXT COLLATE NOCASE NOT NULL, lotid TEXT COLLATE NOCASE NOT NULL, Br FLOAT NOT NULL, "
-     "Bp FLOAT NOT NULL, Brp FLOAT NOT NULL, Ba FLOAT NOT NULL, Qex FLOAT NOT NULL, k FLOAT NOT NULL, "
-     "eta FLOAT NOT NULL, a0 FLOAT NOT NULL, a1 FLOAT NOT NULL, z1 FLOAT NOT NULL, z2 FLOAT NOT NULL, "
-     "pc FLOAT NOT NULL, pcd FLOAT NOT NULL, pt FLOAT NOT NULL, tcc FLOAT NOT NULL, tch FLOAT NOT NULL, "
-     "Lp FLOAT NOT NULL, Lr FLOAT NOT NULL, L01 FLOAT NOT NULL, L02 FLOAT NOT NULL, L03 FLOAT NOT NULL, "
-     "L04 FLOAT NOT NULL, L05 FLOAT NOT NULL, L06 FLOAT NOT NULL, L07 FLOAT NOT NULL, L08 FLOAT NOT NULL, "
-     "L09 FLOAT NOT NULL, Qlty FLOAT NOT NULL, cdate DATE NOT NULL, cby TEXT COLLATE NOCASE NOT NULL, "
-     "mdate DATE NOT NULL, mby TEXT COLLATE NOCASE NOT NULL, type TEXT COLLATE NOCASE NOT NULL, "
-     "mode TEXT COLLATE NOCASE NOT NULL, status TEXT COLLATE NOCASE NOT NULL, "
-     "origin TEXT COLLATE NOCASE NOT NULL, descr TEXT COLLATE NOCASE NOT NULL, imageUuid TEXT NOT NULL, "
-     "imageDetailUuid TEXT NOT NULL, geloescht INTEGER NOT NULL"},
-    {"gun",
-     "id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, data TEXT NOT NULL, cdate DATE NOT NULL, "
-     "cby TEXT NOT NULL, mdate DATE NOT NULL, mby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, "
-     "status TEXT NOT NULL, descr TEXT NOT NULL, geloescht INTEGER NOT NULL"},
-    {"image",
-     "id INTEGER PRIMARY KEY AUTOINCREMENT, uuid TEXT NOT NULL, name TEXT NOT NULL, descr TEXT NOT NULL, "
-     "scale FLOAT NOT NULL, scaleunit TEXT NOT NULL, data TEXT NOT NULL, cdate DATE NOT NULL, "
-     "cby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, status TEXT NOT NULL, "
-     "geloescht INTEGER NOT NULL"},
+    {"caliber", "id INTEGER PRIMARY KEY AUTOINCREMENT, cipname TEXT NOT NULL, altname TEXT NOT NULL, "
+                "standard TEXT NOT NULL, ciporigin TEXT NOT NULL, ciptype TEXT NOT NULL, cipdate DATE NOT NULL, "
+                "ciprevdate DATE NOT NULL, cippdf TEXT NOT NULL, L0 FLOAT NOT NULL, L1 FLOAT NOT NULL, "
+                "L2 FLOAT NOT NULL, L3 FLOAT NOT NULL, L4 FLOAT NOT NULL, L5 FLOAT NOT NULL, L6 FLOAT NOT NULL, "
+                "R FLOAT NOT NULL, R1 FLOAT NOT NULL, R3 FLOAT NOT NULL, E FLOAT NOT NULL, E1 FLOAT NOT NULL, "
+                "Emin FLOAT NOT NULL, delta TEXT NOT NULL, FG FLOAT NOT NULL, beta TEXT NOT NULL, P0 FLOAT NOT NULL, "
+                "P1 FLOAT NOT NULL, P2 FLOAT NOT NULL, alpha TEXT NOT NULL, S FLOAT NOT NULL, r1min FLOAT NOT NULL, "
+                "r2 FLOAT NOT NULL, H1 FLOAT NOT NULL, H2 FLOAT NOT NULL, G1 FLOAT NOT NULL, G2 FLOAT NOT NULL, "
+                "f FLOAT NOT NULL, L3G FLOAT NOT NULL, Pmax FLOAT NOT NULL, PK FLOAT NOT NULL, PE FLOAT NOT NULL, "
+                "EE FLOAT NOT NULL, V FLOAT NOT NULL, M TEXT NOT NULL, c_L0 FLOAT NOT NULL, c_L1 FLOAT NOT NULL, "
+                "c_L2 FLOAT NOT NULL, c_L3 FLOAT NOT NULL, c_R FLOAT NOT NULL, c_R1 FLOAT NOT NULL, "
+                "c_R2 FLOAT NOT NULL, c_R3 FLOAT NOT NULL, c_r_ FLOAT NOT NULL, c_E FLOAT NOT NULL, "
+                "c_P0 FLOAT NOT NULL, c_P1 FLOAT NOT NULL, c_P2 FLOAT NOT NULL, c_alpha FLOAT NOT NULL, "
+                "c_S FLOAT NOT NULL, c_r1max FLOAT NOT NULL, c_r2_ FLOAT NOT NULL, c_H1 FLOAT NOT NULL, "
+                "c_H2 FLOAT NOT NULL, c_G FLOAT NOT NULL, c_G1 FLOAT NOT NULL, c_alpha1 FLOAT NOT NULL, "
+                "c_h_ FLOAT NOT NULL, c_s_ FLOAT NOT NULL, c_i_ FLOAT NOT NULL, c_w_ FLOAT NOT NULL, "
+                "c_F FLOAT NOT NULL, c_Z FLOAT NOT NULL, c_b_ FLOAT NOT NULL, c_N FLOAT NOT NULL, "
+                "c_u_ FLOAT NOT NULL, c_Q FLOAT NOT NULL, c_delta FLOAT NOT NULL, c_Fe FLOAT NOT NULL, "
+                "c_Fe_proof FLOAT NOT NULL, c_Fe_auto FLOAT NOT NULL, sebert FLOAT NOT NULL, cdate DATE NOT NULL, "
+                "cby TEXT NOT NULL, mdate DATE NOT NULL, mby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, "
+                "status TEXT NOT NULL, origin TEXT NOT NULL, descr TEXT NOT NULL, geloescht INTEGER NOT NULL"},
+    {"projectile", "id INTEGER PRIMARY KEY AUTOINCREMENT, mname TEXT COLLATE NOCASE NOT NULL, "
+                   "pname TEXT COLLATE NOCASE NOT NULL, lotid TEXT COLLATE NOCASE NOT NULL, "
+                   "caliber TEXT COLLATE NOCASE NOT NULL, gdia FLOAT NOT NULL, glen FLOAT NOT NULL, "
+                   "gmass FLOAT NOT NULL, gpressure FLOAT NOT NULL, gfriction FLOAT NOT NULL, gtaildiaA FLOAT NOT NULL, "
+                   "gtaildiaB FLOAT NOT NULL, gtailh FLOAT NOT NULL, gtailtype INTEGER NOT NULL, "
+                   "gdepthmax FLOAT NOT NULL, g1bc FLOAT NOT NULL, g7bc FLOAT NOT NULL, "
+                   "gUBCS TEXT COLLATE NOCASE NOT NULL, cdate DATE NOT NULL, cby TEXT COLLATE NOCASE NOT NULL, "
+                   "mdate DATE NOT NULL, mby TEXT COLLATE NOCASE NOT NULL, type TEXT COLLATE NOCASE NOT NULL, "
+                   "mode TEXT COLLATE NOCASE NOT NULL, status TEXT COLLATE NOCASE NOT NULL, "
+                   "origin TEXT COLLATE NOCASE NOT NULL, descr TEXT COLLATE NOCASE NOT NULL, imageUuid TEXT NOT NULL, "
+                   "geloescht INTEGER NOT NULL"},
+    {"propellant", "id INTEGER PRIMARY KEY AUTOINCREMENT, mname TEXT COLLATE NOCASE NOT NULL, "
+                   "pname TEXT COLLATE NOCASE NOT NULL, lotid TEXT COLLATE NOCASE NOT NULL, Br FLOAT NOT NULL, "
+                   "Bp FLOAT NOT NULL, Brp FLOAT NOT NULL, Ba FLOAT NOT NULL, Qex FLOAT NOT NULL, k FLOAT NOT NULL, "
+                   "eta FLOAT NOT NULL, a0 FLOAT NOT NULL, a1 FLOAT NOT NULL, z1 FLOAT NOT NULL, z2 FLOAT NOT NULL, "
+                   "pc FLOAT NOT NULL, pcd FLOAT NOT NULL, pt FLOAT NOT NULL, tcc FLOAT NOT NULL, tch FLOAT NOT NULL, "
+                   "Lp FLOAT NOT NULL, Lr FLOAT NOT NULL, L01 FLOAT NOT NULL, L02 FLOAT NOT NULL, L03 FLOAT NOT NULL, "
+                   "L04 FLOAT NOT NULL, L05 FLOAT NOT NULL, L06 FLOAT NOT NULL, L07 FLOAT NOT NULL, L08 FLOAT NOT NULL, "
+                   "L09 FLOAT NOT NULL, Qlty FLOAT NOT NULL, cdate DATE NOT NULL, cby TEXT COLLATE NOCASE NOT NULL, "
+                   "mdate DATE NOT NULL, mby TEXT COLLATE NOCASE NOT NULL, type TEXT COLLATE NOCASE NOT NULL, "
+                   "mode TEXT COLLATE NOCASE NOT NULL, status TEXT COLLATE NOCASE NOT NULL, "
+                   "origin TEXT COLLATE NOCASE NOT NULL, descr TEXT COLLATE NOCASE NOT NULL, imageUuid TEXT NOT NULL, "
+                   "imageDetailUuid TEXT NOT NULL, geloescht INTEGER NOT NULL"},
+    {"gun", "id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, data TEXT NOT NULL, cdate DATE NOT NULL, "
+            "cby TEXT NOT NULL, mdate DATE NOT NULL, mby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, "
+            "status TEXT NOT NULL, descr TEXT NOT NULL, geloescht INTEGER NOT NULL"},
+    {"image", "id INTEGER PRIMARY KEY AUTOINCREMENT, uuid TEXT NOT NULL, name TEXT NOT NULL, descr TEXT NOT NULL, "
+              "scale FLOAT NOT NULL, scaleunit TEXT NOT NULL, data TEXT NOT NULL, cdate DATE NOT NULL, "
+              "cby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, status TEXT NOT NULL, "
+              "geloescht INTEGER NOT NULL"},
 }};
 
 QString lastError(const QSqlQuery &q)
@@ -167,50 +165,63 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
     m_db.setDatabaseName(own);
     // URIs for attaching the original read-only; wait for a lock (a second instance, a backup) instead of failing
     m_db.setConnectOptions(u"QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=5000"_s);
-    if (!m_db.open()) {
+    if (!m_db.open())
+    {
         if (error) *error = m_db.lastError().text();
         LOG_Error() << "Cannot open the own database" << own << ":" << m_db.lastError().text();
         close();
         return false;
     }
-    if (!createOwnTables(error)) {
+    if (!createOwnTables(error))
+    {
         LOG_Error() << "Cannot prepare the own database" << own << ":" << (error ? *error : QString());
         close();
         return false;
     }
     m_ownPath = own;
     LOG_Info() << "Own database:" << own;
-    if (!loadProjectData(error)) {
+    if (!loadProjectData(error))
+    {
         LOG_Error() << "Cannot load the project data:" << (error ? *error : QString());
         close();
         return false;
     }
 
     bool ok = true;
-    if (!originalPath.isEmpty()) {
+    if (!originalPath.isEmpty())
+    {
         QSqlQuery q(m_db);
         q.prepare(u"ATTACH DATABASE ? AS grt"_s);
         q.addBindValue(QUrl::fromLocalFile(QFileInfo(originalPath).absoluteFilePath()).toString(QUrl::FullyEncoded) + u"?mode=ro"_s);
-        if (!QFileInfo::exists(originalPath)) {
+        if (!QFileInfo::exists(originalPath))
+        {
             if (error) *error = QStringLiteral("%1 does not exist").arg(originalPath);
             ok = false;
-        } else if (!q.exec()) {
+        }
+        else if (!q.exec())
+        {
             if (error) *error = lastError(q);
             ok = false;
-        } else {
+        }
+        else
+        {
             // an encrypted original database fails here with "file is not a database"
             QSqlQuery check(m_db);
-            if (!check.exec(u"SELECT count(*) FROM grt.caliber"_s) || !check.next()) {
+            if (!check.exec(u"SELECT count(*) FROM grt.caliber"_s) || !check.next())
+            {
                 if (error) *error = lastError(check);
                 QSqlQuery(m_db).exec(u"DETACH DATABASE grt"_s);
                 ok = false;
-            } else {
+            }
+            else
+            {
                 m_originalPath = originalPath;
                 LOG_Info() << "Original database attached (read-only):" << originalPath;
             }
         }
     }
-    if (!createViews(error)) {
+    if (!createViews(error))
+    {
         close();
         return false;
     }
@@ -220,15 +231,18 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
 bool Database::createOwnTables(QString *error)
 {
     // all tables or none: a migration that stops half-way would leave some records in the old id range
-    if (!m_db.transaction()) {
+    if (!m_db.transaction())
+    {
         if (error) *error = m_db.lastError().text();
         return false;
     }
-    if (!createOwnTablesInTransaction(error)) {
+    if (!createOwnTablesInTransaction(error))
+    {
         m_db.rollback();
         return false;
     }
-    if (!m_db.commit()) {
+    if (!m_db.commit())
+    {
         if (error) *error = m_db.lastError().text();
         m_db.rollback();
         return false;
@@ -239,21 +253,27 @@ bool Database::createOwnTables(QString *error)
 bool Database::createOwnTablesInTransaction(QString *error)
 {
     constexpr int kOldOwnIdBase = kProjectIdBase;  // before the project records came, own ids started there
-    for (const TableSchema &t : kSchema) {
+    for (const TableSchema &t : kSchema)
+    {
         const QString name = QLatin1String(t.name);
         if (!exec(m_db, u"CREATE TABLE IF NOT EXISTS main.%1 (%2)"_s.arg(name, QLatin1String(t.columns)), error)) return false;
         // own records of older versions move up to the own range (load files keep values, not ids)
-        if (!exec(m_db, u"UPDATE main.%1 SET id = id + %2 WHERE id >= %3 AND id < %4"_s.arg(name).arg(kOwnIdBase - kOldOwnIdBase)
-                             .arg(kOldOwnIdBase).arg(kOwnIdBase),
+        if (!exec(m_db,
+                  u"UPDATE main.%1 SET id = id + %2 WHERE id >= %3 AND id < %4"_s.arg(name)
+                      .arg(kOwnIdBase - kOldOwnIdBase)
+                      .arg(kOldOwnIdBase)
+                      .arg(kOwnIdBase),
                   error))
             return false;
         // own ids start at kOwnIdBase (AUTOINCREMENT continues after the highest sequence value)
-        if (!exec(m_db, u"INSERT INTO main.sqlite_sequence (name, seq) SELECT '%1', 0 WHERE NOT EXISTS "
-                         "(SELECT 1 FROM main.sqlite_sequence WHERE name = '%1')"_s.arg(name),
-                  error)
-            || !exec(m_db, u"UPDATE main.sqlite_sequence SET seq = max(%2, (SELECT ifnull(max(id), 0) FROM main.%1)) WHERE name = '%1'"_s
-                               .arg(name).arg(kOwnIdBase - 1),
-                     error))
+        if (!exec(m_db,
+                  u"INSERT INTO main.sqlite_sequence (name, seq) SELECT '%1', 0 WHERE NOT EXISTS "
+                  "(SELECT 1 FROM main.sqlite_sequence WHERE name = '%1')"_s.arg(name),
+                  error) ||
+            !exec(m_db,
+                  u"UPDATE main.sqlite_sequence SET seq = max(%2, (SELECT ifnull(max(id), 0) FROM main.%1)) WHERE name = '%1'"_s.arg(name)
+                      .arg(kOwnIdBase - 1),
+                  error))
             return false;
     }
     return true;
@@ -264,25 +284,30 @@ bool Database::loadProjectData(QString *error)
 {
     m_projectErrors.clear();
     if (!exec(m_db, u"ATTACH DATABASE ':memory:' AS proj"_s, error)) return false;
-    for (const TableSchema &t : kSchema) {
+    for (const TableSchema &t : kSchema)
+    {
         const QString name = QLatin1String(t.name);
         if (!exec(m_db, u"CREATE TABLE proj.%1 (%2)"_s.arg(name, QLatin1String(t.columns)), error)) return false;
     }
     // one transaction for speed; the records live in memory only, a failed commit is an error of the program
-    if (!m_db.transaction()) {
+    if (!m_db.transaction())
+    {
         if (error) *error = m_db.lastError().text();
         return false;
     }
-    for (const Table t : {Table::Caliber, Table::Projectile, Table::Propellant}) {
+    for (const Table t : {Table::Caliber, Table::Projectile, Table::Propellant})
+    {
         const projectdata::Loaded loaded = projectdata::load(projectLocation(), t, schema(t));
         m_projectErrors << loaded.errors;
         int id = kProjectIdBase;
-        for (const QVariantMap &record : loaded.records) {
+        for (const QVariantMap &record : loaded.records)
+        {
             QString err;
             if (!insertInto(u"proj"_s, t, record, id++, &err)) m_projectErrors << projectdata::folderName(t) + u": "_s + err;
         }
     }
-    if (!m_db.commit()) {
+    if (!m_db.commit())
+    {
         if (error) *error = m_db.lastError().text();
         m_db.rollback();
         return false;
@@ -295,12 +320,14 @@ bool Database::loadProjectData(QString *error)
 // temp.<table> = own rows + project rows + original rows; unqualified names resolve to the temp schema first.
 bool Database::createViews(QString *error)
 {
-    for (const TableSchema &t : kSchema) {
+    for (const TableSchema &t : kSchema)
+    {
         const QString name = QLatin1String(t.name);
         const auto own = tableColumns(m_db, u"main"_s, name);
         QStringList cols, originalCols;
         const auto original = hasOriginal() ? tableColumns(m_db, u"grt"_s, name) : decltype(own){};
-        for (const auto &[col, type] : own) {
+        for (const auto &[col, type] : own)
+        {
             cols << col;
             const bool there = std::ranges::any_of(original, [&](const auto &c) { return c.first.compare(col, Qt::CaseInsensitive) == 0; });
             originalCols << (there ? col : u"NULL AS "_s + col);
@@ -382,8 +409,12 @@ std::optional<Database::Image> Database::image(const QString &uuid) const
     q.prepare(u"SELECT name, descr, scale, scaleunit, data, type FROM image WHERE uuid = ? AND geloescht = 0 LIMIT 1"_s);
     q.addBindValue(uuid);
     if (!q.exec() || !q.next()) return std::nullopt;
-    Image img{.uuid = uuid, .name = q.value(0).toString(), .descr = q.value(1).toString(), .scale = q.value(2).toDouble(),
-              .scaleUnit = q.value(3).toString(), .data = QByteArray::fromBase64(q.value(4).toString().toLatin1()),
+    Image img{.uuid = uuid,
+              .name = q.value(0).toString(),
+              .descr = q.value(1).toString(),
+              .scale = q.value(2).toDouble(),
+              .scaleUnit = q.value(3).toString(),
+              .data = QByteArray::fromBase64(q.value(4).toString().toLatin1()),
               .type = q.value(5).toString()};
     if (img.data.isEmpty()) return std::nullopt;
     return img;
@@ -391,7 +422,8 @@ std::optional<Database::Image> Database::image(const QString &uuid) const
 
 std::optional<QString> Database::addImage(const Image &image, QString *error)
 {
-    if (!m_db.isOpen() || image.data.isEmpty()) {
+    if (!m_db.isOpen() || image.data.isEmpty())
+    {
         if (error) *error = u"no picture data"_s;
         return std::nullopt;
     }
@@ -412,7 +444,8 @@ std::optional<QString> Database::addImage(const Image &image, QString *error)
     q.addBindValue(QString::fromLatin1(image.data.toBase64()));
     q.addBindValue(QDateTime::currentDateTime().toString(u"yyyy-MM-dd HH:mm:ss"_s));
     q.addBindValue(text(image.type));
-    if (!q.exec()) {
+    if (!q.exec())
+    {
         if (error) *error = lastError(q);
         LOG_Warn() << "Cannot store picture" << image.name << ":" << lastError(q);
         return std::nullopt;
@@ -423,7 +456,8 @@ std::optional<QString> Database::addImage(const Image &image, QString *error)
 
 void Database::keepImages(const QVariantMap &values)
 {
-    for (const QString &column : {u"imageUuid"_s, u"imageDetailUuid"_s}) {
+    for (const QString &column : {u"imageUuid"_s, u"imageDetailUuid"_s})
+    {
         const QString uuid = values.value(column).toString();
         if (uuid.isEmpty()) continue;
         if (const auto img = image(uuid)) (void)addImage(*img);  // a no-op when the own database has it
@@ -444,9 +478,11 @@ std::optional<int> Database::insertInto(const QString &schemaName, Table t, cons
     const QString name = QLatin1String(tableName(t));
     QStringList cols, marks;
     QVariantList binds;
-    for (const auto &[col, type] : tableColumns(m_db, u"main"_s, name)) {
+    for (const auto &[col, type] : tableColumns(m_db, u"main"_s, name))
+    {
         QVariant v;
-        if (col == u"id") {
+        if (col == u"id")
+        {
             if (id < 0) continue;
             v = id;
         }
@@ -460,7 +496,8 @@ std::optional<int> Database::insertInto(const QString &schemaName, Table t, cons
     QSqlQuery q(m_db);
     q.prepare(u"INSERT INTO %1.%2 (%3) VALUES (%4)"_s.arg(schemaName, name, cols.join(u", "_s), marks.join(u", "_s)));
     for (const QVariant &v : binds) q.addBindValue(v);
-    if (!q.exec()) {
+    if (!q.exec())
+    {
         if (error) *error = lastError(q);
         LOG_Warn() << "Cannot insert into" << schemaName << name << ":" << lastError(q);
         return std::nullopt;
@@ -472,7 +509,8 @@ std::optional<int> Database::insertInto(const QString &schemaName, Table t, cons
 
 bool Database::update(Table t, int id, const QVariantMap &values, QString *error)
 {
-    if (!isOwnId(id)) {
+    if (!isOwnId(id))
+    {
         if (error) *error = u"only own records can be changed (not those of the original database or the project)"_s;
         LOG_Warn() << "Refused to change" << tableName(t) << "id" << id << ": not an own record";
         return false;
@@ -480,10 +518,12 @@ bool Database::update(Table t, int id, const QVariantMap &values, QString *error
     const QString name = QLatin1String(tableName(t));
     QStringList sets;
     QVariantList binds;
-    for (const auto &[col, type] : tableColumns(m_db, u"main"_s, name)) {
+    for (const auto &[col, type] : tableColumns(m_db, u"main"_s, name))
+    {
         if (col == u"id") continue;
         for (auto it = values.begin(); it != values.end(); ++it)
-            if (it.key().compare(col, Qt::CaseInsensitive) == 0) {
+            if (it.key().compare(col, Qt::CaseInsensitive) == 0)
+            {
                 const QVariant v = notNull(it.value());
                 sets << col + u" = ?"_s;
                 binds << (v.isValid() ? v : emptyValue(col, type));
@@ -494,7 +534,8 @@ bool Database::update(Table t, int id, const QVariantMap &values, QString *error
     q.prepare(u"UPDATE main.%1 SET %2 WHERE id = ?"_s.arg(name, sets.join(u", "_s)));
     for (const QVariant &v : binds) q.addBindValue(v);
     q.addBindValue(id);
-    if (!q.exec() || q.numRowsAffected() != 1) {
+    if (!q.exec() || q.numRowsAffected() != 1)
+    {
         if (error) *error = q.lastError().isValid() ? lastError(q) : u"no record with id %1"_s.arg(id);
         LOG_Warn() << "Cannot update" << name << "id" << id << ":" << (error ? *error : QString());
         return false;

@@ -10,7 +10,8 @@ class QMenuBar;
 // program and Qt's fallback is a tiny bar): icon, the menu bar, the title and large window buttons in one row.
 // Dragging the empty area moves the window, a double click maximizes it. Without decoration only the menu bar is
 // shown, so the window keeps one menu widget in both modes.
-class TitleBar : public QWidget {
+class TitleBar : public QWidget
+{
     Q_OBJECT
 public:
     TitleBar(QMenuBar *menu, QWidget *window);
@@ -46,10 +47,17 @@ private:
 };
 
 // Minimize / maximize (restore) / close, drawn in the palette's colors.
-class WindowButton : public QAbstractButton {
+class WindowButton : public QAbstractButton
+{
     Q_OBJECT
 public:
-    enum class Kind { Minimize, Maximize, Restore, Close };
+    enum class Kind
+    {
+        Minimize,
+        Maximize,
+        Restore,
+        Close
+    };
     explicit WindowButton(Kind kind, QWidget *parent = nullptr);
     void setKind(Kind kind);
     [[nodiscard]] Kind kind() const noexcept { return m_kind; }

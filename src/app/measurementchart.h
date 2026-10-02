@@ -14,10 +14,12 @@ class QValueAxis;
 
 // Velocity and peak pressure over the charge: the measured shots, their mean with +- one standard deviation, and
 // the simulated curves of the load for comparison.
-class MeasurementChart : public QChartView {
+class MeasurementChart : public QChartView
+{
     Q_OBJECT
 public:
-    struct Prediction {
+    struct Prediction
+    {
         double charge_g;
         double velocity_ms;
         double pressure_bar;

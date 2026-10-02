@@ -53,13 +53,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
     const std::array titles{tr("Calibers"), tr("Projectiles"), tr("Propellants")};
-    for (std::size_t i = 0; i < tables.size(); ++i) {
+    for (std::size_t i = 0; i < tables.size(); ++i)
+    {
         m_browsers[i] = new TableBrowser(tables[i]);
         m_dbTabs->addTab(m_browsers[i], titles[i]);
         connect(m_browsers[i], &TableBrowser::currentIdChanged, this, &MainWindow::updateRecordButtons);
-        connect(m_browsers[i], &TableBrowser::idActivated, this, [this](int id) {
-            editRecord(grt::Database::isOwnId(id) ? RecordDialog::Mode::Edit : RecordDialog::Mode::Copy);
-        });
+        connect(m_browsers[i], &TableBrowser::idActivated, this,
+                [this](int id) { editRecord(grt::Database::isOwnId(id) ? RecordDialog::Mode::Edit : RecordDialog::Mode::Copy); });
     }
     connect(m_dbTabs, &QTabWidget::currentChanged, this, &MainWindow::updateRecordButtons);
 
@@ -95,12 +95,14 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabs->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);  // the database tab stays
     setCentralWidget(m_tabs);
 
-    connect(m_tabs, &QTabWidget::tabCloseRequested, this, [this](int i) {
-        auto *view = qobject_cast<LoadView *>(m_tabs->widget(i));
-        if (!view || !maybeSave(view)) return;
-        m_tabs->removeTab(i);
-        view->deleteLater();
-    });
+    connect(m_tabs, &QTabWidget::tabCloseRequested, this,
+            [this](int i)
+            {
+                auto *view = qobject_cast<LoadView *>(m_tabs->widget(i));
+                if (!view || !maybeSave(view)) return;
+                m_tabs->removeTab(i);
+                view->deleteLater();
+            });
 
     createActions();
     setCustomTitleBar(TitleBar::stored());
@@ -129,58 +131,92 @@ MainWindow::~MainWindow()
 void MainWindow::createActions()
 {
     QMenu *file = m_menuBar->addMenu(tr("&File"));
-    auto add = [&](const QString &text, const QKeySequence &key, auto slot) {
+    auto add = [&](const QString &text, const QKeySequence &key, auto slot)
+    {
         QAction *a = file->addAction(text, this, slot);
         a->setShortcut(key);
         return a;
     };
     m_newLoadAction = add(tr("&New load…"), QKeySequence::New, [this] { newLoad(); });
-    add(tr("&Open load…"), QKeySequence::Open, [this] {
-        const QStringList files = QFileDialog::getOpenFileNames(this, tr("Open load"), {}, tr("GRT loads (*.grtload);;All files (*)"));
-        for (const QString &f : files) openLoad(f);
-    });
-    m_saveAction = add(tr("&Save"), QKeySequence::Save, [this] { if (auto *v = currentLoad()) saveLoad(v, false); });
-    m_loadActions.push_back(add(tr("Save &as…"), QKeySequence::SaveAs, [this] { if (auto *v = currentLoad()) saveLoad(v, true); }));
+    add(tr("&Open load…"), QKeySequence::Open,
+        [this]
+        {
+            const QStringList files = QFileDialog::getOpenFileNames(this, tr("Open load"), {}, tr("GRT loads (*.grtload);;All files (*)"));
+            for (const QString &f : files) openLoad(f);
+        });
+    m_saveAction = add(tr("&Save"), QKeySequence::Save,
+                       [this]
+                       {
+                           if (auto *v = currentLoad()) saveLoad(v, false);
+                       });
+    m_loadActions.push_back(add(tr("Save &as…"), QKeySequence::SaveAs,
+                                [this]
+                                {
+                                    if (auto *v = currentLoad()) saveLoad(v, true);
+                                }));
     // last used loads: a submenu next to "Open load", empty = disabled
     m_recentMenu = file->addMenu(tr("Open &recent"));
-    for (int i = 0; i < recentfiles::kMaxFiles; ++i) {
+    for (int i = 0; i < recentfiles::kMaxFiles; ++i)
+    {
         QAction *a = m_recentMenu->addAction(QString());
-        connect(a, &QAction::triggered, this, [this, a] {
-            const QString path = a->data().toString();
-            if (!openLoad(path)) {  // gone or unreadable: forget it
-                QStringList files = recentfiles::load();
-                files.removeAll(path);
-                recentfiles::store(files);
-                updateRecentActions();
-            }
-        });
+        connect(a, &QAction::triggered, this,
+                [this, a]
+                {
+                    const QString path = a->data().toString();
+                    if (!openLoad(path))
+                    {  // gone or unreadable: forget it
+                        QStringList files = recentfiles::load();
+                        files.removeAll(path);
+                        recentfiles::store(files);
+                        updateRecentActions();
+                    }
+                });
         m_recentActions.push_back(a);
     }
     updateRecentActions();
     file->addSeparator();
-    m_loadActions.push_back(add(tr("Print pre&view…"), {}, [this] { if (auto *v = currentLoad()) v->report()->showPrintPreview(this); }));
-    m_loadActions.push_back(add(tr("&Print…"), QKeySequence::Print, [this] { if (auto *v = currentLoad()) v->report()->showPrintDialog(this); }));
-    m_loadActions.push_back(add(tr("Export report as P&DF…"), {}, [this] {
-        auto *v = currentLoad();
-        if (!v) return;
-        const QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
-        if (path.isEmpty()) return;
-        if (v->report()->exportPdf(path)) {
-            LOG_Info() << "Report exported:" << path;
-        } else {
-            LOG_Error() << "Cannot write PDF" << path;
-            QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
-        }
-    }));
+    m_loadActions.push_back(add(tr("Print pre&view…"), {},
+                                [this]
+                                {
+                                    if (auto *v = currentLoad()) v->report()->showPrintPreview(this);
+                                }));
+    m_loadActions.push_back(add(tr("&Print…"), QKeySequence::Print,
+                                [this]
+                                {
+                                    if (auto *v = currentLoad()) v->report()->showPrintDialog(this);
+                                }));
+    m_loadActions.push_back(add(tr("Export report as P&DF…"), {},
+                                [this]
+                                {
+                                    auto *v = currentLoad();
+                                    if (!v) return;
+                                    const QString path =
+                                        QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
+                                    if (path.isEmpty()) return;
+                                    if (v->report()->exportPdf(path))
+                                    {
+                                        LOG_Info() << "Report exported:" << path;
+                                    }
+                                    else
+                                    {
+                                        LOG_Error() << "Cannot write PDF" << path;
+                                        QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
+                                    }
+                                }));
     file->addSeparator();
-    m_loadActions.push_back(add(tr("Overlay &reference result…"), QKeySequence(Qt::CTRL | Qt::Key_R), [this] {
-        const QString f = QFileDialog::getOpenFileName(this, tr("Reference result"), {}, tr("Reference results (*.json)"));
-        if (!f.isEmpty()) overlayReference(f);
-    }));
-    m_clearReferenceAction = add(tr("&Clear reference overlay"), {}, [this] {
-        if (auto *v = currentLoad()) v->setReference(std::nullopt);
-        updateActions();
-    });
+    m_loadActions.push_back(add(tr("Overlay &reference result…"), QKeySequence(Qt::CTRL | Qt::Key_R),
+                                [this]
+                                {
+                                    const QString f =
+                                        QFileDialog::getOpenFileName(this, tr("Reference result"), {}, tr("Reference results (*.json)"));
+                                    if (!f.isEmpty()) overlayReference(f);
+                                }));
+    m_clearReferenceAction = add(tr("&Clear reference overlay"), {},
+                                 [this]
+                                 {
+                                     if (auto *v = currentLoad()) v->setReference(std::nullopt);
+                                     updateActions();
+                                 });
     file->addSeparator();
     add(tr("&Settings…"), QKeySequence(Qt::CTRL | Qt::Key_Comma), [this] { showSettings(); });
     file->addSeparator();
@@ -191,50 +227,60 @@ void MainWindow::createActions()
     QMenu *themeMenu = view->addMenu(tr("&Theme"));
     auto *themeGroup = new QActionGroup(this);
     const theme::Mode currentTheme = theme::storedMode();
-    const std::array<std::pair<QString, theme::Mode>, 3> themes{{{tr("System default"), theme::Mode::System},
-                                                                  {tr("Light"), theme::Mode::Light},
-                                                                  {tr("Dark"), theme::Mode::Dark}}};
-    for (const auto &[label, mode] : themes) {
+    const std::array<std::pair<QString, theme::Mode>, 3> themes{
+        {{tr("System default"), theme::Mode::System}, {tr("Light"), theme::Mode::Light}, {tr("Dark"), theme::Mode::Dark}}};
+    for (const auto &[label, mode] : themes)
+    {
         QAction *a = themeMenu->addAction(label);
         a->setCheckable(true);
         a->setChecked(mode == currentTheme);
         themeGroup->addAction(a);
-        connect(a, &QAction::triggered, this, [mode] {
-            theme::storeMode(mode);
-            theme::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), mode);
-        });
+        connect(a, &QAction::triggered, this,
+                [mode]
+                {
+                    theme::storeMode(mode);
+                    theme::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), mode);
+                });
     }
 
     // View > Language: "System default" plus every language that ships a translation
     QMenu *lang = view->addMenu(tr("&Language"));
     auto *group = new QActionGroup(this);
     const QString stored = translation::storedLanguage();
-    auto addLanguage = [&](const QString &text, const QString &value) {
+    auto addLanguage = [&](const QString &text, const QString &value)
+    {
         QAction *a = lang->addAction(flags::forLanguage(value), text);
         a->setCheckable(true);
         // with an icon the style shows the check only as a faint frame: the chosen language is bold as well
-        connect(a, &QAction::toggled, a, [a](bool on) {
-            QFont f = a->font();
-            f.setBold(on);
-            a->setFont(f);
-        });
+        connect(a, &QAction::toggled, a,
+                [a](bool on)
+                {
+                    QFont f = a->font();
+                    f.setBold(on);
+                    a->setFont(f);
+                });
         a->setChecked(stored == value);
         group->addAction(a);
-        connect(a, &QAction::triggered, this, [this, value] {
-            LOG_Info() << "Language chosen:" << (value.isEmpty() ? QStringLiteral("system default") : value);
-            translation::storeLanguage(value);
-            QMessageBox::information(this, tr("Language"), tr("The language change takes effect after restarting the application."));
-        });
+        connect(a, &QAction::triggered, this,
+                [this, value]
+                {
+                    LOG_Info() << "Language chosen:" << (value.isEmpty() ? QStringLiteral("system default") : value);
+                    translation::storeLanguage(value);
+                    QMessageBox::information(this, tr("Language"),
+                                             tr("The language change takes effect after restarting the application."));
+                });
     };
     addLanguage(tr("System default"), {});
     for (const QString &l : translation::availableLanguages()) addLanguage(translation::displayName(l), l);
 
     // Help
     QMenu *help = m_menuBar->addMenu(tr("&Help"));
-    help->addAction(tr("&About GRT Reloaded…"), this, [this] {
-        about::show(this, m_db.isOpen() ? m_db.path() : QString(), m_db.count(grt::Table::Caliber), m_db.count(grt::Table::Projectile),
-                    m_db.count(grt::Table::Propellant));
-    });
+    help->addAction(tr("&About GRT Reloaded…"), this,
+                    [this]
+                    {
+                        about::show(this, m_db.isOpen() ? m_db.path() : QString(), m_db.count(grt::Table::Caliber),
+                                    m_db.count(grt::Table::Projectile), m_db.count(grt::Table::Propellant));
+                    });
 }
 
 LoadView *MainWindow::currentLoad() const
@@ -263,14 +309,16 @@ void MainWindow::updateActions()
 void MainWindow::updateRecentActions()
 {
     const QStringList files = recentfiles::load();
-    for (std::size_t i = 0; i < m_recentActions.size(); ++i) {
+    for (std::size_t i = 0; i < m_recentActions.size(); ++i)
+    {
         QAction *a = m_recentActions[i];
         const bool used = static_cast<qsizetype>(i) < files.size();
         a->setVisible(used);
         if (!used) continue;
         const QFileInfo info(files[static_cast<qsizetype>(i)]);
         // "&1 name.grtload" (numbers 10-12 without accelerator); the tooltip/status tip shows the full path
-        a->setText((i < 9 ? QStringLiteral("&%1 ").arg(i + 1) : QStringLiteral("%1 ").arg(i + 1)) + info.fileName().replace(u'&', QStringLiteral("&&")));
+        a->setText((i < 9 ? QStringLiteral("&%1 ").arg(i + 1) : QStringLiteral("%1 ").arg(i + 1)) +
+                   info.fileName().replace(u'&', QStringLiteral("&&")));
         a->setData(files[static_cast<qsizetype>(i)]);
         a->setStatusTip(files[static_cast<qsizetype>(i)]);
         a->setToolTip(files[static_cast<qsizetype>(i)]);
@@ -280,8 +328,10 @@ void MainWindow::updateRecentActions()
 
 bool MainWindow::openLoad(const QString &path)
 {
-    for (int i = 0; i < m_tabs->count(); ++i) {  // already open: just activate
-        if (auto *v = qobject_cast<LoadView *>(m_tabs->widget(i)); v && v->path() == path) {
+    for (int i = 0; i < m_tabs->count(); ++i)
+    {  // already open: just activate
+        if (auto *v = qobject_cast<LoadView *>(m_tabs->widget(i)); v && v->path() == path)
+        {
             m_tabs->setCurrentIndex(i);
             addRecentFile(path);
             return true;
@@ -289,7 +339,8 @@ bool MainWindow::openLoad(const QString &path)
     }
     auto owned = std::make_unique<LoadView>();
     QString error;
-    if (!owned->load(path, &error)) {
+    if (!owned->load(path, &error))
+    {
         QMessageBox::warning(this, tr("Open load"), tr("Cannot read %1:\n%2").arg(path, error));
         return false;
     }
@@ -308,7 +359,8 @@ bool MainWindow::openDatabase(const QString &originalPath, bool complain)
     setLoadViewDatabases(false);
     QString error;
     const bool ok = m_db.open(originalPath, {}, &error);
-    if (!m_db.isOpen()) {  // not even the own database: nothing to show
+    if (!m_db.isOpen())
+    {  // not even the own database: nothing to show
         LOG_Error() << "Cannot open the program's database" << grt::Database::defaultOwnPath() << ":" << error;
         QMessageBox::warning(this, tr("Database"), tr("Cannot open the database %1:\n%2").arg(grt::Database::defaultOwnPath(), error));
         return false;
@@ -322,7 +374,8 @@ bool MainWindow::openDatabase(const QString &originalPath, bool complain)
     if (!ok && complain)
         QMessageBox::warning(this, tr("Original database"),
                              tr("Cannot use %1:\n%2\n\nThe original GordonsReloadingTool.db is encrypted; "
-                                "choose a decrypted copy (GordonsReloadingTool.plain.db).").arg(originalPath, error));
+                                "choose a decrypted copy (GordonsReloadingTool.plain.db).")
+                                 .arg(originalPath, error));
     if (ok || originalPath.isEmpty()) QSettings().setValue(QStringLiteral("database/path"), originalPath);
     statusBar()->showMessage(databaseSummary());
     return ok;
@@ -338,7 +391,8 @@ QString MainWindow::databaseSummary() const
                               : tr("No original database (choose it in File ▸ Settings…): %1").arg(counts);
 }
 
-namespace {
+namespace
+{
 constexpr int kBorder = 5;  // resize border of the frameless window
 }
 
@@ -394,7 +448,8 @@ Qt::Edges MainWindow::edgesAt(const QPoint &pos) const
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     const Qt::Edges edges = edgesAt(event->position().toPoint());
-    if (edges && event->button() == Qt::LeftButton && windowHandle()) {
+    if (edges && event->button() == Qt::LeftButton && windowHandle())
+    {
         windowHandle()->startSystemResize(edges);
         return;
     }
@@ -452,7 +507,8 @@ void MainWindow::editRecord(RecordDialog::Mode mode)
     const grt::Table table = currentTable();
     const int id = currentBrowser()->currentId();
     QVariantMap record;
-    if (mode != RecordDialog::Mode::New) {
+    if (mode != RecordDialog::Mode::New)
+    {
         const auto r = m_db.record(table, id);
         if (!r) return;
         record = *r;
@@ -467,18 +523,24 @@ int MainWindow::storeRecord(grt::Table table, RecordDialog::Mode mode, int id, c
 {
     QString error;
     int stored = -1;
-    for (const grt::Database::Image &image : images) {  // the record refers to them
-        if (!m_db.addImage(image, &error)) {
+    for (const grt::Database::Image &image : images)
+    {  // the record refers to them
+        if (!m_db.addImage(image, &error))
+        {
             QMessageBox::warning(this, tr("Database"), tr("The photo could not be stored:\n%1").arg(error));
             return -1;
         }
     }
-    if (mode == RecordDialog::Mode::Edit) {
+    if (mode == RecordDialog::Mode::Edit)
+    {
         if (m_db.update(table, id, values, &error)) stored = id;
-    } else if (const auto newId = m_db.insert(table, values, &error)) {
+    }
+    else if (const auto newId = m_db.insert(table, values, &error))
+    {
         stored = *newId;
     }
-    if (stored < 0) {
+    if (stored < 0)
+    {
         QMessageBox::warning(this, tr("Database"), tr("The record could not be stored:\n%1").arg(error));
         return -1;
     }
@@ -497,13 +559,14 @@ bool MainWindow::deleteRecord(bool ask)
     if (!grt::Database::isOwnId(id)) return false;
     const auto record = m_db.record(table, id);
     if (!record) return false;
-    if (ask && QMessageBox::question(this, tr("Delete record"),
-                                     tr("Delete \"%1\"?\n\nLoad files that use it keep their values.")
-                                         .arg(grt::dbfields::recordTitle(table, *record)))
-                   != QMessageBox::Yes)
+    if (ask && QMessageBox::question(
+                   this, tr("Delete record"),
+                   tr("Delete \"%1\"?\n\nLoad files that use it keep their values.").arg(grt::dbfields::recordTitle(table, *record))) !=
+                   QMessageBox::Yes)
         return false;
     QString error;
-    if (!m_db.remove(table, id, &error)) {
+    if (!m_db.remove(table, id, &error))
+    {
         QMessageBox::warning(this, tr("Database"), tr("The record could not be deleted:\n%1").arg(error));
         return false;
     }
@@ -521,20 +584,22 @@ bool MainWindow::exportRecord(const QString &path)
     const auto record = m_db.record(table, id);
     if (!record) return false;
     const auto schema = m_db.schema(table);
-    if (const QStringList problems = grt::projectdata::check(table, *record, schema); !problems.isEmpty() && path.isEmpty()) {
-        if (QMessageBox::warning(this, tr("Export record"),
-                                 tr("This record is not complete for the project's database:\n%1\n\nExport it anyway?")
-                                     .arg(problems.join(u'\n')),
-                                 QMessageBox::Yes | QMessageBox::No)
-            != QMessageBox::Yes)
+    if (const QStringList problems = grt::projectdata::check(table, *record, schema); !problems.isEmpty() && path.isEmpty())
+    {
+        if (QMessageBox::warning(
+                this, tr("Export record"),
+                tr("This record is not complete for the project's database:\n%1\n\nExport it anyway?").arg(problems.join(u'\n')),
+                QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
             return false;
     }
     QString file = path;
     if (file.isEmpty())
-        file = QFileDialog::getSaveFileName(this, tr("Export record"), grt::projectdata::fileName(table, *record), tr("Record files (*.json)"));
+        file = QFileDialog::getSaveFileName(this, tr("Export record"), grt::projectdata::fileName(table, *record),
+                                            tr("Record files (*.json)"));
     if (file.isEmpty()) return false;
     QFile out(file);
-    if (!out.open(QIODevice::WriteOnly) || out.write(grt::projectdata::toJson(*record, schema)) < 0) {
+    if (!out.open(QIODevice::WriteOnly) || out.write(grt::projectdata::toJson(*record, schema)) < 0)
+    {
         QMessageBox::warning(this, tr("Export record"), tr("Cannot write %1").arg(file));
         return false;
     }
@@ -548,30 +613,33 @@ void MainWindow::showSettings()
     SettingsDialog dlg(this);
     dlg.setOriginalDatabase(m_db.path(), databaseSummary());
     connect(&dlg, &SettingsDialog::customTitleBarChanged, this, &MainWindow::setCustomTitleBar);
-    connect(&dlg, &SettingsDialog::originalDatabaseChosen, this, [this, &dlg](const QString &path) {
-        openDatabase(path);
-        dlg.setOriginalDatabase(m_db.path(), databaseSummary());
-    });
+    connect(&dlg, &SettingsDialog::originalDatabaseChosen, this,
+            [this, &dlg](const QString &path)
+            {
+                openDatabase(path);
+                dlg.setOriginalDatabase(m_db.path(), databaseSummary());
+            });
     dlg.exec();
 }
 
 bool MainWindow::overlayReference(const QString &jsonPath)
 {
     LoadView *view = currentLoad();
-    if (!view) {
+    if (!view)
+    {
         QMessageBox::information(this, tr("Reference"), tr("Open a load first."));
         return false;
     }
     QString error;
     auto ref = grt::readReferenceRun(jsonPath, &error);
-    if (!ref) {
+    if (!ref)
+    {
         LOG_Warn() << "Cannot read reference" << jsonPath << ":" << error;
         QMessageBox::warning(this, tr("Reference"), tr("Cannot read %1:\n%2").arg(jsonPath, error));
         return false;
     }
     LOG_Info() << "Reference overlay:" << jsonPath << "(" << ref->points.size() << "points, stale" << ref->stale << ")";
-    if (ref->stale)
-        QMessageBox::warning(this, tr("Reference"), tr("This reference run is marked stale (the wrong tab was read)."));
+    if (ref->stale) QMessageBox::warning(this, tr("Reference"), tr("This reference run is marked stale (the wrong tab was read)."));
     view->setReference(std::move(ref));
     updateActions();
     return true;
@@ -582,20 +650,25 @@ bool MainWindow::overlayReference(const QString &jsonPath)
 void MainWindow::setupLoadView(LoadView *view)
 {
     view->setDatabase(&m_db);
-    view->setRecordSaver([this](grt::Table table, const QVariantMap &values) {
-        const int id = storeRecord(table, RecordDialog::Mode::New, -1, values);
-        if (id >= 0) statusBar()->showMessage(tr("Saved as your own record: %1").arg(grt::dbfields::recordTitle(table, values)));
-        return id;
-    });
-    connect(view, &LoadView::modifiedChanged, this, [this, view] {
-        updateTabTitle(view);
-        updateActions();
-    });
+    view->setRecordSaver(
+        [this](grt::Table table, const QVariantMap &values)
+        {
+            const int id = storeRecord(table, RecordDialog::Mode::New, -1, values);
+            if (id >= 0) statusBar()->showMessage(tr("Saved as your own record: %1").arg(grt::dbfields::recordTitle(table, values)));
+            return id;
+        });
+    connect(view, &LoadView::modifiedChanged, this,
+            [this, view]
+            {
+                updateTabTitle(view);
+                updateActions();
+            });
 }
 
 void MainWindow::newLoad()
 {
-    if (!m_db.isOpen()) {
+    if (!m_db.isOpen())
+    {
         QMessageBox::information(this, tr("New load"), tr("The database cannot be opened."));
         return;
     }
@@ -640,13 +713,15 @@ void MainWindow::updateTabTitle(LoadView *view)
 bool MainWindow::saveLoad(LoadView *view, bool saveAs)
 {
     QString path = view->path();
-    if (saveAs || path.isEmpty()) {
+    if (saveAs || path.isEmpty())
+    {
         path = QFileDialog::getSaveFileName(this, tr("Save load"), path, tr("GRT loads (*.grtload)"));
         if (path.isEmpty()) return false;
         path = withLoadExtension(path);
     }
     QString error;
-    if (!view->save(path, &error)) {
+    if (!view->save(path, &error))
+    {
         QMessageBox::warning(this, tr("Save load"), tr("Cannot write %1:\n%2").arg(path, error));
         return false;
     }
@@ -658,17 +733,21 @@ bool MainWindow::saveLoad(LoadView *view, bool saveAs)
 bool MainWindow::maybeSave(LoadView *view)
 {
     if (!view->isModified()) return true;
-    const auto answer = QMessageBox::question(this, tr("Unsaved changes"),
-                                              tr("Save changes to %1?").arg(view->path().isEmpty() ? view->property("untitledName").toString() : QFileInfo(view->path()).fileName()),
-                                              QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    const auto answer = QMessageBox::question(
+        this, tr("Unsaved changes"),
+        tr("Save changes to %1?")
+            .arg(view->path().isEmpty() ? view->property("untitledName").toString() : QFileInfo(view->path()).fileName()),
+        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     if (answer == QMessageBox::Cancel) return false;
     return answer == QMessageBox::Discard || saveLoad(view, false);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    for (int i = 0; i < m_tabs->count(); ++i) {
-        if (auto *v = qobject_cast<LoadView *>(m_tabs->widget(i)); v && !maybeSave(v)) {
+    for (int i = 0; i < m_tabs->count(); ++i)
+    {
+        if (auto *v = qobject_cast<LoadView *>(m_tabs->widget(i)); v && !maybeSave(v))
+        {
             event->ignore();
             return;
         }

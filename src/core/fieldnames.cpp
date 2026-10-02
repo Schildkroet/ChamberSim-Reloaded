@@ -2,9 +2,11 @@
 
 #include <QCoreApplication>
 
-namespace grt {
+namespace grt
+{
 
-namespace {
+namespace
+{
 
 // the descriptions the original program writes into its files (for lupdate; translated at run time)
 [[maybe_unused]] constexpr const char *kDescriptions[] = {

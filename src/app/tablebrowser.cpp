@@ -10,20 +10,25 @@
 #include <QTableView>
 #include <QVBoxLayout>
 
-namespace {
+namespace
+{
 
 // Shows the "source" column (which part of the database a record comes from) as readable text.
-class RecordModel : public QSqlTableModel {
+class RecordModel : public QSqlTableModel
+{
 public:
     using QSqlTableModel::QSqlTableModel;
 
     QVariant data(const QModelIndex &index, int role) const override
     {
-        if (index.column() == sourceColumn() && (role == Qt::DisplayRole || role == Qt::ToolTipRole)) {
+        if (index.column() == sourceColumn() && (role == Qt::DisplayRole || role == Qt::ToolTipRole))
+        {
             const QString code = QSqlTableModel::data(index, Qt::DisplayRole).toString();
-            if (role == Qt::ToolTipRole) {
+            if (role == Qt::ToolTipRole)
+            {
                 if (code == QLatin1String(grt::Database::kSourceOwn)) return TableBrowser::tr("Your own record (can be changed)");
-                if (code == QLatin1String(grt::Database::kSourceProject)) return TableBrowser::tr("Record of the project's database (read-only)");
+                if (code == QLatin1String(grt::Database::kSourceProject))
+                    return TableBrowser::tr("Record of the project's database (read-only)");
                 return TableBrowser::tr("Record of Gordon's Reloading Tool's database (read-only)");
             }
             if (code == QLatin1String(grt::Database::kSourceOwn)) return TableBrowser::tr("Personal");
@@ -75,15 +80,18 @@ TableBrowser::TableBrowser(grt::Table table, QWidget *parent)
     layout->addLayout(top);
     layout->addWidget(m_view, 1);
 
-    connect(m_filter, &QLineEdit::textChanged, this, [this](const QString &t) {
-        m_proxy->setFilterFixedString(t);
-        updateCount();
-    });
-    connect(m_view->selectionModel(), &QItemSelectionModel::currentRowChanged, this,
-            [this] { emit currentIdChanged(currentId()); });
-    connect(m_view, &QTableView::activated, this, [this] {
-        if (const int id = currentId(); id >= 0) emit idActivated(id);
-    });
+    connect(m_filter, &QLineEdit::textChanged, this,
+            [this](const QString &t)
+            {
+                m_proxy->setFilterFixedString(t);
+                updateCount();
+            });
+    connect(m_view->selectionModel(), &QItemSelectionModel::currentRowChanged, this, [this] { emit currentIdChanged(currentId()); });
+    connect(m_view, &QTableView::activated, this,
+            [this]
+            {
+                if (const int id = currentId(); id >= 0) emit idActivated(id);
+            });
 }
 
 TableBrowser::~TableBrowser() = default;
@@ -92,7 +100,8 @@ void TableBrowser::setDatabase(const grt::Database *db)
 {
     m_proxy->setSourceModel(nullptr);
     delete std::exchange(m_model, nullptr);
-    if (!db || !db->isOpen()) {
+    if (!db || !db->isOpen())
+    {
         updateCount();
         return;
     }
@@ -104,19 +113,19 @@ void TableBrowser::setDatabase(const grt::Database *db)
     m_proxy->setSourceModel(m_model);
     const int idColumn = m_model->fieldIndex(QStringLiteral("id"));
     m_view->sortByColumn(idColumn, Qt::AscendingOrder);  // the view would sort by its first column (the source)
-    for (const char *hidden : {"geloescht"})
-        m_view->setColumnHidden(m_model->fieldIndex(QLatin1String(hidden)), true);
+    for (const char *hidden : {"geloescht"}) m_view->setColumnHidden(m_model->fieldIndex(QLatin1String(hidden)), true);
     m_view->resizeColumnsToContents();
-    for (int c = 0; c < m_model->columnCount(); ++c)
-        m_view->setColumnWidth(c, std::min(m_view->columnWidth(c), 220));
+    for (int c = 0; c < m_model->columnCount(); ++c) m_view->setColumnWidth(c, std::min(m_view->columnWidth(c), 220));
     // own records have 8-digit ids (only the visible rows were measured)
-    m_view->setColumnWidth(idColumn, std::max(m_view->columnWidth(idColumn), m_view->fontMetrics().horizontalAdvance(QStringLiteral("00000000")) + 16));
+    m_view->setColumnWidth(
+        idColumn, std::max(m_view->columnWidth(idColumn), m_view->fontMetrics().horizontalAdvance(QStringLiteral("00000000")) + 16));
     updateCount();
 }
 
 void TableBrowser::selectAll()
 {
-    if (!m_model->select()) {
+    if (!m_model->select())
+    {
         LOG_Warn() << grt::tableName(m_table) << ":" << m_model->lastError().text();
         return;
     }
@@ -151,8 +160,10 @@ bool TableBrowser::selectId(int id)
 {
     if (!m_model) return false;
     const int col = m_model->fieldIndex(QStringLiteral("id"));
-    for (int r = 0; r < m_proxy->rowCount(); ++r) {
-        if (m_proxy->data(m_proxy->index(r, col)).toInt() == id) {
+    for (int r = 0; r < m_proxy->rowCount(); ++r)
+    {
+        if (m_proxy->data(m_proxy->index(r, col)).toInt() == id)
+        {
             m_view->setCurrentIndex(m_proxy->index(r, col));
             m_view->scrollTo(m_proxy->index(r, col));
             return true;

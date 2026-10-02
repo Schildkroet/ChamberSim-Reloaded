@@ -8,7 +8,8 @@ class QCoreApplication;
 // Installs the translators for the language in use and exposes the choices for
 // the language menu. American English (the source language) is the default and
 // is used whenever no translation matches.
-namespace translation {
+namespace translation
+{
 
 // Languages that ship a translation, always including "en_US". Normalized ("de_DE").
 [[nodiscard]] QStringList availableLanguages();

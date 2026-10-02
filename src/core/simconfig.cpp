@@ -2,7 +2,8 @@
 
 #include "numeric.h"
 
-namespace grt {
+namespace grt
+{
 
 SimInput SimInput::fromLoad(const LoadFile &lf)
 {

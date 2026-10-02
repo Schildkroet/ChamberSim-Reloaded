@@ -14,7 +14,8 @@
 // Technical drawing of the loaded round, like the "Cartridge" panel of the original program: the case
 // from the caliber's CIP dimensions, the seated bullet and the powder fill, with a table of the
 // dimensions. Everything is drawn from the load file; nothing is looked up elsewhere.
-class CartridgeView : public QWidget {
+class CartridgeView : public QWidget
+{
     Q_OBJECT
 public:
     explicit CartridgeView(QWidget *parent = nullptr);
@@ -25,18 +26,20 @@ public:
     void setTableVisible(bool visible);
 
     // Geometry used by the drawing (exposed for tests). Points are (radius, y) in mm, head to mouth.
-    struct Geometry {
+    struct Geometry
+    {
         std::vector<QPointF> outer;
-        double wall{0.0};          // wall thickness that makes the interior equal the case capacity
-        double cavityVolume_mm3{}; // interior volume up to the mouth with that wall
-        double powderHeight_mm{};  // height of the powder fill (bulk volume), measured from the head
+        double wall{0.0};           // wall thickness that makes the interior equal the case capacity
+        double cavityVolume_mm3{};  // interior volume up to the mouth with that wall
+        double powderHeight_mm{};   // height of the powder fill (bulk volume), measured from the head
         bool valid{false};
     };
     [[nodiscard]] static Geometry buildGeometry(const QMap<QString, double> &dims, double caseVolume_cm3, double powderBulkVolume_cm3);
     [[nodiscard]] const Geometry &geometry() const noexcept { return m_round.geometry; }
 
     // Everything needed to draw the loaded round: CIP dimensions, the bullet and the derived case geometry.
-    struct RoundShape {
+    struct RoundShape
+    {
         QMap<QString, double> dims;
         double bulletDiameter{}, bulletLength{}, depth{}, tailLength{}, tailDiameter{};
         Geometry geometry;
@@ -59,7 +62,8 @@ protected:
     void leaveEvent(QEvent *event) override;
 
 private:
-    struct RowHit {
+    struct RowHit
+    {
         QRectF rect;
         QString key, label, value;
     };

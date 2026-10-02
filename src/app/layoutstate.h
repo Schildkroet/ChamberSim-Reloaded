@@ -10,5 +10,6 @@ inline void rememberSplitter(QSplitter *splitter, const QString &key)
 {
     const QString path = QStringLiteral("layout/") + key;
     splitter->restoreState(QSettings().value(path).toByteArray());
-    QObject::connect(splitter, &QSplitter::splitterMoved, splitter, [splitter, path] { QSettings().setValue(path, splitter->saveState()); });
+    QObject::connect(splitter, &QSplitter::splitterMoved, splitter,
+                     [splitter, path] { QSettings().setValue(path, splitter->saveState()); });
 }

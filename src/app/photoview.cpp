@@ -25,7 +25,8 @@ PhotoView::PhotoView(QWidget *parent)
     m_detailButton->setToolTip(tr("Close-up photo of a grain"));
     auto *group = new QButtonGroup(this);
     group->setExclusive(true);
-    for (QToolButton *b : {m_overviewButton, m_detailButton}) {
+    for (QToolButton *b : {m_overviewButton, m_detailButton})
+    {
         b->setCheckable(true);
         b->setAutoRaise(true);
         group->addButton(b);

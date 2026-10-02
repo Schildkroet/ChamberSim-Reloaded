@@ -7,9 +7,11 @@
 
 #include <array>
 
-namespace grt::units {
+namespace grt::units
+{
 
-namespace {
+namespace
+{
 
 constexpr double kGrain = 0.06479890999975;  // g, the exact factor of the original program
 constexpr double kInch = 25.4;
@@ -19,12 +21,14 @@ constexpr double kFtLbf = 1.3558179483314004;
 constexpr Unit kLength[] = {{"mm", "mm", 1.0, 0, 2}, {"cm", "cm", 10.0, 0, 3}, {"in", "in", kInch, 0, 3}};
 constexpr Unit kBulletMass[] = {{"g", "g", 1.0, 0, 3}, {"grain", "grain", kGrain, 0, 2}, {"oz", "oz", 28.349523125, 0, 4}};
 constexpr Unit kGunMass[] = {{"kg", "kg", 1.0, 0, 2}, {"lb", "lb", 0.45359237, 0, 2}, {"g", "g", 0.001, 0, 0}};
-constexpr Unit kPressure[] = {{"bar", "bar", 1.0, 0, 0}, {"psi", "psi", 0.0689475729316836, 0, 0}, {"mpa", "MPa", 10.0, 0, 1},
+constexpr Unit kPressure[] = {{"bar", "bar", 1.0, 0, 0},
+                              {"psi", "psi", 0.0689475729316836, 0, 0},
+                              {"mpa", "MPa", 10.0, 0, 1},
                               {"kpsi", "kpsi", 68.9475729316836, 0, 2}};
 constexpr Unit kVelocity[] = {{"ms", "m/s", 1.0, 0, 1}, {"fps", "ft/s", 0.3048, 0, 0}, {"kmh", "km/h", 1.0 / 3.6, 0, 1}};
 constexpr Unit kArea[] = {{"mm2", "mm²", 1.0, 0, 3}, {"cm2", "cm²", 100.0, 0, 4}, {"in2", "in²", 645.16, 0, 5}};
-constexpr Unit kVolume[] = {{"cm3", "cm³", 1.0, 0, 3}, {"grh2o", "grain H₂O", kGrain, 0, 2}, {"in3", "in³", 16.387064, 0, 4},
-                            {"mm3", "mm³", 0.001, 0, 0}};
+constexpr Unit kVolume[] = {
+    {"cm3", "cm³", 1.0, 0, 3}, {"grh2o", "grain H₂O", kGrain, 0, 2}, {"in3", "in³", 16.387064, 0, 4}, {"mm3", "mm³", 0.001, 0, 0}};
 constexpr Unit kDensity[] = {{"kgm3", "kg/m³", 1.0, 0, 0}, {"gcm3", "g/cm³", 1000.0, 0, 3}, {"lbft3", "lb/ft³", 16.01846337396, 0, 1}};
 // Fahrenheit: base(Cel) = (F - 32) / 1.8  ->  factor 1/1.8, offset -32/1.8 + ... handled by offset/factor below
 constexpr Unit kTemperature[] = {{"cel", "°C", 1.0, 0.0, 0}, {"fahr", "°F", 1.0 / 1.8, -32.0 / 1.8, 0}};
@@ -37,7 +41,8 @@ constexpr Unit kForce[] = {{"n", "N", 1.0, 0, 0}, {"lbf", "lbf", kLbf, 0, 1}, {"
 
 std::span<const Unit> unitsOf(Quantity q)
 {
-    switch (q) {
+    switch (q)
+    {
     case Quantity::Length: return kLength;
     case Quantity::BulletMass: return kBulletMass;
     case Quantity::GunMass: return kGunMass;
@@ -59,14 +64,17 @@ std::span<const Unit> unitsOf(Quantity q)
 const Unit &systemUnit(Quantity q, System s)
 {
     const auto list = unitsOf(q);
-    const auto pick = [&](const char *id) -> const Unit & {
+    const auto pick = [&](const char *id) -> const Unit &
+    {
         const Unit *u = findUnit(q, QLatin1String(id));
         return u ? *u : list.front();
     };
-    switch (s) {
+    switch (s)
+    {
     case System::Metric: return list.front();
     case System::Imperial:
-        switch (q) {
+        switch (q)
+        {
         case Quantity::Length: return pick("in");
         case Quantity::BulletMass: return pick("grain");
         case Quantity::GunMass: return pick("lb");
@@ -100,11 +108,21 @@ const Unit *findUnit(Quantity q, const QString &id)
 
 Quantity quantityOfFileUnit(const QString &unit)
 {
-    static const std::array<std::pair<const char *, Quantity>, 15> map{{
-        {"mm", Quantity::Length}, {"g", Quantity::BulletMass}, {"kg", Quantity::GunMass}, {"bar", Quantity::Pressure},
-        {"m/s", Quantity::Velocity}, {"mm2", Quantity::Area}, {"cm3", Quantity::Volume}, {"kg/m3", Quantity::Density},
-        {"Cel", Quantity::Temperature}, {"J", Quantity::Energy}, {"joule", Quantity::Energy}, {"Ns", Quantity::Impulse},
-        {"N", Quantity::Force}, {"m", Quantity::Length}, {"bar ", Quantity::Pressure}}};
+    static const std::array<std::pair<const char *, Quantity>, 15> map{{{"mm", Quantity::Length},
+                                                                        {"g", Quantity::BulletMass},
+                                                                        {"kg", Quantity::GunMass},
+                                                                        {"bar", Quantity::Pressure},
+                                                                        {"m/s", Quantity::Velocity},
+                                                                        {"mm2", Quantity::Area},
+                                                                        {"cm3", Quantity::Volume},
+                                                                        {"kg/m3", Quantity::Density},
+                                                                        {"Cel", Quantity::Temperature},
+                                                                        {"J", Quantity::Energy},
+                                                                        {"joule", Quantity::Energy},
+                                                                        {"Ns", Quantity::Impulse},
+                                                                        {"N", Quantity::Force},
+                                                                        {"m", Quantity::Length},
+                                                                        {"bar ", Quantity::Pressure}}};
     for (const auto &[name, q] : map)
         if (unit == QLatin1String(name)) return q;
     return Quantity::None;
@@ -134,7 +152,8 @@ std::optional<double> parseToBase(const QString &text, const Unit &u)
 
 QString systemName(System s)
 {
-    switch (s) {
+    switch (s)
+    {
     case System::Metric: return QCoreApplication::translate("grt::units", "Metric (mm, g, bar, m/s)");
     case System::Imperial: return QCoreApplication::translate("grt::units", "Imperial (in, grain, psi, ft/s)");
     case System::Original: return QCoreApplication::translate("grt::units", "Original (mm, grain, bar, m/s)");

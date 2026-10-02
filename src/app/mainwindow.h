@@ -18,7 +18,8 @@ class QPushButton;
 class QTabWidget;
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 QT_END_NAMESPACE
@@ -102,7 +103,7 @@ private:
     QAction *m_newLoadAction{nullptr};
     QAction *m_saveAction{nullptr};
     QAction *m_clearReferenceAction{nullptr};
-    std::vector<QAction *> m_loadActions;  // enabled while a load is shown
+    std::vector<QAction *> m_loadActions;    // enabled while a load is shown
     std::vector<QAction *> m_recentActions;  // File menu: last used loads (File > Open recent)
     QMenu *m_recentMenu{nullptr};
 };

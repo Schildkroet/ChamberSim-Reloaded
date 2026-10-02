@@ -8,14 +8,17 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::dbfields {
+namespace grt::dbfields
+{
 
-namespace {
+namespace
+{
 
 using units::Quantity;
 constexpr double kGrain = 0.06479891;  // g per grain (also cm3 of water per grain H2O)
 
-struct Spec {
+struct Spec
+{
     const char *column;
     const char *label;  // translated in context "grt::dbfields"
     const char *group;
@@ -119,7 +122,8 @@ QString tr(const char *text)
 
 std::span<const Spec> specsOf(Table t)
 {
-    switch (t) {
+    switch (t)
+    {
     case Table::Caliber: return kCaliber;
     case Table::Projectile: return kProjectile;
     case Table::Propellant: return kPropellant;
@@ -148,20 +152,24 @@ Field describe(Table t, const QString &column, const QString &sqlType)
 {
     Field f;
     f.column = column;
-    if (column == u"id" || column == u"geloescht") {
+    if (column == u"id" || column == u"geloescht")
+    {
         f.kind = Kind::Hidden;
         return f;
     }
     const Spec *s = find(specsOf(t), column);
     if (!s) s = find(kCommon, column);
-    if (s) {
+    if (s)
+    {
         f.label = tr(s->label);
         f.group = tr(s->group);
         f.quantity = s->quantity;
         f.toBase = s->toBase;
         f.kind = s->kind;
         f.unitText = QString::fromUtf8(s->unitText);
-    } else {
+    }
+    else
+    {
         f.label = column;
         f.group = tr(otherGroup(t, column));
         const QString type = sqlType.toUpper();
@@ -169,7 +177,8 @@ Field describe(Table t, const QString &column, const QString &sqlType)
         // the remaining dimensions of the CIP drawings are lengths in mm (angles, counts and forces are not)
         static const QStringList notLengths{u"f"_s, u"c_alpha"_s, u"c_alpha1"_s, u"c_delta"_s, u"c_Fe"_s, u"c_Fe_proof"_s, u"c_Fe_auto"_s};
         if (t == Table::Caliber && f.kind == Kind::Number && !notLengths.contains(column)) f.quantity = Quantity::Length;
-        if (column.startsWith(u"image"_s)) {
+        if (column.startsWith(u"image"_s))
+        {
             f.group = tr(kRecord);
             f.readOnly = true;
         }
@@ -181,7 +190,8 @@ Field describe(Table t, const QString &column, const QString &sqlType)
 
 QStringList groups(Table t)
 {
-    switch (t) {
+    switch (t)
+    {
     case Table::Caliber: return {tr(kName), tr(kCase), tr(kPressure), tr(kChamber), tr(kRecord)};
     case Table::Projectile: return {tr(kName), tr(kBullet), tr(kRecord)};
     case Table::Propellant: return {tr(kName), tr(kModel), tr(kRecord)};
@@ -192,7 +202,8 @@ QStringList groups(Table t)
 std::vector<std::pair<QString, QString>> countries()
 {
     std::vector<std::pair<QString, QString>> out;
-    for (int i = 1; i <= static_cast<int>(QLocale::LastTerritory); ++i) {
+    for (int i = 1; i <= static_cast<int>(QLocale::LastTerritory); ++i)
+    {
         const auto territory = static_cast<QLocale::Territory>(i);
         const QString code = QLocale::territoryToCode(territory);
         if (code.size() != 2 || code.front().isDigit()) continue;  // regions like "419" are no countries
@@ -209,7 +220,8 @@ std::vector<std::pair<QString, QString>> countries()
 std::vector<std::pair<QString, QString>> choices(Table t, const QString &column)
 {
     if (t != Table::Caliber) return {};
-    if (column == u"ciporigin") {
+    if (column == u"ciporigin")
+    {
         std::vector<std::pair<QString, QString>> out;
         for (const auto &[code, name] : countries()) out.emplace_back(code, code + u" – "_s + name);
         return out;

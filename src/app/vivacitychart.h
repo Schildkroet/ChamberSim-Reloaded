@@ -9,7 +9,8 @@ class QValueAxis;
 
 // Small chart of the burn-rate coefficient Ba * phi(z) over the burnt fraction z, with the
 // transition limits z1 and z2.
-class VivacityChart : public QChartView {
+class VivacityChart : public QChartView
+{
     Q_OBJECT
 public:
     explicit VivacityChart(QWidget *parent = nullptr);

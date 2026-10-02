@@ -16,7 +16,8 @@
 #include <cmath>
 #include <numbers>
 
-namespace {
+namespace
+{
 
 double dim(const QMap<QString, double> &d, const char *key)
 {
@@ -38,18 +39,22 @@ std::vector<QPointF> outerProfile(const QMap<QString, double> &d)
     pts.push_back({head, 0.0});
     pts.push_back({head, rim});
     double bodyStartY = rim;
-    if (E1 > 0.0 && E1 < R1 && E > rim) {  // extractor groove
+    if (E1 > 0.0 && E1 < R1 && E > rim)
+    {  // extractor groove
         pts.push_back({E1 / 2.0, rim});
         pts.push_back({E1 / 2.0, E});
         bodyStartY = E;
     }
     const double bodyStartR = (P1 > 0.0 ? P1 : std::max(H2, R1)) / 2.0;
     pts.push_back({bodyStartR, bodyStartY});
-    if (L1 > bodyStartY && P2 > 0.0 && H1 > 0.0 && L2 > L1) {  // bottleneck: body, shoulder, neck
+    if (L1 > bodyStartY && P2 > 0.0 && H1 > 0.0 && L2 > L1)
+    {  // bottleneck: body, shoulder, neck
         pts.push_back({P2 / 2.0, L1});
         pts.push_back({H1 / 2.0, L2});
         pts.push_back({(H2 > 0.0 ? H2 : H1) / 2.0, L3});
-    } else {                                                    // straight wall
+    }
+    else
+    {  // straight wall
         pts.push_back({(H2 > 0.0 ? H2 : bodyStartR * 2.0) / 2.0, L3});
     }
     return pts;
@@ -57,9 +62,11 @@ std::vector<QPointF> outerProfile(const QMap<QString, double> &d)
 
 double radiusAt(const std::vector<QPointF> &outer, double y)
 {
-    for (std::size_t i = 1; i < outer.size(); ++i) {
+    for (std::size_t i = 1; i < outer.size(); ++i)
+    {
         const QPointF &a = outer[i - 1], &b = outer[i];
-        if (y >= a.y() && y <= b.y()) {
+        if (y >= a.y() && y <= b.y())
+        {
             if (b.y() == a.y()) return std::max(a.x(), b.x());
             return a.x() + (b.x() - a.x()) * (y - a.y()) / (b.y() - a.y());
         }
@@ -75,7 +82,8 @@ double cavityVolume(const std::vector<QPointF> &outer, double wall, double yTop)
     if (yTop <= y0) return 0.0;
     const double dy = (yTop - y0) / N;
     double v = 0.0;
-    for (int i = 0; i < N; ++i) {
+    for (int i = 0; i < N; ++i)
+    {
         const double y = y0 + (i + 0.5) * dy;
         const double r = std::max(radiusAt(outer, y) - wall, 0.0);
         v += std::numbers::pi * r * r * dy;
@@ -102,7 +110,8 @@ void CartridgeView::mouseMoveEvent(QMouseEvent *event)
     QString key;
     for (const RowHit &h : m_rowHits)
         if (h.rect.contains(event->position())) key = h.key;
-    if (key != m_hoverKey) {
+    if (key != m_hoverKey)
+    {
         m_hoverKey = key;
         update();
     }
@@ -110,7 +119,8 @@ void CartridgeView::mouseMoveEvent(QMouseEvent *event)
 
 void CartridgeView::leaveEvent(QEvent *)
 {
-    if (!m_hoverKey.isEmpty()) {
+    if (!m_hoverKey.isEmpty())
+    {
         m_hoverKey.clear();
         update();
     }
@@ -149,11 +159,13 @@ CartridgeView::Geometry CartridgeView::buildGeometry(const QMap<QString, double>
     const double target = caseVolume_cm3 * 1e3;  // mm3
     // wall thickness such that the interior up to the mouth has the case capacity
     double lo = 0.05, hi = 3.0;
-    if (target > 0.0) {
-        if (cavityVolume(g.outer, lo, L3) < target) hi = lo;                  // capacity larger than the outline: thinnest wall
-        else if (cavityVolume(g.outer, hi, L3) > target) lo = hi;            // thicker walls would be needed than we draw
+    if (target > 0.0)
+    {
+        if (cavityVolume(g.outer, lo, L3) < target) hi = lo;       // capacity larger than the outline: thinnest wall
+        else if (cavityVolume(g.outer, hi, L3) > target) lo = hi;  // thicker walls would be needed than we draw
         else
-            for (int i = 0; i < 50; ++i) {
+            for (int i = 0; i < 50; ++i)
+            {
                 const double mid = 0.5 * (lo + hi);
                 (cavityVolume(g.outer, mid, L3) > target ? lo : hi) = mid;
             }
@@ -167,11 +179,13 @@ CartridgeView::Geometry CartridgeView::buildGeometry(const QMap<QString, double>
     g.powderHeight_mm = L3;
     constexpr int N = 800;
     const double dy = (L3 - g.wall) / N;
-    for (int i = 0; i < N; ++i) {
+    for (int i = 0; i < N; ++i)
+    {
         const double y = g.wall + (i + 0.5) * dy;
         const double r = std::max(radiusAt(g.outer, y) - g.wall, 0.0);
         acc += std::numbers::pi * r * r * dy;
-        if (acc >= powder) {
+        if (acc >= powder)
+        {
             g.powderHeight_mm = g.wall + (i + 1) * dy;
             break;
         }
@@ -183,7 +197,8 @@ CartridgeView::Geometry CartridgeView::buildGeometry(const QMap<QString, double>
 CartridgeView::RoundShape CartridgeView::makeRound(const grt::LoadFile &file, const grt::SimInput &input)
 {
     RoundShape r;
-    for (const grt::Entry &e : file.caliberFile.entries()) {
+    for (const grt::Entry &e : file.caliberFile.entries())
+    {
         if (const auto v = grt::parseFinite(e.value)) r.dims.insert(e.name, *v);
     }
     // the load's own values win where the caliber record has none
@@ -237,11 +252,13 @@ void CartridgeView::paintRound(QPainter &p, const RoundShape &round, const std::
     cavity.moveTo(X(0), Y(w));
     const auto inner = [&](double y) { return std::max(radiusAt(round.geometry.outer, y) - w, 0.0); };
     constexpr int N = 120;
-    for (int i = 0; i <= N; ++i) {
+    for (int i = 0; i <= N; ++i)
+    {
         const double y = w + (L3 - w) * i / N;
         cavity.lineTo(X(inner(y)), Y(y));
     }
-    for (int i = N; i >= 0; --i) {
+    for (int i = N; i >= 0; --i)
+    {
         const double y = w + (L3 - w) * i / N;
         cavity.lineTo(X(-inner(y)), Y(y));
     }
@@ -262,11 +279,13 @@ void CartridgeView::paintRound(QPainter &p, const RoundShape &round, const std::
     const double fillTop = std::min(round.geometry.powderHeight_mm, yBase);
     QPainterPath powder;
     powder.moveTo(X(0), Y(w));
-    for (int i = 0; i <= N; ++i) {
+    for (int i = 0; i <= N; ++i)
+    {
         const double y = w + (fillTop - w) * i / N;
         powder.lineTo(X(inner(y)), Y(y));
     }
-    for (int i = N; i >= 0; --i) {
+    for (int i = N; i >= 0; --i)
+    {
         const double y = w + (fillTop - w) * i / N;
         powder.lineTo(X(-inner(y)), Y(y));
     }
@@ -298,7 +317,6 @@ void CartridgeView::paintRound(QPainter &p, const RoundShape &round, const std::
     p.setPen(QPen(QColor(0x50, 0x26, 0x0e), 1.0));
     p.setBrush(copper);
     p.drawPath(bullet);
-
 }
 
 void CartridgeView::paintEvent(QPaintEvent *)
@@ -306,7 +324,8 @@ void CartridgeView::paintEvent(QPaintEvent *)
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
     p.fillRect(rect(), palette().base());
-    if (!m_hasLoad || !m_round.geometry.valid) {
+    if (!m_hasLoad || !m_round.geometry.valid)
+    {
         p.setPen(palette().color(QPalette::PlaceholderText));
         p.drawText(rect(), Qt::AlignCenter, tr("No cartridge data"));
         return;
@@ -317,13 +336,15 @@ void CartridgeView::paintEvent(QPaintEvent *)
 
     // drawing area on the left, table on the right
     const QRectF all = QRectF(rect()).adjusted(8, 8, -8, -8);
-    const double fontScale = m_showTable ? 1.0 : 1.7;      // report images are scaled down: bigger text
+    const double fontScale = m_showTable ? 1.0 : 1.7;  // report images are scaled down: bigger text
     QFont legendFont = font();
     legendFont.setPointSizeF(std::max(8.0, font().pointSizeF()) * fontScale);
-    const double legendHeight = m_showTable ? 0.0 : 3.0 * (QFontMetricsF(legendFont).height() + 1.0) + 12.0;  // measures go below the drawing
+    const double legendHeight =
+        m_showTable ? 0.0 : 3.0 * (QFontMetricsF(legendFont).height() + 1.0) + 12.0;  // measures go below the drawing
     const QRectF drawArea(all.left(), all.top(), m_showTable ? all.width() * 0.58 : all.width(), all.height() - legendHeight);
     const QRectF tableArea(drawArea.right() + 6, all.top(), all.width() - drawArea.width() - 6, all.height());
-    const double scale = std::min((drawArea.height() - 30.0) / (top + 2.0), (drawArea.width() - 80.0) / std::max(dim(m_round.dims, "R1"), 14.0));
+    const double scale =
+        std::min((drawArea.height() - 30.0) / (top + 2.0), (drawArea.width() - 80.0) / std::max(dim(m_round.dims, "R1"), 14.0));
     const double cx = drawArea.center().x() + (m_showTable ? 30 : 40);
     const double yPix0 = drawArea.bottom() - 10;  // y = 0 (case head)
     const auto X = [&](double r) { return cx + r * scale; };
@@ -341,14 +362,16 @@ void CartridgeView::paintEvent(QPaintEvent *)
     small.setBold(true);
     p.setFont(small);
     const QFontMetricsF dfm(small);
-    const auto lengthText = [&](double mm) {
+    const auto lengthText = [&](double mm)
+    {
         const grt::units::Unit &u = UnitPreferences::instance().unitFor(grt::units::Quantity::Length);
         return grt::units::format(mm, u) + u' ' + QString::fromUtf8(u.symbol);
     };
     // A dimension line with a vertical label "A 79.50 mm" beside it, centred on the line. The label has a soft
     // background so it stays readable where it crosses the drawing.
     const double dimGap = dfm.height() + 10.0;  // distance between neighbouring dimension lines
-    const auto vdim = [&](double xPix, double y0, double y1, const QString &letter, double mm) {
+    const auto vdim = [&](double xPix, double y0, double y1, const QString &letter, double mm)
+    {
         p.setPen(dimPen);
         p.drawLine(QPointF(xPix, Y(y0)), QPointF(xPix, Y(y1)));
         for (double yy : {y0, y1}) p.drawLine(QPointF(xPix - 3, Y(yy)), QPointF(xPix + 3, Y(yy)));
@@ -360,17 +383,22 @@ void CartridgeView::paintEvent(QPaintEvent *)
     vdim(xDim + dimGap, 0, L3, QStringLiteral("B"), L3);
     vdim(xDim + 2 * dimGap, yBase, L3, QStringLiteral("C"), m_round.depth);
 
-    if (m_showTable) {
+    if (m_showTable)
+    {
         drawTable(p, tableArea);
-        if (!m_hoverKey.isEmpty()) {
-            for (const RowHit &h : m_rowHits) {
+        if (!m_hoverKey.isEmpty())
+        {
+            for (const RowHit &h : m_rowHits)
+            {
                 if (h.key != m_hoverKey) continue;
                 if (const auto m = hoverMeasure(h.key, h.label, h.value))
                     drawHoverMeasure(p, *m, X, Y, X(std::max(m_round.dim("R1"), m_round.dim("P1")) / 2.0) + 14.0, drawArea.right(), dfm,
                                      palette().color(QPalette::Highlight), palette().color(QPalette::Base));
             }
         }
-    } else {
+    }
+    else
+    {
         drawMeasures(p, QRectF(all.left(), drawArea.bottom() + 8, all.width(), legendHeight), legendFont);
     }
 }
@@ -381,22 +409,31 @@ double CartridgeView::drawMeasures(QPainter &p, const QRectF &area, const QFont 
     const QFontMetricsF fm(f);
     const double lineH = fm.height() + 1.0;
     double y = area.top();
-    const auto lengthText = [&](double mm) {
+    const auto lengthText = [&](double mm)
+    {
         const grt::units::Unit &u = UnitPreferences::instance().unitFor(Quantity::Length);
         return grt::units::format(mm, u) + u' ' + QString::fromUtf8(u.symbol);
     };
-    const struct { const char *letter; QString label; double value; } measures[] = {
-        {"A", tr("Overall length"), m_round.bulletTip()}, {"B", tr("Case length"), m_round.caseLength()}, {"C", tr("Seating depth"), m_round.depth}};
+    const struct
+    {
+        const char *letter;
+        QString label;
+        double value;
+    } measures[] = {{"A", tr("Overall length"), m_round.bulletTip()},
+                    {"B", tr("Case length"), m_round.caseLength()},
+                    {"C", tr("Seating depth"), m_round.depth}};
     QFont bold = f;
     bold.setBold(true);
-    for (const auto &m : measures) {
+    for (const auto &m : measures)
+    {
         p.setFont(bold);
         p.setPen(palette().color(QPalette::Text));
         p.drawText(QPointF(area.left(), y + fm.ascent()), QString::fromLatin1(m.letter));
         p.setFont(f);
         const double textLeft = area.left() + fm.horizontalAdvance(u'A') + 6;
         p.drawText(QRectF(textLeft, y, area.width(), lineH), Qt::AlignLeft | Qt::AlignVCenter,
-                   fm.elidedText(QStringLiteral("%1 %2").arg(m.label, lengthText(m.value)), Qt::ElideRight, static_cast<int>(area.right() - textLeft)));
+                   fm.elidedText(QStringLiteral("%1 %2").arg(m.label, lengthText(m.value)), Qt::ElideRight,
+                                 static_cast<int>(area.right() - textLeft)));
         y += lineH;
     }
     return y - area.top();
@@ -405,7 +442,8 @@ double CartridgeView::drawMeasures(QPainter &p, const QRectF &area, const QFont 
 void CartridgeView::drawTable(QPainter &p, const QRectF &area) const
 {
     using grt::units::Quantity;
-    struct Row {
+    struct Row
+    {
         const char *key;
         const char *label;
         Quantity quantity;
@@ -437,14 +475,18 @@ void CartridgeView::drawTable(QPainter &p, const QRectF &area) const
     p.setPen(palette().color(QPalette::Text));
     p.drawText(QPointF(area.left(), y + fm.ascent()), tr("CIP dimensions"));
     y += lineH + 2;
-    for (const Row &r : rows) {
+    for (const Row &r : rows)
+    {
         if (y + lineH > area.bottom()) break;
         if (!m_round.dims.contains(QLatin1String(r.key)) || m_round.dims.value(QLatin1String(r.key)) == 0.0) continue;
         const double v = m_round.dims.value(QLatin1String(r.key));
         QString value;
-        if (r.quantity == Quantity::None) {
+        if (r.quantity == Quantity::None)
+        {
             value = fmtNumber(v, 2) + QString::fromUtf8(r.suffix);
-        } else {
+        }
+        else
+        {
             // the database stores the case capacity in grains of water
             const double base = r.quantity == Quantity::Volume ? v * grt::kGrainToGram : v;
             const grt::units::Unit &u = UnitPreferences::instance().unitFor(r.quantity);
@@ -452,7 +494,8 @@ void CartridgeView::drawTable(QPainter &p, const QRectF &area) const
         }
         const QRectF rowRect(area.left(), y, area.width(), lineH);
         m_rowHits.push_back({rowRect, QString::fromLatin1(r.key), QString::fromUtf8(r.label), value});
-        if (m_hoverKey == QLatin1String(r.key)) {
+        if (m_hoverKey == QLatin1String(r.key))
+        {
             QColor hl = palette().color(QPalette::Highlight);
             hl.setAlpha(60);
             p.fillRect(rowRect, hl);

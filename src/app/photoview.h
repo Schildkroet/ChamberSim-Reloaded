@@ -8,10 +8,12 @@ class QToolButton;
 
 // The photos of a propellant (overview and detail) with a scale bar: the "Powder" tab of the drawing panel (the
 // owner shows the tab only while there are photos). A double click opens the picture larger.
-class PhotoView : public QWidget {
+class PhotoView : public QWidget
+{
     Q_OBJECT
 public:
-    struct Photo {
+    struct Photo
+    {
         QImage image;
         QString name;
         double pxPerMm{};  // 0: unknown, no scale bar

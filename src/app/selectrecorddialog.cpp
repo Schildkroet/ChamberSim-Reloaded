@@ -25,7 +25,8 @@ SelectRecordDialog::SelectRecordDialog(const grt::Database &db, grt::Table table
 void SelectRecordDialog::setRestriction(const QString &sqlCondition, const QString &checkBoxText)
 {
     m_condition = sqlCondition;
-    if (!m_restrict) {
+    if (!m_restrict)
+    {
         m_restrict = new QCheckBox(checkBoxText);
         m_restrict->setChecked(true);
         static_cast<QVBoxLayout *>(layout())->insertWidget(0, m_restrict);
@@ -37,7 +38,8 @@ void SelectRecordDialog::setRestriction(const QString &sqlCondition, const QStri
 
 void SelectRecordDialog::setResetOption(const QString &text, bool checked)
 {
-    if (!m_reset) {
+    if (!m_reset)
+    {
         m_reset = new QCheckBox;
         static_cast<QVBoxLayout *>(layout())->insertWidget(layout()->count() - 1, m_reset);
     }

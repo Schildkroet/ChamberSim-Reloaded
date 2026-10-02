@@ -13,7 +13,8 @@
 #include <algorithm>
 #include <cmath>
 
-namespace {
+namespace
+{
 
 constexpr QColor kPressure{0xe0, 0x6a, 0x6a};
 constexpr QColor kVelocity{0x7a, 0x86, 0xe8};
@@ -76,7 +77,8 @@ CurveChart::CurveChart(QWidget *parent)
 
     m_axisX->setLabelFormat("%.2f");
     m_axisX->setTickCount(7);
-    for (QValueAxis *a : {m_axisP, m_axisE, m_axisV}) {
+    for (QValueAxis *a : {m_axisP, m_axisE, m_axisV})
+    {
         a->setLabelFormat("%.0f");
         a->setTickCount(kTicks);
     }
@@ -96,23 +98,27 @@ CurveChart::CurveChart(QWidget *parent)
     m_blueHi = new QLineSeries;
     m_bandRed = makeBand(QColor(0xa0, 0x30, 0x30));
     m_bandBlue = makeBand(QColor(0x40, 0x70, 0xb0));
-    for (QAreaSeries *b : {m_bandRed, m_bandBlue}) {
+    for (QAreaSeries *b : {m_bandRed, m_bandBlue})
+    {
         chart->addSeries(b);
         b->attachAxis(m_axisX);
         b->attachAxis(m_axisP);
     }
 
-    for (QLineSeries *s : {m_pressure, m_refPressure, m_permittedLine}) {
+    for (QLineSeries *s : {m_pressure, m_refPressure, m_permittedLine})
+    {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
         s->attachAxis(m_axisP);
     }
-    for (QLineSeries *s : {m_energy, m_refEnergy}) {
+    for (QLineSeries *s : {m_energy, m_refEnergy})
+    {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
         s->attachAxis(m_axisE);
     }
-    for (QLineSeries *s : {m_velocity, m_refVelocity}) {
+    for (QLineSeries *s : {m_velocity, m_refVelocity})
+    {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
         s->attachAxis(m_axisV);
@@ -120,7 +126,8 @@ CurveChart::CurveChart(QWidget *parent)
 
     static const QString names[] = {QStringLiteral("z1"), QStringLiteral("Pmax"), QStringLiteral("z2"), QStringLiteral("95%"),
                                     QStringLiteral("Burnout")};
-    for (const QString &name : names) {
+    for (const QString &name : names)
+    {
         Marker m{new QLineSeries, new QGraphicsSimpleTextItem(name, chart), 0.0, false};
         m.line->setPen(pen(QColor(0x90, 0xa0, 0xb0), 1, Qt::DashLine, 160));
         m.label->setZValue(20);
@@ -164,7 +171,8 @@ void CurveChart::applyFonts()
     small.setPointSizeF(base.pointSizeF() * 0.9);
     chart()->setTitleFont(base);
     chart()->legend()->setFont(small);
-    for (QValueAxis *a : {m_axisX, m_axisP, m_axisE, m_axisV}) {
+    for (QValueAxis *a : {m_axisX, m_axisP, m_axisE, m_axisV})
+    {
         a->setLabelsFont(small);
         a->setTitleFont(base);
     }
@@ -175,10 +183,13 @@ void CurveChart::applyFonts()
 void CurveChart::changeEvent(QEvent *event)
 {
     QChartView::changeEvent(event);
-    if (event->type() == QEvent::PaletteChange) {
+    if (event->type() == QEvent::PaletteChange)
+    {
         applyTheme();
         applyFonts();
-    } else if (event->type() == QEvent::FontChange || event->type() == QEvent::ApplicationFontChange) {
+    }
+    else if (event->type() == QEvent::FontChange || event->type() == QEvent::ApplicationFontChange)
+    {
         applyFonts();
     }
 }
@@ -203,7 +214,8 @@ void CurveChart::applyTheme()
     m_axisE->setLabelsColor(kEnergy);
     m_axisV->setLabelsColor(kVelocity);
     for (const Marker &m : m_markers) m.label->setBrush(palette().color(QPalette::Text));
-    for (QAreaSeries *b : {m_bandRed, m_bandBlue}) {
+    for (QAreaSeries *b : {m_bandRed, m_bandBlue})
+    {
         QColor c = b == m_bandRed ? QColor(0xa0, 0x30, 0x30) : QColor(0x40, 0x70, 0xb0);
         c.setAlpha(dark ? 120 : 70);
         b->setBrush(c);
@@ -271,14 +283,16 @@ void CurveChart::updateMarkerLabels()
 {
     const QRectF plot = chart()->plotArea();
     QList<QRectF> placed;  // labels that would overlap are moved one row down, inside the plot
-    for (Marker &m : m_markers) {
+    for (Marker &m : m_markers)
+    {
         m.label->setVisible(m.visible);
         if (!m.visible) continue;
         const QPointF pos = chart()->mapToPosition({m.x, m_axisP->max()}, m_pressure);
         const QRectF r = m.label->boundingRect();
         const double x = std::clamp(pos.x() - r.width() / 2, plot.left(), plot.right() - r.width());
         double y = plot.top() - r.height() - 1;
-        for (int row = 0; row < 3; ++row) {
+        for (int row = 0; row < 3; ++row)
+        {
             const QRectF candidate(x, y, r.width(), r.height());
             if (std::ranges::none_of(placed, [&](const QRectF &q) { return q.adjusted(-2, 0, 2, 0).intersects(candidate); })) break;
             y += r.height() + 1;
@@ -295,7 +309,8 @@ void CurveChart::rebuild()
     const auto P = [&](double bar) { return grt::units::toDisplay(bar, pu); };
     const auto E = [&](double joule) { return grt::units::toDisplay(joule, eu); };
     const auto V = [&](double ms) { return grt::units::toDisplay(ms, vu); };
-    const auto fillWith = [&](QLineSeries *s, std::span<const grt::SimPoint> p, auto value) {
+    const auto fillWith = [&](QLineSeries *s, std::span<const grt::SimPoint> p, auto value)
+    {
         QList<QPointF> out;
         out.reserve(static_cast<qsizetype>(p.size()));
         for (const grt::SimPoint &q : p) out.append({xOf(q), value(q)});
@@ -308,16 +323,23 @@ void CurveChart::rebuild()
     fillWith(m_refVelocity, m_reference, [&](const grt::SimPoint &p) { return V(p.v_ms); });
     fillWith(m_refEnergy, m_reference, [&](const grt::SimPoint &p) { return E(p.e_J); });
     // ladder: the other charges as faded curves
-    for (QLineSeries *s : m_ladderSeries) {
+    for (QLineSeries *s : m_ladderSeries)
+    {
         chart()->removeSeries(s);
         delete s;
     }
     m_ladderSeries.clear();
-    for (const grt::SimResult &step : m_ladder) {
+    for (const grt::SimResult &step : m_ladder)
+    {
         if (!step.ok()) continue;
-        const struct { QValueAxis *axis; QColor color; int what; } kinds[] = {
-            {m_axisP, kPressure, 0}, {m_axisE, kEnergy, 1}, {m_axisV, kVelocity, 2}};
-        for (const auto &k : kinds) {
+        const struct
+        {
+            QValueAxis *axis;
+            QColor color;
+            int what;
+        } kinds[] = {{m_axisP, kPressure, 0}, {m_axisE, kEnergy, 1}, {m_axisV, kVelocity, 2}};
+        for (const auto &k : kinds)
+        {
             auto *s = new QLineSeries;
             s->setPen(pen(k.color, 1.2, Qt::SolidLine, 85));
             fillWith(s, step.points, [&](const grt::SimPoint &p) { return k.what == 0 ? P(p.p_bar) : k.what == 1 ? E(p.e_J) : V(p.v_ms); });
@@ -335,9 +357,15 @@ void CurveChart::rebuild()
     // ranges
     double xMax = 0.0, pMax = 0.0, eMax = 0.0, vMax = 0.0, xMin = 0.0;
     bool first = true;
-    const auto scan = [&](std::span<const grt::SimPoint> p) {
-        for (const grt::SimPoint &q : p) {
-            if (first) { xMin = xMax = xOf(q); first = false; }
+    const auto scan = [&](std::span<const grt::SimPoint> p)
+    {
+        for (const grt::SimPoint &q : p)
+        {
+            if (first)
+            {
+                xMin = xMax = xOf(q);
+                first = false;
+            }
             xMin = std::min(xMin, xOf(q));
             xMax = std::max(xMax, xOf(q));
             pMax = std::max(pMax, P(q.p_bar));
@@ -363,7 +391,8 @@ void CurveChart::rebuild()
 
     // bands and permitted pressure
     const double x0 = m_axisX->min(), x1 = m_axisX->max();
-    const auto hline = [&](QLineSeries *s, double y, bool on) {
+    const auto hline = [&](QLineSeries *s, double y, bool on)
+    {
         if (on) s->replace({{x0, y}, {x1, y}});
         else s->clear();
     };

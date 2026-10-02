@@ -18,43 +18,47 @@
 #define GRT_VERSION "0.1"
 #endif
 
-namespace about {
+namespace about
+{
 
 QString html(const QString &databasePath, int calibers, int projectiles, int propellants)
 {
-    const QString version = QCoreApplication::applicationVersion().isEmpty() ? QStringLiteral(GRT_VERSION)
-                                                                              : QCoreApplication::applicationVersion();
+    const QString version =
+        QCoreApplication::applicationVersion().isEmpty() ? QStringLiteral(GRT_VERSION) : QCoreApplication::applicationVersion();
     // short blocks with headings; the legal text sits in a framed box, the technical details in small print
-    QString text = QApplication::translate("about", "<h2>GRT Reloaded</h2>"
-                                           "<p><b>Version %1</b><br>Interior ballistics for handloaders</p>"
-                                           "<p>Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy "
-                                           "and velocity along the barrel. Includes a load development ladder, reports and printouts.</p>"
-                                           "<p>A Qt&nbsp;6 re-creation of the workflow of Gordon's Reloading Tool. It is an independent "
-                                           "project and is not affiliated with or supported by the original program or its author.</p>")
-                       .arg(version.toHtmlEscaped());
+    QString text =
+        QApplication::translate("about", "<h2>GRT Reloaded</h2>"
+                                         "<p><b>Version %1</b><br>Interior ballistics for handloaders</p>"
+                                         "<p>Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy "
+                                         "and velocity along the barrel. Includes a load development ladder, reports and printouts.</p>"
+                                         "<p>A Qt&nbsp;6 re-creation of the workflow of Gordon's Reloading Tool. It is an independent "
+                                         "project and is not affiliated with or supported by the original program or its author.</p>")
+            .arg(version.toHtmlEscaped());
     text += QApplication::translate("about", "<h3>Accuracy</h3>"
-                                    "<p>The simulation was calibrated against 190 runs of the original program on 36 "
-                                    "cartridges: typically about 1&nbsp;% in muzzle velocity and 2&nbsp;% in peak pressure. "
-                                    "Unusual loads can deviate more.</p>");
+                                             "<p>The simulation was calibrated against 190 runs of the original program on 36 "
+                                             "cartridges: typically about 1&nbsp;% in muzzle velocity and 2&nbsp;% in peak pressure. "
+                                             "Unusual loads can deviate more.</p>");
     text += QApplication::translate("about", "<h3>Safety</h3>"
-                                    "<ul>"
-                                    "<li>The results are calculated and can differ considerably from reality.</li>"
-                                    "<li>Compare every load with the current loading tables of the component manufacturers.</li>"
-                                    "<li>Start low. Use at your own risk.</li>"
-                                    "</ul>");
-    text += QApplication::translate("about", "<h3>Disclaimer</h3>"
-                                    "<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td>"
-                                    "This software is provided \"as is\", without warranty of any kind, express or implied, "
-                                    "including accuracy, correctness or fitness for a particular purpose.<br><br>"
-                                    "The author and all contributors accept <b>no responsibility or liability</b> for any damage, "
-                                    "injury or death, loss, or any other consequence arising from the use of this software or of its "
-                                    "results, including damage to firearms or property.<br><br>"
-                                    "Reloading ammunition is dangerous and is done entirely at your own responsibility."
-                                    "</td></tr></table>");
+                                             "<ul>"
+                                             "<li>The results are calculated and can differ considerably from reality.</li>"
+                                             "<li>Compare every load with the current loading tables of the component manufacturers.</li>"
+                                             "<li>Start low. Use at your own risk.</li>"
+                                             "</ul>");
+    text +=
+        QApplication::translate("about", "<h3>Disclaimer</h3>"
+                                         "<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td>"
+                                         "This software is provided \"as is\", without warranty of any kind, express or implied, "
+                                         "including accuracy, correctness or fitness for a particular purpose.<br><br>"
+                                         "The author and all contributors accept <b>no responsibility or liability</b> for any damage, "
+                                         "injury or death, loss, or any other consequence arising from the use of this software or of its "
+                                         "results, including damage to firearms or property.<br><br>"
+                                         "Reloading ammunition is dangerous and is done entirely at your own responsibility."
+                                         "</td></tr></table>");
     text += QApplication::translate("about", "<hr><p><small>Qt %1 (built with %2) · %3 · language %4</small></p>")
                 .arg(QString::fromLatin1(qVersion()), QStringLiteral(QT_VERSION_STR), QSysInfo::prettyProductName().toHtmlEscaped(),
                      QLocale().name());
-    if (!databasePath.isEmpty()) {
+    if (!databasePath.isEmpty())
+    {
         text += QApplication::translate("about", "<p><small>Database: %1 — %2 calibers, %3 projectiles, %4 propellants</small></p>")
                     .arg(QFileInfo(databasePath).fileName().toHtmlEscaped())
                     .arg(calibers)

@@ -42,7 +42,8 @@
 
 using namespace Qt::StringLiterals;
 
-namespace {
+namespace
+{
 
 QLabel *valueLabel()
 {
@@ -213,7 +214,8 @@ LoadView::LoadView(QWidget *parent)
     const std::array<QString, 3> tabTitles{tr("Cartridge && gun"), tr("Projectile"), tr("Propellant")};
     const std::array<PropertyPanel *, 3> panels{m_cartridgePanel, m_projectilePanel, m_propellantPanel};
     for (PropertyPanel *p : panels) p->rememberColumns(QStringLiteral("properties"));  // one width for all three tabs
-    for (std::size_t i = 0; i < 3; ++i) {
+    for (std::size_t i = 0; i < 3; ++i)
+    {
         m_itemLabels[i] = new QLabel;
         m_itemLabels[i]->setWordWrap(true);
         QFont f = m_itemLabels[i]->font();
@@ -269,13 +271,15 @@ LoadView::LoadView(QWidget *parent)
 
     for (PropertyPanel *p : {m_cartridgePanel, m_projectilePanel, m_propellantPanel})
         connect(p, &PropertyPanel::valueEdited, this, &LoadView::onValueEdited);
-    connect(&UnitPreferences::instance(), &UnitPreferences::changed, this, [this] {
-        m_cartridge->update();
-        m_chamber->update();
-        applyChartUnits();
-        updateLadderUi();
-        showResult();
-    });
+    connect(&UnitPreferences::instance(), &UnitPreferences::changed, this,
+            [this]
+            {
+                m_cartridge->update();
+                m_chamber->update();
+                applyChartUnits();
+                updateLadderUi();
+                showResult();
+            });
     applyChartUnits();
     m_report->setDataProvider([this] { return reportData(); });
     connect(m_measurements, &MeasurementView::edited, this, &LoadView::storeMeasurement);
@@ -283,9 +287,8 @@ LoadView::LoadView(QWidget *parent)
     connect(m_measurements, &MeasurementView::fitRequested, this, &LoadView::fitPowder);
     connect(m_ladderTabs, &QTabBar::currentChanged, this, [this](int i) { setFocus(i); });
     connect(m_ladderTable, &QTableWidget::cellClicked, this, [this](int row, int) { setFocus(row); });
-    connect(m_xAxis, &QComboBox::currentIndexChanged, this, [this] {
-        m_chart->setXAxis(static_cast<CurveChart::XAxis>(m_xAxis->currentData().toInt()));
-    });
+    connect(m_xAxis, &QComboBox::currentIndexChanged, this,
+            [this] { m_chart->setXAxis(static_cast<CurveChart::XAxis>(m_xAxis->currentData().toInt())); });
 }
 
 void LoadView::showInputTab(int index)
@@ -306,7 +309,8 @@ QString LoadView::title() const
 
 grt::EntryList &LoadView::section(int id)
 {
-    switch (id) {
+    switch (id)
+    {
     case Caliber: return m_file.caliber;
     case Gun: return m_file.gun;
     case Projectile: return m_file.projectile;
@@ -317,7 +321,8 @@ grt::EntryList &LoadView::section(int id)
 bool LoadView::load(const QString &path, QString *error)
 {
     auto lf = grt::LoadFile::read(path, error);
-    if (!lf) {
+    if (!lf)
+    {
         LOG_Warn() << "Cannot read load" << path << ":" << (error ? *error : QString());
         return false;
     }
@@ -343,7 +348,8 @@ void LoadView::setNewLoad(grt::LoadFile file)
 
 bool LoadView::save(const QString &path, QString *error)
 {
-    if (!m_file.write(path, error)) {
+    if (!m_file.write(path, error))
+    {
         LOG_Error() << "Cannot write load" << path << ":" << (error ? *error : QString());
         return false;
     }
@@ -364,12 +370,14 @@ void LoadView::setReference(std::optional<grt::ReferenceRun> ref)
 void LoadView::rebuildPanels()
 {
     updateHeaders();
-    m_cartridgePanel->setSections({{Caliber, u"caliber"_s, tr("Caliber / cartridge"), &m_file.caliber}, {Gun, u"gun"_s, tr("Gun"), &m_file.gun}});
+    m_cartridgePanel->setSections(
+        {{Caliber, u"caliber"_s, tr("Caliber / cartridge"), &m_file.caliber}, {Gun, u"gun"_s, tr("Gun"), &m_file.gun}});
     m_projectilePanel->setSections({{Projectile, u"projectile"_s, tr("Projectile"), &m_file.projectile}});
     m_propellantPanel->setSections({{Propellant, u"propellant"_s, tr("Propellant"), &m_file.propellant}});
 }
 
-namespace {
+namespace
+{
 
 // A record-like map from a section's entries (names match the database columns where it matters:
 // glen, pcd, ...), so defaults can be computed for the load's current components.
@@ -393,10 +401,10 @@ void LoadView::setDatabase(const grt::Database *db)
     m_photo->clear();  // the pictures come from the database
     updatePhoto();
     const bool on = db && db->isOpen();
-    for (QPushButton *b : m_selectButtons) {
+    for (QPushButton *b : m_selectButtons)
+    {
         b->setEnabled(on);
-        b->setToolTip(on ? tr("Replace this component by another record of the database")
-                         : tr("No database available"));
+        b->setToolTip(on ? tr("Replace this component by another record of the database") : tr("No database available"));
     }
 }
 
@@ -406,7 +414,8 @@ void LoadView::updateHeaders()
     m_itemLabels[1]->setText(m_file.projectile.text(u"ProjectileName"));
     const auto &p = m_file.propellant;
     QString lot = p.text(u"lotid");
-    m_itemLabels[2]->setText(QStringLiteral("%1 %2%3").arg(p.text(u"mname"), p.text(u"pname"), lot.isEmpty() ? QString() : QStringLiteral(" (%1)").arg(lot)));
+    m_itemLabels[2]->setText(
+        QStringLiteral("%1 %2%3").arg(p.text(u"mname"), p.text(u"pname"), lot.isEmpty() ? QString() : QStringLiteral(" (%1)").arg(lot)));
     updatePhoto();
 }
 
@@ -416,15 +425,18 @@ void LoadView::updatePhoto()
     const QString overview = m_file.propellant.text(u"imageUuid"), detail = m_file.propellant.text(u"imageDetailUuid");
     const QString key = overview + u'|' + detail;
     const auto showTab = [this] { m_drawings->setTabVisible(m_photoTab, m_photo->hasPhotos()); };
-    if (!m_db || !m_db->isOpen() || (overview.isEmpty() && detail.isEmpty())) {
+    if (!m_db || !m_db->isOpen() || (overview.isEmpty() && detail.isEmpty()))
+    {
         m_photo->clear();
         showTab();
         return;
     }
     if (key == m_photo->key()) return;
-    const auto load = [this](const QString &uuid) {
+    const auto load = [this](const QString &uuid)
+    {
         PhotoView::Photo p;
-        if (const auto img = m_db->image(uuid)) {
+        if (const auto img = m_db->image(uuid))
+        {
             p.image = QImage::fromData(img->data);
             p.name = img->name;
             if (img->scaleUnit == u"px/mm") p.pxPerMm = img->scale;
@@ -442,8 +454,10 @@ bool LoadView::applyRecord(Component component, int id, bool resetDependent)
     const auto rec = m_db->record(tables[static_cast<std::size_t>(component)], id);
     if (!rec) return false;
     const QVariantMap cal = caliberRecord();
-    switch (component) {
-    case Component::Caliber: {
+    switch (component)
+    {
+    case Component::Caliber:
+    {
         const QVariantMap prj = recordOf(m_file.projectile), pro = recordOf(m_file.propellant);
         grt::applyCaliber(m_file, *rec, m_db->columns(grt::Table::Caliber), resetDependent, &prj, &pro);
         break;
@@ -464,19 +478,19 @@ void LoadView::chooseRecord(Component component)
     const QString titles[] = {tr("Select caliber"), tr("Select projectile"), tr("Select propellant")};
     const auto idx = static_cast<std::size_t>(component);
     SelectRecordDialog dlg(*m_db, tables[idx], titles[idx], this);
-    switch (component) {
+    switch (component)
+    {
     case Component::Caliber:
         dlg.setResetOption(tr("Also set barrel length, seating depth and charge to the defaults of the new caliber"), true);
         break;
-    case Component::Projectile: {
+    case Component::Projectile:
+    {
         const double dz = m_file.caliber.number(u"Dz");
         if (dz > 0.0) dlg.setRestriction(QStringLiteral("ABS(gdia - %1) < 0.25").arg(dz), tr("Show only bullets that fit the caliber"));
         dlg.setResetOption(tr("Also set the seating depth to the default (maximum cartridge length)"), false);
         break;
     }
-    case Component::Propellant:
-        dlg.setResetOption(tr("Also set the charge to the default (70 % of the case capacity)"), false);
-        break;
+    case Component::Propellant: dlg.setResetOption(tr("Also set the charge to the default (70 % of the case capacity)"), false); break;
     }
     if (dlg.exec() != QDialog::Accepted || dlg.selectedId() < 0) return;
     if (!applyRecord(component, dlg.selectedId(), dlg.resetChecked()))
@@ -496,8 +510,8 @@ void LoadView::recompute()
     m_ladder = grt::simulateLadder(m_input);
     m_focus = grt::toIntClamped(m_file.config.number(u"CurveFocusIdx", 0.0), 0, static_cast<int>(m_ladder.size()) - 1);
     m_result = m_ladder[static_cast<std::size_t>(m_focus)].result;
-    LOG_Debug() << "Simulated" << title() << ":" << m_ladder.size() << "ladder step(s), focus" << m_focus << ", pmax" << m_result.maxPressure_bar
-                << "bar, v0" << m_result.muzzleVelocity_ms << "m/s";
+    LOG_Debug() << "Simulated" << title() << ":" << m_ladder.size() << "ladder step(s), focus" << m_focus << ", pmax"
+                << m_result.maxPressure_bar << "bar, v0" << m_result.muzzleVelocity_ms << "m/s";
     if (!m_result.ok()) LOG_Warn() << "Simulation of" << title() << "failed (charge too high, input out of range?)";
     m_focusInput = m_input;
     m_focusInput.charge_g = m_ladder[static_cast<std::size_t>(m_focus)].charge_g;
@@ -511,11 +525,13 @@ void LoadView::recompute()
     m_chamber->setLoad(m_file, m_focusInput);
     if (m_input.vivacityBa > 0.0) m_vivacity->setCurve(grt::vivacityCurve(m_input), m_input.z1, m_input.z2);
     else m_vivacity->clear();
-    m_measurements->setPredictor([in = m_input](double charge_g) {
-        grt::SimInput i = in;
-        i.charge_g = charge_g;
-        return grt::simulate(i);
-    });
+    m_measurements->setPredictor(
+        [in = m_input](double charge_g)
+        {
+            grt::SimInput i = in;
+            i.charge_g = charge_g;
+            return grt::simulate(i);
+        });
     std::vector<double> charges{m_focusInput.charge_g};
     for (const grt::LadderStep &step : m_ladder)
         if (std::abs(step.charge_g - m_focusInput.charge_g) > 1e-9) charges.push_back(step.charge_g);
@@ -530,18 +546,22 @@ void LoadView::fitPowder()
     QStringList warnings;
     const QString source = m_path.isEmpty() ? title() : QFileInfo(m_path).fileName();
     const std::vector<grt::powderfit::Sample> samples = grt::powderfit::samples(m_file, source, &warnings);
-    if (samples.empty()) {
+    if (samples.empty())
+    {
         QMessageBox::information(this, tr("Fit to measurements"), tr("Enter the measured velocity of the shots first."));
         return;
     }
     PowderFitDialog dlg(samples, warnings, this);
-    if (m_saveRecord && m_db && m_db->isOpen()) {
-        dlg.setSaveHandler([this, &samples](const grt::powderfit::Result &r) {
-            QVariantMap record = grt::powderfit::toRecord(m_file.propellant, r, m_db->schema(grt::Table::Propellant),
-                                                          grt::powderfit::describe(r, samples));
-            record.insert(u"pname"_s, record.value(u"pname"_s).toString() + tr(" (fitted)"));
-            return m_saveRecord(grt::Table::Propellant, record) >= 0;
-        });
+    if (m_saveRecord && m_db && m_db->isOpen())
+    {
+        dlg.setSaveHandler(
+            [this, &samples](const grt::powderfit::Result &r)
+            {
+                QVariantMap record = grt::powderfit::toRecord(m_file.propellant, r, m_db->schema(grt::Table::Propellant),
+                                                              grt::powderfit::describe(r, samples));
+                record.insert(u"pname"_s, record.value(u"pname"_s).toString() + tr(" (fitted)"));
+                return m_saveRecord(grt::Table::Propellant, record) >= 0;
+            });
     }
     dlg.runFit();
     if (dlg.exec() != QDialog::Accepted || !dlg.result() || !dlg.result()->improved) return;
@@ -577,9 +597,15 @@ void LoadView::setFocus(int index)
 {
     if (index < 0 || index >= static_cast<int>(m_ladder.size()) || index == m_focus) return;
     m_file.config.set(u"CurveFocusIdx", static_cast<double>(index));
-    if (m_file.config.find(u"CurveFocusIdx") && m_file.config.find(u"CurveFocusIdx")->type.isEmpty()) {
+    if (m_file.config.find(u"CurveFocusIdx") && m_file.config.find(u"CurveFocusIdx")->type.isEmpty())
+    {
         for (grt::Entry &e : m_file.config.entries())
-            if (e.name == u"CurveFocusIdx") { e.type = u"integer"_s; e.descr = u"selected ladder curve for display"_s; e.value = QString::number(index); }
+            if (e.name == u"CurveFocusIdx")
+            {
+                e.type = u"integer"_s;
+                e.descr = u"selected ladder curve for display"_s;
+                e.value = QString::number(index);
+            }
     }
     setModified(true);
     recompute();
@@ -596,23 +622,28 @@ void LoadView::updateLadderUi()
     QSignalBlocker block(m_ladderTabs);
     while (m_ladderTabs->count() > 0) m_ladderTabs->removeTab(0);
     m_ladderTable->setRowCount(0);
-    for (std::size_t i = 0; i < m_ladder.size(); ++i) {
+    for (std::size_t i = 0; i < m_ladder.size(); ++i)
+    {
         const grt::LadderStep &s = m_ladder[i];
         m_ladderTabs->addTab(shown(s.charge_g, Quantity::BulletMass));
         const int row = m_ladderTable->rowCount();
         m_ladderTable->insertRow(row);
-        const auto cell = [&](int col, const QString &text) {
+        const auto cell = [&](int col, const QString &text)
+        {
             auto *item = new QTableWidgetItem(text);
             item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
             m_ladderTable->setItem(row, col, item);
         };
         cell(0, shown(s.charge_g, Quantity::BulletMass));
-        if (s.result.ok()) {
+        if (s.result.ok())
+        {
             cell(1, shown(s.result.maxPressure_bar, Quantity::Pressure));
             cell(2, shown(s.result.muzzleVelocity_ms, Quantity::Velocity));
             cell(3, shown(s.result.muzzleEnergy_J, Quantity::Energy));
             cell(4, QStringLiteral("%1 %").arg(num(100.0 * s.result.loadRatio, 1)));
-        } else {
+        }
+        else
+        {
             cell(1, tr("charge too high"));
             for (int c = 2; c < 5; ++c) cell(c, QStringLiteral("–"));
         }
@@ -680,7 +711,8 @@ void LoadView::addMeasurementReport(grt::report::Data &d) const
 
     std::vector<MeasurementChart::Prediction> curve;
     QString table = tr("^ Charge ^ Name ^ Shots ^ Velocity ^ SD ^ ES ^ Simulated ^ Δ ^ Pressure ^ Simulated ^ Δ ^") + u'\n';
-    for (const grt::MeasuredCharge &c : m.charges) {
+    for (const grt::MeasuredCharge &c : m.charges)
+    {
         grt::SimInput in = m_input;
         in.charge_g = c.charge_g();
         const grt::SimResult r = grt::simulate(in);
@@ -695,11 +727,11 @@ void LoadView::addMeasurementReport(grt::report::Data &d) const
                           v.count ? val(v.mean, Quantity::Velocity, 1) + u' ' + sym(Quantity::Velocity) : QString(),
                           v.count > 1 ? val(v.sd, Quantity::Velocity, 1) : QString(),
                           v.count > 1 ? val(v.extremeSpread(), Quantity::Velocity, 1) : QString(),
-                          r.ok() ? val(r.muzzleVelocity_ms, Quantity::Velocity, 1) : QString(), delta(r.muzzleVelocity_ms, v.mean))
-                 + QStringLiteral(" %1 | %2 | %3 |\n")
-                       .arg(p.count ? val(p.mean, Quantity::Pressure, 0) + u' ' + sym(Quantity::Pressure) : QString(),
-                            r.ok() && p.count ? val(r.maxPressure_bar, Quantity::Pressure, 0) : QString(),
-                            p.count ? delta(r.maxPressure_bar, p.mean) : QString());
+                          r.ok() ? val(r.muzzleVelocity_ms, Quantity::Velocity, 1) : QString(), delta(r.muzzleVelocity_ms, v.mean)) +
+                 QStringLiteral(" %1 | %2 | %3 |\n")
+                     .arg(p.count ? val(p.mean, Quantity::Pressure, 0) + u' ' + sym(Quantity::Pressure) : QString(),
+                          r.ok() && p.count ? val(r.maxPressure_bar, Quantity::Pressure, 0) : QString(),
+                          p.count ? delta(r.maxPressure_bar, p.mean) : QString());
     }
     std::ranges::sort(curve, {}, &MeasurementChart::Prediction::charge_g);
     MeasurementChart chart;
@@ -708,7 +740,8 @@ void LoadView::addMeasurementReport(grt::report::Data &d) const
     d.set(u"measurement.chart.png"_s, Value::ofImage(pngBytes(renderOffscreen(chart, {1100, 480}))));
     d.set(u"measurement.title"_s, Value::ofText(m.title));
     const QString title = m.title.isEmpty() ? tr("Measurements") : cell(m.title);
-    d.set(u"measurement.section"_s, Value::ofText(QStringLiteral("===== %1 =====\n%2\n{{measurement.chart.png?100%}}\n").arg(title, table)));
+    d.set(u"measurement.section"_s,
+          Value::ofText(QStringLiteral("===== %1 =====\n%2\n{{measurement.chart.png?100%}}\n").arg(title, table)));
 }
 
 void LoadView::applyChartUnits()
@@ -735,8 +768,7 @@ QString LoadView::headingHtml() const
               "<b>Projectile:</b> <i>%2</i>, <b>Propellant:</b> <i>%3 %4</i>, %5<br>"
               "<b>L3/CL:</b> %6, <b>L6/OAL:</b> %7, <b>Seating depth:</b> %8, <b>Projectile length:</b> %9, "
               "<b>Case volume:</b> %10")
-        .arg(m_file.caliber.text(u"CaliberName").toHtmlEscaped(),
-             m_file.projectile.text(u"ProjectileName").toHtmlEscaped(),
+        .arg(m_file.caliber.text(u"CaliberName").toHtmlEscaped(), m_file.projectile.text(u"ProjectileName").toHtmlEscaped(),
              p.text(u"mname").toHtmlEscaped(), p.text(u"pname").toHtmlEscaped(), shown(m_focusInput.charge_g, Quantity::BulletMass),
              shown(in.caseLength_mm, Quantity::Length), shown(m_file.caliber.number(u"oal"), Quantity::Length),
              shown(in.seatingDepth_mm, Quantity::Length))
@@ -747,11 +779,13 @@ void LoadView::showResult()
 {
     m_heading->setText(headingHtml());
     m_comparison->clear();
-    const auto clearAll = [&] {
+    const auto clearAll = [&]
+    {
         for (QFormLayout *f : {m_leftResults, m_rightResults})
             for (int r = 0; r < f->rowCount(); ++r) setRow(f, r, QStringLiteral("–"));
     };
-    if (!m_result.ok()) {
+    if (!m_result.ok())
+    {
         m_status->setText(m_result.status == grt::SimStatus::ChargeTooHigh
                               ? tr("<b>Charge too high:</b> the propellant charge does not fit into the case behind the bullet.")
                               : tr("<b>Invalid input:</b> the simulation cannot run with these values."));
@@ -777,7 +811,8 @@ void LoadView::showResult()
     setRow(m_rightResults, 5, QStringLiteral("%1 %").arg(num(100.0 * r.efficiency, 1)));
 
     if (!m_reference) return;
-    struct Row {
+    struct Row
+    {
         QString label;
         double value;
         Quantity quantity;  // None: shown as is, with `unit`
@@ -795,13 +830,13 @@ void LoadView::showResult()
     };
     QString html = tr("<table cellspacing='3'><tr><th></th><th align='right'>this</th><th align='right'>original</th>"
                       "<th align='right'>Δ</th><th></th></tr>");
-    for (const Row &row : rows) {
+    for (const Row &row : rows)
+    {
         const double ref = m_reference->number(QString::fromLatin1(row.refKey), std::nan(""));
         const grt::units::Unit *unit = row.quantity == Quantity::None ? nullptr : &UnitPreferences::instance().unitFor(row.quantity);
         const auto text = [&](double v) { return unit ? grt::units::format(v, *unit, row.decimals) : num(v, row.decimals); };
         html += QStringLiteral("<tr><td>%1</td><td align='right'><b>%2</b></td>").arg(row.label, text(row.value));
-        if (std::isnan(ref) || ref == 0.0)
-            html += QStringLiteral("<td></td><td></td>");
+        if (std::isnan(ref) || ref == 0.0) html += QStringLiteral("<td></td><td></td>");
         else
             html += QStringLiteral("<td align='right'>%1</td><td align='right'>%2 %</td>")
                         .arg(text(ref), num(100.0 * (row.value / ref - 1.0), 1));

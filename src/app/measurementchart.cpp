@@ -11,15 +11,21 @@
 #include <algorithm>
 #include <limits>
 
-namespace {
+namespace
+{
 
 const QColor kVelocity(0x2f, 0x7f, 0xd0);
 const QColor kPressure(0xd0, 0x4a, 0x3a);
 
-struct Range {
+struct Range
+{
     double lo{std::numeric_limits<double>::max()};
     double hi{std::numeric_limits<double>::lowest()};
-    void add(double v) { lo = std::min(lo, v); hi = std::max(hi, v); }
+    void add(double v)
+    {
+        lo = std::min(lo, v);
+        hi = std::max(hi, v);
+    }
     [[nodiscard]] bool valid() const { return lo <= hi; }
 };
 
@@ -56,12 +62,14 @@ MeasurementChart::MeasurementChart(QWidget *parent)
     chart->addAxis(m_axisX, Qt::AlignBottom);
     chart->addAxis(m_axisV, Qt::AlignLeft);
     chart->addAxis(m_axisP, Qt::AlignRight);
-    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simVelocity, m_shotVelocity, m_meanVelocity}) {
+    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simVelocity, m_shotVelocity, m_meanVelocity})
+    {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
         s->attachAxis(m_axisV);
     }
-    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simPressure, m_shotPressure}) {
+    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simPressure, m_shotPressure})
+    {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
         s->attachAxis(m_axisP);
@@ -101,7 +109,8 @@ void MeasurementChart::rebuild()
     const auto cv = [&](double v) { return toDisplay(v, *m_velocityUnit); };
     const auto cp = [&](double p) { return toDisplay(p, *m_pressureUnit); };
 
-    for (QLineSeries *s : m_errorBars) {
+    for (QLineSeries *s : m_errorBars)
+    {
         chart()->removeSeries(s);
         delete s;
     }
@@ -109,25 +118,39 @@ void MeasurementChart::rebuild()
 
     Range rx, rv, rp;
     QList<QPointF> simV, simP, shotV, meanV, shotP;
-    for (const Prediction &p : m_simulated) {
+    for (const Prediction &p : m_simulated)
+    {
         simV.append({cx(p.charge_g), cv(p.velocity_ms)});
         simP.append({cx(p.charge_g), cp(p.pressure_bar)});
         rx.add(cx(p.charge_g));
         rv.add(cv(p.velocity_ms));
         rp.add(cp(p.pressure_bar));
     }
-    for (const grt::MeasuredCharge &c : m_data.charges) {
+    for (const grt::MeasuredCharge &c : m_data.charges)
+    {
         const double x = cx(c.charge_g());
         bool any = false;
-        for (const grt::Shot &s : c.shots) {
-            if (s.velocity_ms > 0.0) { shotV.append({x, cv(s.velocity_ms)}); rv.add(cv(s.velocity_ms)); any = true; }
-            if (s.pressure_bar > 0.0) { shotP.append({x, cp(s.pressure_bar)}); rp.add(cp(s.pressure_bar)); any = true; }
+        for (const grt::Shot &s : c.shots)
+        {
+            if (s.velocity_ms > 0.0)
+            {
+                shotV.append({x, cv(s.velocity_ms)});
+                rv.add(cv(s.velocity_ms));
+                any = true;
+            }
+            if (s.pressure_bar > 0.0)
+            {
+                shotP.append({x, cp(s.pressure_bar)});
+                rp.add(cp(s.pressure_bar));
+                any = true;
+            }
         }
         if (any) rx.add(x);
         const grt::ShotStatistics st = grt::velocityStatistics(c);
         if (st.count == 0) continue;
         meanV.append({x, cv(st.mean)});
-        if (st.count > 1) {
+        if (st.count > 1)
+        {
             auto *bar = new QLineSeries;
             bar->append(x, cv(st.mean - st.sd));
             bar->append(x, cv(st.mean + st.sd));
@@ -148,7 +171,11 @@ void MeasurementChart::rebuild()
     for (QLegendMarker *mk : chart()->legend()->markers(m_shotPressure)) mk->setVisible(!shotP.isEmpty());
 
     if (!rx.valid()) rx = {.lo = 0.0, .hi = 1.0};
-    if (rx.hi - rx.lo < 1e-9) { rx.lo -= 0.5; rx.hi += 0.5; }
+    if (rx.hi - rx.lo < 1e-9)
+    {
+        rx.lo -= 0.5;
+        rx.hi += 0.5;
+    }
     const double padX = 0.04 * (rx.hi - rx.lo);
     m_axisX->setRange(rx.lo - padX, rx.hi + padX);
     if (!rv.valid()) rv = {.lo = 0.0, .hi = 1000.0};
@@ -182,7 +209,8 @@ void MeasurementChart::applyFonts()
 {
     QFont small = font();
     small.setPointSizeF(font().pointSizeF() * 0.9);
-    for (QValueAxis *a : {m_axisX, m_axisV, m_axisP}) {
+    for (QValueAxis *a : {m_axisX, m_axisV, m_axisP})
+    {
         a->setLabelsFont(small);
         a->setTitleFont(small);
     }
@@ -192,10 +220,13 @@ void MeasurementChart::applyFonts()
 void MeasurementChart::changeEvent(QEvent *event)
 {
     QChartView::changeEvent(event);
-    if (event->type() == QEvent::PaletteChange) {
+    if (event->type() == QEvent::PaletteChange)
+    {
         applyTheme();
         applyFonts();
-    } else if (event->type() == QEvent::FontChange || event->type() == QEvent::ApplicationFontChange) {
+    }
+    else if (event->type() == QEvent::FontChange || event->type() == QEvent::ApplicationFontChange)
+    {
         applyFonts();
     }
 }

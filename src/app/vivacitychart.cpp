@@ -28,7 +28,8 @@ VivacityChart::VivacityChart(QWidget *parent)
     m_axisY->setTickCount(5);
     chart->addAxis(m_axisX, Qt::AlignBottom);
     chart->addAxis(m_axisY, Qt::AlignLeft);
-    for (QLineSeries *s : {m_curve, m_z1, m_z2}) {
+    for (QLineSeries *s : {m_curve, m_z1, m_z2})
+    {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
         s->attachAxis(m_axisY);
@@ -57,7 +58,8 @@ void VivacityChart::applyFonts()
     QFont title = base;
     title.setPointSizeF(base.pointSizeF() * 0.95);
     chart()->setTitleFont(title);
-    for (QValueAxis *a : {m_axisX, m_axisY}) {
+    for (QValueAxis *a : {m_axisX, m_axisY})
+    {
         a->setLabelsFont(small);
         a->setTitleFont(small);
     }
@@ -66,10 +68,13 @@ void VivacityChart::applyFonts()
 void VivacityChart::changeEvent(QEvent *event)
 {
     QChartView::changeEvent(event);
-    if (event->type() == QEvent::PaletteChange) {
+    if (event->type() == QEvent::PaletteChange)
+    {
         applyTheme();
         applyFonts();
-    } else if (event->type() == QEvent::FontChange || event->type() == QEvent::ApplicationFontChange) {
+    }
+    else if (event->type() == QEvent::FontChange || event->type() == QEvent::ApplicationFontChange)
+    {
         applyFonts();
     }
 }
