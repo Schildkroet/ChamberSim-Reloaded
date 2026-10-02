@@ -797,8 +797,6 @@ void LoadView::showResult()
                         "loads can deviate more.</i>");
     // inputs of the original that the solver does not use yet (no reference data: the result ignores them)
     QStringList ignored;
-    if (m_file.gun.flag(u"gjumpUnlock") && m_file.gun.number(u"gjump") > 0.0)
-        ignored << tr("the bullet jump of %1").arg(shown(m_file.gun.number(u"gjump"), grt::units::Quantity::Length));
     if (m_file.caliber.flag(u"shotshell")) ignored << tr("the shotshell setting");
     if (!ignored.isEmpty())
         status += u"<br>"_s + tr("<b>Not taken into account:</b> %1. The result is calculated as without it.").arg(ignored.join(u", "_s));

@@ -47,6 +47,7 @@ private slots:
     void chronographFiles();
     void loggingFiltersByLevel();
     void burnRateCurveIsContinuous();
+    void bulletJumpLowersThePressure();
     void databaseImages();
     void ownRecordsKeepTheirPhotos();
     void measurementStatistics();
@@ -419,6 +420,27 @@ void CoreTest::burnRateCurveIsContinuous()
         const auto peak = std::ranges::max_element(curve);
         for (auto it = peak + 1; it != curve.end(); ++it) QVERIFY2(*it <= *(it - 1) + 0.005 * start, file);
     }
+}
+
+// Measured on the original (batch 10): a bullet jump (also with the field locked) lowers pressure and velocity, the 8x57
+// base load by 2.5 % / 0.5 % at 1 mm and 9.4 % / 2.1 % at 4 mm.
+void CoreTest::bulletJumpLowersThePressure()
+{
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    grt::SimInput in = grt::SimInput::fromLoad(*lf);
+    QCOMPARE(in.bulletJump_mm, 0.0);
+    const grt::SimResult base = grt::simulate(in);
+    in.bulletJump_mm = 1.0;
+    const grt::SimResult j1 = grt::simulate(in);
+    in.bulletJump_mm = 4.0;
+    const grt::SimResult j4 = grt::simulate(in);
+    QVERIFY(base.ok() && j1.ok() && j4.ok());
+    const auto rel = [](double a, double b) { return 100.0 * (a / b - 1.0); };
+    QCOMPARE_LT(std::abs(rel(j1.maxPressure_bar, base.maxPressure_bar) + 2.5), 1.0);
+    QCOMPARE_LT(std::abs(rel(j4.maxPressure_bar, base.maxPressure_bar) + 9.4), 2.0);
+    QCOMPARE_LT(std::abs(rel(j4.muzzleVelocity_ms, base.muzzleVelocity_ms) + 2.1), 0.5);
+    QCOMPARE(j4.effectiveCaseVolume_cm3, base.effectiveCaseVolume_cm3);  // the case and the charge rule do not change
 }
 
 void CoreTest::measurementStatistics()

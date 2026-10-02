@@ -2,6 +2,8 @@
 
 #include "numeric.h"
 
+#include <algorithm>
+
 namespace grt
 {
 
@@ -23,6 +25,7 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.barrelLength_mm = g.number(u"xe");
     in.twistLength_mm = g.number(u"twistlen");
     in.gunWeight_kg = g.number(u"mgun");
+    in.bulletJump_mm = std::max(g.number(u"gjump"), 0.0);
 
     in.bulletDiameter_mm = p.number(u"Dbul");
     in.bulletMass_g = p.number(u"mp");

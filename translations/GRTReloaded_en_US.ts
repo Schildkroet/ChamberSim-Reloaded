@@ -185,24 +185,24 @@
     </message>
     <message>
         <location line="-644"/>
-        <location line="+686"/>
+        <location line="+684"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-686"/>
-        <location line="+687"/>
+        <location line="-684"/>
+        <location line="+685"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-687"/>
-        <location line="+688"/>
+        <location line="-685"/>
+        <location line="+686"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-688"/>
+        <location line="-686"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -414,12 +414,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>the bullet jump of %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>the shotshell setting</source>
         <translation type="unfinished"></translation>
     </message>

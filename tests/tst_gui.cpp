@@ -1202,7 +1202,7 @@ void GuiTest::measurementTabShowsTheFilesResults()
     UnitPreferences::instance().setSystem(grt::units::System::Original);
 }
 
-// Inputs of the original that the solver does not use (bullet jump, shotshell) are named under the results.
+// Inputs of the original that the solver does not use (shotshell) are named under the results.
 void GuiTest::ignoredInputsAreNamed()
 {
     QFile f(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
@@ -1232,20 +1232,19 @@ void GuiTest::ignoredInputsAreNamed()
     QVERIFY(plain.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
     QVERIFY(!statusText(plain).contains(u"Not taken into account"_s));
 
-    set(u"gjump"_s, u"1.5"_s);
-    save();
-    LoadView locked;  // a distance alone (locked) is not used by the original either
-    QVERIFY(locked.load(path));
-    QVERIFY(!statusText(locked).contains(u"bullet jump"_s));
-
+    set(u"gjump"_s, u"1.5"_s);  // the bullet jump is part of the model now: no notice
     set(u"gjumpUnlock"_s, u"true"_s);
+    save();
+    LoadView jumped;
+    QVERIFY(jumped.load(path));
+    QVERIFY(!statusText(jumped).contains(u"Not taken into account"_s));
+
     set(u"shotshell"_s, u"true"_s);
     save();
     LoadView view;
     QVERIFY(view.load(path));
     const QString text = statusText(view);
     QVERIFY2(text.contains(u"Not taken into account"_s), qPrintable(text));
-    QVERIFY(text.contains(u"bullet jump"_s));
     QVERIFY(text.contains(u"shotshell"_s));
 }
 

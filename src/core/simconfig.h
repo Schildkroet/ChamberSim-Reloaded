@@ -21,6 +21,8 @@ struct SimInput
     double barrelLength_mm{};
     double twistLength_mm{};
     double gunWeight_kg{};
+    // free run of the bullet before it reaches the rifling [mm]; the original uses it also when the field is locked
+    double bulletJump_mm{};
 
     // projectile
     double bulletDiameter_mm{};

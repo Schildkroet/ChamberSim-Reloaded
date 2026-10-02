@@ -169,11 +169,13 @@ double bulletIntrusion_m3(const SimInput &in)
 
 // Chamber volume behind the bullet at the start: the case capacity (scaled: the database value is a water capacity,
 // the effective volume is larger), minus the bullet inside the case, plus empirical offsets (one of them a length
-// of bore behind the bullet base).
+// of bore behind the bullet base). A bullet jump adds the bore volume of the free run: measured on the original
+// (batch 10), this reproduces its lower pressure and velocity for jumps of 0.25..4 mm within about 1.5 % of the
+// pressure (the original shows no effect for jumps up to 0.5 mm in a 9 mm Luger, the model does).
 double chamberVolume_m3(const SimInput &in, const Calibration &cal)
 {
     return cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - cal.intrusionFactor * bulletIntrusion_m3(in) + cal.chamberOffset_cm3 * 1e-6 +
-           in.boreArea_mm2 * cal.chamberOffsetLength_mm * 1e-9;
+           in.boreArea_mm2 * (cal.chamberOffsetLength_mm + in.bulletJump_mm) * 1e-9;
 }
 
 SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
