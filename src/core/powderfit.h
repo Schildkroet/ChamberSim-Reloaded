@@ -51,6 +51,7 @@ struct Options
     std::vector<Param> params;
     double pressureWeight{1.0};  // weight of the relative pressure errors against the velocity errors
     int maxIterations{60};
+    int threads{0};  // threads for the simulations (0: all cores); the samples are independent of each other
 };
 
 struct SampleResult

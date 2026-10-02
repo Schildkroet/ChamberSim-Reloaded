@@ -111,22 +111,34 @@ struct Model
         return vg > 0.0 ? std::max(e, 0.0) / vg : 0.0;
     }
 
-    // dz/dt at the burnt fraction z and the pressure p [Pa]; 0 once everything has burnt.
-    [[nodiscard]] double burnRate(double z, double p_Pa) const noexcept
+    // The pressure part of the burn law for a pressure in bar: p * (p / 1000 bar)^burnExponent.
+    [[nodiscard]] double pressureTerm(double pBar) const noexcept
     {
-        if (z >= 1.0) return 0.0;
-        const double pBar = p_Pa / kBar;
-        const double boost = burnExponent == 0.0 ? 1.0 : std::pow(std::max(pBar, 1.0) / 1000.0, burnExponent);
-        return burnBa * pBar * boost * phi(z + burnZ0Factor * z0);
+        return pBar * (burnExponent == 0.0 ? 1.0 : std::pow(std::max(pBar, 1.0) / 1000.0, burnExponent));
     }
+
+    // dz/dt at the burnt fraction z for the given pressure term; 0 once everything has burnt.
+    [[nodiscard]] double burnRateAt(double z, double pressureTermValue) const noexcept
+    {
+        return z >= 1.0 ? 0.0 : burnBa * pressureTermValue * phi(z + burnZ0Factor * z0);
+    }
+
+    // dz/dt at the burnt fraction z and the pressure p [Pa]; 0 once everything has burnt.
+    [[nodiscard]] double burnRate(double z, double p_Pa) const noexcept { return burnRateAt(z, pressureTerm(p_Pa / kBar)); }
 
     // z after a time step dt: trapezoid rule between the rate at the start (zPrev, pPrev) and at the end (z, pNew),
     // iterated because the end rate depends on the new z. Clamped at 1.
     [[nodiscard]] double advanceBurn(double zPrev, double pPrev, double pNew, double dt) const noexcept
     {
-        const double r0 = burnRate(zPrev, pPrev);
+        return advanceBurnFrom(zPrev, burnRate(zPrev, pPrev), pNew, dt);
+    }
+
+    // The same with the rate at the start of the step given (it does not change between the trials of a step).
+    [[nodiscard]] double advanceBurnFrom(double zPrev, double r0, double pNew, double dt) const noexcept
+    {
+        const double term = pressureTerm(pNew / kBar);  // the same in all iterations: the pressure is given
         double z = zPrev;
-        for (int k = 0; k < 3; ++k) z = std::min(1.0, zPrev + 0.5 * (r0 + burnRate(z, pNew)) * dt);
+        for (int k = 0; k < 3; ++k) z = std::min(1.0, zPrev + 0.5 * (r0 + burnRateAt(z, term)) * dt);
         return z;
     }
 };
@@ -280,21 +292,23 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
         {
             double pMom, pTh, z, pGas;
         };
+        const double rate = m.burnRate(z, p);  // burn rates at the start of the step, the same for every trial
+        const double rateRamp = m.burnRate(z, pBurn);
         const auto trial = [&](double v1) -> Trial
         {
             const double pMom = m.mEff_kg * (v1 * v1 - v * v) / (2.0 * m.A_m2 * dx * (1.0 - manualFriction));
             const double dt = 2.0 * dx / (v + v1);
             if (ignited >= 1.0)
             {
-                const double zNew = m.advanceBurn(z, p, pMom, dt);
+                const double zNew = m.advanceBurnFrom(z, rate, pMom, dt);
                 return {pMom, m.thermoPressure(zNew, v1, x1), zNew, pMom};
             }
             // the powder burns at the full gas pressure, the bullet only feels the ignited part of it
-            double zNew = m.advanceBurn(z, pBurn, pBurn, dt), pGas = pBurn;
+            double zNew = m.advanceBurnFrom(z, rateRamp, pBurn, dt), pGas = pBurn;
             for (int k = 0; k < 4; ++k)
             {
                 pGas = m.thermoPressure(zNew, v1, x1);
-                zNew = m.advanceBurn(z, pBurn, pGas, dt);
+                zNew = m.advanceBurnFrom(z, rateRamp, pGas, dt);
             }
             return {pMom, m.thermoPressure(zNew, v1, x1, ignited), zNew, pGas};
         };
@@ -304,24 +318,49 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
         // bullet does not accelerate in this step.
         double lo = std::max(v, 1e-9);
         double hi = std::max(2.0 * v, 1.0);
-        if (const Trial a = trial(lo); a.pMom >= a.pTh)
+        const auto gap = [&](double v1)
+        {
+            const Trial b = trial(v1);
+            return b.pMom - b.pTh;  // negative below the root, positive above
+        };
+        double flo = gap(lo);
+        if (flo >= 0.0)
         {
             hi = lo;  // stalled: nothing to solve
         }
         else
         {
+            double fhi = 0.0;
             for (int g = 0; g < 60; ++g)
             {
-                const Trial b = trial(hi);
-                if (b.pMom >= b.pTh) break;
+                fhi = gap(hi);
+                if (fhi >= 0.0) break;
                 lo = hi;
+                flo = fhi;
                 hi *= 2.0;
             }
-            for (int it = 0; it < 70; ++it)
+            // Illinois (regula falsi with halving of the stale end): the root to the precision of a double in a few
+            // evaluations instead of 70 bisections; bisection when the secant step leaves the bracket
+            int side = 0;
+            for (int it = 0; it < 100 && hi - lo > 1e-14 * hi && fhi > 0.0; ++it)
             {
-                const double mid = 0.5 * (lo + hi);
-                const Trial b = trial(mid);
-                (b.pMom < b.pTh ? lo : hi) = mid;
+                double mid = hi - fhi * (hi - lo) / (fhi - flo);
+                if (!(mid > lo && mid < hi)) mid = 0.5 * (lo + hi);
+                const double fm = gap(mid);
+                if (fm < 0.0)
+                {
+                    lo = mid;
+                    flo = fm;
+                    if (side == -1) fhi *= 0.5;
+                    side = -1;
+                }
+                else
+                {
+                    hi = mid;
+                    fhi = fm;
+                    if (side == 1) flo *= 0.5;
+                    side = 1;
+                }
             }
         }
         const double v1 = 0.5 * (lo + hi);

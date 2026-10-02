@@ -8,8 +8,10 @@
 
 #include <algorithm>
 #include <array>
+#include <atomic>
 #include <cmath>
 #include <set>
+#include <thread>
 
 using namespace Qt::StringLiterals;
 
@@ -70,14 +72,40 @@ Simulated simulateWith(const Sample &s, const std::vector<Param> &params, const 
     return {r.ok(), r.muzzleVelocity_ms, r.maxPressure_bar};
 }
 
+// Runs fn(0..n-1) on `threads` threads (0: all cores); the simulations of a fit are independent of each other.
+template <class F>
+void parallelFor(std::size_t n, int threads, F fn)
+{
+    const std::size_t hw = threads > 0 ? static_cast<std::size_t>(threads) : std::max<std::size_t>(std::thread::hardware_concurrency(), 1);
+    const std::size_t workers = std::min(hw, n / 2);  // fewer than 2 samples per thread: not worth the threads
+    if (workers <= 1)
+    {
+        for (std::size_t i = 0; i < n; ++i) fn(i);
+        return;
+    }
+    std::atomic<std::size_t> next{0};
+    const auto work = [&]
+    {
+        for (std::size_t i = next++; i < n; i = next++) fn(i);
+    };
+    std::vector<std::thread> pool;
+    pool.reserve(workers - 1);
+    for (std::size_t w = 1; w < workers; ++w) pool.emplace_back(work);
+    work();
+    for (std::thread &t : pool) t.join();
+}
+
 // relative errors, weighted with the square root of the number of shots (a mean of more shots counts more)
 std::vector<double> residuals(const std::vector<Sample> &samples, const std::vector<Param> &params, const std::vector<double> &x,
-                              double pressureWeight, std::vector<Simulated> *sims = nullptr)
+                              double pressureWeight, int threads, std::vector<Simulated> *sims = nullptr)
 {
+    std::vector<Simulated> simulated(samples.size());
+    parallelFor(samples.size(), threads, [&](std::size_t i) { simulated[i] = simulateWith(samples[i], params, x); });
     std::vector<double> r;
-    for (const Sample &s : samples)
+    for (std::size_t i = 0; i < samples.size(); ++i)
     {
-        const Simulated sim = simulateWith(s, params, x);
+        const Sample &s = samples[i];
+        const Simulated &sim = simulated[i];
         if (sims) sims->push_back(sim);
         const double wv = std::sqrt(static_cast<double>(s.shots));
         r.push_back(sim.ok ? wv * (sim.velocity / s.velocity_ms - 1.0) : wv);  // a charge that cannot be simulated: 100 %
@@ -242,7 +270,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     res.before = x;
 
     std::vector<Simulated> simsBefore;
-    std::vector<double> r = residuals(samples, params, x, options.pressureWeight, &simsBefore);
+    std::vector<double> r = residuals(samples, params, x, options.pressureWeight, options.threads, &simsBefore);
     double cost = sumSquares(r);
     const double startCost = cost;
     double lambda = 1e-2;
@@ -257,7 +285,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
             std::vector<double> xh = x;
             const double h = 1e-4 * std::max(std::abs(x[j]), 0.05);
             xh[j] += h;
-            const std::vector<double> rh = residuals(samples, params, xh, options.pressureWeight);
+            const std::vector<double> rh = residuals(samples, params, xh, options.pressureWeight, options.threads);
             for (std::size_t i = 0; i < r.size(); ++i) jac[i][j] = (rh[i] - r[i]) / h;
         }
         std::vector<std::vector<double>> jtj(n, std::vector<double>(n, 0.0));
@@ -283,7 +311,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
             std::vector<double> xn = x;
             for (std::size_t a = 0; a < n; ++a) xn[a] += step[a];
             clamp(xn, params);
-            const std::vector<double> rn = residuals(samples, params, xn, options.pressureWeight);
+            const std::vector<double> rn = residuals(samples, params, xn, options.pressureWeight, options.threads);
             const double cn = sumSquares(rn);
             if (cn < cost)
             {
@@ -304,7 +332,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     }
 
     std::vector<Simulated> simsAfter;
-    residuals(samples, params, x, options.pressureWeight, &simsAfter);
+    residuals(samples, params, x, options.pressureWeight, options.threads, &simsAfter);
     res.after = x;
     res.improved = cost < startCost;
     for (std::size_t i = 0; i < samples.size(); ++i)
