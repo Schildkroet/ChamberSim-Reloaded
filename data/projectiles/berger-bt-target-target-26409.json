@@ -1,0 +1,13 @@
+{
+  "mname": "Berger",
+  "pname": "BT Target, Target 26409",
+  "caliber": ".264",
+  "gdia": 6.71,
+  "glen": 35.5,
+  "gmass": 140.0,
+  "gtailtype": 2,
+  "gtaildiaA": 6.71,
+  "gtailh": 5.8,
+  "g1bc": 0.593,
+  "g7bc": 0.304
+}

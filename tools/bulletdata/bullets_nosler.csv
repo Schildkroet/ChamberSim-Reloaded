@@ -1,0 +1,282 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+Nosler,Assured Stopping Power,44952,10mm,200,0.400,0.674,0.163,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/10mm-200gr-jhp-asp-250ct.html
+Nosler,Assured Stopping Power,44885,10mm,180,0.400,0.620,0.147,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/10mm-180gr-jhp-asp-250ct.html
+Nosler,Assured Stopping Power,44860,10mm,150,0.400,0.535,0.106,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/10mm-150gr-jhp-asp-250ct.html
+Nosler,Assured Stopping Power,44852,10mm,135,0.400,0.494,0.093,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/10mm-135gr-jhp-asp-250ct.html
+Nosler,Varmageddon,29066,17,20,,,0.119,,Flat,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/17-caliber-20gr-fbhp-varmageddon-250ct.html
+Nosler,Varmageddon,17205,17,20,0.172,0.500,0.119,,Flat,Hollow Point,,,yes,,https://www.nosler.com/17-caliber-20gr-fbhp-varmageddon-100ct.html
+Nosler,Varmageddon,30531,17,20,,,0.183,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/17-caliber-20gr-fb-tipped-varmageddon-250ct.html
+Nosler,Varmageddon,17210,17,20,0.172,0.555,0.183,,Flat,Tipped,,,yes,,https://www.nosler.com/17-caliber-20gr-fb-tipped-varmageddon-100ct.html
+Nosler,Varmageddon,32851,20,32,,,0.204,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/20-caliber-32gr-fb-tipped-varmageddon-250ct.html
+Nosler,Varmageddon,17220,204,32,0.204,0.600,0.204,,Flat,Tipped,,,yes,,https://www.nosler.com/20-caliber-32gr-fb-tipped-varmageddon-100ct.html
+Nosler,Ballistic Tip Varmint,39521,204,40,,,0.239,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/204-caliber-40gr-ballistic-tip-varmint-250ct.html
+Nosler,Ballistic Tip Varmint,39573,204,32,,,0.206,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/204-caliber-32gr-ballistic-tip-varmint-250ct.html
+Nosler,Ballistic Tip Varmint,52111,204,40,0.204,0.730,0.239,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/20-caliber-40gr-ballistic-tip-varmint-100ct.html
+Nosler,Ballistic Tip Varmint,35216,204,32,0.204,0.640,0.206,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/204-caliber-32gr-ballistic-tip-varmint-100ct.html
+Nosler,Ballistic Tip Lead Free,45140,204,32,0.204,0.745,0.228,,Flat,Spitzer,,,yes,,https://www.nosler.com/204-caliber-32gr-ballistic-tip-lead-free-100ct.html
+Nosler,Varmageddon,36523,22,53,0.224,0.830,0.303,,Flat,Tipped,,,yes,,https://www.nosler.com/22-caliber-53gr-fb-tipped-varmageddon-bullet-100ct.html
+Nosler,Varmageddon,17240,22,55,0.224,0.795,0.255,,Flat,Tipped,,,yes,,https://www.nosler.com/22-caliber-55gr-fb-tipped-varmageddon-100ct.html
+Nosler,,48520gB,22,55,,,,,Flat,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-55gr-spfb-nosler-shots-100ct-blem.html
+Nosler,Varmageddon,36524,22,53,,,0.303,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-53gr-fb-tipped-varmageddon-250ct.html
+Nosler,Ballistic Tip Varmint,39555,22,40,,,0.221,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-40gr-ballistic-tip-varmint-250ct.html
+Nosler,Custom Competition,53064,22,77,,,0.340,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-77gr-hpbt-custom-competition-250ct.html
+Nosler,Partition,16316,22,60,0.224,0.790,0.228,,Flat,Spitzer,,,yes,,https://www.nosler.com/22-cal-60gr-partition-50ct.html
+Nosler,Varmageddon,17223,22,50,,,0.238,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-50gr-fb-tipped-varmageddon.html
+Nosler,Custom Competition,53294,22,52,0.224,0.730,0.220,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-52gr-custom-competition-hpbt-100ct.html
+Nosler,Varmageddon,17230,22,40,0.224,0.665,0.211,,Flat,Tipped,,,yes,,https://www.nosler.com/22-caliber-40gr-fb-tipped-varmageddon-100ct.html
+Nosler,Ballistic Tip Varmint,39557,22,50,,,0.238,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-50gr-ballistic-tip-varmint-250ct.html
+Nosler,Varmageddon,17291,22,55,,,0.255,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-55gr-fb-tipped-varmageddon-500ct.html
+Nosler,Custom Competition,17101,22,69,0.224,0.900,0.305,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-69gr-hpbt-custom-competition-100ct.html
+Nosler,RDF,53441,22,85,0.224,1.135,0.498,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-85gr-rdf-100ct.html
+Nosler,Ballistic Tip Varmint,39560,22,55,,,0.267,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-55gr-ballistic-tip-varmint-250ct.html
+Nosler,Custom Competition,53080,22,80,,,0.415,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-80gr-hpbt-custom-competition-250ct.html
+Nosler,Custom Competition,22421,22,77,0.224,0.980,0.340,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-77gr-hpbt-custom-competition-100ct.html
+Nosler,RDF,54601,22,85,,,0.498,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22cal-85gr-rdf-500ct.html
+Nosler,Ballistic Tip Varmint,39473,22,60,,,0.270,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-60gr-cann-ballistic-tip-varmint-250ct.html
+Nosler,Bonded Performance,38135,22,64,0.224,0.8,0.231,,,Protected Point,,,yes,,https://www.nosler.com/22-caliber-64gr-bonded-solid-base-100ct-blem.html
+Nosler,RDF,53066,22,70,0.224,0.965,0.416,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-70gr-rdf-100ct.html
+Nosler,Ballistic Tip Varmint,39510,22,40,0.224,0.705,0.221,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/22-caliber-40gr-ballistic-tip-varmint-100ct.html
+Nosler,Ballistic Tip Varmint,39522,22,50,0.224,0.800,0.238,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/22-caliber-50gr-ballistic-tip-varmint-100ct.html
+Nosler,Custom Competition,25116,22,80,0.224,1.065,0.415,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-80gr-hpbt-custom-competition-100ct.html
+Nosler,RDF,53452,22,77,0.224,1.070,0.454,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-77gr-rdf-100ct.html
+Nosler,Ballistic Tip Varmint,62634,22,40,,,0.221,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-40gr-ballistic-tip-varmint-1000ct.html
+Nosler,Custom Competition,19254,22,77,,,0.340,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-77gr-hpbt-custom-competition-1000ct.html
+Nosler,RDF,53067,22,70,,,0.416,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-70gr-rdf-500ct.html
+Nosler,Custom Competition,53335,22,52,,,0.220,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-52gr-hpbt-custom-competition-250ct.html
+Nosler,Varmageddon,17260,22,40,,,0.211,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-40gr-fb-tipped-varmageddon-250ct.html
+Nosler,Ballistic Tip Varmint,15190,22,50,,,0.238,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-50gr-ballistic-tip-varmint-1000ct.html
+Nosler,Custom Competition,49563,22,80,,,0.415,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-80gr-hpbt-custom-competition-1000ct.html
+Nosler,Ballistic Tip Varmint,34992,22,60,0.224,0.855,0.27,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/22-caliber-60gr-ballistic-tip-varmint-100ct.html
+Nosler,Custom Competition,53065,22,69,,,0.305,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-69gr-hpbt-custom-competition-250ct.html
+Nosler,Varmageddon,17270,22,55,,,0.255,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-55gr-fb-tipped-varmageddon-250ct.html
+Nosler,Ballistic Tip Varmint,39526,22,55,0.224,0.810,0.267,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/22-caliber-55gr-ballistic-tip-varmint-100ct.html
+Nosler,AccuBond,53780,22,70,0.224,0.965,0.370,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/22-caliber-70gr-accubond-sp-50ct.html
+Nosler,Custom Competition,59741,22,52,,,0.220,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-168gr-hpbt-custom-competition-1000ct-1.html
+Nosler,,48377gB,22,34,,,,,Flat,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-34gr-hpfb-100ct-factory-seconds.html
+Nosler,Varmageddon,36763,22,35,0.224,0.520,0.12,,Flat,Tipped,,,yes,,https://www.nosler.com/22-caliber-35gr-tipped-varmageddon-100ct.html
+Nosler,Varmageddon,36522,22,62,,,0.251,,Flat,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-62gr-fbhp-varmageddon-250ct.html
+Nosler,Ballistic Tip Lead Free,45498,22,50,0.224,0.900,0.251,,Flat,Spitzer,,,yes,,https://www.nosler.com/22-caliber-50gr-ballistic-tip-lead-free-100ct.html
+Nosler,Custom Competition,53033,22,77,0.224,0.980,0.340,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-77gr-cann-hpbt-custom-competition-250ct.html
+Nosler,Ballistic Tip Lead Free,45150,22,35,0.224,0.730,0.201,,Flat,Spitzer,,,yes,,https://www.nosler.com/22-caliber-35gr-ballistic-tip-lead-free-100ct.html
+Nosler,Expansion Tip,59624,22,55,0.224,0.890,0.305,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/22-caliber-55gr-expansion-tip-lead-free-50ct.html
+Nosler,Ballistic Tip Lead Free,45160,22,40,0.224,0.783,0.22,,Flat,Spitzer,,,yes,,https://www.nosler.com/22-caliber-40gr-ballistic-tip-lead-free-100ct.html
+Nosler,Varmageddon,35631,22,62,0.224,0.770,0.251,,Flat,Hollow Point,,,yes,,https://www.nosler.com/22-caliber-62gr-fbhp-varmageddon-100ct.html
+Nosler,Custom Competition,65823,22,69,,,0.305,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-69gr-hpbt-custom-competition-1000ct.html
+Nosler,Varmageddon,32572,22,35,,,0.12,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-35gr-fb-tipped-varmageddon-250ct.html
+Nosler,RDF,54612,22,77,,,0.454,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-77gr-rdf-500ct.html
+Nosler,Ballistic Tip Varmint,11288,22,55,,,0.267,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/22-caliber-55gr-ballistic-tip-varmint-1000ct.html
+Nosler,Expansion Tip,59456,,100,,,,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/25-caliber-100gr-expansion-tip-lead-free-50ct-blem.html
+Nosler,Ballistic Tip Varmint,43004,25,85,0.257,1.015,0.329,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/25-caliber-85gr-ballistic-tip-varmint-100ct.html
+Nosler,Partition,35643,25,120,0.257,1.175,0.391,,Flat,Spitzer,,,yes,,https://www.nosler.com/25-caliber-120gr-partition-50ct.html
+Nosler,Partition,16318,25,115,0.257,1.145,0.389,,Flat,Spitzer,,,yes,,https://www.nosler.com/25-caliber-115gr-partition-50ct.html
+Nosler,Partition,16317,25,100,0.257,1.035,0.377,,Flat,Spitzer,,,yes,,https://www.nosler.com/25-caliber-100gr-partition-50ct.html
+Nosler,Ballistic Tip Hunting,25115,25,115,0.257,1.215,0.453,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/25-caliber-115gr-ballistic-tip-hunting-50ct.html
+Nosler,AccuBond,53742,25,110,0.257,1.180,0.418,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/25-caliber-110gr-accubond-50ct.html
+Nosler,Ballistic Silver Tip,51050,25,115,0.257,1.215,0.453,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/25-caliber-115gr-ballistic-silvertip-50ct.html
+Nosler,Ballistic Tip Hunting,25100,25,100,0.257,1.110,0.393,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/25-caliber-100gr-ballistic-tip-hunting-50ct.html
+Nosler,Solid Base,38054,270,130,.277,1.122,0.424,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-130gr-solid-base.html
+Nosler,Ballistic Tip Hunting,28135,270,170,,,0.560,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/270-caliber-150gr-ballistic-tip-hunting-50ct-2.html
+Nosler,AccuBond,54801,270,150,0.277,1.345,0.500,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-150gr-accubond-50ct.html
+Nosler,Ballistic Silver Tip,51075,270,130,0.277,1.220,0.433,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-130gr-ballistic-silvertip-50ct.html
+Nosler,Ballistic Tip Hunting,27150,270,150,0.277,1.350,0.496,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-150gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Tip Hunting,27140,270,140,0.277,1.296,0.456,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-140gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Tip Hunting,27130,270,130,0.277,1.220,0.433,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-130gr-ballistic-tip-hunting-50ct.html
+Nosler,AccuBond Long Range,58836,270,150,0.277,1.390,0.591,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-150gr-accubond-long-range-100ct.html
+Nosler,AccuBond,54987,270,130,0.277,1.245,0.435,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-130gr-accubond-50ct.html
+Nosler,Partition,16324,270,160,0.277,1.300,0.434,,Flat,Semi-Spitzer,,,yes,,https://www.nosler.com/270-caliber-160gr-partition-50ct.html
+Nosler,Partition,16323,270,150,0.277,1.250,0.465,,Flat,Spitzer,,,yes,,https://www.nosler.com/270-caliber-150gr-partition-50ct.html
+Nosler,Partition,35200,270,140,0.277,1.190,0.432,,Flat,Spitzer,,,yes,,https://www.nosler.com/270-caliber-140gr-partition-50ct.html
+Nosler,Partition,16322,270,130,0.277,1.135,0.416,,Flat,Spitzer,,,yes,,https://www.nosler.com/270-caliber-130gr-partition-50ct.html
+Nosler,AccuBond Long Range,54827,270,165,,,0.620,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/270-caliber-165gr-accubond-long-range.html
+Nosler,Ballistic Silver Tip,51100,270,150,0.277,1.350,0.496,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-150gr-ballistic-silvertip-50ct.html
+Nosler,Expansion Tip,59298,270,130,0.277,1.345,0.459,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-130gr-expansion-tip-lead-free-50ct.html
+Nosler,AccuBond,54765,270,140,0.277,1.310,0.460,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/270-caliber-140gr-accubond-50ct.html
+Nosler,Solid Base,38072,30,180,.308,1.269,0.491,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-cal-180gr-solid-base-sp.html
+Nosler,Ballistic Tip Hunting,30180,30,180,0.308,1.360,0.507,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-180gr-ballistic-tip-hunting-50ct.html
+Nosler,Expansion Tip,59378,30,150,0.308,1.293,0.469,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-150gr-expansion-tip-lead-free-50ct.html
+Nosler,Custom Competition,53167,30,175,,,0.505,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-175gr-hpbt-custom-competition-250ct.html
+Nosler,RDF,53171,30,175,,,0.536,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-175gr-rdf-500ct.html
+Nosler,AccuBond,56719,30,150,0.308,1.200,0.435,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-150gr-accubond-50ct.html
+Nosler,Solid Base,38058,30,150,.308,0.956,0.232,,Boat Tail,Round Nose,,,yes,,https://www.nosler.com/30-cal-150gr-solid-base.html
+Nosler,Ballistic Silver Tip,51170,30,180,0.308,1.360,0.507,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-180gr-ballistic-silvertip-50ct.html
+Nosler,Partition,16330,30,165,0.308,1.175,0.41,,Flat,Spitzer,,,yes,,https://www.nosler.com/30-caliber-165gr-partition-50ct.html
+Nosler,Custom Competition,53154,30,220,,,,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-220gr-hpbt-custom-competition-100ct-blem.html
+Nosler,RDF,53182,30,168,0.308,,0.505,,Boat Tail,Hollow Point,,,no,missing: length,https://www.nosler.com/30-caliber-168gr-rdf-100ct.html
+Nosler,AccuBond,55602,30,165,0.308,1.290,0.475,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-165gr-accubond-50ct.html
+Nosler,Ballistic Tip Hunting,30125,30,125,0.308,1.060,0.366,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-125gr-ballistic-tip-hunting-50ct.html
+Nosler,Custom Competition,53155,30,155,0.308,1.145,0.450,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/30-caliber-155gr-hpbt-custom-competition-100ct.html
+Nosler,Solid Base,38060,30,150,.308,1.115,0.398,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-cal-150gr-sp-solid-base.html
+Nosler,Partition,16331,30,180,0.308,1.260,0.474,,Flat,Spitzer,,,yes,,https://www.nosler.com/30-caliber-180gr-partition-50ct.html
+Nosler,Expansion Tip,59180,30,180,0.308,1.485,0.523,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-180gr-expansion-tip-lead-free-50ct.html
+Nosler,AccuBond,54825,30,180,0.308,1.380,0.507,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-180gr-accubond-50ct.html
+Nosler,AccuBond Long Range,58455,30,168,0.308,1.365,0.525,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-168gr-accubond-long-range.html
+Nosler,Custom Competition,53952,30,175,0.308,1.240,0.505,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/30-caliber-175gr-hpbt-custom-competition-100ct.html
+Nosler,Solid Base,38062,30,165,.308,1.185,0.442,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-cal-165gr-sp-solid-base.html
+Nosler,RDF,53170,30,175,0.308,1.330,0.536,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/30-caliber-175gr-rdf-100ct.html
+Nosler,Partition,25396,30,180,0.308,1.180,0.361,,Flat,Protected Point,,,yes,,https://www.nosler.com/30-caliber-180gr-ppt-partition-50ct.html
+Nosler,Custom Competition,53164,30,168,0.308,1.200,0.462,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/30-caliber-168gr-hpbt-custom-competition-100ct.html
+Nosler,AccuBond,54618,30,200,0.308,1.485,0.588,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-200gr-accubond-50ct.html
+Nosler,Ballistic Tip Hunting,30181,30,220,0.308,1.465,0.472,,Boat Tail,Round Nose,,,yes,,https://www.nosler.com/30-caliber-220gr-rn-ballistic-tip-hunting-50ct.html
+Nosler,Partition,35626,30,200,0.308,1.350,0.481,,Flat,Spitzer,,,yes,,https://www.nosler.com/30-caliber-200gr-partition-50ct.html
+Nosler,Ballistic Tip Hunting,30150,30,150,0.308,1.220,0.435,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-150gr-ballistic-tip-hunting-50ct.html
+Nosler,Custom Competition,51268,30,190,,,0.530,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-190gr-hpbt-custom-competition-1000ct-html.html
+Nosler,Ballistic Silver Tip,51150,30,150,0.308,1.220,0.435,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-150gr-ballistic-silvertip-50ct.html
+Nosler,AccuBond Long Range,58456,30,190,0.308,1.480,0.597,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-190gr-accubond-long-range-100ct.html
+Nosler,Custom Competition,53412,30,190,0.308,1.343,0.530,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/30-caliber-190gr-hpbt-custom-competition-100ct.html
+Nosler,Custom Competition,53169,30,155,,,0.450,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-155gr-hpbt-custom-competition-250ct.html
+Nosler,RDF,53434,30,210,0.308,1.516,0.707,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/30cal-210gr-rdf-100ct.html
+Nosler,Partition,16332,30,220,0.308,1.370,0.351,,Flat,Semi-Spitzer,,,yes,,https://www.nosler.com/30-caliber-220gr-partition-50ct.html
+Nosler,Ballistic Tip Hunting,30165,30,165,0.308,1.290,0.475,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-165gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Silver Tip,51165,30,150,0.308,1.066,0.232,,Boat Tail,Round Nose,,,yes,,https://www.nosler.com/30-caliber-150gr-rn-ballistic-silvertip-50ct.html
+Nosler,AccuBond Long Range,58317,30,210,0.308,1.570,0.661,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-210gr-accubond-long-range-100ct.html
+Nosler,Custom Competition,53168,30,168,,,0.462,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-168gr-hpbt-custom-competition-250ct.html
+Nosler,AccuBond,52165,30,125,,1.080,0.366,,Boat Tail,Spitzer,,,no,missing: diameter,https://www.nosler.com/30-caliber-125gr-accubond-50ct.html
+Nosler,Ballistic Tip Hunting,30168,30,168,0.308,1.307,0.49,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-168gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Silver Tip,51160,30,168,0.308,1.307,0.490,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-168gr-ballistic-silvertip-50ct.html
+Nosler,Partition,16329,30,150,0.308,1.100,0.387,,Flat,Spitzer,,,yes,,https://www.nosler.com/30-caliber-150gr-partition-50ct.html
+Nosler,Expansion Tip,59415,30,168,0.308,1.415,0.503,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/30-caliber-168gr-expansion-tip-lead-free-50ct.html
+Nosler,Custom Competition,59156,30,190,,,0.530,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-190gr-hpbt-custom-competition-250ct.html
+Nosler,Varmageddon,34057,30,110,0.308,0.920,0.293,,Flat,Tipped,,,yes,,https://www.nosler.com/30-caliber-110gr-varmageddon-fb-tipped-100ct.html
+Nosler,Expansion Tip,38116gB,30,180,,,0.523,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-180gr-expansion-tip-lead-free-non-banded-50ct-blem.html
+Nosler,Custom Competition,65934,30,168,,,0.462,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-168gr-hpbt-custom-competition-1000ct.html
+Nosler,Partition,16333,30,170,0.308,1.030,0.252,,Flat,Round Nose,,,yes,,https://www.nosler.com/30-caliber-170gr-rn-partition-50ct.html
+Nosler,Solid Base,38026GB,30,165,,,0.442,,Boat Tail,,,,no,"missing: diameter, length",https://www.nosler.com/30-caliber-165gr-solidbase-50ct-blem-1.html
+Nosler,RDF,53506,30,210,,,0.707,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/30cal-210gr-rdf-500ct.html
+Nosler,Custom Competition,57520,338,250,,1.595,0.590,,Boat Tail,Hollow Point,,,no,missing: diameter,https://www.nosler.com/338-caliber-300gr-hpbt-custom-competition-100ct-1.html
+Nosler,AccuBond Long Range,58518,338,300,0.338,1.875,0.785,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-300gr-accubond-long-range-100ct-1.html
+Nosler,AccuBond Long Range,58454,338,265,0.338,1.700,0.732,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-265gr-accubond-long-range-100ct.html
+Nosler,Expansion Tip,59372,338,225,0.338,1.575,0.611,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-225gr-expansion-tip-lead-free-50ct.html
+Nosler,AccuBond,56382,338,200,0.338,1.340,0.414,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-200gr-accubond-50ct.html
+Nosler,Partition,35644,338,250,0.338,1.375,0.473,,Flat,Spitzer,,,yes,,https://www.nosler.com/338-caliber-250gr-partition-50ct.html
+Nosler,Partition,16336,338,225,0.338,1.300,0.454,,Flat,Spitzer,,,yes,,https://www.nosler.com/338-caliber-225gr-partition-50ct.html
+Nosler,Partition,16337,338,210,0.338,1.200,0.4,,Flat,Spitzer,,,yes,,https://www.nosler.com/338-caliber-210gr-partition-50ct.html
+Nosler,Expansion Tip,59385,338,250,0.338,1.680,0.627,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-250gr-expansion-tip-lead-free-50ct.html
+Nosler,RDF,53445,338,300,0.338,,0.826,,Flat,Hollow Point,,,no,missing: length,https://www.nosler.com/338cal-300gr-rdf-100ct.html
+Nosler,Ballistic Silver Tip,51200,338,200,0.338,1.340,0.414,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-200gr-ballistic-silvertip-50ct.html
+Nosler,Custom Competition,53515,338,300,0.338,1.725,0.800,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/338-caliber-300gr-hpbt-custom-competition-100ct.html
+Nosler,Expansion Tip,59186,338,200,0.338,1.427,0.425,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-200gr-expansion-tip-lead-free-50ct.html
+Nosler,AccuBond,54851,338,300,0.338,1.750,0.720,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-300gr-accubond-50ct.html
+Nosler,AccuBond,57287,338,250,0.338,1.567,0.575,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-250gr-accubond-50ct.html
+Nosler,AccuBond,54357,338,225,0.338,1.450,0.55,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-225gr-accubond-50ct.html
+Nosler,AccuBond,57625,338,180,0.338,1.240,0.372,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/338-caliber-180gr-accubond-50ct.html
+Nosler,AccuBond,50712,35,225,0.358,1.365,0.430,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/35-caliber-225gr-accubond-50ct.html
+Nosler,Solid Base,38070gB,35,200,.358,,0.250,,Boat Tail,Round Nose,,,no,missing: length,https://www.nosler.com/35-caliber-200gr-solid-baser-rn-factory-seconds-50-count.html
+Nosler,Partition,44800,35,225,0.358,1.175,0.421,,Flat,Spitzer,,,yes,,https://www.nosler.com/35-caliber-225gr-partition-50ct.html
+Nosler,Partition,44801,35,250,0.358,1.270,0.446,,Flat,Spitzer,,,yes,,https://www.nosler.com/35-caliber-250gr-partition-50ct.html
+Nosler,Partition,44845,375,300,0.375,1.335,0.398,,Flat,Spitzer,,,yes,,https://www.nosler.com/375-caliber-300gr-partition-50ct.html
+Nosler,Solid,29755,375,260,0.375,1.244,0.254,,Flat,Flat Nose,,,yes,,https://www.nosler.com/375-caliber-260gr-solid-25ct.html
+Nosler,Solid,28451,375,300,0.375,1.417,0.3,,Flat,Flat Nose,,,yes,,https://www.nosler.com/375-caliber-300gr-solid-25ct.html
+Nosler,AccuBond,53662,375,300,0.375,1.520,0.485,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/375-caliber-300gr-accubond-50ct.html
+Nosler,Partition,44850,375,260,0.375,1.145,0.314,,Flat,Spitzer,,,yes,,https://www.nosler.com/375-caliber-260gr-partition-50ct.html
+Nosler,Expansion Tip,59379,375,260,0.375,1.498,0.490,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/375-cal-260gr-expansion-tip-lead-free-50ct.html
+Nosler,AccuBond,54413,375,260,0.375,1.390,0.473,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/375-caliber-260gr-accubond-50ct.html
+Nosler,Assured Stopping Power,44912,38,125,.357,0.568,0.130,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/38-cal-125gr-jhp-asp-250ct.html
+Nosler,Assured Stopping Power,44912gB,38,125,.357,0.568,0.130,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/38-cal-125gr-jhp-asp-250ct-factory-seconds-100-count.html
+Nosler,Sporting Handgun,44841,38,158,0.357,0.775,0.182,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/38-caliber-158gr-jhp-sporting-handgun-250ct.html
+Nosler,Straight Wall,38066,400 Legend,215,.400,0.805,0.215,,Flat,Protected Point,,,yes,,https://www.nosler.com/400-lgnd-215gr-pp-straight-wall.html
+Nosler,Sporting Handgun,43012,41,210,0.410,0.687,0.170,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/41-caliber-210gr-jhp-sporting-handgun-100ct.html
+Nosler,Solid,23654,416,416,0.416,1.523,0.289,,Flat,Flat Nose,,,yes,,https://www.nosler.com/416-caliber-400gr-solid-25ct.html
+Nosler,Assured Stopping Power,44917,44,240,.429,0.721,0.185,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/44-cal-240gr-jhp-asp-250ct.html
+Nosler,Sporting Handgun,42069,44,300,0.429,0.976,0.206,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/44-caliber-300gr-jhp-sporting-handgun-100ct.html
+Nosler,Sporting Handgun,44868,44,240,0.429,0.700,0.177,,Flat,Jacketed Soft Point,,,yes,,https://www.nosler.com/44-caliber-240gr-jsp-sporting-handgun-250ct.html
+Nosler,Sporting Handgun,44842,44,240,0.429,0.710,0.173,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/44-caliber-240gr-jhp-sporting-handgun-250ct.html
+Nosler,Assured Stopping Power,44922,45,230,0.451,0.635,0.175,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/45-caliber-230gr-asp-250ct-1.html
+Nosler,Custom Competition,53264,45,185,,,0.142,,Flat,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/45-caliber-185gr-jhp-1000ct.html
+Nosler,Custom Competition,44847,45,185,0.451,0.530,0.142,,,Jacketed Hollow Point,,,yes,,https://www.nosler.com/45-caliber-185gr-jhp-250ct.html
+Nosler,Sporting Handgun,43013,45 Colt,250,0.451,0.774,0.177,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/45-colt-250gr-jhp-sporting-handgun-100ct.html
+Nosler,Straight Wall,38068,45-70 Government,300,.458,0.805,0.191,,Flat,Protected Point,,,yes,,https://www.nosler.com/45-cal-300gr-pp-straight-wall.html
+Nosler,Ballistic Tip Hunting,31456,458,300,0.458,0.960,0.25,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/458-caliber-300gr-ballistic-tip-hunting-50ct.html
+Nosler,Solid,27452,458,458,0.458,1.530,0.246,,Flat,Flat Nose,,,yes,,https://www.nosler.com/458-caliber-500gr-solid-25ct.html
+Nosler,Ballistic Tip Muzzle Loader,50300,50,300,0.500,0.960,0.25,,Flat,Spitzer,,,yes,,https://www.nosler.com/50-caliber-300gr-w-sabots-ballistic-tip-muzzle-loader-15ct.html
+Nosler,Expansion Tip,59765,6.5mm,120,0.264,1.350,0.497,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-120gr-expansion-tip-lead-free-50ct.html
+Nosler,Solid Base,38052,6.5mm,140,.264,1.285,0.495,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-140gr-solid-base-sp.html
+Nosler,AccuBond Long Range,58943,,129,0.264,1.370,0.53,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-129gr-accubond-long-range-100ct-blem.html
+Nosler,Varmageddon,26129,6.5mm,90,0.264,,0.35,,Flat,Tipped,,,no,missing: length,https://www.nosler.com/6-5mm-90gr-fb-tipped-varmageddon-100ct.html
+Nosler,Custom Competition,50379,6.5mm,140,,,0.529,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6-5mm-140gr-hpbt-custom-competition-250ct-1.html
+Nosler,AccuBond Long Range,58930,6.5mm,150,0.264,1.495,0.634,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-150gr-accubond-long-range-100ct-1.html
+Nosler,Custom Competition,53440,6.5mm,123,,,0.510,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6-5mm-123gr-hpbt-custom-competition-250ct-1.html
+Nosler,RDF,54722,6.5mm,130,,,0.615,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6-5mm-130gr-rdf-500ct.html
+Nosler,RDF,53505,6.5mm,130,0.264,1.333,0.615,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/6-5mm-130gr-rdf-100ct.html
+Nosler,RDF,49825,6.5mm,140,,,0.658,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6-5mm-140gr-rdf-500ct.html
+Nosler,RDF,49824,6.5mm,140,0.264,1.420,0.658,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/6-5mm-140gr-rdf-100ct.html
+Nosler,AccuBond Long Range,58922,6.5mm,142,0.264,1.445,0.625,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-142gr-accubond-long-range-100ct.html
+Nosler,Custom Competition,49823,6.5mm,140,,,0.529,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6-5mm-140gr-hpbt-custom-competition-250ct.html
+Nosler,Custom Competition,53415,6.5mm,123,0.264,1.200,0.510,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/6-5mm-123gr-hpbt-custom-competition-100ct.html
+Nosler,Ballistic Tip Hunting,26140,6.5mm,140,0.264,1.350,0.509,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-140gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Tip Hunting,26120,6.5mm,120,0.264,1.220,0.458,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-120gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Tip Hunting,26100,6.5mm,100,0.264,1.080,0.35,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-100gr-ballistic-tip-hunting-50ct.html
+Nosler,AccuBond,56902,6.5mm,130,0.264,1.320,0.488,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-130gr-accubond-50ct.html
+Nosler,Partition,16321,6.5mm,140,0.264,1.290,0.49,,Flat,Spitzer,,,yes,,https://www.nosler.com/6-5mm-140gr-partition-50ct.html
+Nosler,Partition,16320,6.5mm,125,0.264,1.170,0.449,,Flat,Spitzer,,,yes,,https://www.nosler.com/6-5mm-125gr-partition-50ct.html
+Nosler,Partition,16319,6.5mm,100,0.264,0.962,0.326,,Flat,Spitzer,,,yes,,https://www.nosler.com/6-5mm-100gr-partition-50ct.html
+Nosler,Custom Competition,26725,6.5mm,140,0.264,1.307,0.529,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/6-5mm-140gr-hpbt-custom-competition-100ct.html
+Nosler,RDF,49826gB,6.5mm,140,,,0.658,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6-5mm-150gr-rdf-factory-seconds-100ct.html
+Nosler,RDF,49826,6.5mm,150,,1.505,0.670,,Boat Tail,Hollow Point,,,no,missing: diameter,https://www.nosler.com/6-5mm-140gr-rdf-100ct-1.html
+Nosler,AccuBond,57873,6.5mm,140,0.264,1.368,0.509,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6-5mm-140gr-accubond-50ct.html
+Nosler,Custom Competition,53846,6.8mm,115,,,0.375,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6-8mm-115gr-hpbt-cann-530-custom-competition-250ct.html
+Nosler,Custom Competition,45357,6.8mm,115,0.277,0.965,0.375,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/6-8mm-115gr-hpbt-cann-530-custom-competition-100ct.html
+Nosler,Custom Competition,49742,6mm,107,0.243,1.240,0.525,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/6mm-107gr-hpbt-custom-competition-100ct.html
+Nosler,Ballistic Tip Hunting,24095,6mm,95,0.243,1.120,0.379,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-95gr-ballistic-tip-hunting-50ct.html
+Nosler,Solid Base,38050,6mm,100,0.243,1.072,0.388,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-100gr-solid-base.html
+Nosler,Varmageddon,25075,6mm,70,,,0.305,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/6mm-55gr-fb-tipped-varmageddon-250ct-1.html
+Nosler,RDF,53518,6mm,115,,,0.634,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6mm-115gr-rdf-500ct.html
+Nosler,RDF,53507,6mm,115,,,0.634,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6mm-115gr-rdf-100ct.html
+Nosler,RDF,53411,6mm,105,,,0.571,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/6mm-105gr-rdf-500ct.html
+Nosler,RDF,53410,6mm,105,0.243,1.250,0.571,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/6mm-105gr-rdf-100ct.html
+Nosler,Varmageddon,28115,6mm,55,,,0.252,,Flat,Tipped,,,no,"missing: diameter, length",https://www.nosler.com/6mm-55gr-fb-tipped-varmageddon-250ct.html
+Nosler,Varmageddon,26123,6mm,70,0.243,0.875,0.305,,Flat,Tipped,,,yes,,https://www.nosler.com/6mm-70gr-fb-tipped-varmageddon-100ct.html
+Nosler,Ballistic Silver Tip,51040,6mm,95,0.243,1.120,0.379,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-95gr-ballistic-silvertip-50ct.html
+Nosler,Ballistic Tip Hunting,24090,6mm,90,0.243,1.080,0.365,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-90gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Tip Varmint,39565,6mm,55,,,0.276,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/6mm-55gr-ballistic-tip-varmint-250ct.html
+Nosler,Ballistic Tip Varmint,24055,6mm,55,0.243,0.785,0.276,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-55gr-ballistic-tip-varmint-100ct.html
+Nosler,Partition,35642,6mm,100,0.243,1.065,0.384,,Flat,Spitzer,,,yes,,https://www.nosler.com/6mm-100gr-partition-50ct.html
+Nosler,Partition,16315,6mm,95,0.243,1.025,0.365,,Flat,Spitzer,,,yes,,https://www.nosler.com/6mm-95gr-partition-50ct.html
+Nosler,Partition,16314,6mm,85,0.243,0.950,0.315,,Flat,Spitzer,,,yes,,https://www.nosler.com/6mm-85gr-partition-50ct.html
+Nosler,Expansion Tip,59165,6mm,90,0.243,1.180,0.403,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-90gr-expansion-tip-50ct.html
+Nosler,Shots,41232,,55,,,,,Flat,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/6mm-55gr-spfb-nosler-s-h-o-t-s-100ct.html
+Nosler,Varmageddon,17250,6mm,55,0.243,0.750,0.252,,Flat,Tipped,,,yes,,https://www.nosler.com/6mm-55gr-fb-tipped-varmageddon-100ct.html
+Nosler,Ballistic Tip Varmint,39570,6mm,70,,,0.310,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/6mm-70gr-ballistic-tip-varmint-250ct.html
+Nosler,Ballistic Tip Varmint,24080,6mm,80,0.243,0.990,0.329,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-80gr-ballistic-tip-varmint-100ct.html
+Nosler,Ballistic Tip Varmint,39532,6mm,70,0.243,0.915,0.31,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-70gr-ballistic-tip-varmint-100ct.html
+Nosler,Ballistic Tip Lead Free,45170,6mm,55,0.243,0.950,0.288,,Flat,Spitzer,,,yes,,https://www.nosler.com/6mm-55gr-ballistic-tip-lead-free-100ct.html
+Nosler,AccuBond,56357,6mm,90,0.243,1.110,0.376,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/6mm-90gr-accubond-50ct.html
+Nosler,Varmageddon,34056,7.62x39,123,0.310,0.950,0.304,,Flat,Tipped,,,yes,,https://www.nosler.com/7-62x39-caliber-123gr-fb-tipped-varmageddon-100ct.html
+Nosler,Ballistic Tip Hunting,30131,7.62x39,123,0.310,,0.310,,Boat Tail,Spitzer,,,no,missing: length,https://www.nosler.com/7-62x39mm-123gr-ballistic-tip-hunting-50ct.html
+Nosler,Expansion Tip,59387,7.62x39,123,0.310,1.125,0.316,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7-62x39mm-123gr-expansion-tip-lead-free-50ct.html
+Nosler,Ballistic Tip Hunting,28120,7mm,120,0.284,1.135,0.417,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-120gr-ballistic-tip-hunting-50ct.html
+Nosler,Solid Base,38056,7mm,140,.284,1.145,0.459,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-140gr-solid-base.html
+Nosler,Ballistic Tip Hunting,28125,7mm,160,0.284,1.385,0.531,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-160gr-ballistic-tip-hunting-50ct-1.html
+Nosler,AccuBond,54951,7mm,150,0.284,1.290,0.493,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-150gr-accubond-50ct.html
+Nosler,RDF,53504,7mm,185,,,0.719,,Boat Tail,Hollow Point,,,no,"missing: diameter, length",https://www.nosler.com/7mm-185gr-rdf-500ct.html
+Nosler,RDF,53432,7mm,185,0.284,1.540,0.719,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/7mm-185gr-rdf-100ct.html
+Nosler,Ballistic Silver Tip,51110,7mm,150,0.284,1.300,0.493,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-150gr-ballistic-silvertip-50ct.html
+Nosler,Ballistic Silver Tip,51105,7mm,140,0.284,1.255,0.485,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-140gr-ballistic-silvertip-50ct.html
+Nosler,Custom Competition,53418,7mm,168,0.284,1.290,0.520,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/7mm-168gr-hpbt-custom-competition-100ct.html
+Nosler,Ballistic Tip Hunting,28150,7mm,150,0.284,1.300,0.493,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-150gr-ballistic-tip-hunting-50ct.html
+Nosler,Ballistic Tip Hunting,28140,7mm,140,0.284,1.255,0.485,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-140gr-ballistic-tip-hunting-50ct.html
+Nosler,Expansion Tip,59426,7mm,150,0.284,1.425,0.498,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-150gr-expansion-tip-lead-free-50ct.html
+Nosler,Expansion Tip,59955,7mm,140,0.284,1.360,0.489,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-140gr-expansion-tip-lead-free-50ct.html
+Nosler,AccuBond Long Range,58517,7mm,175,0.284,1.540,0.648,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-175gr-accubond-long-range-100ct.html
+Nosler,AccuBond Long Range,58734,7mm,150,0.284,1.400,0.546,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-150gr-accubond-long-range-100ct.html
+Nosler,AccuBond,59992,7mm,140,0.284,1.270,0.485,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-140gr-accubond-50ct.html
+Nosler,Partition,16327,7mm,160,0.284,1.270,0.475,,Flat,Spitzer,,,yes,,https://www.nosler.com/7mm-160gr-partition-50ct.html
+Nosler,Partition,16326,7mm,150,0.284,1.220,0.456,,Flat,Spitzer,,,yes,,https://www.nosler.com/7mm-150gr-partition-50ct.html
+Nosler,Partition,16326gB,7mm,150,,,0.456,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/7mm-150gr-partition-50ct-blem.html
+Nosler,AccuBond Long Range,58623,7mm,168,0.284,1.500,0.616,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-168gr-accubond-long-range-100ct.html
+Nosler,AccuBond,54932,7mm,160,0.284,1.385,0.531,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/7mm-160gr-accubond-50ct.html
+Nosler,Partition,35645,7mm,175,0.284,1.360,0.519,,Flat,Spitzer,,,yes,,https://www.nosler.com/7mm-175gr-partition-50ct.html
+Nosler,Partition,16325,7mm,140,0.284,1.160,0.434,,Flat,Spitzer,,,yes,,https://www.nosler.com/7mm-140gr-partition-50ct.html
+Nosler,AccuBond,54374,8mm,200,0.323,1.380,0.45,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/8mm-200gr-accubond-50ct.html
+Nosler,Expansion Tip,59265,8mm,180,0.323,1.365,0.427,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/8mm-180gr-expansion-tip-lead-free-50ct.html
+Nosler,Ballistic Tip Hunting,32180,8mm,180,,,0.394,,Boat Tail,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/8mm-180gr-ballistic-tip-hunting-50ct.html
+Nosler,Partition,35277,8mm,200,0.323,1.240,0.426,,Flat,Spitzer,,,yes,,https://www.nosler.com/8mm-200gr-partition-50ct.html
+Nosler,Custom Competition,49524,8mm,200,0.323,1.325,0.520,,Boat Tail,Hollow Point,,,yes,,https://www.nosler.com/8mm-200gr-hpbt-custom-competition-100ct.html
+Nosler,AccuBond,59756,9.3mm,250,0.366,1.375,0.494,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/9-3mm-250gr-accubond-50ct.html
+Nosler,Expansion Tip,59270,9.3mm,250,0.366,1.680,0.494,,Boat Tail,Spitzer,,,yes,,https://www.nosler.com/9-3mm-250gr-expansion-tip-lead-free-50ct.html
+Nosler,Solid,29825,9.3mm,286,0.366,1.410,0.35,,Flat,Flat Nose,,,yes,,https://www.nosler.com/9-3mm-286gr-solid-25ct.html
+Nosler,Partition,44750,9.3mm,286,0.366,1.375,0.482,,Flat,Spitzer,,,yes,,https://www.nosler.com/9-3mm-286gr-partition-50ct.html
+Nosler,Sporting Handgun,44848,,115,,,0.109,,Flat,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/9mm-115gr-jhp-sporting-handgun-250ct-blem.html
+Nosler,Assured Stopping Power,44848,9mm,115,0.355,0.511,0.109,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/9mm-115gr-jhp-asp-250ct-2.html
+Nosler,Assured Stopping Power,43123,9mm,124,0.355,0.560,0.118,,Flat,Spitzer,,,yes,,https://www.nosler.com/9mm-124gr-jhp-asp-250ct.html
+Nosler,Custom Competition,43258,9mm,147,0.355,.630,0.156,,Flat,Jacketed Hollow Point,,,yes,,https://www.nosler.com/9mm-147gr-jhp-asp-250ct.html
+Nosler,Sporting Handgun,43123,,124,,,0.118,,Flat,Spitzer,,,no,"missing: diameter, length",https://www.nosler.com/9mm-124gr-jhp-sporting-handgun-100ct-blem.html

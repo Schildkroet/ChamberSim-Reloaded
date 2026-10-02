@@ -1,0 +1,10 @@
+{
+  "mname": "Hornady",
+  "pname": "CX 243704",
+  "caliber": ".243",
+  "gdia": 6.17,
+  "glen": 21.7,
+  "gmass": 80.0,
+  "g1bc": 0.273,
+  "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+}

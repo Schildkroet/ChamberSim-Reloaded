@@ -1,0 +1,11 @@
+{
+  "mname": "PPU",
+  "pname": "FMJ BT B-169",
+  "caliber": ".311",
+  "gdia": 7.9,
+  "glen": 27.2,
+  "gmass": 182.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.9,
+  "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+}

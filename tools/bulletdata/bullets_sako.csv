@@ -1,0 +1,60 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+Sako,Gamehead,,"6,5 Creedmoor",140,0.265,,0.471,,,gamehead,,,yes,,https://www.sako.global/ammunition/gamehead
+Sako,Gamehead,,"7,62 x 39",123,0.312,,0.222,,,gamehead,,,yes,,https://www.sako.global/ammunition/gamehead
+Sako,Gamehead,,7 mm 08 Rem.,140,0.285,,0.394,,,gamehead,,,yes,,https://www.sako.global/ammunition/gamehead
+Sako,Gamehead,,7 x 64,120,0.285,,0.328,,,gamehead,,,yes,,https://www.sako.global/ammunition/gamehead
+Sako,Gamehead,,8 x 57 IRS,174,0.324,,0.374,,,gamehead,,,yes,,https://www.sako.global/ammunition/gamehead
+Sako,Gamehead,,8 x 57 IS,150,0.324,,0.330,,,gamehead,,,yes,,https://www.sako.global/ammunition/gamehead
+Sako,Gamehead Pro,,"6,5 Creedmoor",140,0.265,,0.546,,,gamehead pro,,,yes,,https://www.sako.global/ammunition/gamehead-pro
+Sako,Gamehead Pro,,"6,5 Creedmoor",130,0.265,,0.498,,,gamehead pro,,,yes,,https://www.sako.global/ammunition/gamehead-pro
+Sako,Gamehead Pro,,"6,5 PRC",140,0.265,,0.530,,,gamehead pro,,,yes,,https://www.sako.global/ammunition/gamehead-pro
+Sako,Gamehead Pro,,"6,5 x 55 SE",130,0.264,,0.498,,,gamehead pro,,,yes,,https://www.sako.global/ammunition/gamehead-pro
+Sako,Gamehead Pro,,7 mm 08 Rem.,150,0.285,,0.545,,,gamehead pro,,,yes,,https://www.sako.global/ammunition/gamehead-pro
+Sako,Gamehead Varmint,,22-250 Rem.,49,0.224,,0.248,,,gamehead varmint,,,yes,,https://www.sako.global/ammunition/gamehead-varmint
+Sako,Gamehead Varmint,,222 Rem.,40,0.224,,0.196,,,gamehead varmint,,,yes,,https://www.sako.global/ammunition/gamehead-varmint
+Sako,Gamehead Varmint,,223 Rem.,49,0.224,,0.248,,,gamehead varmint,,,yes,,https://www.sako.global/ammunition/gamehead-varmint
+Sako,Gamehead Varmint,,243 Win.,69,0.243,,0.316,,,gamehead varmint,,,yes,,https://www.sako.global/ammunition/gamehead-varmint
+Sako,Gamehead Varmint Rx,,30-06 Spring.,130,0.309,,0.216,,,gamehead varmint rx,,,yes,,https://www.sako.global/ammunition/gamehead-varmint-rx
+Sako,Gamehead Varmint Rx,,223 Rem.,52,0.224,,0.158,,,gamehead varmint rx,,,yes,,https://www.sako.global/ammunition/gamehead-varmint-rx
+Sako,Gamehead Varmint Rx,,308 Win.,130,0.309,,0.216,,,gamehead varmint rx,,,yes,,https://www.sako.global/ammunition/gamehead-varmint-rx
+Sako,Hammerhead,,"7,62 x 53 R",201,0.309,,0.324,,Boat Tail,hammerhead,,,yes,,https://www.sako.global/ammunition/hammerhead
+Sako,Hammerhead,,"7,62 x 53 R",181,0.309,,0.221,,Boat Tail,hammerhead,,,yes,,https://www.sako.global/ammunition/hammerhead
+Sako,Hammerhead,,7 mm Rem. Mag.,170,0.285,,0.371,,Boat Tail,hammerhead,,,yes,,https://www.sako.global/ammunition/hammerhead
+Sako,Hammerhead,,7 x 64,170,0.285,,0.371,,Boat Tail,hammerhead,,,yes,,https://www.sako.global/ammunition/hammerhead
+Sako,Hammerhead,,7 x 65 R,170,0.285,,0.371,,Boat Tail,hammerhead,,,yes,,https://www.sako.global/ammunition/hammerhead
+Sako,Hammerhead,,8 x 57 IRS,201,0.324,,0.253,,Boat Tail,hammerhead,,,yes,,https://www.sako.global/ammunition/hammerhead
+Sako,Powerhead Blade,,"6,5 Creedmoor",120,0.265,,0.348,,,powerhead blade,,,yes,,https://www.sako.global/ammunition/powerhead-blade
+Sako,Powerhead Blade,,"6,5 PRC",120,0.265,,0.390,,,powerhead blade,,,yes,,https://www.sako.global/ammunition/powerhead-blade
+Sako,Powerhead Blade,,"6,5 x 55 SE",120,0.264,,0.348,,,powerhead blade,,,yes,,https://www.sako.global/ammunition/powerhead-blade
+Sako,Powerhead Blade,,"7,62 x 53 R",162,0.309,,0.416,,,powerhead blade,,,yes,,https://www.sako.global/ammunition/powerhead-blade
+Sako,Powerhead Blade,,7 mm Rem. Mag.,140,0.285,,0.362,,,powerhead blade,,,yes,,https://www.sako.global/ammunition/powerhead-blade
+Sako,Powerhead Blade Pro,,"6,5 Creedmoor",123,0.265,,0.431,,,powerhead blade pro,,,yes,,https://www.sako.global/ammunition/powerhead-blade-pro
+Sako,Powerhead Blade Pro,,7 mm Rem. Mag.,140,0.285,,0.442,,,powerhead blade pro,,,yes,,https://www.sako.global/ammunition/powerhead-blade-pro
+Sako,Powerhead Blade Pro,,"9,3 x 62",201,0.366,,0.329,,,powerhead blade pro,,,yes,,https://www.sako.global/ammunition/powerhead-blade-pro
+Sako,Powerhead Blade Pro,,30-06 Spring.,162,0.309,,0.480,,,powerhead blade pro,,,yes,,https://www.sako.global/ammunition/powerhead-blade-pro
+Sako,Powerhead Blade Pro,,270 Win.,120,0.278,,0.370,,,powerhead blade pro,,,yes,,https://www.sako.global/ammunition/powerhead-blade-pro
+Sako,Powerhead Blade Pro,,300 Win. Mag.,174,0.309,,0.477,,,powerhead blade pro,,,yes,,https://www.sako.global/ammunition/powerhead-blade-pro
+Sako,Powerhead Blade Solid,,222 Rem.,40,0.224,,0.098,,,powerhead blade solid,,,yes,,https://www.sako.global/ammunition/powerhead-blade-solid
+Sako,Powerhead Blade Solid,,223 Rem.,40,0.224,,0.098,,,powerhead blade solid,,,yes,,https://www.sako.global/ammunition/powerhead-blade-solid
+Sako,Powerhead Blade Solid,,375 H&H Mag.,261,0.376,,0.384,,,powerhead blade solid,,,yes,,https://www.sako.global/ammunition/powerhead-blade-solid
+Sako,Speedhead,,"6,5 Creedmoor",144,0.265,,0.532,,Boat Tail,speedhead,,,yes,,https://www.sako.global/ammunition/speedhead
+Sako,Speedhead,,"6,5 x 55 SE",144,0.264,,0.532,,Boat Tail,speedhead,,,yes,,https://www.sako.global/ammunition/speedhead
+Sako,Speedhead,,"7,62 x 53 R",123,0.309,,0.273,,Boat Tail,speedhead,,,yes,,https://www.sako.global/ammunition/speedhead
+Sako,Speedhead,,22-250 Rem.,49,0.224,,0.189,,Boat Tail,speedhead,,,yes,,https://www.sako.global/ammunition/speedhead
+Sako,Speedhead,,30-06 Spring.,123,0.309,,0.273,,Boat Tail,speedhead,,,yes,,https://www.sako.global/ammunition/speedhead
+Sako,Speedhead,,222 Rem.,49,0.224,,0.189,,Boat Tail,speedhead,,,yes,,https://www.sako.global/ammunition/speedhead
+Sako,Super Hammerhead,,"6,5 Creedmoor",140,0.265,,0.437,,Boat Tail,super hammerhead,,,yes,,https://www.sako.global/ammunition/super-hammerhead
+Sako,Super Hammerhead,,"6,5 x 55 SE",140,0.264,,0.437,,Boat Tail,super hammerhead,,,yes,,https://www.sako.global/ammunition/super-hammerhead
+Sako,Super Hammerhead,,"7,62 x 53 R",181,0.309,,0.342,,Boat Tail,super hammerhead,,,yes,,https://www.sako.global/ammunition/super-hammerhead
+Sako,Super Hammerhead,,30-06 Spring.,150,0.309,,0.263,,Boat Tail,super hammerhead,,,yes,,https://www.sako.global/ammunition/super-hammerhead
+Sako,Super Hammerhead,,270 Win.,130,0.278,,0.400,,Boat Tail,super hammerhead,,,yes,,https://www.sako.global/ammunition/super-hammerhead
+Sako,Super Hammerhead,,300 Win. Short Mag.,181,0.309,,0.444,,Boat Tail,super hammerhead,,,yes,,https://www.sako.global/ammunition/super-hammerhead
+Sako,Trg Defense,,223 Rem.,63,0.224,,0.153,,Boat Tail,trg defense,,,yes,,https://www.sako.global/ammunition/trg-defense
+Sako,Trg Defense,,300 AAC Blackout,221,0.309,,0.608,,Boat Tail,trg defense,,,yes,,https://www.sako.global/ammunition/trg-defense
+Sako,Trg Precision,,"6,5 Creedmoor",136,0.265,,0.526,,Boat Tail,trg precision,,,yes,,https://www.sako.global/ammunition/trg-precision
+Sako,Trg Precision,,"6,5 Creedmoor",140,0.265,,0.535,,Boat Tail,trg precision,,,yes,,https://www.sako.global/ammunition/trg-precision
+Sako,Trg Precision,,"6,5 PRC",136,0.265,,0.490,,Boat Tail,trg precision,,,yes,,https://www.sako.global/ammunition/trg-precision
+Sako,Trg Precision,,"6,5 x 55 SE",136,0.264,,0.526,,Boat Tail,trg precision,,,yes,,https://www.sako.global/ammunition/trg-precision
+Sako,Trg Precision,,260 Rem.,136,0.265,,0.526,,Boat Tail,trg precision,,,yes,,https://www.sako.global/ammunition/trg-precision
+Sako,Trg Precision,,300 Win. Mag.,174,0.309,,0.472,,Boat Tail,trg precision,,,yes,,https://www.sako.global/ammunition/trg-precision
+Sako,Trg Sport,,223 Rem. Range,53,,,0.220,,Boat Tail,trg sport,,,no,missing: diameter,https://www.sako.global/ammunition/trg-sport

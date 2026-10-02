@@ -1,0 +1,9 @@
+{
+  "mname": "H&N",
+  "pname": "RN HS .323 190 gr",
+  "caliber": ".323",
+  "gdia": 8.2,
+  "glen": 22.6,
+  "gmass": 190.0,
+  "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+}

@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "SP B-131",
+  "caliber": ".242",
+  "gdia": 6.15,
+  "glen": 26.6,
+  "gmass": 90.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

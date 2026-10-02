@@ -1,0 +1,9 @@
+{
+  "mname": "Barnes",
+  "pname": "TAC-XP 30451",
+  "caliber": ".357",
+  "gdia": 9.07,
+  "glen": 15.7,
+  "gmass": 125.0,
+  "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+}

@@ -1,0 +1,67 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+H&N,HP HS,,9 mm,100,.356,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-356-100-gr-hs
+H&N,HP HS,,9 mm,115,.356,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-356-115-gr-hs
+H&N,HP HS,,9 mm,125,.356,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-356-125-gr-hs
+H&N,HP HS,,9 mm,145,.356,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-356-145-gr-hs
+H&N,HP HS,,9 mm,127,.357,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-357-127-gr-hs
+H&N,HP HS,,9 mm,147,.357,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-357-147-gr-hs
+H&N,HP HS,,.38/.357,158,.357,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-357-158-gr-hs
+H&N,HP HS,,.38/.357,180,.357,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-357-180-gr-hs
+H&N,HP HS,,.44,240,.429,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-429-240-gr-hs
+H&N,HP HS,,.45,200,.451,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-451-200-gr-hs
+H&N,HP HS,,.45,185,.452,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-452-185-gr-hs
+H&N,HP HS,,.45,200,.452,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-452-200-gr-hs
+H&N,HP HS,,.45,300,.458,,,,,lead bullet HP HS,,,yes,,https://www.hn-sport.de/de/reloading/hp-458-300-gr-hs
+H&N,RN HS,,"5,5 mm",55,.224,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-224-55-gr-hs
+H&N,RN HS,,6.5 mm,140,.264,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-264-140-gr-hs
+H&N,RN HS,,"7,62 mm",110,.308,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-308-110-gr-hs
+H&N,RN HS,,"7,62 mm",165,.308,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-308-165-gr-hs
+H&N,RN HS,,7.65 mm,71,.309,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-309-71-gr-hs
+H&N,RN HS,,7.65 mm,86,.309,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-309-86-gr-hs
+H&N,RN HS,,7.65 mm,86,.311,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-311-86-gr-hs
+H&N,RN HS,,.32,100,.314,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-314-100-gr-hs
+H&N,RN HS,,8 mm,190,.323,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-323-190-gr-hs
+H&N,RN HS,,9 mm,125,.356,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-356-125-gr-hs
+H&N,RN HS,,9 mm,145,.356,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-356-145-gr-hs
+H&N,RN HS,,.38/.357,158,.357,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-357-158-gr-hs
+H&N,RN HS,,.45,200,.451,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-451-200-gr-hs
+H&N,RN HS,,.45,230,.451,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-451-230-gr-hs
+H&N,RN HS,,.45,230,.452,,,,,lead bullet RN HS,,,yes,,https://www.hn-sport.de/de/reloading/rn-452-230-gr-hs
+H&N,SWC HS,,.38/.357,158,.357,,,,,lead bullet SWC HS,,,yes,,https://www.hn-sport.de/de/reloading/swc-357-158-gr-hs
+H&N,SWC HS,,.44,240,.429,,,,,lead bullet SWC HS,,,yes,,https://www.hn-sport.de/de/reloading/swc-429-240-gr-hs
+H&N,SWC HS,,.45,195,.451,,,,,lead bullet SWC HS,,,yes,,https://www.hn-sport.de/de/reloading/swc-451-195-gr-hs
+H&N,SWC HS,,.45,200,.451,,,,,lead bullet SWC HS,,,yes,,https://www.hn-sport.de/de/reloading/swc-451-200-gr-hs
+H&N,SWC HS,,.45,195,.452,,,,,lead bullet SWC HS,,,yes,,https://www.hn-sport.de/de/reloading/swc-452-195-gr-hs
+H&N,SWC HS,,.45,200,.452,,,,,lead bullet SWC HS,,,yes,,https://www.hn-sport.de/de/reloading/swc-452-200-gr-hs
+H&N,TC HS,,"7,62 mm",165,.308,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-308-165-gr-hs
+H&N,TC HS,,9 mm,125,.356,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-356-125-gr-hs
+H&N,TC HS,,9 mm,145,.356,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-356-145-gr-hs
+H&N,TC HS,,.38/.357,125,.357,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-357-125-gr-hs
+H&N,TC HS,,9 mm,127,.357,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-357-127-gr-hs
+H&N,TC HS,,9 mm,147,.357,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-357-147-gr-hs
+H&N,TC HS,,.38/.357,158,.357,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-357-158-gr-hs
+H&N,TC HS,,.38/.357,180,.357,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-357-180-gr-hs
+H&N,TC HS,,.38/.357,200,.357,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-357-200-gr-hs
+H&N,TC HS,,.40,180,.401,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-401-180-gr-hs
+H&N,TC HS,,.44,200,.428,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-428-200-gr-hs-crimp
+H&N,TC HS,,.44,240,.429,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-429-240-gr-hs
+H&N,TC HS,,.44,240,.429,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-429-240-gr-hs-crimp
+H&N,TC HS,,.44,240,.430,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-430-240-gr-hs
+H&N,TC HS,,.45,200,.452,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-452-200-gr-hs
+H&N,TC HS,,.45,250,.452,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-452-250-gr-hs
+H&N,TC HS,,.45,250,.452,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-452-250-gr-hs-crimp
+H&N,TC HS,,.45,300,.458,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-458-300-gr-hs
+H&N,TC HS,,.45,350,.458,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-458-350-gr-hs
+H&N,TC HS,,.45,400,.458,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-458-400-gr-hs
+H&N,TC HS,,.50,300,.501,,,,,lead bullet TC HS,,,yes,,https://www.hn-sport.de/de/reloading/tc-501-300-gr-hs
+H&N,WC H-HB HS,,.38/.357,125,.357,,,,Hollow Base,lead bullet WC H-HB HS,,,yes,,https://www.hn-sport.de/de/reloading/wc-h-hb-357-125-gr-hs
+H&N,WC H-HB HS,,.38/.357,148,.357,,,,Hollow Base,lead bullet WC H-HB HS,,,yes,,https://www.hn-sport.de/de/reloading/wc-h-hb-357-148-gr-hs
+H&N,WC H-HB HS,,.38/.357,85,.357,,,,Hollow Base,lead bullet WC H-HB HS,,,yes,,https://www.hn-sport.de/de/reloading/wc-h-hb-357-85-gr-hs
+H&N,WC HB L,,.32,100,.312,,,,Hollow Base,lead bullet WC HB L,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-312-100-gr-l
+H&N,WC HB L,,.32,100,.313,,,,Hollow Base,lead bullet WC HB L,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-313-100-gr-l
+H&N,WC HB HS,,.32,100,.314,,,,Hollow Base,lead bullet WC HB HS,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-314-100-gr-hs
+H&N,WC HB L,,.32,100,.314,,,,Hollow Base,lead bullet WC HB L,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-314-100-gr-l
+H&N,WC HB L,,.32,90,.314,,,,Hollow Base,lead bullet WC HB L,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-314-90-gr-l
+H&N,WC HB PC,,.38/.357,148,.355,,,,Hollow Base,lead bullet WC HB PC,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-355-148-gr-pc
+H&N,WC HB L,,.38/.357,148,.357,,,,Hollow Base,lead bullet WC HB L,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-357-148-gr-l
+H&N,WC HB PC,,.38/.357,148,.357,,,,Hollow Base,lead bullet WC HB PC,,,yes,,https://www.hn-sport.de/de/reloading/wc-hb-357-148-gr-pc

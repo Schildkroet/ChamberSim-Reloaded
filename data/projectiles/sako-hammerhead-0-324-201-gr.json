@@ -1,0 +1,12 @@
+{
+  "mname": "Sako",
+  "pname": "Hammerhead 0.324 201 gr",
+  "caliber": ".324",
+  "gdia": 8.23,
+  "glen": 34.8,
+  "gmass": 201.0,
+  "gtailtype": 2,
+  "gtaildiaA": 8.23,
+  "g1bc": 0.253,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

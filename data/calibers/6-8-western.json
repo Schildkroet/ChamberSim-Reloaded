@@ -1,0 +1,17 @@
+{
+  "cipname": "6.8 Western",
+  "standard": "CIP",
+  "cipdate": "2021-01-01",
+  "L3": 51.31,
+  "L6": 69.98,
+  "R1": 13.59,
+  "P1": 14.1,
+  "P2": 13.69,
+  "H1": 7.98,
+  "H2": 7.98,
+  "G1": 7.04,
+  "V": 74,
+  "c_Q": 38.93,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

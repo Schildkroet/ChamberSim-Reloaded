@@ -1,0 +1,19 @@
+{
+  "cipname": ".327 Federal Magnum",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "2 rimmed",
+  "cipdate": "2007-01-01",
+  "L3": 30.48,
+  "L6": 37.34,
+  "R1": 9.52,
+  "E": 1.4,
+  "P1": 8.56,
+  "H1": 8.56,
+  "H2": 8.56,
+  "G1": 7.92,
+  "V": 18.6,
+  "c_Q": 49.27,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

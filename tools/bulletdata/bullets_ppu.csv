@@ -1,0 +1,170 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+PPU,FMJ,B-016,25,50,0.2500,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-012,7.62 mm,85,0.3065,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-470,7.62 mm,98,0.3070,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-174,7.62 mm,71,0.3065,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-015,32,71,0.3080,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-175,32,71,0.3080,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,LRN,B-081,32,98,0.3125,,,,,LRN,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,TMJ,B-574,32,71,0.3080,,,,,TMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,WC,B-298,32,98,0.3125,,,,,WC,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-013,9 mm,124,0.3545,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-166,9 mm,147,0.3545,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-164,9 mm,108,0.3585,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-354,9 mm,130,0.3545,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-398,9 mm,95,0.3545,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-112,9 mm,115,0.3545,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-102,9 mm,93,0.3645,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-457,9 mm,158,0.3545,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-014,9 mm,94,0.3555,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-446,9 mm,125,0.3545,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-191,9 mm,125,0.3545,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-172,9 mm,95,0.3645,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-171,9 mm,124,0.3545,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-101,9 mm,115,0.3545,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-145,9 mm,94,0.3555,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-163,9 mm,147,0.3545,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,LRN,B-192,9 mm,124,0.3560,,,,,LRN,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJFP,B-490,9 mm,100,0.3545,,,,,SJFP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJSP,B-329,9 mm,130,0.3545,,,,,SJSP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,TMJ,B-297,9 mm,124,0.3545,,,,,TMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,TMJ,B-455,9 mm,147,0.3545,,,,,TMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,TMJ,B-044,9 mm,115,0.3545,,,,,TMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-613,38,130,0.3555,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-347,38,145,0.3555,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMS,B-111,38,158,0.3555,,,,,FMS,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-339,38,158,0.3555,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,LRN,B-089,38,145,0.3590,,,,,LRN,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJFP,B-338,38,158,0.3555,,,,,SJFP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJHP,B-135,38,158,0.3555,,,,,SJHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SWC,B-326,38,158,0.3575,,,,,SWC,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SWC,B-140,38,158,0.3575,,,,,SWC,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SWC HP,B-136,38,158,0.3575,,,,,SWC HP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,TMJ,B-332,38,158,0.3555,,,,,TMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,WC,B-053,38,148,0.3575,,,,,WC,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,WC,B-017,38,158,0.3575,,,,,WC,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-195,10 mm,190,0.3995,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-361,10 mm,170,0.3995,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-614,10 mm,165,0.3995,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-196,10 mm,180,0.3995,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,TMJ,B-353,10 mm,180,0.3995,,,,,TMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-221,44,180,0.4285,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FPJ,B-222,44,240,0.4285,,,,,FPJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-154,44,180,0.4285,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,JHP,B-156,44,240,0.4285,,,,,JHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJFP,B-320,44,300,0.4285,,,,,SJFP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJFP,B-359,44,240,0.4285,,,,,SJFP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJHP,B-580,44,24,0.4285,,,,,SJHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-180,45,230,0.4500,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ,B-214,45,200,0.4500,,,,,FMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,LRN,B-202,45,230,0.4115,,,,,LRN,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,SJHP,B-181,45,185,0.4500,,,,,SJHP,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,TMJ,B-303,45,230,0.4500,,,,,TMJ,,,yes,,https://www.prvipartizan.com/handgun_bullets.php
+PPU,FMJ BT,B-212,22,55,0.224,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-419,22,62,0.224,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-616,22,55,0.224,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-535,22,69,0.224,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-481,22,75,0.224,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-193,22,45,0.222,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-032,22,50,0.224,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-132,22,55,0.224,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-211,22,55,0.224,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-131,6 mm,90,0.242,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-134,6 mm,100,0.242,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP,B-046,25,90,0.257,,,,,HP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP,B-047,25,100,0.257,,,,,PSP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-603,6.5 mm,115,0.277,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-605,6.5 mm,139,0.268,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-083,6.5 mm,139,0.263,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-484,6.5 mm,110,0.264,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-485,6.5 mm,120,0.264,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP,B-114,6.5 mm,140,0.263,,,,,PSP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-117,6.5 mm,123,0.263,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-483,6.5 mm,123,0.264,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP BT,B-084,6.5 mm,139,0.263,,,,Boat Tail,SP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP RN,B-118,6.5 mm,156,0.263,,,,,SP RN,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP RN,B-352,6.5 mm,123,0.268,,,,,SP RN,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-604,6.8 mm,115,0.277,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-161,270,130,0.277,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-027,270,150,0.277,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-127,7 mm,174,0.284,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-141,7 mm,175,0.284,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP,B-401,7 mm,120,0.284,,,,,HP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-405,7 mm,150,0.284,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP BT,B-400,7 mm,140,0.284,,,,Boat Tail,PSP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP BT,B-403,7 mm,160,0.284,,,,Boat Tail,PSP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP BT,B-404,7 mm,174,0.284,,,,Boat Tail,PSP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-115,7 mm,174,0.284,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-067,7 mm,173,0.285,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-558,7 mm,173,0.284,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-123,7 mm,145,0.284,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-051,7 mm,139,0.285,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-478,7 mm,139,0.284,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ,B-460,30,123,0.308,,,,,FMJ,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ,B-007,30,139,0.308,,,,,FMJ,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ,B-099,30,150,0.308,,,,,FMJ,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-449,30,175,0.308,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-119,30,145,0.308,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-009,30,145,0.308,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-436,30,150,0.308,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-345,30,174,0.308,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-366,30,175,0.308,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-010,30,110,0.307,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FSP,B-200,30,170,0.308,,,,,FSP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FSP,B-028,30,150,0.308,,,,,FSP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-367,30,190,0.308,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-592,30,175,0.308,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-363,30,168,0.308,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HSP,B-273,30,110,0.307,,,,,HSP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP BT,B-362,30,165,0.308,,,,Boat Tail,PSP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-066,30,180,0.308,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-428,30,174,0.308,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-062,30,150,0.308,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP RN,B-204,30,110,0.307,,,,,SP RN,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ,B-074,7.62 mm,123,0.310,,,,,FMJ,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP,B-210,7.62 mm,123,0.310,,,,,PSP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP RN,B-030,7.62 mm,123,0.310,,,,,SP RN,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-219,303,150,0.311,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-437,303,170,0.311,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-143,303,174,0.311,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-169,303,182,0.311,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-006,303,190,0.311,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP BT,B-382,303,150,0.311,,,,Boat Tail,SP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP BT,B-125,303,180,0.311,,,,Boat Tail,SP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-417,8 mm,200,0.327,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-471,8 mm,252,0.323,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-384,8 mm,208,0.330,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-001,8 mm,198,0.323,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-564,8 mm,200,0.322,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-022,8 mm,198,0.322,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-424,8 mm,123,0.323,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-350,8 mm,175,0.322,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,PSP BT,B-349,8 mm,175,0.322,,,,Boat Tail,PSP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-561,8 mm,208,0.330,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-128,8 mm,196,0.323,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-459,8 mm,196,0.322,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-162,8 mm,139,0.323,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-462,8 mm,139,0.322,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP,B-330,9.3 mm,285,0.365,,,,,SP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-421,338,249,0.338,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT,B-423,338,250,0.380,,,,Boat Tail,HP BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FMJ BT,B-265,375,301,0.375,,,,Boat Tail,FMJ BT,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,FPJ,B-444,375,301,0.375,,,,,FPJ,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SP RN,B-267,375,300,0.375,,,,,SP RN,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,SJ FP,B-448,45,405,0.458,,,,,SJ FP,,,yes,,https://www.prvipartizan.com/rifle_bullets.php
+PPU,HP BT match,B-399,22,69,0.224,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-495,22,75,0.224,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-540,6.5 mm,120,0.264,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-499,7 mm,150,0.284,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,FMJ BT match,B-500,30,175,0.308,,,,Boat Tail,FMJ BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-496,30,168,0.308,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-497,30,190,0.308,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-593,30,175,0.308,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-625,30,155,0.308,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,Solid match,B-594,30,156,0.308,,,,Boat Tail,Solid match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,FMJ BT match,B-529,303,182,0.311,,,,Boat Tail,FMJ BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,FMJ BT match,B-348,8 mm,198,0.322,,,,Boat Tail,FMJ BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,FMJ BT match,B-498,8 mm,250,0.323,,,,Boat Tail,FMJ BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,FMJ BT match,B-541,8 mm,200,0.322,,,,Boat Tail,FMJ BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,HP BT match,B-583,338,250,0.338,,,,Boat Tail,HP BT match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php
+PPU,Solid match,B-429,50,725,0.500,,,,Boat Tail,Solid match,,,yes,,https://www.prvipartizan.com/riflem_bullets.php

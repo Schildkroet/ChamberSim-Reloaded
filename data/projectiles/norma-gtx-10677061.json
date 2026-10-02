@@ -1,0 +1,13 @@
+{
+  "mname": "Norma",
+  "pname": "GTX 10677061",
+  "caliber": ".308",
+  "gdia": 7.82,
+  "glen": 33.3,
+  "gmass": 175.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.82,
+  "g1bc": 0.547,
+  "g7bc": 0.283,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

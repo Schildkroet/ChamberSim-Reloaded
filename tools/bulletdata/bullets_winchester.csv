@@ -1,0 +1,40 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+Winchester,Silvertip® Hollow Point,WB357ST145,38/357,145,.357,,,,,Silvertip® Hollow Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Silvertip® Hollow Point,WB40ST155,40/10mm,155,.400,,,,,Silvertip® Hollow Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Silvertip® Hollow Point,WB40ST175,40/10mm,175,.400,,,,,Silvertip® Hollow Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Silvertip® Hollow Point,WB44ST210,44 (.430) Cal,,,,,,,Silvertip® Hollow Point,,,no,"missing: weight, diameter",https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Silvertip® Hollow Point,WB9ST115,9mm,115,.355,,,,,Silvertip® Hollow Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Silvertip® Hollow Point,WB9ST147,9mm,147,.355,,,,,Silvertip® Hollow Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Full Metal Jacket,WB380MC95,380,95,.356,,,,,Full Metal Jacket,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Full Metal Jacket,WB38MC130,38,130,.356,,,,,Full Metal Jacket,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Full Metal Jacket,WB45MC230,45,230,.451,,,,,Full Metal Jacket,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Flat Base,WB9FB115,9mm,115,.355,,,,,FMJ - Flat Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Flat Base,WB9MC124,9mm,124,.355,,,,,FMJ - Flat Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,JHP - Notched,WB9MC115,9mm,115,.355,,,,,JHP - Notched,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB357HP158,38/357 (.357),158,,,,,Hollow Base,FMJ - Hollow Base,,,no,missing: diameter,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB38JHP110,38/357,110,.357,,,,Hollow Base,FMJ - Hollow Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB38JHP125,38/357,125,.357,,,,Hollow Base,FMJ - Hollow Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB40JHP180,40/10mm,180,.400,,,,Hollow Base,FMJ - Hollow Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB44HSP240,44,240,.430,,,,Hollow Base,FMJ - Hollow Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB45JHP230,45,230,.451,,,,Hollow Base,FMJ - Hollow Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB9JHP115,9mm,115,.355,,,,Hollow Base,FMJ - Hollow Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,FMJ - Hollow Base,WB9JHP147,9mm,147,.355,,,,Hollow Base,FMJ - Hollow Base,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Truncated Cone,WB40TC165,40/10mm,165,.400,,,,,Truncated Cone,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Truncated Cone,WB40TC180,40/10mm,180,.400,,,,,Truncated Cone,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,BC MAX™,WB30BC175,30,175,,,,,Boat Tail,BC MAX™,,,no,missing: diameter,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,BC MAX™,WB30BC195,30,195,.308,,,,Boat Tail,BC MAX™,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,BC MAX™,WB65BC140,6.5mm,140,.264,,,,Boat Tail,BC MAX™,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Pointed Soft Point,WB222PSP50,22 (.224) Cal,50,,,,,,Pointed Soft Point,,,no,missing: diameter,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Pointed Soft Point,WB223PSP55,22,55,.224,,,,,Pointed Soft Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Pointed Soft Point,WB243PSP80,243,80,.243,,,,,Pointed Soft Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Power-Point®,WB223PP64,22,64,.224,,,,,Power-Point®,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Power-Point®,WB270PP130,270,130,.277,,,,,Power-Point®,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Power-Point®,WB308SP180,30 (308),180,.308,,,,,Power-Point®,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Power-Point®,WB30PP150,30,150,.308,,,,,Power-Point®,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Power-Point®,WB762PP123,7.62,123,.310,,,,,Power-Point®,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Power-Point®,WB7PP150,7mm,150,.284,,,,,Power-Point®,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Soft Point,WB44SP200,44 (44-40),200,.426,,,,,Soft Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Hollow Point,WB22HP46,22,46,.224,,,,,Hollow Point,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Full Metal Jacket,WB556MC55,22,55,.224,,,,,Full Metal Jacket,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Full Metal Jacket,WB762147N,30 (.308) Cal,147,,,,,,Full Metal Jacket,,,no,missing: diameter,https://winchester.com/Products/Ammunition/Components/Bullets
+Winchester,Full Metal Jacket,WB762MC147,30,147,.308,,,,,Full Metal Jacket,,,yes,,https://winchester.com/Products/Ammunition/Components/Bullets

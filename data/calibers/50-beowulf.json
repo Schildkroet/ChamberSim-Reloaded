@@ -1,0 +1,18 @@
+{
+  "cipname": ".50 Beowulf",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2001-01-01",
+  "L3": 41.91,
+  "L6": 53.97,
+  "R1": 11.3,
+  "P1": 13.59,
+  "H1": 13.33,
+  "H2": 13.33,
+  "G1": 12.7,
+  "V": 66.9,
+  "c_Q": 126.68,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

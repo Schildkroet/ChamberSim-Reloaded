@@ -1,0 +1,9 @@
+{
+  "mname": "Barnes",
+  "pname": "TSX 31112",
+  "caliber": ".358",
+  "gdia": 9.09,
+  "glen": 22.5,
+  "gmass": 180.0,
+  "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+}

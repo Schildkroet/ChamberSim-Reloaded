@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "FPJ B-191",
+  "caliber": ".354",
+  "gdia": 9.0,
+  "glen": 15.6,
+  "gmass": 125.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

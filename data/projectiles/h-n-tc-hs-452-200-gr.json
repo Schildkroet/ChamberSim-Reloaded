@@ -1,0 +1,9 @@
+{
+  "mname": "H&N",
+  "pname": "TC HS .452 200 gr",
+  "caliber": ".452",
+  "gdia": 11.48,
+  "glen": 12.2,
+  "gmass": 200.0,
+  "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+}

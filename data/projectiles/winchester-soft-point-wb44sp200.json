@@ -1,0 +1,9 @@
+{
+  "mname": "Winchester",
+  "pname": "Soft Point WB44SP200",
+  "caliber": ".426",
+  "gdia": 10.82,
+  "glen": 16.3,
+  "gmass": 200.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

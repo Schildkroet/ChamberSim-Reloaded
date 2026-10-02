@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "SJSP B-329",
+  "caliber": ".354",
+  "gdia": 9.0,
+  "glen": 16.2,
+  "gmass": 130.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

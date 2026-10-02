@@ -1,0 +1,9 @@
+{
+  "mname": "H&N",
+  "pname": "HP HS .429 240 gr",
+  "caliber": ".429",
+  "gdia": 10.9,
+  "glen": 16.2,
+  "gmass": 240.0,
+  "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+}

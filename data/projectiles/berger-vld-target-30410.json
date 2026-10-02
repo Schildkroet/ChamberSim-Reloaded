@@ -1,0 +1,13 @@
+{
+  "mname": "Berger",
+  "pname": "VLD Target 30410",
+  "caliber": ".308",
+  "gdia": 7.82,
+  "glen": 31.8,
+  "gmass": 168.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.82,
+  "gtailh": 4.3,
+  "g1bc": 0.507,
+  "g7bc": 0.26
+}

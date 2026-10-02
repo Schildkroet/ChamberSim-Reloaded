@@ -1,0 +1,45 @@
+# articles of cartridges that are missing from the C.I.P. sheets (SAAMI, wildcats, newer than the sheets)
+.224 Valkyrie
+6mm ARC | | 6 mm ARC
+6.5mm Grendel | | 6.5 Grendel
+6.8 Western
+.277 SIG Fury | | .277 Fury (6.8x51)
+7mm Backcountry
+.22 Nosler | .22 Nosler
+.26 Nosler | 26 Nosler | .26 Nosler
+.27 Nosler | .27 Nosler
+.28 Nosler | .28 Nosler
+.30 Nosler | .30 Nosler
+.33 Nosler | .33 Nosler
+.360 Buckhammer
+.400 Legend
+.22 TCM
+.327 Federal Magnum
+6.5 Weatherby RPM
+.416 Barrett
+.458 SOCOM
+.50 Beowulf
+.22 Long Rifle
+.35 Whelen
+.222 Remington Magnum
+.223 Winchester Super Short Magnum | | .223 WSSM
+.243 Winchester Super Short Magnum | | .243 WSSM
+.270 Winchester Short Magnum | | .270 WSM
+.300 Winchester Short Magnum | | .300 WSM
+7mm Winchester Short Magnum | | 7 mm WSM
+.30 Remington AR | | .30 Remington AR
+.300 Norma Magnum
+.284 Winchester
+.45-70 | | .45-70 Government
+.444 Marlin
+.300 Savage
+.30 Carbine | | .30 Carbine
+12.7×99mm NATO | | .50 BMG (12.7 x 99)
+6mm BR Remington | BR Remington | 6 mm BR Remington
+6mm BR Norma | BR Norma | 6 mm BR Norma
+.300 HAM'R
+.30 Super Carry
+.375 Ruger
+7mm PRC
+.300 PRC
+6.5 PRC

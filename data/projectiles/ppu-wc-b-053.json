@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "WC B-053",
+  "caliber": ".358",
+  "gdia": 9.08,
+  "glen": 14.4,
+  "gmass": 148.0,
+  "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+}

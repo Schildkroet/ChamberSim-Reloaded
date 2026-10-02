@@ -1,0 +1,12 @@
+{
+  "mname": "Sako",
+  "pname": "Trg Precision 0.265 136 gr",
+  "caliber": ".265",
+  "gdia": 6.73,
+  "glen": 34.5,
+  "gmass": 136.0,
+  "gtailtype": 2,
+  "gtaildiaA": 6.73,
+  "g1bc": 0.526,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

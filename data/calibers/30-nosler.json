@@ -1,0 +1,19 @@
+{
+  "cipname": ".30 Nosler",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2016-01-01",
+  "L3": 64.92,
+  "L6": 84.84,
+  "R1": 13.56,
+  "P1": 13.97,
+  "P2": 13.41,
+  "H1": 8.74,
+  "H2": 8.74,
+  "G1": 7.82,
+  "V": 89.8,
+  "c_Q": 48.03,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

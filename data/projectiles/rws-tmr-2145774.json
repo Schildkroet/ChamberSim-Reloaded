@@ -1,0 +1,11 @@
+{
+  "mname": "RWS",
+  "pname": "Tmr 2145774",
+  "caliber": ".366",
+  "gdia": 9.3,
+  "glen": 39.2,
+  "gmass": 285.0,
+  "gtailtype": 2,
+  "gtaildiaA": 9.3,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "SP B-062",
+  "caliber": ".308",
+  "gdia": 7.82,
+  "glen": 25.8,
+  "gmass": 150.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

@@ -1,0 +1,13 @@
+{
+  "mname": "Berger",
+  "pname": "VLD Target 28405",
+  "caliber": ".284",
+  "gdia": 7.21,
+  "glen": 38.6,
+  "gmass": 180.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.21,
+  "gtailh": 6.2,
+  "g1bc": 0.683,
+  "g7bc": 0.35
+}

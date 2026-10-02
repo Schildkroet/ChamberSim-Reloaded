@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "SP B-123",
+  "caliber": ".284",
+  "gdia": 7.21,
+  "glen": 30.0,
+  "gmass": 145.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

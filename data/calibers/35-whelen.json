@@ -1,0 +1,19 @@
+{
+  "cipname": ".35 Whelen",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "1922-01-01",
+  "L3": 63.35,
+  "L6": 84.84,
+  "R1": 12.01,
+  "P1": 11.99,
+  "P2": 11.2,
+  "H1": 9.78,
+  "H2": 9.78,
+  "G1": 9.09,
+  "V": 74.5,
+  "c_Q": 64.9,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

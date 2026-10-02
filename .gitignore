@@ -36,8 +36,6 @@ tools/grt_*report*.txt
 *.grtload
 !data/measurements/*.grtload
 tests/data/
-main.png
-cap.png
 
 # reverse-engineering notes and the project instructions that describe them
 CLAUDE.md
@@ -46,4 +44,3 @@ CLAUDE.md
 # files exchanged with the VM that runs the original program
 results/
 *.log
-/load.pdf

@@ -1,0 +1,10 @@
+{
+  "mname": "Hornady",
+  "pname": "NTX 17016",
+  "caliber": ".172",
+  "gdia": 4.37,
+  "glen": 9.7,
+  "gmass": 15.5,
+  "g1bc": 0.115,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

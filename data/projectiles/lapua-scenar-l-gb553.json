@@ -1,0 +1,13 @@
+{
+  "mname": "Lapua",
+  "pname": "Scenar-L GB553",
+  "caliber": ".284",
+  "gdia": 7.21,
+  "glen": 33.4,
+  "gmass": 150.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.21,
+  "g1bc": 0.526,
+  "g7bc": 0.26,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

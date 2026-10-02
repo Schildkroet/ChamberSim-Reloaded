@@ -1,0 +1,54 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+Lapua,LWC,C427,.32 S&W Long WC,83,0.3146,,0.029,,,Wadcutter,,,yes,,https://www.lapua.com/product/32-sw-lapua-wadcutter-bullet-c427-535-g-83-gr/
+Lapua,LWC,C356,.32 S&W Long WC,98,0.3146,,0.041,,,Wadcutter,,,yes,,https://www.lapua.com/product/32-sw-lapua-wadcutter-bullet-c356-635-g-98-gr/
+Lapua,Naturalis,N566,5.69 mm (.224),50,0.2240,,0.197,,,Lead-free copper,,,yes,,https://www.lapua.com/product/224-naturalis-hunting-bullet-n566-32-g-50-gr/
+Lapua,FMJ,S569,5.69 mm (.224),55,0.2240,,0.255,,,Full metal Jacket (FMJ),,,yes,,https://www.lapua.com/product/224-fmj-bullet-s569-36g-55gr-2/
+Lapua,Soft Point,E539,5.69 mm (.224),55,0.2240,,0.185,,,Soft Point,,,yes,,https://www.lapua.com/product/224-cal-soft-point-bullet-e539-36-g-55-gr/
+Lapua,Scenar-L,GB544,5.69 mm (.224),69,0.2240,,0.341,0.171,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/224-scenar-l-bullet-gb544-45-g-69-gr-otm/
+Lapua,Scenar-L,GB545,5.69 mm (.224),77,0.2240,,0.386,0.193,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/224-scenar-l-bullet-gb545-50-g-77gr-otm/
+Lapua,Lead-free copper,N509,6 mm (.243),90,.243,,0,,,Lead-free copper,,,yes,,https://www.lapua.com/product/243-naturalis-bullet-n509-5-8-g-90-gr/
+Lapua,Scenar-L,GB543,6 mm (.243),90,0.2433,,0.434,0.216,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/6-mm-cal-scenar-l-bullet-gb543-58-g-90-gr-otm/
+Lapua,Scenar,GB504,6.5 mm (.264),100,0.2642,,0.424,0.212,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/65-mm-scenar-bullet-gb504-65-g-100-gr-otm-2/
+Lapua,FMJ,S341,6.5 mm (.264),100,0.2642,,0.250,,,Full metal Jacket (FMJ),,,yes,,https://www.lapua.com/product/65-mm-fmj-bullet-s341-65-g-100-gr/
+Lapua,"Cutting Edge, Open Tip",G477,7.62 mm (.308),100,0.3083,,0.170,,,Open Tip,,,yes,,https://www.lapua.com/product/30-cal-cutting-edge-bullet-g477-65-g-100-gr-hp/
+Lapua,Open Tip,G580,7.62 mm (.308),100,0.3083,,0.200,,,Open Tip,,,yes,,https://www.lapua.com/product/30-cal-open-tip-bullet-g580-65-g-100-gr-ot/
+Lapua,"Cutting Edge, FMJ",S496,6.5 mm (.264),100,0.2642,,0.250,,,Full metal Jacket (FMJ),,,yes,,https://www.lapua.com/product/264-cal-fmj-cutting-edge-bullet-s496-65-g-100-gr/
+Lapua,Scenar-L,GB542,6 mm (.243),105,0.2433,,0.472,0.236,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/6-mm-scenar-l-bullet-gb542-68-g-105-gr-otm/
+Lapua,Scenar,GB464,6.5 mm (.264),108,0.2642,,0.465,0.231,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/65-mm-scenar-bullet-gb464-70-g-108-gr-otm/
+Lapua,Scenar-L,GB547,6.5 mm (.264),120,0.2642,,0.497,0.246,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/65-mm-scenar-l-bullet-gb547-78-g-120-gr-otm/
+Lapua,TRX TrueRange Expanding,N583,6.5 mm (.264),120,0.2642,,0.428,0.212,,,,,yes,,https://www.lapua.com/product/7-8-g-120-gr-truerange-expanding-hunting-bullet-n583/
+Lapua,Open Tip,G573,8 mm (.323),180,0.3228,,,,,Open Tip,,,yes,,https://www.lapua.com/product/8-mm-cal-open-tip-bullet-g573-78-g-120-gr/
+Lapua,Scenar,GB489,6.5 mm (.264),123,0.2642,,0.527,0.263,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/65-mm-scenar-bullet-gb489-80-g-123-gr-otm/
+Lapua,FMJ,S374,7.62 mm (.308),123,0.3083,,0.270,,,Full metal Jacket (FMJ),,,yes,,https://www.lapua.com/product/30-cal-fmj-bullet-s374-80-g-123-gr/
+Lapua,Scenar-L,GB546,6.5 mm (.264),136,0.2642,,0.545,0.274,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/65-mm-cal-scenar-l-bullet-gb546-88-g-136-gr-otm/
+Lapua,Scenar,GB458,6.5 mm (.264),139,0.2642,,0.578,0.290,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/65-mm-cal-scenar-bullet-gb458-90-g-139-gr-otm/
+Lapua,Naturalis,N563,6.5 mm (.264),140,0.2642,,0.201,,,Lead-free copper,,,yes,,https://www.lapua.com/product/65-mm-cal-naturalis-hunting-bullet-n563-91-g-140-gr/
+Lapua,MaxRange Target,GB582,6.5 mm (.264),144,0.2642,,0.670,0.335,,,,,yes,,https://www.lapua.com/product/6-5-mm-175-gr-maxrange-target-bullet-otm-gb582/
+Lapua,FMJ Boat Tail,B343,6.5 mm (.264),144,0.2642,,0.636,,Boat Tail,FMJBT (Full Metal Jacket Boat Tail),,,yes,,https://www.lapua.com/product/65-mm-fmjbt-bullet-b343-93-g-144-gr/
+Lapua,TRX TrueRange Expanding,N585,7.62 mm (.308),150,0.3083,,0.384,0.190,,,,,yes,,https://www.lapua.com/product/9-7-g-150-gr-trx-hunting-bullet-n585/
+Lapua,Scenar-L,GB553,7 mm (.284),150,0.2839,,0.526,0.260,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/7mm-cal-scenar-l-bullet-gb553-97-g-150-gr-otm/
+Lapua,Mega,E469,7.62 mm (.308),150,0.3083,,0.330,,,Soft Point,,,yes,,https://www.lapua.com/product/30-cal-mega-hunting-bullet-e469-97-g-150-gr-sp/
+Lapua,Scenar-L,GB552,7.62 mm (.308),155,0.3083,,0.460,0.230,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/30-cal-scenar-l-bullet-gb552-100-g-155-gr-otm/
+Lapua,Mega,E471,6.5 mm (.264),155,0.2642,,0.377,,,Soft Point,,,yes,,https://www.lapua.com/product/65-mm-mega-bullet-e471/
+Lapua,Naturalis,N564,7 mm (.284),156,0.2839,,0.280,,,Lead-free copper,,,yes,,https://www.lapua.com/product/7-mm-cal-naturalis-hunting-bullet-n564-101-g-156-gr/
+Lapua,TRX TrueRange Expanding,N584,7.62 mm (.308),165,0.3083,,0.490,0.243,,,,,yes,,https://www.lapua.com/product/10-7-g-165-gr-trx-hunting-bullet-n584/
+Lapua,Scenar,GB422,7.62 mm (.308),167,0.3083,,0.446,0.223,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/30-scenar-bullet-gb422-1085-g-167-gr-otm/
+Lapua,Naturalis,N558,7.62 mm (.308),170,0.3083,,0.354,0.177,,Lead-free copper,,,yes,,https://www.lapua.com/product/30-cal-naturalis-hunting-bullet-n558-11-0-g-170-gr/
+Lapua,"FMJ Boat Tail, Lock Base",B476,7.62 mm (.308),170,0.3083,,0.498,0.249,Boat Tail,FMJBT (Full Metal Jacket Boat Tail),,,yes,,https://www.lapua.com/product/30-cal-lock-base-bullet-b476-110-g-170-gr-fmjbt/
+Lapua,Scenar-L,GB550,7.62 mm (.308),175,0.3083,,0.490,0.247,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/30-scenar-l-bullet-gb550-113-g-175-gr-otm/
+Lapua,Scenar-L,GB554,7 mm (.284),180,0.2839,,0.661,0.332,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/7mm-cal-scenar-l-bullet-gb554-117-g-180-gr-otm/
+Lapua,Naturalis,N559,8 mm (.323),180,0.3228,,0.357,0.179,,Lead-free copper,,,yes,,https://www.lapua.com/product/8mm-cal-naturalis-leadfree-hunting-bullet-n559-11-7-g-180-gr/
+Lapua,Scenar,GB432,7.62 mm (.308),185,0.3083,,0.482,0.242,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/30-cal-scenar-bullet-gb432-120-g-185-gr-otm/
+Lapua,D46,D46,7.62 mm (.308),185,0.3083,,0.506,0.254,Boat Tail,FMJBT (Full Metal Jacket Boat Tail),,,yes,,https://www.lapua.com/product/30-cal-d46-fmjbt-bullet-120-g-185-gr/
+Lapua,Mega,E415,7.62 mm (.308),185,0.3083,,0.319,,,Soft Point,,,yes,,https://www.lapua.com/product/30-cal-mega-hunting-bullet-e415-120-g-185-gr-sp/
+Lapua,Open Tip,G574,9.3 mm (.366),185,0.3661,,,,,Open Tip,,,yes,,https://www.lapua.com/product/93-mm-open-tip-bullet-g574-120-g-185-gr/
+Lapua,Mega,E401,7.62 mm (.308),200,0.3083,,0.344,,,Soft Point,,,yes,,https://www.lapua.com/product/30-cal-mega-hunting-bullet-e401-130-g-200-gr-sp/
+Lapua,7.83 mm (.308''),B416,7.62 mm (.308),200,0.3083,,0.518,0.235,Boat Tail,FMJBT (Full Metal Jacket Boat Tail),,,yes,,https://www.lapua.com/product/30-cal-fmjbt-subsonic-bullet-b416-130-g-200-gr/
+Lapua,D166,D166,7.62 mm (.310),200,0.3098,,0.448,0.224,Boat Tail,FMJBT (Full Metal Jacket Boat Tail),,,yes,,https://www.lapua.com/product/762-cal-d166-fmjbt-bullet-130-g-200-gr/
+Lapua,Scenar-L,GB551,7.62 mm (.308),220,0.3083,,0.647,0.324,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/30-scenar-l-bullet-gb551-143-g-220-gr-otm/
+Lapua,Naturalis,N508,8.61 mm (.338),231,0.3386,,0.373,,,Lead-free copper,,,yes,,https://www.lapua.com/product/338-cal-naturalis-leadfree-hunting-bullet-n508-15-0-g-231-gr/
+Lapua,Naturalis,N560,9.3 mm (.366),250,0.3661,,0.419,0.215,,Lead-free copper,,,yes,,https://www.lapua.com/product/93-mm-cal-naturalis-leadfree-hunting-bullet-n560-16-2-g-250-gr/
+Lapua,Lock Base,B408,8.61 mm (.338),250,0.3386,,0.625,0.310,Boat Tail,FMJBT (Full Metal Jacket Boat Tail),,,yes,,https://www.lapua.com/product/338-cal-lock-base-bullet-b408-162-g-250-gr-fmjbt/
+Lapua,Scenar,GB488,8.61 mm (.338),250,0.3386,,0.648,0.322,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/338-cal-scenar-bullet-gb488-162-g-250-gr-otm/
+Lapua,Mega,E433,9.3 mm (.366),285,0.3661,,0.339,,,Soft Point,,,yes,,https://www.lapua.com/product/93-mm-cal-mega-hunting-bullet-e433-1854-g-285-gr-sp/
+Lapua,Scenar,GB528,8.61 mm (.338),300,0.3386,,0.736,0.368,Boat Tail,Open Tip Match,,,yes,,https://www.lapua.com/product/338-cal-scenar-bullet-gb528-194-g-300-gr-otm/

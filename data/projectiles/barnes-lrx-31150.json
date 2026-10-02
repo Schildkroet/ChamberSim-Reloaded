@@ -1,0 +1,11 @@
+{
+  "mname": "Barnes",
+  "pname": "LRX 31150",
+  "caliber": ".338",
+  "gdia": 8.59,
+  "glen": 35.0,
+  "gmass": 250.0,
+  "gtailtype": 2,
+  "gtaildiaA": 8.59,
+  "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+}

@@ -1,0 +1,13 @@
+{
+  "mname": "Berger",
+  "pname": "Long Range Hybrid Target 26485",
+  "caliber": ".264",
+  "gdia": 6.71,
+  "glen": 35.9,
+  "gmass": 144.0,
+  "gtailtype": 2,
+  "gtaildiaA": 6.71,
+  "gtailh": 4.8,
+  "g1bc": 0.655,
+  "g7bc": 0.336
+}

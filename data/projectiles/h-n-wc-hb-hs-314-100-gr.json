@@ -1,0 +1,10 @@
+{
+  "mname": "H&N",
+  "pname": "WC HB HS .314 100 gr",
+  "caliber": ".314",
+  "gdia": 7.98,
+  "glen": 12.6,
+  "gmass": 100.0,
+  "gtailtype": 1,
+  "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+}

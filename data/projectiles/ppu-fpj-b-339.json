@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "FPJ B-339",
+  "caliber": ".356",
+  "gdia": 9.03,
+  "glen": 19.6,
+  "gmass": 158.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

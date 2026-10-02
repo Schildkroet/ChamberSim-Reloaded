@@ -1,0 +1,13 @@
+{
+  "mname": "Berger",
+  "pname": "Hybrid Target 24433",
+  "caliber": ".243",
+  "gdia": 6.17,
+  "glen": 31.9,
+  "gmass": 105.0,
+  "gtailtype": 2,
+  "gtaildiaA": 6.17,
+  "gtailh": 5.4,
+  "g1bc": 0.536,
+  "g7bc": 0.275
+}

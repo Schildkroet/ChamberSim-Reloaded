@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "SP B-115",
+  "caliber": ".284",
+  "gdia": 7.21,
+  "glen": 36.0,
+  "gmass": 174.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

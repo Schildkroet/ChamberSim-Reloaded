@@ -1,0 +1,9 @@
+{
+  "mname": "H&N",
+  "pname": "TC HS .430 240 gr",
+  "caliber": ".430",
+  "gdia": 10.92,
+  "glen": 16.1,
+  "gmass": 240.0,
+  "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+}

@@ -1,0 +1,15 @@
+{
+  "cipname": ".30 Remington AR",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2008-01-01",
+  "L3": 38.86,
+  "L6": 57.4,
+  "R1": 12.5,
+  "E": 1.37,
+  "P1": 12.7,
+  "V": 44,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values)"
+}

@@ -1,0 +1,19 @@
+{
+  "cipname": ".458 SOCOM",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "L3": 40,
+  "L6": 57.4,
+  "R1": 12.01,
+  "E": 1.04,
+  "P1": 13.74,
+  "P2": 13.49,
+  "H1": 12.32,
+  "H2": 12.32,
+  "G1": 11.63,
+  "V": 61.1,
+  "c_Q": 106.23,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

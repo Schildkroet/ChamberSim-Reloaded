@@ -1,0 +1,20 @@
+{
+  "cipname": ".30 Super Carry",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2022-01-01",
+  "L3": 21.01,
+  "L6": 29.69,
+  "R1": 8.74,
+  "E": 1.27,
+  "P1": 8.69,
+  "P2": 8.59,
+  "H1": 8.56,
+  "H2": 8.56,
+  "G1": 7.92,
+  "V": 12,
+  "c_Q": 49.27,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

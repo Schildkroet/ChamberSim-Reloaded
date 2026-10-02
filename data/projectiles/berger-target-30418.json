@@ -1,0 +1,13 @@
+{
+  "mname": "Berger",
+  "pname": "Target 30418",
+  "caliber": ".308",
+  "gdia": 7.82,
+  "glen": 34.1,
+  "gmass": 185.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.82,
+  "gtailh": 5.6,
+  "g1bc": 0.555,
+  "g7bc": 0.284
+}

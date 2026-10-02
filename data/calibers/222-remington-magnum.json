@@ -1,0 +1,19 @@
+{
+  "cipname": ".222 Remington Magnum",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "1957-01-01",
+  "L3": 46.99,
+  "L6": 57.91,
+  "R1": 9.6,
+  "P1": 9.55,
+  "P2": 9.07,
+  "H1": 6.43,
+  "H2": 6.43,
+  "G1": 5.69,
+  "V": 32,
+  "c_Q": 25.43,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

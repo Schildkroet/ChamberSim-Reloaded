@@ -1,0 +1,13 @@
+{
+  "mname": "Lapua",
+  "pname": "Scenar GB458",
+  "caliber": ".264",
+  "gdia": 6.71,
+  "glen": 35.5,
+  "gmass": 139.0,
+  "gtailtype": 2,
+  "gtaildiaA": 6.71,
+  "g1bc": 0.578,
+  "g7bc": 0.29,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

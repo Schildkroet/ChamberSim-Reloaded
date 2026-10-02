@@ -1,0 +1,13 @@
+{
+  "mname": "Norma",
+  "pname": "Bondstrike 20665651",
+  "caliber": ".264",
+  "gdia": 6.71,
+  "glen": 36.5,
+  "gmass": 143.0,
+  "gtailtype": 2,
+  "gtaildiaA": 6.71,
+  "g1bc": 0.629,
+  "g7bc": 0.313,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

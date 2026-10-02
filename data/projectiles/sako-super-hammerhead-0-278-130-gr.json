@@ -1,0 +1,12 @@
+{
+  "mname": "Sako",
+  "pname": "Super Hammerhead 0.278 130 gr",
+  "caliber": ".278",
+  "gdia": 7.06,
+  "glen": 30.1,
+  "gmass": 130.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.06,
+  "g1bc": 0.4,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

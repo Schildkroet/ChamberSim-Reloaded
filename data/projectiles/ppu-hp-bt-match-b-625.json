@@ -1,0 +1,11 @@
+{
+  "mname": "PPU",
+  "pname": "HP BT match B-625",
+  "caliber": ".308",
+  "gdia": 7.82,
+  "glen": 29.5,
+  "gmass": 155.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.82,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

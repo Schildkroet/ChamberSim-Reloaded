@@ -1,0 +1,19 @@
+{
+  "cipname": ".22 Long Rifle",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "2 rimmed",
+  "cipdate": "1887-01-01",
+  "L3": 15.57,
+  "L6": 25.4,
+  "R1": 7.06,
+  "E": 1.09,
+  "P1": 5.74,
+  "H1": 5.74,
+  "H2": 5.74,
+  "G1": 5.66,
+  "V": 3.6,
+  "c_Q": 25.16,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

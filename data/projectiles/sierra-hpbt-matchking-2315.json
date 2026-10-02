@@ -1,0 +1,11 @@
+{
+  "mname": "Sierra",
+  "pname": "HPBT MATCHKING 2315",
+  "caliber": ".311",
+  "gdia": 7.9,
+  "glen": 32.5,
+  "gmass": 174.0,
+  "gtailtype": 2,
+  "gtaildiaA": 7.9,
+  "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+}

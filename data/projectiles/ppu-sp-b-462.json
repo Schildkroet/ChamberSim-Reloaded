@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "SP B-462",
+  "caliber": ".322",
+  "gdia": 8.18,
+  "glen": 21.6,
+  "gmass": 139.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

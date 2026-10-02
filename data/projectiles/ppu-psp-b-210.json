@@ -1,0 +1,9 @@
+{
+  "mname": "PPU",
+  "pname": "PSP B-210",
+  "caliber": ".310",
+  "gdia": 7.87,
+  "glen": 20.9,
+  "gmass": 123.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

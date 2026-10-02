@@ -1,0 +1,20 @@
+{
+  "cipname": ".416 Barrett",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2005-01-01",
+  "L3": 83.06,
+  "L6": 118.11,
+  "R1": 20.42,
+  "E": 2.11,
+  "P1": 20.4,
+  "P2": 18.54,
+  "H1": 11.63,
+  "H2": 11.63,
+  "G1": 10.57,
+  "V": 200,
+  "c_Q": 87.75,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

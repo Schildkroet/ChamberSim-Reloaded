@@ -1,0 +1,11 @@
+{
+  "mname": "Barnes",
+  "pname": "TTSX 30484",
+  "caliber": ".375",
+  "gdia": 9.52,
+  "glen": 28.4,
+  "gmass": 250.0,
+  "gtailtype": 2,
+  "gtaildiaA": 9.52,
+  "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+}

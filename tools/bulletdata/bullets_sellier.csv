@@ -1,0 +1,106 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+Sellier & Bellot,FMJ,V319022,6.35 BROWNING,50,.251,,,,,FMJ 6.35 BROWNING,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319622,7.62 × 25 TOKAREV,85,.308,,,,,FMJ 7.62 × 25 TOKAREV,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319072,7.65 BROWNING,73,.309,,,,,FMJ 7.65 BROWNING,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,WC,V319472,32 S&W LONG,100,.314,,,,,WC 32 S&W LONG,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,LRN,V319482,,100,.314,,,,,LRN ,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319122,9 mm BROWNING COURT,92,.355,,,,,FMJ 9 mm BROWNING COURT,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TFMJ,V319802,9 mm LUGER,115,.355,,,,,TFMJ 9 mm LUGER,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319172,"9 mm LUGER, 9 × 21",115,.355,,,,,"FMJ 9 mm LUGER, 9 × 21",,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TFMJ,V319842,,124,.355,,,,,TFMJ ,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319222,,124,.355,,,,,FMJ ,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,JHP,V319422,9 mm LUGER,115,.355,,,,,JHP 9 mm LUGER,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,JHP,V319402,,124,.355,,,,,JHP ,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V319932,,100,.355,,,,,SP ,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V319272,"9 mm LUGER, 9 × 21",124,.355,,,,,"SP 9 mm LUGER, 9 × 21",,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,LRN,V318372,,124,.355,,,,,LRN ,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319322,"9 mm LUGER SUBSONIC, 357 SIG",140,.355,,,,,"FMJ 9 mm LUGER SUBSONIC, 357 SIG",,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319342,"9 mm LUGER SUBSONIC, 357 SIG",150,.355,,,,,"FMJ 9 mm LUGER SUBSONIC, 357 SIG",,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319372,9 mm MAKAROV,95,.363,,,,,FMJ 9 mm MAKAROV,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TFMJ,V318532,38 SPECIAL,158,.357,,,,,TFMJ 38 SPECIAL,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V318622,38 SPECIAL,158,.357,,,,,FMJ 38 SPECIAL,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V318672,38 SPECIAL,158,.357,,,,,SP 38 SPECIAL,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,LFN,V318642,38 SPECIAL,158,.357,,,,,LFN 38 SPECIAL,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,LRN,V318522,38 SPECIAL,158,.357,,,,,LRN 38 SPECIAL,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,WC,V318572,38 SPECIAL,148,.357,,,,,WC 38 SPECIAL,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TFMJ,V318922,357 MAGNUM,158,.357,,,,,TFMJ 357 MAGNUM,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V318722,357 MAGNUM,158,.357,,,,,FMJ 357 MAGNUM,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V318772,357 MAGNUM,158,.357,,,,,SP 357 MAGNUM,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SJHP,V318742,357 MAGNUM,158,.357,,,,,SJHP 357 MAGNUM,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TFMJ,V318952,40 S&W,180,.400,,,,,TFMJ 40 S&W,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V318842,40 S&W,165,.400,,,,,FMJ 40 S&W,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V318822,40 S&W,180,.400,,,,,FMJ 40 S&W,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,JHP,V318792,40 S&W,180,.400,,,,,JHP 40 S&W,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V319522,44 REM. MAG.,240,.430,,,,,SP 44 REM. MAG.,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TFMJ,V319572,"45 AUTO, 45 GAP",230,.452,,,,,"TFMJ 45 AUTO, 45 GAP",,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V318872,"45 AUTO, 45 GAP",230,.452,,,,,"FMJ 45 AUTO, 45 GAP",,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,JHP,V318972,"45 AUTO, 45 GAP",230,.452,,,,,"JHP 45 AUTO, 45 GAP",,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V319542,45 COLT,230,.454,,,,,FMJ 45 COLT,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,JHP,V318912,45 COLT,230,.452,,,,,JHP 45 COLT,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,LFN,V319532,45 COLT,250,.454,,,,,LFN 45 COLT,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,JHP,V318032,460 S&W MAG.,255,.452,,,,,JHP 460 S&W MAG.,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,EDGE,V338892,9315,120,.264,,,,,EDGE 9315,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,EDGE,V339342,9317,150,.284,,,,,EDGE 9317,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,EDGE,V339592,9318,165,.308,,,,,EDGE 9318,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,EDGE,V339642,9319,180,.308,,,,,EDGE 9319,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,EDGE,V339532,9321,180,.323,,,,,EDGE 9321,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TXRG,V338432,2965,120,.264,,,,,TXRG 2965,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TXRG,V339332,2969,150,.284,,,,,TXRG 2969,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TXRG,V339082,2973,110,.308,,,,,TXRG 2973,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TXRG,V339382,2971,165,.308,,,,,TXRG 2971,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TXRG,V339392,2972,180,.308,,,,,TXRG 2972,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TXRG,V339992,2976,180,.323,,,,,TXRG 2976,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,TXRG,V339952,2991,250,.366,,,,,TXRG 2991,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V339162,2886,52,.224,,,,Boat Tail,HPBT 2886,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V338332,2887,69,.224,,,,Boat Tail,HPBT 2887,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V339152,2888,77,.224,,,,Boat Tail,HPBT 2888,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V339172,2890,142,.264,,,,Boat Tail,HPBT 2890,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V338482,2880,168,.308,,,,Boat Tail,HPBT 2880,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V338712,2882,175,.308,,,,Boat Tail,HPBT 2882,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V338702,2881,180,.308,,,,Boat Tail,HPBT 2881,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V339432,2898,250,.338,,,,Boat Tail,HPBT 2898,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,HPBT,V339442,2899,300,.338,,,,Boat Tail,HPBT 2899,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338022,2901,45,.224,,,,,FMJ 2901,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338122,2902,50,.224,,,,,FMJ 2902,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338142,2903,55,.224,,,,,FMJ 2903,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338322,2904,70,.226,,,,,FMJ 2904,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339622,2905,140,.264,,,,,FMJ 2905,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339132,2340,110,.277,,,,,FMJ 2340,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339972,2955,140,.284,,,,,FMJ 2955,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338632,2947,174,.306,,,,,FMJ 2947,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339102,2958,124,.308,,,,,FMJ 2958,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338922,2908,147,.308,,,,,FMJ 2908,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338782,2954,150,.308,,,,,FMJ 2954,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339022,2957,180,.308,,,,,FMJ 2957,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339052,2950,200,.308,,,,,FMJ 2950,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339802,2960,110,.308,,,,,FMJ 2960,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339922,2907,124,.312,,,,,FMJ 2907,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338822,2909,180,.312,,,,,FMJ 2909,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V339372,2910,196,.323,,,,,FMJ 2910,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,FMJ,V338682,2946,232,.366,,,,,FMJ 2946,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338072,2911,45,.224,,,,,SP 2911,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338172,2913,50,.224,,,,,SP 2913,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338272,2914,55,.224,,,,,SP 2914,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338372,2915,70,.226,,,,,SP 2915,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338422,2921,100,.243,,,,,SP 2921,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338472,2925,117,.257,,,,,SP 2925,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338522,2923,131,.264,,,,,SP 2923,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338572,2928,140,.264,,,,,SP 2928,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338442,2926,156,.264,,,,,SP 2926,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338622,2927,150,.277,,,,,SP 2927,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339292,2929,130,.277,,,,,SP 2929,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338672,2931,140,.284,,,,,SP 2931,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339582,2934,150,.308,,,,,SP 2934,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339072,2937,180,.308,,,,,SP 2937,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338942,2959,110,.308,,,,,SP 2959,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339272,2943,124,.312,,,,,SP 2943,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338872,2939,150,.312,,,,,SP 2939,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339772,2940,180,.312,,,,,SP 2940,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339322,2941,196,.318,,,,,SP 2941,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339522,2951,193,.367,,,,,SP 2951,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V339572,2952,285,.366,,,,,SP 2952,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SP,V338582,2948,405,.458,,,,,SP 2948,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SPCE,V338732,2932,173,.284,,,,,SPCE 2932,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SPCE,V338972,2936,150,.308,,,,,SPCE 2936,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SPCE,V339722,2935,180,.308,,,,,SPCE 2935,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/
+Sellier & Bellot,SPCE,V339422,2945,196,.323,,,,,SPCE 2945,,,yes,,https://www.sellier-bellot.cz/en/products/components/bullets/

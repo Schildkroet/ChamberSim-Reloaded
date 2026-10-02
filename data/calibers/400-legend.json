@@ -1,0 +1,19 @@
+{
+  "cipname": ".400 Legend",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2023-01-01",
+  "L3": 41.91,
+  "L6": 57.4,
+  "R1": 10.72,
+  "E": 1.24,
+  "P1": 11.18,
+  "H1": 10.84,
+  "H2": 10.84,
+  "G1": 10.17,
+  "V": 44.8,
+  "c_Q": 81.23,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

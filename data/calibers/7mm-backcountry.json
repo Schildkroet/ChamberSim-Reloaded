@@ -1,0 +1,20 @@
+{
+  "cipname": "7mm Backcountry",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2024-01-01",
+  "L3": 61.39,
+  "L6": 84.84,
+  "R1": 11.99,
+  "E": 1.24,
+  "P1": 11.93,
+  "P2": 11.65,
+  "H1": 8.05,
+  "H2": 8.05,
+  "G1": 7.21,
+  "V": 73,
+  "c_Q": 40.83,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

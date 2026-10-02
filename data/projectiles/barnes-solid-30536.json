@@ -1,0 +1,9 @@
+{
+  "mname": "Barnes",
+  "pname": "SOLID 30536",
+  "caliber": ".422",
+  "gdia": 10.72,
+  "glen": 33.3,
+  "gmass": 400.0,
+  "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+}

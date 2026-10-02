@@ -1,0 +1,62 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+Norma,GTX,10657401,5.7mm (.224),69,.224,,0.393,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-5-7-mm-224-69gr---10657401
+Norma,Diamond Line,10660162,6mm (.243),105,.243,,0.517,0.258,Boat Tail,Moly Coated HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-diamond-line-6mm-243-105gr---10660162
+Norma,Diamond Line,10665081,6.5mm (.264),130,.264,,0.548,0.274,Boat Tail,Moly Coated HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-diamond-line-6-5mm-264-130gr---10665081
+Norma,GTX,10665091,6.5mm (.264),130,.264,,0.548,0.274,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-6-5-mm-264-130gr---10665091
+Norma,GTX,10665201,6.5mm (.264),100,.264,,0.345,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-6-5-mm-264-100gr---10665201
+Norma,GTX,10665681,6.5mm (.264),143,.264,,0.635,0.321,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-6-5-mm-264-143gr---10665681
+Norma,GTX,10665682,6.5mm (.264),,.264,,,,Boat Tail,HPBT,,,no,missing: weight,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-6-5mm-143gr---10665682
+Norma,GTX,10676861,.30 (.308),155,.308,,0.384,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-30-308-155gr---10676861
+Norma,GTX,10677031,.30 (.308),168,.308,,0.438,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-30-308-168gr---10677031
+Norma,GTX,10677061,.30 (.308),175,.308,,0.547,0.283,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-30-308-175gr---10677061
+Norma,GTX,10685031,.338,250,,,0.684,,Boat Tail,HPBT,,,no,missing: diameter,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-338-250gr---10685031
+Norma,Tipstrike,20657001,5.7mm (.224),55,.224,,0.245,,,Tipped SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-varmint-5-7mm-224-55gr---20657001
+Norma,Soft Point,20657011,5.7mm (.224),50,.224,,0.185,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-soft-point-5-7mm-224-50g---20657011
+Norma,Oryx,20657131,5.7mm (.224),55,.224,,0.185,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-5-7mm-224-55gr---20657131
+Norma,Tipstrike,20660141,6mm (.243),76,.243,,0.332,,,Tipped SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-varmint-6mm-243-76gr---20660141
+Norma,Bondstrike,20660251,,105,,,,,Boat Tail,Tipped Bonded BT-SP,,,no,missing: diameter,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-bondstrike-6mm-105gr---20660251
+Norma,Oryx,20660501,6mm (.243),100,.243,,0.261,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-6mm-243-100gr---20660501
+Norma,FMJ,20665141,6.5mm (.264),120,.264,,0.428,,,,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-fmj-6-5mm-264-120gr---20665141
+Norma,GTX,20665201,6.5mm (.264),100,.264,,0.345,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-6-5-mm-264-100gr---20665201
+Norma,GTX,20665202,6.5mm (.264),100,.264,,0.345,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-gtx-6-5-mm-264-100gr---20665202
+Norma,Oryx,20665241,6.5mm (.264),156,.264,,0.348,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-6-5-mm-264-156gr---20665241
+Norma,Alaska,20665321,6.5mm (.264),156,.264,,0.276,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-alaska-6-5mm-264-156gr---20665321
+Norma,Vulkan,20665351,6.5mm (.264),156,.264,,0.354,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-vulkan-6-5mm-264-156gr---20665351
+Norma,Bondstrike,20665651,6.5mm (.264),143,.264,,0.629,0.313,Boat Tail,Tipped Bonded BT-SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-bondstrike-6-5-mm-264-143gr---20665651
+Norma,Ecostrike,20665701,6.5mm (.264),120,.264,,,,Boat Tail,Tipped Expanding BT-LF,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-ecostrike-6-5-mm-120gr---20665701
+Norma,Tipstrike,20669241,.270,140,,,0.48,,,Tipped SP,,,no,missing: diameter,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-270-140gr---20669241
+Norma,Oryx,20669501,.270,150,,,0.373,,,Bonded SP,,,no,missing: diameter,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-270-150gr---20669501
+Norma,Oryx,20670041,7mm (.284),156,.284,,0.33,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-7mm-284-156gr---20670041
+Norma,Oryx,20670051,7mm (.284),170,.284,,0.324,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-7mm-284-170gr---20670051
+Norma,Vulkan,20670061,7mm (.284),170,.284,,0.353,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-vulkan-7mm-284-170gr---20670061
+Norma,Tipstrike,20670141,7mm (.284),160,.284,,0.51,,,Tipped SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-7mm-284-160gr---20670141
+Norma,Bondstrike,20670171,7mm (.284),165,.284,,0.632,0.313,Boat Tail,Tipped Bonded BT-SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-bondstrike-7-mm-284-165gr---20670171
+Norma,Oryx,20676161,.30 (.308),165,.308,,0.333,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-30-308-165gr---20676161
+Norma,Oryx,20676391,.30 (.308),200,.308,,0.338,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-30-308-200gr---20676391
+Norma,Oryx,20676441,.30 (.308),180,.308,,0.354,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-30-308-180gr---20676441
+Norma,Alaska,20676481,.30 (.308),180,.308,,0.257,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-alaska-30-308-180gr---20676481
+Norma,FMJ,20676511,.30 (.308),150,.308,,0.423,,,,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-fmjbt-30-308-150gr---20676511
+Norma,FMJ,20676512,.30 (.308),150,.308,,0.423,,,,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-fmj-30-308-150gr---20676512
+Norma,Vulkan,20676531,.30 (.308),180,.308,,0.315,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-vulkan-30-308-180gr---20676531
+Norma,Bondstrike,20676871,.30 (.308),180,.308,,0.615,,Boat Tail,Tipped Bonded BT-SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-bondstrike-30-308-180gr---20676871
+Norma,Tipstrike,20676891,.30 (.308),170,.308,,0.454,,,Tipped SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-30-308-170gr---20676891
+Norma,Ecostrike,20676941,.30 (.308),150,.308,,0.376,,Boat Tail,Tipped Expanding BT-LF,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-ecostrike-30-308-150-gr---20676941
+Norma,Ecostrike,20677071,.30 (.308),165,.308,,0.431,,Boat Tail,Tipped Expanding BT-LF,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-ecostrike-30-308-165-gr---20677071
+Norma,Tipstrike,20677141,.30 (.308),,.308,,,,,Tipped SP,,,no,missing: weight,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-30-150gr---20677141
+Norma,Oryx,20680011,8mm (.323),196,.323,,0.331,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-8mm-323-196gr---20680011
+Norma,Ecostrike,20680121,8mm (.323),160,.323,,0.353,,Boat Tail,Tipped Expanding BT-LF,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-ecostrike-8-mm-323-160-gr---20680121
+Norma,FMJ,20680141,8mm (.323),123,.323,,0.191,,,,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-fmj-8mm-323-123gr---20680141
+Norma,Vulkan,20680201,8mm (.323),196,.323,,0.347,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-vulkan-8mm-323-196gr---20680201
+Norma,GTX,20680401,8mm (.323),180,.323,,,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-tipstrike-323-180gr---20680401
+Norma,Tipstrike,20681001,8mm (.323),180,.323,,0.361,,,Tipped SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-8mm-323-180gr---20681001
+Norma,Oryx,20686161,.338,230,,,0.37,,,Bonded SP,,,no,missing: diameter,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-338-230gr---20686161
+Norma,Oryx,20690071,.358,250,,,0.34,,,Bonded SP,,,no,missing: diameter,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-358-250gr---20690071
+Norma,Vulkan,20693051,9.3mm (.366),232,.366,,0.278,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-vulkan-9-3mm-366-232gr---20693051
+Norma,FMJ,20693061,9.3mm (.366),232,.366,,0.275,,,,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-fmj-9-3mm-366-232gr---20693061
+Norma,Oryx,20693071,9.3mm (.366),232,.366,,0.267,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-9-3mm-366-232gr---20693071
+Norma,Oryx,20693081,9.3mm (.366),286,.366,,0.356,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-9-3mm-366-285gr---20693081
+Norma,Oryx,20693121,9.3mm (.366),325,.366,,0.383,,,Bonded SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-9-3mm-366-325gr---20693121
+Norma,Alaska,20693161,9.3mm (.366),285,.366,,0.365,,,SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-alaska-9-3mm-366-285gr---20693161
+Norma,GTX,20693271,9.3mm (.366),250,.366,,,,Boat Tail,HPBT,,,yes,,https://www.norma-ammunition.com/products/components/shooting-bullets/norma-ecostrike-366-250gr---20693271
+Norma,Tipstrike,20694001,9.3mm (.366),255,.366,,0.428,,,Tipped SP,,,yes,,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-tipstrike-9-3mm-366-255gr---20694001
+Norma,Oryx,20695071,.375,300,,,0.32,,,Bonded SP,,,no,missing: diameter,https://www.norma-ammunition.com/products/components/hunting-bullets/norma-oryx-375-300gr---20695071

@@ -1,0 +1,351 @@
+manufacturer,line,part,caliber_name,weight_gr,diameter_in,length_in,g1bc,g7bc,base_style,ogive_style,boat_tail_length_in,discontinued,valid,note,url
+Hornady,XTP eXtreme Terminal Performance,32050,32 Cal.,85,.312,,.145,,,32 Cal .312 85 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/32-cal-312-85-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,32070,32 Cal.,100,.312,,.170,,,32 Cal .312 100 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/32-cal-312-100-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,35500,9mm,90,.355,,.099,,,9mm .355 90 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-90-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,35540,9mm,115,.355,,.129,,,9mm .355 115 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-115-gr-xtp
+Hornady,FMJ,35557,9mm,115,.355,,.140,,,9mm .355 115 gr FMJ RN,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-115-gr-fmj-rn
+Hornady,XTP eXtreme Terminal Performance,35580,9mm,147,.355,,.212,,,9mm .355 147 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-147-gr-xtp
+Hornady,HAP Hornady Action Pistol,35572B,9mm,125,.356,,.158,,,9mm .356 125 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/9mm-356-125-gr-hap-3000
+Hornady,HAP Hornady Action Pistol,355721,9mm,125,.356,,.158,,,9mm .356 125 gr HAP Box of 500,,,yes,,https://www.hornady.com/bullets/handgun/9mm-356-125-gr-hap-box-of-500
+Hornady,FMJ,355771,9mm,124,.355,,.145,,,9mm .355 124 gr FMJ RN,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-124-gr-fmj-rn-500
+Hornady,FMJ,35557B,9mm,115,.355,,.140,,,9mm .355 115 gr FMJ RN,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-115-gr-fmj-rn-3000
+Hornady,FMJ,35527B,9mm,100,.355,,.158,,,9mm .355 100 gr FMJ,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-100-gr-fmj-3500
+Hornady,FMJ,35577B,9mm,124,.355,,.145,,,9mm .355 124 gr FMJ RN,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-124-gr-fmj-rn-2900
+Hornady,FMJ,35597B,9mm,147,.355,,.212,,,9mm .355 147 gr FMJ RN,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-147-gr-fmj-rn-2500
+Hornady,HAP Hornady Action Pistol,35528B,9mm,115,.355,,.129,,,9mm .355 115 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-115-gr-hap-3000
+Hornady,HAP Hornady Action Pistol,355281,9mm,115,.355,,.129,,,9mm .355 115 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/9mm-355-115-gr-hap-500
+Hornady,XTP eXtreme Terminal Performance,35700,38 Cal.,110,.357,,.131,,,38 Cal .357 110 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-110-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,35710,38 Cal.,125,.357,,.151,,,38 Cal .357 125 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-125-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,35730,38 Cal.,125,.357,,.148,,,38 Cal .357 125 gr FP XTP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-125-gr-fp-xtp
+Hornady,XTP eXtreme Terminal Performance,35740,38 Cal.,140,.357,,.169,,,38 Cal .357 140 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-140-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,35750,38 Cal.,158,.357,,.206,,,38 Cal .357 158 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-158-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,35771,38 Cal.,180,.357,,.230,,,38 Cal .357 180 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-180-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,35780,38 Cal.,158,.357,,.199,,,38 Cal .357 158 gr FP XTP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-158-gr-fp-xtp
+Hornady,FTX,35745,38 Cal.,140,.357,,.160,,,38 Cal .357 140 gr FTX (357 Mag),,,yes,,https://www.hornady.com/bullets/handgun/38-cal-357-140-gr-ftx-357-mag
+Hornady,Lead Bullets,10208,38 Cal.,148,.358,,.047,,,38 Cal .358 148 gr HBWC,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-358-148-gr-hbwc
+Hornady,Lead Bullets,10408,38 Cal.,158,.358,,.135,,,38 Cal .358 158 gr SWC,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-358-158-gr-swc
+Hornady,Lead Bullets,10428,38 Cal.,158,.358,,.139,,,38 Cal .358 158 gr SWC HP,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-358-158-gr-swc-hp
+Hornady,Lead Bullets,10508,38 Cal.,158,.358,,.159,,,38 Cal .358 158 gr LRN,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-358-158-gr-lrn
+Hornady,XTP eXtreme Terminal Performance,40000,10mm,155,.400,,.137,,,10mm .400 155 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-400-155-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,40040,10mm,180,.400,,.164,,,10mm .400 180 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-400-180-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,40060,10mm,200,.400,,.199,,,10mm .400 200 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-400-200-gr-xtp
+Hornady,HAP Hornady Action Pistol,40042B,10mm,180,.400,,.164,,,10mm .400 180 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-400-180-gr-hap-1900
+Hornady,HAP Hornady Action Pistol,400421,10mm,180,.400,,.164,,,10mm .400 180 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-400-180-gr-hap-500
+Hornady,HAP Hornady Action Pistol,40061B,10mm,200,.400,,.199,,,10mm .400 200 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-400-200-gr-hap-1800
+Hornady,XTP eXtreme Terminal Performance,41000,41 Cal.,210,.410,,.182,,,41 Cal .410 210 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/41-cal-410-210-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,44050,44 Cal.,180,.430,,.138,,,44 Cal .430 180 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/44-cal-430-180-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,44100,44 Cal.,200,.430,,.170,,,44 Cal .430 200 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/44-cal-430-200-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,44200,44 Cal.,240,.430,,.205,,,44 Cal .430 240 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/44-cal-430-240-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,44280,44 Cal.,300,.430,,.245,,,44 Cal .430 300 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/44-cal-430-300-gr-xtp
+Hornady,FTX,44105,44 Cal.,225,.430,,.150,,,44 Cal .430 225 gr FTX (44 Mag),,,yes,,https://www.hornady.com/bullets/handgun/44-cal-430-225-gr-ftx-44-mag
+Hornady,XTP eXtreme Terminal Performance,45100,45 Cal.,185,.451,,.139,,,45 Cal .451 185 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-185-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,45140,45 Cal.,200,.451,,.151,,,45 Cal .451 200 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-200-gr-xtp
+Hornady,XTP eXtreme Terminal Performance,45160,45 Cal.,230,.451,,.188,,,45 Cal .451 230 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-230-gr-xtp
+Hornady,FMJ,45177,45 Cal.,230,.451,,.184,,,45 Cal .451 230 gr FMJ-RN,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-230-gr-fmj-rn
+Hornady,HAP Hornady Action Pistol,45161B,45 Cal.,230,.451,,.188,,,45 Cal .451 230 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-230-gr-hap-1500
+Hornady,FMJ,451771,45 Cal.,230,.451,,.184,,,45 Cal .451 230 gr FMJ-RN,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-230-gr-fmj-rn-500
+Hornady,FMJ,45177B,45 Cal.,230,.451,,.184,,,45 Cal .451 230 gr FMJ-RN,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-230-gr-fmj-rn-1500
+Hornady,HAP Hornady Action Pistol,45105B,45 Cal.,185,.451,,.139,,,45 Cal .451 185 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-185-gr-hap-1900
+Hornady,HAP Hornady Action Pistol,45159B,45 Cal.,200,.451,,.151,,,45 Cal .451 200 gr HAP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-451-200-gr-hap-1800
+Hornady,XTP eXtreme Terminal Performance,45200,45 Cal.,250,.452,,.146,,,45 Cal .452 250 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-452-250-gr-xtp
+Hornady,XTP Mag,45220,45 Cal.,240,.452,,.160,,,45 Cal .452 240 gr XTP Mag,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-452-240-gr-xtp-mag
+Hornady,XTP eXtreme Terminal Performance,45230,45 Cal.,300,.452,,.180,,,45 Cal .452 300 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-452-300-gr-xtp
+Hornady,XTP Mag,45235,45 Cal.,300,.452,,.200,,,45 Cal .452 300 gr XTP Mag,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-452-300-gr-xtp-mag
+Hornady,Lead Bullets,12458,45 Cal.,255,.454,,.117,,,45 Cal .454 255 gr FP Cowboy,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-454-255-gr-fp-cowboy
+Hornady,XTP Mag,50100,50 Cal.,350,.500,,.145,,,500 S&W .500 350 gr XTP Mag,,,yes,,https://www.hornady.com/bullets/handgun/500-s-w-500-350-gr-xtp-mag
+Hornady,XTP Mag,50101,50 Cal.,300,.500,,.120,,,50 AE .500 300 gr XTP Mag,,,yes,,https://www.hornady.com/bullets/handgun/50-ae-500-300-gr-xtp-mag
+Hornady,FTX,50102,50 Cal.,300,.500,,.200,,,50 Cal .500 300 gr FTX (500 S&W),,,yes,,https://www.hornady.com/bullets/handgun/50-cal-500-300-gr-ftx-500-s-w
+Hornady,XTP eXtreme Terminal Performance,31000,30 Cal.,90,.309,,.115,,,30 Cal .309 90 gr XTP,,,yes,,https://www.hornady.com/bullets/handgun/30-cal-309-90-gr-xtp
+Hornady,V-MAX,17105,17 Cal.,25,.172,,.230,,,17 Cal .172 25 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/17-cal-172-25-gr-v-max
+Hornady,V-MAX,21710,17 Cal.,20,.172,,.185,,,17 Cal .172 20 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/17-cal-172-20-gr-v-max
+Hornady,V-MAX,22004,20 Cal.,32,.204,,.210,,,20 Cal .204 32 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/20-cal-204-32-gr-v-max-100
+Hornady,V-MAX,22006,20 Cal.,40,.204,,.275,,,20 Cal .204 40 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/20-cal-204-40-gr-v-max-100
+Hornady,V-MAX,22606,20 Cal.,40,.204,,.275,,,20 Cal .204 40 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/20-cal-204-40-gr-dgx-bonded
+Hornady,NTX,22000,20 Cal.,24,.204,,.170,,,20 Cal .204 24 gr NTX,,,yes,,https://www.hornady.com/bullets/rifle/20-cal-204-24-gr-ntx
+Hornady,V-MAX,22241,22 Cal.,40,.224,,.200,,,22 Cal .224 40 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-40-gr-v-max-100
+Hornady,V-MAX,22252,22 Cal.,35,.224,,.109,,,22 Cal .224 35 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-35-gr-v-max
+Hornady,V-MAX,22261,22 Cal.,50,.224,,.242,,,22 Cal .224 50 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-50-gr-v-max-100
+Hornady,V-MAX,22271,22 Cal.,55,.224,,.255,,,22 Cal .224 55 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-v-max-100
+Hornady,V-MAX,22281,22 Cal.,60,.224,,.265,,,22 Cal .224 60 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-60-gr-v-max
+Hornady,Varmint,2229,22 Cal.,45,.224,,.108,,,22 Cal .224 45 gr HP BEE,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-45-gr-hp-bee
+Hornady,Varmint,2230,22 Cal.,45,.224,,.202,,,22 Cal .224 45 gr HORNET,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-45-gr-hornet
+Hornady,Varmint,2240,22 Cal.,50,.224,,.214,,,22 Cal .224 50 gr SP SX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-50-gr-sp-sx
+Hornady,V-MAX,22416,22 Cal.,40,.224,,.200,,,22 Cal .224 40 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-40-gr-v-max-250
+Hornady,Varmint,2245,22 Cal.,50,.224,,.214,,,22 Cal .224 50 gr SP,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-50-gr-sp
+Hornady,Match,2249,22 Cal.,52,.224,,.229,,,22 Cal .224 52 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-52-gr-bthp-match
+Hornady,Match,2250,22 Cal.,53,.224,,.218,,,22 Cal .224 53 gr HP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-53-gr-hp-match
+Hornady,Varmint,2260,22 Cal.,55,.224,,.235,,,22 Cal .224 55 gr SP SX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-sp-sx
+Hornady,V-MAX,22616,22 Cal.,50,.224,,.242,,,22 Cal .224 50 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-50-gr-v-max-250
+Hornady,Varmint,2265,22 Cal.,55,.224,,.235,,,22 Cal .224 55 gr SP,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-sp
+Hornady,Varmint,2266,22 Cal.,55,.224,,.235,,Boat Tail,22 Cal .224 55 gr SP Boattail with Cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-sp-with-cannelure
+Hornady,Traditional & FMJ,2267,22 Cal.,55,.224,,.243,,Boat Tail,22 Cal .224 55 gr FMJ-BT with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-fmj-bt-with-cannelure
+Hornady,Varmint,2270,22 Cal.,60,.224,,.264,,,22 Cal .224 60 gr SP,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-60-gr-sp
+Hornady,V-MAX,22716,22 Cal.,55,.224,,.255,,,22 Cal .224 55 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-v-max-250
+Hornady,Match,2278,22 Cal.,68,.224,,.355,,,22 Cal .224 68 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-68-gr-bthp-match
+Hornady,Match,2279,22 Cal.,75,.224,,.395,,,22 Cal .224 75 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-75-gr-bthp-match
+Hornady,Match,22796,22 Cal.,75,.224,,.395,,,22 Cal .224 75 gr BTHP,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-75-gr-bthp-600
+Hornady,V-MAX,22272,22 Cal.,55,.224,,.255,,,22 Cal .224 55 gr V-MAX with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-v-max-with-cannelure
+Hornady,NTX,22240,22 Cal.,35,.224,,.177,,,22 Cal .224 35 gr NTX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-35-gr-ntx
+Hornady,Varmint,2266B,22 Cal.,55,.224,,.235,,,22 Cal .224 55 gr SP with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-224-55-gr-sp-with-cannelure-6000
+Hornady,V-MAX,22411,6mm,58,.243,,.250,,,6mm .243 58 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-58-gr-v-max
+Hornady,V-MAX,22415,6mm,65,.243,,.280,,,6mm .243 65 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-65-gr-v-max
+Hornady,V-MAX,22420,6mm,75,.243,,.330,,,6mm .243 75 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-75-gr-v-max
+Hornady,V-MAX,22440,6mm,87,.243,,.400,,,6mm .243 87 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-87-gr-v-max
+Hornady,Varmint,2442,6mm,87,.243,,.376,,,6mm .243 87 gr BTHP,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-87-gr-bthp
+Hornady,InterLock,2453,6mm,100,.243,,.405,,,6mm .243 100 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-100-gr-interlock-btsp
+Hornady,SST Super Shock Tip,24532,6mm,95,.243,,.355,,,6mm .243 95 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-95-gr-sst
+Hornady,Match,2458,6mm,105,.243,,.530,,,6mm .243 105 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-105-gr-bthp-match
+Hornady,V-MAX,22520,25 Cal.,75,.257,,.290,,,25 Cal .257 75 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-257-75-gr-v-max
+Hornady,InterLock,2550,25 Cal.,117,.257,,.243,,,25 Cal .257 117 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-257-117-gr-interlock-rn
+Hornady,InterLock,2552,25 Cal.,117,.257,,.391,,,25 Cal .257 117 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-257-117-gr-interlock-btsp
+Hornady,SST Super Shock Tip,25522,25 Cal.,117,.257,,.390,,,25 Cal .257 117 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-257-117-gr-sst
+Hornady,V-MAX,22601,6.5mm,95,.264,,.365,,,6.5mm .264 95 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-95-gr-v-max
+Hornady,InterLock,2620,6.5mm,129,.264,,.445,,,6.5mm .264 129 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-129-gr-interlock-sp
+Hornady,SST Super Shock Tip,26202,6.5mm,129,.264,,.485,,,6.5mm .264 129 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-129-gr-sst
+Hornady,InterLock,2630,6.5mm,140,.264,,.465,,,6.5mm .264 140 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-140-gr-interlock-sp
+Hornady,SST Super Shock Tip,26302,6.5mm,140,.264,,.520,,,6.5mm .264 140 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-140-gr-sst
+Hornady,InterLock,2640,6.5mm,160,.264,,.283,,,6.5mm .264 160 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-160-gr-interlock-rn
+Hornady,Match,26335,6.5mm,140,.264,,.580,,,6.5mm .264 140 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-140-gr-bthp-match
+Hornady,SST Super Shock Tip,26173,6.5mm,123,.264,,.510,,,6.5mm .264 123 gr SST (Grendel/LBC/Lapua),,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-123-gr-sst-grendel-lbc-lapua
+Hornady,ELD-X Extremely Low Drag - eXpanding,2635,6.5mm,143,.264,,.625,0.315,,6.5mm .264 143 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/6-5mm-264-143-gr-eld-x
+Hornady,Match,27200,270 Cal.,110,.277,,.360,,,270-6.8mm .277 110 gr BTHP with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/270-6-8mm-277-110-gr-bthp-with-cannelure
+Hornady,InterLock,2730,270 Cal.,130,.277,,.409,,,270 Cal .277 130 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-277-130-gr-interlock-sp
+Hornady,SST Super Shock Tip,27302,270 Cal.,130,.277,,.460,,,270 Cal .277 130 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-277-130-gr-sst
+Hornady,InterLock,2735,270 Cal.,140,.277,,.486,,,270 Cal .277 140 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-277-140-gr-interlock-btsp
+Hornady,SST Super Shock Tip,27352,270 Cal.,140,.277,,.495,,,270 Cal .277 140 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-277-140-gr-sst
+Hornady,InterLock,2740,270 Cal.,150,.277,,.462,,,270 Cal .277 150 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-277-150-gr-interlock-sp
+Hornady,SST Super Shock Tip,27402,270 Cal.,150,.277,,.525,,,270 Cal .277 150 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-277-150-gr-sst
+Hornady,V-MAX,22721,270 Cal.,110,.277,,.370,,,270-6.8mm .277 110 gr V-MAX with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/270-6-8mm-277-110-gr-v-max-with-cannelure
+Hornady,SST Super Shock Tip,2716,270 Cal.,120,.277,,.400,,,270-6.8mm .277 120 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/270-6-8mm-277-120-gr-sst
+Hornady,V-MAX,22810,7mm,120,.284,,.365,,,7mm .284 120 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-120-gr-v-max
+Hornady,InterLock,2820,7mm,139,.284,,.392,,,7mm .284 139 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-139-gr-interlock-sp
+Hornady,SST Super Shock Tip,28202,7mm,139,.284,,.486,,,7mm .284 139 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-139-gr-sst
+Hornady,InterLock,2825,7mm,139,.284,,.453,,,7mm .284 139 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-139-gr-interlock-btsp
+Hornady,InterLock,2830,7mm,154,.284,,.433,,,7mm .284 154 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-154-gr-interlock-sp
+Hornady,SST Super Shock Tip,28302,7mm,154,.284,,.525,,,7mm .284 154 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-154-gr-sst
+Hornady,InterLock,2845,7mm,162,.284,,.514,,,7mm .284 162 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-162-gr-interlock-btsp
+Hornady,SST Super Shock Tip,28452,7mm,162,.284,,.550,,,7mm .284 162 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-162-gr-sst
+Hornady,InterLock,2850,7mm,175,.284,,.462,,,7mm .284 175 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-175-gr-interlock-sp
+Hornady,ELD-X Extremely Low Drag - eXpanding,2841,7mm,175,.284,,.689,0.347,,7mm .284 175 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-175-gr-eld-x
+Hornady,ELD Match Extremely Low Drag Match,28403,7mm,162,.284,,.670,0.338,,7mm .284 162 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-162-gr-eld-match
+Hornady,V-MAX,23010,30 Cal.,110,.308,,.290,,,30 Cal .308 110 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-110-gr-v-max
+Hornady,Varmint,3010,30 Cal.,110,.308,,.256,,,30 Cal .308 110 gr SP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-110-gr-sp
+Hornady,Traditional & FMJ,3017,30 Cal.,110,.308,,.178,,,30 Cal .308 110 gr FMJ,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-110-gr-fmj
+Hornady,SST Super Shock Tip,30302,30 Cal.,150,.308,,.415,,,30 Cal .308 150 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-150-gr-sst
+Hornady,InterLock,3031,30 Cal.,150,.308,,.338,,,30 Cal .308 150 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-150-gr-interlock-sp
+Hornady,InterLock,3033,30 Cal.,150,.308,,.349,,,30 Cal .308 150 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-150-gr-interlock-btsp
+Hornady,InterLock,3035,30 Cal.,150,.308,,.186,,,30 Cal .308 150 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-150-gr-interlock-rn
+Hornady,Traditional & FMJ,3037,30 Cal.,150,.308,,.398,,Boat Tail,30 Cal .308 150 gr FMJ-BT,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-150-gr-fmj-bt
+Hornady,InterLock,3040,30 Cal.,165,.308,,.387,,,30 Cal .308 165 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-165-gr-interlock-sp
+Hornady,InterLock,3045,30 Cal.,165,.308,,.435,,,30 Cal .308 165 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-165-gr-interlock-btsp
+Hornady,SST Super Shock Tip,30452,30 Cal.,165,.308,,.447,,,30 Cal .308 165 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-165-gr-sst
+Hornady,Match,30501,30 Cal.,168,.308,,.450,,,30 Cal .308 168 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-168-gr-bthp-match
+Hornady,Match,305016,30 Cal.,168,.308,,.450,,,30 Cal .308 168 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-168-gr-bthp-250
+Hornady,InterLock,3060,30 Cal.,170,.308,,.189,,,30 Cal .308 170 gr InterLock FP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-170-gr-interlock-fp
+Hornady,InterLock,3070,30 Cal.,180,.308,,.425,,,30 Cal .308 180 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-180-gr-interlock-sp
+Hornady,SST Super Shock Tip,30702,30 Cal.,180,.308,,.480,,,30 Cal .308 180 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-180-gr-sst
+Hornady,InterLock,3072,30 Cal.,180,.308,,.452,,,30 Cal .308 180 gr InterLock BTSP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-180-gr-interlock-btsp
+Hornady,InterLock,3075,30 Cal.,180,.308,,.241,,,30 Cal .308 180 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-180-gr-interlock-rn
+Hornady,InterLock,3090,30 Cal.,220,.308,,.300,,,30 Cal .308 220 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-220-gr-interlock-rn
+Hornady,Match,30715,30 Cal.,178,.308,,.530,,,30 Cal .308 178 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-178-gr-bthp-match
+Hornady,Match,30733,30 Cal.,208,.308,,.620,0.311,,30 Cal .308 208 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-208-gr-bthp-match
+Hornady,Traditional & FMJ,3037B,30 Cal.,150,.308,,.398,,Boat Tail,30 Cal .308 150 gr FMJ-BT,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-150-gr-fmj-bt-2100
+Hornady,SST Super Shock Tip,3019,30 Cal.,125,.308,,.305,,,30 Cal .308 125 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-125-gr-sst
+Hornady,Match,3039,30 Cal.,155,.308,,.405,,,30 Cal .308 155 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-155-gr-bthp-match
+Hornady,Traditional & FMJ,30192,30 Cal.,125,.308,,.320,,,30 Cal .308 125 gr HP,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-125-gr-hp
+Hornady,ELD-X Extremely Low Drag - eXpanding,3076,30 Cal.,200,.308,,.597,0.301,,30 Cal .308 200 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-200-gr-eld-x
+Hornady,ELD-X Extremely Low Drag - eXpanding,3077,30 Cal.,212,.308,,.663,0.334,,30 Cal .308 212 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-212-gr-eld-x
+Hornady,ELD-X Extremely Low Drag - eXpanding,3078,30 Cal.,220,.308,,.654,0.325,,30 Cal .308 220 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-220-gr-eld-x
+Hornady,ELD Match Extremely Low Drag Match,30731,30 Cal.,208,.308,,.690,0.348,,30 Cal .308 208 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-208-gr-eld-match
+Hornady,InterLock,3140,7.62mm,123,.310,,.252,,,7.62 Cal .310 123 gr SP,,,yes,,https://www.hornady.com/bullets/rifle/7-62-cal-310-123-gr-sp
+Hornady,SST Super Shock Tip,3142,7.62mm,123,.310,,.295,,,7.62 Cal .310 123 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/7-62-cal-310-123-gr-sst
+Hornady,InterLock,3140B,7.62mm,123,.310,,.252,,,7.62 Cal .310 123 gr SP,,,yes,,https://www.hornady.com/bullets/rifle/7-62-cal-310-123-gr-sp-2800
+Hornady,Traditional & FMJ,3147B,7.62mm,123,.310,,.266,,,7.62 Cal .310 123 gr FMJ,,,yes,,https://www.hornady.com/bullets/rifle/7-62-cal-310-123-gr-fmj-2800
+Hornady,Traditional & FMJ,3131,303 Cal.,174,.3105,,.470,,Boat Tail,303 Cal .3105 174 gr FMJ BT,,,yes,,https://www.hornady.com/bullets/rifle/303-cal-3105-174-gr-fmj-bt
+Hornady,InterLock,3120,303 Cal.,150,.312,,.361,,,303 Cal .312 150 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/303-cal-312-150-gr-interlock-sp
+Hornady,InterLock,3130,303 Cal.,174,.312,,.262,,,303 Cal .312 174 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/303-cal-312-174-gr-interlock-rn
+Hornady,InterLock,3210,32 Cal.,170,.321,,.249,,,32 Cal .321 170 gr InterLock FP,,,yes,,https://www.hornady.com/bullets/rifle/32-cal-321-170-gr-interlock-fp
+Hornady,FTX,32005,32 Cal.,165,.321,,.310,,,32 Cal .321 165 gr FTX,,,yes,,https://www.hornady.com/bullets/rifle/32-cal-321-165-gr-ftx
+Hornady,InterLock,3232,8mm,150,.323,,.290,,,8mm .323 150 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/8mm-323-150-gr-interlock-sp
+Hornady,InterLock,3235,8mm,170,.323,,.217,,,8mm .323 170 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/8mm-323-170-gr-interlock-rn
+Hornady,InterLock,3236,8mm,195,.323,,.410,,,8mm .323 195 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/8mm-323-195-gr-interlock-sp
+Hornady,SST Super Shock Tip,3233,8mm,170,.323,,.445,,,8mm .323 170 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/8mm-323-170-gr-sst
+Hornady,InterLock,3320,338 Cal.,225,.338,,.397,,,338 Cal .338 225 gr InterLock SP-RP,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-338-225-gr-interlock-sp-rp
+Hornady,SST Super Shock Tip,33202,338 Cal.,225,.338,,.515,,,338 Cal .338 225 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-338-225-gr-sst
+Hornady,InterLock,3330,338 Cal.,250,.338,,.291,,,338 Cal .338 250 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-338-250-gr-interlock-rn
+Hornady,InterLock,3335,338 Cal.,250,.338,,.431,,,338 Cal .338 250 gr InterLock SP-RP,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-338-250-gr-interlock-sp-rp
+Hornady,SST Super Shock Tip,33102,338 Cal.,200,.338,,.455,,,338 Cal .338 200 gr SST,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-338-200-gr-sst
+Hornady,ELD Match Extremely Low Drag Match,33381,338 Cal.,285,.338,,.829,0.417,,338 Cal .338 285 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-338-285-gr-eld-match
+Hornady,InterLock,3510,35 Cal.,200,.358,,.282,,,35 Cal .358 200 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/35-cal-358-200-gr-interlock-sp-rp
+Hornady,InterLock,3515,35 Cal.,200,.358,,.195,,,35 Cal .358 200 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/35-cal-358-200-gr-interlock-rn
+Hornady,InterLock,3520,35 Cal.,250,.358,,.375,,,35 Cal .358 250 gr InterLock SP-RP,,,yes,,https://www.hornady.com/bullets/rifle/35-cal-358-250-gr-interlock-sp-rp
+Hornady,FTX,35105,35 Cal.,200,.358,,.300,,,35 Cal .358 200 gr FTX (35 Rem),,,yes,,https://www.hornady.com/bullets/rifle/35-cal-358-200-gr-ftx-35-rem
+Hornady,InterLock,3560,9.3mm,286,.366,,.400,,,9.3mm .366 286 gr InterLock SP-RP,,,yes,,https://www.hornady.com/bullets/rifle/9-3mm-366-286-gr-interlock-sp-rp
+Hornady,DGS Dangerous Game Solid,3565,9.3mm,300,.366,,.280,,,9.3mm .366 300 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/9-3mm-366-300-gr-dgs
+Hornady,InterLock,3711,375 Cal.,270,.375,,.380,,,375 Cal .375 270 gr InterLock SP-RP,,,yes,,https://www.hornady.com/bullets/rifle/375-cal-375-270-gr-interlock-sp-rp
+Hornady,DGS Dangerous Game Solid,3727,375 Cal.,300,.375,,.275,,,375 Cal. 375 300 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/375-cal-375-300-gr-dgs
+Hornady,InterLock,41051,405 Cal.,300,.411,,.250,,,405 Cal .411 300 gr InterLock SP,,,yes,,https://www.hornady.com/bullets/rifle/405-cal-411-300-gr-interlock-sp
+Hornady,DGS Dangerous Game Solid,4167,416 Cal.,400,.416,,.319,,,416 Cal .416 400 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/416-cal-416-400-gr-dgs
+Hornady,InterLock,4500,45 Cal.,300,.458,,.197,,,45 Cal .458 300 gr HP,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-458-300-gr-hp
+Hornady,InterLock,4502,45 Cal.,350,.458,,.189,,,45 Cal .458 350 gr InterLock RN,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-458-350-gr-interlock-rn
+Hornady,InterLock,4503,45 Cal.,350,.458,,.195,,,45 Cal .458 350 gr InterLock FP,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-458-350-gr-interlock-fp
+Hornady,DGS Dangerous Game Solid,4507,45 Cal.,500,.458,,.295,,,45 Cal .458 500 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-458-500-gr-dgs
+Hornady,FTX,45015,45 Cal.,325,.458,,.230,,,45 Cal .458 325 gr FTX (45-70 & 450 Marlin),,,yes,,https://www.hornady.com/bullets/rifle/45-cal-458-325-gr-ftx-45-70-450-marlin
+Hornady,MonoFlex,45010,45 Cal.,250,.458,,.175,,,45 Cal .458 250 gr MonoFlex,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-458-250-gr-monoflex
+Hornady,A-Tip Match,5165,50 Cal.,750,.510,,1.050,,,50 Cal .510 750 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/50-cal-510-750-gr-a-max
+Hornady,DGS Dangerous Game Solid,5155,50 Cal.,570,.510,,.295,,,500 Cal .510 570 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/500-cal-510-570-gr-dgs
+Hornady,DGS Dangerous Game Solid,4103,400 Cal.,400,.410,,.325,,,400 Cal .410 400 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/400-cal-410-400-gr-dgs
+Hornady,DGS Dangerous Game Solid,4241,423 Cal.,400,.423,,.315,,,423 Cal .423 400 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/423-cal-423-400-gr-dgs
+Hornady,DGS Dangerous Game Solid,4748,470 Cal.,500,.474,,.290,,,470 Cal .474 500 gr DGS,,,yes,,https://www.hornady.com/bullets/rifle/470-cal-474-500-gr-dgs
+Hornady,Traditional & FMJ,2510,25 Cal.,60,.257,,.101,,,25 Cal. .257 60 gr FP,,,yes,,https://www.hornady.com/bullets/rifle/25-cal.-.257-60-gr-fp
+Hornady,ELD Match Extremely Low Drag Match,22491,22 Cal.,52,.224,,.247,,,22 Cal .224 52 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-52-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,22774,22 Cal.,73,.224,,.398,0.2,,22 Cal .224 73 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-73-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,22791,22 Cal.,75,.224,,.467,0.235,,22 Cal .224 75 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-75-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,22831,22 Cal.,80,.224,,.485,0.244,,22 Cal .224 80 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-80-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,26100,6.5mm,100,.264,,.385,0.194,,6.5mm .264 100 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-100-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,26175,6.5mm,120,.264,,.486,0.245,,6.5mm .264 120 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-120-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,26176,6.5mm,123,.264,,.506,0.255,,6.5mm .264 123 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-123-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,26177,6.5mm,130,.264,,.554,0.279,,6.5mm .264 130 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-130-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,26333,6.5mm,147,.264,,.697,0.351,,6.5mm .264 147 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-147-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,28503,7mm,180,.284,,.796,0.401,,7mm .284 180 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/7mm-.284-180-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,30313,30 Cal.,155,.308,,.461,0.232,,30 Cal .308 155 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-155-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,30506,30 Cal.,168,.308,,.523,0.263,,30 Cal .308 168 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-168-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,30904,30 Cal.,225,.308,,.777,0.391,,30 Cal .308 225 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-225-gr-eld-match
+Hornady,ELD Match Extremely Low Drag Match,30713,30 Cal.,178,.308,,.547,0.275,,30 Cal .308 178 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-178-gr-eld-match
+Hornady,ELD-X Extremely Low Drag - eXpanding,27356,270 Cal.,145,.277,,.536,0.27,,270 Cal .277 145 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-.277-145-gr-eld-x
+Hornady,FTX,3027,30 Cal.,135,.308,,.274,,,30 Cal .308 135 gr FTX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-135-gr-ftx
+Hornady,Traditional & FMJ,22760B,22 Cal.,62,.224,,.274,,,22 Cal .224 62 gr FMJ,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-62-gr-fmj
+Hornady,ELD-X Extremely Low Drag - eXpanding,24550,6mm,103,.243,,.512,0.258,,6mm .243 103 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-103-gr-eld-x
+Hornady,DGX Bonded,37214,375 Cal.,300,.375,,.275,,,375 cal .375 300 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/375-cal-.375-300-gr-dgx-bonded
+Hornady,DGX Bonded,41044,400 Cal.,400,.410,,.325,,,400 cal .410 400 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/400-cal-.410-400-gr-dgx-bonded
+Hornady,DGX Bonded,41694,416 Cal.,400,.416,,.319,,,416 cal .416 400 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/416-cal-.416-400-gr-dgx-bonded
+Hornady,DGX Bonded,42404,423 Cal.,400,.423,,.315,,,423 cal .423 400 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/423-cal-.423-400-gr-dgx-bonded
+Hornady,DGX Bonded,45034,45 Cal.,480,.458,,.285,,,45 cal .458 480 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-.458-480-gr-dgx-bonded
+Hornady,DGX Bonded,45054,45 Cal.,500,.458,,.295,,,45 cal .458 500 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-.458-500-gr-dgx-bonded
+Hornady,DGX Bonded,47474,470 Cal.,500,.474,,.290,,,470 cal .474 500 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/470-cal-.474-500-gr-dgx-bonded
+Hornady,DGX Bonded,51504,50 Cal.,570,.510,,.295,,,50 cal .510 570 gr DGX Bonded,,,yes,,https://www.hornady.com/bullets/rifle/50-cal-.510-570-gr-dgx-bonded
+Hornady,ELD-X Extremely Low Drag - eXpanding,25418,25 Cal.,110,.257,,.465,0.234,,25 cal .257 110 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-.257-110-gr-eld-x
+Hornady,ELD-X Extremely Low Drag - eXpanding,33210,338 Cal.,230,.338,,.616,0.31,,338 cal .338 230 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-230-gr-eld-x
+Hornady,ELD-X Extremely Low Drag - eXpanding,33371,338 Cal.,270,.338,,.757,0.381,,338 cal .338 270 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-270-gr-eld-x
+Hornady,ELD Match Extremely Low Drag Match,30951,30 Cal.,195,.308,,.584,0.294,,30 cal .308 195 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-195-gr-eld-match
+Hornady,Traditional & FMJ,22671,22 Cal.,55,.224,,.243,,Boat Tail,22 cal .224 55 gr FMJ-BT with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-55-gr-fmj-bt-with-cannelure
+Hornady,Traditional & FMJ,30371,30 Cal.,150,.308,,.398,,Boat Tail,30 cal .308 150 gr FMJ-BT,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-150-gr-fmj-bt-500
+Hornady,Traditional & FMJ,2263B,22 Cal.,55,.224,,.254,,,22 cal .224 55 gr HP,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-55-gr-hp
+Hornady,FMJ,355571,9mm,115,.355,,.140,,,9mm .355 115 gr FMJ-RN,,,yes,,https://www.hornady.com/bullets/handgun/9mm-.355-115-gr-fmj-rn
+Hornady,FMJ,40047,10mm,180,.400,,.188,,,10mm .400 180 gr FMJ-FP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-.400-180-gr-fmj-fp
+Hornady,ELD Match Extremely Low Drag Match,22791B,22 Cal.,75,.224,,.467,0.235,,22 Cal .224 75 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-75-gr-eld-match-3500
+Hornady,ELD Match Extremely Low Drag Match,24561B,6mm,108,.243,,.536,0.27,,6mm .243 108 gr ELD Match - Bulk,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-108-gr-eld-match-2700-bulk
+Hornady,ELD Match Extremely Low Drag Match,26331B,6.5mm,140,.264,,.646,0.326,,6.5mm .264 140 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-140-gr-eld-match-2000
+Hornady,ELD Match Extremely Low Drag Match,26333B,6.5mm,147,.264,,.697,0.351,,6.5mm .264 147 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-147-gr-eld-match-2000
+Hornady,ELD Match Extremely Low Drag Match,30506B,30 Cal.,168,.308,,.523,0.263,,30 Cal .308 168 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-168-gr-eld-match-1900
+Hornady,ELD Match Extremely Low Drag Match,22834,22 Cal.,88,.224,,.545,0.274,,22 Cal .224 88 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-88-gr-eld-match
+Hornady,Match,22785,22 Cal.,68,.224,,.355,,,22 Cal .224 68 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-68-gr-bthp-match-500
+Hornady,Match,24585,6mm,105,.243,,.530,,,6mm .243 105 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-105-gr-bthp-match-500
+Hornady,Match,2249B,22 Cal.,52,.224,,.229,,,22 Cal .224 52 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-52-gr-bthp-match-6000
+Hornady,Match,2249C,22 Cal.,52,.224,,.229,,,22 Cal .224 52 gr BTHP Match with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-52-gr-bthp-match-with-cannelure-6000
+Hornady,Match,2250B,22 Cal.,53,.224,,.218,,,22 Cal .224 53 gr HP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-53-gr-hp-match-6000
+Hornady,Match,2278B,22 Cal.,68,.224,,.355,,,22 Cal .224 68 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-68-gr-bthp-match-4500
+Hornady,Match,2278C,22 Cal.,68,.224,,.355,,,22 Cal .224 68 gr BTHP Match with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-68-gr-bthp-match-with-cannelure-4500
+Hornady,Match,2279B,22 Cal.,75,.224,,.395,,,22 Cal .224 75 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-75-gr-bthp-match-4000
+Hornady,Match,2279C,22 Cal.,75,.224,,.395,,,22 Cal .224 75 gr BTHP Match with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-75-gr-bthp-match-with-cannelure-4000
+Hornady,Match,3039B,30 Cal.,155,.308,,.405,,,30 Cal .308 155 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-155-gr-bthp-match-2000
+Hornady,Match,3039C,30 Cal.,155,.308,,.405,,,30 Cal .308 155 gr BTHP Match with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-155-gr-bthp-match-with-cannelure-2000
+Hornady,Match,30501B,30 Cal.,168,.308,,.450,,,30 Cal .308 168 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-168-gr-bthp-match-1800
+Hornady,Match,30715B,30 Cal.,178,.308,,.530,,,30 Cal .308 178 gr BTHP Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-178-gr-bthp-match-1600
+Hornady,Traditional & FMJ,22672,22 Cal.,55,.224,,.243,,Boat Tail,22 Cal .224 55 gr FMJ-BT with cannelure,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-55-gr-fmj-bt-with-cannelure-1000
+Hornady,FMJ,400471,10mm,180,.400,,.188,,,10mm .400 180 gr FMJ-FP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-.400-180-gr-fmj-fp-500
+Hornady,,40047B,10mm,180,.400,,.188,,,10mm .400 180 gr FMJ-FP,,,yes,,https://www.hornady.com/bullets/handgun/10mm-.400-180-gr-fmj-fp-2000
+Hornady,ELD-X Extremely Low Drag - eXpanding,2441,6mm,90,.243,,.409,0.206,,6mm .243 90 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-90-gr-eld-x
+Hornady,ELD Match Extremely Low Drag Match,22834B,22 Cal.,88,.224,,.545,0.274,,22 Cal .224 88 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-88-gr-eld-match-3500
+Hornady,Traditional & FMJ,30196,30 Cal.,125,.308,,.250,,,30 Cal .308 125 gr FMJ,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-125-gr-fmj
+Hornady,A-Tip Match,24531,6mm,110,.243,,.604,0.304,,6mm .243 110 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-110-gr-a-tip-match
+Hornady,A-Tip Match,26179,6.5mm,135,.264,,.637,0.321,,6.5mm .264 135 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-264-135-gr-a-tip-match
+Hornady,A-Tip Match,3091,30 Cal.,230,.308,,.823,0.414,,30 Cal .308 230 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-230-gr-a-tip-match
+Hornady,A-Tip Match,3092,30 Cal.,250,.308,,.878,0.442,,30 Cal .308 250 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-250-gr-a-tip-match
+Hornady,NTX,17016,17 Cal.,15.5,.172,,.115,,,17 Cal .172 15.5 gr NTX,,,yes,,https://www.hornady.com/bullets/rifle/17-cal-172-15-5-gr-ntx
+Hornady,A-Tip Match,2286,22 Cal.,90,.224,,.585,0.295,,22 Cal .224 90 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-90-gr-a-tip-match
+Hornady,A-Tip Match,2836,7mm,166,.284,,.664,0.332,,7mm .284 166 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/7mm-.284-166-gr-a-tip-match
+Hornady,A-Tip Match,28506,7mm,190,.284,,.838,0.422,,7mm .284 190 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/7mm-.284-190-gr-a-tip-match
+Hornady,A-Tip Match,30717,30 Cal.,176,.308,,.564,0.284,,30 Cal .308 176 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-176-gr-a-tip-match
+Hornady,A-Tip Match,33389,338 Cal.,300,.338,,.863,0.435,,338 Cal .338 300 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-300-gr-a-tip-match
+Hornady,A-Tip Match,3729,375 Cal.,390,.375,,.987,0.497,,375 Cal .375 390 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/375-cal-.375-390-gr-a-tip-match
+Hornady,A-Tip Match,41697,416 Cal.,500,.416,,.976,0.492,,416 Cal .416 500 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/416-cal-.416-500-gr-a-tip-match
+Hornady,Sub-X,30730,30 Cal.,190,.308,,.437,,,30 Cal .308 190 gr Sub-X,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-190-gr-sub-x
+Hornady,FTX,3502,35 Cal.,165,.355,,.250,,,35 Cal .355 165 gr FTX,,,yes,,https://www.hornady.com/bullets/rifle/35-cal-.355-165-gr-ftx
+Hornady,V-MAX,2207,5.45 Cal.,60,.2215,,.285,,,5.45 Cal .2215 60 gr V-MAX,,,yes,,https://www.hornady.com/bullets/rifle/5.45-cal-.2215-60-gr-v-max
+Hornady,InterLock,3501,35 Cal.,170,.355,,.215,,,35 Cal .355 170 gr InterLock,,,yes,,https://www.hornady.com/bullets/rifle/35-cal-.355-170-gr-sp
+Hornady,InterLock,45204,45 Cal.,245,.452,,.165,,,45 Cal .452 245 gr InterLock,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-.452-245-gr-sp
+Hornady,CX,243704,6mm,80,.243,,.273,,,6mm .243 80 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-80-gr-cx
+Hornady,CX,24444,6mm,90,.243,,.418,,,6mm .243 90 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-90-gr-cx
+Hornady,CX,254104,25 Cal.,90,.257,,.273,,,25 Cal .257 90 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-.257-90-gr-cx
+Hornady,CX,261104,6.5mm,120,.264,,.428,,,6.5mm .264 120 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-120-gr-cx
+Hornady,CX,26178,6.5mm,130,.264,,.489,,,6.5mm .264 130 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-130-gr-cx
+Hornady,CX,271904,270 Cal.,100,.277,,.262,,,6.8mm/270 .277 100 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/270/6.8-.277-100-gr-cx
+Hornady,CX,273704,270 Cal.,130,.277,,.403,,,270 Cal .277 130 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/270-cal-.277-130-gr-cx
+Hornady,CX,28284,7mm,150,.284,,.455,,,7mm .284 150 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/7mm-.284-150-gr-cx
+Hornady,CX,301914,30 Cal.,110,.308,,.312,,,30 Cal .308 110 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-110-gr-cx
+Hornady,CX,304704,30 Cal.,165,.308,,.440,,,30 Cal .308 165 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-165-gr-cx
+Hornady,CX,301934,30 Cal.,180,.308,,.469,,,30 Cal .308 180 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-180-gr-cx
+Hornady,CX,30738,30 Cal.,190,.308,,.575,,,30 Cal .308 190 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-190-gr-cx
+Hornady,CX,332704,338 Cal.,185,.338,,.407,,,338 Cal .338 185 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-185-gr-cx
+Hornady,CX,332014,338 Cal.,225,.338,,.490,,,338 Cal .338 225 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-225-gr-cx
+Hornady,CX,37084,375 Cal.,250,.375,,.403,,,375 Cal .375 250 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/375-cal-.375-250-gr-cx
+Hornady,ECX,224034,22 Cal.,50,.224,,.164,,,22 Cal .224 50 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-244-50-gr-ecx
+Hornady,ECX,263364,6.5mm,140,.264,,.301,,,6.5mm .264 140 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-264-140-gr-ecx
+Hornady,ECX,28214,7mm,150,.284,,.287,,,7mm .284 150 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/7mm-284-150-gr-ecx
+Hornady,ECX,301944,30 Cal.,125,.308,,.181,,,30 Cal 308 125 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-125-gr-ecx
+Hornady,ECX,304714,30 Cal.,165,.308,,.251,,,30 Cal 308 165 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-308-165-gr-ecx
+Hornady,ECX,32314,8mm,180,.323,,.257,,,8mm .323 180 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/8mm-323-180-gr-ecx
+Hornady,ECX,35614,9.3mm,250,.366,,.315,,,9.3mm .366 250 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/9.3mm-366-250-gr-ecx
+Hornady,Sub-X,30718,30 Cal.,175,.308,,.300,,,30 Cal .308 175 gr Sub-X,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-175-gr-sub-x
+Hornady,Sub-X,3503,35 Cal.,250,.357,,.265,,,35 Cal .357 250 gr Sub-X,,,yes,,https://www.hornady.com/bullets/rifle/35-cal-.357-250-gr-sub-x
+Hornady,Sub-X,45031,45 Cal.,395,.452,,.300,,,45 Cal .452 395 gr Sub-X,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-.452-395-gr-sub-x
+Hornady,Sub-X,45052,45 Cal.,410,.458,,.285,,,45 Cal .458 410 gr Sub-X,,,yes,,https://www.hornady.com/bullets/rifle/45-cal-.458-410-gr-sub-x
+Hornady,ELD Match Extremely Low Drag Match,2561,25 Cal.,134,.257,,.645,0.325,,25 Cal .257 134 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-.257-134-gr-eld-match
+Hornady,ECX,30372,30 Cal.,150,.308,,.223,,,30 Cal .308 150 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-150-gr-ecx
+Hornady,CX,22402,22 Cal.,50,.224,,.164,,,22 Cal .224 50 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-50-gr-cx
+Hornady,CX,2837,7mm,160,.284,,.596,,,7mm .284 160 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/7mm-.284-160-gr-cx
+Hornady,CX,303704,30 Cal.,150,.308,,.418,,,30 Cal .308 150 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-150-gr-cx
+Hornady,ELD-X Extremely Low Drag - eXpanding,22833,22 Cal.,80,.224,,.485,0.244,,22 Cal .224 80 gr ELD-X,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-80-gr-eld-x
+Hornady,InterLock,3031-75,30 Cal.,150,.308,,,,,30 Cal .308 150 gr SP InterLock,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-150-gr-sp-interlock
+Hornady,ELD-VT,22762,22 Cal.,62,.224,,.395,0.199,,22 Cal .224 62 gr ELD-VT,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-62-gr-eld-vt
+Hornady,ELD-VT,26103,6.5mm,100,.264,,.448,0.226,,6.5mm .264 100 gr ELD-VT,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-100-gr-eld-vt
+Hornady,ELD-VT,30620,30 Cal.,174,.308,,.573,0.289,,30 Cal .308 174 gr ELD-VT,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-174-gr-eld-vt
+Hornady,A-Tip Match,22799,22 Cal.,76,.224,,.413,0.208,,22 cal .224 76 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-76-gr-a-tip-match
+Hornady,A-Tip Match,2562,25 Cal.,138,.257,,.695,0.35,,25 cal .257 138 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-.257-138-gr-a-tip-match
+Hornady,A-Tip Match,245312,6mm,110,.243,,.604,0.304,,6mm .243 110 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-110-gr-a-tip-match
+Hornady,A-Tip Match,261792,6.5mm,135,.264,,.637,0.321,,6.5mm .264 135 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-135-gr-a-tip-match-500
+Hornady,A-Tip Match,26382,6.5mm,153,.264,,,,,6.5mm .264 153 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-153-gr-a-tip-match-100
+Hornady,ELD Match Extremely Low Drag Match,245301,6mm,109,.243,,.585,0.295,,6mm .243 109 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-109-gr-eld-match-500
+Hornady,ELD Match Extremely Low Drag Match,263311,6.5mm,140,.264,,,,,6.5mm .264 140 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-140-gr-eld-match-500
+Hornady,AEROMATCH,227711,22 Cal.,69,.224,,.315,,,22 Cal .224 69 gr HPBT AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-69-gr-hpbt-aeromatch-500
+Hornady,AEROMATCH,227771,22 Cal.,77,.224,,.355,,,22 Cal .224 77 gr HPBT AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-77-gr-hpbt-aeromatch-500
+Hornady,AEROMATCH,245731,6mm,105,.243,,.536,,,6mm .243 105 gr AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/6mm-243-105-gr-aeromatch-500
+Hornady,AEROMATCH,263031,6.5mm,140,.264,,.608,,,6.5 mm .264 140 gr AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/6.5-mm-.264-140-gr-aeromatch-500
+Hornady,AEROMATCH,305071,30 Cal.,168,.308,,.440,,,30 Cal .308 168 gr HPBT AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-168-gr-hpbt-aeromatch-500
+Hornady,AEROMATCH,307191,30 Cal.,175,.308,,.485,,,30 Cal .308 175 gr HPBT AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-175-gr-hpbt-aeromatch-500
+Hornady,CX,22813,22 Cal.,70,.224,,.392,,,22 Cal .224 70 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-70-gr-cx
+Hornady,CX,26111,6.5mm,90,.264,,.356,,,6.5mm .264 90 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-90-gr-cx
+Hornady,ELD Match Extremely Low Drag Match,263331,6.5mm,147,.264,,,,,6.5mm .264 147 gr ELD Match,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-147-gr-eld-match-500
+Hornady,Traditional & FMJ,3017B,30 Cal.,110,.308,,.178,,,30 Cal .308 110 gr FMJ-RN,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-110-gr-fmj-rn
+Hornady,AEROMATCH,22771,22 Cal.,69,.224,,.315,,,22 Cal .224 69 gr HPBT AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-69-gr-hpbt-aeromatch-100ct
+Hornady,AEROMATCH,24573,6mm,105,.243,,.536,,,6mm .243 105 gr AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-105-gr-aeromatch-100ct
+Hornady,AEROMATCH,26303,6.5mm,140,.264,,.608,,,6.5 mm .264 140 gr AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/6.5-mm-.264-140-gr-aeromatch-100ct
+Hornady,AEROMATCH,30507,30 Cal.,168,.308,,.440,,,30 Cal .308 168 gr HPBT AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-168-gr-hpbt-aeromatch-100ct
+Hornady,AEROMATCH,30719,30 Cal.,175,.308,,.485,,,30 Cal .308 175 gr HPBT AEROMATCH,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-175-gr-hpbt-aeromatch-100ct
+Hornady,DGH Dangerous Game Handgun,35548,9mm,138,.355,,.195,,,9mm .355 138 gr DGH,,,yes,,https://www.hornady.com/bullets/handgun/9mm-.355-138-gr-dgh
+Hornady,CX,22765,22 Cal.,65,.224,,.365,,,22 Cal .224 65 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-65-gr-cx
+Hornady,CX,2543,25 Cal.,112,.257,,.524,0.264,,25 Cal .257 112 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-.257-112-gr-cx
+Hornady,CX,33283,338 Cal.,240,.338,,.611,,,338 Cal .338 240 gr CX,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-240-gr-cx
+Hornady,MonoFlex,2446,6mm,90,.243,,,,,6mm .243 90 gr Monoflex,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-90-gr-monoflex
+Hornady,ELD-VT,22772,22 Cal.,69,.224,,.424,,,22 Cal .224 69 gr ELD-VT,,,yes,,https://www.hornady.com/bullets/rifle/22-cal-.224-69-gr-eld-vt
+Hornady,Sub-X,33394,338 Cal.,307,.338,,.375,,,338 Cal .338 307 gr Sub-X,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-307-gr-sub-x
+Hornady,DGH Dangerous Game Handgun,3576,38 Cal.,165,.357,,.210,,,38 Cal .357 165 gr DGH,,,yes,,https://www.hornady.com/bullets/handgun/38-cal-.357-165-gr-dgh
+Hornady,DGH Dangerous Game Handgun,40071,10mm,200,.400,,.205,,,10mm .400 200 gr DGH,,,yes,,https://www.hornady.com/bullets/handgun/10mm-.400-200-gr-dgh
+Hornady,DGH Dangerous Game Handgun,45208,45 Cal.,300,.452,,.200,,,45 Cal .452 300 gr DGH,,,yes,,https://www.hornady.com/bullets/handgun/45-cal-.452-300-gr-dgh
+Hornady,DGH Dangerous Game Handgun,50109,50 Cal.,500,.500,,,,,50 Cal .500 500 gr DGH,,,yes,,https://www.hornady.com/bullets/handgun/50-cal-.500-500-gr-dgh
+Hornady,ELD-VT,25412,25 Cal.,95,.257,,.433,,,25 Cal .257 95 gr ELD-VT,,,yes,,https://www.hornady.com/bullets/rifle/25-cal-.257-95-gr-eld-vt
+Hornady,ECX,26112,6.5mm,120,.264,,.360,,,6.5mm .264 120 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/6.5mm-.264-120-gr-ecx
+Hornady,ECX,33272,338 Cal.,185,.338,,.377,,,338 cal .338 185 gr ECX,,,yes,,https://www.hornady.com/bullets/rifle/338-cal-.338-185-gr-ecx
+Hornady,A-Tip Match,24568,6mm,120,.243,,.675,0.34,,6mm .243 120 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/6mm-.243-120-gr-a-tip-match
+Hornady,A-Tip Match,30741,30 Cal.,177,.308,,.565,0.285,,30 cal .308 177 gr A-Tip Match,,,yes,,https://www.hornady.com/bullets/rifle/30-cal-.308-177-gr-a-tip
