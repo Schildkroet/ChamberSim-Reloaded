@@ -1,4 +1,5 @@
 #include "reportview.h"
+#include "log.h"
 
 #include "buttonstyle.h"
 #include "reporttemplatedialog.h"
@@ -191,7 +192,9 @@ bool ReportView::exportPdf(const QString &path)
     printer.setPageMargins(QMarginsF(15, 15, 15, 15), QPageLayout::Millimeter);
     printer.setOutputFileName(path);
     print(&printer);
-    return QFileInfo(path).size() > 0;
+    const bool ok = QFileInfo(path).size() > 0;
+    if (!ok) LOG_Warn() << "PDF export produced no file:" << path;
+    return ok;
 }
 
 void ReportView::showPrintPreview(QWidget *parent)

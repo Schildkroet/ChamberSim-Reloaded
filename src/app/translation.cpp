@@ -1,4 +1,5 @@
 #include "translation.h"
+#include "log.h"
 
 #include "language.h"
 
@@ -57,6 +58,7 @@ QString install(QCoreApplication &app, const QString &overrideLanguage)
         requested = QLocale::system().uiLanguages();
 
     const QString language = grt::resolveLanguage(requested, availableLanguages());
+    LOG_Info() << "Language:" << language << "(requested" << requested << ")";
     QLocale::setDefault(QLocale(language));  // number formats follow the UI language ('.' for en_US)
 
     // translators must outlive the application's event loop

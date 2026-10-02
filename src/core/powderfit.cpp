@@ -1,4 +1,5 @@
 #include "powderfit.h"
+#include "log.h"
 
 #include "measurement.h"
 #include "solver.h"
@@ -204,6 +205,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     if (samples.empty() || options.params.empty()) return res;
     const auto &params = options.params;
     const std::size_t n = params.size();
+    LOG_Debug() << "Powder fit:" << samples.size() << "samples," << n << "parameters, at most" << options.maxIterations << "iterations";
 
     std::vector<double> x;
     SimInput start = samples.front().input;
@@ -276,6 +278,8 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
                                .pressureAfter = simsAfter[i].ok ? simsAfter[i].pressure : 0.0});
     rms(samples, simsBefore, res.velocityRmsBefore, res.pressureRmsBefore);
     rms(samples, simsAfter, res.velocityRmsAfter, res.pressureRmsAfter);
+    LOG_Info() << "Powder fit finished after" << res.iterations << "iterations, improved" << res.improved << "; velocity rms"
+               << res.velocityRmsBefore << "->" << res.velocityRmsAfter << ", pressure rms" << res.pressureRmsBefore << "->" << res.pressureRmsAfter;
     return res;
 }
 

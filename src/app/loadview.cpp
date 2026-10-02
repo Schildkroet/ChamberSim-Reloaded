@@ -346,6 +346,7 @@ bool LoadView::save(const QString &path, QString *error)
 
 void LoadView::setReference(std::optional<grt::ReferenceRun> ref)
 {
+    LOG_Debug() << "Reference overlay" << (ref ? "set" : "cleared");
     m_reference = std::move(ref);
     m_chart->setReference(m_reference ? std::span<const grt::SimPoint>(m_reference->points) : std::span<const grt::SimPoint>{});
     showResult();
@@ -458,6 +459,9 @@ void LoadView::recompute()
     m_ladder = grt::simulateLadder(m_input);
     m_focus = grt::toIntClamped(m_file.config.number(u"CurveFocusIdx", 0.0), 0, static_cast<int>(m_ladder.size()) - 1);
     m_result = m_ladder[static_cast<std::size_t>(m_focus)].result;
+    LOG_Debug() << "Simulated" << title() << ":" << m_ladder.size() << "ladder step(s), focus" << m_focus << ", pmax" << m_result.maxPressure_bar
+                << "bar, v0" << m_result.muzzleVelocity_ms << "m/s";
+    if (!m_result.ok()) LOG_Warn() << "Simulation of" << title() << "failed (charge too high, input out of range?)";
     m_focusInput = m_input;
     m_focusInput.charge_g = m_ladder[static_cast<std::size_t>(m_focus)].charge_g;
 
@@ -504,6 +508,7 @@ void LoadView::fitPowder()
     }
     dlg.runFit();
     if (dlg.exec() != QDialog::Accepted || !dlg.result() || !dlg.result()->improved) return;
+    LOG_Info() << "Powder fit applied to" << title();
     grt::powderfit::apply(m_file.propellant, *dlg.result());
     rebuildPanels();
     recompute();

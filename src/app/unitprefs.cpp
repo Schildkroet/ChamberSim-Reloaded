@@ -1,4 +1,5 @@
 #include "unitprefs.h"
+#include "log.h"
 
 #include <QSettings>
 
@@ -40,6 +41,7 @@ void UnitPreferences::save() const
 void UnitPreferences::setSystem(System system)
 {
     if (m_system == system) return;
+    LOG_Info() << "Unit system changed to" << systemName(system);
     m_system = system;
     save();
     emit changed();

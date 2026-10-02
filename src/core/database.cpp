@@ -1,4 +1,5 @@
 #include "database.h"
+#include "log.h"
 
 #include "projectdata.h"
 
@@ -167,15 +168,19 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
     m_db.setConnectOptions(u"QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=5000"_s);
     if (!m_db.open()) {
         if (error) *error = m_db.lastError().text();
+        LOG_Error() << "Cannot open the own database" << own << ":" << m_db.lastError().text();
         close();
         return false;
     }
     if (!createOwnTables(error)) {
+        LOG_Error() << "Cannot prepare the own database" << own << ":" << (error ? *error : QString());
         close();
         return false;
     }
     m_ownPath = own;
+    LOG_Info() << "Own database:" << own;
     if (!loadProjectData(error)) {
+        LOG_Error() << "Cannot load the project data:" << (error ? *error : QString());
         close();
         return false;
     }
@@ -200,6 +205,7 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
                 ok = false;
             } else {
                 m_originalPath = originalPath;
+                LOG_Info() << "Original database attached (read-only):" << originalPath;
             }
         }
     }
@@ -280,6 +286,8 @@ bool Database::loadProjectData(QString *error)
         m_db.rollback();
         return false;
     }
+    LOG_Info() << "Project data:" << projectCount(Table::Caliber) << "calibers," << projectCount(Table::Projectile) << "projectiles,"
+               << projectCount(Table::Propellant) << "propellants," << m_projectErrors.size() << "problems";
     return true;
 }
 
@@ -395,15 +403,19 @@ std::optional<int> Database::insertInto(const QString &schemaName, Table t, cons
     for (const QVariant &v : binds) q.addBindValue(v);
     if (!q.exec()) {
         if (error) *error = lastError(q);
+        LOG_Warn() << "Cannot insert into" << schemaName << name << ":" << lastError(q);
         return std::nullopt;
     }
-    return id >= 0 ? id : q.lastInsertId().toInt();
+    const int newId = id >= 0 ? id : q.lastInsertId().toInt();
+    if (schemaName == u"main") LOG_Info() << "Record added:" << name << "id" << newId;
+    return newId;
 }
 
 bool Database::update(Table t, int id, const QVariantMap &values, QString *error)
 {
     if (!isOwnId(id)) {
         if (error) *error = u"only own records can be changed (not those of the original database or the project)"_s;
+        LOG_Warn() << "Refused to change" << tableName(t) << "id" << id << ": not an own record";
         return false;
     }
     const QString name = QLatin1String(tableName(t));
@@ -425,13 +437,16 @@ bool Database::update(Table t, int id, const QVariantMap &values, QString *error
     q.addBindValue(id);
     if (!q.exec() || q.numRowsAffected() != 1) {
         if (error) *error = q.lastError().isValid() ? lastError(q) : u"no record with id %1"_s.arg(id);
+        LOG_Warn() << "Cannot update" << name << "id" << id << ":" << (error ? *error : QString());
         return false;
     }
+    LOG_Info() << "Record changed:" << name << "id" << id << "fields" << sets.size();
     return true;
 }
 
 bool Database::remove(Table t, int id, QString *error)
 {
+    LOG_Info() << "Removing record:" << tableName(t) << "id" << id;
     return update(t, id, {{u"geloescht"_s, 1}}, error);
 }
 

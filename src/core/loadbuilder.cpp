@@ -1,4 +1,5 @@
 #include "loadbuilder.h"
+#include "log.h"
 
 #include "loadspec.h"
 #include "numeric.h"
@@ -171,6 +172,7 @@ void refreshTitleAndLength(LoadFile &lf)
 void applyCaliber(LoadFile &lf, const QVariantMap &caliber, const QStringList &caliberColumns, bool resetDependent,
                   const QVariantMap *projectile, const QVariantMap *propellant)
 {
+    LOG_Debug() << "Load: caliber replaced, reset dependent values" << resetDependent;
     setFields(lf.caliber, caliberFields(caliber));
     fillCaliberFile(lf, caliber, caliberColumns);
     if (resetDependent) {
@@ -183,6 +185,7 @@ void applyCaliber(LoadFile &lf, const QVariantMap &caliber, const QStringList &c
 
 void applyProjectile(LoadFile &lf, const QVariantMap &projectile, bool resetDependent, const QVariantMap *caliber)
 {
+    LOG_Debug() << "Load: projectile replaced, reset dependent values" << resetDependent;
     setFields(lf.projectile, projectileFields(projectile));
     if (resetDependent && caliber) lf.projectile.set(u"gdepth", defaultSeatingDepth_mm(*caliber, projectile));
     else if (lf.projectile.number(u"gdepth") <= 0.0 && caliber) lf.projectile.set(u"gdepth", defaultSeatingDepth_mm(*caliber, projectile));
@@ -191,6 +194,7 @@ void applyProjectile(LoadFile &lf, const QVariantMap &projectile, bool resetDepe
 
 void applyPropellant(LoadFile &lf, const QVariantMap &propellant, bool resetDependent, const QVariantMap *caliber)
 {
+    LOG_Debug() << "Load: propellant replaced, reset dependent values" << resetDependent;
     setFields(lf.propellant, propellantFields(propellant));
     if (resetDependent && caliber) lf.propellant.set(u"mc", defaultCharge_g(*caliber, propellant));
     refreshTitleAndLength(lf);

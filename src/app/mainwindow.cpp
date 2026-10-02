@@ -164,7 +164,13 @@ void MainWindow::createActions()
         auto *v = currentLoad();
         if (!v) return;
         const QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
-        if (!path.isEmpty() && !v->report()->exportPdf(path)) QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
+        if (path.isEmpty()) return;
+        if (v->report()->exportPdf(path)) {
+            LOG_Info() << "Report exported:" << path;
+        } else {
+            LOG_Error() << "Cannot write PDF" << path;
+            QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
+        }
     }));
     file->addSeparator();
     m_loadActions.push_back(add(tr("Overlay &reference result…"), QKeySequence(Qt::CTRL | Qt::Key_R), [this] {
@@ -215,6 +221,7 @@ void MainWindow::createActions()
         a->setChecked(stored == value);
         group->addAction(a);
         connect(a, &QAction::triggered, this, [this, value] {
+            LOG_Info() << "Language chosen:" << (value.isEmpty() ? QStringLiteral("system default") : value);
             translation::storeLanguage(value);
             QMessageBox::information(this, tr("Language"), tr("The language change takes effect after restarting the application."));
         });
@@ -338,6 +345,7 @@ constexpr int kBorder = 5;  // resize border of the frameless window
 void MainWindow::setCustomTitleBar(bool on)
 {
     if (on == m_customTitleBar && m_titleBar->isDecorated() == on) return;
+    LOG_Info() << "Custom title bar" << (on ? "on" : "off");
     m_customTitleBar = on;
     const bool visible = isVisible();
     setWindowFlag(Qt::FramelessWindowHint, on);  // hides the window; shown again below
@@ -550,9 +558,11 @@ bool MainWindow::overlayReference(const QString &jsonPath)
     QString error;
     auto ref = grt::readReferenceRun(jsonPath, &error);
     if (!ref) {
+        LOG_Warn() << "Cannot read reference" << jsonPath << ":" << error;
         QMessageBox::warning(this, tr("Reference"), tr("Cannot read %1:\n%2").arg(jsonPath, error));
         return false;
     }
+    LOG_Info() << "Reference overlay:" << jsonPath << "(" << ref->points.size() << "points, stale" << ref->stale << ")";
     if (ref->stale)
         QMessageBox::warning(this, tr("Reference"), tr("This reference run is marked stale (the wrong tab was read)."));
     view->setReference(std::move(ref));
@@ -586,6 +596,7 @@ void MainWindow::newLoad()
     if (dlg.exec() != QDialog::Accepted) return;
     auto *view = new LoadView;
     view->setNewLoad(dlg.result());
+    LOG_Info() << "New load created:" << view->title();
     view->setProperty("untitledName", tr("Untitled %1").arg(++m_untitled));
     setupLoadView(view);
     const int idx = m_tabs->addTab(view, QString());
@@ -651,5 +662,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
         }
     }
     QSettings().setValue(QStringLiteral("window/geometry"), saveGeometry());
+    LOG_Info() << "GRT Reloaded closed";
     event->accept();
 }

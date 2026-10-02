@@ -1,4 +1,5 @@
 #include "theme.h"
+#include "log.h"
 
 #include <QApplication>
 #include <QPalette>
@@ -65,6 +66,7 @@ Mode storedMode()
 
 void storeMode(Mode mode)
 {
+    LOG_Info() << "Theme set to" << (mode == Mode::System ? "system" : mode == Mode::Dark ? "dark" : "light");
     QSettings s;
     if (mode == Mode::System) s.remove(QLatin1String(kKey));
     else s.setValue(QLatin1String(kKey), mode == Mode::Dark ? QStringLiteral("dark") : QStringLiteral("light"));
