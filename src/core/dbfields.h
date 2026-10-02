@@ -33,7 +33,7 @@ struct Field
     units::Quantity quantity{units::Quantity::None};
     double toBase{1.0};
     Kind kind{Kind::Text};
-    bool readOnly{false};  // set by the program (dates of creation and change, image ids)
+    bool readOnly{false};  // set by the program (date of the last change, image ids)
     bool required{false};  // a record needs it (its name)
     QString unitText;      // shown for numbers without a quantity (e.g. "kJ/kg")
 };

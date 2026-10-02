@@ -1587,7 +1587,7 @@ Esportarlo comunque?</translation>
         <translation>Colonna della banca dati: %1</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source> (copy)</source>
         <translation> (copia)</translation>
     </message>
@@ -1662,7 +1662,7 @@ Esportarlo comunque?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+78"/>
         <source>Please check the field &quot;%1&quot;.</source>
         <translation>Controlla il campo «%1».</translation>
     </message>

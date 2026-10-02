@@ -1587,7 +1587,7 @@ L&apos;exporter quand même ?</translation>
         <translation>Colonne de la base : %1</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source> (copy)</source>
         <translation> (copie)</translation>
     </message>
@@ -1662,7 +1662,7 @@ L&apos;exporter quand même ?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+78"/>
         <source>Please check the field &quot;%1&quot;.</source>
         <translation>Veuillez vérifier le champ « %1 ».</translation>
     </message>

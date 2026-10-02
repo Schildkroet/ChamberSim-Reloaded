@@ -202,7 +202,9 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     if (table == grt::Table::Propellant) addPhotoGroup(cl);
     cl->addStretch(1);
 
-    // a copy is a new record: name it so that it can be told apart, and forget the program's dates
+    // a new record or a copy is created today (the date can be changed)
+    if (mode != Mode::Edit) setText(u"cdate"_s, QDate::currentDate().toString(Qt::ISODate));
+    // a copy is a new record: name it so that it can be told apart
     if (mode == Mode::Copy)
     {
         const QString nameColumn = table == grt::Table::Caliber ? u"cipname"_s : u"pname"_s;
@@ -423,16 +425,8 @@ QVariantMap RecordDialog::values() const
         if (const auto v = valueOf(e)) out.insert(e.field.column, *v);
     if (m_table == grt::Table::Propellant)
         for (const PhotoSlot &slot : m_photos) out.insert(slot.column, slot.uuid);
-    const QString today = QDate::currentDate().toString(Qt::ISODate);
-    if (m_mode == Mode::Edit)
-    {
-        out.insert(u"mdate"_s, today);
-    }
-    else
-    {
-        out.insert(u"cdate"_s, today);
-        out.insert(u"mdate"_s, QString());
-    }
+    // the creation date comes from its date picker (today for a new record or a copy); the change date is the program's
+    out.insert(u"mdate"_s, m_mode == Mode::Edit ? QDate::currentDate().toString(Qt::ISODate) : QString());
     return out;
 }
 

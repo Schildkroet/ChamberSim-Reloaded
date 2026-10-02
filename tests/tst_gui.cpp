@@ -1220,8 +1220,21 @@ void GuiTest::recordDialogDatesAndWidth()
     QCOMPARE(cal.values().value(u"cipdate"_s).toString(), u"1984-06-14"_s);
     cal.setText(u"cipdate"_s, QString());
     QCOMPARE(cal.values().value(u"cipdate"_s).toString(), QString());  // "– not set –"
-    QVERIFY(!cal.findChild<QDateEdit *>(u"cdate"_s));                  // set by the program, not a picker
-    QCOMPARE(cal.values().value(u"cdate"_s).toString(), QDate::currentDate().toString(Qt::ISODate));
+    QVERIFY(!cal.findChild<QDateEdit *>(u"mdate"_s));                  // the date of the last change is set by the program
+    QCOMPARE(cal.values().value(u"cdate"_s).toString(), QDate::currentDate().toString(Qt::ISODate));  // a copy: today
+
+    // the creation date can be entered for every kind of record (a picker, today for a new record)
+    for (const grt::Table t : {grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant})
+    {
+        RecordDialog dlg(m_db, t, RecordDialog::Mode::New);
+        auto *created = dlg.findChild<QDateEdit *>(u"cdate"_s);
+        QVERIFY(created);
+        QVERIFY(created->isEnabled() && !created->isReadOnly());
+        QCOMPARE(dlg.text(u"cdate"_s), QDate::currentDate().toString(Qt::ISODate));
+        dlg.setText(u"cdate"_s, u"2020-05-01"_s);
+        QCOMPARE(dlg.values().value(u"cdate"_s).toString(), u"2020-05-01"_s);
+        QCOMPARE(dlg.values().value(u"mdate"_s).toString(), QString());
+    }
 
     for (const grt::Table t : {grt::Table::Projectile, grt::Table::Propellant})
     {

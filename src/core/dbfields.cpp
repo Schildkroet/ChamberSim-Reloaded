@@ -183,7 +183,7 @@ Field describe(Table t, const QString &column, const QString &sqlType)
             f.readOnly = true;
         }
     }
-    f.readOnly = f.readOnly || column == u"cdate" || column == u"mdate";
+    f.readOnly = f.readOnly || column == u"mdate";  // the date of the last change is set by the program
     f.required = column == u"cipname" || column == u"pname";
     return f;
 }
