@@ -73,10 +73,11 @@ jobs:
             --output appimage
           ls -l *.AppImage
 
+      # the AppImage as it is (not wrapped in a zip)
       - uses: actions/upload-artifact@v7
         with:
-          name: GRTReloaded-Linux
           path: "*.AppImage"
+          archive: false
           if-no-files-found: error
 
   windows:
@@ -139,10 +140,11 @@ jobs:
           Move-Item dist\bin $name
           Compress-Archive -Path $name -DestinationPath "$name.zip"
 
+      # upload the zip as it is: zipped again by upload-artifact, the download would be a zip inside a zip
       - uses: actions/upload-artifact@v7
         with:
-          name: GRTReloaded-Win-x64
           path: "*.zip"
+          archive: false
           if-no-files-found: error
 
   release:
