@@ -153,6 +153,12 @@ void TitleBar::updateSizes()
     m_icon->setFixedSize(h, h);
     m_icon->setAlignment(Qt::AlignCenter);
     m_icon->setPixmap(m_window->windowIcon().pixmap(iconSize, iconSize));
+    // the window title: bold and larger than the menu entries (it follows the application font size)
+    QFont titleFont = font();
+    titleFont.setBold(true);
+    if (titleFont.pointSizeF() > 0.0) titleFont.setPointSizeF(titleFont.pointSizeF() * 1.3);
+    else if (titleFont.pixelSize() > 0) titleFont.setPixelSize(static_cast<int>(titleFont.pixelSize() * 1.3));
+    m_title->setFont(titleFont);
 }
 
 void TitleBar::updateState()
