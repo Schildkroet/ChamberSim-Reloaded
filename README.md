@@ -43,7 +43,7 @@ original's results; lower is better):
 | Other cartridges (caliber sweep) | 28 | 1.1 % | 3.6 % | 1.1 % | 9.4 % | 4.3 % |
 | Powders (40 powders, one cartridge) | 39 | 2.1 % | 8.0 % | 1.0 % | 5.9 % | 4.0 % |
 | Charge, bullet weight, start pressure, case volume | 24 | 1.9 % | 4.4 % | 0.7 % | 2.3 % | 3.3 % |
-| Barrel length, twist, Sebert factor | 10 | 1.1 % | 2.9 % | 0.4 % | 1.8 % | 3.5 % |
+| Barrel length, twist, Sebert factor | 10 | 1.1 % | 2.9 % | 0.4 % | 1.8 % | 2.6 % |
 | Powder temperature | 26 | 0.6 % | 0.9 % | 0.2 % | 0.3 % | 2.3 % |
 | Bullet friction | 11 | 1.2 % | 3.7 % | 0.7 % | 2.3 % | 2.7 % |
 | Almost closed vessel (very heavy bullet) | 9 | 3.3 % | 7.4 % | 1.2 % | 2.5 % | 3.9 % |

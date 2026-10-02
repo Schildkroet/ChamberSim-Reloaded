@@ -10,7 +10,8 @@ namespace grt
 namespace
 {
 
-constexpr double kBar = 1.0e5;  // Pa per bar
+constexpr double kBar = 1.0e5;              // Pa per bar
+constexpr double kReferenceSteps = 2000.0;  // position steps of the original program
 
 // Three-phase form function phi(z) of the burn law dz/dt = Ba * p[bar] * phi(z).
 struct FormFunction
@@ -208,7 +209,9 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     for (int i = 1; i < steps; ++i)
     {
         const double x1 = x0 + i * dx;
-        const double ignited = cal.ignitionRate > 0.0 ? 1.0 - std::exp(-cal.ignitionRate * (i + cal.ignitionLead)) : 1.0;
+        // the ramp was measured in steps of the original's 2000 point grid: it stays the same distance for other `steps`
+        const double ignited =
+            cal.ignitionRate > 0.0 ? 1.0 - std::exp(-cal.ignitionRate * (i * (kReferenceSteps / steps) + cal.ignitionLead)) : 1.0;
 
         struct Trial
         {

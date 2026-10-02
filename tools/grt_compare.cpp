@@ -2,7 +2,7 @@
 // original program and reports how far apart they are.
 //
 //   grt_compare [--jobs DIR] [--results DIR] [--include RE] [--exclude RE]
-//               [--set name=value]... [--list-params] [--quiet]
+//               [--set name=value]... [--steps n] [--list-params] [--quiet]
 //
 // Output: one line per run, then "OBJECTIVE <score>" (smaller is better): the rms over
 // all runs of sqrt(err_pmax^2 + err_vmuz^2 + err_curve^2), all relative.
@@ -41,14 +41,25 @@ RunError compare(const grt::SimResult &sim, const grt::ReferenceRun &ref)
     e.pmax = sim.maxPressure_bar / refP - 1.0;
     // the original reports 0 when the bullet does not leave the barrel: nothing to compare then
     e.vmuz = refV > 0.0 ? sim.muzzleVelocity_ms / refV - 1.0 : 0.0;
-    const std::size_t n = std::min(sim.points.size(), ref.points.size());
+    // the solver's pressure at the positions of the reference points (linear interpolation: --steps changes the grid)
+    const auto pressureAt = [&](double x_mm)
+    {
+        const auto &pts = sim.points;
+        const auto it = std::ranges::lower_bound(pts, x_mm, {}, &grt::SimPoint::x_mm);
+        if (it == pts.begin()) return pts.front().p_bar;
+        if (it == pts.end()) return pts.back().p_bar;
+        const auto &a = *(it - 1);
+        const auto &b = *it;
+        const double f = b.x_mm > a.x_mm ? (x_mm - a.x_mm) / (b.x_mm - a.x_mm) : 0.0;
+        return a.p_bar + f * (b.p_bar - a.p_bar);
+    };
     double sum = 0.0;
     std::size_t cnt = 0;
-    for (std::size_t i = 1; i < n; ++i)
+    for (std::size_t i = 1; i < ref.points.size(); ++i)
     {
         const double rp = ref.points[i].p_bar;
         if (rp < 0.05 * refP) continue;
-        const double d = sim.points[i].p_bar / rp - 1.0;
+        const double d = pressureAt(ref.points[i].x_mm) / rp - 1.0;
         sum += d * d;
         ++cnt;
     }
@@ -71,6 +82,7 @@ int main(int argc, char *argv[])
         {u"include"_s, u"only runs whose name matches this regex"_s, u"re"_s},
         {u"exclude"_s, u"skip runs whose name matches this regex"_s, u"re"_s, u"^(casevol_x1\\.25|cv_mp200_casevol1\\.5)$"_s},
         {u"set"_s, u"override a calibration constant (name=value)"_s, u"kv"_s},
+        {u"steps"_s, u"number of position steps of the solver (default 2000, like the original)"_s, u"n"_s, u"2000"_s},
         {u"list-params"_s, u"print the calibration constants and exit"_s},
         {u"quiet"_s, u"print only the OBJECTIVE line"_s},
         {u"zweight"_s, u"weight of the burnt-fraction error at the muzzle in the objective"_s, u"w"_s, u"0.5"_s},
@@ -105,6 +117,7 @@ int main(int argc, char *argv[])
     const QDir resDir(cli.value(u"results"_s));
     const QDir jobDir(cli.value(u"jobs"_s));
     const double zWeight = cli.value(u"zweight"_s).toDouble();
+    const int steps = cli.value(u"steps"_s).toInt();
     const bool quiet = cli.isSet(u"quiet"_s) || cli.isSet(u"residuals"_s);
     QStringList residuals;
 
@@ -123,7 +136,7 @@ int main(int argc, char *argv[])
             const bool tooHigh = ref->summary.value(u"PropellantChargeTooHigh"_s).toString() == u"true"_s;
             if (!tooHigh) continue;  // e.g. the first job of a batch, which was read before the app finished
             ++rejectedRefs;
-            if (grt::simulate(grt::SimInput::fromLoad(*lf), cal).ok())
+            if (grt::simulate(grt::SimInput::fromLoad(*lf), cal, steps).ok())
             {
                 ++rejectMismatch;
                 if (!quiet) out << QString::asprintf("%-26s original rejected the charge, solver accepted it\n", qPrintable(name));
@@ -131,7 +144,7 @@ int main(int argc, char *argv[])
             continue;
         }
 
-        const grt::SimResult sim = grt::simulate(grt::SimInput::fromLoad(*lf), cal);
+        const grt::SimResult sim = grt::simulate(grt::SimInput::fromLoad(*lf), cal, steps);
         if (!sim.ok())
         {
             ++failed;

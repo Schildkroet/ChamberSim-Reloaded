@@ -1,0 +1,3 @@
+# clangd: use the compile database of the debug preset (cmake --preset debug)
+CompileFlags:
+  CompilationDatabase: build/debug

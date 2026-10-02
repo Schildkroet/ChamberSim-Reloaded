@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Least-squares calibration of the solver constants against the reference runs.
 Usage: calibrate.py <path to grt_compare> [param ...]   (default: a standard parameter set)
-Environment: GRT_START, GRT_FIXED (see below), GRT_ZWEIGHT (weight of the muzzle burnt-fraction error), GRT_OUT (result file, default calibrated.json).
+Environment: GRT_STEPS (solver steps, default 2000), GRT_START, GRT_FIXED (see below), GRT_ZWEIGHT (weight of the muzzle burnt-fraction error), GRT_OUT (result file, default calibrated.json).
 The Jacobian is evaluated in parallel (one grt_compare process per parameter)."""
 import os, subprocess, sys, json, numpy as np
 from concurrent.futures import ThreadPoolExecutor
@@ -23,7 +23,7 @@ x0 = np.array([base[n] for n in names])
 scale = np.maximum(np.abs(x0), 0.05)
 
 def run(x):
-    args = [EXE, "--residuals"] + (["--zweight", os.environ["GRT_ZWEIGHT"]] if "GRT_ZWEIGHT" in os.environ else [])
+    args = [EXE, "--residuals"] + (["--steps", os.environ["GRT_STEPS"]] if "GRT_STEPS" in os.environ else []) + (["--zweight", os.environ["GRT_ZWEIGHT"]] if "GRT_ZWEIGHT" in os.environ else [])
     for t in fixed: args += ["--set", t]
     for n, v in zip(names, x): args += ["--set", f"{n}={v:.10g}"]
     out = subprocess.run(args, capture_output=True, text=True).stdout
