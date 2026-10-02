@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # The application version: the single place to change it (shown in Help > About, bundle info, ...).
-set(GRT_VERSION "0.1")
+set(GRT_VERSION "0.2")
 
 project(GRTReloaded VERSION ${GRT_VERSION} LANGUAGES CXX)
 

@@ -25,6 +25,7 @@ GROUPS = [  # (label, name regex)
     ("Pistol and revolver loads with fast powders", r"^fp_"),
     ("Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...)", r"^g[a-h]_"),
     ("Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm)", r"^j[a-d]_"),
+    ("Powder and start-pressure variations of the 8x57 (shotshell batch, flag off)", r"^sh_.*_off$"),
     ("Loading density (charge, case volume, powder density, Qex)", r"^ld"),
 ]
 line = re.compile(r"^(\S+)\s+pmax\s+([+-]?[\d.]+) %\s+vmuz\s+([+-]?[\d.]+) %\s+curve rms\s+([\d.]+) %")

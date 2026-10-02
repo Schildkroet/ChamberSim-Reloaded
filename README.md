@@ -59,11 +59,12 @@ original's results; lower is better):
 | Pistol and revolver loads with fast powders | 28 | 3.0 % | 8.1 % | 0.9 % | 2.8 % | 4.1 % |
 | Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 34 | 6.3 % | 12.6 % | 0.8 % | 10.3 % | 31.0 % |
 | Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 2.8 % | 8.0 % | 0.9 % | 2.0 % | 3.0 % |
+| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 2.4 % | 7.0 % | 0.7 % | 2.2 % | 5.5 % |
 | Loading density (charge, case volume, powder density, Qex) | 22 | 3.4 % | 13.9 % | 0.7 % | 3.4 % | 4.8 % |
 | Other | 1 | 9.2 % | 9.2 % | 0.7 % | 0.7 % | 6.6 % |
-| **All runs** | 337 | 2.8 % | 30.7 % | 0.8 % | 10.9 % | 6.8 % |
+| **All runs** | 349 | 2.8 % | 30.7 % | 0.8 % | 10.9 % | 6.8 % |
 
-_Absolute errors against 337 runs of the original program; updated 2026-10-02 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute errors against 349 runs of the original program; updated 2026-10-02 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is
