@@ -43,15 +43,20 @@ $Out = [System.IO.Path]::GetFullPath($Out)
 Info "GRT folder: $App"
 
 # ---- Python ------------------------------------------------------------------------------------------------------
-# returns @{ Exe = ...; Args = @(...) } for the first Python 3 found
+# The Python must be a normal build: frida has no wheel for the free-threaded builds (python3.13t, 3.14t, "py -3.14t"),
+# pip then tries to build it and stops with "py_limited_api is incompatible with py_gil_disabled".
+$UsablePython = "import sys, sysconfig; print('free' if sysconfig.get_config_var('Py_GIL_DISABLED') else sys.version_info[0])"
+
+# returns @{ Exe = ...; Args = @(...) } for the first usable Python 3 found (newer versions may lack a frida wheel: 3.13 and 3.12 first)
 function Find-Python {
-    foreach ($cand in @(@{ Exe = "py"; Args = @("-3") }, @{ Exe = "python"; Args = @() }, @{ Exe = "python3"; Args = @() })) {
+    foreach ($cand in @(@{ Exe = "py"; Args = @("-3.13") }, @{ Exe = "py"; Args = @("-3.12") }, @{ Exe = "py"; Args = @("-3.11") },
+                        @{ Exe = "py"; Args = @("-3") }, @{ Exe = "python"; Args = @() }, @{ Exe = "python3"; Args = @() })) {
         $cmd = Get-Command $cand.Exe -ErrorAction SilentlyContinue
         if (-not $cmd) { continue }
         if ($cmd.Source -like "*\WindowsApps\*") { continue }   # the Microsoft Store placeholder, not Python
         try {
             $pyArgs = $cand.Args
-            $v = & $cand.Exe @pyArgs -c "import sys; print(sys.version_info[0])" 2>$null
+            $v = & $cand.Exe @pyArgs -c $UsablePython 2>$null
             if ($v -eq "3") { return $cand }
         } catch { }
     }
@@ -61,6 +66,11 @@ function Find-Python {
 $Py = Find-Python
 $Venv = Join-Path $env:LOCALAPPDATA "GRTReloaded\decrypt-venv"
 $VenvPy = Join-Path $Venv "Scripts\python.exe"
+# an environment made by an earlier run with a free-threaded Python cannot get frida: start again
+if ((Test-Path $VenvPy) -and ((& $VenvPy -c $UsablePython 2>$null) -ne "3")) {
+    Warn "The private Python environment uses a free-threaded Python; creating it again"
+    Remove-Item $Venv -Recurse -Force -ErrorAction SilentlyContinue
+}
 $HaveFrida = (Test-Path $VenvPy) -and ((& $VenvPy -c "import frida; print('ok')" 2>$null) -eq "ok")
 
 $Missing = @()
