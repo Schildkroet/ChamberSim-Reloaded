@@ -81,3 +81,27 @@ class Writer:
     def __call__(self, name, s):
         open(os.path.join(OUT, f"exp_{name}.grtload"), "w", encoding="utf-8").write(s)
         self.n += 1
+
+
+def build_load(cal, bullet, powder, charge_g, col_mm, barrel_mm):
+    """A load from database records (dicts of caliber, projectile, propellant) with the given charge [g], cartridge
+    overall length [mm] and barrel length [mm]: the seating depth follows from the case length, bullet length and COL."""
+    vol = cal["V"] * GRAIN
+    depth = cal["L3"] + bullet["glen"] - col_mm
+    s = base8
+    for key, val in (("CaliberName", urllib.parse.quote(cal["cipname"])), ("oal", round(col_mm, 3)), ("caselen", cal["L3"]), ("casevol", round(vol, 6)),
+                     ("Dz", cal["c_Z"]), ("Aeff", cal["c_Q"]), ("pMaxZul", cal["Pmax"]), ("sebert", cal["sebert"]), ("ps", bullet["gpressure"] or 250)):
+        s = setv(s, "caliber", key, val)
+    s = setv(s, "gun", "xe", barrel_mm)
+    for key, val in (("ProjectileName", urllib.parse.quote(f'{bullet["mname"]}, {bullet["pname"]}')), ("mname", urllib.parse.quote(bullet["mname"])),
+                     ("pname", urllib.parse.quote(bullet["pname"])), ("Dbul", bullet["gdia"]), ("mp", repr(bullet["gmass"] * GRAIN)), ("gdepth", round(depth, 3)),
+                     ("glen", bullet["glen"]), ("gpressure", bullet["gpressure"] or 250), ("gtailh", bullet["gtailh"]), ("gTailDiaA", bullet["gtaildiaA"]),
+                     ("gTailDiaB", bullet["gtaildiaB"]), ("gTailType", bullet["gtailtype"]), ("g1bc", bullet["g1bc"]), ("g7bc", bullet["g7bc"])):
+        s = setv(s, "projectile", key, val)
+    for key, val in (("mname", urllib.parse.quote(powder["mname"])), ("pname", urllib.parse.quote(powder["pname"])), ("Ba", powder["Ba"]), ("Qex", powder["Qex"]),
+                     ("k", powder["k"]), ("a0", powder["a0"]), ("a1", powder["a1"]), ("z1", powder["z1"]), ("z2", powder["z2"]), ("eta", powder["eta"]),
+                     ("pc", powder["pc"]), ("pcd", powder["pcd"]), ("mc", repr(charge_g))):
+        s = setv(s, "propellant", key, val)
+    for key in ("L0","L1","L2","L3","L4","L5","L6","R","R1","R3","E","E1","Emin","FG","P0","P1","P2","S","r1min","r2","H1","H2","G1","G2","f","L3G","Pmax","PK","PE","EE","V","sebert"):
+        if key in cal: s = setvar(s, key, cal[key])
+    return setvar(s, "cipname", urllib.parse.quote(cal["cipname"]))
