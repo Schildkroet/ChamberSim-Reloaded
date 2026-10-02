@@ -14,3 +14,8 @@ set_tests_properties(gui PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 # the project's record files must all be usable
 add_test(NAME projectdata COMMAND grt_datacheck "${CMAKE_SOURCE_DIR}/data")
+
+if(TARGET clang_format)
+    add_dependencies(tst_core clang_format)
+    add_dependencies(tst_gui clang_format)
+endif()

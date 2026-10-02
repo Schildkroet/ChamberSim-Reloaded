@@ -219,6 +219,24 @@ add_executable(grt_compare tools/grt_compare.cpp)
 target_link_libraries(grt_compare PRIVATE grtcore)
 target_compile_definitions(grt_compare PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
+# ---- formatting: clang-format (see .clang-format) runs on the sources before every build ----
+# It only rewrites files that change. Turn it off with -DGRT_FORMAT_ON_BUILD=OFF (CI builds that must not touch the tree).
+option(GRT_FORMAT_ON_BUILD "Run clang-format -i on the sources before every build" ON)
+find_program(GRT_CLANG_FORMAT clang-format)
+if(GRT_FORMAT_ON_BUILD AND GRT_CLANG_FORMAT)
+    file(GLOB_RECURSE GRT_FORMAT_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/*.h" "${CMAKE_SOURCE_DIR}/src/*.cpp"
+         "${CMAKE_SOURCE_DIR}/tests/*.cpp" "${CMAKE_SOURCE_DIR}/tools/*.cpp")
+    add_custom_target(clang_format
+        COMMAND ${GRT_CLANG_FORMAT} -i --style=file ${GRT_FORMAT_FILES}
+        COMMENT "clang-format"
+        VERBATIM)
+    foreach(t grtcore grtui GRTReloaded grt_datacheck grt_fitpowder grt_compare)
+        add_dependencies(${t} clang_format)
+    endforeach()
+elseif(GRT_FORMAT_ON_BUILD)
+    message(STATUS "clang-format not found: the sources are not formatted by the build")
+endif()
+
 # ---- tests ----
 enable_testing()
 add_subdirectory(tests)
