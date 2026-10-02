@@ -106,6 +106,7 @@ private slots:
     void measurementSeriesAreEditedAndSaved();
     void chronographImportAddsCharges();
     void propellantPhotoIsShown();
+    void ignoredInputsAreNamed();
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
@@ -1199,6 +1200,53 @@ void GuiTest::measurementTabShowsTheFilesResults()
     QVERIFY(html.contains(u"848.3 m/s"_s));
     QVERIFY(!html.contains(u"measurement.section?"_s));
     UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+// Inputs of the original that the solver does not use (bullet jump, shotshell) are named under the results.
+void GuiTest::ignoredInputsAreNamed()
+{
+    QFile f(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(f.open(QIODevice::ReadOnly));
+    QString xml = QString::fromUtf8(f.readAll());
+    const auto set = [&](const QString &name, const QString &value)
+    {
+        const QRegularExpression re(u"(<input name=\"%1\" value=\")[^\"]*"_s.arg(name));
+        QVERIFY(re.match(xml).hasMatch());
+        xml.replace(re, u"\\1"_s + value);
+    };
+    const auto statusText = [](LoadView &v)
+    {
+        for (QLabel *l : v.findChildren<QLabel *>())
+            if (l->text().contains(u"Calibrated against"_s)) return l->text();
+        return QString();
+    };
+    QTemporaryDir dir;
+    const QString path = dir.filePath(u"j.grtload"_s);
+    const auto save = [&]
+    {
+        QFile out(path);
+        QVERIFY(out.open(QIODevice::WriteOnly));
+        out.write(xml.toUtf8());
+    };
+    LoadView plain;
+    QVERIFY(plain.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(!statusText(plain).contains(u"Not taken into account"_s));
+
+    set(u"gjump"_s, u"1.5"_s);
+    save();
+    LoadView locked;  // a distance alone (locked) is not used by the original either
+    QVERIFY(locked.load(path));
+    QVERIFY(!statusText(locked).contains(u"bullet jump"_s));
+
+    set(u"gjumpUnlock"_s, u"true"_s);
+    set(u"shotshell"_s, u"true"_s);
+    save();
+    LoadView view;
+    QVERIFY(view.load(path));
+    const QString text = statusText(view);
+    QVERIFY2(text.contains(u"Not taken into account"_s), qPrintable(text));
+    QVERIFY(text.contains(u"bullet jump"_s));
+    QVERIFY(text.contains(u"shotshell"_s));
 }
 
 void GuiTest::propellantPhotoIsShown()

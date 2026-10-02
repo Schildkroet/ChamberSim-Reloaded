@@ -792,8 +792,17 @@ void LoadView::showResult()
         clearAll();
         return;
     }
-    m_status->setText(tr("<i>Calibrated against 190 runs of the original program on 36 cartridges: typical deviation "
-                         "about 1 % in velocity and 2 % in peak pressure; unusual loads can deviate more.</i>"));
+    QString status = tr("<i>Calibrated against runs of the original program and checked against published load data: typical "
+                        "deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual "
+                        "loads can deviate more.</i>");
+    // inputs of the original that the solver does not use yet (no reference data: the result ignores them)
+    QStringList ignored;
+    if (m_file.gun.flag(u"gjumpUnlock") && m_file.gun.number(u"gjump") > 0.0)
+        ignored << tr("the bullet jump of %1").arg(shown(m_file.gun.number(u"gjump"), grt::units::Quantity::Length));
+    if (m_file.caliber.flag(u"shotshell")) ignored << tr("the shotshell setting");
+    if (!ignored.isEmpty())
+        status += u"<br>"_s + tr("<b>Not taken into account:</b> %1. The result is calculated as without it.").arg(ignored.join(u", "_s));
+    m_status->setText(status);
 
     const grt::SimResult &r = m_result;
     using grt::units::Quantity;

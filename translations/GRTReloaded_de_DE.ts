@@ -4,27 +4,27 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+311"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+330"/>
         <source>No cartridge data</source>
         <translation>Keine Patronendaten</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+92"/>
         <source>Overall length</source>
         <translation>Gesamtlänge</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Case length</source>
         <translation>Hülsenlänge</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Seating depth</source>
         <translation>Setztiefe</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+52"/>
         <source>CIP dimensions</source>
         <translation>CIP-Maße</translation>
     </message>
@@ -32,13 +32,13 @@
 <context>
     <name>ChamberView</name>
     <message>
-        <location filename="../src/app/chamberview.cpp" line="+171"/>
+        <location filename="../src/app/chamberview.cpp" line="+182"/>
         <source>No chamber data</source>
         <translation>Keine Patronenlagerdaten</translation>
     </message>
     <message>
-        <location line="+90"/>
-        <location line="+41"/>
+        <location line="+96"/>
+        <location line="+43"/>
         <source>Chamber length %1</source>
         <translation>Patronenlagerlänge %1</translation>
     </message>
@@ -51,18 +51,18 @@
 <context>
     <name>ChronographImportDialog</name>
     <message>
-        <location filename="../src/app/chronographimportdialog.cpp" line="+40"/>
+        <location filename="../src/app/chronographimportdialog.cpp" line="+50"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+27"/>
+        <location line="+30"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-30"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
@@ -72,17 +72,17 @@
         <translation type="unfinished">Schüsse</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Velocity [%1]</source>
         <translation type="unfinished">Geschwindigkeit [%1]</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>SD</source>
         <translation type="unfinished">SD</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Charge [%1]</source>
         <translation type="unfinished">Ladung [%1]</translation>
     </message>
@@ -92,7 +92,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+21"/>
+        <location line="+23"/>
         <source>%1 file with %n series. Every ticked series becomes a charge with its shots.</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -103,7 +103,7 @@
 <context>
     <name>CurveChart</name>
     <message>
-        <location filename="../src/app/curvechart.cpp" line="+62"/>
+        <location filename="../src/app/curvechart.cpp" line="+63"/>
         <source>Pressure</source>
         <translation>Druck</translation>
     </message>
@@ -138,7 +138,7 @@
         <translation>Pmax zulässig</translation>
     </message>
     <message>
-        <location line="+282"/>
+        <location line="+309"/>
         <source>ms</source>
         <translation>ms</translation>
     </message>
@@ -151,30 +151,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+146"/>
-        <location line="+643"/>
+        <location filename="../src/app/loadview.cpp" line="+147"/>
+        <location line="+686"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-643"/>
-        <location line="+644"/>
+        <location line="-686"/>
+        <location line="+687"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-644"/>
+        <location line="-687"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+645"/>
+        <location line="+688"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-644"/>
+        <location line="-687"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -256,29 +256,29 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+155"/>
+        <location line="+161"/>
         <source>Projectile</source>
         <translation>Geschoss</translation>
     </message>
     <message>
-        <location line="-155"/>
-        <location line="+156"/>
+        <location line="-161"/>
+        <location line="+162"/>
         <source>Propellant</source>
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-152"/>
         <source>Select from database…</source>
         <translation>Aus Datenbank wählen…</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+173"/>
+        <location line="+179"/>
         <source>No database available</source>
         <translation>Keine Datenbank verfügbar</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-163"/>
         <source>Cartridge</source>
         <translation>Patrone</translation>
     </message>
@@ -299,17 +299,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+453"/>
+        <location line="+483"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-452"/>
+        <location line="-482"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+114"/>
         <source>Caliber / cartridge</source>
         <translation>Kaliber / Patrone</translation>
     </message>
@@ -319,12 +319,12 @@
         <translation>Waffe</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+33"/>
         <source>Replace this component by another record of the database</source>
         <translation>Diese Komponente durch einen anderen Datensatz der Datenbank ersetzen</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+71"/>
         <source>Select caliber</source>
         <translation>Kaliber wählen</translation>
     </message>
@@ -339,12 +339,12 @@
         <translation>Pulver wählen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Auch Lauflänge, Setztiefe und Ladung auf die Vorgaben des neuen Kalibers setzen</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Nur Geschosse anzeigen, die zum Kaliber passen</translation>
     </message>
@@ -354,12 +354,12 @@
         <translation>Auch die Setztiefe auf die Vorgabe setzen (maximale Patronenlänge)</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>Also set the charge to the default (70 % of the case capacity)</source>
         <translation>Auch die Ladung auf die Vorgabe setzen (70 % des Hülsenvolumens)</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>Select</source>
         <translation>Auswählen</translation>
     </message>
@@ -369,7 +369,7 @@
         <translation>Der Datensatz konnte nicht aus der Datenbank gelesen werden.</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+54"/>
         <source>Fit to measurements</source>
         <translation>An Messungen anpassen</translation>
     </message>
@@ -379,12 +379,12 @@
         <translation>Zuerst die gemessenen Geschwindigkeiten der Schüsse eingeben.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+11"/>
         <source> (fitted)</source>
         <translation> (angepasst)</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+85"/>
         <source>charge too high</source>
         <translation>Ladung zu hoch</translation>
     </message>
@@ -394,12 +394,12 @@
         <translation>^ Ladung ^ Name ^ Schüsse ^ Geschwindigkeit ^ SD ^ ES ^ Simuliert ^ Δ ^ Druck ^ Simuliert ^ Δ ^</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+54"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Geschoss:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Pulver:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/HL:&lt;/b&gt; %6, &lt;b&gt;L6/GL:&lt;/b&gt; %7, &lt;b&gt;Setztiefe:&lt;/b&gt; %8, &lt;b&gt;Geschosslänge:&lt;/b&gt; %9, &lt;b&gt;Hülsenvolumen:&lt;/b&gt; %10</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Ladung zu hoch:&lt;/b&gt; die Pulverladung passt nicht hinter dem Geschoss in die Hülse.</translation>
     </message>
@@ -410,8 +410,23 @@
     </message>
     <message>
         <location line="+4"/>
-        <source>&lt;i&gt;Calibrated against 190 runs of the original program on 36 cartridges: typical deviation about 1 % in velocity and 2 % in peak pressure; unusual loads can deviate more.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Kalibriert an 190 Rechnungen des Originalprogramms mit 36 Patronen: typische Abweichung etwa 1 % bei der Geschwindigkeit und 2 % beim Spitzendruck; ungewöhnliche Ladungen können stärker abweichen.&lt;/i&gt;</translation>
+        <source>&lt;i&gt;Calibrated against runs of the original program and checked against published load data: typical deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual loads can deviate more.&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>the bullet jump of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>the shotshell setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&lt;b&gt;Not taken into account:&lt;/b&gt; %1. The result is calculated as without it.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+9"/>
@@ -434,7 +449,7 @@
         <translation>– (Waffengewicht 0)</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+20"/>
         <source>Muzzle energy</source>
         <translation>Mündungsenergie</translation>
     </message>
@@ -463,12 +478,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+256"/>
+        <location filename="../src/app/mainwindow.cpp" line="+302"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-201"/>
+        <location filename="../src/app/mainwindow.cpp" line="-247"/>
         <source>Calibers</source>
         <translation>Kaliber</translation>
     </message>
@@ -524,20 +539,20 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+219"/>
-        <location line="+159"/>
-        <location line="+10"/>
-        <location line="+25"/>
+        <location line="+271"/>
+        <location line="+165"/>
+        <location line="+14"/>
+        <location line="+26"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
     <message>
-        <location line="-376"/>
+        <location line="-437"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>&amp;New load…</source>
         <translation>&amp;Neue Ladung…</translation>
     </message>
@@ -547,13 +562,13 @@
         <translation>Ladung ö&amp;ffnen…</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location line="+154"/>
+        <location line="+3"/>
+        <location line="+200"/>
         <source>Open load</source>
         <translation>Ladung öffnen</translation>
     </message>
     <message>
-        <location line="-154"/>
+        <location line="-200"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation>GRT-Ladungen (*.grtload);;Alle Dateien (*)</translation>
     </message>
@@ -563,54 +578,54 @@
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Save &amp;as…</source>
         <translation>Speichern &amp;unter…</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>Open &amp;recent</source>
         <translation>&amp;Zuletzt geöffnet</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+20"/>
         <source>Print pre&amp;view…</source>
         <translation>Druck&amp;vorschau…</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>&amp;Print…</source>
         <translation>Dr&amp;ucken…</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Export report as P&amp;DF…</source>
         <translation>Bericht als P&amp;DF exportieren…</translation>
     </message>
     <message>
-        <location line="+3"/>
         <location line="+6"/>
+        <location line="+9"/>
         <source>Export PDF</source>
         <translation>PDF exportieren</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-9"/>
         <source>PDF documents (*.pdf)</source>
         <translation>PDF-Dokumente (*.pdf)</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <location line="+366"/>
+        <location line="+9"/>
+        <location line="+400"/>
         <source>Cannot write %1</source>
         <translation>%1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-396"/>
         <source>Overlay &amp;reference result…</source>
         <translation>&amp;Referenzergebnis überlagern…</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Reference result</source>
         <translation>Referenzergebnis</translation>
     </message>
@@ -625,7 +640,7 @@
         <translation>Referenz&amp;überlagerung entfernen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>&amp;Settings…</source>
         <translation>&amp;Einstellungen…</translation>
     </message>
@@ -645,33 +660,33 @@
         <translation>&amp;Design</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <location line="+35"/>
+        <location line="+4"/>
+        <location line="+42"/>
         <source>System default</source>
         <translation>Systemvorgabe</translation>
     </message>
     <message>
-        <location line="-34"/>
+        <location line="-42"/>
         <source>Light</source>
         <translation>Hell</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Dark</source>
         <translation>Dunkel</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+16"/>
         <source>&amp;Language</source>
         <translation>&amp;Sprache</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+22"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>The language change takes effect after restarting the application.</source>
         <translation>Die neue Sprache gilt nach einem Neustart des Programms.</translation>
     </message>
@@ -686,15 +701,15 @@
         <translation>Ü&amp;ber GRT Reloaded…</translation>
     </message>
     <message>
-        <location line="+59"/>
-        <location line="+276"/>
+        <location line="+66"/>
+        <location line="+294"/>
         <source>Cannot read %1:
 %2</source>
         <translation>%1 kann nicht gelesen werden:
 %2</translation>
     </message>
     <message>
-        <location line="-256"/>
+        <location line="-273"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Die Datenbank %1 kann nicht geöffnet werden:
@@ -717,7 +732,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
 Die originale GordonsReloadingTool.db ist verschlüsselt; wählen Sie eine entschlüsselte Kopie (GordonsReloadingTool.plain.db).</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>%1 calibers, %2 projectiles, %3 propellants</source>
         <translation>%1 Kaliber, %2 Geschosse, %3 Pulver</translation>
     </message>
@@ -732,7 +747,7 @@ Die originale GordonsReloadingTool.db ist verschlüsselt; wählen Sie eine entsc
         <translation>Keine Originaldatenbank (wählen unter Datei ▸ Einstellungen…): %1</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+108"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Nur eigene Datensätze können geändert werden: eine Kopie erstellen</translation>
     </message>
@@ -747,20 +762,20 @@ Die originale GordonsReloadingTool.db ist verschlüsselt; wählen Sie eine entsc
         <translation>Den gewählten Datensatz löschen</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+29"/>
         <source>The photo could not be stored:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+14"/>
         <source>The record could not be stored:
 %1</source>
         <translation>Der Datensatz konnte nicht gespeichert werden:
 %1</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>Delete record</source>
         <translation>Datensatz löschen</translation>
     </message>
@@ -781,9 +796,9 @@ Ladungsdateien, die ihn verwenden, behalten ihre Werte.</translation>
 %1</translation>
     </message>
     <message>
-        <location line="+18"/>
-        <location line="+9"/>
-        <location line="+4"/>
+        <location line="+20"/>
+        <location line="+7"/>
+        <location line="+6"/>
         <source>Export record</source>
         <translation>Datensatz exportieren</translation>
     </message>
@@ -799,19 +814,19 @@ Export it anyway?</source>
 Trotzdem exportieren?</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>Record files (*.json)</source>
         <translation>Datensatzdateien (*.json)</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Saved %1: add it to data/%2/ in the project to contribute it.</source>
         <translation>%1 gespeichert: zum Beitragen in data/%2/ des Projekts ablegen.</translation>
     </message>
     <message>
-        <location line="+21"/>
-        <location line="+7"/>
-        <location line="+5"/>
+        <location line="+24"/>
+        <location line="+8"/>
+        <location line="+4"/>
         <source>Reference</source>
         <translation>Referenz</translation>
     </message>
@@ -826,12 +841,12 @@ Trotzdem exportieren?</translation>
         <translation>Dieser Referenzlauf ist als veraltet markiert (der falsche Reiter wurde gelesen).</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>Saved as your own record: %1</source>
         <translation>Als eigener Datensatz gespeichert: %1</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+15"/>
         <source>New load</source>
         <translation>Neue Ladung</translation>
     </message>
@@ -846,25 +861,25 @@ Trotzdem exportieren?</translation>
         <translation>Unbenannt %1</translation>
     </message>
     <message>
-        <location line="+37"/>
-        <location line="+6"/>
+        <location line="+38"/>
+        <location line="+7"/>
         <source>Save load</source>
         <translation>Ladung speichern</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-7"/>
         <source>GRT loads (*.grtload)</source>
         <translation>GRT-Ladungen (*.grtload)</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Cannot write %1:
 %2</source>
         <translation>%1 kann nicht geschrieben werden:
 %2</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>Unsaved changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
@@ -877,7 +892,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>MeasurementChart</name>
     <message>
-        <location filename="../src/app/measurementchart.cpp" line="+45"/>
+        <location filename="../src/app/measurementchart.cpp" line="+51"/>
         <source>Velocity (sim.)</source>
         <translation>Geschwindigkeit (Sim.)</translation>
     </message>
@@ -902,7 +917,7 @@ Trotzdem exportieren?</translation>
         <translation>Druck</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+132"/>
         <source>Charge [%1]</source>
         <translation>Ladung [%1]</translation>
     </message>
@@ -920,7 +935,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+82"/>
+        <location filename="../src/app/measurementview.cpp" line="+97"/>
         <source>New series</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1050,7 +1065,7 @@ Trotzdem exportieren?</translation>
         <translation>Titel:</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+106"/>
         <source>MEASUREMENTS %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1075,13 +1090,13 @@ Trotzdem exportieren?</translation>
         <translation>Schüsse</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+10"/>
+        <location line="+1"/>
+        <location line="+11"/>
         <source>Velocity [%1]</source>
         <translation>Geschwindigkeit [%1]</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-11"/>
         <source>SD</source>
         <translation>SD</translation>
     </message>
@@ -1092,22 +1107,24 @@ Trotzdem exportieren?</translation>
     </message>
     <message>
         <location line="+0"/>
+        <location line="+1"/>
         <source>Simulated</source>
         <translation>Simuliert</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-1"/>
+        <location line="+1"/>
         <source>Δ</source>
         <translation>Δ</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Pressure [%1]</source>
         <translation>Druck [%1]</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="-9"/>
         <source>Mean muzzle velocity of the shots</source>
         <translation>Mittlere Mündungsgeschwindigkeit der Schüsse</translation>
     </message>
@@ -1147,33 +1164,33 @@ Trotzdem exportieren?</translation>
         <translation>Simulierter Druck relativ zum gemessenen Mittelwert</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+35"/>
         <source>This charge cannot be simulated (does not fit into the case?)</source>
         <translation>Diese Ladung kann nicht simuliert werden (passt nicht in die Hülse?)</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+22"/>
         <source>&lt;b&gt;Shots of %1&lt;/b&gt; (%2 %3)</source>
         <translation>&lt;b&gt;Schüsse von %1&lt;/b&gt; (%2 %3)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>&lt;b&gt;Shots&lt;/b&gt; – select a charge</source>
         <translation>&lt;b&gt;Schüsse&lt;/b&gt; – eine Ladung wählen</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+163"/>
         <location line="+11"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-11"/>
         <source>Chronograph files (*.csv *.CSV);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>%1 cannot be imported: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1181,7 +1198,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+55"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+62"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Nur Geschosse anzeigen, die zum Kaliber passen</translation>
     </message>
@@ -1206,7 +1223,7 @@ Trotzdem exportieren?</translation>
         <translation>3. Pulver</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+23"/>
         <source>Load data</source>
         <translation>Ladedaten</translation>
     </message>
@@ -1241,7 +1258,7 @@ Trotzdem exportieren?</translation>
         <translation>Auf Vorgaben zurücksetzen</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>= %1 g</source>
         <translation>= %1 g</translation>
     </message>
@@ -1256,7 +1273,7 @@ Trotzdem exportieren?</translation>
         <translation>Ladung erstellen</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+54"/>
         <source>&lt;i&gt;not selected&lt;/i&gt;</source>
         <translation>&lt;i&gt;nicht gewählt&lt;/i&gt;</translation>
     </message>
@@ -1289,7 +1306,7 @@ Trotzdem exportieren?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>Double-click to enlarge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1307,7 +1324,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>PowderFitDialog</name>
     <message>
-        <location filename="../src/app/powderfitdialog.cpp" line="+47"/>
+        <location filename="../src/app/powderfitdialog.cpp" line="+48"/>
         <source>Fit</source>
         <translation>Anpassen</translation>
     </message>
@@ -1318,12 +1335,12 @@ Trotzdem exportieren?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+87"/>
+        <location line="+91"/>
         <source>Save as own propellant…</source>
         <translation>Als eigenes Pulver speichern…</translation>
     </message>
     <message>
-        <location line="-85"/>
+        <location line="-89"/>
         <source>Fit to measurements</source>
         <translation>An Messungen anpassen</translation>
     </message>
@@ -1338,12 +1355,12 @@ Trotzdem exportieren?</translation>
         <translation>Anzupassende Werte:</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Burn rate (Ba)</source>
         <translation>Abbrandgeschwindigkeit (Ba)</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Form factor a0</source>
         <translation>Formfaktor a0</translation>
     </message>
@@ -1353,12 +1370,12 @@ Trotzdem exportieren?</translation>
         <translation>Übergang z1</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Transition z2</source>
         <translation>Übergang z2</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>Load</source>
         <translation>Ladung</translation>
     </message>
@@ -1408,12 +1425,12 @@ Trotzdem exportieren?</translation>
         <translation>Das Pulver mit den angepassten Werten zu den eigenen Datensätzen der Datenbank hinzufügen</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>Saved</source>
         <translation>Gespeichert</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+63"/>
         <source>Choose the values to fit and click &lt;b&gt;Fit&lt;/b&gt;.</source>
         <translation>Die anzupassenden Werte wählen und auf &lt;b&gt;Anpassen&lt;/b&gt; klicken.</translation>
     </message>
@@ -1423,12 +1440,12 @@ Trotzdem exportieren?</translation>
         <translation>Geschwindigkeitsfehler (RMS): %1 % → &lt;b&gt;%2 %&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>pressure error: %1 % → %2 %</source>
         <translation>Druckfehler: %1 % → %2 %</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>The values were not changed: the current ones fit best.</source>
         <translation>Die Werte wurden nicht geändert: die bisherigen passen am besten.</translation>
     </message>
@@ -1441,7 +1458,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+37"/>
+        <location filename="../src/app/propertypanel.cpp" line="+41"/>
         <source>flat base</source>
         <translation>Flachboden</translation>
     </message>
@@ -1451,7 +1468,7 @@ Trotzdem exportieren?</translation>
         <translation>Hohlboden</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>boat tail</source>
         <translation>Boattail</translation>
     </message>
@@ -1476,12 +1493,12 @@ Trotzdem exportieren?</translation>
         <translation>ja</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>type %1</source>
         <translation>Typ %1</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+108"/>
         <source>Property</source>
         <translation>Eigenschaft</translation>
     </message>
@@ -1496,13 +1513,13 @@ Trotzdem exportieren?</translation>
         <translation>Einheit</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+88"/>
         <source>Click to choose another unit for this field</source>
         <translation>Klicken, um eine andere Einheit für dieses Feld zu wählen</translation>
     </message>
     <message>
-        <location line="+25"/>
-        <location line="+12"/>
+        <location line="+27"/>
+        <location line="+13"/>
         <source>stored value: %1</source>
         <translation>gespeicherter Wert: %1</translation>
     </message>
@@ -1510,7 +1527,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+83"/>
+        <location filename="../src/app/recorddialog.cpp" line="+86"/>
         <source>caliber</source>
         <translation>Kaliber</translation>
     </message>
@@ -1540,7 +1557,7 @@ Trotzdem exportieren?</translation>
         <translation>Bearbeiten %1 – %2</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+29"/>
         <source>flat base</source>
         <translation>Flachboden</translation>
     </message>
@@ -1555,12 +1572,12 @@ Trotzdem exportieren?</translation>
         <translation>Boattail</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>– not specified –</source>
         <translation>– nicht angegeben –</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+34"/>
         <source>Set by the program</source>
         <translation>Vom Programm gesetzt</translation>
     </message>
@@ -1570,7 +1587,7 @@ Trotzdem exportieren?</translation>
         <translation>Datenbankspalte: %1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source> (copy)</source>
         <translation> (Kopie)</translation>
     </message>
@@ -1580,7 +1597,7 @@ Trotzdem exportieren?</translation>
         <translation>&lt;small&gt;Mit * markierte Felder sind Pflicht. Zahlen werden in Ihren Einheiten angezeigt (Datei ▸ Einstellungen).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+73"/>
         <source>Overview photo:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1595,7 +1612,7 @@ Trotzdem exportieren?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>Pixels per millimeter of the new photo (for the scale bar); empty: unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1610,17 +1627,17 @@ Trotzdem exportieren?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>Photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Pictures (*.jpg *.jpeg *.png *.bmp);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>%1 is not a picture this program can read.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1630,7 +1647,7 @@ Trotzdem exportieren?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>No photo</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1640,12 +1657,12 @@ Trotzdem exportieren?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>%1 (%2 px/mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+86"/>
         <source>Please check the field &quot;%1&quot;.</source>
         <translation>Bitte das Feld „%1“ prüfen.</translation>
     </message>
@@ -1663,7 +1680,7 @@ Trotzdem exportieren?</translation>
         <translation>Wert einfügen</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+17"/>
         <source>Reset to default</source>
         <translation>Auf Vorgabe zurücksetzen</translation>
     </message>
@@ -1676,7 +1693,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>ReportView</name>
     <message>
-        <location filename="../src/app/reportview.cpp" line="+41"/>
+        <location filename="../src/app/reportview.cpp" line="+42"/>
         <source>Size of the report: scales text, tables and images (on screen and in print, preview and PDF)</source>
         <translation>Größe des Berichts: skaliert Text, Tabellen und Bilder (am Bildschirm sowie in Druck, Vorschau und PDF)</translation>
     </message>
@@ -1706,7 +1723,7 @@ Trotzdem exportieren?</translation>
         <translation>Maßstab</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+17"/>
         <location line="+1"/>
         <source>Export PDF</source>
         <translation>PDF exportieren</translation>
@@ -1745,7 +1762,7 @@ Trotzdem exportieren?</translation>
         <translation> pt</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>Appearance</source>
         <translation>Darstellung</translation>
     </message>
@@ -1810,7 +1827,7 @@ Trotzdem exportieren?</translation>
         <translation>Durchsuchen…</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>Original database</source>
         <translation>Originaldatenbank</translation>
     </message>
@@ -1820,7 +1837,7 @@ Trotzdem exportieren?</translation>
         <translation>SQLite-Datenbanken (*.db *.sqlite);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1850,7 +1867,7 @@ Trotzdem exportieren?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+70"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation>&lt;small&gt;%1&lt;br&gt;Neue Datensätze werden in der eigenen Datenbank des Programms gespeichert:&lt;br&gt;%2&lt;/small&gt;</translation>
     </message>
@@ -1858,12 +1875,12 @@ Trotzdem exportieren?</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+25"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+29"/>
         <source>Your own record (can be changed)</source>
         <translation>Eigener Datensatz (änderbar)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Record of the project&apos;s database (read-only)</source>
         <translation>Datensatz der Projektdatenbank (nur lesbar)</translation>
     </message>
@@ -1898,7 +1915,7 @@ Trotzdem exportieren?</translation>
         <translation>Filter (alle Spalten)…</translation>
     </message>
     <message numerus="yes">
-        <location line="+121"/>
+        <location line="+127"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n Eintrag</numerusform>
@@ -1917,7 +1934,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>TitleBar</name>
     <message>
-        <location filename="../src/app/titlebar.cpp" line="+98"/>
+        <location filename="../src/app/titlebar.cpp" line="+104"/>
         <source>Minimize</source>
         <translation>Minimieren</translation>
     </message>
@@ -1927,7 +1944,7 @@ Trotzdem exportieren?</translation>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+70"/>
         <source>Restore</source>
         <translation>Wiederherstellen</translation>
     </message>
@@ -1953,7 +1970,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>about</name>
     <message>
-        <location filename="../src/app/about.cpp" line="+28"/>
+        <location filename="../src/app/about.cpp" line="+30"/>
         <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel. Includes a load development ladder, reports and printouts.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Innenballistik für Wiederlader&lt;/p&gt;&lt;p&gt;Patrone, Geschoss und Pulver wählen, die Ladung eingeben und Druck, Geschossenergie und Geschwindigkeit entlang des Laufs sehen. Mit Ladeleiter, Berichten und Ausdrucken.&lt;/p&gt;&lt;p&gt;Eine Qt&amp;nbsp;6-Nachbildung des Arbeitsablaufs von Gordon&apos;s Reloading Tool. Es ist ein unabhängiges Projekt und steht in keiner Verbindung zum Originalprogramm oder seinem Autor und wird von diesen nicht unterstützt.&lt;/p&gt;</translation>
     </message>
@@ -1968,7 +1985,7 @@ Trotzdem exportieren?</translation>
         <translation>&lt;h3&gt;Sicherheit&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Die Ergebnisse sind berechnet und können erheblich von der Wirklichkeit abweichen.&lt;/li&gt;&lt;li&gt;Jede Ladung mit den aktuellen Ladetabellen der Komponentenhersteller vergleichen.&lt;/li&gt;&lt;li&gt;Niedrig beginnen. Benutzung auf eigene Gefahr.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>&lt;h3&gt;Disclaimer&lt;/h3&gt;&lt;table border=&quot;1&quot; cellspacing=&quot;0&quot; cellpadding=&quot;8&quot; width=&quot;100%&quot;&gt;&lt;tr&gt;&lt;td&gt;This software is provided &quot;as is&quot;, without warranty of any kind, express or implied, including accuracy, correctness or fitness for a particular purpose.&lt;br&gt;&lt;br&gt;The author and all contributors accept &lt;b&gt;no responsibility or liability&lt;/b&gt; for any damage, injury or death, loss, or any other consequence arising from the use of this software or of its results, including damage to firearms or property.&lt;br&gt;&lt;br&gt;Reloading ammunition is dangerous and is done entirely at your own responsibility.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</source>
         <translation>&lt;h3&gt;Haftungsausschluss&lt;/h3&gt;&lt;table border=&quot;1&quot; cellspacing=&quot;0&quot; cellpadding=&quot;8&quot; width=&quot;100%&quot;&gt;&lt;tr&gt;&lt;td&gt;Diese Software wird „wie besehen“ bereitgestellt, ohne jede ausdrückliche oder stillschweigende Gewährleistung, auch nicht für Genauigkeit, Richtigkeit oder Eignung für einen bestimmten Zweck.&lt;br&gt;&lt;br&gt;Der Autor und alle Mitwirkenden übernehmen &lt;b&gt;keine Verantwortung oder Haftung&lt;/b&gt; für Schäden, Verletzungen oder Tod, Verluste oder andere Folgen aus der Nutzung dieser Software oder ihrer Ergebnisse, einschließlich Schäden an Waffen oder Sachen.&lt;br&gt;&lt;br&gt;Das Wiederladen von Munition ist gefährlich und geschieht vollständig in eigener Verantwortung.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</translation>
     </message>
@@ -1978,7 +1995,7 @@ Trotzdem exportieren?</translation>
         <translation>&lt;hr&gt;&lt;p&gt;&lt;small&gt;Qt %1 (erstellt mit %2) · %3 · Sprache %4&lt;/small&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>&lt;p&gt;&lt;small&gt;Database: %1 — %2 calibers, %3 projectiles, %4 propellants&lt;/small&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;&lt;small&gt;Datenbank: %1 — %2 Kaliber, %3 Geschosse, %4 Pulver&lt;/small&gt;&lt;/p&gt;</translation>
     </message>
@@ -1991,28 +2008,28 @@ Trotzdem exportieren?</translation>
 <context>
     <name>grt</name>
     <message>
-        <location filename="../src/core/chronograph.cpp" line="+54"/>
+        <location filename="../src/core/chronograph.cpp" line="+58"/>
         <source>Series %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
-        <location line="+31"/>
+        <location line="+15"/>
+        <location line="+35"/>
         <source>The file contains no shots.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-4"/>
+        <location line="-5"/>
         <source>The velocity unit of the file is unknown.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+28"/>
         <source>Not a MagnetoSpeed or Labradar file.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2020,12 +2037,12 @@ Trotzdem exportieren?</translation>
 <context>
     <name>grt::LoadFile</name>
     <message>
-        <location filename="../src/core/loadfile.cpp" line="+160"/>
+        <location filename="../src/core/loadfile.cpp" line="+169"/>
         <source>Not a GordonsReloadingTool file</source>
         <translation>Keine GordonsReloadingTool-Datei</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+69"/>
         <source>The file contains no load data (&lt;InnerBallistikInput&gt; is missing)</source>
         <translation>Die Datei enthält keine Ladungsdaten (&lt;InnerBallistikInput&gt; fehlt)</translation>
     </message>
@@ -2033,7 +2050,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>grt::dbfields</name>
     <message>
-        <location filename="../src/core/dbfields.cpp" line="+29"/>
+        <location filename="../src/core/dbfields.cpp" line="+32"/>
         <location line="+48"/>
         <location line="+20"/>
         <source>Name</source>
@@ -2365,7 +2382,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>grt::fields</name>
     <message>
-        <location filename="../src/core/fieldnames.cpp" line="+11"/>
+        <location filename="../src/core/fieldnames.cpp" line="+13"/>
         <source>G1 ballistic coefficient</source>
         <translation>Ballistischer Koeffizient G1</translation>
     </message>
@@ -2653,7 +2670,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>grt::units</name>
     <message>
-        <location filename="../src/core/units.cpp" line="+138"/>
+        <location filename="../src/core/units.cpp" line="+157"/>
         <source>Metric (mm, g, bar, m/s)</source>
         <translation>Metrisch (mm, g, bar, m/s)</translation>
     </message>
