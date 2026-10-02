@@ -1,5 +1,7 @@
 #include "projectdata.h"
 
+#include "dates.h"
+
 #include <QDir>
 #include <QFile>
 #include <QJsonArray>
@@ -74,6 +76,12 @@ QStringList check(Table t, const QVariantMap &record, const Schema &schema)
             it.value().typeId() == QMetaType::Double || it.value().typeId() == QMetaType::Int || it.value().typeId() == QMetaType::LongLong;
         if (isNumeric(type) && !number) problems << u"\"%1\" must be a number"_s.arg(it.key());
         if (!isNumeric(type) && number) problems << u"\"%1\" must be text"_s.arg(it.key());
+        if (type.compare(u"DATE"_s, Qt::CaseInsensitive) == 0 && !number)
+        {
+            const auto date = normalizedDate(it.value());
+            if (!date || *date != it.value().toString().trimmed())
+                problems << u"\"%1\" must be a date in the form yyyy-MM-dd (or empty)"_s.arg(it.key());
+        }
     }
     const QString name = t == Table::Caliber ? u"cipname"_s : u"pname"_s;
     if (record.value(name).toString().trimmed().isEmpty()) problems << u"\"%1\" (the name) is missing"_s.arg(name);

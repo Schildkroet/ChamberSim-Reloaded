@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDateEdit>
 #include <QScrollBar>
 #include <QTextBrowser>
 #include <QSplitter>
@@ -107,6 +108,7 @@ private slots:
     void chronographImportAddsCharges();
     void propellantPhotoIsShown();
     void ignoredInputsAreNamed();
+    void recordDialogDatesAndWidth();
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
@@ -1200,6 +1202,32 @@ void GuiTest::measurementTabShowsTheFilesResults()
     QVERIFY(html.contains(u"848.3 m/s"_s));
     QVERIFY(!html.contains(u"measurement.section?"_s));
     UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+// Dates in the record dialog: a date picker in the form yyyy-MM-dd ("– not set –" = empty), the program's dates as
+// text; propellant and projectile dialogs are wide enough for two columns.
+void GuiTest::recordDialogDatesAndWidth()
+{
+    RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy,
+                     *m_db.record(grt::Table::Caliber, idOf(m_db, grt::Table::Caliber, u"cipdate != ''"_s)));
+    auto *picker = cal.findChild<QDateEdit *>(u"cipdate"_s);
+    QVERIFY(picker);
+    QCOMPARE(picker->displayFormat(), u"yyyy-MM-dd"_s);
+    QVERIFY(picker->calendarPopup());
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) cal.grab().save(shots + u"/caliberdates.png"_s);
+    cal.setText(u"cipdate"_s, u"14.6.1984"_s);
+    QCOMPARE(cal.text(u"cipdate"_s), u"1984-06-14"_s);
+    QCOMPARE(cal.values().value(u"cipdate"_s).toString(), u"1984-06-14"_s);
+    cal.setText(u"cipdate"_s, QString());
+    QCOMPARE(cal.values().value(u"cipdate"_s).toString(), QString());  // "– not set –"
+    QVERIFY(!cal.findChild<QDateEdit *>(u"cdate"_s));                  // set by the program, not a picker
+    QCOMPARE(cal.values().value(u"cdate"_s).toString(), QDate::currentDate().toString(Qt::ISODate));
+
+    for (const grt::Table t : {grt::Table::Projectile, grt::Table::Propellant})
+    {
+        RecordDialog dlg(m_db, t, RecordDialog::Mode::New);
+        QCOMPARE_GE(dlg.width(), 800);
+    }
 }
 
 // Inputs of the original that the solver does not use (shotshell) are named under the results.

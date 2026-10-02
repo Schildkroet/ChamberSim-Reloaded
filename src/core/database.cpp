@@ -1,4 +1,5 @@
 #include "database.h"
+#include "dates.h"
 #include "log.h"
 
 #include "projectdata.h"
@@ -125,6 +126,21 @@ QVariant emptyValue(const QString &column, const QString &type)
     if (type == u"DATE") return QDate::currentDate().toString(Qt::ISODate);
     if (type == u"TEXT") return u""_s;  // not a null string: that would be NULL
     return 0;
+}
+
+// DATE columns hold "yyyy-MM-dd" (normalizedDate): a given value is brought into that form; false (with `error`) if
+// it is not a date.
+bool normalizeDateColumn(const QString &column, const QString &type, QVariant &v, QString *error)
+{
+    if (type != u"DATE" || !v.isValid()) return true;
+    const auto date = normalizedDate(v);
+    if (!date)
+    {
+        if (error) *error = u"\"%1\" is not a date: \"%2\" (use yyyy-MM-dd)"_s.arg(column, v.toString());
+        return false;
+    }
+    v = date->isEmpty() ? QVariant(u""_s) : QVariant(*date);  // "" and not a null string: the columns are NOT NULL
+    return true;
 }
 
 QString &projectLocation()
@@ -489,6 +505,11 @@ std::optional<int> Database::insertInto(const QString &schemaName, Table t, cons
         for (auto it = values.begin(); col != u"id" && it != values.end(); ++it)
             if (it.key().compare(col, Qt::CaseInsensitive) == 0) v = notNull(it.value());
         if (!v.isValid()) v = emptyValue(col, type);
+        if (!normalizeDateColumn(col, type, v, error))
+        {
+            LOG_Warn() << "Cannot insert into" << schemaName << name << ":" << (error ? *error : QString());
+            return std::nullopt;
+        }
         cols << col;
         marks << u"?"_s;
         binds << v;
@@ -524,9 +545,11 @@ bool Database::update(Table t, int id, const QVariantMap &values, QString *error
         for (auto it = values.begin(); it != values.end(); ++it)
             if (it.key().compare(col, Qt::CaseInsensitive) == 0)
             {
-                const QVariant v = notNull(it.value());
+                QVariant v = notNull(it.value());
+                if (!v.isValid()) v = emptyValue(col, type);
+                if (!normalizeDateColumn(col, type, v, error)) return false;
                 sets << col + u" = ?"_s;
-                binds << (v.isValid() ? v : emptyValue(col, type));
+                binds << v;
             }
     }
     if (sets.isEmpty()) return true;

@@ -10,6 +10,7 @@
 #include <QtTest>
 
 #include "chronograph.h"
+#include "dates.h"
 #include "log.h"
 #include "database.h"
 #include "language.h"
@@ -48,6 +49,7 @@ private slots:
     void loggingFiltersByLevel();
     void burnRateCurveIsContinuous();
     void bulletJumpLowersThePressure();
+    void datesAreStoredAsIso();
     void databaseImages();
     void ownRecordsKeepTheirPhotos();
     void measurementStatistics();
@@ -441,6 +443,47 @@ void CoreTest::bulletJumpLowersThePressure()
     QCOMPARE_LT(std::abs(rel(j4.maxPressure_bar, base.maxPressure_bar) + 9.4), 2.0);
     QCOMPARE_LT(std::abs(rel(j4.muzzleVelocity_ms, base.muzzleVelocity_ms) + 2.1), 0.5);
     QCOMPARE(j4.effectiveCaseVolume_cm3, base.effectiveCaseVolume_cm3);  // the case and the charge rule do not change
+}
+
+void CoreTest::datesAreStoredAsIso()
+{
+    QCOMPARE(grt::normalizedDate(u"2021-10-08"_s), u"2021-10-08"_s);
+    QCOMPARE(grt::normalizedDate(u"2021-10-08 22:56:13"_s), u"2021-10-08"_s);  // the original's image dates
+    QCOMPARE(grt::normalizedDate(u"2021-1-8"_s), u"2021-01-08"_s);
+    QCOMPARE(grt::normalizedDate(u"2021/10/08"_s), u"2021-10-08"_s);
+    QCOMPARE(grt::normalizedDate(u"8.10.2021"_s), u"2021-10-08"_s);
+    QCOMPARE(grt::normalizedDate(QDate(2026, 10, 2)), u"2026-10-02"_s);
+    QCOMPARE(grt::normalizedDate(u""_s), QString());
+    QCOMPARE(grt::normalizedDate(u"0000-00-00"_s), QString());  // "no date" in the original database
+    QVERIFY(!grt::normalizedDate(u"2021-13-01"_s));
+    QVERIFY(!grt::normalizedDate(u"31.02.2021"_s));
+    QVERIFY(!grt::normalizedDate(u"yesterday"_s));
+
+    QTemporaryDir dir;
+    grt::Database db;
+    QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
+    QString error;
+    const auto id =
+        db.insert(grt::Table::Caliber, {{u"cipname"_s, u"Test"_s}, {u"cipdate"_s, u"14.6.1984"_s}, {u"ciprevdate"_s, u""_s}}, &error);
+    QVERIFY2(id, qPrintable(error));
+    auto rec = db.record(grt::Table::Caliber, *id);
+    QCOMPARE(rec->value(u"cipdate"_s).toString(), u"1984-06-14"_s);
+    QCOMPARE(rec->value(u"ciprevdate"_s).toString(), QString());
+    QCOMPARE(rec->value(u"cdate"_s).toString(), QDate::currentDate().toString(Qt::ISODate));  // not given: today
+    QVERIFY(!db.update(grt::Table::Caliber, *id, {{u"cipdate"_s, u"someday"_s}}, &error));
+    QVERIFY(error.contains(u"yyyy-MM-dd"_s));
+    QVERIFY(!db.insert(grt::Table::Caliber, {{u"cipname"_s, u"Bad"_s}, {u"cdate"_s, u"2021-02-30"_s}}));
+    QVERIFY(db.update(grt::Table::Caliber, *id, {{u"ciprevdate"_s, u"2012/9/25"_s}}));
+    QCOMPARE(db.record(grt::Table::Caliber, *id)->value(u"ciprevdate"_s).toString(), u"2012-09-25"_s);
+
+    // project files: dates must already be in the form yyyy-MM-dd
+    const auto schema = db.schema(grt::Table::Caliber);
+    const auto problems = [&](const QString &date)
+    { return grt::projectdata::check(grt::Table::Caliber, {{u"cipname"_s, u"X"_s}, {u"cipdate"_s, date}}, schema).join(u'|'); };
+    QVERIFY(!problems(u"1984-06-14"_s).contains(u"cipdate"_s));
+    QVERIFY(!problems(u""_s).contains(u"cipdate"_s));
+    QVERIFY(problems(u"14.06.1984"_s).contains(u"cipdate"_s));
+    QVERIFY(problems(u"1984-6-14"_s).contains(u"cipdate"_s));
 }
 
 void CoreTest::measurementStatistics()

@@ -1,10 +1,12 @@
 #include "recorddialog.h"
 
+#include "dates.h"
 #include "numeric.h"
 #include "unitprefs.h"
 
 #include <QBuffer>
 #include <QComboBox>
+#include <QDateEdit>
 #include <QDate>
 #include <QDialogButtonBox>
 #include <QDir>
@@ -33,6 +35,8 @@ using grt::dbfields::Kind;
 
 namespace
 {
+
+const QDate kNoDate(1800, 1, 1);  // the date editor's "– not set –"
 
 const grt::units::Unit *unitOf(const grt::dbfields::Field &f)
 {
@@ -143,6 +147,18 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 combo->setMaxVisibleItems(20);
                 w = combo;
             }
+            else if (f.kind == Kind::Date && !f.readOnly)
+            {
+                // a date picker: always yyyy-MM-dd; the lowest date stands for "no date"
+                auto *edit = new QDateEdit;
+                edit->setCalendarPopup(true);
+                edit->setDisplayFormat(u"yyyy-MM-dd"_s);
+                edit->setMinimumDate(kNoDate);
+                edit->setSpecialValueText(tr("– not set –"));
+                const auto date = grt::normalizedDate(stored);
+                edit->setDate(date && !date->isEmpty() ? QDate::fromString(*date, Qt::ISODate) : kNoDate);
+                w = edit;
+            }
             else if (f.kind == Kind::LongText)
             {
                 auto *edit = new QPlainTextEdit(stored.toString());
@@ -152,7 +168,12 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
             else
             {
                 auto *edit = new QLineEdit;
-                if (f.kind == Kind::Number)
+                if (f.kind == Kind::Date)  // set by the program: shown as yyyy-MM-dd
+                {
+                    const auto date = grt::normalizedDate(stored);
+                    edit->setText(date ? *date : stored.toString());
+                }
+                else if (f.kind == Kind::Number)
                 {
                     edit->setText(stored.isValid() ? shownNumber(f, stored.toDouble()) : QString());
                     edit->setAlignment(Qt::AlignRight);
@@ -200,7 +221,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     layout->addWidget(scroll, 1);
     layout->addWidget(hint);
     layout->addWidget(buttons);
-    resize(table == grt::Table::Caliber ? 900 : 620, 720);
+    resize(table == grt::Table::Caliber ? 900 : 860, 760);
 }
 
 const RecordDialog::Editor *RecordDialog::editor(const QString &column) const
@@ -215,6 +236,7 @@ QString RecordDialog::text(const QString &column) const
     const Editor *e = editor(column);
     if (!e) return {};
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) return l->text();
+    if (auto *d = qobject_cast<QDateEdit *>(e->widget)) return d->date() == kNoDate ? QString() : d->date().toString(Qt::ISODate);
     if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) return p->toPlainText();
     if (auto *c = qobject_cast<QComboBox *>(e->widget))
         return e->field.kind == Kind::Choice ? c->currentData().toString() : c->currentText();
@@ -226,6 +248,11 @@ void RecordDialog::setText(const QString &column, const QString &text)
     const Editor *e = editor(column);
     if (!e) return;
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) l->setText(text);
+    else if (auto *d = qobject_cast<QDateEdit *>(e->widget))
+    {
+        const auto date = grt::normalizedDate(text);
+        d->setDate(date && !date->isEmpty() ? QDate::fromString(*date, Qt::ISODate) : kNoDate);
+    }
     else if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) p->setPlainText(text);
     else if (auto *c = qobject_cast<QComboBox *>(e->widget))
     {

@@ -1475,7 +1475,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+26"/>
         <source>type %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1495,7 +1495,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+89"/>
         <source>Click to choose another unit for this field</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1509,7 +1509,7 @@ Export it anyway?</source>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+86"/>
+        <location filename="../src/app/recorddialog.cpp" line="+90"/>
         <source>caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1559,7 +1559,12 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+22"/>
+        <source>– not set –</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Set by the program</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1579,7 +1584,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+79"/>
         <source>Overview photo:</source>
         <translation type="unfinished"></translation>
     </message>

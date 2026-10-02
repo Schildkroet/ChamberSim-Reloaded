@@ -68,6 +68,8 @@ add_library(grtcore STATIC
     src/core/database.cpp
     src/core/measurement.h
     src/core/measurement.cpp
+    src/core/dates.h
+    src/core/dates.cpp
     src/core/chronograph.h
     src/core/chronograph.cpp
     src/core/log.h

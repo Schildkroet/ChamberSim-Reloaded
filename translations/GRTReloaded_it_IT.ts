@@ -1488,7 +1488,7 @@ Esportarlo comunque?</translation>
         <translation>sì</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+26"/>
         <source>type %1</source>
         <translation>tipo %1</translation>
     </message>
@@ -1508,7 +1508,7 @@ Esportarlo comunque?</translation>
         <translation>Unità</translation>
     </message>
     <message>
-        <location line="+88"/>
+        <location line="+89"/>
         <source>Click to choose another unit for this field</source>
         <translation>Fai clic per scegliere un&apos;altra unità per questo campo</translation>
     </message>
@@ -1522,7 +1522,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+86"/>
+        <location filename="../src/app/recorddialog.cpp" line="+90"/>
         <source>caliber</source>
         <translation>calibro</translation>
     </message>
@@ -1572,7 +1572,12 @@ Esportarlo comunque?</translation>
         <translation>– non indicato –</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+22"/>
+        <source>– not set –</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Set by the program</source>
         <translation>Impostato dal programma</translation>
     </message>
@@ -1592,7 +1597,7 @@ Esportarlo comunque?</translation>
         <translation>&lt;small&gt;I campi con * sono obbligatori. I numeri sono mostrati nelle tue unità (File ▸ Impostazioni).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+79"/>
         <source>Overview photo:</source>
         <translation type="unfinished"></translation>
     </message>
