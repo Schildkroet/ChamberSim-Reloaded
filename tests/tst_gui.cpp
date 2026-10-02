@@ -1231,6 +1231,13 @@ void GuiTest::ignoredInputsAreNamed()
     LoadView plain;
     QVERIFY(plain.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
     QVERIFY(!statusText(plain).contains(u"Not taken into account"_s));
+    // the jump distance is an input; its lock is not shown (the original uses the distance either way)
+    QStringList labels;
+    for (QTableWidget *t : plain.findChildren<QTableWidget *>())
+        for (int r = 0; r < t->rowCount(); ++r)
+            if (t->item(r, 0)) labels << t->item(r, 0)->text();
+    QVERIFY(labels.contains(u"Bullet Jump Distance"_s));
+    QVERIFY(!labels.contains(u"Unlocked Bullet Jump"_s));
 
     set(u"gjump"_s, u"1.5"_s);  // the bullet jump is part of the model now: no notice
     set(u"gjumpUnlock"_s, u"true"_s);

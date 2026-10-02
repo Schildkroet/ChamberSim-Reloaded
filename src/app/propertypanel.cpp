@@ -49,9 +49,16 @@ const QList<Choice> *choicesFor(const QString &key)
     }();
     if (key == u"laddercnt") return &ladder;
     if (key == u"gTailType") return &tail;
-    if (key == u"gjumpUnlock" || key == u"gfrictionUnlock") return &lock;
+    if (key == u"gfrictionUnlock") return &lock;
     if (key == u"shotshell") return &yesNo;
     return nullptr;
+}
+
+// Fields of the file that are not shown: "gjumpUnlock" only locks the jump distance in the original's input form,
+// the original uses the distance either way (measured, batch 10).
+bool hiddenField(const QString &key)
+{
+    return key == u"gjumpUnlock";
 }
 
 QString labelFor(const QList<Choice> &list, const QString &code)
@@ -220,6 +227,7 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
 
         for (const grt::Entry &e : s.entries->entries())
         {
+            if (hiddenField(e.name)) continue;  // kept in the file, written back unchanged
             const int r = m_table->rowCount();
             m_table->insertRow(r);
             // a translated description is the finished label; the English one is tidied up here
