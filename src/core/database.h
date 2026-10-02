@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QByteArray>
 #include <QSqlDatabase>
 #include <QString>
 #include <QStringList>
@@ -77,6 +78,17 @@ public:
 
     // One row as column-name -> value (with "source"), or nullopt if the id does not exist.
     [[nodiscard]] std::optional<QVariantMap> record(Table t, int id) const;
+
+    // A picture of the image table (propellant photos): the encoded file (JPEG/PNG) and its scale.
+    struct Image {
+        QString name;
+        QString descr;
+        double scale{};       // as stored, e.g. 29.5 with the unit "px/mm"
+        QString scaleUnit;
+        QByteArray data;      // decoded (the database stores it as base64 text)
+    };
+    // The image with this uuid (propellant.imageUuid / imageDetailUuid), or nullopt if there is none.
+    [[nodiscard]] std::optional<Image> image(const QString &uuid) const;
 
     [[nodiscard]] static bool isOwnId(int id) noexcept { return id >= kOwnIdBase; }
     [[nodiscard]] static bool isProjectId(int id) noexcept { return id >= kProjectIdBase && id < kOwnIdBase; }

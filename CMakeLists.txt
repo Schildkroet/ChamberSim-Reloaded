@@ -113,6 +113,8 @@ add_library(grtui STATIC
     src/app/measurementchart.cpp
     src/app/measurementview.h
     src/app/measurementview.cpp
+    src/app/photoview.h
+    src/app/photoview.cpp
     src/app/chronographimportdialog.h
     src/app/chronographimportdialog.cpp
     src/app/recorddialog.h

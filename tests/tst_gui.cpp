@@ -39,6 +39,7 @@
 #include "appfont.h"
 #include "cartridgeview.h"
 #include "chamberview.h"
+#include "photoview.h"
 #include "chronographimportdialog.h"
 #include "database.h"
 #include "loadbuilder.h"
@@ -103,6 +104,7 @@ private slots:
     void measurementsAreEditedAndSaved();
     void measurementSeriesAreEditedAndSaved();
     void chronographImportAddsCharges();
+    void propellantPhotoIsShown();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void recordDialogShowsReadableFieldsInUserUnits();
@@ -1065,7 +1067,7 @@ void GuiTest::drawingPanelHasCartridgeAndChamberTabs()
     view.show();
     QTabWidget *drawings = nullptr;
     for (QTabWidget *t : view.findChildren<QTabWidget *>())
-        if (t->count() == 2 && t->tabText(0) == u"Cartridge"_s) drawings = t;
+        if (t->count() == 3 && t->tabText(0) == u"Cartridge"_s) drawings = t;  // + the hidden powder photo tab
     QVERIFY(drawings);
     QCOMPARE(drawings->tabText(1), u"Chamber"_s);
     auto *chamber = drawings->findChild<ChamberView *>();
@@ -1159,6 +1161,51 @@ void GuiTest::measurementTabShowsTheFilesResults()
     QVERIFY(html.contains(u"848.3 m/s"_s));
     QVERIFY(!html.contains(u"measurement.section?"_s));
     UnitPreferences::instance().setSystem(grt::units::System::Original);
+}
+
+void GuiTest::propellantPhotoIsShown()
+{
+    // the scale bar: about a fifth of the width, 1, 2 or 5 times a power of ten
+    QCOMPARE(PhotoView::scaleBarMm(0.0, 900, 300), 0.0);
+    QCOMPARE(PhotoView::scaleBarMm(29.5, 900, 450), 5.0);   // 450 px wide = 30.5 mm: a fifth = 6.1 mm
+    QCOMPARE(PhotoView::scaleBarMm(144.3, 900, 300), 1.0);  // 300 px = 6.2 mm: 1.2 mm
+    QCOMPARE(PhotoView::scaleBarMm(144.3, 900, 900), 1.0);
+
+    PhotoView view;
+    QVERIFY(!view.hasPhotos());
+    QImage img(90, 80, QImage::Format_RGB32);
+    img.fill(Qt::gray);
+    view.setPhotos({}, {.image = img, .name = u"detail"_s, .pxPerMm = 100.0}, u"k"_s);
+    QVERIFY(view.hasPhotos());
+    QCOMPARE(view.shown(), 1);  // only the detail exists
+    view.setPhotos({.image = img, .name = u"overview"_s, .pxPerMm = 0.0}, {.image = img, .name = {}, .pxPerMm = 0.0}, u"k2"_s);
+    QCOMPARE(view.shown(), 0);
+    view.show(1);
+    QCOMPARE(view.shown(), 1);
+    view.clear();
+    QVERIFY(!view.hasPhotos());
+    QCOMPARE(view.shown(), -1);
+
+    // a load with a propellant record of the original database shows its photos
+    LoadView lv;
+    QVERIFY(lv.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    grt::Database db;
+    QVERIFY(db.open(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
+    lv.setDatabase(&db);
+    const auto *photo = lv.findChild<PhotoView *>();
+    QVERIFY(photo);
+    const int withImage = idOf(db, grt::Table::Propellant, u"imageUuid != '' AND imageDetailUuid != ''"_s);
+    QVERIFY(withImage > 0);
+    QVERIFY(lv.applyRecord(LoadView::Component::Propellant, withImage));
+    QVERIFY(photo->hasPhotos());
+    QCOMPARE(photo->shown(), 0);
+    const int without = idOf(db, grt::Table::Propellant, u"imageUuid = '' AND imageDetailUuid = ''"_s);
+    QVERIFY(without > 0);
+    QVERIFY(lv.applyRecord(LoadView::Component::Propellant, without));
+    QVERIFY(!photo->hasPhotos());
+    QVERIFY(lv.applyRecord(LoadView::Component::Propellant, withImage));
+    lv.setDatabase(nullptr);  // the pictures live in the database
+    QVERIFY(!photo->hasPhotos());
 }
 
 void GuiTest::chronographImportAddsCharges()

@@ -30,11 +30,12 @@ int main(int argc, char *argv[])
     const QCommandLineOption shotOpt(QStringLiteral("screenshot"), QStringLiteral("save a screenshot of the window and exit"), QStringLiteral("png"));
     const QCommandLineOption tabOpt(QStringLiteral("tab"), QStringLiteral("tab index to show for --screenshot"), QStringLiteral("index"));
     const QCommandLineOption resultTabOpt(QStringLiteral("result-tab"), QStringLiteral("result tab to show for --screenshot (0 results, 1 measurements, 2 report)"), QStringLiteral("index"));
+    const QCommandLineOption inputTabOpt(QStringLiteral("input-tab"), QStringLiteral("input tab to show for --screenshot (0 cartridge && gun, 1 projectile, 2 propellant)"), QStringLiteral("index"));
     const QCommandLineOption langOpt(QStringLiteral("language"), QStringLiteral("user interface language, e.g. en_US or de_DE"), QStringLiteral("lang"));
     const QCommandLineOption themeOpt(QStringLiteral("theme"), QStringLiteral("light or dark (overrides the saved choice)"), QStringLiteral("mode"));
     const QCommandLineOption unitsOpt(QStringLiteral("units"), QStringLiteral("unit system: metric, imperial or original (saved)"), QStringLiteral("system"));
     const QCommandLineOption logOpt(QStringLiteral("log-level"), QStringLiteral("log level for this run: debug, info, warning, error or off (overrides the settings)"), QStringLiteral("level"));
-    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, langOpt, themeOpt, unitsOpt, logOpt});
+    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, inputTabOpt, langOpt, themeOpt, unitsOpt, logOpt});
     cli.process(a);
     grt::log::Config logConfig = grt::log::storedConfig();
     if (cli.isSet(logOpt))
@@ -60,6 +61,7 @@ int main(int argc, char *argv[])
     if (cli.isSet(shotOpt)) {
         QTimer::singleShot(1200, &w, [&] {
             if (cli.isSet(tabOpt)) w.showTab(cli.value(tabOpt).toInt());
+            if (cli.isSet(inputTabOpt)) w.showInputTab(cli.value(inputTabOpt).toInt());
             if (cli.isSet(resultTabOpt)) w.showResultTab(cli.value(resultTabOpt).toInt());
             QTimer::singleShot(600, &w, [&] {
                 w.grab().save(cli.value(shotOpt));

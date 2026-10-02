@@ -1,5 +1,6 @@
 #include "loadview.h"
 #include "log.h"
+#include "photoview.h"
 
 #include "cartridgeview.h"
 #include "chamberview.h"
@@ -125,6 +126,7 @@ LoadView::LoadView(QWidget *parent)
     , m_chamber(new ChamberView)
     , m_projectilePanel(new PropertyPanel)
     , m_propellantPanel(new PropertyPanel)
+    , m_photo(new PhotoView)
     , m_heading(new QLabel)
     , m_status(new QLabel)
     , m_leftResults(new QFormLayout)
@@ -239,6 +241,8 @@ LoadView::LoadView(QWidget *parent)
     m_drawings->setDocumentMode(true);
     m_drawings->addTab(m_cartridge, tr("Cartridge"));
     m_drawings->addTab(m_chamber, tr("Chamber"));
+    m_photoTab = m_drawings->addTab(m_photo, tr("Powder"));  // shown while the propellant has photos
+    m_drawings->setTabVisible(m_photoTab, false);
     leftColumn->addWidget(m_drawings);
     leftColumn->setStretchFactor(0, 3);
     leftColumn->setStretchFactor(1, 2);
@@ -282,6 +286,11 @@ LoadView::LoadView(QWidget *parent)
     connect(m_xAxis, &QComboBox::currentIndexChanged, this, [this] {
         m_chart->setXAxis(static_cast<CurveChart::XAxis>(m_xAxis->currentData().toInt()));
     });
+}
+
+void LoadView::showInputTab(int index)
+{
+    if (index >= 0 && index < m_inputTabs->count()) m_inputTabs->setCurrentIndex(index);
 }
 
 void LoadView::showResultTab(int index)
@@ -381,6 +390,8 @@ QVariantMap LoadView::caliberRecord() const
 void LoadView::setDatabase(const grt::Database *db)
 {
     m_db = db;
+    m_photo->clear();  // the pictures come from the database
+    updatePhoto();
     const bool on = db && db->isOpen();
     for (QPushButton *b : m_selectButtons) {
         b->setEnabled(on);
@@ -396,6 +407,32 @@ void LoadView::updateHeaders()
     const auto &p = m_file.propellant;
     QString lot = p.text(u"lotid");
     m_itemLabels[2]->setText(QStringLiteral("%1 %2%3").arg(p.text(u"mname"), p.text(u"pname"), lot.isEmpty() ? QString() : QStringLiteral(" (%1)").arg(lot)));
+    updatePhoto();
+}
+
+// The propellant's photos (imageUuid / imageDetailUuid of its record) from the image table of the database.
+void LoadView::updatePhoto()
+{
+    const QString overview = m_file.propellant.text(u"imageUuid"), detail = m_file.propellant.text(u"imageDetailUuid");
+    const QString key = overview + u'|' + detail;
+    const auto showTab = [this] { m_drawings->setTabVisible(m_photoTab, m_photo->hasPhotos()); };
+    if (!m_db || !m_db->isOpen() || (overview.isEmpty() && detail.isEmpty())) {
+        m_photo->clear();
+        showTab();
+        return;
+    }
+    if (key == m_photo->key()) return;
+    const auto load = [this](const QString &uuid) {
+        PhotoView::Photo p;
+        if (const auto img = m_db->image(uuid)) {
+            p.image = QImage::fromData(img->data);
+            p.name = img->name;
+            if (img->scaleUnit == u"px/mm") p.pxPerMm = img->scale;
+        }
+        return p;
+    };
+    m_photo->setPhotos(load(overview), load(detail), key);
+    showTab();
 }
 
 bool LoadView::applyRecord(Component component, int id, bool resetDependent)

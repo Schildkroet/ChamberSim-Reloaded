@@ -151,30 +151,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+144"/>
-        <location line="+603"/>
+        <location filename="../src/app/loadview.cpp" line="+146"/>
+        <location line="+643"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-603"/>
-        <location line="+604"/>
+        <location line="-643"/>
+        <location line="+644"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-604"/>
+        <location line="-644"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+605"/>
+        <location line="+645"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-604"/>
+        <location line="-644"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -256,29 +256,29 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+147"/>
+        <location line="+155"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-147"/>
-        <location line="+148"/>
+        <location line="-155"/>
+        <location line="+156"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location line="-147"/>
         <source>Select from database…</source>
         <translation>Choisir dans la base de données…</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+163"/>
+        <location line="+173"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-157"/>
         <source>Cartridge</source>
         <translation>Cartouche</translation>
     </message>
@@ -288,23 +288,28 @@
         <translation>Chambre</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+1"/>
+        <source>Powder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Results</source>
         <translation>Résultats</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+415"/>
+        <location line="+453"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-414"/>
+        <location line="-452"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+109"/>
         <source>Caliber / cartridge</source>
         <translation>Calibre / cartouche</translation>
     </message>
@@ -314,12 +319,12 @@
         <translation>Arme</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+31"/>
         <source>Replace this component by another record of the database</source>
         <translation>Remplacer ce composant par un autre enregistrement de la base de données</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+66"/>
         <source>Select caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
@@ -364,7 +369,7 @@
         <translation>L&apos;enregistrement n&apos;a pas pu être lu dans la base de données.</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+51"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
     </message>
@@ -379,7 +384,7 @@
         <translation> (ajustée)</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+74"/>
         <source>charge too high</source>
         <translation>charge trop élevée</translation>
     </message>
@@ -458,12 +463,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+249"/>
+        <location filename="../src/app/mainwindow.cpp" line="+256"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-194"/>
+        <location filename="../src/app/mainwindow.cpp" line="-201"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -519,14 +524,14 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+212"/>
-        <location line="+161"/>
+        <location line="+219"/>
+        <location line="+162"/>
         <location line="+25"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-361"/>
+        <location line="-369"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -542,12 +547,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+147"/>
+        <location line="+154"/>
         <source>Open load</source>
         <translation>Ouvrir un chargement</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-154"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation>Chargements GRT (*.grtload);;Tous les fichiers (*)</translation>
     </message>
@@ -583,23 +588,23 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+1"/>
+        <location line="+6"/>
         <source>Export PDF</source>
         <translation>Exporter en PDF</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-6"/>
         <source>PDF documents (*.pdf)</source>
         <translation>Documents PDF (*.pdf)</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location line="+356"/>
+        <location line="+6"/>
+        <location line="+359"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-355"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -640,12 +645,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>System default</source>
         <translation>Valeur par défaut du système</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-34"/>
         <source>Light</source>
         <translation>Clair</translation>
     </message>
@@ -660,7 +665,7 @@
         <translation>&amp;Langue</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Language</source>
         <translation>Langue</translation>
     </message>
@@ -681,14 +686,14 @@
     </message>
     <message>
         <location line="+59"/>
-        <location line="+267"/>
+        <location line="+269"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossible de lire %1 :
 %2</translation>
     </message>
     <message>
-        <location line="-247"/>
+        <location line="-249"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossible d&apos;ouvrir la base de données %1 :
@@ -726,7 +731,7 @@ La base GordonsReloadingTool.db d&apos;origine est chiffrée ; choisissez une co
         <translation>Aucune base de données d&apos;origine (à choisir dans Fichier ▸ Paramètres…) : %1</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+106"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Seuls vos propres enregistrements peuvent être modifiés : faites une copie</translation>
     </message>
@@ -798,18 +803,18 @@ L&apos;exporter quand même ?</translation>
     </message>
     <message>
         <location line="+21"/>
-        <location line="+6"/>
-        <location line="+4"/>
+        <location line="+7"/>
+        <location line="+5"/>
         <source>Reference</source>
         <translation>Référence</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Open a load first.</source>
         <translation>Ouvrez d&apos;abord un chargement.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>This reference run is marked stale (the wrong tab was read).</source>
         <translation>Ce calcul de référence est marqué obsolète (le mauvais onglet a été lu).</translation>
     </message>
@@ -829,12 +834,12 @@ L&apos;exporter quand même ?</translation>
         <translation>La base de données ne peut pas être ouverte.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Untitled %1</source>
         <translation>Sans titre %1</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+37"/>
         <location line="+6"/>
         <source>Save load</source>
         <translation>Enregistrer le chargement</translation>
@@ -1255,6 +1260,44 @@ L&apos;exporter quand même ?</translation>
     </message>
 </context>
 <context>
+    <name>PhotoView</name>
+    <message>
+        <location filename="../src/app/photoview.cpp" line="+22"/>
+        <source>Overview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Detail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Photo of the powder grains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Close-up photo of a grain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Double-click to enlarge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+68"/>
+        <source>%1 mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PowderFitDialog</name>
     <message>
         <location filename="../src/app/powderfitdialog.cpp" line="+47"/>
@@ -1561,7 +1604,7 @@ L&apos;exporter quand même ?</translation>
 <context>
     <name>ReportView</name>
     <message>
-        <location filename="../src/app/reportview.cpp" line="+40"/>
+        <location filename="../src/app/reportview.cpp" line="+41"/>
         <source>Size of the report: scales text, tables and images (on screen and in print, preview and PDF)</source>
         <translation>Taille du rapport : met à l&apos;échelle le texte, les tableaux et les images (à l&apos;écran et à l&apos;impression, dans l&apos;aperçu et le PDF)</translation>
     </message>

@@ -3,6 +3,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QStandardPaths>
 #include <QTemporaryDir>
@@ -44,6 +45,7 @@ private slots:
     void measurementSeveralBlocks();
     void chronographFiles();
     void loggingFiltersByLevel();
+    void databaseImages();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -318,6 +320,29 @@ void CoreTest::loggingFiltersByLevel()
     grt::log::clearFile();
     QVERIFY(!QFile::exists(path));
     grt::log::setConfig(before);
+}
+
+void CoreTest::databaseImages()
+{
+    QTemporaryDir dir;
+    grt::Database db;
+    QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
+    QVERIFY(!db.image(u"nope"_s));
+    QSqlQuery q(db.handle());
+    q.prepare(u"INSERT INTO main.image (uuid, name, descr, scale, scaleunit, data, cdate, cby, type, mode, status, geloescht) "
+              "VALUES (?, 'grain.png', '', 29.5, 'px/mm', ?, '', '', 'png', '', '', ?)"_s);
+    const QByteArray bytes("not really a picture");
+    q.addBindValue(u"abc"_s);
+    q.addBindValue(QString::fromLatin1(bytes.toBase64()));
+    q.addBindValue(0);
+    QVERIFY2(q.exec(), qPrintable(q.lastError().text()));
+    const auto img = db.image(u"abc"_s);
+    QVERIFY(img);
+    QCOMPARE(img->name, u"grain.png"_s);
+    QCOMPARE(img->scale, 29.5);
+    QCOMPARE(img->scaleUnit, u"px/mm"_s);
+    QCOMPARE(img->data, bytes);  // decoded from base64
+    QVERIFY(!db.image({}));
 }
 
 void CoreTest::measurementStatistics()

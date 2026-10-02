@@ -16,6 +16,7 @@ class CartridgeView;
 class ChamberView;
 class CurveChart;
 class MeasurementView;
+class PhotoView;
 class PropertyPanel;
 class QComboBox;
 class QPushButton;
@@ -67,6 +68,8 @@ public:
 
     // Results, Measurements, Report (the last one used is remembered).
     void showResultTab(int index);
+    // Cartridge && gun, Projectile, Propellant.
+    void showInputTab(int index);
     // Values and rendered diagrams for the report templates.
     [[nodiscard]] grt::report::Data reportData() const;
 
@@ -90,6 +93,7 @@ private:
     void setFocus(int index);
     void chooseRecord(Component component);
     void updateHeaders();
+    void updatePhoto();
     [[nodiscard]] QVariantMap caliberRecord() const;
     void showResult();
     [[nodiscard]] QString headingHtml() const;
@@ -122,6 +126,8 @@ private:
     ChamberView *m_chamber;
     PropertyPanel *m_projectilePanel;
     PropertyPanel *m_propellantPanel;
+    PhotoView *m_photo;
+    int m_photoTab{-1};
     QLabel *m_heading;
     QLabel *m_status;
     QFormLayout *m_leftResults;

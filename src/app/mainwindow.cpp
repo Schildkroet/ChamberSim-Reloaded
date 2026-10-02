@@ -614,6 +614,11 @@ void MainWindow::showResultTab(int index)
     if (LoadView *view = currentLoad()) view->showResultTab(index);
 }
 
+void MainWindow::showInputTab(int index)
+{
+    if (LoadView *view = currentLoad()) view->showInputTab(index);
+}
+
 void MainWindow::updateTabTitle(LoadView *view)
 {
     const auto refreshTitle = qScopeGuard([this] { updateActions(); });

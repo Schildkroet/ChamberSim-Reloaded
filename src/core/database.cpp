@@ -374,6 +374,19 @@ std::optional<QVariantMap> Database::record(Table t, int id) const
     return out;
 }
 
+std::optional<Database::Image> Database::image(const QString &uuid) const
+{
+    if (uuid.isEmpty() || !m_db.isOpen()) return std::nullopt;
+    QSqlQuery q(m_db);
+    q.prepare(u"SELECT name, descr, scale, scaleunit, data FROM image WHERE uuid = ? AND geloescht = 0 LIMIT 1"_s);
+    q.addBindValue(uuid);
+    if (!q.exec() || !q.next()) return std::nullopt;
+    Image img{.name = q.value(0).toString(), .descr = q.value(1).toString(), .scale = q.value(2).toDouble(),
+              .scaleUnit = q.value(3).toString(), .data = QByteArray::fromBase64(q.value(4).toString().toLatin1())};
+    if (img.data.isEmpty()) return std::nullopt;
+    return img;
+}
+
 std::optional<int> Database::insert(Table t, const QVariantMap &values, QString *error)
 {
     return insertInto(u"main"_s, t, values, -1, error);

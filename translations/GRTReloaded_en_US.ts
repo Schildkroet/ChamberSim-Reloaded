@@ -151,30 +151,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+357"/>
+        <location filename="../src/app/loadview.cpp" line="+367"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-146"/>
-        <location line="+147"/>
+        <location line="-154"/>
+        <location line="+155"/>
         <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-147"/>
-        <location line="+148"/>
+        <location line="-155"/>
+        <location line="+156"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-135"/>
-        <location line="+163"/>
+        <location line="-143"/>
+        <location line="+173"/>
         <source>No database available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+305"/>
+        <location line="+335"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -184,25 +184,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-571"/>
-        <location line="+603"/>
+        <location line="-611"/>
+        <location line="+643"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-603"/>
-        <location line="+604"/>
+        <location line="-643"/>
+        <location line="+644"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-604"/>
-        <location line="+605"/>
+        <location line="-644"/>
+        <location line="+645"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-605"/>
+        <location line="-645"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -303,33 +303,38 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+1"/>
+        <source>Powder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Results</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+415"/>
+        <location line="+453"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-414"/>
+        <location line="-452"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+109"/>
         <source>Caliber / cartridge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+31"/>
         <source>Replace this component by another record of the database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+66"/>
         <source>Select caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -374,7 +379,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+51"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
     </message>
@@ -389,7 +394,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+74"/>
         <source>charge too high</source>
         <translation type="unfinished"></translation>
     </message>
@@ -458,12 +463,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+249"/>
+        <location filename="../src/app/mainwindow.cpp" line="+256"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-194"/>
+        <location filename="../src/app/mainwindow.cpp" line="-201"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -519,14 +524,14 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+212"/>
-        <location line="+161"/>
+        <location line="+219"/>
+        <location line="+162"/>
         <location line="+25"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-361"/>
+        <location line="-369"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -542,12 +547,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+147"/>
+        <location line="+154"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-154"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -583,23 +588,23 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+1"/>
+        <location line="+6"/>
         <source>Export PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-6"/>
         <source>PDF documents (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location line="+356"/>
+        <location line="+6"/>
+        <location line="+359"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-217"/>
+        <location line="-218"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -633,7 +638,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+107"/>
         <source>Change the selected record</source>
         <translation type="unfinished"></translation>
     </message>
@@ -667,7 +672,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+80"/>
         <source>Saved as your own record: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -677,7 +682,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-412"/>
+        <location line="-416"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -732,7 +737,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
@@ -742,8 +747,8 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-31"/>
-        <location line="+34"/>
+        <location line="-32"/>
+        <location line="+35"/>
         <source>System default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -759,13 +764,13 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+59"/>
-        <location line="+267"/>
+        <location line="+269"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-117"/>
+        <location line="-118"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -796,18 +801,18 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+21"/>
-        <location line="+6"/>
-        <location line="+4"/>
+        <location line="+7"/>
+        <location line="+5"/>
         <source>Reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-12"/>
         <source>Open a load first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>This reference run is marked stale (the wrong tab was read).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -817,12 +822,12 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Untitled %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+37"/>
         <location line="+6"/>
         <source>Save load</source>
         <translation type="unfinished"></translation>
@@ -1242,6 +1247,44 @@ Export it anyway?</source>
     </message>
 </context>
 <context>
+    <name>PhotoView</name>
+    <message>
+        <location filename="../src/app/photoview.cpp" line="+22"/>
+        <source>Overview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Detail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Photo of the powder grains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Close-up photo of a grain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Double-click to enlarge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+68"/>
+        <source>%1 mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PowderFitDialog</name>
     <message>
         <location filename="../src/app/powderfitdialog.cpp" line="+47"/>
@@ -1548,7 +1591,7 @@ Export it anyway?</source>
 <context>
     <name>ReportView</name>
     <message>
-        <location filename="../src/app/reportview.cpp" line="+40"/>
+        <location filename="../src/app/reportview.cpp" line="+41"/>
         <source>Size of the report: scales text, tables and images (on screen and in print, preview and PDF)</source>
         <translation type="unfinished"></translation>
     </message>

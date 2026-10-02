@@ -44,6 +44,7 @@ public:
     void showTab(int index);
     void showSettings();
     void showResultTab(int index);
+    void showInputTab(int index);
     // Opens the "New load" dialog (needs an open database).
     void newLoad();
 
