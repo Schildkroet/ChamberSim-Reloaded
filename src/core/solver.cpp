@@ -234,13 +234,13 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     m.A_m2 = in.boreArea_mm2 * 1e-6;
     m.mEff_kg = in.effectiveMass_g() * 1e-3;
     m.mc_kg = in.charge_g * 1e-3;
-    m.V0_m3 = chamberVolume_m3(in, cal);
+    m.V0_m3 = chamberVolume_m3(in, cal) * (in.shotshell ? cal.shotCapacityFactor : 1.0);
     m.x0_m = x0;
     m.solid_m3kg = cal.solidDensityFactor / in.density_kgm3;
     // measured: the original ignores eta (a load with eta 1.2 gives the identical curve)
     m.covolume_m3kg = cal.covolume_cm3g * 1e-3 + cal.covolumeDensityFactor / in.density_kgm3;
     m.theta = in.kappa - 1.0;
-    m.fEnergy = cal.impetusFactor * m.theta * in.heatQex_kJkg * 1e3;
+    m.fEnergy = cal.impetusFactor * m.theta * in.heatQex_kJkg * 1e3 * (in.shotshell ? cal.shotEnergyFactor : 1.0);
     m.kinetic = cal.kineticFactor;
     m.burnBa = burnCoefficient(in, cal);
     m.burnExponent = cal.burnExponent;
@@ -249,7 +249,11 @@ SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
     if (m.V0_m3 <= 0.0) return res;
 
     // "gfriction" of the original (only when unlocked): a share of the pressure force that is lost to friction
-    const double manualFriction = in.extraFrictionUnlocked ? std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9) : 0.0;
+    // shares of the pressure force lost to friction: "gfriction" of the original (only when unlocked), and for a
+    // shotshell the wad and shot sliding in the bore
+    const double gfrictionShare = in.extraFrictionUnlocked ? std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9) : 0.0;
+    const double shotShare = in.shotshell ? std::clamp(cal.shotFrictionShare, 0.0, 0.9) : 0.0;
+    const double manualFriction = 1.0 - (1.0 - gfrictionShare) * (1.0 - shotShare);
     const double p0 = in.startPressure_bar * kBar;
     m.z0 = cal.initialGasFactor * p0 * m.gasVolume(0.0, x0) /
            (m.fEnergy * m.mc_kg);  // initial gas energy reproduces the start pressure p(z=0,v=0)=ps
@@ -435,6 +439,9 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"burnExponent", &cal.burnExponent},
             {"burnZ0Factor", &cal.burnZ0Factor},
             {"initialGasFactor", &cal.initialGasFactor},
+            {"shotCapacityFactor", &cal.shotCapacityFactor},
+            {"shotFrictionShare", &cal.shotFrictionShare},
+            {"shotEnergyFactor", &cal.shotEnergyFactor},
             {"ignitionRate", &cal.ignitionRate},
             {"ignitionLead", &cal.ignitionLead},
             {"phase2_3", &cal.phase2[0]},

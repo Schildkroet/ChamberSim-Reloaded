@@ -50,6 +50,7 @@ private slots:
     void burnRateCurveIsContinuous();
     void bulletJumpLowersThePressure();
     void datesAreStoredAsIso();
+    void shotshellModel();
     void databaseImages();
     void ownRecordsKeepTheirPhotos();
     void measurementStatistics();
@@ -484,6 +485,26 @@ void CoreTest::datesAreStoredAsIso()
     QVERIFY(!problems(u""_s).contains(u"cipdate"_s));
     QVERIFY(problems(u"14.06.1984"_s).contains(u"cipdate"_s));
     QVERIFY(problems(u"1984-6-14"_s).contains(u"cipdate"_s));
+}
+
+// Shotshells have their own terms (bigger powder space, wad friction, energy); everything else is untouched.
+void CoreTest::shotshellModel()
+{
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    grt::SimInput in = grt::SimInput::fromLoad(*lf);
+    QVERIFY(!in.shotshell);
+    const grt::SimResult cartridge = grt::simulate(in);
+    in.shotshell = true;
+    const grt::SimResult shot = grt::simulate(in);
+    QVERIFY(cartridge.ok() && shot.ok());
+    QCOMPARE_LT(shot.maxPressure_bar, 0.8 * cartridge.maxPressure_bar);  // more powder space: much lower pressure
+    QCOMPARE_LT(shot.muzzleVelocity_ms, cartridge.muzzleVelocity_ms);
+    grt::Calibration neutral;  // the terms off: identical to a cartridge
+    neutral.shotCapacityFactor = 1.0;
+    neutral.shotFrictionShare = 0.0;
+    neutral.shotEnergyFactor = 1.0;
+    QCOMPARE(grt::simulate(in, neutral).maxPressure_bar, cartridge.maxPressure_bar);
 }
 
 void CoreTest::measurementStatistics()

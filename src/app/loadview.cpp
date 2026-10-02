@@ -795,11 +795,11 @@ void LoadView::showResult()
     QString status = tr("<i>Calibrated against runs of the original program and checked against published load data: typical "
                         "deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual "
                         "loads can deviate more.</i>");
-    // inputs of the original that the solver does not use yet (no reference data: the result ignores them)
-    QStringList ignored;
-    if (m_file.caliber.flag(u"shotshell")) ignored << tr("the shotshell setting");
-    if (!ignored.isEmpty())
-        status += u"<br>"_s + tr("<b>Not taken into account:</b> %1. The result is calculated as without it.").arg(ignored.join(u", "_s));
+    // shotshells: an own model, fitted to published shotgun loads (not to the original program)
+    if (m_input.shotshell)
+        status += u"<br>"_s + tr("<b>Shotshell:</b> wad and shot column as the projectile (shot + wad mass, column length, "
+                                 "seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published "
+                                 "shotgun loads: typical deviation about 6 % in velocity.");
     m_status->setText(status);
 
     const grt::SimResult &r = m_result;

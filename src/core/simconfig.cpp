@@ -21,6 +21,7 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.sebert = c.number(u"sebert", in.sebert);
     in.startPressure_bar = c.number(u"ps", in.startPressure_bar);
     in.maxPressure_bar = c.number(u"pMaxZul");
+    in.shotshell = c.flag(u"shotshell");
 
     in.barrelLength_mm = g.number(u"xe");
     in.twistLength_mm = g.number(u"twistlen");

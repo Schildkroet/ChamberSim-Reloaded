@@ -415,16 +415,11 @@
     </message>
     <message>
         <location line="+5"/>
-        <source>the shotshell setting</source>
+        <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: typical deviation about 6 % in velocity.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>&lt;b&gt;Not taken into account:&lt;/b&gt; %1. The result is calculated as without it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>

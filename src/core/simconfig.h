@@ -16,6 +16,7 @@ struct SimInput
     double sebert{0.5};
     double startPressure_bar{250.0};
     double maxPressure_bar{};  // permitted maximum (CIP), informative only
+    bool shotshell{};          // shotgun cartridge (caliber flag): wad and shot column instead of a bullet
 
     // gun
     double barrelLength_mm{};

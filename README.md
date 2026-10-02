@@ -72,6 +72,17 @@ slow powders at low pressure (below about 150 bar, for example a slow powder wit
 the original burns more slowly there than this model, and the curve shape is off. Loads with a very early second
 transition (z2 below about 0.5) and start pressures above about 400 bar are also not covered well.
 
+**Shotgun loads** (caliber with *Shotshell* = yes) use their own model terms: the wad and the shot column are the
+projectile, the plastic wad seals the bore, and the powder space, the friction of wad and shot and the gas energy are
+fitted to 50 published shotgun loads (Vihtavuori Reloading Guide, 12/76, lead and steel shot), not to the original
+program: velocity error mean -1.4 %, typical 6 %, up to 15 %. Slow powders (N105) come out too fast, fast ones
+(N320, N340, 3N37) a few percent too slow. Enter a shotgun load like this, the fit depends on it:
+
+- *Projectile*: mass = shot + wad (about 2.5 g for a plastic wad), length = height of the shot column
+  (shot weight / (shot density x 0.62) / bore area) + height of the wad, diameter = bore diameter;
+- seated completely inside the hull: *Cartridge Overall Length* = hull length, *Seating depth* = projectile length;
+- *Initial Gas Pressure* (start pressure) = crimp release, about 20 bar.
+
 ## Building
 
 Requirements: Qt 6.4 or newer (Widgets, Sql, Charts, Xml, PrintSupport, Test, LinguistTools), CMake 3.16+, a C++20

@@ -1243,7 +1243,7 @@ void GuiTest::recordDialogDatesAndWidth()
     }
 }
 
-// Inputs of the original that the solver does not use (shotshell) are named under the results.
+// The notes under the results: the bullet jump is part of the model; a shotshell gets a note how to enter it.
 void GuiTest::ignoredInputsAreNamed()
 {
     QFile f(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
@@ -1287,13 +1287,13 @@ void GuiTest::ignoredInputsAreNamed()
     QVERIFY(jumped.load(path));
     QVERIFY(!statusText(jumped).contains(u"Not taken into account"_s));
 
-    set(u"shotshell"_s, u"true"_s);
+    set(u"shotshell"_s, u"true"_s);  // a shotshell: modelled, with a note how to enter it
     save();
     LoadView view;
     QVERIFY(view.load(path));
     const QString text = statusText(view);
-    QVERIFY2(text.contains(u"Not taken into account"_s), qPrintable(text));
-    QVERIFY(text.contains(u"shotshell"_s));
+    QVERIFY2(!text.contains(u"Not taken into account"_s), qPrintable(text));
+    QVERIFY(text.contains(u"Shotshell:"_s));
 }
 
 void GuiTest::propellantPhotoIsShown()

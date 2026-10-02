@@ -109,6 +109,17 @@ struct Calibration
     double explicitColdScale{0.025};       // explicit tcc: relative burn-rate change = scale * tcc * (21 - T)
     double explicitHotScale{0.0272};       // explicit tch: relative burn-rate change = scale * tch * (T - 21)
 
+    // ---- shotshells (caliber flag "shotshell") ----
+    // The "projectile" is the wad with the shot column; the plastic wad seals the bore like a driving band, so the gas
+    // keeps pushing after the crimp has opened (start pressure ps = crimp release, about 20 bar). What differs from a
+    // bullet, fitted to the 50 shotgun loads (12/76) of the Vihtavuori Reloading Guide 2026 (measured velocities, CIP
+    // pressure as the upper limit of the maximum loads; analysis/fit_shotgun.py): velocity mean -1.4 %, mean |error|
+    // 6.3 %. The fit assumes the input convention of the README (shot + wad as the projectile, column inside the hull).
+    // NOT matched to the original: its shotshell mode follows no physical mechanism we could identify.
+    double shotCapacityFactor{2.137};  // powder space x factor: the wad cushion compresses, the plastic hull expands
+    double shotFrictionShare{0.087};   // share of the pressure force lost to the wad and shot sliding in the bore
+    double shotEnergyFactor{1.058};    // gas energy x factor (fitted; expected below 1 for gas and heat losses)
+
     // ---- derived outputs (do not affect the curves) ----
     double frictionStress_MPa{0.907};  // built-in friction force = stress * pi * D * bullet length
     double gasImpulseFactor{1.1622};   // gas impulse after the muzzle = factor * mc * v
