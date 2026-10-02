@@ -40,18 +40,20 @@ original's results; lower is better):
 <!-- accuracy:start -->
 | Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
 |---|---:|---:|---:|---:|---:|---:|
-| Other cartridges (caliber sweep) | 28 | 1.1 % | 3.6 % | 1.1 % | 9.4 % | 4.3 % |
-| Powders (40 powders, one cartridge) | 39 | 2.1 % | 8.0 % | 1.0 % | 5.9 % | 4.0 % |
-| Charge, bullet weight, start pressure, case volume | 24 | 1.9 % | 4.4 % | 0.7 % | 2.3 % | 3.3 % |
-| Barrel length, twist, Sebert factor | 10 | 1.1 % | 2.9 % | 0.4 % | 1.8 % | 2.6 % |
-| Powder temperature | 26 | 0.6 % | 0.9 % | 0.2 % | 0.3 % | 2.3 % |
-| Bullet friction | 11 | 1.2 % | 3.7 % | 0.7 % | 2.3 % | 2.7 % |
-| Almost closed vessel (very heavy bullet) | 9 | 3.3 % | 7.4 % | 1.2 % | 2.5 % | 3.9 % |
-| Fast powders (burn rate, step length, form function) | 21 | 1.5 % | 5.7 % | 0.7 % | 1.1 % | 3.8 % |
-| Loading density (charge, case volume, powder density, Qex) | 22 | 3.9 % | 15.5 % | 0.8 % | 2.6 % | 4.8 % |
-| **All runs** | 190 | 1.8 % | 15.5 % | 0.8 % | 9.4 % | 3.7 % |
+| Other cartridges (caliber sweep) | 28 | 1.3 % | 4.0 % | 1.2 % | 10.9 % | 4.5 % |
+| Powders (40 powders, one cartridge) | 39 | 2.0 % | 6.4 % | 0.9 % | 6.3 % | 4.0 % |
+| Charge, bullet weight, start pressure, case volume | 24 | 1.6 % | 4.4 % | 0.7 % | 3.4 % | 3.4 % |
+| Barrel length, twist, Sebert factor | 10 | 1.0 % | 2.8 % | 0.4 % | 1.8 % | 2.6 % |
+| Powder temperature | 26 | 0.5 % | 1.0 % | 0.3 % | 0.4 % | 2.3 % |
+| Bullet friction | 11 | 1.2 % | 3.9 % | 0.8 % | 2.4 % | 2.8 % |
+| Almost closed vessel (very heavy bullet) | 9 | 2.8 % | 7.2 % | 1.1 % | 2.4 % | 3.6 % |
+| Fast powders (burn rate, step length, form function) | 21 | 1.4 % | 5.2 % | 0.6 % | 0.9 % | 3.6 % |
+| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 28 | 2.1 % | 8.4 % | 0.8 % | 3.9 % | 3.1 % |
+| Pistol and revolver loads with fast powders | 28 | 3.0 % | 8.1 % | 0.9 % | 2.8 % | 4.1 % |
+| Loading density (charge, case volume, powder density, Qex) | 22 | 3.4 % | 13.9 % | 0.7 % | 3.4 % | 4.8 % |
+| **All runs** | 246 | 1.9 % | 13.9 % | 0.8 % | 10.9 % | 3.6 % |
 
-_Absolute errors against 190 runs of the original program; updated 2026-10-02 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute errors against 246 runs of the original program; updated 2026-10-02 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more.

@@ -84,22 +84,22 @@ inline constexpr int kMaxLadderSteps = 10;
 // are *provisional* least-squares calibrations and are expected to change.
 struct Calibration
 {
-    double impetusFactor{1.00849};   // scales f = (k-1)*Qex
-    double kineticFactor{0.989931};  // scales the kinetic-energy term in the energy balance
+    double impetusFactor{1.01455};  // scales f = (k-1)*Qex
+    double kineticFactor{1.00787};  // scales the kinetic-energy term in the energy balance
     // covolume b of the powder gas = covolume_cm3g + covolumeDensityFactor / material density pc: measured on the
     // original, powders with a low pc have a much larger covolume (b ~ 1.2 / pc); eta has no effect at all.
     // The unburnt powder takes solidDensityFactor / pc per kg.
-    double covolume_cm3g{0.117777};
+    double covolume_cm3g{0.0905643};
     double solidDensityFactor{0.955343};
-    double covolumeDensityFactor{1.05957};
-    double intrusionFactor{1.22997};          // fraction of the bullet's volume inside the case that reduces the chamber
-    double chamberOffset_cm3{0.0};            // empirical chamber-volume offset
-    double capacityFactor{1.11875};           // scales the case capacity (database value) in the chamber volume
-    double chamberOffsetLength_mm{0.069528};  // extra chamber length behind the bullet base, times the bore area
-    double hotCoeffDefault{0.000962335};      // relative burn-rate change per K above 21 degC (used if tch == 0)
-    double coldCoeffDefault{0.000677371};     // relative burn-rate change per K below 21 degC (used if tcc == 0)
-    double explicitColdScale{0.025};          // explicit tcc: relative burn-rate change = scale * tcc * (21 - T)
-    double explicitHotScale{0.0272};          // explicit tch: relative burn-rate change = scale * tch * (T - 21)
+    double covolumeDensityFactor{1.06641};
+    double intrusionFactor{1.13549};           // fraction of the bullet's volume inside the case that reduces the chamber
+    double chamberOffset_cm3{0.0};             // empirical chamber-volume offset
+    double capacityFactor{1.10205};            // scales the case capacity (database value) in the chamber volume
+    double chamberOffsetLength_mm{-0.139628};  // extra chamber length behind the bullet base, times the bore area
+    double hotCoeffDefault{0.000962335};       // relative burn-rate change per K above 21 degC (used if tch == 0)
+    double coldCoeffDefault{0.000677371};      // relative burn-rate change per K below 21 degC (used if tcc == 0)
+    double explicitColdScale{0.025};           // explicit tcc: relative burn-rate change = scale * tcc * (21 - T)
+    double explicitHotScale{0.0272};           // explicit tch: relative burn-rate change = scale * tch * (T - 21)
 
     // Burn law dz/dt = Ba * p[bar] * phi(z). Identified from the reference powder sweep:
     //   phase 1 (z < z1):   phi = burnIntercept + (burnSlopeA0 * a0 + burnSlopeOffset) * z
@@ -113,18 +113,18 @@ struct Calibration
     double mipFactor{1.975};               // MIP = factor * IPSC
     double manualFrictionFactor{3.49e-4};  // fraction of the pressure force lost per bar of the gfriction input
 
-    double burnIntercept{1.08471};
-    double burnSlopeA0{0.408018};
-    double burnSlopeOffset{0.0995226};
-    double initialGasFactor{0.576484};  // weight of the initial-gas energy offset (1 = reproduces ps exactly)
+    double burnIntercept{1.09171};
+    double burnSlopeA0{0.434982};
+    double burnSlopeOffset{0.00638254};
+    double initialGasFactor{0.536312};  // weight of the initial-gas energy offset (1 = reproduces ps exactly)
     double burnZ0Factor{0.0};           // the form function sees z + burnZ0Factor * z0 (initial gas counts as burnt)
-    double burnExponent{-0.0232067};
+    double burnExponent{-0.00810765};
     // Measured on the original with fast powders: the energy of the burnt powder reaches the gas only by the fraction
     // 1 - exp(-ignitionRate * (step + ignitionLead)), counted in position steps (independent of the step length,
     // bullet mass and charge). It limits the peak pressure of fast powders; slow ones have burnt little by then.
-    double ignitionRate{0.124842};
-    double ignitionLead{7.29282};  // dz/dt scales with (p/1000 bar)^burnExponent on top of the linear p
-    std::array<double, 3> phase2{-0.0915691, 0.00485211, -0.530747};
+    double ignitionRate{0.132};
+    double ignitionLead{7.17663};  // dz/dt scales with (p/1000 bar)^burnExponent on top of the linear p
+    std::array<double, 3> phase2{-0.0867208, -0.0659705, -0.461006};
     double phase3Limit{1.0};  // the phase-3 shape is held constant beyond this t = (z - z2)/(1 - z2) (1: not at all)
     std::array<double, 3> phase3{-0.103524, -0.0695024, 0.00958064};
 };
