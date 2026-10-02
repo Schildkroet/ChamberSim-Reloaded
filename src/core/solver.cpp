@@ -15,9 +15,10 @@ struct FormFunction {
     const Calibration *cal;
     double a0, z1, z2;
 
-    [[nodiscard]] static double poly(const std::array<double, 4> &c, double x) noexcept
+    // cubic with the given constant term c0 (the coefficients c are the cubic, quadratic and linear ones)
+    [[nodiscard]] static double poly(const std::array<double, 3> &c, double c0, double x) noexcept
     {
-        return ((c[0] * x + c[1]) * x + c[2]) * x + c[3];
+        return ((c[0] * x + c[1]) * x + c[2]) * x + c0;
     }
 
     [[nodiscard]] double phase1(double z) const noexcept
@@ -30,8 +31,9 @@ struct FormFunction {
         constexpr double kFloor = 0.02;  // the burn rate never reverses
         if (z < z1) return std::max(phase1(z), kFloor);
         const double phi1 = std::max(phase1(z1), kFloor);
-        if (z < z2) return std::max(phi1 * poly(cal->phase2, (z - z1) / std::max(z2 - z1, 1e-9)), kFloor);
-        return std::max(phi1 * poly(cal->phase3, std::min((z - z2) / std::max(1.0 - z2, 1e-9), cal->phase3Limit)), kFloor);
+        if (z < z2) return std::max(phi1 * poly(cal->phase2, 1.0, (z - z1) / std::max(z2 - z1, 1e-9)), kFloor);
+        const double atZ2 = poly(cal->phase2, 1.0, 1.0);  // phase 3 starts where phase 2 ends
+        return std::max(phi1 * poly(cal->phase3, atZ2, std::min((z - z2) / std::max(1.0 - z2, 1e-9), cal->phase3Limit)), kFloor);
     }
 };
 
@@ -331,9 +333,9 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"initialGasFactor", &cal.initialGasFactor},
             {"ignitionRate", &cal.ignitionRate},
             {"ignitionLead", &cal.ignitionLead},
-            {"phase2_3", &cal.phase2[0]}, {"phase2_2", &cal.phase2[1]}, {"phase2_1", &cal.phase2[2]}, {"phase2_0", &cal.phase2[3]},
+            {"phase2_3", &cal.phase2[0]}, {"phase2_2", &cal.phase2[1]}, {"phase2_1", &cal.phase2[2]},
             {"phase3Limit", &cal.phase3Limit},
-            {"phase3_3", &cal.phase3[0]}, {"phase3_2", &cal.phase3[1]}, {"phase3_1", &cal.phase3[2]}, {"phase3_0", &cal.phase3[3]}};
+            {"phase3_3", &cal.phase3[0]}, {"phase3_2", &cal.phase3[1]}, {"phase3_1", &cal.phase3[2]}};
 }
 
 }  // namespace grt

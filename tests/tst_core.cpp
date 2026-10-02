@@ -45,6 +45,7 @@ private slots:
     void measurementSeveralBlocks();
     void chronographFiles();
     void loggingFiltersByLevel();
+    void burnRateCurveIsContinuous();
     void databaseImages();
     void ownRecordsKeepTheirPhotos();
     void measurementStatistics();
@@ -388,6 +389,29 @@ void CoreTest::ownRecordsKeepTheirPhotos()
     QCOMPARE(alone.addImage(fresh), id);
     QCOMPARE(alone.image(*id)->scale, 80.0);
     QVERIFY(!alone.addImage({}));  // no data
+}
+
+// The original's Ba*phi(z) curve has no jumps (documentation, "Form functions"): the three phases join at z1 and z2
+// and the curve drops towards z = 1.
+void CoreTest::burnRateCurveIsContinuous()
+{
+    for (const char *file : {"/8x57is.grtload", "/POWDER-MEASURE-TEMPLATE.grtload"}) {
+        const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR) + QLatin1String(file));
+        QVERIFY(lf);
+        const grt::SimInput in = grt::SimInput::fromLoad(*lf);
+        const std::vector<double> curve = grt::vivacityCurve(in, {}, 2001);
+        QCOMPARE(curve.size(), std::size_t{2001});
+        const double start = curve.front();
+        QVERIFY(start > 0.0);
+        double biggestStep = 0.0;
+        for (std::size_t i = 1; i < curve.size(); ++i) biggestStep = std::max(biggestStep, std::abs(curve[i] - curve[i - 1]));
+        QVERIFY2(biggestStep < 0.01 * start, file);  // a jump of 1 % of the start value within 0.05 % of z
+        QVERIFY(curve.back() > 0.0);
+        QVERIFY(curve.back() < 0.5 * start);  // it burns out slowly at the end
+        // the curve peaks within the first phases and then falls (apart from a tiny bend where phase 3 starts)
+        const auto peak = std::ranges::max_element(curve);
+        for (auto it = peak + 1; it != curve.end(); ++it) QVERIFY2(*it <= *(it - 1) + 0.005 * start, file);
+    }
 }
 
 void CoreTest::measurementStatistics()
