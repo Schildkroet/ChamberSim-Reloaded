@@ -1,0 +1,20 @@
+{
+  "mname": "Lovex",
+  "pname": "D073.6",
+  "lotid": "",
+  "Ba": 0.5985,
+  "Qex": 4300.0,
+  "k": 1.24,
+  "a0": 0.0,
+  "a1": 0.0,
+  "z1": 0.3,
+  "z2": 0.6,
+  "pc": 1620.0,
+  "pcd": 900.0,
+  "pt": 21.0,
+  "tcc": 0.0,
+  "tch": 0.0,
+  "cdate": "2026-10-03",
+  "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+  "descr": "Burn rate Ba fitted to 146 start and maximum loads of the manufacturer's published load data (15 cartridges), velocity error 3.7 % rms, pressure error 12 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
+}

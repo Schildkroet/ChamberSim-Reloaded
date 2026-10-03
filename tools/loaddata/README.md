@@ -44,6 +44,34 @@ Plausibility check: Ba divided by the published relative burn rate is nearly con
 powders with at most 5.2 % error from at least 80 samples (the 16 rifle powders). The pistol and double-base powders fit worse
 (8-22 % for N310 - N350 and 3N37) because of the model at low pressure and are not included.
 
+## Lovex and Reload Swiss (with pressures)
+
+Both publish measured pressures with every load, so `grt_fitdata --use-pressure` fits velocities and pressures (the CSV column
+`pressure_bar`; weight `--pressure-weight`, default 0.5).
+
+- `lovex_extract.py guide.pdf` reads the rifle tables of Explosia's LOVEX Reloading Guide 2019 (`pdftotext -layout`): per cartridge
+  barrel and case, per bullet maker, type, mass and cartridge length, per powder the recommended and the maximum load with V5 velocity
+  and the pressure of the maximum load. 1068 samples of 11 rifle powders.
+- `rs_extract.py` reads the loading data page of reload-swiss.com. The table is embedded in the page's Nuxt state (a minified function
+  whose arguments are the values); the script decodes it without running any script. 2002 samples of 14 RS powders, start and maximum
+  load with pressures.
+- `samples_common.py`: matches cartridges (with the table's spelling variants) to `data/calibers` and bullets to `data/projectiles`,
+  else an estimated length (`estimate_length.py`).
+- `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
+  and writes the records of the powders with at least 40 samples and at most 6 % (Reload Swiss: 6.5 %) velocity error.
+  Results: `lovex_fits.csv`, `rs_fits.csv`.
+
+| Powder | Samples | Ba | Velocity rms | Pressure rms |
+|---|---|---|---|---|
+| Lovex S060 / S062 / S065 / S070 / S071 | 162 / 198 / 194 / 122 / 44 | 0.855 / 0.695 / 0.637 / 0.553 / 0.540 | 3.2 / 4.5 / 3.8 / 5.4 / 4.6 % | 10-17 % |
+| Lovex D073.4 / .5 / .6 | 68 / 68 / 146 | 0.657 / 0.646 / 0.599 | 3.9 / 4.0 / 3.7 % | 11.5 % |
+| Reload Swiss RS50 / 52 / 60 / 62 / 70 / 76 | 184 / 206 / 294 / 246 / 228 / 88 | 0.536 / 0.553 / 0.501 / 0.454 / 0.437 / 0.368 | 4.9 / 5.6 / 5.2 / 6.2 / 4.7 / 5.4 % | 14-21 % |
+
+The burn rates order as the manufacturers describe their powders (D073.4 faster than .5 faster than .6; S060 > S062 > S065 > S070).
+Fitting a0, z1, z2 as well with the pressures does not help (pressure error 15 % -> 15 %, the parameters run to the limits), so the
+form function stays the chosen one. Not included: pistol powders (Reload Swiss RS12-RS36: 7-22 % velocity error), Lovex S040, S053,
+D060, D063 (fewer than 40 samples) and RS40 / RS80 (7 / 11 %).
+
 ## Speed
 
 The fit runs thousands of simulations. The solver uses a secant method (Illinois) instead of 70 bisections per step

@@ -5,6 +5,7 @@
 //     --params Ba,a0,z1,z2    values to fit (default: Ba,a0,z1,z2)
 //     --start Ba=0.6,a0=1.2,... start values (default: generic single-base powder)
 //     --pressure-fraction F   treat the maximum loads as F x the caliber's maximum pressure (0: velocities only, default 0)
+//     --use-pressure          use the pressure_bar column of the CSV (measured pressure of the max loads)
 //     --pressure-weight W     weight of these pressures against the velocities (default 0.5)
 //     --kinds start|max|both  which load lines are fitted (default both)
 //     --holdout CAL1,CAL2     calibers that are not fitted but evaluated with the fitted values
@@ -109,6 +110,7 @@ int main(int argc, char *argv[])
                     {u"params"_s, u"values to fit"_s, u"list"_s, u"Ba,a0,z1,z2"_s},
                     {u"start"_s, u"start values, e.g. Ba=0.6,a0=1.2"_s, u"list"_s},
                     {u"pressure-fraction"_s, u"maximum loads as a fraction of the caliber's maximum pressure"_s, u"f"_s, u"0"_s},
+                    {u"use-pressure"_s, u"use the pressure_bar column of the CSV for the max loads"_s},
                     {u"pressure-weight"_s, u"weight of these pressures"_s, u"w"_s, u"0.5"_s},
                     {u"kinds"_s, u"start, max or both"_s, u"kind"_s, u"both"_s},
                     {u"holdout"_s, u"calibers evaluated but not fitted"_s, u"list"_s},
@@ -148,6 +150,7 @@ int main(int argc, char *argv[])
         powder.insert(kv.section(u'=', 0, 0).trimmed(), kv.section(u'=', 1).toDouble());
 
     const double pressureFraction = cli.value(u"pressure-fraction"_s).toDouble();
+    const bool usePressure = cli.isSet(u"use-pressure"_s);
     const QString kinds = cli.value(u"kinds"_s);
     const QStringList holdoutList = cli.value(u"holdout"_s).split(u',', Qt::SkipEmptyParts);
     const QSet<QString> holdout(holdoutList.begin(), holdoutList.end());
@@ -196,6 +199,11 @@ int main(int argc, char *argv[])
         {
             item.sample.pressureShots = 1;
             item.sample.pressure_bar = pressureFraction * cal->value(u"Pmax"_s).toDouble();
+        }
+        if (usePressure && row.value(u"pressure_bar"_s).toDouble() > 0.0)
+        {
+            item.sample.pressureShots = 1;
+            item.sample.pressure_bar = row.value(u"pressure_bar"_s).toDouble();
         }
         (holdout.contains(item.caliber) ? test : train).push_back(std::move(item));
     }
@@ -259,6 +267,9 @@ int main(int argc, char *argv[])
     if (pressureFraction > 0.0)
         out << QString::asprintf(";  pressure error (rms, max loads vs %.2f x Pmax): %.2f %% -> %.2f %%", pressureFraction,
                                  100 * res.pressureRmsBefore, 100 * res.pressureRmsAfter);
+    else if (usePressure)
+        out << QString::asprintf(";  pressure error (rms, measured): %.2f %% -> %.2f %%", 100 * res.pressureRmsBefore,
+                                 100 * res.pressureRmsAfter);
     out << QString::asprintf("  (%d iterations)\n\n", res.iterations);
 
     // errors per caliber and kind

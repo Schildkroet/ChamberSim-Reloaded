@@ -1,0 +1,13 @@
+powder,samples,cartridges,base,Ba,v_rms,p_rms,too_high
+D060,4,1,double-base,0.8549,9.46,34.72,0
+D063,24,6,double-base,0.8713,7.41,26.02,0
+D073.4,68,9,double-base,0.657,3.85,11.51,0
+D073.5,68,9,double-base,0.646,3.95,11.39,0
+D073.6,146,15,double-base,0.5985,3.67,11.52,0
+S040,12,3,single-base,1.5952,2.78,14.54,0
+S053,18,4,single-base,1.1981,4.17,15.86,0
+S060,162,21,single-base,0.8553,3.22,10.45,0
+S062,198,25,single-base,0.6951,4.49,15.78,0
+S065,194,24,single-base,0.6369,3.84,14.64,0
+S070,122,20,single-base,0.5533,5.42,16.96,0
+S071,44,5,single-base,0.5399,4.6,16.39,0

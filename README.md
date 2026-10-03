@@ -131,13 +131,17 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.
-- **Propellants (16)**: Vihtavuori N130-N170 and N530-N570. Explosion heat (Vihtavuori's "energy content") and bulk density are
-  taken from Vihtavuori's published powder table, grain size and nitroglycerine content are noted in `descr`. The burn rate
-  Ba was fitted to Vihtavuori's published load data (the start and maximum loads of its reloading database, about 4,000
-  samples) with `tools/loaddata` and `grt_fitdata`. The load tables contain no pressures, so only Ba is determined well. k and
-  the material density are typical values; the form function (a0, z1, z2) is not published anywhere, it is the combination
-  that reproduces the velocities best and the data hardly determine it. Other powders (pistol, double-base) fitted too
-  poorly and are not included. See `tools/loaddata/README.md` for the method and the results.
+- **Propellants (30)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S060-S071 and D073.4-D073.6 (8), Reload Swiss RS50-RS76 (6).
+  Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate Ba
+  was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
+  (Explosia's Reloading Guide 2019) and Reload Swiss (online loading data of Nitrochemie) publish pressures as well; the fit
+  uses velocities and pressures (velocity error 3-5 % rms for Lovex, 5-6 % for Reload Swiss, pressure error 10-20 % rms). Neither
+  publishes the explosion heat or the bulk density: Qex is a typical value of a single-base (3800 kJ/kg) or double-base (4300 kJ/kg)
+  powder (Lovex: S = single, D = double base by name; Reload Swiss: the type that fits the velocities better), pcd is 900 kg/m3.
+  k and the material density are typical values everywhere; the form function (a0, z1, z2) is not published, it is the combination
+  that reproduces the velocities best and the data hardly determine it. Pistol and shotgun powders fitted too poorly and are not
+  included, nor are powders with too few samples. `tools/grt_fitdata` and `tools/loaddata` do the work, see
+  `tools/loaddata/README.md` for the method and the results.
 
 The details, the commands to repeat each step and the limits of the data are in `tools/cipdata/README.md` and
 `tools/loaddata/README.md`. Please check every load against the manufacturer's current load data.
