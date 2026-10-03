@@ -50,6 +50,8 @@ public:
     [[nodiscard]] int ladderFocus() const noexcept { return m_focus; }
     void selectLadderStep(int index) { setFocus(index); }
     [[nodiscard]] double focusCharge_g() const noexcept { return m_focusInput.charge_g; }
+    // The simulation result shown (the focused ladder step).
+    [[nodiscard]] const grt::SimResult &result() const noexcept { return m_result; }
 
     // The database that the "Select ..." buttons read from (may be null; then the buttons are disabled).
     void setDatabase(const grt::Database *db);

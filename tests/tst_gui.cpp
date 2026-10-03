@@ -215,6 +215,18 @@ void GuiTest::solverCalibrationIsChosenInTheSettings()
     QCOMPARE(QSettings().value(u"solver/calibration"_s).toString(), u"published"_s);
     prefs.setProfile(grt::CalibrationProfile::Original);  // leave the others as they were
     QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Original);
+
+    // an open load is recalculated with the other constants (the shown result comes from the ladder simulation)
+    LoadView view;
+    QString error;
+    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    const double original = view.result().maxPressure_bar;
+    QVERIFY(original > 0.0);
+    prefs.setProfile(grt::CalibrationProfile::Published);
+    const double published = view.result().maxPressure_bar;
+    QVERIFY(std::abs(published / original - 1.0) > 0.01);
+    prefs.setProfile(grt::CalibrationProfile::Original);
+    QCOMPARE(view.result().maxPressure_bar, original);
 }
 
 void GuiTest::tableBrowserFiltersAndSelects()

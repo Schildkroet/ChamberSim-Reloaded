@@ -193,7 +193,7 @@ struct NamedParameter
 
 // Simulates the whole ladder. Without a ladder (count below 2) the result has one step, the selected
 // charge. Steps that would have no powder left are omitted. Index 0 is the maximum charge.
-[[nodiscard]] std::vector<LadderStep> simulateLadder(const SimInput &in, const Calibration &cal = {}, int steps = 2000);
+[[nodiscard]] std::vector<LadderStep> simulateLadder(const SimInput &in, const Calibration &cal = activeCalibration(), int steps = 2000);
 
 // Chamber volume at the start (case volume minus the part of the bullet inside the case) [m^3].
 [[nodiscard]] double chamberVolume_m3(const SimInput &in, const Calibration &cal = activeCalibration());

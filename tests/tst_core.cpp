@@ -459,8 +459,10 @@ void CoreTest::calibrationProfiles()
     const double shotOriginal = grt::simulate(shot).maxPressure_bar;
     grt::setCalibrationProfile(grt::CalibrationProfile::Published);
     QCOMPARE(grt::simulate(shot).maxPressure_bar, shotOriginal);
+    QCOMPARE(grt::simulateLadder(in).front().result.maxPressure_bar, published.maxPressure_bar);  // the ladder follows it too
     grt::setCalibrationProfile(grt::CalibrationProfile::Original);
     QCOMPARE(grt::simulate(in).maxPressure_bar, original.maxPressure_bar);
+    QCOMPARE(grt::simulateLadder(in).front().result.maxPressure_bar, original.maxPressure_bar);
 }
 
 // The original's Ba*phi(z) curve has no jumps (documentation, "Form functions"): the three phases join at z1 and z2
