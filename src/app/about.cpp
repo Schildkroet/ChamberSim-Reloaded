@@ -21,7 +21,19 @@
 namespace about
 {
 
-QString html(const QString &databasePath, int calibers, int projectiles, int propellants)
+namespace
+{
+
+QString countsText(const Counts &c)
+{
+    return QApplication::translate("about", "%Ln caliber(s)", nullptr, c.calibers) + QStringLiteral(", ") +
+           QApplication::translate("about", "%Ln projectile(s)", nullptr, c.projectiles) + QStringLiteral(", ") +
+           QApplication::translate("about", "%Ln propellant(s)", nullptr, c.propellants);
+}
+
+}  // namespace
+
+QString html(const std::optional<DatabaseInfo> &database)
 {
     const QString version =
         QCoreApplication::applicationVersion().isEmpty() ? QStringLiteral(GRT_VERSION) : QCoreApplication::applicationVersion();
@@ -30,14 +42,28 @@ QString html(const QString &databasePath, int calibers, int projectiles, int pro
         QApplication::translate("about", "<h2>GRT Reloaded</h2>"
                                          "<p><b>Version %1</b><br>Interior ballistics for handloaders</p>"
                                          "<p>Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy "
-                                         "and velocity along the barrel. Includes a load development ladder, reports and printouts.</p>"
+                                         "and velocity along the barrel.</p>"
                                          "<p>A Qt&nbsp;6 re-creation of the workflow of Gordon's Reloading Tool. It is an independent "
                                          "project and is not affiliated with or supported by the original program or its author.</p>")
             .arg(version.toHtmlEscaped());
+    text += QApplication::translate("about", "<h3>Features</h3>"
+                                             "<ul>"
+                                             "<li>Load development ladder; reports with print preview and PDF export</li>"
+                                             "<li>Measurements: chronograph data (import of MagnetoSpeed and Labradar files) compared "
+                                             "with the simulation; the powder's model values can be fitted to your measurements</li>"
+                                             "<li>Built-in database of calibers, projectiles and propellants, your own records, and "
+                                             "optionally the database of the original program</li>"
+                                             "<li>Cartridge and chamber drawings with the C.I.P. dimensions</li>"
+                                             "<li>Metric, imperial or the original's units; light and dark theme; several languages</li>"
+                                             "</ul>");
     text += QApplication::translate("about", "<h3>Accuracy</h3>"
-                                             "<p>The simulation was calibrated against 190 runs of the original program on 36 "
-                                             "cartridges: typically about 1&nbsp;% in muzzle velocity and 2&nbsp;% in peak pressure. "
-                                             "Unusual loads can deviate more.</p>");
+                                             "<p>The default <b>Physical Model</b> was fitted to the published load data of powder "
+                                             "manufacturers. On cartridges not used for the fit it typically deviates about 2.5&nbsp;% in "
+                                             "muzzle velocity and 6&nbsp;% in peak pressure from the published values (median); single "
+                                             "loads, and pistol and shotgun powders, can deviate much more.</p>"
+                                             "<p>The <b>GRT Original</b> model (File &gt; Settings &gt; Solver) reproduces the original "
+                                             "program: on average 0.8&nbsp;% in muzzle velocity and 2.8&nbsp;% in peak pressure over 349 "
+                                             "reference runs.</p>");
     text += QApplication::translate("about", "<h3>Safety</h3>"
                                              "<ul>"
                                              "<li>The results are calculated and can differ considerably from reality.</li>"
@@ -57,18 +83,20 @@ QString html(const QString &databasePath, int calibers, int projectiles, int pro
     text += QApplication::translate("about", "<hr><p><small>Qt %1 (built with %2) · %3 · language %4</small></p>")
                 .arg(QString::fromLatin1(qVersion()), QStringLiteral(QT_VERSION_STR), QSysInfo::prettyProductName().toHtmlEscaped(),
                      QLocale().name());
-    if (!databasePath.isEmpty())
+    if (database)
     {
-        text += QApplication::translate("about", "<p><small>Database: %1 — %2 calibers, %3 projectiles, %4 propellants</small></p>")
-                    .arg(QFileInfo(databasePath).fileName().toHtmlEscaped())
-                    .arg(calibers)
-                    .arg(projectiles)
-                    .arg(propellants);
+        const QString original =
+            database->originalPath.isEmpty()
+                ? QApplication::translate("about", "Original program's database: none chosen")
+                : QApplication::translate("about", "Original program's database (%1): %2")
+                      .arg(QFileInfo(database->originalPath).fileName().toHtmlEscaped(), countsText(database->original));
+        text += QApplication::translate("about", "<p><small>Database<br>Project records: %1<br>Own records: %2<br>%3</small></p>")
+                    .arg(countsText(database->project), countsText(database->own), original);
     }
     return text;
 }
 
-void show(QWidget *parent, const QString &databasePath, int calibers, int projectiles, int propellants)
+void show(QWidget *parent, const std::optional<DatabaseInfo> &database)
 {
     QDialog dialog(parent);
     dialog.setObjectName(QStringLiteral("aboutDialog"));
@@ -80,7 +108,7 @@ void show(QWidget *parent, const QString &databasePath, int calibers, int projec
     auto *browser = new QTextBrowser;
     browser->setFrameShape(QFrame::NoFrame);
     browser->setOpenExternalLinks(true);
-    browser->setHtml(html(databasePath, calibers, projectiles, propellants));
+    browser->setHtml(html(database));
     browser->setStyleSheet(QStringLiteral("QTextBrowser { background: transparent; }"));
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok);
     QObject::connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);

@@ -657,12 +657,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+313"/>
+        <location filename="../src/app/mainwindow.cpp" line="+328"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-257"/>
+        <location filename="../src/app/mainwindow.cpp" line="-272"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -718,7 +718,7 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+281"/>
+        <location line="+296"/>
         <location line="+165"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -726,7 +726,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-447"/>
+        <location line="-462"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -742,12 +742,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+210"/>
+        <location line="+225"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-225"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -794,12 +794,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <location line="+410"/>
+        <location line="+425"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-336"/>
+        <location line="-351"/>
         <source>&amp;Tools</source>
         <translation type="unfinished"></translation>
     </message>
@@ -809,7 +809,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+97"/>
+        <location line="+112"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -893,7 +893,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-475"/>
+        <location line="-490"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -974,7 +974,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+81"/>
         <location line="+294"/>
         <source>Cannot read %1:
 %2</source>
@@ -1660,7 +1660,7 @@ pressure Δ</source>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+41"/>
+        <location filename="../src/app/propertypanel.cpp" line="+42"/>
         <source>flat base</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1700,7 +1700,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+112"/>
         <source>Property</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2219,18 +2219,47 @@ pressure Δ</source>
 </context>
 <context>
     <name>about</name>
+    <message numerus="yes">
+        <location filename="../src/app/about.cpp" line="+29"/>
+        <source>%Ln caliber(s)</source>
+        <translation>
+            <numerusform>%Ln caliber</numerusform>
+            <numerusform>%Ln calibers</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>%Ln projectile(s)</source>
+        <translation>
+            <numerusform>%Ln projectile</numerusform>
+            <numerusform>%Ln projectiles</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>%Ln propellant(s)</source>
+        <translation>
+            <numerusform>%Ln propellant</numerusform>
+            <numerusform>%Ln propellants</numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../src/app/about.cpp" line="+30"/>
-        <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel. Includes a load development ladder, reports and printouts.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
+        <location line="+11"/>
+        <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The simulation was calibrated against 190 runs of the original program on 36 cartridges: typically about 1&amp;nbsp;% in muzzle velocity and 2&amp;nbsp;% in peak pressure. Unusual loads can deviate more.&lt;/p&gt;</source>
+        <source>&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Load development ladder; reports with print preview and PDF export&lt;/li&gt;&lt;li&gt;Measurements: chronograph data (import of MagnetoSpeed and Labradar files) compared with the simulation; the powder&apos;s model values can be fitted to your measurements&lt;/li&gt;&lt;li&gt;Built-in database of calibers, projectiles and propellants, your own records, and optionally the database of the original program&lt;/li&gt;&lt;li&gt;Cartridge and chamber drawings with the C.I.P. dimensions&lt;/li&gt;&lt;li&gt;Metric, imperial or the original&apos;s units; light and dark theme; several languages&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+10"/>
+        <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The default &lt;b&gt;Physical Model&lt;/b&gt; was fitted to the published load data of powder manufacturers. On cartridges not used for the fit it typically deviates about 2.5&amp;nbsp;% in muzzle velocity and 6&amp;nbsp;% in peak pressure from the published values (median); single loads, and pistol and shotgun powders, can deviate much more.&lt;/p&gt;&lt;p&gt;The &lt;b&gt;GRT Original&lt;/b&gt; model (File &amp;gt; Settings &amp;gt; Solver) reproduces the original program: on average 0.8&amp;nbsp;% in muzzle velocity and 2.8&amp;nbsp;% in peak pressure over 349 reference runs.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>&lt;h3&gt;Safety&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The results are calculated and can differ considerably from reality.&lt;/li&gt;&lt;li&gt;Compare every load with the current loading tables of the component manufacturers.&lt;/li&gt;&lt;li&gt;Start low. Use at your own risk.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2245,12 +2274,22 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>&lt;p&gt;&lt;small&gt;Database: %1 — %2 calibers, %3 projectiles, %4 propellants&lt;/small&gt;&lt;/p&gt;</source>
+        <location line="+7"/>
+        <source>Original program&apos;s database: none chosen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+1"/>
+        <source>Original program&apos;s database (%1): %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&lt;p&gt;&lt;small&gt;Database&lt;br&gt;Project records: %1&lt;br&gt;Own records: %2&lt;br&gt;%3&lt;/small&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>About GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>

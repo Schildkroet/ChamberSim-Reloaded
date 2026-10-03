@@ -32,6 +32,7 @@
 #include <QProxyStyle>
 #include <QStyleOptionComboBox>
 #include <QTimer>
+#include <QTranslator>
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include <QStyleOptionButton>
@@ -883,10 +884,25 @@ void GuiTest::helpMenuHasAbout()
     QVERIFY(plain.contains(u"not affiliated"_s));
     QVERIFY(plain.contains(u"Disclaimer"_s) && plain.contains(u"without warranty"_s) &&
             plain.contains(u"no responsibility or liability"_s));
-    QVERIFY(!plain.contains(u"Database:"_s));
-    const QString withDb = about::html(u"/some/dir/data <1>.db"_s, 578, 5659, 683);
-    QVERIFY(withDb.contains(u"Database:"_s) && withDb.contains(u"578 calibers"_s) && withDb.contains(u"683 propellants"_s));
-    QVERIFY(withDb.contains(u"data &lt;1&gt;.db"_s) && !withDb.contains(u"/some/dir"_s));  // file name only, escaped
+    QVERIFY(plain.contains(u"Physical Model"_s) && plain.contains(u"GRT Original"_s));  // the accuracy of both models
+    QVERIFY(plain.contains(u"Measurements"_s) && plain.contains(u"Labradar"_s));
+    QVERIFY(!plain.contains(u"Project records"_s));
+    // the three parts of the database, each with its counts; the original's file name only, escaped. The English plural
+    // forms come from the en_US translation, which the program always loads.
+    QTranslator english;
+    QVERIFY(english.load(u"GRTReloaded_en_US"_s, QStringLiteral(GRT_QM_DIR)));
+    QCoreApplication::installTranslator(&english);
+    const auto removeEnglish = qScopeGuard([&] { QCoreApplication::removeTranslator(&english); });
+    const about::DatabaseInfo info{
+        .project = {467, 1761, 108}, .own = {1, 0, 2}, .original = {578, 5659, 683}, .originalPath = u"/some/dir/data <1>.db"_s};
+    const QString withDb = about::html(info);
+    QVERIFY2(withDb.contains(u"Project records: 467 calibers, 1,761 projectiles, 108 propellants"_s), qPrintable(withDb));
+    QVERIFY(withDb.contains(u"Own records: 1 caliber, 0 projectiles, 2 propellants"_s));
+    QVERIFY(withDb.contains(u"(data &lt;1&gt;.db): 578 calibers, 5,659 projectiles, 683 propellants"_s));
+    QVERIFY(!withDb.contains(u"/some/dir"_s));
+    about::DatabaseInfo noOriginal = info;
+    noOriginal.originalPath.clear();
+    QVERIFY(about::html(noOriginal).contains(u"Original program's database: none chosen"_s));
     // the real dialog: about twice as wide as a default message box
     int shownWidth = 0;
     bool noHorizontalScroll = false;
@@ -903,7 +919,9 @@ void GuiTest::helpMenuHasAbout()
                                box->accept();
                            }
                        });
-    about::show(nullptr, u"GordonsReloadingTool.plain.db"_s, 578, 5659, 683);
+    about::show(
+        nullptr,
+        about::DatabaseInfo{.project = {467, 1761, 108}, .original = {578, 5659, 683}, .originalPath = u"GordonsReloadingTool.plain.db"_s});
     QVERIFY2(shownWidth >= 700, qPrintable(QString::number(shownWidth)));
     QVERIFY(noHorizontalScroll);
 }

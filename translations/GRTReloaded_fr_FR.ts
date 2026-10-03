@@ -657,12 +657,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+313"/>
+        <location filename="../src/app/mainwindow.cpp" line="+328"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-257"/>
+        <location filename="../src/app/mainwindow.cpp" line="-272"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -718,7 +718,7 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+281"/>
+        <location line="+296"/>
         <location line="+165"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -726,7 +726,7 @@
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-447"/>
+        <location line="-462"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -742,12 +742,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+210"/>
+        <location line="+225"/>
         <source>Open load</source>
         <translation>Ouvrir un chargement</translation>
     </message>
     <message>
-        <location line="-210"/>
+        <location line="-225"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation>Chargements GRT (*.grtload);;Tous les fichiers (*)</translation>
     </message>
@@ -794,12 +794,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <location line="+410"/>
+        <location line="+425"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-406"/>
+        <location line="-421"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -890,7 +890,7 @@
         <translation>À &amp;propos de GRT Reloaded…</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+81"/>
         <location line="+294"/>
         <source>Cannot read %1:
 %2</source>
@@ -1679,7 +1679,7 @@ pression Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+41"/>
+        <location filename="../src/app/propertypanel.cpp" line="+42"/>
         <source>flat base</source>
         <translation>culot plat</translation>
     </message>
@@ -1719,7 +1719,7 @@ pression Δ</translation>
         <translation>type %1</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+112"/>
         <source>Property</source>
         <translation>Propriété</translation>
     </message>
@@ -2238,18 +2238,47 @@ pression Δ</translation>
 </context>
 <context>
     <name>about</name>
+    <message numerus="yes">
+        <location filename="../src/app/about.cpp" line="+29"/>
+        <source>%Ln caliber(s)</source>
+        <translation>
+            <numerusform>%Ln calibre</numerusform>
+            <numerusform>%Ln calibres</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>%Ln projectile(s)</source>
+        <translation>
+            <numerusform>%Ln projectile</numerusform>
+            <numerusform>%Ln projectiles</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>%Ln propellant(s)</source>
+        <translation>
+            <numerusform>%Ln poudre</numerusform>
+            <numerusform>%Ln poudres</numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../src/app/about.cpp" line="+30"/>
-        <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel. Includes a load development ladder, reports and printouts.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Balistique intérieure pour le rechargement&lt;/p&gt;&lt;p&gt;Choisissez une cartouche, une balle et une poudre, saisissez la charge et voyez la pression, l&apos;énergie de la balle et la vitesse le long du canon. Avec échelle de chargement, rapports et impressions.&lt;/p&gt;&lt;p&gt;Une recréation en Qt&amp;nbsp;6 du déroulement de travail de Gordon&apos;s Reloading Tool. C&apos;est un projet indépendant, sans lien avec le programme d&apos;origine ou son auteur et non soutenu par eux.&lt;/p&gt;</translation>
+        <location line="+11"/>
+        <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
+        <translation>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Balistique intérieure pour le rechargement&lt;/p&gt;&lt;p&gt;Choisissez une cartouche, une balle et une poudre, saisissez la charge et voyez la pression, l&apos;énergie de la balle et la vitesse le long du canon.&lt;/p&gt;&lt;p&gt;Une recréation en Qt&amp;nbsp;6 du déroulement de travail de Gordon&apos;s Reloading Tool. C&apos;est un projet indépendant, sans lien avec le programme d&apos;origine ou son auteur et non soutenu par eux.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The simulation was calibrated against 190 runs of the original program on 36 cartridges: typically about 1&amp;nbsp;% in muzzle velocity and 2&amp;nbsp;% in peak pressure. Unusual loads can deviate more.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Précision&lt;/h3&gt;&lt;p&gt;La simulation a été étalonnée sur 190 calculs du programme d&apos;origine avec 36 cartouches : typiquement environ 1&amp;nbsp;% sur la vitesse à la bouche et 2&amp;nbsp;% sur la pression maximale. Des chargements inhabituels peuvent s&apos;écarter davantage.&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Load development ladder; reports with print preview and PDF export&lt;/li&gt;&lt;li&gt;Measurements: chronograph data (import of MagnetoSpeed and Labradar files) compared with the simulation; the powder&apos;s model values can be fitted to your measurements&lt;/li&gt;&lt;li&gt;Built-in database of calibers, projectiles and propellants, your own records, and optionally the database of the original program&lt;/li&gt;&lt;li&gt;Cartridge and chamber drawings with the C.I.P. dimensions&lt;/li&gt;&lt;li&gt;Metric, imperial or the original&apos;s units; light and dark theme; several languages&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>&lt;h3&gt;Fonctions&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Échelle de chargement ; rapports avec aperçu avant impression et export PDF&lt;/li&gt;&lt;li&gt;Mesures : données du chronographe (import de fichiers MagnetoSpeed et Labradar) comparées à la simulation ; les valeurs du modèle de la poudre peuvent être ajustées à vos mesures&lt;/li&gt;&lt;li&gt;Base de données intégrée de calibres, projectiles et poudres, vos propres enregistrements et, au choix, la base de données du programme d’origine&lt;/li&gt;&lt;li&gt;Dessins de la cartouche et de la chambre avec les cotes C.I.P.&lt;/li&gt;&lt;li&gt;Unités métriques, impériales ou celles de l’original ; thème clair et sombre ; plusieurs langues&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+10"/>
+        <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The default &lt;b&gt;Physical Model&lt;/b&gt; was fitted to the published load data of powder manufacturers. On cartridges not used for the fit it typically deviates about 2.5&amp;nbsp;% in muzzle velocity and 6&amp;nbsp;% in peak pressure from the published values (median); single loads, and pistol and shotgun powders, can deviate much more.&lt;/p&gt;&lt;p&gt;The &lt;b&gt;GRT Original&lt;/b&gt; model (File &amp;gt; Settings &amp;gt; Solver) reproduces the original program: on average 0.8&amp;nbsp;% in muzzle velocity and 2.8&amp;nbsp;% in peak pressure over 349 reference runs.&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;Précision&lt;/h3&gt;&lt;p&gt;Le &lt;b&gt;modèle physique&lt;/b&gt; par défaut a été ajusté aux données de rechargement publiées par les fabricants de poudre. Sur des cartouches non utilisées pour l’ajustement, il s’écarte typiquement d’environ 2,5&amp;nbsp;% en vitesse initiale et de 6&amp;nbsp;% en pression maximale des valeurs publiées (médiane) ; des charges isolées ainsi que les poudres pour pistolet et fusil de chasse peuvent s’écarter bien davantage.&lt;/p&gt;&lt;p&gt;Le modèle &lt;b&gt;GRT Original&lt;/b&gt; (Fichier &amp;gt; Paramètres &amp;gt; Solveur) reproduit le programme d’origine : en moyenne 0,8&amp;nbsp;% en vitesse initiale et 2,8&amp;nbsp;% en pression maximale sur 349 calculs de référence.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>&lt;h3&gt;Safety&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The results are calculated and can differ considerably from reality.&lt;/li&gt;&lt;li&gt;Compare every load with the current loading tables of the component manufacturers.&lt;/li&gt;&lt;li&gt;Start low. Use at your own risk.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;h3&gt;Sécurité&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Les résultats sont calculés et peuvent différer considérablement de la réalité.&lt;/li&gt;&lt;li&gt;Comparez chaque chargement avec les tables de chargement actuelles des fabricants de composants.&lt;/li&gt;&lt;li&gt;Commencez bas. Utilisation à vos risques et périls.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
@@ -2264,12 +2293,22 @@ pression Δ</translation>
         <translation>&lt;hr&gt;&lt;p&gt;&lt;small&gt;Qt %1 (compilé avec %2) · %3 · langue %4&lt;/small&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>&lt;p&gt;&lt;small&gt;Database: %1 — %2 calibers, %3 projectiles, %4 propellants&lt;/small&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;small&gt;Base de données : %1 — %2 calibres, %3 projectiles, %4 poudres&lt;/small&gt;&lt;/p&gt;</translation>
+        <location line="+7"/>
+        <source>Original program&apos;s database: none chosen</source>
+        <translation>Base de données du programme d’origine : aucune choisie</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+1"/>
+        <source>Original program&apos;s database (%1): %2</source>
+        <translation>Base de données du programme d’origine (%1) : %2</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&lt;p&gt;&lt;small&gt;Database&lt;br&gt;Project records: %1&lt;br&gt;Own records: %2&lt;br&gt;%3&lt;/small&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;small&gt;Base de données&lt;br&gt;Enregistrements du projet : %1&lt;br&gt;Enregistrements propres : %2&lt;br&gt;%3&lt;/small&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>About GRT Reloaded</source>
         <translation>À propos de GRT Reloaded</translation>
     </message>

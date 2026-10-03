@@ -289,8 +289,23 @@ void MainWindow::createActions()
     help->addAction(tr("&About GRT Reloaded…"), this,
                     [this]
                     {
-                        about::show(this, m_db.isOpen() ? m_db.path() : QString(), m_db.count(grt::Table::Caliber),
-                                    m_db.count(grt::Table::Projectile), m_db.count(grt::Table::Propellant));
+                        std::optional<about::DatabaseInfo> info;
+                        if (m_db.isOpen())
+                        {
+                            // the original's records: all minus the project's and the own ones
+                            const auto counts = [&](auto count)
+                            {
+                                return about::Counts{.calibers = count(grt::Table::Caliber),
+                                                     .projectiles = count(grt::Table::Projectile),
+                                                     .propellants = count(grt::Table::Propellant)};
+                            };
+                            info = about::DatabaseInfo{
+                                .project = counts([&](grt::Table t) { return m_db.projectCount(t); }),
+                                .own = counts([&](grt::Table t) { return m_db.ownCount(t); }),
+                                .original = counts([&](grt::Table t) { return m_db.count(t) - m_db.projectCount(t) - m_db.ownCount(t); }),
+                                .originalPath = m_db.path()};
+                        }
+                        about::show(this, info);
                     });
 }
 
