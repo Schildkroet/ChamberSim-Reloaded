@@ -817,28 +817,8 @@ void LoadView::showResult()
         clearAll();
         return;
     }
-    QString status;
-    switch (SolverPreferences::instance().profile())
-    {
-    case grt::CalibrationProfile::Original:
-        status = tr("<i>GRT Original (Settings > Solver): results like Gordon's Reloading Tool (about 1 % in velocity and 3 % in peak "
-                    "pressure); against real load data the least accurate model.</i>");
-        break;
-    case grt::CalibrationProfile::Published:
-        status = tr("<i>GRT Tuned (Settings > Solver): velocity about as accurate as the Physical Model, peak pressure usually too "
-                    "low (about 5 % at maximum loads).</i>");
-        break;
-    case grt::CalibrationProfile::Physical:
-        status = m_input.shotshell
-                     ? tr("<i>Physical Model (Settings > Solver). Shotshells use their own model with the constants of GRT Original.</i>")
-                 : m_input.physicalBurn
-                     ? tr("<i>Physical Model (Settings > Solver) with this powder's own burn values: typically about 6 % in peak pressure "
-                          "and 2.5 % in velocity off the makers' load data.</i>")
-                     : tr("<i>Physical Model (Settings > Solver). This powder has no burn values of its own (not a project powder, or its "
-                          "values were changed): its burn rate is only scaled, expect larger deviations. Fit to measurements gives it "
-                          "its own.</i>");
-        break;
-    }
+    // the model the results come from (Settings > Solver)
+    QString status = tr("Model: %1").arg(SolverPreferences::name(SolverPreferences::instance().profile()));
     // shotshells: an own model, fitted to published shotgun loads (not to the original program)
     if (m_input.shotshell)
         status += u"<br>"_s +

@@ -271,29 +271,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+149"/>
-        <location line="+733"/>
+        <location line="+713"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-733"/>
-        <location line="+734"/>
+        <location line="-713"/>
+        <location line="+714"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-734"/>
+        <location line="-714"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+735"/>
+        <location line="+715"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-734"/>
+        <location line="-714"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -548,32 +548,12 @@
         <translation>&lt;b&gt;Dati non validi:&lt;/b&gt; la simulazione non può funzionare con questi valori.</translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>&lt;i&gt;GRT Original (Settings &gt; Solver): results like Gordon&apos;s Reloading Tool (about 1 % in velocity and 3 % in peak pressure); against real load data the least accurate model.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;GRT Original (Impostazioni &gt; Risolutore): risultati come Gordon&apos;s Reloading Tool (circa 1 % in velocità e 3 % in pressione massima); rispetto ai dati reali il modello meno preciso.&lt;/i&gt;</translation>
+        <location line="+5"/>
+        <source>Model: %1</source>
+        <translation>Modello: %1</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>&lt;i&gt;GRT Tuned (Settings &gt; Solver): velocity about as accurate as the Physical Model, peak pressure usually too low (about 5 % at maximum loads).&lt;/i&gt;</source>
-        <translation>&lt;i&gt;GRT Tuned (Impostazioni &gt; Risolutore): velocità precisa all&apos;incirca come con il modello fisico, pressione massima di solito troppo bassa (circa 5 % ai caricamenti massimi).&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>&lt;i&gt;Physical Model (Settings &gt; Solver). Shotshells use their own model with the constants of GRT Original.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Le cartucce a pallini usano il proprio modello con le costanti di GRT Original.&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>&lt;i&gt;Physical Model (Settings &gt; Solver) with this powder&apos;s own burn values: typically about 6 % in peak pressure and 2.5 % in velocity off the makers&apos; load data.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore) con i valori di combustione propri di questa polvere: tipicamente circa 6 % di scarto in pressione massima e 2,5 % in velocità rispetto ai dati dei produttori.&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>&lt;i&gt;Physical Model (Settings &gt; Solver). This powder has no burn values of its own (not a project powder, or its values were changed): its burn rate is only scaled, expect larger deviations. Fit to measurements gives it its own.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Questa polvere non ha valori di combustione propri (non è una polvere del progetto, oppure i suoi valori sono stati modificati): la sua vivacità viene solo scalata, sono da attendersi scostamenti maggiori. L&apos;adattamento alle misure gliene dà di propri.&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <location line="+8"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>

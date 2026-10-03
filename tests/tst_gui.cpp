@@ -234,7 +234,15 @@ void GuiTest::solverCalibrationIsChosenInTheSettings()
     QVERIFY(std::abs(published / original - 1.0) > 0.01);
     prefs.setProfile(grt::CalibrationProfile::Original);
     QCOMPARE(view.result().maxPressure_bar, original);
+    const auto modelLine = [&]
+    {
+        for (QLabel *l : view.findChildren<QLabel *>())
+            if (l->text().startsWith(u"Model: "_s)) return l->text();
+        return QString();
+    };
+    QCOMPARE(modelLine(), u"Model: GRT Original"_s);             // above the results: only the model used
     prefs.setProfile(grt::CalibrationProfile::Physical, false);  // the default again, for the other tests
+    QCOMPARE(modelLine(), u"Model: Physical Model"_s);
 }
 
 void GuiTest::tableBrowserFiltersAndSelects()
@@ -1396,7 +1404,7 @@ void GuiTest::ignoredInputsAreNamed()
     const auto statusText = [](LoadView &v)
     {
         for (QLabel *l : v.findChildren<QLabel *>())
-            if (l->text().contains(u"(Settings > Solver)"_s)) return l->text();  // the status line of every model
+            if (l->text().startsWith(u"Model: "_s)) return l->text();  // the status line: the model used
         return QString();
     };
     QTemporaryDir dir;
