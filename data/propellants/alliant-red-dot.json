@@ -1,0 +1,20 @@
+{
+  "mname": "Alliant",
+  "pname": "Red Dot",
+  "lotid": "shotshell",
+  "Ba": 9.86,
+  "Qex": 4000.0,
+  "k": 1.23,
+  "a0": 0.0,
+  "a1": 0.0,
+  "z1": 0.3,
+  "z2": 0.6,
+  "pc": 1600.0,
+  "pcd": 650.0,
+  "pt": 21.0,
+  "tcc": 0.0,
+  "tch": 0.0,
+  "cdate": "2026-10-03",
+  "origin": "Alliant Powder Reloader's Guide 2022, shotshell data (12, 16, 20 and 28 gauge, lead shot; loads, velocities, psi pressures; tools/loaddata)",
+  "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 302 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel; mostly 12 gauge 2 3/4\"): velocity error 2.6 % rms, pressure error 11 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
+}

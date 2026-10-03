@@ -82,3 +82,5 @@ for title, cal, ba in (("current constants (Ba fitted)", {n: cur[n] for n in NAM
     print("   training  :", stats(train, cal, ba)); print("   held out  :", stats(held, cal, ba))
     for p in powders:
         sub = [r for r in rows if r["powder"] == p]; print("     %-26s n=%4d Ba %.3f  %s" % (p, len(sub), ba[p], stats(sub, cal, ba)))
+    for g in sorted({(r["gauge"], r["hull_mm"]) for r in rows}):
+        sub = [r for r in rows if (r["gauge"], r["hull_mm"]) == g]; print("     gauge %s/%s %-14s n=%4d  %s" % (g[0], g[1], "", len(sub), stats(sub, cal, ba)))

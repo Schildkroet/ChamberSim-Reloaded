@@ -157,5 +157,22 @@ Winchester 209 primer:
 
 The constants hardly move, so they stay (the earlier fit to 64 loads was good); what was missing were records of the shotgun powders (rifle and handgun records
 gave 30 % and more). The remaining pressure error is the scatter of the data: the same charge gives different pressure with another wad or primer. The records
-(lot "shotshell") are only valid in shotshell mode. Not yet used: the shotshell tables of Alliant's Reloader's Guide (12, 16, 20, 28 gauge and .410, grams and
-ounces, PSI and CUP in varying column layouts) and of Reload Swiss and Vectan.
+(lot "shotshell") are only valid in shotshell mode.
+
+`alliant_shot_extract.py guide.pdf` reads the shotshell tables of Alliant's Reloader's Guide 2022 (lead shot only; layouts: shot in ounces with one cell
+"19.0 grs 7800 psi" per velocity level, and the international loads in grams with a (grains, psi) pair per powder; the cell belongs to the velocity column whose
+heading starts nearest to it - in 866 pairs of neighbouring velocity levels the charge falls in 33, so the assignment is right): 1,993 loads of 14 powders (12, 16,
+20 and 28 gauge, .410). Together with Hodgdon's, 5,198 loads give (current shotshell constants, Ba fitted):
+
+| Loads | n | Velocity (bias) | Pressure (bias) |
+|---|---|---|---|
+| 12 gauge 2 3/4" | 5,039 | 3.1 % (-1.1) | 13.8 % (-0.6) |
+| 12 gauge 3" | 36 | 3.0 % (-0.5) | 14.6 % (+2.2) |
+| 12 gauge 3 1/2" | 31 | 5.3 % (-4.8) | 16.6 % (-13.4) |
+| 20 gauge | 79 | 2.1 % (-0.3) | 18.7 % (-16.0) |
+| 16 gauge | 13 | 5.1 % (+4.8) | 27.9 % (+25.7) |
+
+Records for Alliant Red Dot, Green Dot, Blue Dot, Unique, Herco, Promo, American Select, Clay Dot, Pro Reach and 20/28. Not written: e3 (its burn rate runs to the
+limit of the fit), 410, 2400 and Power Pro 300-MP (1-16 loads, and the .410 and the 2 3/4" 20 gauge hull data do not constrain them). The model's powder space and
+friction constants are the same for every gauge; the gauge-dependent pressure bias of the 20 and 16 gauge loads suggests they would need their own factor, but 13-79
+loads are too few to fit one.
