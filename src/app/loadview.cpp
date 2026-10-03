@@ -513,6 +513,8 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     // projectile's): editing either one sets both.
     if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
     else if (sectionId == Projectile && key == u"gpressure") cal.set(u"ps", prj.number(u"gpressure"));
+    // a boat tail or hollow base without tail dimensions would have no effect: typical ones are filled in (editable)
+    if (sectionId == Projectile && (key == u"gTailType" || key == u"Dbul")) grt::completeTail(prj);
     m_cartridgePanel->syncValues();
     m_projectilePanel->syncValues();
     setModified(true);

@@ -59,6 +59,7 @@ private slots:
     void calibrationProfiles();
     void physicalModel();
     void physicalBurnInLoad();
+    void tailEstimates();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -559,6 +560,38 @@ void CoreTest::physicalBurnInLoad()
     grt::applyPropellant(edited, other);  // a powder without values removes them
     QVERIFY(!edited.propellant.find(u"physBa"));
     grt::setPhysicalBurnFile(QStringLiteral(GRT_SOURCE_DIR "/data/physical/propellants.json"));
+}
+
+// A boat-tail or hollow-base bullet without tail dimensions gets typical ones, so the base type changes the result; given dimensions stay.
+void CoreTest::tailEstimates()
+{
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    grt::EntryList &prj = lf->projectile;
+    QVERIFY(!grt::completeTail(prj));  // boat tail with all dimensions: unchanged
+    QCOMPARE(prj.number(u"gtailh"), 5.1);
+
+    for (const QStringView key : {u"gtailh", u"gTailDiaA", u"gTailDiaB"}) prj.set(key, 0.0);
+    prj.set(u"gTailType", 0.0);
+    QVERIFY(!grt::completeTail(prj));  // flat base: nothing to fill
+    const double flat = grt::simulate(grt::SimInput::fromLoad(*lf)).maxPressure_bar;
+
+    prj.set(u"gTailType", 2.0);
+    QVERIFY(grt::completeTail(prj));
+    const double D = prj.number(u"Dbul");
+    QVERIFY(qAbs(prj.number(u"gtailh") - 0.53 * D) < 0.01);
+    QVERIFY(qAbs(prj.number(u"gTailDiaB") - 0.835 * D) < 0.01);
+    QVERIFY(grt::simulate(grt::SimInput::fromLoad(*lf)).maxPressure_bar < flat);  // more powder space
+
+    prj.set(u"gTailDiaB", 0.0);  // a boat tail ending in a point is a missing value
+    QVERIFY(grt::completeTail(prj));
+    QVERIFY(prj.number(u"gTailDiaB") > 0.0);
+
+    for (const QStringView key : {u"gtailh", u"gTailDiaA", u"gTailDiaB"}) prj.set(key, 0.0);
+    prj.set(u"gTailType", 1.0);
+    QVERIFY(grt::completeTail(prj));
+    QVERIFY(qAbs(prj.number(u"gtailh") - 0.055 * D) < 0.01);
+    QVERIFY(grt::simulate(grt::SimInput::fromLoad(*lf)).maxPressure_bar < flat);  // the cavity adds volume
 }
 
 // The original's Ba*phi(z) curve has no jumps (documentation, "Form functions"): the three phases join at z1 and z2

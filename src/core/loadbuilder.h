@@ -27,6 +27,12 @@ struct LoadParams
 [[nodiscard]] double defaultSeatingDepth_mm(const QVariantMap &caliber, const QVariantMap &projectile);
 [[nodiscard]] double defaultCharge_g(const QVariantMap &caliber, const QVariantMap &propellant);
 
+// Fills the tail dimensions of a boat-tail or hollow-base bullet that the projectile section lacks (the base type then has an effect):
+// tail length 0, or for a boat tail a base diameter 0 (a tail ending in a point). Typical proportions of the bullets that have them
+// (medians of 1312 boat tails and 217 hollow bases): boat tail length 0.53 D, diameters D and 0.835 D; hollow base cavity 0.055 D deep,
+// 0.86 D wide at the base, 0.29 D at the top. Returns whether a value was set.
+bool completeTail(EntryList &projectile);
+
 // Replaces one component of an existing load by a database record. Everything else the user has set
 // (gun data, seating depth, charge, temperature, ...) is kept unless `resetDependent` asks for the
 // defaults that belong to the new record: the charge and seating depth for a caliber change, the

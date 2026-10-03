@@ -185,6 +185,38 @@ void refreshTitleAndLength(LoadFile &lf)
 
 }  // namespace
 
+bool completeTail(EntryList &projectile)
+{
+    const int type = toIntClamped(projectile.number(u"gTailType"), 0, 2);
+    const double D = projectile.number(u"Dbul");
+    if (type == 0 || D <= 0.0) return false;
+    struct Shape
+    {
+        double length, diaA, diaB;  // times the bullet diameter
+    };
+    const Shape s = type == 2 ? Shape{0.53, 1.0, 0.835} : Shape{0.055, 0.86, 0.29};
+    bool changed = false;
+    const auto fillIfMissing = [&](QStringView key, double factor)
+    {
+        if (projectile.number(key) > 0.0) return;
+        projectile.set(key, fmt(factor * D));
+        changed = true;
+    };
+    if (projectile.number(u"gtailh") <= 0.0)
+    {
+        fillIfMissing(u"gtailh", s.length);
+        fillIfMissing(u"gTailDiaA", s.diaA);
+        fillIfMissing(u"gTailDiaB", s.diaB);
+    }
+    else if (type == 2)  // a boat tail with a length but no base diameter
+    {
+        fillIfMissing(u"gTailDiaA", s.diaA);
+        fillIfMissing(u"gTailDiaB", s.diaB);
+    }
+    if (changed) LOG_Debug() << "Load: estimated tail dimensions for base type" << type;
+    return changed;
+}
+
 void applyCaliber(LoadFile &lf, const QVariantMap &caliber, const QStringList &caliberColumns, bool resetDependent,
                   const QVariantMap *projectile, const QVariantMap *propellant)
 {
@@ -204,6 +236,7 @@ void applyProjectile(LoadFile &lf, const QVariantMap &projectile, bool resetDepe
 {
     LOG_Debug() << "Load: projectile replaced, reset dependent values" << resetDependent;
     setFields(lf.projectile, projectileFields(projectile));
+    completeTail(lf.projectile);
     if (resetDependent && caliber) lf.projectile.set(u"gdepth", defaultSeatingDepth_mm(*caliber, projectile));
     else if (lf.projectile.number(u"gdepth") <= 0.0 && caliber) lf.projectile.set(u"gdepth", defaultSeatingDepth_mm(*caliber, projectile));
     refreshTitleAndLength(lf);
@@ -248,6 +281,7 @@ LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, co
     prj.insert(u"gdepth"_s, fmt(p.seatingDepth_mm));
     prj.insert(u"gfrictionUnlock"_s, u"false"_s);
     fill(lf.projectile, spec::kProjectile, prj);
+    completeTail(lf.projectile);
 
     QVariantMap pro = propellantFields(propellant);
     pro.insert(u"pt"_s, fmt(p.powderTemperature_C));
