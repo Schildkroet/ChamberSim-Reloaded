@@ -24,6 +24,7 @@ ap.add_argument("--pressure-weight", type=float, default=1.0)
 ap.add_argument("--start", default="", help="earlier output: start values per powder")
 ap.add_argument("--fit", choices=["form", "ba"], default="form", help="form: Ba, a0, z1, z2 (powders with pressures); ba: only Ba")
 ap.add_argument("--form", default="0.45,0.27,0.62", help="a0,z1,z2 for --fit ba")
+ap.add_argument("--eval-arg", action="append", default=[], help="extra option for grt_eval (repeatable), e.g. --eval-arg=--ps-handgun=150")
 args = ap.parse_args()
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 
@@ -58,7 +59,7 @@ def simulate(name, powder, burn, subset):
     with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(subset)
     cmd = [args.eval_exe, path, "--profile", "physical", "--physical", os.path.join(tmp, "none.json"),
-           "--phys", f"{powder}=" + ",".join(f"{v:.8g}" for v in burn)]
+           "--phys", f"{powder}=" + ",".join(f"{v:.8g}" for v in burn)] + args.eval_arg
     out = subprocess.run(cmd, capture_output=True, text=True).stdout
     v = np.full(len(subset), np.nan); p = np.full(len(subset), np.nan)
     for line in out.splitlines():

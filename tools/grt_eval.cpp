@@ -78,14 +78,16 @@ int main(int argc, char *argv[])
     QCommandLineParser cli;
     cli.addHelpOption();
     cli.addPositionalArgument(u"samples"_s, u"CSV file (tools/loaddata)"_s);
-    cli.addOptions({{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/data")},
-                    {u"set"_s, u"calibration value name=value (repeatable)"_s, u"nv"_s},
-                    {u"ba"_s, u"burn rate of a powder: \"Maker Name=value\" (repeatable)"_s, u"nv"_s},
-                    {u"steps"_s, u"solver steps"_s, u"n"_s, u"2000"_s},
-                    {u"profile"_s, u"starting constants: original, published or physical"_s, u"name"_s, u"original"_s},
-                    {u"physical"_s, u"physical burn values file"_s, u"file"_s},
-                    {u"phys"_s, u"physical burn values of a powder: \"Maker Name=Ba,a0,z1,z2\" (repeatable)"_s, u"nv"_s},
-                    {u"list-params"_s, u"print the calibration names and values"_s}});
+    cli.addOptions(
+        {{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/data")},
+         {u"set"_s, u"calibration value name=value (repeatable)"_s, u"nv"_s},
+         {u"ba"_s, u"burn rate of a powder: \"Maker Name=value\" (repeatable)"_s, u"nv"_s},
+         {u"steps"_s, u"solver steps"_s, u"n"_s, u"2000"_s},
+         {u"profile"_s, u"starting constants: original, published or physical"_s, u"name"_s, u"original"_s},
+         {u"physical"_s, u"physical burn values file"_s, u"file"_s},
+         {u"phys"_s, u"physical burn values of a powder: \"Maker Name=Ba,a0,z1,z2\" (repeatable)"_s, u"nv"_s},
+         {u"ps-handgun"_s, u"initial gas pressure [bar] of the bullets in pistol and revolver cartridges (C.I.P. table IV)"_s, u"bar"_s},
+         {u"list-params"_s, u"print the calibration names and values"_s}});
     cli.process(app);
     QTextStream out(stdout);
     const QString profile = cli.value(u"profile"_s);
@@ -208,6 +210,9 @@ int main(int argc, char *argv[])
                            {u"glen"_s, row.value(u"bullet_len_mm"_s).toDouble()},
                            {u"gmass"_s, row.value(u"bullet_gr"_s).toDouble()},
                            {u"gtailtype"_s, row.value(u"tail_type"_s).toInt()}};
+        // pistol and revolver cartridges (C.I.P. table IV): another initial gas pressure (GRT: about 150 bar, rifles 250)
+        if (cli.isSet(u"ps-handgun"_s) && cal0->value(u"cippdf"_s).toString().contains(u"/tab-iv/"_s))
+            bullet.insert(u"gpressure"_s, cli.value(u"ps-handgun"_s).toDouble());
         if (row.value(u"tail_type"_s).toInt() == 2)
         {
             bullet.insert(u"gtaildiaA"_s, row.value(u"bullet_dia_mm"_s).toDouble());
