@@ -368,6 +368,16 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
     lf = saved();
     QVERIFY(lf);
     QVERIFY(std::abs(lf->caliber.number(u"oal"_s) - 80.5) < 1e-6);
+
+    // the initial gas pressure exists in two sections; the solver uses the caliber's
+    edit(u"gpressure"_s, u"400"_s);
+    lf = saved();
+    QVERIFY(lf);
+    QCOMPARE(lf->caliber.number(u"ps"_s), 400.0);
+    edit(u"ps"_s, u"300"_s);
+    lf = saved();
+    QVERIFY(lf);
+    QCOMPARE(lf->projectile.number(u"gpressure"_s), 300.0);
 }
 
 void GuiTest::panelShowsAndEditsInTheChosenUnit()

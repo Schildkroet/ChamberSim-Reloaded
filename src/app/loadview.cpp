@@ -509,6 +509,10 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     if (sectionId == Caliber && key == u"oal") prj.set(u"gdepth", cal.number(u"caselen") + prj.number(u"glen") - cal.number(u"oal"));
     else if ((sectionId == Projectile && (key == u"gdepth" || key == u"glen")) || (sectionId == Caliber && key == u"caselen"))
         cal.set(u"oal", cal.number(u"caselen") + prj.number(u"glen") - prj.number(u"gdepth"));
+    // The initial gas pressure is in both sections (the solver reads the caliber's, the projectile window of the original shows the
+    // projectile's): editing either one sets both.
+    if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
+    else if (sectionId == Projectile && key == u"gpressure") cal.set(u"ps", prj.number(u"gpressure"));
     m_cartridgePanel->syncValues();
     m_projectilePanel->syncValues();
     setModified(true);
