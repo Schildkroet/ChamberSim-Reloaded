@@ -60,6 +60,7 @@ private slots:
     void physicalModel();
     void physicalBurnInLoad();
     void tailEstimates();
+    void sebertDefault();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -1950,6 +1951,32 @@ void CoreTest::defaultReportRendersEverything()
     QVERIFY(html.count(u"<table"_s) >= 3);
     QVERIFY(html.contains(u"Use at your own risk"_s));
     QVERIFY(html.contains(u"page-break-before"_s));  // the diagrams start on a new page
+}
+
+// A caliber record without Sebert factor (the project's records) gives 0.5 in the load, not 0; the physical model treats a 0 of older
+// loads as 0.5, the Original model keeps it (the original program computes with 0).
+void CoreTest::sebertDefault()
+{
+    const QString dbPath = QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
+    if (!QFile::exists(dbPath)) QSKIP("plain database not available");
+    grt::Database db;
+    QVERIFY(db.open(dbPath));
+    auto cal = findRecord(db, grt::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
+    const auto prj = findRecord(db, grt::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910' AND caliber = '.323'"_s);
+    const auto pro = findRecord(db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
+    QVERIFY(cal && prj && pro);
+    cal->insert(u"sebert"_s, 0.0);
+    QCOMPARE(grt::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}).caliber.number(u"sebert"), 0.5);
+    cal->remove(u"sebert"_s);
+    QCOMPARE(grt::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}).caliber.number(u"sebert"), 0.5);
+
+    grt::SimInput zero = grt::SimInput::fromLoad(grt::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}));
+    const grt::SimInput half = zero;
+    zero.sebert = 0.0;
+    const grt::Calibration physical = grt::calibrationFor(grt::CalibrationProfile::Physical);
+    QCOMPARE(grt::simulate(zero, physical).maxPressure_bar, grt::simulate(half, physical).maxPressure_bar);
+    const grt::Calibration original = grt::calibrationFor(grt::CalibrationProfile::Original);
+    QVERIFY(grt::simulate(zero, original).maxPressure_bar != grt::simulate(half, original).maxPressure_bar);
 }
 
 QTEST_APPLESS_MAIN(CoreTest)

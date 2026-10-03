@@ -113,7 +113,8 @@ QVariantMap caliberFields(const QVariantMap &caliber)
             {u"Aeff"_s, fmt(num(caliber, "c_Q"))},
             {u"pMaxZul"_s, fmt(num(caliber, "Pmax"))},
             {u"method"_s, method},
-            {u"sebert"_s, fmt(num(caliber, "sebert", 0.5))},
+            // the project's records have no Sebert factor (the database then gives 0): 0 is never right, the original's records use 0.4-0.9
+            {u"sebert"_s, fmt(num(caliber, "sebert") > 0.0 ? num(caliber, "sebert") : 0.5)},
             {u"shotshell"_s, u"false"_s}};
 }
 
