@@ -235,32 +235,65 @@
     </message>
 </context>
 <context>
+    <name>Disclaimer</name>
+    <message>
+        <location filename="../src/app/disclaimer.cpp" line="+34"/>
+        <source>Safety notice</source>
+        <translation>Avertissement de sécurité</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&lt;b&gt;Handloading ammunition is dangerous.&lt;/b&gt; A wrong load can destroy a firearm and cause severe injury or death.</source>
+        <translation>&lt;b&gt;Le rechargement de munitions est dangereux.&lt;/b&gt; Une charge erronée peut détruire une arme et causer des blessures graves ou mortelles.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>GRT Reloaded simulates interior ballistics. Its results are estimates and can be far from reality: use the program only if you know what you are doing.&lt;br&gt;&lt;br&gt;Never use a simulated load as a recipe. Always start from the current load data of the powder and bullet maker, start low, work up carefully and watch for pressure signs.&lt;br&gt;&lt;br&gt;The program is provided as it is, without any warranty. The authors are not responsible for any damage, injury or loss that results from its use.</source>
+        <translation>GRT Reloaded simule la balistique intérieure. Ses résultats sont des estimations et peuvent être loin de la réalité : n&apos;utilisez le programme que si vous savez ce que vous faites.&lt;br&gt;&lt;br&gt;N&apos;utilisez jamais une charge simulée comme recette. Partez toujours des données de rechargement actuelles du fabricant de la poudre et du projectile, commencez bas, augmentez prudemment et surveillez les signes de pression.&lt;br&gt;&lt;br&gt;Le programme est fourni tel quel, sans aucune garantie. Les auteurs ne sont pas responsables des dommages, blessures ou pertes résultant de son utilisation.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>I understand</source>
+        <translation>J&apos;ai compris</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Quit</source>
+        <translation>Quitter</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Do not show this again</source>
+        <translation>Ne plus afficher</translation>
+    </message>
+</context>
+<context>
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+149"/>
-        <location line="+738"/>
+        <location line="+733"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-738"/>
-        <location line="+739"/>
+        <location line="-733"/>
+        <location line="+734"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-739"/>
+        <location line="-734"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+740"/>
+        <location line="+735"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-739"/>
+        <location line="-734"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -400,12 +433,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+507"/>
+        <location line="+502"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-506"/>
+        <location line="-501"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
@@ -480,12 +513,7 @@
         <translation>Saisissez d&apos;abord la vitesse mesurée des tirs.</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>The physical model is active: the fit changes the physical burn values of this load (shown as &quot;Physical Model: ...&quot; in the propellant table). They are saved with the load, not as a propellant record.</source>
-        <translation>Le modèle physique est actif : l&apos;ajustement modifie les valeurs de combustion physiques de cette charge (« Modèle physique : ... » dans le tableau de la poudre). Elles sont enregistrées avec la charge, pas comme fiche de poudre.</translation>
-    </message>
-    <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source> (fitted)</source>
         <translation> (ajustée)</translation>
     </message>
@@ -1460,7 +1488,7 @@ L&apos;exporter quand même ?</translation>
 <context>
     <name>PowderFitDialog</name>
     <message>
-        <location filename="../src/app/powderfitdialog.cpp" line="+48"/>
+        <location filename="../src/app/powderfitdialog.cpp" line="+49"/>
         <source>Fit</source>
         <translation>Ajuster</translation>
     </message>
@@ -1471,22 +1499,22 @@ L&apos;exporter quand même ?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+91"/>
+        <location line="+98"/>
         <source>Save as own propellant…</source>
         <translation>Enregistrer comme poudre personnelle…</translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-96"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Changes the propellant&apos;s model values until the simulation agrees with the measured charges. Check the case volume (fired case, water), the bullet length and the cartridge length first: wrong values there give a wrong model.</source>
-        <translation>Modifie les valeurs du modèle de la poudre jusqu&apos;à ce que la simulation corresponde aux charges mesurées. Vérifiez d&apos;abord le volume de l&apos;étui (étui tiré, eau), la longueur de la balle et la longueur de la cartouche : des valeurs fausses donnent un modèle faux.</translation>
+        <source>Changes the propellant&apos;s model values until the simulation agrees with the measured charges, for both models: the original program&apos;s (Ba, a0, z1, z2; also used by the Published calibration) and the physical model&apos;s (its own burn values). Check the case volume (fired case, water), the bullet length and the cartridge length first: wrong values there give a wrong model.</source>
+        <translation>Modifie les valeurs du modèle de la poudre jusqu&apos;à ce que la simulation corresponde aux charges mesurées, pour les deux modèles : celles du programme original (Ba, a0, z1, z2 ; aussi utilisées par la calibration « données publiées ») et celles du modèle physique (ses propres valeurs de combustion). Vérifiez d&apos;abord le volume de l&apos;étui (étui tiré, eau), la longueur du projectile et celle de la cartouche : des valeurs erronées donnent un modèle erroné.</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Values to fit:</source>
         <translation>Valeurs à ajuster :</translation>
     </message>
@@ -1532,23 +1560,45 @@ L&apos;exporter quand même ?</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Before</source>
-        <translation>Avant</translation>
+        <source>Original
+Δ before</source>
+        <translation>Original
+Δ avant</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Δ</source>
-        <translation>Δ</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>After</source>
-        <translation>Après</translation>
+        <source>Original
+Δ after</source>
+        <translation>Original
+Δ après</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Pressure Δ after</source>
-        <translation>Δ pression après</translation>
+        <source>Original
+pressure Δ</source>
+        <translation>Original
+pression Δ</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Physical
+Δ before</source>
+        <translation>Physique
+Δ avant</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Physical
+Δ after</source>
+        <translation>Physique
+Δ après</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Physical
+pressure Δ</source>
+        <translation>Physique
+pression Δ</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -1566,12 +1616,22 @@ L&apos;exporter quand même ?</translation>
         <translation>Enregistré</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+82"/>
         <source>Choose the values to fit and click &lt;b&gt;Fit&lt;/b&gt;.</source>
         <translation>Choisissez les valeurs à ajuster et cliquez sur &lt;b&gt;Ajuster&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
+        <source>Original model</source>
+        <translation>Modèle original</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Physical model</source>
+        <translation type="unfinished">Modèle physique</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Velocity error (rms): %1 % → &lt;b&gt;%2 %&lt;/b&gt;</source>
         <translation>Erreur de vitesse (rms) : %1 % → &lt;b&gt;%2 %&lt;/b&gt;</translation>
     </message>
@@ -1581,12 +1641,12 @@ L&apos;exporter quand même ?</translation>
         <translation>erreur de pression : %1 % → %2 %</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>The values were not changed: the current ones fit best.</source>
         <translation>Les valeurs n&apos;ont pas été modifiées : les valeurs actuelles conviennent le mieux.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+5"/>
         <source>Fewer measured charges than values: the result is not well determined.</source>
         <translation>Moins de charges mesurées que de valeurs : le résultat est mal déterminé.</translation>
     </message>

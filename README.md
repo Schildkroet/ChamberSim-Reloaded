@@ -325,6 +325,12 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
 `~/.config/GRTReloaded/GRTReloaded.conf`, on Windows in the registry under
 `HKEY_CURRENT_USER\Software\GRTReloaded\GRTReloaded`.
 
+### Safety notice
+
+At start the program shows a safety notice (handloading is dangerous, the results are estimates, no warranty or liability). *Do not
+show this again* together with *I understand* hides it (setting `ui/hideDisclaimer`); *Quit* ends the program. Screenshot runs
+(`--screenshot`) skip it.
+
 ### Solver calibration
 
 *File ▸ Settings ▸ Solver ▸ Calibration* chooses the solver (`--calibration original|published|physical` for one run):

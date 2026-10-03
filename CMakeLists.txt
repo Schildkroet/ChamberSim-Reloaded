@@ -94,6 +94,8 @@ target_compile_options(grtcore PRIVATE
 
 # ---- application: GUI library (testable) + thin executable ----
 add_library(grtui STATIC
+    src/app/disclaimer.cpp
+    src/app/disclaimer.h
     src/app/mainwindow.cpp
     src/app/mainwindow.h
     src/app/mainwindow.ui

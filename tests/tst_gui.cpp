@@ -58,6 +58,7 @@
 #include "settingsdialog.h"
 #include "solverprefs.h"
 #include "unitprefs.h"
+#include "disclaimer.h"
 #include "mainwindow.h"
 #include "newloaddialog.h"
 #include "solver.h"
@@ -124,6 +125,7 @@ private slots:
     void ignoredInputsAreNamed();
     void recordDialogDatesAndWidth();
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
+    void disclaimerAtStartup();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
@@ -1962,6 +1964,27 @@ void GuiTest::ownTitleBarCanBeSwitched()
 }
 
 // Measurements tab > Fit to measurements: the fitted values go into the load, or into an own propellant record.
+// The safety notice at start-up: two buttons, "Do not show this again"; hidden only when the setting says so.
+void GuiTest::disclaimerAtStartup()
+{
+    QSettings().remove(u"ui/hideDisclaimer"_s);
+    QVERIFY(disclaimer::wanted());
+    const auto box = disclaimer::create();
+    QVERIFY(box->text().contains(u"dangerous"_s));
+    QVERIFY(box->informativeText().contains(u"not responsible"_s));
+    QVERIFY(box->checkBox());
+    QCOMPARE(box->buttons().size(), 2);
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    {
+        box->show();
+        box->grab().save(shots + u"/disclaimer.png"_s);
+    }
+    QSettings().setValue(u"ui/hideDisclaimer"_s, true);
+    QVERIFY(!disclaimer::wanted());
+    QVERIFY(disclaimer::confirm());  // hidden: confirmed without a dialog
+    QSettings().remove(u"ui/hideDisclaimer"_s);
+}
+
 void GuiTest::fitToMeasurementsChangesThePowder()
 {
     UnitPreferences::instance().setSystem(grt::units::System::Metric);

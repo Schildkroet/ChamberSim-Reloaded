@@ -1,3 +1,4 @@
+#include "disclaimer.h"
 #include "mainwindow.h"
 #include "solverprefs.h"
 #include "appfont.h"
@@ -75,6 +76,8 @@ int main(int argc, char *argv[])
     if (cli.isSet(calibrationOpt))
         if (const auto profile = SolverPreferences::fromKey(cli.value(calibrationOpt)))
             SolverPreferences::instance().setProfile(*profile, false);
+    // the safety notice (not in the screenshot mode: no one to answer it)
+    if (!cli.isSet(shotOpt) && !disclaimer::confirm()) return 0;
     MainWindow w;
     if (cli.isSet(dbOpt)) w.openDatabase(cli.value(dbOpt));
     const QStringList loads = cli.positionalArguments();
