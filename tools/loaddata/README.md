@@ -72,6 +72,26 @@ Fitting a0, z1, z2 as well with the pressures does not help (pressure error 15 %
 form function stays the chosen one. Not included: pistol powders (Reload Swiss RS12-RS36: 7-22 % velocity error), Lovex S040, S053,
 D060, D063 (fewer than 40 samples) and RS40 / RS80 (7 / 11 %).
 
+## Hodgdon, IMR, Winchester, Accurate, Ramshot
+
+- `hodgdon_extract.py manual.pdf` reads the rifle tables of the Hodgdon Reloading Manual 2024 (two columns per page; the right column starts
+  at the page's second "Powder" heading): per cartridge barrel, twist, per bullet maker code, weight, type, cartridge length, per powder start
+  and maximum load with velocity and pressure. Pressures in CUP are not comparable to PSI: those rows keep only their velocities.
+  14,000 samples of about 100 powders.
+- `west_extract.py guide.pdf` reads the Western Powders Handloading Guide 8.0 (Accurate and Ramshot powders). Its text layer has a space
+  between all characters of a data row, so a row is read with all spaces removed. 5,500 samples.
+- `published_fit.py a.csv b.csv --source "..." --fits fits.csv --write` merges the files (identical samples count once), fits Ba per
+  powder as above and writes the records with at most 6 % velocity error from at least 40 samples (`hodgdon_western_fits.csv` has all).
+  The rifle powders fit with 3-5.5 % velocity and 11-25 % pressure error, the pistol and shotgun powders (Titegroup, Universal, Clays, W231,
+  Unique, ...) with 7-20 %: the model is made for rifle pressures, they are not included.
+- The burn rates order as Hodgdon's own burn rate chart (H4198 > H322 > H335 > H4895 > Varget > H4350 > H4831 > H1000 > Retumbo, ...).
+
+Not used: Norma (norma-ammunition.com, one page per cartridge with minimum and maximum charge and velocity): no test barrel and no
+pressures are published, and with an assumed barrel the fitted Ba values did not follow the manufacturer's burn rate chart. Norma's
+burning rate chart (relative velocity and pressure of one reference load, many manufacturers) is a ranking, not a load: Ba estimated from
+it has about 10 % scatter (against the Vihtavuori records), too coarse for records. Hodgdon's, Alliant's and Accurate's websites refuse
+automated requests or are not available. Nobel Sport / Vectan's catalogue has loads without a test barrel.
+
 ## Speed
 
 The fit runs thousands of simulations. The solver uses a secant method (Illinois) instead of 70 bisections per step

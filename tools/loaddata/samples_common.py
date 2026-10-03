@@ -11,7 +11,14 @@ from vv_extract import norm  # noqa: E402
 IN = 25.4
 # names of the manufacturers' tables that differ from the C.I.P. names of the records
 ALIASES = {"7.5 x 55 Swiss": "7.5 x 55 Suisse", "45 ACP (Auto)": "45 Auto", "300 WSM": "300 Win Short Mag", "270 WSM": "270 Win Short Mag",
-           "300 AAC BLK": "300 AAC Blackout"}
+           "300 AAC BLK": "300 AAC Blackout", "300 Holland & Holland mag.": "300 H&H Mag.", "6,5x55 Swedish Mauser": "6.5 x 55 SE",
+           "8x57 JS": "8 x 57 IS", "8x57 JRS": "8 x 57 IRS", "7,5x55 Swiss": "7.5 x 55 Suisse", "7 mm RUM": "7 mm Rem. Ultra Mag.",
+           "7,62x54 R (Russian)": "7.62 x 54 R", "6,5x54 MS": "6.5 x 54 Mannl. Sch.",
+           "6.5 X 55MM SWEDISH MAUSER": "6.5 x 55 SE", "7 X 57MM MAUSER": "7 x 57", "7.62 X 54R RUSSIAN": "7.62 x 54 R",
+           "8 X 57MM JS MAUSER": "8 x 57 IS", "7.65 X 53MM MAUSER": "7.65 x 53 Arg.", "6.5 X 284 NORMA": "6.5 - 284 Norma",
+           "6.5 X 284 WINCHESTER": "284 Win.", "6MM REMINGTON": "6 mm Rem.", "30 BR REMINGTON": "30 BR", "6MM BR REMINGTON": "6 mm BR Rem.",
+           "280 REMINGTON (7MM EXPRESS)": "280 Rem.", "7MM STW (SHOOTING TIMES WESTERNER)": "7 mm STW", "300 RUGER COMPACT MAGNUM (300 RCM)": "300 RCM",
+           "6.5 X 50MM ARISAKA": "6.5 x 50 R", "7.7 X 58MM ARISAKA": "7.7 x 58", "8MM-06": "8 mm-06", "6MM CREEDMOOR": "6 mm Creedmoor"}
 
 
 class Records:
@@ -26,7 +33,8 @@ class Records:
         self.projectiles = [json.loads(f.read_text(encoding="utf-8")) for f in (data / "projectiles").glob("*.json")]
 
     def caliber(self, name: str):
-        for n in [ALIASES.get(name.strip(), name), *name.split("/")]:
+        plain = re.sub(r"\s*\([^)]*\)", "", name).replace("®", "").strip()  # without "(WSM)", "(59,000 PSI)", ...
+        for n in [ALIASES.get(name.strip(), name), ALIASES.get(plain, plain), *plain.split("/")]:
             if rec := self.calibers.get(norm(n)):
                 return rec
         return None

@@ -1,0 +1,82 @@
+powder,samples,cartridges,base,Ba,v_rms,p_rms,too_high
+Accurate 1680,107,11,double-base,0.757,5.61,31.04,37
+Accurate 2015,317,28,single-base,0.8261,4.3,18.97,5
+Accurate 2200,166,11,double-base,0.7241,3.91,19.21,2
+Accurate 2230,301,30,double-base,0.6435,4.28,17.23,9
+Accurate 2460,320,31,double-base,0.6275,4.28,18.27,9
+Accurate 2495,277,26,double-base,0.5909,5.03,24.57,1
+Accurate 2520,347,33,double-base,0.5923,4.82,19.86,13
+Accurate 2700,509,43,double-base,0.5229,4.25,17.62,4
+Accurate 4064,374,26,double-base,0.5926,3.78,18.47,0
+Accurate 4100,182,14,double-base,0.9872,6.89,26.45,25
+Accurate 4350,588,40,double-base,0.4881,5.22,19.5,14
+Accurate 5744,258,29,double-base,0.8899,5.55,23.68,26
+Accurate LT-30,149,13,double-base,0.7887,4.67,20.02,2
+Accurate LT-32,116,12,double-base,0.7188,4.72,21.11,0
+Accurate Magpro,418,18,double-base,0.4038,3.79,15.86,5
+Accurate Nitro 100 NF,56,4,single-base,7.6832,6.5,19.84,0
+Accurate No. 11 FS,65,11,double-base,0.9272,7.39,29.65,26
+Accurate No. 2,145,8,single-base,3.6485,11.61,30.3,1
+Accurate No. 5,165,10,single-base,2.358,9.84,32.36,3
+Accurate No. 7,157,11,single-base,1.7685,8.7,32.96,23
+Accurate No. 9,183,14,double-base,1.125,7.25,27.97,18
+Accurate Solo 1000,58,5,single-base,4.676,8.8,26.04,0
+Hodgdon AutoComp,188,11,single-base,2.7599,12.46,32.1,0
+Hodgdon BL-C(2),205,16,double-base,0.5873,5.39,18.82,1
+Hodgdon Benchmark,212,17,double-base,0.6737,4.56,13.05,0
+Hodgdon CFE 223,192,17,double-base,0.5538,5.47,21.6,0
+Hodgdon CFE BLK,60,9,double-base,0.6622,10.64,35.42,28
+Hodgdon CFE Pistol,208,12,double-base,2.3828,11.18,29.84,2
+Hodgdon Clays,100,9,single-base,5.6349,9.13,20.58,0
+Hodgdon H1000,276,23,double-base,0.4029,4.59,17.1,2
+Hodgdon H110,176,15,double-base,0.9369,6.18,24.75,34
+Hodgdon H322,112,10,double-base,0.6898,4.52,17.82,0
+Hodgdon H335,202,18,double-base,0.6484,5.32,16.66,0
+Hodgdon H380,204,15,double-base,0.5646,3.33,12.42,0
+Hodgdon H4198,111,14,double-base,0.7759,5.16,26.85,3
+Hodgdon H4227,119,13,double-base,0.9575,8.72,24.1,17
+Hodgdon H4350,400,24,double-base,0.5242,3.59,13.3,2
+Hodgdon H4831,338,24,double-base,0.4505,4.0,13.24,0
+Hodgdon H4895,352,25,double-base,0.6662,5.05,18.34,0
+Hodgdon H50BMG,46,4,double-base,0.3413,4.98,17.11,0
+Hodgdon HS-6,172,12,single-base,2.0782,11.82,35.16,6
+Hodgdon Hybrid 100V,288,20,double-base,0.5224,3.67,11.38,0
+Hodgdon Longshot,177,16,double-base,2.0016,11.36,39.74,5
+Hodgdon Retumbo,168,14,double-base,0.3967,4.98,16.93,0
+Hodgdon Superformance,68,8,double-base,0.4635,5.23,11.96,0
+Hodgdon Titegroup,308,20,single-base,4.4809,8.2,33.27,0
+Hodgdon Trail Boss,104,25,single-base,3.4741,18.83,29.39,0
+Hodgdon US 869,85,10,double-base,0.3098,4.75,10.58,13
+Hodgdon Universal,232,15,single-base,3.4205,13.21,31.07,0
+Hodgdon Varget,360,27,double-base,0.6436,4.67,15.63,0
+Hodgdon WSF,71,8,double-base,2.3818,11.57,36.9,2
+Hodgdon ZIP,88,6,single-base,4.0143,8.36,29.33,0
+IMR 3031,188,17,double-base,0.7012,4.15,12.91,0
+IMR 4064,305,27,double-base,0.6305,4.25,14.67,0
+IMR 4198,82,12,double-base,0.8429,5.12,23.71,1
+IMR 4227,104,14,double-base,0.9016,8.94,25.69,11
+IMR 4350,320,22,double-base,0.5141,3.61,11.67,0
+IMR 4831,270,20,double-base,0.4868,3.85,13.41,0
+IMR 4895,297,25,double-base,0.6247,4.32,14.08,0
+IMR 7828,192,18,double-base,0.442,4.15,13.42,0
+IMR 7828 SSC,72,12,double-base,0.4683,3.53,12.58,0
+IMR 8208 XBR,260,21,double-base,0.6823,3.69,13.57,0
+Ramshot Big Game,422,25,double-base,0.5198,4.63,21.21,0
+Ramshot Competition,78,4,single-base,6.3041,7.27,22.83,0
+Ramshot Enforcer,191,16,double-base,0.9964,6.71,26.91,30
+Ramshot Hunter,522,26,double-base,0.4898,3.46,15.35,0
+Ramshot LRT,101,8,double-base,0.3413,5.26,15.86,7
+Ramshot Magnum,468,23,double-base,0.3887,3.35,15.59,8
+Ramshot Silhouette,131,7,double-base,2.1586,7.97,34.63,3
+Ramshot TAC,273,20,double-base,0.6263,4.26,17.53,9
+Ramshot True Blue,153,11,single-base,2.4784,8.5,36.55,3
+Ramshot X-Terminator,208,18,double-base,0.6535,4.38,15.75,10
+Winchester StaBALL 6.5,258,17,double-base,0.486,5.04,14.35,0
+Winchester StaBALL HD,161,14,double-base,0.3846,4.26,13.57,3
+Winchester StaBALL Match,237,15,double-base,0.5795,4.56,17.25,1
+Winchester W231,203,14,single-base,3.6798,9.57,36.7,1
+Winchester W244,213,11,single-base,3.7306,12.4,30.0,1
+Winchester W296,125,14,double-base,0.9297,6.9,24.64,29
+Winchester W572,169,11,single-base,2.9031,13.39,27.97,3
+Winchester W748,55,9,double-base,0.583,4.8,18.46,0
+Winchester W760,317,24,double-base,0.5425,4.1,13.29,0

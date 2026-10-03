@@ -131,13 +131,15 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.
-- **Propellants (30)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S060-S071 and D073.4-D073.6 (8), Reload Swiss RS50-RS76 (6).
-  Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate Ba
-  was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
-  (Explosia's Reloading Guide 2019) and Reload Swiss (online loading data of Nitrochemie) publish pressures as well; the fit
-  uses velocities and pressures (velocity error 3-5 % rms for Lovex, 5-6 % for Reload Swiss, pressure error 10-20 % rms). Neither
-  publishes the explosion heat or the bulk density: Qex is a typical value of a single-base (3800 kJ/kg) or double-base (4300 kJ/kg)
-  powder (Lovex: S = single, D = double base by name; Reload Swiss: the type that fits the velocities better), pcd is 900 kg/m3.
+- **Propellants (81)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S060-S071 and D073.4-D073.6 (8), Reload Swiss RS50-RS76 (6), and
+  51 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals).
+  Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate
+  Ba was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
+  (Explosia's Reloading Guide 2019), Reload Swiss (online loading data of Nitrochemie), the Hodgdon Reloading Manual 2024 and the
+  Western Powders Handloading Guide 8.0 publish pressures as well; the fit uses velocities and pressures (velocity error 3-6 % rms,
+  pressure error 10-20 % rms; each record's `descr` states its numbers). None of them publishes the explosion heat or the bulk
+  density: Qex is a typical value of a single-base (3800 kJ/kg) or double-base (4300 kJ/kg) powder (Lovex: S = single, D = double
+  base by name; the others: the type that fits the velocities better), pcd is 900 kg/m3.
   k and the material density are typical values everywhere; the form function (a0, z1, z2) is not published, it is the combination
   that reproduces the velocities best and the data hardly determine it. Pistol and shotgun powders fitted too poorly and are not
   included, nor are powders with too few samples. `tools/grt_fitdata` and `tools/loaddata` do the work, see

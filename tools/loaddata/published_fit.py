@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FORM = {"a0": 0.0, "z1": 0.3, "z2": 0.6}
 BASES = {"single-base": {"Qex": 3800.0, "k": 1.23, "pc": 1580.0}, "double-base": {"Qex": 4300.0, "k": 1.24, "pc": 1620.0}}
 PCD = 900.0
+NAME_FIX = {"HODGDON SUPRFORM": "Hodgdon Superformance"}  # the manual's own abbreviation
 ORDER = ["mname", "pname", "lotid", "Ba", "Qex", "k", "a0", "a1", "z1", "z2", "pc", "pcd", "pt", "tcc", "tch", "cdate", "origin", "descr"]
 
 
@@ -44,8 +45,8 @@ def fit(csv_path: Path, base: dict, fitdata: Path, pressure: bool) -> dict | Non
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("samples", type=Path)
-    ap.add_argument("--maker", required=True)
+    ap.add_argument("samples", type=Path, nargs="+", help="one or more sample files; identical samples of several sources count once")
+    ap.add_argument("--maker", help="maker of all powders (default: the first word of the powder name: \"Accurate 4350\")")
     ap.add_argument("--source", required=True, help="where the data come from, for the record's origin and description")
     ap.add_argument("--base-from-name", action="store_true", help="S... = single base, D... = double base (Lovex)")
     ap.add_argument("--fitdata", type=Path, default=ROOT / "build" / "release" / "grt_fitdata")
@@ -58,16 +59,27 @@ def main() -> int:
     ap.add_argument("--write", action="store_true", help="write the records (default: only report)")
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args()
-    with open(args.samples, newline="", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
+    rows, seen, names = [], set(), {}
+    for samples in args.samples:
+        with open(samples, newline="", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                key = tuple(r[k].upper() if k == "powder" else r[k] for k in ("powder", "caliber", "bullet_gr", "kind", "charge_g", "velocity_ms", "col_mm"))
+                if r.get("pressure_bar") and not 500 <= float(r["pressure_bar"]) <= 9000:
+                    r["pressure_bar"] = ""  # a misread column
+                if key not in seen:
+                    seen.add(key)
+                    r["powder"] = names.setdefault(r["powder"].upper(), NAME_FIX.get(r["powder"].upper(), r["powder"]))
+                    rows.append(r)
     powders = sorted({r["powder"] for r in rows})
     if args.only:
         powders = args.only.split(",")
-    work = args.samples.parent / f"{args.samples.stem}_by_powder"
+    work = args.samples[0].parent / f"{args.samples[0].stem}_by_powder"
     work.mkdir(exist_ok=True)
     fits, written = [], 0
     for powder in powders:
         mine = [r for r in rows if r["powder"] == powder]
+        if len(mine) < args.min_samples:
+            continue
         path = work / f"{slug(powder)}.csv"
         with open(path, "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, list(mine[0].keys()))
@@ -90,14 +102,15 @@ def main() -> int:
         base = BASES[best["base"]]
         how = ("the type follows the name (S = single base, D = double base)" if args.base_from_name
                else f"the type (single/double base) is not published, {best['base']} assumed because it fits the velocities better")
-        rec = {"mname": args.maker, "pname": powder, "lotid": "", "Ba": round(best["Ba"], 4), "Qex": base["Qex"], "k": base["k"], **FORM, "a1": 0.0,
+        maker, pname = (args.maker, powder) if args.maker else powder.split(" ", 1)
+        rec = {"mname": maker, "pname": pname, "lotid": "", "Ba": round(best["Ba"], 4), "Qex": base["Qex"], "k": base["k"], **FORM, "a1": 0.0,
                "pc": base["pc"], "pcd": PCD, "pt": 21.0, "tcc": 0.0, "tch": 0.0, "cdate": date.today().isoformat(), "origin": args.source,
                "descr": (f"Burn rate Ba fitted to {best['samples']} start and maximum loads of the manufacturer's published load data "
                          f"({len(cartridges)} cartridges), velocity error {best['v_rms']:.1f} % rms"
                          + ("" if args.no_pressure else f", pressure error {best['p_rms']:.0f} % rms (published pressures)")
                          + f". Not published and therefore only typical or chosen values: Qex ({how}), k, material density pc, bulk density pcd, "
                            "and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data.")}
-        target = args.output / (slug(args.maker, powder) + ".json")
+        target = args.output / (slug(maker, pname) + ".json")
         if target.exists() and not args.overwrite:
             continue
         body = ",\n".join(f"  {json.dumps(k)}: {json.dumps(rec[k], ensure_ascii=False)}" for k in ORDER)

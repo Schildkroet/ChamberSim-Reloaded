@@ -5,6 +5,7 @@
 //     --params Ba,a0,z1,z2    values to fit (default: Ba,a0,z1,z2)
 //     --start Ba=0.6,a0=1.2,... start values (default: generic single-base powder)
 //     --pressure-fraction F   treat the maximum loads as F x the caliber's maximum pressure (0: velocities only, default 0)
+//     --iterations N          at most N iterations (0: no fit, only simulate the start values; default 60)
 //     --use-pressure          use the pressure_bar column of the CSV (measured pressure of the max loads)
 //     --pressure-weight W     weight of these pressures against the velocities (default 0.5)
 //     --kinds start|max|both  which load lines are fitted (default both)
@@ -110,6 +111,7 @@ int main(int argc, char *argv[])
                     {u"params"_s, u"values to fit"_s, u"list"_s, u"Ba,a0,z1,z2"_s},
                     {u"start"_s, u"start values, e.g. Ba=0.6,a0=1.2"_s, u"list"_s},
                     {u"pressure-fraction"_s, u"maximum loads as a fraction of the caliber's maximum pressure"_s, u"f"_s, u"0"_s},
+                    {u"iterations"_s, u"at most N iterations (0: only simulate)"_s, u"N"_s, u"60"_s},
                     {u"use-pressure"_s, u"use the pressure_bar column of the CSV for the max loads"_s},
                     {u"pressure-weight"_s, u"weight of these pressures"_s, u"w"_s, u"0.5"_s},
                     {u"kinds"_s, u"start, max or both"_s, u"kind"_s, u"both"_s},
@@ -253,6 +255,7 @@ int main(int argc, char *argv[])
     grt::powderfit::Options options;
     QString error;
     options.params = grt::powderfit::parse(cli.value(u"params"_s), &error);
+    options.maxIterations = cli.value(u"iterations"_s).toInt();
     options.pressureWeight = cli.value(u"pressure-weight"_s).toDouble();
     std::vector<grt::powderfit::Sample> samples;
     for (const Item &i : train) samples.push_back(i.sample);
@@ -282,10 +285,11 @@ int main(int argc, char *argv[])
         byCaliber[train[i].caliber].push_back(e);
         byKind[train[i].kind].push_back(e);
         if (cli.isSet(u"table"_s))
-            out << QString::asprintf("%-22s %-5s %-28s %7.3f g  v %7.1f  sim %7.1f %s %%\n", qPrintable(train[i].caliber.left(22)),
-                                     qPrintable(train[i].kind), qPrintable(train[i].bullet.left(28)), train[i].sample.charge_g,
-                                     train[i].sample.velocity_ms, res.samples[i].velocityAfter,
-                                     qPrintable(pct(res.samples[i].velocityAfter, train[i].sample.velocity_ms)));
+            out << QString::asprintf("%-22s %-5s %-28s %7.3f g  v %7.1f  sim %7.1f %s %%  p sim %6.0f bar\n",
+                                     qPrintable(train[i].caliber.left(22)), qPrintable(train[i].kind), qPrintable(train[i].bullet.left(28)),
+                                     train[i].sample.charge_g, train[i].sample.velocity_ms, res.samples[i].velocityAfter,
+                                     qPrintable(pct(res.samples[i].velocityAfter, train[i].sample.velocity_ms)),
+                                     res.samples[i].pressureAfter);
     }
     out << "Velocity error by kind (rms / mean):\n";
     for (const auto &[k, v] : byKind)
