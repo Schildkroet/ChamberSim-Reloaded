@@ -65,6 +65,18 @@
 
 using namespace Qt::StringLiterals;
 
+namespace
+{
+
+// the buttons of the input tabs: "Select Caliber…", "Select Projectile…", "Select Propellant…"
+bool isSelectButton(const QPushButton *b)
+{
+    const QString t = b->text();
+    return t == u"Select Caliber…"_s || t == u"Select Projectile…"_s || t == u"Select Propellant…"_s;
+}
+
+}  // namespace
+
 class GuiTest : public QObject
 {
     Q_OBJECT
@@ -817,7 +829,7 @@ void GuiTest::actionButtonsAreEasyToSee()
     int select = 0;
     for (QPushButton *b : view.findChildren<QPushButton *>())
     {
-        if (!b->text().contains(u"Select from database"_s)) continue;
+        if (!isSelectButton(b)) continue;
         ++select;
         QVERIFY(b->styleSheet().contains(u"palette(highlight)"_s));  // filled with the theme's accent color
         QVERIFY(b->styleSheet().contains(u"bold"_s));
@@ -1001,11 +1013,11 @@ void GuiTest::inputsAreGroupedInThreeTabs()
     QVERIFY(inputs);
     QCOMPARE(inputs->tabText(1), u"Projectile"_s);
     QCOMPARE(inputs->tabText(2), u"Propellant"_s);
-    // every tab has a "select from database" button; it is off until a database is available
+    // every tab has a "Select <component>…" button; it is off until a database is available
     const auto buttons = view.findChildren<QPushButton *>();
     int selectButtons = 0;
     for (QPushButton *b : buttons)
-        if (b->text().contains(u"Select from database"_s))
+        if (isSelectButton(b))
         {
             ++selectButtons;
             QVERIFY(!b->isEnabled());
@@ -1014,7 +1026,7 @@ void GuiTest::inputsAreGroupedInThreeTabs()
     QVERIFY(!view.applyRecord(LoadView::Component::Propellant, 562));  // no database yet
     view.setDatabase(&m_db);
     for (QPushButton *b : buttons)
-        if (b->text().contains(u"Select from database"_s)) QVERIFY(b->isEnabled());
+        if (isSelectButton(b)) QVERIFY(b->isEnabled());
 }
 
 void GuiTest::componentsCanBeReplacedAfterSetup()

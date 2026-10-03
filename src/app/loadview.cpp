@@ -212,6 +212,7 @@ LoadView::LoadView(QWidget *parent)
 
     // input tabs: each page shows the current item with a button to pick another record from the database
     const std::array<QString, 3> tabTitles{tr("Cartridge && gun"), tr("Projectile"), tr("Propellant")};
+    const std::array<QString, 3> selectTexts{tr("Select Caliber…"), tr("Select Projectile…"), tr("Select Propellant…")};
     const std::array<PropertyPanel *, 3> panels{m_cartridgePanel, m_projectilePanel, m_propellantPanel};
     for (PropertyPanel *p : panels) p->rememberColumns(QStringLiteral("properties"));  // one width for all three tabs
     for (std::size_t i = 0; i < 3; ++i)
@@ -221,7 +222,7 @@ LoadView::LoadView(QWidget *parent)
         QFont f = m_itemLabels[i]->font();
         f.setBold(true);
         m_itemLabels[i]->setFont(f);
-        m_selectButtons[i] = new QPushButton(tr("Select from database…"));
+        m_selectButtons[i] = new QPushButton(selectTexts[i]);
         m_selectButtons[i]->setIcon(style()->standardIcon(QStyle::SP_FileDialogContentsView));
         markPrimary(m_selectButtons[i]);
         m_selectButtons[i]->setEnabled(false);
@@ -475,7 +476,7 @@ void LoadView::chooseRecord(Component component)
 {
     if (!m_db || !m_db->isOpen()) return;
     constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
-    const QString titles[] = {tr("Select caliber"), tr("Select projectile"), tr("Select propellant")};
+    const QString titles[] = {tr("Select Caliber"), tr("Select Projectile"), tr("Select Propellant")};
     const auto idx = static_cast<std::size_t>(component);
     SelectRecordDialog dlg(*m_db, tables[idx], titles[idx], this);
     switch (component)

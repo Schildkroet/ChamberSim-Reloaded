@@ -51,7 +51,7 @@ public:
     void selectLadderStep(int index) { setFocus(index); }
     [[nodiscard]] double focusCharge_g() const noexcept { return m_focusInput.charge_g; }
 
-    // The database that "Select from database…" reads from (may be null; then the buttons are disabled).
+    // The database that the "Select ..." buttons read from (may be null; then the buttons are disabled).
     void setDatabase(const grt::Database *db);
 
     enum class Component

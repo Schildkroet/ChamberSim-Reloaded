@@ -152,29 +152,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+147"/>
-        <location line="+686"/>
+        <location line="+687"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-686"/>
-        <location line="+687"/>
+        <location line="-687"/>
+        <location line="+688"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-687"/>
+        <location line="-688"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+688"/>
+        <location line="+689"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-687"/>
+        <location line="-688"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -256,23 +256,33 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+161"/>
+        <location line="+162"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-161"/>
-        <location line="+162"/>
+        <location line="-162"/>
+        <location line="+163"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-152"/>
-        <source>Select from database…</source>
-        <translation>Choisir dans la base de données…</translation>
+        <location line="-162"/>
+        <source>Select Caliber…</source>
+        <translation>Choisir le calibre…</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+0"/>
+        <source>Select Projectile…</source>
+        <translation>Choisir le projectile…</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Select Propellant…</source>
+        <translation>Choisir la poudre…</translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <location line="+179"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
@@ -325,17 +335,17 @@
     </message>
     <message>
         <location line="+71"/>
-        <source>Select caliber</source>
+        <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Select projectile</source>
+        <source>Select Projectile</source>
         <translation>Choisir le projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Select propellant</source>
+        <source>Select Propellant</source>
         <translation>Choisir la poudre</translation>
     </message>
     <message>

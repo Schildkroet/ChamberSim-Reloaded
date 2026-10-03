@@ -186,7 +186,7 @@ per charge), the better the model fits other loads. One load with few charges on
    Optionally add an overview photo and a detail photo (*Choose file…*, with the scale in px/mm if you know it).
    Click *Save*.
 2. **Make a load with the new powder.** Create a load with *File ▸ New load…* (or open a `.grtload` file). On the
-   tab *Propellant* click *Select from database…* and choose your new powder.
+   tab *Propellant* click *Select Propellant…* and choose your new powder.
 3. **Measure the case and the cartridge.** Measure the volume of a fired case with water and type it into *Case
    Volume*. Measure the length of the bullets and the cartridges and type the mean values into *Projectile Overall
    Length* and *Cartridge Overall Length*. A good case volume makes the fit much better.
@@ -205,7 +205,7 @@ per charge), the better the model fits other loads. One load with few charges on
    If they are not, check the measurements, the case volume and the bullet and powder data.
 7. **Save the model.** Click *Save as own propellant…* in the dialog. The program makes a new record
    "<name> (fitted)" in your own database and keeps the photos of the powder. Select it in other loads with
-   *Select from database…*. You can also click *Apply to this load* to put the fitted values into this load only.
+   *Select Propellant…*. You can also click *Apply to this load* to put the fitted values into this load only.
 8. Fit again later with more loads: the fit uses all measurement series of the load, and the command-line tool
    `grt_fitpowder` (see Procedure 2) fits one model to several load files.
 
