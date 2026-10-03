@@ -140,3 +140,22 @@ S053 (14), D063 (20; 7.1 %), Accurate 4100, Ramshot Enforcer, Hodgdon H110 and W
 pressure error; H110 / W296 are magnum handgun powders). Their descriptions say "use with more caution". Not written: the pistol and shotgun powders
 (Accurate Nitro 100, No. 2 / 5 / 7 / 9, Hodgdon Titegroup, Universal, Clays, Longshot, HS-6, W231, W244, Trail Boss, ... 8-19 %), Reload Swiss RS12-RS40 and
 RS80 (7-22 %), Hodgdon LVR (11 loads, 2 cartridges), CFE BLK (10.6 %), H4227 / IMR 4227 (8.7 / 8.9 %). `more_*_fits.csv` have the numbers.
+
+### Shotgun loads
+
+`hodgdon_shot_extract.py manual.pdf` reads the shotshell tables of the Hodgdon Reloading Manual 2024 (pages 173-194: 12 gauge 2 3/4", 1 and 1 1/8 oz lead
+shot, Federal, Remington, Winchester, Cheddite and Fiocchi hulls, many wads and primers; charge, velocity, pressure in PSI): 3,448 loads of 10 powders
+(Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Super Handicap, WST, Competition). `grt_eval` simulates rows with a `shot_g`
+column in shotshell mode (the CIP dimensions of the hull by gauge and length, shot column + 25 mm wad and 2.5 g wad as the projectile, 28" barrel).
+`analysis/calibrate_shotshell.py` fits the burn rate of each powder (and, in a second step, the three shotshell constants), holding out the loads with the
+Winchester 209 primer:
+
+| Constants | Training: velocity / pressure | Held-out primer: velocity / pressure |
+|---|---|---|
+| current shotshell constants, Ba fitted | 3.2 / 14.6 % | 3.1 / 15.2 % |
+| constants fitted too (capacity 1.94, friction 0.012) | 3.0 / 14.5 % | 3.0 / 15.1 % |
+
+The constants hardly move, so they stay (the earlier fit to 64 loads was good); what was missing were records of the shotgun powders (rifle and handgun records
+gave 30 % and more). The remaining pressure error is the scatter of the data: the same charge gives different pressure with another wad or primer. The records
+(lot "shotshell") are only valid in shotshell mode. Not yet used: the shotshell tables of Alliant's Reloader's Guide (12, 16, 20, 28 gauge and .410, grams and
+ounces, PSI and CUP in varying column layouts) and of Reload Swiss and Vectan.

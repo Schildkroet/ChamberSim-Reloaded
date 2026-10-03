@@ -20,6 +20,8 @@
 #include <QTemporaryDir>
 #include <QTextStream>
 
+#include <map>
+
 using namespace Qt::StringLiterals;
 
 namespace
@@ -117,9 +119,58 @@ int main(int argc, char *argv[])
 
     const int steps = cli.value(u"steps"_s).toInt();
     const auto rows = readCsv(cli.positionalArguments().front());
+    // shotshell rows (column shot_g): the CIP dimensions of the hull (bore diameter, area, volume in grain of water) by gauge and length
+    struct Gauge
+    {
+        double bore_mm, area_mm2;
+        std::map<int, double> volume_gr;
+    };
+    static const std::map<int, Gauge> gauges{{12, {18.2, 260.16, {{65, 246}, {70, 266}, {76, 292}, {89, 346}}}},
+                                             {16, {16.8, 221.67, {{65, 204}, {70, 221}, {76, 243}}}},
+                                             {20, {15.7, 193.59, {{65, 176}, {70, 191}, {76, 210}, {89, 248}}}},
+                                             {28, {13.8, 149.57, {{65, 138}, {70, 150}, {76, 165.2}}}},
+                                             {410, {10.2, 81.71, {{65, 73}, {70, 80}, {76, 88}}}}};
     for (std::size_t n = 0; n < rows.size(); ++n)
     {
         const auto &row = rows[n];
+        if (row.contains(u"shot_g"_s))
+        {
+            const auto g = gauges.find(row.value(u"gauge"_s).toInt());
+            const QString key = row.value(u"powder"_s).toLower();
+            if (g == gauges.end() || !powders.contains(key)) continue;
+            int hull = static_cast<int>(row.value(u"hull_mm"_s).toDouble() + 0.5);
+            if (hull == 69) hull = 70;
+            const auto volume = g->second.volume_gr.find(hull);
+            if (volume == g->second.volume_gr.end()) continue;
+            QVariantMap powder = powders.value(key);
+            if (ba.contains(key)) powder.insert(u"Ba"_s, ba.value(key));
+            const double shot = row.value(u"shot_g"_s).toDouble();
+            const double column_mm = shot / (11.34 * 0.62) * 1000.0 / g->second.area_mm2 + 25.0;  // shot (packing 0.62) + wad 25 mm
+            const QVariantMap caliber{{u"cipname"_s, u"%1/%2"_s.arg(g->first).arg(hull)},
+                                      {u"L3"_s, hull == 70 ? 69.8 : double(hull)},
+                                      {u"V"_s, volume->second},
+                                      {u"c_Z"_s, g->second.bore_mm},
+                                      {u"c_Q"_s, g->second.area_mm2},
+                                      {u"Pmax"_s, 740.0},
+                                      {u"standard"_s, u"CIP"_s}};
+            const QVariantMap bullet{{u"mname"_s, u"Shot"_s},
+                                     {u"pname"_s, QString()},
+                                     {u"gdia"_s, g->second.bore_mm},
+                                     {u"glen"_s, column_mm},
+                                     {u"gmass"_s, (shot + 2.5) / grt::kGrainToGram},
+                                     {u"gpressure"_s, 20.0},
+                                     {u"gtailtype"_s, 0}};
+            grt::LoadParams p;
+            p.charge_g = row.value(u"charge_g"_s).toDouble();
+            p.barrelLength_mm = row.value(u"barrel_mm"_s, u"711"_s).toDouble();
+            p.seatingDepth_mm = column_mm;  // completely inside the hull
+            grt::LoadFile lf = grt::buildLoad(caliber, bullet, powder, p, calColumns);
+            lf.caliber.set(u"shotshell"_s, u"true"_s);
+            const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(lf), cal, steps);
+            if (r.status != grt::SimStatus::Ok) continue;
+            out << n << ',' << QString::asprintf("%.3f,%.1f", r.muzzleVelocity_ms, r.maxPressure_bar) << '\n';
+            continue;
+        }
         const auto cal0 = calibers.constFind(row.value(u"caliber"_s));
         const QString key = row.value(u"powder"_s).toLower();
         if (cal0 == calibers.constEnd() || !powders.contains(key)) continue;

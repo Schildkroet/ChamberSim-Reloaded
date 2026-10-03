@@ -79,7 +79,9 @@ steel shot), two Reload Swiss loads (12/70, RS12 / RS20) and 12 loads of the Hod
 Universal and W244); the last 14 with measured pressure. The published velocities are measured 1-3 m in front of the
 muzzle and converted to the muzzle with the air drag of the pellets. Result: muzzle velocity typically 5-7 % low (up
 to 15 %); pressure right on average, but **up to 30 % too high or too low depending on the powder** (the powders'
-models were made for rifles and handguns; Universal and RS12 come out high, W244 and Nitro 100 low). For comparison,
+models were made for rifles and handguns; Universal and RS12 come out high, W244 and Nitro 100 low). With the project's records of shotgun powders
+(lot "shotshell", their burn rates fitted to 3,448 loads of the Hodgdon Reloading Manual: 12 gauge 2 3/4", 1 and 1 1/8 oz) the error against these loads is
+3.2 % rms in velocity and 14.5 % in pressure (the pressure of one charge varies with wad and primer by about that much, which the model does not know). For comparison,
 the original program with the same 50 Vihtavuori loads: velocity +3 % on average (typically 4.8 % off) - closer - but
 pressures of the maximum loads up to 1800 bar, where the guide's loads are pressure-tested within the CIP limit of
 1050 bar (its shotshell setting changes little). Always check a shotgun load against the powder maker's data. Enter a shotgun load like this, the fit depends on it:
@@ -131,9 +133,11 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.
-- **Propellants (88)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), and
+- **Propellants (98)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), and
   55 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals; Accurate 4100, Enforcer, H110 and W296 fit
-  less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so).
+  less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so), and 10 shotgun powders
+  (Hodgdon Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Winchester Super Handicap and WST, Ramshot Competition; lot "shotshell", for
+  shotshell loads only: 3,448 loads of the Hodgdon manual's 12 gauge tables).
   Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate
   Ba was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
   (Explosia's Reloading Guide 2019), Reload Swiss (online loading data of Nitrochemie), the Hodgdon Reloading Manual 2024 and the
