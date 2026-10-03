@@ -338,15 +338,18 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
   surface (bullet length), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
   and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show heat and friction
   loss; a bullet that cannot leave the barrel is reported.
-  Its constants and the **physical burn values** of 59 project powders (Ba, a0, z1, z2, fitted to each powder's published loads with
-  pressures: Hodgdon, Western, Lovex, Reload Swiss) come from `analysis/calibrate_published.py --profile physical` and
+  Its constants and the **physical burn values** of 88 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
+  pressures: Hodgdon, Western, Lovex, Reload Swiss; Vihtavuori publishes no pressures, its 16 powders have a fitted Ba and the median
+  form function of the others) come from `analysis/calibrate_published.py --profile physical` and
   `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A load stores them in its propellant section (`physBa`,
   `physA0`, `physZ1`, `physZ2`, `physRef` = the record values they belong to); they apply only while Ba, a0, z1, z2 of the load are
   unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger.
-  Held-out cartridges (fitted on the other 3/4), 59 powders: velocity 5.9 % rms (median 2.5 %), peak pressure 12 % rms (median 6.1 %);
+  Held-out cartridges (fitted on the other 3/4), the 59 Hodgdon and Western powders: velocity 5.9 % rms (median 2.5 %), peak pressure 12 % rms (median 6.1 %);
   the Published constants 6.0 % (2.3 %) and 19 % (6.4 %). Rifle powders: velocity 4.2 % (Published 3.6 %), pressure 9.6 % (10.1 %);
   pistol and shotgun powders: velocity 19 % (22 %), pressure 39 % (79 %). Velocity of rifle loads is still a little less accurate than
-  with the Published constants, pressure is better everywhere. Vihtavuori powders have no physical burn values yet (no sample file).
+  with the Published constants, pressure is better everywhere. Vihtavuori (16 powders, velocities only): 3.25 % (Published 3.16 %,
+  whose record burn rates were fitted to all of these loads). Lovex (8 powders): velocity 2.5-4.2 %, pressure 6.5-11 %;
+  Reload Swiss (6): 5-7 % and 13-20 %.
   Shotshells always keep the original's constants.
 
 Method and numbers: `tools/loaddata/README.md`, `analysis/calibrate_published.py`, `analysis/fit_physical_powders.py`.

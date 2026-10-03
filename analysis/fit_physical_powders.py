@@ -28,24 +28,29 @@ args = ap.parse_args()
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 
 # ---- samples (identical rows and misread pressures dropped, like calibrate_published.py) and the project's powder records
-rows, seen = [], set()
-for f in args.samples:
-    for r in csv.DictReader(open(f)):
-        if r.get("pressure_bar") and not 500 <= float(r["pressure_bar"]) <= 9000: r["pressure_bar"] = ""
-        key = (r["powder"].upper(), r["caliber"], r["bullet_gr"], r["kind"], r["charge_g"], r["velocity_ms"], r["col_mm"])
-        if key not in seen: seen.add(key); rows.append(r)
-held_out = set(sorted({r["caliber"] for r in rows})[3::4])
 records = {}
 for f in sorted(os.listdir(os.path.join(DATA, "propellants"))):
     try: r = json.load(open(os.path.join(DATA, "propellants", f)))
     except (ValueError, OSError): continue
     records[(r["mname"] + " " + r["pname"]).lower()] = r
+# a powder column without the maker ("N150" of vv_extract.py) is matched by the product name when that is unique among the records
+by_name = {}
+for k, r in records.items(): by_name.setdefault(r["pname"].lower(), []).append(r["mname"] + " " + r["pname"])
+rows, seen = [], set()
+for f in args.samples:
+    for r in csv.DictReader(open(f)):
+        r.setdefault("pressure_bar", "")  # files without pressures (Vihtavuori)
+        if r["powder"].lower() not in records and len(by_name.get(r["powder"].lower(), [])) == 1: r["powder"] = by_name[r["powder"].lower()][0]
+        if r.get("pressure_bar") and not 500 <= float(r["pressure_bar"]) <= 9000: r["pressure_bar"] = ""
+        key = (r["powder"].upper(), r["caliber"], r["bullet_gr"], r["kind"], r["charge_g"], r["velocity_ms"], r["col_mm"])
+        if key not in seen: seen.add(key); rows.append(r)
+held_out = set(sorted({r["caliber"] for r in rows})[3::4])
 by_powder = {}
 for r in rows:
     if r["powder"].lower() in records: by_powder.setdefault(r["powder"].lower(), []).append(r)
 start = {(p["mname"] + " " + p["pname"]).lower(): p for p in json.load(open(args.start))["propellants"]} if args.start else {}
 tmp = tempfile.mkdtemp()
-header = list(rows[0].keys())
+header = list(dict.fromkeys(k for r in rows for k in r))
 
 def simulate(name, powder, burn, subset):
     """(velocity, pressure) arrays of the rows of `subset` with the burn values `burn` (Ba, a0, z1, z2); nan where not simulated."""
