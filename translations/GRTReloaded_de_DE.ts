@@ -271,29 +271,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+149"/>
-        <location line="+713"/>
+        <location line="+719"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-713"/>
-        <location line="+714"/>
+        <location line="-719"/>
+        <location line="+720"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-714"/>
+        <location line="-720"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+715"/>
+        <location line="+721"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-714"/>
+        <location line="-720"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -301,6 +301,11 @@
         <location line="+0"/>
         <source>Burnout pressure</source>
         <translation>Druck bei Brennschluss</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Gas outflow velocity</source>
+        <translation>Gasausströmgeschwindigkeit</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -433,12 +438,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+502"/>
+        <location line="+505"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-504"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
@@ -503,7 +508,7 @@
         <translation>Der Datensatz konnte nicht aus der Datenbank gelesen werden.</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>Fit to measurements</source>
         <translation>An Messungen anpassen</translation>
     </message>
@@ -568,7 +573,7 @@
         <translation>nicht ausgebrannt</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>%1 k/min</source>
         <translation>%1 k/min</translation>
     </message>

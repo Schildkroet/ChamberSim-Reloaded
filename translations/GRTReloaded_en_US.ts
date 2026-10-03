@@ -308,7 +308,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+376"/>
+        <location line="+379"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -318,25 +318,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-667"/>
-        <location line="+713"/>
+        <location line="-670"/>
+        <location line="+719"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-713"/>
-        <location line="+714"/>
+        <location line="-719"/>
+        <location line="+720"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-714"/>
-        <location line="+715"/>
+        <location line="-720"/>
+        <location line="+721"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-715"/>
+        <location line="-721"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -348,6 +348,11 @@
     <message>
         <location line="+0"/>
         <source>Burnout pressure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Gas outflow velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -448,12 +453,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+502"/>
+        <location line="+505"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-504"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -513,7 +518,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
     </message>
@@ -568,7 +573,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>%1 k/min</source>
         <translation type="unfinished"></translation>
     </message>

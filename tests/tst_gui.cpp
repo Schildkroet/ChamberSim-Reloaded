@@ -9,6 +9,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QDialog>
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QLineEdit>
@@ -130,6 +131,8 @@ private slots:
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void disclaimerAtStartup();
     void checkBoxesVisibleInDarkMode();
+    void dialogsHaveAVisibleBorder();
+    void scrollBarsVisibleInDarkMode();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
@@ -2034,6 +2037,58 @@ void GuiTest::checkBoxesVisibleInDarkMode()
         for (int x = r.left(); x <= r.left() + 1; ++x) brightest = std::max(brightest, img.pixelColor(x, y).lightness());
     theme::apply(*qApp, theme::Mode::System);
     QVERIFY2(brightest - window > 60, qPrintable(u"frame %1, window %2"_s.arg(brightest).arg(window)));
+}
+
+// Dialogs get a 1 px frame in a light grey (Fusion draws none; the window manager's is not visible on a dark window); it stays
+// above children added later and follows the size.
+void GuiTest::dialogsHaveAVisibleBorder()
+{
+    theme::apply(*qApp, theme::Mode::Dark);
+    QDialog dialog;
+    auto *layout = new QVBoxLayout(&dialog);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(new QLabel(u"Before"_s));
+    dialog.resize(200, 100);
+    dialog.show();
+    QApplication::processEvents();
+    auto *later = new QTextBrowser;  // fills the dialog up to its edges
+    layout->addWidget(later);
+    dialog.resize(240, 140);
+    QApplication::processEvents();
+    const QWidget *border = dialog.findChild<QWidget *>(u"dialogBorder"_s);
+    QVERIFY(border);
+    QCOMPARE(border->geometry(), dialog.rect());
+    QCOMPARE(dialog.children().last(), border);  // on top
+    const QImage img = dialog.grab().toImage();
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/dialogborder.png"_s);
+    const int window = dialog.palette().color(QPalette::Window).lightness();
+    const QColor edge = img.pixelColor(img.width() / 2, img.height() - 1), side = img.pixelColor(0, img.height() / 2);
+    theme::apply(*qApp, theme::Mode::System);
+    QVERIFY2(edge.lightness() - window > 60 && side.lightness() - window > 60,
+             qPrintable(u"edge %1, side %2, window %3"_s.arg(edge.lightness()).arg(side.lightness()).arg(window)));
+    QMessageBox box;
+    box.show();
+    QApplication::processEvents();
+    QVERIFY(box.findChild<QWidget *>(u"dialogBorder"_s));
+}
+
+// Dark theme: the scroll bar handle stands out from the window (Fusion fills it with the window color).
+void GuiTest::scrollBarsVisibleInDarkMode()
+{
+    theme::apply(*qApp, theme::Mode::Dark);
+    QScrollBar bar(Qt::Vertical);
+    bar.setRange(0, 100);
+    bar.setPageStep(20);
+    bar.resize(16, 200);
+    bar.show();
+    QApplication::processEvents();
+    const QImage img = bar.grab().toImage();
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/darkscrollbar.png"_s);
+    const int window = bar.palette().color(QPalette::Window).lightness();
+    int brightest = 0;  // the handle: the lightest pixel down the middle
+    for (int y = 0; y < img.height(); ++y) brightest = std::max(brightest, img.pixelColor(img.width() / 2, y).lightness());
+    theme::apply(*qApp, theme::Mode::System);
+    QVERIFY2(brightest - window > 30, qPrintable(u"handle %1, window %2"_s.arg(brightest).arg(window)));
 }
 
 void GuiTest::fitToMeasurementsChangesThePowder()

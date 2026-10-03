@@ -2,6 +2,8 @@
 #include "log.h"
 
 #include <QApplication>
+#include <QDialog>
+#include <QEvent>
 #include <QPainter>
 #include <QPalette>
 #include <QProxyStyle>
@@ -43,9 +45,47 @@ QPalette darkPalette()
     p.setColor(QPalette::Disabled, QPalette::Highlight, alt);
     return p;
 }
+// A 1 px frame around a dialog, on top of its children: Fusion draws none, and the window manager's frame or shadow is hardly
+// visible (in the dark theme not at all) on a dark window.
+class DialogBorder : public QWidget
+{
+public:
+    explicit DialogBorder(QWidget *dialog)
+        : QWidget(dialog)
+    {
+        setObjectName(QLatin1String(kName));
+        setAttribute(Qt::WA_TransparentForMouseEvents);
+        setAttribute(Qt::WA_NoSystemBackground);
+        setFocusPolicy(Qt::NoFocus);
+        setGeometry(dialog->rect());
+        dialog->installEventFilter(this);
+        raise();
+    }
+    static constexpr auto kName = "dialogBorder";
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override
+    {
+        if (watched == parent())
+        {
+            if (event->type() == QEvent::Resize) setGeometry(parentWidget()->rect());
+            else if (event->type() == QEvent::ChildAdded || event->type() == QEvent::Show) raise();  // stay above later children
+        }
+        return QWidget::eventFilter(watched, event);
+    }
+    void paintEvent(QPaintEvent *) override
+    {
+        QPainter p(this);
+        p.setPen(palette().color(QPalette::PlaceholderText));
+        p.drawRect(rect().adjusted(0, 0, -1, -1));
+    }
+};
+
 // Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the
 // Fusion/GTK popup that covers the field and tries to show every item. A long list (e.g. the countries) does not
 // fit on the screen and gets moved; on Wayland the mouse release then lands outside and closes it at once.
+//
+// Dialogs: a visible frame (DialogBorder). Scroll bars: with a dark palette a lighter handle.
 //
 // Check boxes and radio buttons: Fusion draws their frame a little darker than the window, on a dark window an unchecked box is
 // then nearly invisible. With a dark palette the frame is drawn again in a light grey.
@@ -53,10 +93,42 @@ class ListPopupStyle : public QProxyStyle
 {
 public:
     using QProxyStyle::QProxyStyle;
+    void polish(QWidget *widget) override
+    {
+        QProxyStyle::polish(widget);
+        if (qobject_cast<QDialog *>(widget) && widget->isWindow() &&
+            !widget->findChild<DialogBorder *>(QLatin1String(DialogBorder::kName), Qt::FindDirectChildrenOnly))
+            new DialogBorder(widget);
+    }
+    using QProxyStyle::polish;
     int styleHint(StyleHint hint, const QStyleOption *option, const QWidget *widget, QStyleHintReturn *ret) const override
     {
         if (hint == SH_ComboBox_Popup) return 0;
         return QProxyStyle::styleHint(hint, option, widget, ret);
+    }
+    void drawComplexControl(ComplexControl control, const QStyleOptionComplex *option, QPainter *painter,
+                            const QWidget *widget) const override
+    {
+        const auto *bar = qstyleoption_cast<const QStyleOptionSlider *>(option);
+        if (control != CC_ScrollBar || !bar || option->palette.color(QPalette::Window).lightness() >= 128)
+            return QProxyStyle::drawComplexControl(control, option, painter, widget);
+        // Fusion fills groove and handle with shades of Button = the window color: it draws the groove and the arrows, the
+        // handle is drawn here in a light grey (lighter while hovered or dragged)
+        QStyleOptionSlider rest(*bar);
+        rest.subControls &= ~SC_ScrollBarSlider;
+        QProxyStyle::drawComplexControl(control, &rest, painter, widget);
+        if (!(bar->subControls & SC_ScrollBarSlider)) return;
+        const QRect handle = subControlRect(control, bar, SC_ScrollBarSlider, widget);
+        if (handle.isEmpty()) return;
+        const bool active = (bar->activeSubControls & SC_ScrollBarSlider) && (bar->state & (State_MouseOver | State_Sunken));
+        const bool enabled = bar->state & State_Enabled;
+        painter->save();
+        painter->setRenderHint(QPainter::Antialiasing);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(!enabled ? QColor(0x45, 0x4c, 0x57) : active ? QColor(0x8a, 0x94, 0xa0) : QColor(0x6a, 0x73, 0x80));
+        const QRectF r = bar->orientation == Qt::Horizontal ? QRectF(handle).adjusted(1, 2, -1, -2) : QRectF(handle).adjusted(2, 1, -2, -1);
+        painter->drawRoundedRect(r, 3, 3);
+        painter->restore();
     }
     void drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const override
     {

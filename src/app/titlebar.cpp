@@ -236,7 +236,7 @@ void TitleBar::paintEvent(QPaintEvent *)
     // the window's color (the menu bar paints the same), with a separating line
     QPainter p(this);
     p.fillRect(rect(), palette().color(QPalette::Window));
-    p.setPen(palette().color(QPalette::Mid));
+    p.setPen(palette().color(QPalette::PlaceholderText));  // Mid is almost black in the dark theme
     p.drawLine(rect().bottomLeft(), rect().bottomRight());
 }
 

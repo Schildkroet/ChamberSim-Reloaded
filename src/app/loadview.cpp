@@ -25,6 +25,7 @@
 #include <QPainter>
 #include <QFileInfo>
 #include <QFormLayout>
+#include <QFrame>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
@@ -147,7 +148,7 @@ LoadView::LoadView(QWidget *parent)
     m_comparison->setTextFormat(Qt::RichText);
 
     for (const QString &label : {tr("Maximum pressure"), tr("Muzzle pressure"), tr("Projectile energy"), tr("Muzzle velocity"),
-                                 tr("Barrel time (BT)"), tr("Burnout pressure")})
+                                 tr("Barrel time (BT)"), tr("Burnout pressure"), tr("Gas outflow velocity")})
         m_leftResults->addRow(label + u':', valueLabel());
     for (const QString &label : {tr("Projectile speed"), tr("Recoil energy"), tr("IPSC / MIP factor"), tr("Load ratio"),
                                  tr("Burnt propellant"), tr("Effective efficiency"), tr("Heat / friction loss")})
@@ -163,6 +164,12 @@ LoadView::LoadView(QWidget *parent)
 
     auto *infoCol = new QVBoxLayout;
     infoCol->addWidget(m_heading);
+    // the load (heading) above, the results below
+    auto *separator = new QFrame;
+    separator->setFrameShape(QFrame::HLine);
+    separator->setFrameShadow(QFrame::Plain);
+    separator->setForegroundRole(QPalette::PlaceholderText);  // visible in the light and the dark theme
+    infoCol->addWidget(separator);
     infoCol->addWidget(m_status);
     infoCol->addLayout(results);
     m_ladderTable->setHorizontalHeaderLabels({tr("Charge"), tr("Max. pressure"), tr("Velocity"), tr("Energy"), tr("Load ratio")});
@@ -839,6 +846,9 @@ void LoadView::showResult()
     setRow(m_leftResults, 3, shown(r.muzzleVelocity_ms, Quantity::Velocity));
     setRow(m_leftResults, 4, tr("%1 ms").arg(num(r.muzzleTime_ms, 4)));
     setRow(m_leftResults, 5, r.burnoutInBarrel ? shown(r.burnoutPressure_bar, Quantity::Pressure) : tr("not burnt out"));
+    // mean velocity of the powder gases leaving the muzzle (gas impulse / charge mass), as in the report
+    setRow(m_leftResults, 6,
+           m_input.charge_g > 0.0 ? shown(r.gasImpulse_Ns / (m_input.charge_g * 1e-3), Quantity::Velocity) : QStringLiteral("–"));
     setRow(m_rightResults, 0, r.muzzleRpm > 0 ? tr("%1 k/min").arg(num(r.muzzleRpm / 1000.0, 1)) : QStringLiteral("–"));
     setRow(m_rightResults, 1, r.recoilEnergy_J > 0 ? shown(r.recoilEnergy_J, Quantity::Energy) : tr("– (gun weight 0)"));
     setRow(m_rightResults, 2, QStringLiteral("%1, %2").arg(num(r.ipscFactor, 0), num(r.mipFactor, 0)));

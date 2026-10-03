@@ -271,29 +271,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+149"/>
-        <location line="+713"/>
+        <location line="+719"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-713"/>
-        <location line="+714"/>
+        <location line="-719"/>
+        <location line="+720"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-714"/>
+        <location line="-720"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+715"/>
+        <location line="+721"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-714"/>
+        <location line="-720"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -301,6 +301,11 @@
         <location line="+0"/>
         <source>Burnout pressure</source>
         <translation>Pressione fine combustione</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Gas outflow velocity</source>
+        <translation>Velocità di efflusso dei gas</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -433,12 +438,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+502"/>
+        <location line="+505"/>
         <source>Measurements</source>
         <translation>Misure</translation>
     </message>
     <message>
-        <location line="-501"/>
+        <location line="-504"/>
         <source>Report</source>
         <translation>Rapporto</translation>
     </message>
@@ -503,7 +508,7 @@
         <translation>Non è stato possibile leggere il record dalla banca dati.</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>Fit to measurements</source>
         <translation>Adatta alle misure</translation>
     </message>
@@ -568,7 +573,7 @@
         <translation>combustione incompleta</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>%1 k/min</source>
         <translation>%1 k/min</translation>
     </message>
