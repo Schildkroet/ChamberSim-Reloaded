@@ -1,6 +1,7 @@
 #include "loadview.h"
 #include "log.h"
 #include "photoview.h"
+#include "physicalpowders.h"
 #include "solverprefs.h"
 
 #include "cartridgeview.h"
@@ -332,6 +333,8 @@ bool LoadView::load(const QString &path, QString *error)
     LOG_Info() << "Load opened:" << path;
     m_file = std::move(*lf);
     m_path = path;
+    // a load saved before the physical burn values existed gets those of its (unchanged) project powder; they are saved with it next time
+    if (grt::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
     rebuildPanels();
     loadMeasurement();
     recompute();
@@ -502,6 +505,7 @@ void LoadView::chooseRecord(Component component)
 
 void LoadView::onValueEdited(int sectionId, const QString &key, const QString &text)
 {
+    const double previousDiameter = m_file.projectile.number(u"Dbul");
     section(sectionId).set(key, text);
     // The cartridge overall length is the case length plus the projectile length minus the seating depth; the solver uses the seating
     // depth. Editing either of them (or the case or projectile length) keeps the other one in step.
@@ -514,7 +518,8 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
     else if (sectionId == Projectile && key == u"gpressure") cal.set(u"ps", prj.number(u"gpressure"));
     // a boat tail or hollow base without tail dimensions would have no effect: typical ones are filled in (editable)
-    if (sectionId == Projectile && (key == u"gTailType" || key == u"Dbul")) grt::completeTail(prj);
+    if (sectionId == Projectile && key == u"gTailType") grt::completeTail(prj);
+    else if (sectionId == Projectile && key == u"Dbul") grt::completeTail(prj, previousDiameter);
     m_cartridgePanel->syncValues();
     m_projectilePanel->syncValues();
     setModified(true);
@@ -568,8 +573,13 @@ void LoadView::fitPowder()
         QMessageBox::information(this, tr("Fit to measurements"), tr("Enter the measured velocity of the shots first."));
         return;
     }
+    // the physical model with the load's physical burn values: the fit changes those, and they live in the load only
+    const bool physical = grt::powderfit::fitsPhysical(samples);
+    if (physical)
+        warnings << tr("The physical model is active: the fit changes the physical burn values of this load (shown as \"Physical "
+                       "Model: ...\" in the propellant table). They are saved with the load, not as a propellant record.");
     PowderFitDialog dlg(samples, warnings, this);
-    if (m_saveRecord && m_db && m_db->isOpen())
+    if (!physical && m_saveRecord && m_db && m_db->isOpen())
     {
         dlg.setSaveHandler(
             [this, &samples](const grt::powderfit::Result &r)
@@ -825,7 +835,9 @@ void LoadView::showResult()
                     "10 % in peak pressure against the manufacturers' tables; results differ from the original program.</i>");
         break;
     case grt::CalibrationProfile::Physical:
-        status = m_input.physicalBurn
+        status = m_input.shotshell ? tr("<i>Physical model (Settings > Solver). Shotshells use their own model with the original program's "
+                                        "constants.</i>")
+                 : m_input.physicalBurn
                      ? tr("<i>Physical model (Settings > Solver) with the physical burn values of this powder, fitted to its published "
                           "loads.</i>")
                      : tr("<i>Physical model (Settings > Solver). This powder has no physical burn values (not a project powder, or "

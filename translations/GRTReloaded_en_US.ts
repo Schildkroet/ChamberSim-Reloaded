@@ -237,24 +237,24 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+377"/>
+        <location filename="../src/app/loadview.cpp" line="+380"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-162"/>
-        <location line="+163"/>
+        <location line="-164"/>
+        <location line="+165"/>
         <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-163"/>
-        <location line="+164"/>
+        <location line="-165"/>
+        <location line="+166"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-163"/>
+        <location line="-165"/>
         <source>Select Caliber…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -270,12 +270,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+180"/>
+        <location line="+182"/>
         <source>No database available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+374"/>
+        <location line="+381"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -285,25 +285,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-663"/>
-        <location line="+727"/>
+        <location line="-672"/>
+        <location line="+738"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-727"/>
-        <location line="+728"/>
+        <location line="-738"/>
+        <location line="+739"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-728"/>
-        <location line="+729"/>
+        <location line="-739"/>
+        <location line="+740"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-729"/>
+        <location line="-740"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -415,17 +415,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+498"/>
+        <location line="+507"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-497"/>
+        <location line="-506"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+117"/>
         <source>Caliber / cartridge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -480,7 +480,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+70"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
     </message>
@@ -490,7 +490,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+6"/>
+        <source>The physical model is active: the fit changes the physical burn values of this load (shown as &quot;Physical Model: ...&quot; in the propellant table). They are saved with the load, not as a propellant record.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source> (fitted)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -525,7 +530,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
+        <source>&lt;i&gt;Physical model (Settings &gt; Solver). Shotshells use their own model with the original program&apos;s constants.&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>&lt;i&gt;Physical model (Settings &gt; Solver) with the physical burn values of this powder, fitted to its published loads.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1920,7 +1930,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Solver</source>
         <translation type="unfinished"></translation>
     </message>

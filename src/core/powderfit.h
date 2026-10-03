@@ -69,12 +69,18 @@ struct Result
     double pressureRmsBefore{}, pressureRmsAfter{};  // relative (0 without pressure measurements)
     int iterations{};
     bool improved{};
+    // the fitted values are the load's physical burn values (physBa, physA0, ...: physical model active and the load has them); they are
+    // kept in the load only, a propellant record has no columns for them
+    bool physical{};
 };
 
 // Starts from the model values of the first sample's load; all samples share them.
 [[nodiscard]] Result fit(const std::vector<Sample> &samples, const Options &options);
 
-// The fitted values put into a load's propellant section (for saving or exporting).
+// Whether fit() would change the physical burn values of these samples' load (see Result::physical).
+[[nodiscard]] bool fitsPhysical(const std::vector<Sample> &samples);
+
+// The fitted values put into a load's propellant section (for saving or exporting); physical values into physBa ... .
 void apply(EntryList &propellant, const Result &result);
 
 // A propellant record (database columns of `schema`) from a load's propellant section with the fitted values:

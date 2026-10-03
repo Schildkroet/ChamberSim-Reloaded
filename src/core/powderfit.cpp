@@ -2,6 +2,7 @@
 #include "log.h"
 
 #include "measurement.h"
+#include "physicalpowders.h"
 #include "solver.h"
 
 #include <QDate>
@@ -23,8 +24,22 @@ namespace
 
 constexpr double kGrainToGram = 0.06479891;  // also cm3 of water per grain H2O
 
+// Whether a fit of this load changes the physical burn values (physBa ...) instead of Ba, a0, z1, z2: the active model is the physical
+// one and the load has them (the model then uses only those, see SimInput::physicalBurn); shotshells keep their own model.
+bool usesPhysical(const SimInput &in)
+{
+    return activeCalibration().model == SolverModel::Physical && in.physicalBurn && !in.shotshell;
+}
+
 double &field(SimInput &in, Param p)
 {
+    if (usesPhysical(in)) switch (p)
+        {
+        case Param::Ba: return in.physicalBurn->Ba;
+        case Param::A0: return in.physicalBurn->a0;
+        case Param::Z1: return in.physicalBurn->z1;
+        case Param::Z2: return in.physicalBurn->z2;
+        }
     switch (p)
     {
     case Param::Ba: return in.vivacityBa;
@@ -35,8 +50,8 @@ double &field(SimInput &in, Param p)
     return in.vivacityBa;
 }
 
-// keeps the model valid: Ba > 0, 0 < z1 < z2 < 1, a0 >= 0
-void clamp(std::vector<double> &x, const std::vector<Param> &params)
+// keeps the model valid: Ba > 0, 0 < z1 < z2 < 1, a0 >= 0 (the physical values may be degressive from the start: a0 >= -3)
+void clamp(std::vector<double> &x, const std::vector<Param> &params, bool physical)
 {
     double z1 = -1.0;
     for (std::size_t i = 0; i < params.size(); ++i)
@@ -44,7 +59,7 @@ void clamp(std::vector<double> &x, const std::vector<Param> &params)
         switch (params[i])
         {
         case Param::Ba: x[i] = std::clamp(x[i], 0.01, 50.0); break;
-        case Param::A0: x[i] = std::clamp(x[i], 0.0, 20.0); break;
+        case Param::A0: x[i] = std::clamp(x[i], physical ? -3.0 : 0.0, 20.0); break;
         case Param::Z1:
             x[i] = std::clamp(x[i], 0.02, 0.95);
             z1 = x[i];
@@ -259,6 +274,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     Result res;
     res.params = options.params;
     if (samples.empty() || options.params.empty()) return res;
+    res.physical = usesPhysical(samples.front().input);
     const auto &params = options.params;
     const std::size_t n = params.size();
     LOG_Debug() << "Powder fit:" << samples.size() << "samples," << n << "parameters, at most" << options.maxIterations << "iterations";
@@ -266,7 +282,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     std::vector<double> x;
     SimInput start = samples.front().input;
     for (const Param p : params) x.push_back(field(start, p));
-    clamp(x, params);
+    clamp(x, params, res.physical);
     res.before = x;
 
     std::vector<Simulated> simsBefore;
@@ -310,7 +326,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
             }
             std::vector<double> xn = x;
             for (std::size_t a = 0; a < n; ++a) xn[a] += step[a];
-            clamp(xn, params);
+            clamp(xn, params, res.physical);
             const std::vector<double> rn = residuals(samples, params, xn, options.pressureWeight, options.threads);
             const double cn = sumSquares(rn);
             if (cn < cost)
@@ -348,8 +364,26 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     return res;
 }
 
+bool fitsPhysical(const std::vector<Sample> &samples)
+{
+    return !samples.empty() && usesPhysical(samples.front().input);
+}
+
 void apply(EntryList &propellant, const Result &result)
 {
+    if (result.physical)
+        if (auto burn = readPhysicalBurn(propellant))
+        {
+            for (std::size_t i = 0; i < result.params.size() && i < result.after.size(); ++i) switch (result.params[i])
+                {
+                case Param::Ba: burn->Ba = result.after[i]; break;
+                case Param::A0: burn->a0 = result.after[i]; break;
+                case Param::Z1: burn->z1 = result.after[i]; break;
+                case Param::Z2: burn->z2 = result.after[i]; break;
+                }
+            writePhysicalBurn(propellant, burn);  // Ba, a0, z1, z2 stay: physRef still matches
+            return;
+        }
     for (std::size_t i = 0; i < result.params.size() && i < result.after.size(); ++i)
         propellant.set(name(result.params[i]), result.after[i]);
 }

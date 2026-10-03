@@ -151,4 +151,16 @@ std::optional<PhysicalBurn> readPhysicalBurn(const EntryList &propellant)
     return b;
 }
 
+bool attachPhysicalBurn(EntryList &propellant)
+{
+    if (readPhysicalBurn(propellant)) return false;
+    QVariantMap record;
+    for (const char16_t *key : {u"mname", u"pname"}) record.insert(QString::fromUtf16(key), propellant.text(key));
+    for (const char16_t *key : {u"Ba", u"a0", u"z1", u"z2"}) record.insert(QString::fromUtf16(key), propellant.number(key));
+    const auto burn = physicalBurnOf(record);
+    if (!burn) return false;
+    writePhysicalBurn(propellant, burn);
+    return true;
+}
+
 }  // namespace grt

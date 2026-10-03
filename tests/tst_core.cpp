@@ -62,6 +62,7 @@ private slots:
     void tailEstimates();
     void sebertDefault();
     void saamiColumnMigration();
+    void powderFitPhysicalValues();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -512,6 +513,15 @@ void CoreTest::physicalModel()
     QVERIFY(velocity([](grt::SimInput &i) { i.covolumeEta = 1.1; }) != r.muzzleVelocity_ms);      // the covolume of the record
     QVERIFY(velocity([](grt::SimInput &i) { i.temperature_C = -10.0; }) < r.muzzleVelocity_ms);
 
+    QCOMPARE(r.points.front().v_ms, 0.0);  // the curves begin when the bullet moves: at rest only the first point
+    QCOMPARE(r.points.front().t_ms, 0.0);
+    QVERIFY(r.points[1].v_ms > 0.0);
+    QVERIFY(r.points.front().p_bar >= in.startPressure_bar);
+
+    grt::SimInput shot = in;  // a shotshell keeps the original's constants also with the physical ones given explicitly
+    shot.shotshell = true;
+    QCOMPARE(grt::simulate(shot, cal).maxPressure_bar, grt::simulate(shot, grt::Calibration{}).maxPressure_bar);
+
     grt::SimInput weak = in;  // far too little powder for a long, heavy bullet in a long barrel
     weak.charge_g = 0.05;
     weak.bulletMass_g = 40.0;
@@ -561,6 +571,15 @@ void CoreTest::physicalBurnInLoad()
     QVERIFY(!grt::SimInput::fromLoad(edited).physicalBurn);
     grt::applyPropellant(edited, other);  // a powder without values removes them
     QVERIFY(!edited.propellant.find(u"physBa"));
+
+    grt::LoadFile older = *again;  // saved before the physical values existed: they are added when it is opened
+    grt::writePhysicalBurn(older.propellant, std::nullopt);
+    grt::applyPropellant(older, powder);
+    grt::writePhysicalBurn(older.propellant, std::nullopt);
+    QVERIFY(!grt::SimInput::fromLoad(older).physicalBurn);
+    QVERIFY(grt::attachPhysicalBurn(older.propellant));
+    QVERIFY(grt::SimInput::fromLoad(older).physicalBurn);
+    QVERIFY(!grt::attachPhysicalBurn(older.propellant));  // already there
     grt::setPhysicalBurnFile(QStringLiteral(GRT_SOURCE_DIR "/data/physical/propellants.json"));
 }
 
@@ -584,6 +603,15 @@ void CoreTest::tailEstimates()
     QVERIFY(qAbs(prj.number(u"gtailh") - 0.53 * D) < 0.01);
     QVERIFY(qAbs(prj.number(u"gTailDiaB") - 0.835 * D) < 0.01);
     QVERIFY(grt::simulate(grt::SimInput::fromLoad(*lf)).maxPressure_bar < flat);  // more powder space
+
+    prj.set(u"Dbul", 2.0 * D);  // a new diameter: the estimates follow it, entered values would stay
+    QVERIFY(grt::completeTail(prj, D));
+    QVERIFY(qAbs(prj.number(u"gtailh") - 0.53 * 2.0 * D) < 0.01);
+    prj.set(u"gtailh", 7.0);
+    QVERIFY(!grt::completeTail(prj, 2.0 * D));
+    prj.set(u"Dbul", D);
+    QVERIFY(!grt::completeTail(prj, 2.0 * D));  // the length was entered: nothing is replaced
+    QCOMPARE(prj.number(u"gtailh"), 7.0);
 
     prj.set(u"gTailDiaB", 0.0);  // a boat tail ending in a point is a missing value
     QVERIFY(grt::completeTail(prj));
@@ -2009,6 +2037,46 @@ void CoreTest::saamiColumnMigration()
     QVERIFY(fresh.open({}, dir.filePath(u"new.db"_s)));
     const QStringList freshCols = fresh.columns(grt::Table::Caliber);
     QCOMPARE(freshCols.indexOf(u"PmaxSAAMI"_s), freshCols.indexOf(u"Pmax"_s) + 1);
+}
+
+// With the physical model active and physical burn values in the load, the fit changes those (the model ignores Ba then) and puts
+// them back into the load; Ba, a0, z1, z2 stay, so the values still apply.
+void CoreTest::powderFitPhysicalValues()
+{
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    grt::writePhysicalBurn(lf->propellant, grt::PhysicalBurn{.Ba = 1.3, .a0 = 0.5, .z1 = 0.3, .z2 = 0.7});
+    grt::setCalibrationProfile(grt::CalibrationProfile::Physical);
+    grt::SimInput truth = grt::SimInput::fromLoad(*lf);
+    QVERIFY(truth.physicalBurn);
+    grt::Measurement m{.title = u"M"_s, .charges = {}, .attributes = {}};
+    for (const double g : {2.4, 2.6, 2.75})
+    {
+        truth.charge_g = g;
+        const grt::SimResult r = grt::simulate(truth);
+        QVERIFY(r.ok());
+        grt::MeasuredCharge c = grt::MeasuredCharge::create(u"c"_s, g);
+        c.shots.push_back({.velocity_ms = r.muzzleVelocity_ms});
+        m.charges.push_back(c);
+    }
+    lf->appendixXml = grt::writeMeasurement(lf->appendixXml, m);
+    grt::writePhysicalBurn(lf->propellant, grt::PhysicalBurn{.Ba = 1.1, .a0 = 0.5, .z1 = 0.3, .z2 = 0.7});  // the start value
+    const double Ba = lf->propellant.number(u"Ba");
+
+    QStringList warnings;
+    const auto samples = grt::powderfit::samples(*lf, u"8x57"_s, &warnings);
+    QVERIFY(grt::powderfit::fitsPhysical(samples));
+    const auto res = grt::powderfit::fit(samples, {.params = {grt::powderfit::Param::Ba}, .pressureWeight = 1.0, .maxIterations = 60});
+    grt::setCalibrationProfile(grt::CalibrationProfile::Original);
+    QVERIFY(res.physical);
+    QVERIFY(res.improved);
+    QCOMPARE_LT(std::abs(res.after[0] / 1.3 - 1.0), 0.003);
+    grt::powderfit::apply(lf->propellant, res);
+    const auto burn = grt::readPhysicalBurn(lf->propellant);
+    QVERIFY(burn);  // still valid: physRef matches
+    QCOMPARE_LT(std::abs(burn->Ba / 1.3 - 1.0), 0.003);
+    QCOMPARE(lf->propellant.number(u"Ba"), Ba);
+    QVERIFY(!grt::powderfit::fitsPhysical(samples));  // the Original model: the load's own values
 }
 
 QTEST_APPLESS_MAIN(CoreTest)

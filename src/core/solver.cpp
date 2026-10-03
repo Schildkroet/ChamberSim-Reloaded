@@ -189,11 +189,12 @@ Calibration g_active;  // the constants of g_profile
 namespace
 {
 // The shotshell model was fitted with the original's constants (published shotgun loads, not rifle loads): it keeps them whatever
-// the profile is. Explicit calibrations (tools) are used as given.
+// the profile is, also with the physical model's constants given explicitly (they belong to other equations). Other explicit
+// calibrations (tools) are used as given.
 const Calibration &effectiveCalibration(const SimInput &in, const Calibration &cal)
 {
     static const Calibration original;
-    return in.shotshell && &cal == &g_active ? original : cal;
+    return in.shotshell && (&cal == &g_active || cal.model == SolverModel::Physical) ? original : cal;
 }
 }  // namespace
 
@@ -515,6 +516,17 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
         h *= grow(err);
     }
 
+    // The bullet waits at the start while the resistance (engraving, friction) is above the pressure force: the curves and the barrel
+    // time begin when it moves (the last sample at rest).
+    std::size_t first = 0;
+    while (first + 1 < samples.size() && samples[first + 1].v <= 0.0) ++first;
+    if (first > 0)
+    {
+        samples.erase(samples.begin(), samples.begin() + static_cast<std::ptrdiff_t>(first));
+        const double t0 = samples.front().t;
+        for (Sample &s : samples) s.t -= t0;
+    }
+
     // ---- equal position steps from the start position to the muzzle ----
     res.points.reserve(static_cast<std::size_t>(steps));
     std::size_t j = 0;
@@ -534,7 +546,9 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
                               .e_J = 0.5 * mp * v * v,
                               .t_ms = lerp(a.t, b.t) * 1e3});
     }
-    summarize(res, in, cal, freeVolume_cm3);
+    SimInput used = in;  // the derived outputs (propellant impulse, recoil) with the Sebert factor of the dynamics
+    if (used.sebert <= 0.0) used.sebert = 0.5;
+    summarize(res, used, cal, freeVolume_cm3);
     res.frictionForce_N = m.slideForce + m.extraForce;
     res.muzzleFrictionEnergy_J = y[4];
     res.heatLoss_J = y[3];
@@ -762,8 +776,9 @@ std::vector<LadderStep> simulateLadder(const SimInput &in, const Calibration &ca
     return out;
 }
 
-std::vector<double> vivacityCurve(const SimInput &in, const Calibration &cal, int n)
+std::vector<double> vivacityCurve(const SimInput &in, const Calibration &calibration, int n)
 {
+    const Calibration &cal = effectiveCalibration(in, calibration);  // a shotshell: the constants its model uses
     std::vector<double> out;
     if (n < 2) return out;
     out.reserve(static_cast<std::size_t>(n));

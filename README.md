@@ -215,7 +215,9 @@ per charge), the better the model fits other loads. One load with few charges on
 5. **Fit the model.** Click *Fit to measurements…*. Check which values to fit (the default depends on the data: Ba alone for fewer than 3 measured
    charges, Ba and a0 for 3 to 5, all four values for 6 or more charges from at least 2 load files) and click *Fit*. The dialog shows the velocity and
    pressure of each charge before and after the fit. Read the warnings, for example when the case volume is only the
-   database value or when there are fewer charges than values.
+   database value or when there are fewer charges than values. With the physical model (the default) and a project powder, the fit
+   changes the load's physical burn values (*Physical Model: ...* in the propellant table) and keeps them in the load; *Save as own
+   propellant…* is then not offered.
 6. **Check the result.** The differences after the fit should be small (less than approximately 2 % in velocity).
    If they are not, check the measurements, the case volume and the bullet and powder data.
 7. **Save the model.** Click *Save as own propellant…* in the dialog. The program makes a new record
@@ -345,7 +347,9 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
   form function of the others) come from `analysis/calibrate_published.py --profile physical` and
   `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A load stores them in its propellant section (`physBa`,
   `physA0`, `physZ1`, `physZ2`, `physRef` = the record values they belong to); they apply only while Ba, a0, z1, z2 of the load are
-  unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger.
+  unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger. A load saved
+  before these values existed gets them when it is opened. The curves and the barrel time begin when the bullet moves (it waits at
+  the start pressure until the gas overcomes the engraving and friction).
   Held-out cartridges (fitted on the other 3/4), the 59 Hodgdon and Western powders: velocity 5.9 % rms (median 2.5 %), peak pressure 12 % rms (median 6.1 %);
   the Published constants 6.0 % (2.3 %) and 19 % (6.4 %). Rifle powders: velocity 4.2 % (Published 3.6 %), pressure 9.6 % (10.1 %);
   pistol and shotgun powders: velocity 19 % (22 %), pressure 39 % (79 %). Velocity of rifle loads is still a little less accurate than

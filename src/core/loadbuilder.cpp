@@ -187,7 +187,7 @@ void refreshTitleAndLength(LoadFile &lf)
 
 }  // namespace
 
-bool completeTail(EntryList &projectile)
+bool completeTail(EntryList &projectile, double previousDiameter)
 {
     const int type = toIntClamped(projectile.number(u"gTailType"), 0, 2);
     const double D = projectile.number(u"Dbul");
@@ -198,6 +198,20 @@ bool completeTail(EntryList &projectile)
     };
     const Shape s = type == 2 ? Shape{0.53, 1.0, 0.835} : Shape{0.055, 0.86, 0.29};
     bool changed = false;
+    // still the estimates for the previous diameter: estimate them for the new one
+    const auto isEstimate = [&](QStringView key, double factor)
+    {
+        const double v = projectile.number(key);
+        return v > 0.0 && std::abs(v - factor * previousDiameter) <= 1e-6 * std::max(1.0, v);
+    };
+    if (previousDiameter > 0.0 && previousDiameter != D && isEstimate(u"gtailh", s.length) && isEstimate(u"gTailDiaA", s.diaA) &&
+        isEstimate(u"gTailDiaB", s.diaB))
+    {
+        projectile.set(u"gtailh", fmt(s.length * D));
+        projectile.set(u"gTailDiaA", fmt(s.diaA * D));
+        projectile.set(u"gTailDiaB", fmt(s.diaB * D));
+        changed = true;
+    }
     const auto fillIfMissing = [&](QStringView key, double factor)
     {
         if (projectile.number(key) > 0.0) return;

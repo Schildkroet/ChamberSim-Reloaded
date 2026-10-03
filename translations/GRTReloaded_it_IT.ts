@@ -237,30 +237,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+148"/>
-        <location line="+727"/>
+        <location filename="../src/app/loadview.cpp" line="+149"/>
+        <location line="+738"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-727"/>
-        <location line="+728"/>
+        <location line="-738"/>
+        <location line="+739"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-728"/>
+        <location line="-739"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+729"/>
+        <location line="+740"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-728"/>
+        <location line="-739"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -347,18 +347,18 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+163"/>
+        <location line="+165"/>
         <source>Projectile</source>
         <translation>Proiettile</translation>
     </message>
     <message>
-        <location line="-163"/>
-        <location line="+164"/>
+        <location line="-165"/>
+        <location line="+166"/>
         <source>Propellant</source>
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="-163"/>
+        <location line="-165"/>
         <source>Select Caliber…</source>
         <translation>Scegli il calibro…</translation>
     </message>
@@ -374,12 +374,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+180"/>
+        <location line="+182"/>
         <source>No database available</source>
         <translation>Nessuna banca dati disponibile</translation>
     </message>
     <message>
-        <location line="-164"/>
+        <location line="-166"/>
         <source>Cartridge</source>
         <translation>Cartuccia</translation>
     </message>
@@ -400,17 +400,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+498"/>
+        <location line="+507"/>
         <source>Measurements</source>
         <translation>Misure</translation>
     </message>
     <message>
-        <location line="-497"/>
+        <location line="-506"/>
         <source>Report</source>
         <translation>Rapporto</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+117"/>
         <source>Caliber / cartridge</source>
         <translation>Calibro / cartuccia</translation>
     </message>
@@ -470,7 +470,7 @@
         <translation>Non è stato possibile leggere il record dalla banca dati.</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+70"/>
         <source>Fit to measurements</source>
         <translation>Adatta alle misure</translation>
     </message>
@@ -480,7 +480,12 @@
         <translation>Inserisci prima la velocità misurata dei colpi.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+6"/>
+        <source>The physical model is active: the fit changes the physical burn values of this load (shown as &quot;Physical Model: ...&quot; in the propellant table). They are saved with the load, not as a propellant record.</source>
+        <translation>Il modello fisico è attivo: l&apos;adattamento modifica i valori di combustione fisici di questo caricamento («Modello fisico: ...» nella tabella della polvere). Vengono salvati con il caricamento, non come scheda della polvere.</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source> (fitted)</source>
         <translation> (adattata)</translation>
     </message>
@@ -525,7 +530,12 @@
         <translation>&lt;i&gt;Calibrazione sui dati di ricarica pubblicati (Impostazioni &gt; Solutore): scarto tipico di circa 3,5 % in velocità e 10 % nella pressione massima rispetto alle tabelle dei produttori; i risultati differiscono dal programma originale.&lt;/i&gt;</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
+        <source>&lt;i&gt;Physical model (Settings &gt; Solver). Shotshells use their own model with the original program&apos;s constants.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Le cartucce a pallini usano il proprio modello con le costanti del programma originale.&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>&lt;i&gt;Physical model (Settings &gt; Solver) with the physical burn values of this powder, fitted to its published loads.&lt;/i&gt;</source>
         <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore) con i valori di combustione fisici di questa polvere, adattati ai suoi caricamenti pubblicati.&lt;/i&gt;</translation>
     </message>
@@ -1933,7 +1943,7 @@ Esportarlo comunque?</translation>
         <translation>Dimentica le unità scelte per i singoli campi; ogni campo segue di nuovo il sistema di unità</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Solver</source>
         <translation>Solutore</translation>
     </message>

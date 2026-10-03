@@ -36,4 +36,8 @@ void setPhysicalBurnFile(const QString &path);
 void writePhysicalBurn(EntryList &propellant, const std::optional<PhysicalBurn> &burn);
 [[nodiscard]] std::optional<PhysicalBurn> readPhysicalBurn(const EntryList &propellant);
 
+// Adds the physical values to a load that has none that apply (saved before they existed) when its powder is a project powder with
+// unchanged values. Returns whether it added them.
+bool attachPhysicalBurn(EntryList &propellant);
+
 }  // namespace grt
