@@ -2,11 +2,13 @@
 #include "log.h"
 
 #include <QApplication>
+#include <QPainter>
 #include <QPalette>
 #include <QProxyStyle>
 #include <QSettings>
 #include <QStyle>
 #include <QStyleFactory>
+#include <QStyleOption>
 
 namespace theme
 {
@@ -44,6 +46,9 @@ QPalette darkPalette()
 // Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the
 // Fusion/GTK popup that covers the field and tries to show every item. A long list (e.g. the countries) does not
 // fit on the screen and gets moved; on Wayland the mouse release then lands outside and closes it at once.
+//
+// Check boxes and radio buttons: Fusion draws their frame a little darker than the window, on a dark window an unchecked box is
+// then nearly invisible. With a dark palette the frame is drawn again in a light grey.
 class ListPopupStyle : public QProxyStyle
 {
 public:
@@ -52,6 +57,21 @@ public:
     {
         if (hint == SH_ComboBox_Popup) return 0;
         return QProxyStyle::styleHint(hint, option, widget, ret);
+    }
+    void drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const override
+    {
+        QProxyStyle::drawPrimitive(element, option, painter, widget);
+        const bool box = element == PE_IndicatorCheckBox, radio = element == PE_IndicatorRadioButton;
+        if ((!box && !radio) || option->palette.color(QPalette::Window).lightness() >= 128) return;
+        painter->save();
+        painter->setRenderHint(QPainter::Antialiasing, radio);
+        const bool enabled = option->state & State_Enabled;
+        painter->setPen(QPen(enabled ? QColor(0x9a, 0xa4, 0xb0) : QColor(0x5a, 0x62, 0x6c), 1.0));
+        painter->setBrush(Qt::NoBrush);
+        const QRectF r = QRectF(option->rect).adjusted(0.5, 0.5, -0.5, -0.5);
+        if (radio) painter->drawEllipse(r.adjusted(0.5, 0.5, -0.5, -0.5));
+        else painter->drawRect(r);
+        painter->restore();
     }
 };
 

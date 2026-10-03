@@ -31,6 +31,9 @@
 #include <QProxyStyle>
 #include <QStyleOptionComboBox>
 #include <QTimer>
+#include <QRadioButton>
+#include <QVBoxLayout>
+#include <QStyleOptionButton>
 #include <QtTest>
 
 #include "about.h"
@@ -126,6 +129,7 @@ private slots:
     void recordDialogDatesAndWidth();
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void disclaimerAtStartup();
+    void checkBoxesVisibleInDarkMode();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
@@ -1832,7 +1836,9 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
 void GuiTest::comboBoxesOpenAsAScrollingList()
 {
     auto &app = *qobject_cast<QApplication *>(QCoreApplication::instance());
-    const QString before = app.style()->name();
+    // the system style (another test may already have applied a theme: then it is the base of the program's proxy style)
+    const auto *installed = qobject_cast<QProxyStyle *>(app.style());
+    const QString before = installed ? installed->baseStyle()->name() : app.style()->name();
     for (const theme::Mode mode : {theme::Mode::System, theme::Mode::Light, theme::Mode::Dark})
     {
         theme::apply(app, mode);
@@ -1983,6 +1989,34 @@ void GuiTest::disclaimerAtStartup()
     QVERIFY(!disclaimer::wanted());
     QVERIFY(disclaimer::confirm());  // hidden: confirmed without a dialog
     QSettings().remove(u"ui/hideDisclaimer"_s);
+}
+
+// Dark theme: the frame of an unchecked check box stands out from the window (Fusion alone draws it nearly black on dark grey).
+void GuiTest::checkBoxesVisibleInDarkMode()
+{
+    theme::apply(*qApp, theme::Mode::Dark);
+    QWidget w;
+    auto *layout = new QVBoxLayout(&w);
+    auto *box = new QCheckBox(u"Unchecked"_s);
+    layout->addWidget(box);
+    layout->addWidget(new QRadioButton(u"Radio"_s));
+    auto *checked = new QCheckBox(u"Checked"_s);
+    checked->setChecked(true);
+    layout->addWidget(checked);
+    w.resize(200, 100);
+    w.show();
+    QApplication::processEvents();
+    const QImage img = w.grab().toImage();
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/darkcheckbox.png"_s);
+    QStyleOptionButton opt;
+    opt.initFrom(box);
+    const QRect r = box->style()->subElementRect(QStyle::SE_CheckBoxIndicator, &opt, box).translated(box->pos());
+    const int window = w.palette().color(QPalette::Window).lightness();
+    int brightest = 0;  // the frame: the lightest pixel on the indicator's left edge
+    for (int y = r.top() + 2; y < r.bottom() - 1; ++y)
+        for (int x = r.left(); x <= r.left() + 1; ++x) brightest = std::max(brightest, img.pixelColor(x, y).lightness());
+    theme::apply(*qApp, theme::Mode::System);
+    QVERIFY2(brightest - window > 60, qPrintable(u"frame %1, window %2"_s.arg(brightest).arg(window)));
 }
 
 void GuiTest::fitToMeasurementsChangesThePowder()
