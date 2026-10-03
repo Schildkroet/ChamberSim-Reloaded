@@ -237,30 +237,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+147"/>
-        <location line="+687"/>
+        <location filename="../src/app/loadview.cpp" line="+148"/>
+        <location line="+691"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-687"/>
-        <location line="+688"/>
+        <location line="-691"/>
+        <location line="+692"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-688"/>
+        <location line="-692"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+689"/>
+        <location line="+693"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-688"/>
+        <location line="-692"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -342,18 +342,18 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+162"/>
+        <location line="+163"/>
         <source>Projectile</source>
         <translation>Proiettile</translation>
     </message>
     <message>
-        <location line="-162"/>
-        <location line="+163"/>
+        <location line="-163"/>
+        <location line="+164"/>
         <source>Propellant</source>
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="-162"/>
+        <location line="-163"/>
         <source>Select Caliber…</source>
         <translation>Scegli il calibro…</translation>
     </message>
@@ -369,12 +369,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+179"/>
+        <location line="+180"/>
         <source>No database available</source>
         <translation>Nessuna banca dati disponibile</translation>
     </message>
     <message>
-        <location line="-163"/>
+        <location line="-164"/>
         <source>Cartridge</source>
         <translation>Cartuccia</translation>
     </message>
@@ -395,17 +395,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+483"/>
+        <location line="+484"/>
         <source>Measurements</source>
         <translation>Misure</translation>
     </message>
     <message>
-        <location line="-482"/>
+        <location line="-483"/>
         <source>Report</source>
         <translation>Rapporto</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+115"/>
         <source>Caliber / cartridge</source>
         <translation>Calibro / cartuccia</translation>
     </message>
@@ -505,12 +505,17 @@
         <translation>&lt;b&gt;Dati non validi:&lt;/b&gt; la simulazione non può funzionare con questi valori.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>&lt;i&gt;Calibrated against runs of the original program and checked against published load data: typical deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual loads can deviate more.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+3"/>
+        <source>&lt;i&gt;Calibration to published load data (Settings &gt; Solver): typical deviation about 3.5 % in velocity and 10 % in peak pressure against the manufacturers&apos; tables; results differ from the original program.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Calibrazione sui dati di ricarica pubblicati (Impostazioni &gt; Solutore): scarto tipico di circa 3,5 % in velocità e 10 % nella pressione massima rispetto alle tabelle dei produttori; i risultati differiscono dal programma originale.&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1843,7 +1848,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
         <source>Write to the console (stderr)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1901,6 +1906,16 @@ Esportarlo comunque?</translation>
         <location line="+1"/>
         <source>Forget the units chosen for single fields; every field follows the unit system again</source>
         <translation>Dimentica le unità scelte per i singoli campi; ogni campo segue di nuovo il sistema di unità</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Solver</source>
+        <translation>Solutore</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Calibration:</source>
+        <translation>Calibrazione:</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1968,9 +1983,32 @@ Esportarlo comunque?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation>&lt;small&gt;%1&lt;br&gt;I nuovi record sono salvati nella banca dati propria del programma:&lt;br&gt;%2&lt;/small&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>SolverPreferences</name>
+    <message>
+        <location filename="../src/app/solverprefs.cpp" line="+34"/>
+        <source>Original program (GRT)</source>
+        <translation>Programma originale (GRT)</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Published load data</source>
+        <translation>Dati di ricarica pubblicati</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Constants fitted to runs of Gordon&apos;s Reloading Tool: results like the original program (velocity about 1 %, peak pressure about 3 % off).</source>
+        <translation>Costanti adattate a calcoli di Gordon&apos;s Reloading Tool: risultati come il programma originale (velocità circa 1 %, pressione massima circa 3 % di scarto).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Constants fitted to the loads and measured pressures published by the powder manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.</source>
+        <translation>Costanti adattate alle cariche e alle pressioni misurate pubblicate dai produttori di polvere (Hodgdon, Western Powders): più vicino alle pressioni misurate, ma non più al programma originale.</translation>
     </message>
 </context>
 <context>

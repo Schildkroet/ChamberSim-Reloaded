@@ -125,6 +125,8 @@ add_library(grtui STATIC
     src/app/recorddialog.cpp
     src/app/powderfitdialog.h
     src/app/powderfitdialog.cpp
+    src/app/solverprefs.h
+    src/app/solverprefs.cpp
     src/app/burnratedialog.h
     src/app/burnratedialog.cpp
     src/app/selectrecorddialog.h

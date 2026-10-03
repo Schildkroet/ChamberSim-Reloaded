@@ -314,6 +314,20 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
 `~/.config/GRTReloaded/GRTReloaded.conf`, on Windows in the registry under
 `HKEY_CURRENT_USER\Software\GRTReloaded\GRTReloaded`.
 
+### Solver calibration
+
+*File ▸ Settings ▸ Solver ▸ Calibration* chooses the constants of the solver (`--calibration original|published` for one run):
+
+- **Original program (GRT)**, the default: constants fitted to runs of Gordon's Reloading Tool. Results like the original (the accuracy
+  table above is for this choice).
+- **Published load data**: constants fitted to the loads and measured pressures of the Hodgdon Reloading Manual and the Western Powders
+  Handloading Guide (22 powders, the burn rates of the records unchanged). Against the published tables of held-out cartridges and of
+  other powders it is off by about 3.5 % in velocity and 10 % in peak pressure (the original's constants: 4.5 % and 16 %), but its results
+  differ from the original program (against its reference runs 27 % in peak pressure). Shotshells always keep the original's constants.
+  Method and numbers: `tools/loaddata/README.md`, `analysis/calibrate_published.py`.
+
+Changing the setting recalculates every open load.
+
 ### Logging
 
 *File ▸ Settings ▸ Logging* sets the log level (Debug, Info, Warning, Error or Off), whether the messages go to

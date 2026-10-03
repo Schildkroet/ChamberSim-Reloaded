@@ -117,3 +117,18 @@ accuracy against the original program (349 runs; current: mean |pmax| 2.81 %, |v
 The published pressures are fitted much better (and it generalises to other cartridges and powders), but with constants that are unphysical
 (negative density factors, kinetic factor 1.9, capacity factor 0.26) and that no longer reproduce the original program. The original's model
 differs from measured pressures by about 17 % rms on these loads; the solver follows the original, not the measurements.
+
+### The "Published load data" profile (Settings > Solver)
+
+A second fit keeps the records' burn rates (as a user's load would use them, no refit per powder) and fits `burnRateScale` and eleven constants
+within limits (22 powders: Accurate 2230 / 2460 / 2520 / 2700 / 4064 / 4350 / Magpro, Ramshot Big Game / Hunter / Magnum / TAC, Hodgdon H1000 / H4350 /
+H4831 / H4895 / Hybrid 100V / Varget, IMR 3031 / 4350 / 4895 / 7828, W760; 5449 loads). Tested on the held-out cartridges and on 9 other powders
+(Accurate 2015, LT-30, Hodgdon H335, Retumbo, IMR 4064, 4831, 8208 XBR, StaBALL Match, Ramshot X-Terminator) with the records' burn rates:
+
+| Constants | Pressure error (trained powders, held-out cartridges, other powders) | Velocity error (same) | grt_compare mean pmax / vmuz |
+|---|---|---|---|
+| original | 17.2 / 15.9 / 15.9 % | 4.0 / 4.5 / 4.6 % | 2.8 / 0.8 % |
+| published (in the program) | 9.4 / 10.1 / 10.2 % | 3.4 / 3.5 / 3.4 % | 27 / 4.8 % |
+
+Several constants sit at their limits (kinetic factor 1.5, intrusion 0.3, initial gas 1.2) and the covolume and solid-volume terms go to zero: the
+profile is empirical. `calibrationFor(CalibrationProfile::Published)` in `src/core/solver.cpp` holds the values.

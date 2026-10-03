@@ -22,6 +22,8 @@ ap.add_argument("--free", default="impetusFactor,kineticFactor,covolume_cm3g,cov
 ap.add_argument("--test-powders", default="IMR 4350,Hodgdon Varget,Hodgdon H4831,Winchester W760,IMR 4064,Accurate 2520,IMR 4831,Hodgdon H4895")
 ap.add_argument("--pressure-weight", type=float, default=1.0)
 ap.add_argument("--bound-frac", type=float, default=0.0, help="keep the constants within +-this fraction of the current values (0: unbounded)")
+ap.add_argument("--bounds", default="", help="name=lo:hi,... explicit limits of constants")
+ap.add_argument("--fixed-ba", action="store_true", help="keep the burn rates of the records (add burnRateScale to --free); nothing is refitted per powder")
 ap.add_argument("--out", default="calibrated_published.json")
 args = ap.parse_args()
 POOL = ThreadPoolExecutor(os.cpu_count())
@@ -108,14 +110,17 @@ def fit_ba(setname, powders, cal, start):
     return {p.lower(): float(v) for p, v in zip(powders, sol.x)}
 
 # ---- baseline: the current calibration, Ba fitted
-print("baseline: fitting Ba under the current calibration ...", flush=True)
-base_ba = fit_ba("train", train_p, current, ba0)
+if args.fixed_ba:
+    base_ba = {}  # the records' burn rates are used as they are
+else:
+    print("baseline: fitting Ba under the current calibration ...", flush=True)
+    base_ba = fit_ba("train", train_p, current, ba0)
 # ---- joint fit: shared constants and the Ba of the training powders
-x0 = np.array([current[n] for n in free] + [base_ba[p.lower()] for p in train_p])
+x0 = np.array([current[n] for n in free] + ([] if args.fixed_ba else [base_ba[p.lower()] for p in train_p]))
 scale = np.maximum(np.abs(x0), 0.05)
 calls = 0
 def unpack(x):
-    cal = dict(zip(free, x[:len(free)])); ba = {p.lower(): v for p, v in zip(train_p, x[len(free):])}
+    cal = dict(zip(free, x[:len(free)])); ba = {} if args.fixed_ba else {p.lower(): v for p, v in zip(train_p, x[len(free):])}
     return {**current, **cal}, ba
 def fun(x):
     global calls; calls += 1
@@ -131,7 +136,9 @@ if args.bound_frac > 0:
     for i, n in enumerate(free):
         a, b = current[n] * (1 - args.bound_frac), current[n] * (1 + args.bound_frac)
         lo[i], hi[i] = (min(a, b), max(a, b)) if current[n] != 0 else (-args.bound_frac, args.bound_frac)
-lo[len(free):], hi[len(free):] = 0.05, 20
+for item in filter(None, args.bounds.split(",")):
+    n, r = item.split("="); a, b = r.split(":"); i = free.index(n); lo[i], hi[i] = float(a), float(b)
+lo[len(free):], hi[len(free):] = 0.05, 20  # (nothing left with --fixed-ba)
 sol = least_squares(fun, np.clip(x0, lo + 1e-9, hi - 1e-9), jac=jac, method="trf", x_scale=scale, loss="soft_l1", f_scale=0.1, max_nfev=12, bounds=(lo, hi))
 new_cal, new_ba = unpack(sol.x)
 json.dump({"calibration": {n: new_cal[n] for n in free}, "ba": new_ba}, open(args.out, "w"), indent=1)
@@ -143,7 +150,7 @@ def report(title, cal, ba):
     s = {k: stats(k, cal, ba) for k in ("train", "testA")}
     print("   training powders, training cartridges : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(s["train"].values()))
     print("   training powders, held-out cartridges : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(s["testA"].values()))
-    bb = fit_ba("B_fit", test_p, cal, {p.lower(): records[p.lower()] for p in test_p})
+    bb = {} if args.fixed_ba else fit_ba("B_fit", test_p, cal, {p.lower(): records[p.lower()] for p in test_p})
     sb = stats("B_test", cal, bb)
     print("   other powders (Ba fitted), held-out    : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(sb.values()))
     return s, sb

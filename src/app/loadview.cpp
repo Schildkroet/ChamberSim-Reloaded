@@ -1,6 +1,7 @@
 #include "loadview.h"
 #include "log.h"
 #include "photoview.h"
+#include "solverprefs.h"
 
 #include "cartridgeview.h"
 #include "chamberview.h"
@@ -281,6 +282,7 @@ LoadView::LoadView(QWidget *parent)
                 updateLadderUi();
                 showResult();
             });
+    connect(&SolverPreferences::instance(), &SolverPreferences::changed, this, &LoadView::recompute);
     applyChartUnits();
     m_report->setDataProvider([this] { return reportData(); });
     connect(m_measurements, &MeasurementView::edited, this, &LoadView::storeMeasurement);
@@ -793,9 +795,12 @@ void LoadView::showResult()
         clearAll();
         return;
     }
-    QString status = tr("<i>Calibrated against runs of the original program and checked against published load data: typical "
-                        "deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual "
-                        "loads can deviate more.</i>");
+    QString status = SolverPreferences::instance().profile() == grt::CalibrationProfile::Original
+                         ? tr("<i>Calibrated against runs of the original program and checked against published load data: typical "
+                              "deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual "
+                              "loads can deviate more.</i>")
+                         : tr("<i>Calibration to published load data (Settings > Solver): typical deviation about 3.5 % in velocity and "
+                              "10 % in peak pressure against the manufacturers' tables; results differ from the original program.</i>");
     // shotshells: an own model, fitted to published shotgun loads (not to the original program)
     if (m_input.shotshell)
         status += u"<br>"_s +

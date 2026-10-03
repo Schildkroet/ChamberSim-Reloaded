@@ -56,6 +56,7 @@
 #include "reportview.h"
 #include "selectrecorddialog.h"
 #include "settingsdialog.h"
+#include "solverprefs.h"
 #include "unitprefs.h"
 #include "mainwindow.h"
 #include "newloaddialog.h"
@@ -126,6 +127,7 @@ private slots:
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
+    void solverCalibrationIsChosenInTheSettings();
     void recordDialogShowsReadableFieldsInUserUnits();
     void recordsAreAddedCopiedEditedAndDeleted();
     void comboBoxesOpenAsAScrollingList();
@@ -192,6 +194,26 @@ void GuiTest::burnRateTableSortsAndFilters()
     for (int i = 0; i < dialog.rowCount(); ++i) QVERIFY(dialog.powderAt(i).startsWith(u"Vihtavuori"_s));
     dialog.setSearch(u"no such powder"_s);
     QCOMPARE(dialog.rowCount(), 0);
+}
+
+void GuiTest::solverCalibrationIsChosenInTheSettings()
+{
+    auto &prefs = SolverPreferences::instance();
+    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Original);  // the default: like the original program
+    SettingsDialog dlg;
+    QComboBox *calibration = nullptr;
+    for (auto *c : dlg.findChildren<QComboBox *>())
+        if (c->findText(SolverPreferences::name(grt::CalibrationProfile::Published)) >= 0) calibration = c;
+    QVERIFY(calibration);
+    QSignalSpy changed(&prefs, &SolverPreferences::changed);
+    calibration->setCurrentIndex(calibration->findText(SolverPreferences::name(grt::CalibrationProfile::Published)));
+    dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
+    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Published);
+    QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Published);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(QSettings().value(u"solver/calibration"_s).toString(), u"published"_s);
+    prefs.setProfile(grt::CalibrationProfile::Original);  // leave the others as they were
+    QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Original);
 }
 
 void GuiTest::tableBrowserFiltersAndSelects()

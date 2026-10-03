@@ -147,14 +147,14 @@ struct Model
 [[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal) noexcept
 {
     const double dT = in.temperature_C - 21.0;
-    if (dT == 0.0) return in.vivacityBa;
+    const double Ba = in.vivacityBa * cal.burnRateScale;
+    if (dT == 0.0) return Ba;
     // Measured on the original: with both coefficients 0 the built-in defaults apply. Otherwise each side uses its
     // own coefficient, and a side whose coefficient is 0 has NO effect. An explicit coefficient acts on the burn
     // rate linearly in coefficient * |dT| with the sign of the coefficient (a positive tcc raises the rate when
     // cold), and far weaker than the documented Ba(21) - Ba(T) per K would give.
-    if (in.coldCoeff == 0.0 && in.hotCoeff == 0.0)
-        return in.vivacityBa * (1.0 + (dT > 0.0 ? cal.hotCoeffDefault : cal.coldCoeffDefault) * dT);
-    return in.vivacityBa * (1.0 + (dT > 0.0 ? cal.explicitHotScale * in.hotCoeff * dT : cal.explicitColdScale * in.coldCoeff * -dT));
+    if (in.coldCoeff == 0.0 && in.hotCoeff == 0.0) return Ba * (1.0 + (dT > 0.0 ? cal.hotCoeffDefault : cal.coldCoeffDefault) * dT);
+    return Ba * (1.0 + (dT > 0.0 ? cal.explicitHotScale * in.hotCoeff * dT : cal.explicitColdScale * in.coldCoeff * -dT));
 }
 
 }  // namespace
@@ -179,19 +179,38 @@ double bulletIntrusion_m3(const SimInput &in)
     return inside;
 }
 
+namespace
+{
+CalibrationProfile g_profile = CalibrationProfile::Original;
+Calibration g_active;  // the constants of g_profile
+}  // namespace
+
+namespace
+{
+// The shotshell model was fitted with the original's constants (published shotgun loads, not rifle loads): it keeps them whatever
+// the profile is. Explicit calibrations (tools) are used as given.
+const Calibration &effectiveCalibration(const SimInput &in, const Calibration &cal)
+{
+    static const Calibration original;
+    return in.shotshell && &cal == &g_active ? original : cal;
+}
+}  // namespace
+
 // Chamber volume behind the bullet at the start: the case capacity (scaled: the database value is a water capacity,
 // the effective volume is larger), minus the bullet inside the case, plus empirical offsets (one of them a length
 // of bore behind the bullet base). A bullet jump adds the bore volume of the free run: measured on the original
 // (batch 10), this reproduces its lower pressure and velocity for jumps of 0.25..4 mm within about 1.5 % of the
 // pressure (the original shows no effect for jumps up to 0.5 mm in a 9 mm Luger, the model does).
-double chamberVolume_m3(const SimInput &in, const Calibration &cal)
+double chamberVolume_m3(const SimInput &in, const Calibration &calibration)
 {
+    const Calibration &cal = effectiveCalibration(in, calibration);
     return cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - cal.intrusionFactor * bulletIntrusion_m3(in) + cal.chamberOffset_cm3 * 1e-6 +
            in.boreArea_mm2 * (cal.chamberOffsetLength_mm + in.bulletJump_mm) * 1e-9;
 }
 
-SimResult simulate(const SimInput &in, const Calibration &cal, int steps)
+SimResult simulate(const SimInput &in, const Calibration &calibration, int steps)
 {
+    const Calibration &cal = effectiveCalibration(in, calibration);
     SimResult res;
     const double x0 = in.startPosition_mm() * 1e-3;
     const double xe = in.barrelLength_mm * 1e-3;
@@ -453,9 +472,50 @@ std::vector<double> vivacityCurve(const SimInput &in, const Calibration &cal, in
     return out;
 }
 
+Calibration calibrationFor(CalibrationProfile profile)
+{
+    Calibration cal;  // the member defaults are the original's calibration
+    if (profile == CalibrationProfile::Published)
+    {
+        // fitted to the published rifle and handgun loads of Hodgdon and Western Powders (analysis/calibrate_published.py, burn rates of the
+        // records kept): trained on 22 powders, 3/4 of the cartridges; on the held-out cartridges and on other powders velocity 3.4-3.5 %
+        // and peak pressure 10 % rms off (the original's constants: 4.5 % and 16 %). Some constants sit at the limits of the fit.
+        cal.burnRateScale = 1.13597;
+        cal.impetusFactor = 1.02996;
+        cal.kineticFactor = 1.5;
+        cal.covolume_cm3g = 0.000348165;
+        cal.covolumeDensityFactor = 0.0545449;
+        cal.solidDensityFactor = 9.93145e-05;
+        cal.intrusionFactor = 0.3;
+        cal.capacityFactor = 0.740647;
+        cal.chamberOffsetLength_mm = 0.552238;
+        cal.burnIntercept = 1.28131;
+        cal.burnExponent = -0.00676818;
+        cal.initialGasFactor = 1.19872;
+    }
+    return cal;
+}
+
+void setCalibrationProfile(CalibrationProfile profile)
+{
+    g_profile = profile;
+    g_active = calibrationFor(profile);
+}
+
+CalibrationProfile calibrationProfile() noexcept
+{
+    return g_profile;
+}
+
+const Calibration &activeCalibration() noexcept
+{
+    return g_active;
+}
+
 std::vector<NamedParameter> parameters(Calibration &cal)
 {
-    return {{"impetusFactor", &cal.impetusFactor},
+    return {{"burnRateScale", &cal.burnRateScale},
+            {"impetusFactor", &cal.impetusFactor},
             {"kineticFactor", &cal.kineticFactor},
             {"covolume_cm3g", &cal.covolume_cm3g},
             {"covolumeDensityFactor", &cal.covolumeDensityFactor},

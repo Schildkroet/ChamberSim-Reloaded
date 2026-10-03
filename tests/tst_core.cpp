@@ -55,6 +55,7 @@ private slots:
     void databaseImages();
     void ownRecordsKeepTheirPhotos();
     void burnFactorsFollowTheModel();
+    void calibrationProfiles();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -431,6 +432,35 @@ void CoreTest::burnFactorsFollowTheModel()
     QVERIFY(db.update(grt::Table::Propellant, *id, {{u"Ba"_s, 1.2}}));
     QVERIFY(qAbs(db.record(grt::Table::Propellant, *id)->value(u"Br"_s).toDouble() / br - 2.0) < 1e-9);
     grt::Database::setProjectDataLocation(u":/data"_s);
+}
+
+// The solver's default calibration is the original's; the published-data profile changes the results (and only when it is selected),
+// shotshells keep the original's constants.
+void CoreTest::calibrationProfiles()
+{
+    QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Original);
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const grt::SimInput in = grt::SimInput::fromLoad(*lf);
+    const grt::SimResult original = grt::simulate(in);
+    QVERIFY(original.ok());
+    QCOMPARE(grt::simulate(in, grt::calibrationFor(grt::CalibrationProfile::Original)).maxPressure_bar, original.maxPressure_bar);
+
+    const grt::SimResult published = grt::simulate(in, grt::calibrationFor(grt::CalibrationProfile::Published));
+    QVERIFY(published.ok());
+    QVERIFY(qAbs(published.maxPressure_bar / original.maxPressure_bar - 1.0) > 0.01);  // really another calibration
+
+    grt::setCalibrationProfile(grt::CalibrationProfile::Published);  // the default of simulate() follows the selection
+    QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Published);
+    QCOMPARE(grt::simulate(in).maxPressure_bar, published.maxPressure_bar);
+    grt::SimInput shot = in;  // a shotshell keeps the original's constants
+    shot.shotshell = true;
+    grt::setCalibrationProfile(grt::CalibrationProfile::Original);
+    const double shotOriginal = grt::simulate(shot).maxPressure_bar;
+    grt::setCalibrationProfile(grt::CalibrationProfile::Published);
+    QCOMPARE(grt::simulate(shot).maxPressure_bar, shotOriginal);
+    grt::setCalibrationProfile(grt::CalibrationProfile::Original);
+    QCOMPARE(grt::simulate(in).maxPressure_bar, original.maxPressure_bar);
 }
 
 // The original's Ba*phi(z) curve has no jumps (documentation, "Form functions"): the three phases join at z1 and z2

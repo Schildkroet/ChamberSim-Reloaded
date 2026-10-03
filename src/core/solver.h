@@ -87,6 +87,8 @@ inline constexpr int kMaxLadderSteps = 10;
 // how well the current values fit. Names with a unit suffix are in that unit; the others are factors.
 struct Calibration
 {
+    // ---- burn rate ----
+    double burnRateScale{1.0};  // scales the powder's Ba (the records' Ba values belong to one calibration; see CalibrationProfile)
     // ---- gas and energy ----
     double impetusFactor{1.01455};  // scales f = (k-1)*Qex
     double kineticFactor{1.00787};  // scales the kinetic-energy term in the energy balance
@@ -154,6 +156,22 @@ struct Calibration
     std::array<double, 3> phase3{-0.103524, -0.0695024, 0.00958064};
 };
 
+// Which constants the solver uses.
+//   Original:  fitted to runs of the original program (analysis/calibrate.py); reproduces its results (README accuracy table).
+//   Published: fitted to the manufacturers' published load data (analysis/calibrate_published.py: velocities and measured pressures
+//              of the loads of Hodgdon, Western Powders, ...); closer to measured pressures, but no longer to the original program.
+enum class CalibrationProfile
+{
+    Original,
+    Published
+};
+[[nodiscard]] Calibration calibrationFor(CalibrationProfile profile);
+// The profile every simulation without an explicit Calibration uses (Original unless a program sets another one at start-up
+// or when the user changes the setting; not meant to be changed while simulations are running).
+void setCalibrationProfile(CalibrationProfile profile);
+[[nodiscard]] CalibrationProfile calibrationProfile() noexcept;
+[[nodiscard]] const Calibration &activeCalibration() noexcept;
+
 // Named access to every tunable constant (for calibration tools and tests).
 struct NamedParameter
 {
@@ -165,10 +183,10 @@ struct NamedParameter
 // Runs the simulation over `steps` equal position steps from the start position to the muzzle. The result is not
 // ok() for invalid input (non-finite or non-positive values) or a charge that does not fit into the case (the
 // original's limit: 1.2 x bulk density in the volume left by the bullet).
-[[nodiscard]] SimResult simulate(const SimInput &in, const Calibration &cal = {}, int steps = 2000);
+[[nodiscard]] SimResult simulate(const SimInput &in, const Calibration &cal = activeCalibration(), int steps = 2000);
 
 // Burn-rate coefficient Ba * phi(z) for n values of z in [0, 1] (the "vivacity" curve).
-[[nodiscard]] std::vector<double> vivacityCurve(const SimInput &in, const Calibration &cal = {}, int n = 101);
+[[nodiscard]] std::vector<double> vivacityCurve(const SimInput &in, const Calibration &cal = activeCalibration(), int n = 101);
 
 // Volume of the bullet's part inside the case [m^3] (cylinder minus the boat-tail frustum).
 [[nodiscard]] double bulletIntrusion_m3(const SimInput &in);
@@ -178,6 +196,6 @@ struct NamedParameter
 [[nodiscard]] std::vector<LadderStep> simulateLadder(const SimInput &in, const Calibration &cal = {}, int steps = 2000);
 
 // Chamber volume at the start (case volume minus the part of the bullet inside the case) [m^3].
-[[nodiscard]] double chamberVolume_m3(const SimInput &in, const Calibration &cal = {});
+[[nodiscard]] double chamberVolume_m3(const SimInput &in, const Calibration &cal = activeCalibration());
 
 }  // namespace grt

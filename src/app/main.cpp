@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "solverprefs.h"
 #include "appfont.h"
 #include "log.h"
 #include "theme.h"
@@ -44,10 +45,13 @@ int main(int argc, char *argv[])
                                       QStringLiteral("mode"));
     const QCommandLineOption unitsOpt(QStringLiteral("units"), QStringLiteral("unit system: metric, imperial or original (saved)"),
                                       QStringLiteral("system"));
+    const QCommandLineOption calibrationOpt(
+        QStringLiteral("calibration"), QStringLiteral("solver calibration for this run: original or published (overrides the settings)"),
+        QStringLiteral("profile"));
     const QCommandLineOption logOpt(QStringLiteral("log-level"),
                                     QStringLiteral("log level for this run: debug, info, warning, error or off (overrides the settings)"),
                                     QStringLiteral("level"));
-    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, inputTabOpt, langOpt, themeOpt, unitsOpt, logOpt});
+    cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, inputTabOpt, langOpt, themeOpt, unitsOpt, calibrationOpt, logOpt});
     cli.process(a);
     grt::log::Config logConfig = grt::log::storedConfig();
     if (cli.isSet(logOpt))
@@ -67,6 +71,9 @@ int main(int argc, char *argv[])
                                               : u == QLatin1String("imperial") ? grt::units::System::Imperial
                                                                                : grt::units::System::Original);
     }
+    if (cli.isSet(calibrationOpt))
+        if (const auto profile = SolverPreferences::fromKey(cli.value(calibrationOpt)))
+            SolverPreferences::instance().setProfile(*profile, false);
     MainWindow w;
     if (cli.isSet(dbOpt)) w.openDatabase(cli.value(dbOpt));
     const QStringList loads = cli.positionalArguments();

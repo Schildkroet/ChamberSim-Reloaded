@@ -1,4 +1,5 @@
 #include "settingsdialog.h"
+#include "solverprefs.h"
 
 #include "appfont.h"
 #include "database.h"
@@ -30,6 +31,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     , m_titleBar(new QCheckBox)
     , m_originalTitleBar(TitleBar::stored())
     , m_unitSystem(new QComboBox)
+    , m_calibration(new QComboBox)
+    , m_calibrationInfo(new QLabel)
     , m_logLevel(new QComboBox)
     , m_logConsole(new QCheckBox(tr("Write to the console (stderr)")))
     , m_logFile(new QCheckBox(tr("Write to the log file")))
@@ -82,6 +85,27 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     unitGrid->addWidget(systemLabel, 0, 0);
     unitGrid->addWidget(m_unitSystem, 0, 1);
     unitGrid->addWidget(resetUnits, 0, 2);
+
+    // the calibration of the solver: the original program's or the one fitted to published load data
+    for (const grt::CalibrationProfile profile : {grt::CalibrationProfile::Original, grt::CalibrationProfile::Published})
+        m_calibration->addItem(SolverPreferences::name(profile), static_cast<int>(profile));
+    m_calibration->setCurrentIndex(std::max(0, m_calibration->findData(static_cast<int>(SolverPreferences::instance().profile()))));
+    m_calibration->setMinimumWidth(110);
+    m_calibrationInfo->setWordWrap(true);
+    m_calibrationInfo->setForegroundRole(QPalette::PlaceholderText);
+    const auto showCalibrationInfo = [this] {
+        m_calibrationInfo->setText(
+            SolverPreferences::description(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt())));
+    };
+    connect(m_calibration, &QComboBox::currentIndexChanged, this, showCalibrationInfo);
+    showCalibrationInfo();
+    auto *solver = new QGroupBox(tr("Solver"));
+    auto *solverGrid = makeForm(solver);
+    auto *calibrationLabel = new QLabel(tr("Calibration:"));
+    calibrationLabel->setBuddy(m_calibration);
+    solverGrid->addWidget(calibrationLabel, 0, 0);
+    solverGrid->addWidget(m_calibration, 0, 1, 1, 2);
+    solverGrid->addWidget(m_calibrationInfo, 1, 1, 1, 2);
 
     auto *database = new QGroupBox(tr("Database"));
     auto *databaseGrid = makeForm(database);
@@ -145,15 +169,17 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_fontSize->setMinimumWidth(110);
     m_unitSystem->setMinimumWidth(110);
     m_fontSize->setAlignment(Qt::AlignRight);
-    const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
-                                     titleBarLabel->sizeHint().width(), logLabel->sizeHint().width()}) +
-                           36;
+    const int labelWidth =
+        std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
+                  titleBarLabel->sizeHint().width(), logLabel->sizeHint().width(), calibrationLabel->sizeHint().width()}) +
+        36;
     // 48 px from the labels to the fields (the grid's 12 px plus this margin)
-    for (QLabel *l : {fontLabel, titleBarLabel, systemLabel, databaseLabel, logLabel}) l->setContentsMargins(0, 0, 36, 0);
+    for (QLabel *l : {fontLabel, titleBarLabel, systemLabel, calibrationLabel, databaseLabel, logLabel}) l->setContentsMargins(0, 0, 36, 0);
     fontLabel->setMinimumWidth(labelWidth);
     systemLabel->setMinimumWidth(labelWidth);
     databaseLabel->setMinimumWidth(labelWidth);
     logLabel->setMinimumWidth(labelWidth);
+    calibrationLabel->setMinimumWidth(labelWidth);
 
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
     connect(buttons->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &SettingsDialog::apply);
@@ -183,6 +209,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     layout->setSpacing(12);
     layout->addWidget(appearance);
     layout->addWidget(units);
+    layout->addWidget(solver);
     layout->addWidget(database);
     layout->addWidget(logging);
     layout->addStretch(1);
@@ -227,6 +254,7 @@ void SettingsDialog::apply()
     appfont::storeSize(applied);
     m_fontSize->setValue(applied);
     UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_unitSystem->currentData().toInt()));
+    SolverPreferences::instance().setProfile(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt()));
     if (m_titleBar->isChecked() != TitleBar::stored())
     {
         TitleBar::store(m_titleBar->isChecked());

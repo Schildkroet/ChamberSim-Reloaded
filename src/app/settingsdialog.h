@@ -37,6 +37,8 @@ private:
     QCheckBox *m_titleBar;
     bool m_originalTitleBar;
     QComboBox *m_unitSystem;
+    QComboBox *m_calibration;
+    QLabel *m_calibrationInfo;
     QComboBox *m_logLevel;
     QCheckBox *m_logConsole;
     QCheckBox *m_logFile;
