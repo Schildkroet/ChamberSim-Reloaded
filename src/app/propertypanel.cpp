@@ -276,6 +276,24 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
     refreshValues();
 }
 
+void PropertyPanel::syncValues()
+{
+    m_rebuilding = true;
+    for (int r = 0; r < m_table->rowCount(); ++r)
+    {
+        QTableWidgetItem *val = m_table->item(r, 1);
+        if (!val || !val->data(SectionRole).isValid()) continue;
+        const int id = val->data(SectionRole).toInt();
+        const QString key = val->data(KeyRole).toString();
+        for (const Section &s : m_sections)
+            if (s.id == id)
+                for (const grt::Entry &e : s.entries->entries())
+                    if (e.name == key) val->setData(BaseRole, e.value);
+    }
+    m_rebuilding = false;
+    refreshValues();
+}
+
 // Shows every value in its field's current unit.
 void PropertyPanel::refreshValues()
 {

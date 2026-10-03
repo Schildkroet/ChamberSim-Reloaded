@@ -30,6 +30,8 @@ public:
     void setSections(const std::vector<Section> &sections);
     // Remembers the widths of the property and value columns under `key` once the user has changed them.
     void rememberColumns(const QString &key);
+    // Shows the values the entries have now (after the program changed some of them, e.g. a derived length).
+    void syncValues();
 
 signals:
     void valueEdited(int sectionId, const QString &key, const QString &text);

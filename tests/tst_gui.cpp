@@ -128,6 +128,7 @@ private slots:
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
     void solverCalibrationIsChosenInTheSettings();
+    void overallLengthAndSeatingDepthStayInStep();
     void recordDialogShowsReadableFieldsInUserUnits();
     void recordsAreAddedCopiedEditedAndDeleted();
     void comboBoxesOpenAsAScrollingList();
@@ -326,6 +327,47 @@ void GuiTest::codedFieldsShowReadableText()
     PropertyPanel panel2;
     panel2.setSections({{0, u"projectile"_s, u"Projectile"_s, &odd}});
     QCOMPARE(tableOf(panel2)->item(rowOf(tableOf(panel2), u"gTailType"_s), 1)->text(), u"type 3"_s);
+}
+
+// The solver uses the seating depth; the cartridge overall length is derived from it, so editing the length must change the depth.
+void GuiTest::overallLengthAndSeatingDepthStayInStep()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm
+    LoadView view;
+    QString error;
+    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    const auto edit = [&](const QString &key, const QString &text)
+    {
+        for (PropertyPanel *panel : view.findChildren<PropertyPanel *>())
+        {
+            QTableWidget *t = tableOf(*panel);
+            if (const int row = rowOf(t, key); row > 0) return t->item(row, 1)->setText(text);
+        }
+        QFAIL("field not found");
+    };
+    const auto saved = [&]
+    {
+        QTemporaryDir dir;
+        const QString path = dir.filePath(u"x.grtload"_s);
+        QString err;
+        if (!view.save(path, &err)) return std::optional<grt::LoadFile>{};
+        return grt::LoadFile::read(path);
+    };
+    auto lf = saved();
+    QVERIFY(lf);
+    QCOMPARE(lf->caliber.number(u"oal"_s), 79.5);
+    QCOMPARE(lf->projectile.number(u"gdepth"_s), 10.4);
+
+    edit(u"oal"_s, u"78.5"_s);  // a shorter cartridge: the bullet sits deeper
+    lf = saved();
+    QVERIFY(lf);
+    QVERIFY(std::abs(lf->projectile.number(u"gdepth"_s) - 11.4) < 1e-6);
+    QCOMPARE(lf->caliber.number(u"oal"_s), 78.5);
+
+    edit(u"gdepth"_s, u"9.4"_s);  // and the other way round
+    lf = saved();
+    QVERIFY(lf);
+    QVERIFY(std::abs(lf->caliber.number(u"oal"_s) - 80.5) < 1e-6);
 }
 
 void GuiTest::panelShowsAndEditsInTheChosenUnit()

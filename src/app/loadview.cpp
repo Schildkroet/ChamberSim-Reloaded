@@ -503,6 +503,14 @@ void LoadView::chooseRecord(Component component)
 void LoadView::onValueEdited(int sectionId, const QString &key, const QString &text)
 {
     section(sectionId).set(key, text);
+    // The cartridge overall length is the case length plus the projectile length minus the seating depth; the solver uses the seating
+    // depth. Editing either of them (or the case or projectile length) keeps the other one in step.
+    grt::EntryList &cal = m_file.caliber, &prj = m_file.projectile;
+    if (sectionId == Caliber && key == u"oal") prj.set(u"gdepth", cal.number(u"caselen") + prj.number(u"glen") - cal.number(u"oal"));
+    else if ((sectionId == Projectile && (key == u"gdepth" || key == u"glen")) || (sectionId == Caliber && key == u"caselen"))
+        cal.set(u"oal", cal.number(u"caselen") + prj.number(u"glen") - prj.number(u"gdepth"));
+    m_cartridgePanel->syncValues();
+    m_projectilePanel->syncValues();
     setModified(true);
     recompute();
 }
