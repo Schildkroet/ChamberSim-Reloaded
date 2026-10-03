@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <numbers>
 #include <span>
 
 using namespace Qt::StringLiterals;
@@ -231,6 +232,22 @@ bool completeTail(EntryList &projectile, double previousDiameter)
     }
     if (changed) LOG_Debug() << "Load: estimated tail dimensions for base type" << type;
     return changed;
+}
+
+bool followCaseLength(EntryList &caliber, EntryList &projectile, double previousLength)
+{
+    const double length = caliber.number(u"caselen");
+    const double delta = length - previousLength;
+    if (previousLength <= 0.0 || length <= 0.0 || delta == 0.0) return false;
+    const double D = projectile.number(u"Dbul");
+    const double area_mm2 = D > 0.0 ? std::numbers::pi / 4.0 * D * D : caliber.number(u"Aeff");
+    const double volume = caliber.number(u"casevol");
+    if (volume > 0.0) caliber.set(u"casevol", fmt(std::max(volume + area_mm2 * delta * 1e-3, 0.01)));  // mm3 -> cm3
+    const double depth = std::max(projectile.number(u"gdepth") + delta, 0.0);
+    projectile.set(u"gdepth", fmt(depth));
+    caliber.set(u"oal", fmt(length + projectile.number(u"glen") - depth));
+    LOG_Debug() << "Load: case length" << previousLength << "->" << length << "mm, seating depth and case volume follow";
+    return true;
 }
 
 void applyCaliber(LoadFile &lf, const QVariantMap &caliber, const QStringList &caliberColumns, bool resetDependent,

@@ -397,6 +397,15 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
     QVERIFY(lf);
     QVERIFY(std::abs(lf->caliber.number(u"oal"_s) - 80.5) < 1e-6);
 
+    // a trimmed case: the cartridge length stays, seating depth and case volume follow
+    const double volume = lf->caliber.number(u"casevol"_s);
+    edit(u"caselen"_s, u"56"_s);
+    lf = saved();
+    QVERIFY(lf);
+    QVERIFY(std::abs(lf->caliber.number(u"oal"_s) - 80.5) < 1e-6);
+    QVERIFY(std::abs(lf->projectile.number(u"gdepth"_s) - 8.4) < 1e-6);
+    QVERIFY(lf->caliber.number(u"casevol"_s) < volume);
+
     // the initial gas pressure exists in two sections; the solver uses the caliber's
     edit(u"gpressure"_s, u"400"_s);
     lf = saved();

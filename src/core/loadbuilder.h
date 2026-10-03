@@ -34,6 +34,12 @@ struct LoadParams
 // estimates for the previous diameter are estimated anew; entered ones stay. Returns whether a value was set.
 bool completeTail(EntryList &projectile, double previousDiameter = 0.0);
 
+// After the case length (caliber caselen) was changed from `previousLength`: the bullet stays where it is (the cartridge overall length
+// is kept), so the seating depth changes by the same amount, and the case volume (to the mouth) by the bullet's cross-section times
+// the change (the neck's inside); the powder space behind the bullet stays the same. The seating depth does not go below 0 (the
+// overall length then follows). Returns whether anything changed.
+bool followCaseLength(EntryList &caliber, EntryList &projectile, double previousLength);
+
 // Replaces one component of an existing load by a database record. Everything else the user has set
 // (gun data, seating depth, charge, temperature, ...) is kept unless `resetDependent` asks for the
 // defaults that belong to the new record: the charge and seating depth for a caliber change, the

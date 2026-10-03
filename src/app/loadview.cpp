@@ -506,13 +506,16 @@ void LoadView::chooseRecord(Component component)
 void LoadView::onValueEdited(int sectionId, const QString &key, const QString &text)
 {
     const double previousDiameter = m_file.projectile.number(u"Dbul");
+    const double previousCaseLength = m_file.caliber.number(u"caselen");
     section(sectionId).set(key, text);
     // The cartridge overall length is the case length plus the projectile length minus the seating depth; the solver uses the seating
     // depth. Editing either of them (or the case or projectile length) keeps the other one in step.
     grt::EntryList &cal = m_file.caliber, &prj = m_file.projectile;
     if (sectionId == Caliber && key == u"oal") prj.set(u"gdepth", cal.number(u"caselen") + prj.number(u"glen") - cal.number(u"oal"));
-    else if ((sectionId == Projectile && (key == u"gdepth" || key == u"glen")) || (sectionId == Caliber && key == u"caselen"))
+    else if (sectionId == Projectile && (key == u"gdepth" || key == u"glen"))
         cal.set(u"oal", cal.number(u"caselen") + prj.number(u"glen") - prj.number(u"gdepth"));
+    // a new case length: the bullet stays (overall length kept), seating depth and case volume follow
+    else if (sectionId == Caliber && key == u"caselen") grt::followCaseLength(cal, prj, previousCaseLength);
     // The initial gas pressure is in both sections (the solver reads the caliber's, the projectile window of the original shows the
     // projectile's): editing either one sets both.
     if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));

@@ -31,6 +31,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <numbers>
 #include <limits>
 
 using namespace Qt::StringLiterals;
@@ -60,6 +61,7 @@ private slots:
     void physicalModel();
     void physicalBurnInLoad();
     void tailEstimates();
+    void caseLengthChange();
     void sebertDefault();
     void saamiColumnMigration();
     void powderFitPhysicalValues();
@@ -622,6 +624,30 @@ void CoreTest::tailEstimates()
     QVERIFY(grt::completeTail(prj));
     QVERIFY(qAbs(prj.number(u"gtailh") - 0.055 * D) < 0.01);
     QVERIFY(grt::simulate(grt::SimInput::fromLoad(*lf)).maxPressure_bar < flat);  // the cavity adds volume
+}
+
+// Trimming the case: the bullet stays where it is (overall length kept), the seating depth and the case volume (neck inside) follow;
+// the powder space behind the bullet stays, so the result hardly changes.
+void CoreTest::caseLengthChange()
+{
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const grt::SimInput before = grt::SimInput::fromLoad(*lf);
+    const double oal = lf->caliber.number(u"oal"), depth = lf->projectile.number(u"gdepth"), volume = lf->caliber.number(u"casevol");
+    lf->caliber.set(u"caselen", before.caseLength_mm - 1.0);
+    QVERIFY(grt::followCaseLength(lf->caliber, lf->projectile, before.caseLength_mm));
+    const grt::SimInput after = grt::SimInput::fromLoad(*lf);
+    QCOMPARE(lf->caliber.number(u"oal"), oal);
+    QVERIFY(qAbs(lf->projectile.number(u"gdepth") - (depth - 1.0)) < 1e-9);
+    const double area = std::numbers::pi / 4.0 * before.bulletDiameter_mm * before.bulletDiameter_mm;
+    QVERIFY(qAbs(lf->caliber.number(u"casevol") - (volume - area * 1e-3)) < 1e-9);
+    QVERIFY(qAbs(after.startPosition_mm() - before.startPosition_mm()) < 1e-9);  // the bullet base did not move
+    for (const auto profile : {grt::CalibrationProfile::Original, grt::CalibrationProfile::Physical})
+    {
+        const grt::Calibration cal = grt::calibrationFor(profile);
+        QVERIFY(qAbs(grt::simulate(after, cal).maxPressure_bar / grt::simulate(before, cal).maxPressure_bar - 1.0) < 0.01);
+    }
+    QVERIFY(!grt::followCaseLength(lf->caliber, lf->projectile, after.caseLength_mm));  // no change, nothing to do
 }
 
 // The original's Ba*phi(z) curve has no jumps (documentation, "Form functions"): the three phases join at z1 and z2
