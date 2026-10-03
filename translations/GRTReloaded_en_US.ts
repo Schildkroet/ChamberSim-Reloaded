@@ -549,31 +549,31 @@
     </message>
     <message>
         <location line="+10"/>
-        <source>&lt;i&gt;Calibrated against runs of the original program and checked against published load data: typical deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual loads can deviate more.&lt;/i&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>&lt;i&gt;Calibration to published load data (Settings &gt; Solver): typical deviation about 3.5 % in velocity and 10 % in peak pressure against the manufacturers&apos; tables; results differ from the original program.&lt;/i&gt;</source>
+        <source>&lt;i&gt;GRT Original (Settings &gt; Solver): results like Gordon&apos;s Reloading Tool (about 1 % in velocity and 3 % in peak pressure); against real load data the least accurate model.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>&lt;i&gt;Physical model (Settings &gt; Solver). Shotshells use their own model with the original program&apos;s constants.&lt;/i&gt;</source>
+        <source>&lt;i&gt;GRT Tuned (Settings &gt; Solver): velocity about as accurate as the Physical Model, peak pressure usually too low (about 5 % at maximum loads).&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>&lt;i&gt;Physical model (Settings &gt; Solver) with the physical burn values of this powder, fitted to its published loads.&lt;/i&gt;</source>
+        <location line="+5"/>
+        <source>&lt;i&gt;Physical Model (Settings &gt; Solver). Shotshells use their own model with the constants of GRT Original.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&lt;i&gt;Physical model (Settings &gt; Solver). This powder has no physical burn values (not a project powder, or its burn values were changed): its burn rate is only scaled, expect larger deviations.&lt;/i&gt;</source>
+        <source>&lt;i&gt;Physical Model (Settings &gt; Solver) with this powder&apos;s own burn values: typically about 6 % in peak pressure and 2.5 % in velocity off the makers&apos; load data.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+2"/>
+        <source>&lt;i&gt;Physical Model (Settings &gt; Solver). This powder has no burn values of its own (not a project powder, or its values were changed): its burn rate is only scaled, expect larger deviations. Fit to measurements gives it its own.&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1497,7 +1497,7 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Changes the propellant&apos;s model values until the simulation agrees with the measured charges, for both models: the original program&apos;s (Ba, a0, z1, z2; also used by the Published calibration) and the physical model&apos;s (its own burn values). Check the case volume (fired case, water), the bullet length and the cartridge length first: wrong values there give a wrong model.</source>
+        <source>Changes the propellant&apos;s model values until the simulation agrees with the measured charges, for both models: the GRT values (Ba, a0, z1, z2; used by GRT Original and GRT Tuned, fitted with GRT Original) and the Physical Model&apos;s own burn values. Check the case volume (fired case, water), the bullet length and the cartridge length first: wrong values there give a wrong model.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1547,42 +1547,52 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+0"/>
-        <source>Original
+        <source>GRT
 Δ before</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Original
+        <source>GRT
 Δ after</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Original
+        <source>GRT
 pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Physical
+        <source>Physical Model
 Δ before</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Physical
+        <source>Physical Model
 Δ after</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Physical
+        <source>Physical Model
 pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+115"/>
+        <source>GRT values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Physical Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-101"/>
         <source>Put the fitted values into this load&apos;s propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1602,17 +1612,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>Original model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Physical model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+14"/>
         <source>Velocity error (rms): %1 % → &lt;b&gt;%2 %&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1990,7 +1990,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+2"/>
-        <source>Calibration:</source>
+        <source>Model:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2068,32 +2068,32 @@ pressure Δ</source>
     <name>SolverPreferences</name>
     <message>
         <location filename="../src/app/solverprefs.cpp" line="+36"/>
-        <source>Original program (GRT)</source>
+        <source>GRT Original</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Published load data</source>
+        <source>GRT Tuned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Physical model</source>
+        <source>Physical Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Constants fitted to runs of Gordon&apos;s Reloading Tool: results like the original program (velocity about 1 %, peak pressure about 3 % off).</source>
+        <source>Reproduces the results of Gordon&apos;s Reloading Tool (within about 1 % in velocity and 3 % in peak pressure). Choose it to compare with GRT. Against real load data it is the least accurate model.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>The original program&apos;s equations with constants fitted to the loads and measured pressures published by the powder manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.</source>
+        <source>The equations of Gordon&apos;s Reloading Tool with constants fitted to the powder makers&apos; published loads. Velocity is about as accurate as with the Physical Model, but peak pressure is usually too low (about 5 % at maximum loads), and it is less reliable for pistol and shotgun powders. Kept for comparison.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>The project&apos;s own physical model (ignition and flame spread, engraving and friction, heat loss, spin; peak pressure independent of the barrel length), fitted to the same published loads. Uses the physical burn values of the project&apos;s powders when the load holds such a powder unchanged.</source>
+        <location line="+4"/>
+        <source>Recommended. The program&apos;s own model of the burning powder and the bullet&apos;s travel, fitted to the powder makers&apos; published loads and measured pressures: typically about 6 % off in peak pressure and 2.5 % in velocity (median against those tables). Most accurate for the 88 project powders that have their own burn values.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

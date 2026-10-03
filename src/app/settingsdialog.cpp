@@ -103,7 +103,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     showCalibrationInfo();
     auto *solver = new QGroupBox(tr("Solver"));
     auto *solverGrid = makeForm(solver);
-    auto *calibrationLabel = new QLabel(tr("Calibration:"));
+    auto *calibrationLabel = new QLabel(tr("Model:"));
     calibrationLabel->setBuddy(m_calibration);
     solverGrid->addWidget(calibrationLabel, 0, 0);
     solverGrid->addWidget(m_calibration, 0, 1, 1, 2);

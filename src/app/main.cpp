@@ -76,14 +76,19 @@ int main(int argc, char *argv[])
     if (cli.isSet(calibrationOpt))
         if (const auto profile = SolverPreferences::fromKey(cli.value(calibrationOpt)))
             SolverPreferences::instance().setProfile(*profile, false);
-    // the safety notice (not in the screenshot mode: no one to answer it)
-    if (!cli.isSet(shotOpt) && !disclaimer::confirm()) return 0;
     MainWindow w;
     if (cli.isSet(dbOpt)) w.openDatabase(cli.value(dbOpt));
     const QStringList loads = cli.positionalArguments();
     for (const QString &f : loads) w.openLoad(f);
     if (cli.isSet(refOpt) && !loads.isEmpty()) w.overlayReference(cli.value(refOpt));
     w.show();
+    // the safety notice over the main window, once it is on the screen (not in the screenshot mode: no one to answer it)
+    if (!cli.isSet(shotOpt))
+        QTimer::singleShot(0, &w,
+                           [&]
+                           {
+                               if (!disclaimer::confirm(&w)) a.quit();
+                           });
     if (cli.isSet(shotOpt))
     {
         QTimer::singleShot(1200, &w,

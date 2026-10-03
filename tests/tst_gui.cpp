@@ -1392,7 +1392,7 @@ void GuiTest::ignoredInputsAreNamed()
     const auto statusText = [](LoadView &v)
     {
         for (QLabel *l : v.findChildren<QLabel *>())
-            if (l->text().contains(u"Calibrated against"_s) || l->text().contains(u"Physical model"_s)) return l->text();  // per profile
+            if (l->text().contains(u"(Settings > Solver)"_s)) return l->text();  // the status line of every model
         return QString();
     };
     QTemporaryDir dir;

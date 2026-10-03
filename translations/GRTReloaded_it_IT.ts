@@ -549,31 +549,31 @@
     </message>
     <message>
         <location line="+8"/>
-        <source>&lt;i&gt;Calibrated against runs of the original program and checked against published load data: typical deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual loads can deviate more.&lt;/i&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>&lt;i&gt;Calibration to published load data (Settings &gt; Solver): typical deviation about 3.5 % in velocity and 10 % in peak pressure against the manufacturers&apos; tables; results differ from the original program.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Calibrazione sui dati di ricarica pubblicati (Impostazioni &gt; Solutore): scarto tipico di circa 3,5 % in velocità e 10 % nella pressione massima rispetto alle tabelle dei produttori; i risultati differiscono dal programma originale.&lt;/i&gt;</translation>
+        <source>&lt;i&gt;GRT Original (Settings &gt; Solver): results like Gordon&apos;s Reloading Tool (about 1 % in velocity and 3 % in peak pressure); against real load data the least accurate model.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;GRT Original (Impostazioni &gt; Risolutore): risultati come Gordon&apos;s Reloading Tool (circa 1 % in velocità e 3 % in pressione massima); rispetto ai dati reali il modello meno preciso.&lt;/i&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>&lt;i&gt;Physical model (Settings &gt; Solver). Shotshells use their own model with the original program&apos;s constants.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Le cartucce a pallini usano il proprio modello con le costanti del programma originale.&lt;/i&gt;</translation>
+        <source>&lt;i&gt;GRT Tuned (Settings &gt; Solver): velocity about as accurate as the Physical Model, peak pressure usually too low (about 5 % at maximum loads).&lt;/i&gt;</source>
+        <translation>&lt;i&gt;GRT Tuned (Impostazioni &gt; Risolutore): velocità precisa all&apos;incirca come con il modello fisico, pressione massima di solito troppo bassa (circa 5 % ai caricamenti massimi).&lt;/i&gt;</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>&lt;i&gt;Physical model (Settings &gt; Solver) with the physical burn values of this powder, fitted to its published loads.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore) con i valori di combustione fisici di questa polvere, adattati ai suoi caricamenti pubblicati.&lt;/i&gt;</translation>
+        <location line="+5"/>
+        <source>&lt;i&gt;Physical Model (Settings &gt; Solver). Shotshells use their own model with the constants of GRT Original.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Le cartucce a pallini usano il proprio modello con le costanti di GRT Original.&lt;/i&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&lt;i&gt;Physical model (Settings &gt; Solver). This powder has no physical burn values (not a project powder, or its burn values were changed): its burn rate is only scaled, expect larger deviations.&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Questa polvere non ha valori di combustione fisici (non è una polvere del progetto, oppure i suoi valori di combustione sono stati modificati): la sua vivacità viene solo scalata, sono da attendersi scostamenti maggiori.&lt;/i&gt;</translation>
+        <source>&lt;i&gt;Physical Model (Settings &gt; Solver) with this powder&apos;s own burn values: typically about 6 % in peak pressure and 2.5 % in velocity off the makers&apos; load data.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore) con i valori di combustione propri di questa polvere: tipicamente circa 6 % di scarto in pressione massima e 2,5 % in velocità rispetto ai dati dei produttori.&lt;/i&gt;</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+2"/>
+        <source>&lt;i&gt;Physical Model (Settings &gt; Solver). This powder has no burn values of its own (not a project powder, or its values were changed): its burn rate is only scaled, expect larger deviations. Fit to measurements gives it its own.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Questa polvere non ha valori di combustione propri (non è una polvere del progetto, oppure i suoi valori sono stati modificati): la sua vivacità viene solo scalata, sono da attendersi scostamenti maggiori. L&apos;adattamento alle misure gliene dà di propri.&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1510,8 +1510,8 @@ Esportarlo comunque?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Changes the propellant&apos;s model values until the simulation agrees with the measured charges, for both models: the original program&apos;s (Ba, a0, z1, z2; also used by the Published calibration) and the physical model&apos;s (its own burn values). Check the case volume (fired case, water), the bullet length and the cartridge length first: wrong values there give a wrong model.</source>
-        <translation>Modifica i valori del modello della polvere finché la simulazione concorda con le cariche misurate, per entrambi i modelli: quelli del programma originale (Ba, a0, z1, z2; usati anche dalla calibrazione «dati pubblicati») e quelli del modello fisico (i suoi valori di combustione). Controllate prima il volume del bossolo (bossolo sparato, acqua), la lunghezza della palla e quella della cartuccia: valori errati danno un modello errato.</translation>
+        <source>Changes the propellant&apos;s model values until the simulation agrees with the measured charges, for both models: the GRT values (Ba, a0, z1, z2; used by GRT Original and GRT Tuned, fitted with GRT Original) and the Physical Model&apos;s own burn values. Check the case volume (fired case, water), the bullet length and the cartridge length first: wrong values there give a wrong model.</source>
+        <translation>Modifica i valori del modello della polvere finché la simulazione concorda con le cariche misurate, per entrambi i modelli: i valori GRT (Ba, a0, z1, z2; usati da GRT Original e GRT Tuned, adattati con GRT Original) e i valori di combustione propri del modello fisico. Controllate prima il volume del bossolo (bossolo sparato, acqua), la lunghezza della palla e quella della cartuccia: valori errati danno un modello errato.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -1560,48 +1560,58 @@ Esportarlo comunque?</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Original
+        <source>GRT
 Δ before</source>
-        <translation>Originale
+        <translation>GRT
 Δ prima</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Original
+        <source>GRT
 Δ after</source>
-        <translation>Originale
+        <translation>GRT
 Δ dopo</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Original
+        <source>GRT
 pressure Δ</source>
-        <translation>Originale
+        <translation>GRT
 pressione Δ</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Physical
+        <source>Physical Model
 Δ before</source>
         <translation>Fisico
 Δ prima</translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Physical
+        <source>Physical Model
 Δ after</source>
         <translation>Fisico
 Δ dopo</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Physical
+        <source>Physical Model
 pressure Δ</source>
         <translation>Fisico
 pressione Δ</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+115"/>
+        <source>GRT values</source>
+        <translation>Valori GRT</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Physical Model</source>
+        <translation>Modello fisico</translation>
+    </message>
+    <message>
+        <location line="-101"/>
         <source>Put the fitted values into this load&apos;s propellant</source>
         <translation>Inserisci i valori adattati nella polvere di questo caricamento</translation>
     </message>
@@ -1621,17 +1631,7 @@ pressione Δ</translation>
         <translation>Scegli i valori da adattare e fai clic su &lt;b&gt;Adatta&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>Original model</source>
-        <translation>Modello originale</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Physical model</source>
-        <translation type="unfinished">Modello fisico</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+14"/>
         <source>Velocity error (rms): %1 % → &lt;b&gt;%2 %&lt;/b&gt;</source>
         <translation>Errore di velocità (rms): %1 % → &lt;b&gt;%2 %&lt;/b&gt;</translation>
     </message>
@@ -2009,8 +2009,8 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Calibration:</source>
-        <translation>Calibrazione:</translation>
+        <source>Model:</source>
+        <translation>Modello:</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2087,33 +2087,33 @@ pressione Δ</translation>
     <name>SolverPreferences</name>
     <message>
         <location filename="../src/app/solverprefs.cpp" line="+36"/>
-        <source>Original program (GRT)</source>
-        <translation>Programma originale (GRT)</translation>
+        <source>GRT Original</source>
+        <translation>GRT Original</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Published load data</source>
-        <translation>Dati di ricarica pubblicati</translation>
+        <source>GRT Tuned</source>
+        <translation>GRT Tuned</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Physical model</source>
+        <source>Physical Model</source>
         <translation>Modello fisico</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Constants fitted to runs of Gordon&apos;s Reloading Tool: results like the original program (velocity about 1 %, peak pressure about 3 % off).</source>
-        <translation>Costanti adattate a calcoli di Gordon&apos;s Reloading Tool: risultati come il programma originale (velocità circa 1 %, pressione massima circa 3 % di scarto).</translation>
+        <source>Reproduces the results of Gordon&apos;s Reloading Tool (within about 1 % in velocity and 3 % in peak pressure). Choose it to compare with GRT. Against real load data it is the least accurate model.</source>
+        <translation>Riproduce i risultati di Gordon&apos;s Reloading Tool (entro circa 1 % in velocità e 3 % in pressione massima). Per il confronto con GRT. Rispetto ai dati reali il modello meno preciso.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>The original program&apos;s equations with constants fitted to the loads and measured pressures published by the powder manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.</source>
-        <translation>Le equazioni del programma originale con costanti adattate ai caricamenti e alle pressioni misurate pubblicati dai produttori di polvere (Hodgdon, Western Powders): più vicino alle pressioni misurate, ma non più al programma originale.</translation>
+        <source>The equations of Gordon&apos;s Reloading Tool with constants fitted to the powder makers&apos; published loads. Velocity is about as accurate as with the Physical Model, but peak pressure is usually too low (about 5 % at maximum loads), and it is less reliable for pistol and shotgun powders. Kept for comparison.</source>
+        <translation>Le equazioni di Gordon&apos;s Reloading Tool con costanti adattate ai caricamenti pubblicati dai produttori di polvere. La velocità è precisa all&apos;incirca come con il modello fisico, ma la pressione massima è di solito troppo bassa (circa 5 % ai caricamenti massimi) e meno affidabile per polveri da pistola e da caccia. Mantenuto per confronto.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>The project&apos;s own physical model (ignition and flame spread, engraving and friction, heat loss, spin; peak pressure independent of the barrel length), fitted to the same published loads. Uses the physical burn values of the project&apos;s powders when the load holds such a powder unchanged.</source>
-        <translation>Il modello fisico proprio del progetto (accensione e propagazione della fiamma, forzamento e attrito, perdite di calore, rotazione; pressione massima indipendente dalla lunghezza della canna), adattato agli stessi caricamenti pubblicati. Usa i valori di combustione fisici delle polveri del progetto quando il caricamento contiene una tale polvere invariata.</translation>
+        <location line="+4"/>
+        <source>Recommended. The program&apos;s own model of the burning powder and the bullet&apos;s travel, fitted to the powder makers&apos; published loads and measured pressures: typically about 6 % off in peak pressure and 2.5 % in velocity (median against those tables). Most accurate for the 88 project powders that have their own burn values.</source>
+        <translation>Consigliato. Il modello proprio del programma per la polvere che brucia e il percorso del proiettile, adattato ai caricamenti pubblicati e alle pressioni misurate dei produttori di polvere: tipicamente circa 6 % di scarto in pressione massima e 2,5 % in velocità (mediana rispetto a quelle tabelle). Il più preciso per le 88 polveri del progetto con valori di combustione propri.</translation>
     </message>
 </context>
 <context>

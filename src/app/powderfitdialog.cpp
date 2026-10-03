@@ -52,8 +52,8 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
 {
     setWindowTitle(tr("Fit to measurements"));
     auto *intro = new QLabel(tr("Changes the propellant's model values until the simulation agrees with the measured "
-                                "charges, for both models: the original program's (Ba, a0, z1, z2; also used by the Published "
-                                "calibration) and the physical model's (its own burn values). Check the case volume (fired case, "
+                                "charges, for both models: the GRT values (Ba, a0, z1, z2; used by GRT Original and GRT Tuned, fitted "
+                                "with GRT Original) and the Physical Model's own burn values. Check the case volume (fired case, "
                                 "water), the bullet length and the cartridge length first: wrong values there give a wrong model."));
     intro->setWordWrap(true);
 
@@ -83,9 +83,9 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
 
     const auto sym = [](Quantity q) { return QString::fromUtf8(UnitPreferences::instance().unitFor(q).symbol); };
     m_table->setHorizontalHeaderLabels({tr("Load"), tr("Charge [%1]").arg(sym(Quantity::BulletMass)), tr("Shots"),
-                                        tr("Measured [%1]").arg(sym(Quantity::Velocity)), tr("Original\nΔ before"), tr("Original\nΔ after"),
-                                        tr("Original\npressure Δ"), tr("Physical\nΔ before"), tr("Physical\nΔ after"),
-                                        tr("Physical\npressure Δ")});
+                                        tr("Measured [%1]").arg(sym(Quantity::Velocity)), tr("GRT\nΔ before"), tr("GRT\nΔ after"),
+                                        tr("GRT\npressure Δ"), tr("Physical Model\nΔ before"), tr("Physical Model\nΔ after"),
+                                        tr("Physical Model\npressure Δ")});
     m_table->verticalHeader()->hide();
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     m_table->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -200,7 +200,7 @@ void PowderFitDialog::showResult()
                           .arg(grt::powderfit::name(r.params[i]), QLocale().toString(r.before[i], 'f', 4),
                                QLocale().toString(r.after[i], 'f', 4));
         QString text =
-            u"<b>"_s + (r.model == Model::Original ? tr("Original model") : tr("Physical model")) + u"</b> &nbsp; "_s +
+            u"<b>"_s + (r.model == Model::Original ? tr("GRT values") : tr("Physical Model")) + u"</b> &nbsp; "_s +
             values.join(u", &nbsp; "_s) + u"<br>"_s +
             tr("Velocity error (rms): %1 % → <b>%2 %</b>")
                 .arg(QLocale().toString(100 * r.velocityRmsBefore, 'f', 2), QLocale().toString(100 * r.velocityRmsAfter, 'f', 2));

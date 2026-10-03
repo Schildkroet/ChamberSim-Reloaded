@@ -33,9 +33,9 @@ QString SolverPreferences::name(grt::CalibrationProfile profile)
 {
     switch (profile)
     {
-    case grt::CalibrationProfile::Original: return tr("Original program (GRT)");
-    case grt::CalibrationProfile::Published: return tr("Published load data");
-    case grt::CalibrationProfile::Physical: return tr("Physical model");
+    case grt::CalibrationProfile::Original: return tr("GRT Original");
+    case grt::CalibrationProfile::Published: return tr("GRT Tuned");
+    case grt::CalibrationProfile::Physical: return tr("Physical Model");
     }
     return {};
 }
@@ -45,15 +45,16 @@ QString SolverPreferences::description(grt::CalibrationProfile profile)
     switch (profile)
     {
     case grt::CalibrationProfile::Original:
-        return tr("Constants fitted to runs of Gordon's Reloading Tool: results like the original program (velocity about 1 %, peak "
-                  "pressure about 3 % off).");
+        return tr("Reproduces the results of Gordon's Reloading Tool (within about 1 % in velocity and 3 % in peak pressure). Choose it "
+                  "to compare with GRT. Against real load data it is the least accurate model.");
     case grt::CalibrationProfile::Published:
-        return tr("The original program's equations with constants fitted to the loads and measured pressures published by the powder "
-                  "manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.");
+        return tr("The equations of Gordon's Reloading Tool with constants fitted to the powder makers' published loads. Velocity is "
+                  "about as accurate as with the Physical Model, but peak pressure is usually too low (about 5 % at maximum loads), "
+                  "and it is less reliable for pistol and shotgun powders. Kept for comparison.");
     case grt::CalibrationProfile::Physical:
-        return tr("The project's own physical model (ignition and flame spread, engraving and friction, heat loss, spin; peak pressure "
-                  "independent of the barrel length), fitted to the same published loads. Uses the physical burn values of the "
-                  "project's powders when the load holds such a powder unchanged.");
+        return tr("Recommended. The program's own model of the burning powder and the bullet's travel, fitted to the powder makers' "
+                  "published loads and measured pressures: typically about 6 % off in peak pressure and 2.5 % in velocity (median "
+                  "against those tables). Most accurate for the 88 project powders that have their own burn values.");
     }
     return {};
 }
