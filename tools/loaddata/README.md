@@ -23,20 +23,26 @@ The load tables contain no pressures. A form function needs pressure data, so on
 3-4 % comes from the table data and the inputs that a table does not give (case capacity of a fired case, bullet length).
 `Qex`, `k` and the densities stay at the start values: take them from the manufacturer's safety data sheet.
 
-## All Vihtavuori powders
+## Independent values for the powder record
 
-`vv_fit_all.py` fits Ba of all 29 powders (`vv_fits.csv`: samples, rejected samples, Ba, error before and after). Qex, k and the
-densities are generic (single-base 3800 kJ/kg or double-base 4300 kJ/kg, the better fit is kept). Samples whose charge does
-not fit the case at the assumed bulk density are left out (0-5 per powder).
+Vihtavuori publishes a technical table per powder (industrial products brochure 2022, `vv_powder_data.csv`): relative burn rate
+(N110 = 100, manometric bomb), grain length and diameter, bulk density, energy content in J/g and the nitroglycerine content of the
+N500 series. The records use the **energy content as Qex** and the **bulk density as pcd** (the brochure states for N565 an
+"energy content of 4000 J/g"). Fitted with these values, the velocity error is a little smaller than with generic ones
+(3.9 % instead of 4.2 % mean) and no sample is rejected for a charge that does not fit the case.
 
-| Group | Ba against the existing database (mean ratio, range) | Velocity error (rms) |
-|---|---|---|
-| N130 - N170 (rifle, fast to slow) | 1.02 (0.93 - 1.13) | 4.2 % |
-| N530 - N570 (progressive rifle) | 1.13 (0.99 - 1.35) | 4.2 % |
-| pistol, fast and double-base (20N29, 24N41, 3N37/38, N105 - N120, N310 - N350) | 0.88 (0.54 - 1.29) | 9.5 % (N310: 24 %) |
+Not published: k and the material density pc (typical values 1.23 and 1580 kg/m3 for nitrocellulose powders) and the form function
+(a0, z1, z2). The grain geometry does not determine the form function of this model (its phases are calibrated shapes, and
+powders with the same grains but different coatings burn differently), so `vv_fit_all.py --form` tries candidates while Ba is
+fitted for each powder. Mean velocity error over the 16 rifle powders: a0 = 0, z1 = 0.3, z2 = 0.6: 3.92 %; 0 / 0.2 / 0.6: 3.94 %;
+0 / 0.4 / 0.7: 3.95 %; 1.2 / 0.45 / 0.8: 4.17 %; 2.5 / 0.3 / 0.8: 4.15 %; 2.5 / 0.6 / 0.9: 4.43 %. The data hardly decide, the records
+use the best, a0 = 0, z1 = 0.3, z2 = 0.6. Pressure data would be needed to determine the form function.
 
-For the rifle powders the published data alone reproduces the burn rate within a few percent. For pistol powders the model
-(low pressures, assumed Qex and form function) is the limit: do not use these Ba values without a measurement.
+Plausibility check: Ba divided by the published relative burn rate is nearly constant for the N130-N170 series (0.0137-0.0155).
+
+`vv_fit_all.py --table vv_powder_data.csv --form 0,0.3,0.6` fits all 29 powders (`vv_fits.csv`); `vv_to_json.py` writes the records of the
+powders with at most 5.2 % error from at least 80 samples (the 16 rifle powders). The pistol and double-base powders fit worse
+(8-22 % for N310 - N350 and 3N37) because of the model at low pressure and are not included.
 
 ## Speed
 

@@ -114,6 +114,34 @@ The program shows one database made of three parts:
   *File ▸ Settings ▸ Database*. It is only read; no database of the original is included in this repository, and
   the program does not decrypt one.
 
+### Where the project database comes from
+
+The records in `data/` were collected from public sources with scripts; nothing was copied from the database of Gordon's
+Reloading Tool. The scripts, the collected tables (CSV) and the notes on quality are in the repository, so the data can be
+rebuilt and checked. Records made from estimates say so in their `descr` field.
+
+- **Calibers (467)**: the C.I.P. TDCC data sheets (public PDFs of bobp.cip-bobp.org, tables I-V) are read with
+  `tools/cipdata/cip_extract.py`: dimensions of cartridge and chamber, pressures, angles. The sheets give no case capacity;
+  `cip_estimate_v.py` estimates it from the outline (about 6 % rms against known capacities, 10 % for rimfire). 25 more
+  cartridges that have no sheet (SAAMI, wildcats, newer than the sheets: .224 Valkyrie, 6.8 Western, .22-.33 Nosler, ...) come
+  from Wikipedia's cartridge infoboxes (`wiki_calibers.py`); they lack body and shoulder lengths and tolerances. `cipname` is the
+  C.I.P. name, `altname` other names. Shotshells are not included.
+- **Projectiles (1761)**: the product pages of 16 manufacturers (Berger, Nosler, Speer, Hornady, Sierra, Barnes, Sellier & Bellot,
+  Lapua, Norma, RWS, PPU, Federal, Winchester, Remington, H&N, Sako), read with `tools/bulletdata/*_fetch.py`: weight,
+  diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
+  it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
+  automated requests and is not included.
+- **Propellants (16)**: Vihtavuori N130-N170 and N530-N570. Explosion heat (Vihtavuori's "energy content") and bulk density are
+  taken from Vihtavuori's published powder table, grain size and nitroglycerine content are noted in `descr`. The burn rate
+  Ba was fitted to Vihtavuori's published load data (the start and maximum loads of its reloading database, about 4,000
+  samples) with `tools/loaddata` and `grt_fitdata`. The load tables contain no pressures, so only Ba is determined well. k and
+  the material density are typical values; the form function (a0, z1, z2) is not published anywhere, it is the combination
+  that reproduces the velocities best and the data hardly determine it. Other powders (pistol, double-base) fitted too
+  poorly and are not included. See `tools/loaddata/README.md` for the method and the results.
+
+The details, the commands to repeat each step and the limits of the data are in `tools/cipdata/README.md` and
+`tools/loaddata/README.md`. Please check every load against the manufacturer's current load data.
+
 ### Using the records of Gordon's Reloading Tool
 
 Gordon's Reloading Tool keeps its database encrypted. A script makes a plain copy of it; put it into the folder of

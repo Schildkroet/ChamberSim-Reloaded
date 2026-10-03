@@ -28,12 +28,22 @@ def main() -> int:
     ap.add_argument("--fitdata", type=Path, default=ROOT / "build" / "release" / "grt_fitdata")
     ap.add_argument("--json", type=Path)
     ap.add_argument("--work", type=Path, default=Path("vv_work"))
+    ap.add_argument("--table", type=Path, help="vv_powder_data.csv: the published energy content and bulk density per powder replace the generic values")
+    ap.add_argument("--form", default="1.2,0.45,0.8", help="form function a0,z1,z2 used while Ba is fitted")
+    ap.add_argument("--powders", help="comma separated powders (default: all)")
     args = ap.parse_args()
     args.work.mkdir(parents=True, exist_ok=True)
     data = args.json or args.work / "vv_data.json"
     if not data.exists():
         subprocess.run([sys.executable, str(HERE / "vv_extract.py"), "N150", "--cache", str(args.work), "-o", str(args.work / "tmp.csv")], check=True)
     powders = [p["PowderType"] for p in json.loads(data.read_text(encoding="utf-8"))["PowderData"]]
+    if args.powders:
+        powders = args.powders.split(",")
+    a0, z1, z2 = args.form.split(",")
+    table = {}
+    if args.table:
+        with open(args.table, newline="", encoding="utf-8") as f:
+            table = {r["powder"]: r for r in csv.DictReader(f)}
     rows = []
     for powder in sorted(powders):
         csv_path = args.work / f"vv_{powder}.csv"
@@ -42,7 +52,14 @@ def main() -> int:
             print(f"{powder}: no samples", file=sys.stderr)
             continue
         best = None
-        for kind, start in VARIANTS.items():
+        variants = VARIANTS
+        if table:
+            if powder not in table:
+                continue
+            t = table[powder]  # published: energy content J/g = kJ/kg, bulk density g/l = kg/m3; k and pc are typical values
+            variants = {"table": f"Qex={t['energy_J_g']},k=1.23,pc=1580,pcd={t['bulk_density_g_l']}"}
+        for kind, start in variants.items():
+            start += f",a0={a0},z1={z1},z2={z2}"
             out = subprocess.run([str(args.fitdata), str(csv_path), "--params", "Ba", "--start", start], capture_output=True, text=True).stdout
             m = re.search(r"Ba ([\d.]+) -> ([\d.]+)", out)
             e = re.search(r"Velocity error \(rms\): ([\d.]+) % -> ([\d.]+) %", out)

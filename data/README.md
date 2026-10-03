@@ -12,6 +12,9 @@ The files are built into the program and appear in the database together with yo
 records of the original program's database, if you have chosen one in *File ▸ Settings*). They are read-only in the
 program: *Copy…* makes an editable own copy.
 
+Where the records come from (C.I.P. sheets, manufacturers' product pages, Wikipedia infoboxes, fits to published load data) and how
+good they are: see "Where the project database comes from" in the [main README](../README.md#where-the-project-database-comes-from).
+
 ## Adding a record
 
 1. Create the record in the program (*Database* tab ▸ *New…*, or *Copy…* of a similar one) and check it with a load.
