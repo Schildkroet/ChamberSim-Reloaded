@@ -5,5 +5,6 @@
   "gdia": 7.82,
   "glen": 37.9,
   "gmass": 220.0,
+  "gpressure": 250.0,
   "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
 }

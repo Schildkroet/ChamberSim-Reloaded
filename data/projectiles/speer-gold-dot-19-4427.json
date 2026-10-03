@@ -5,5 +5,6 @@
   "gdia": 10.9,
   "glen": 15.9,
   "gmass": 200.0,
+  "gpressure": 250.0,
   "g1bc": 0.145
 }

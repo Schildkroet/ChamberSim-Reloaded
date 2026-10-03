@@ -5,5 +5,6 @@
   "gdia": 10.16,
   "glen": 16.3,
   "gmass": 180.0,
+  "gpressure": 250.0,
   "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
 }

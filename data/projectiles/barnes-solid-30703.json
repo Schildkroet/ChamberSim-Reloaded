@@ -5,6 +5,7 @@
   "gdia": 12.95,
   "glen": 55.9,
   "gmass": 750.0,
+  "gpressure": 350.0,
   "gtailtype": 2,
   "gtaildiaA": 12.95,
   "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"

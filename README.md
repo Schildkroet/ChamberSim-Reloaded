@@ -136,6 +136,11 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.
+  The initial gas pressure (`gpressure`, the pressure at which the bullet starts and engraves) is an estimate from the construction
+  (`start_pressure.py`): lead (cast, plated) 150 bar, jacketed 250 bar, brass monolithic 290 bar, copper monolithic (Barnes TSX/TTSX/LRX,
+  Hornady CX/GMX, lead-free ...) 350 bar. Checked with the physical model against published pressures: copper loads median peak
+  pressure error 7.6 -> 6.3 % (no longer 5 % too low), lead loads bias +4 -> -2 %; the original's 150 bar for jacketed handgun bullets
+  made those results worse and is not used.
 - **Propellants (108)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), and
   55 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals; Accurate 4100, Enforcer, H110 and W296 fit
   less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so), and 20 shotgun powders

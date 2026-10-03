@@ -210,6 +210,7 @@ int main(int argc, char *argv[])
                            {u"glen"_s, row.value(u"bullet_len_mm"_s).toDouble()},
                            {u"gmass"_s, row.value(u"bullet_gr"_s).toDouble()},
                            {u"gtailtype"_s, row.value(u"tail_type"_s).toInt()}};
+        if (!row.value(u"gpressure"_s).isEmpty()) bullet.insert(u"gpressure"_s, row.value(u"gpressure"_s).toDouble());  // per load
         // pistol and revolver cartridges (C.I.P. table IV): another initial gas pressure (GRT: about 150 bar, rifles 250)
         if (cli.isSet(u"ps-handgun"_s) && cal0->value(u"cippdf"_s).toString().contains(u"/tab-iv/"_s))
             bullet.insert(u"gpressure"_s, cli.value(u"ps-handgun"_s).toDouble());
