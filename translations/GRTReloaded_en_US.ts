@@ -275,7 +275,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+372"/>
+        <location line="+374"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -285,25 +285,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-661"/>
-        <location line="+725"/>
+        <location line="-663"/>
+        <location line="+727"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-725"/>
-        <location line="+726"/>
+        <location line="-727"/>
+        <location line="+728"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-726"/>
-        <location line="+727"/>
+        <location line="-728"/>
+        <location line="+729"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-727"/>
+        <location line="-729"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -415,12 +415,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+496"/>
+        <location line="+498"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-495"/>
+        <location line="-497"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -480,7 +480,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+68"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2212,13 +2212,13 @@ Export it anyway?</source>
     <name>grt::dbfields</name>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+32"/>
-        <location line="+48"/>
+        <location line="+49"/>
         <location line="+20"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-67"/>
+        <location line="-68"/>
         <source>Case dimensions (CIP)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2349,7 +2349,12 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Max. pressure (Pmax)</source>
+        <source>Max. pressure C.I.P. (Pmax)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Max. pressure SAAMI (MAP)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -18,6 +18,10 @@ reads the cartridge infoboxes (and downloads cited C.I.P. sheets, which `cip_ext
 taken from the article or estimated like above. `cip_to_json.py` adds a row of a later CSV only if no record with the same
 bullet diameter, case length and base diameter exists yet.
 
+SAAMI pressures: `saami_pressures.py --write` adds `PmaxSAAMI` (bar) to the records whose Wikipedia article gives a SAAMI value (97 of
+467). The article must match the record's numbers, suffix and words, an unlabelled psi value counts as SAAMI unless it is the C.I.P. value
+converted, and a value of 1000 and more without unit is psi, below MPa. Wikipedia is slow: `--shard i/n` runs parallel parts.
+
 ## Projectiles (`data/projectiles`)
 
 `berger_fetch.py`, `nosler_fetch.py`, `speer_fetch.py`, `hornady_fetch.py`, `sierra_fetch.py`, `barnes_fetch.py`,

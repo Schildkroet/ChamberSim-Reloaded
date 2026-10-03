@@ -13,6 +13,7 @@
   "H2": 6.5,
   "G1": 5.7,
   "Pmax": 4050,
+  "PmaxSAAMI": 3792,
   "V": 34.5,
   "c_Q": 25.52,
   "origin": "en.wikipedia.org",

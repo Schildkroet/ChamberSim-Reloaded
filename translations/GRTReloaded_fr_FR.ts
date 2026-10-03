@@ -238,29 +238,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+148"/>
-        <location line="+725"/>
+        <location line="+727"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-725"/>
-        <location line="+726"/>
+        <location line="-727"/>
+        <location line="+728"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-726"/>
+        <location line="-728"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+727"/>
+        <location line="+729"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-726"/>
+        <location line="-728"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -400,12 +400,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+496"/>
+        <location line="+498"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-495"/>
+        <location line="-497"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
@@ -470,7 +470,7 @@
         <translation>L&apos;enregistrement n&apos;a pas pu être lu dans la base de données.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+68"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
     </message>
@@ -2225,13 +2225,13 @@ L&apos;exporter quand même ?</translation>
     <name>grt::dbfields</name>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+32"/>
-        <location line="+48"/>
+        <location line="+49"/>
         <location line="+20"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location line="-67"/>
+        <location line="-68"/>
         <source>Case dimensions (CIP)</source>
         <translation>Cotes de l&apos;étui (CIP)</translation>
     </message>
@@ -2362,8 +2362,13 @@ L&apos;exporter quand même ?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Max. pressure (Pmax)</source>
-        <translation>Pression max. (Pmax)</translation>
+        <source>Max. pressure C.I.P. (Pmax)</source>
+        <translation>Pression max. C.I.P. (Pmax)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Max. pressure SAAMI (MAP)</source>
+        <translation>Pression max. SAAMI (MAP)</translation>
     </message>
     <message>
         <location line="+4"/>

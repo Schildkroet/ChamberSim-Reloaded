@@ -124,7 +124,8 @@ void fillCaliberFile(LoadFile &lf, const QVariantMap &caliber, const QStringList
     const QStringList columns = !caliberColumns.isEmpty() ? caliberColumns : QStringList(caliber.keys());
     for (const QString &col : columns)
     {
-        if (col == u"id" || col == u"geloescht" || !caliber.contains(col)) continue;
+        // the block is the original's record: columns this project added to the table (PmaxSAAMI) stay out
+        if (col == u"id" || col == u"geloescht" || col == u"PmaxSAAMI" || !caliber.contains(col)) continue;
         lf.caliberFile.entries().push_back({.name = col, .value = textOf(caliber.value(col)), .unit = {}, .type = {}, .descr = {}});
     }
 }

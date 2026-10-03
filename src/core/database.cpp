@@ -16,6 +16,7 @@
 #include <QUrl>
 #include <QUuid>
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 
@@ -27,34 +28,35 @@ namespace grt
 namespace
 {
 
-// The tables of the original program's database (same columns), created in the own database.
+// The tables of the original program's database (same columns, plus the project's own ones of kAddedColumns), created in the own database.
 struct TableSchema
 {
     const char *name;
     const char *columns;
 };
 constexpr std::array<TableSchema, 5> kSchema{{
-    {"caliber", "id INTEGER PRIMARY KEY AUTOINCREMENT, cipname TEXT NOT NULL, altname TEXT NOT NULL, "
-                "standard TEXT NOT NULL, ciporigin TEXT NOT NULL, ciptype TEXT NOT NULL, cipdate DATE NOT NULL, "
-                "ciprevdate DATE NOT NULL, cippdf TEXT NOT NULL, L0 FLOAT NOT NULL, L1 FLOAT NOT NULL, "
-                "L2 FLOAT NOT NULL, L3 FLOAT NOT NULL, L4 FLOAT NOT NULL, L5 FLOAT NOT NULL, L6 FLOAT NOT NULL, "
-                "R FLOAT NOT NULL, R1 FLOAT NOT NULL, R3 FLOAT NOT NULL, E FLOAT NOT NULL, E1 FLOAT NOT NULL, "
-                "Emin FLOAT NOT NULL, delta TEXT NOT NULL, FG FLOAT NOT NULL, beta TEXT NOT NULL, P0 FLOAT NOT NULL, "
-                "P1 FLOAT NOT NULL, P2 FLOAT NOT NULL, alpha TEXT NOT NULL, S FLOAT NOT NULL, r1min FLOAT NOT NULL, "
-                "r2 FLOAT NOT NULL, H1 FLOAT NOT NULL, H2 FLOAT NOT NULL, G1 FLOAT NOT NULL, G2 FLOAT NOT NULL, "
-                "f FLOAT NOT NULL, L3G FLOAT NOT NULL, Pmax FLOAT NOT NULL, PK FLOAT NOT NULL, PE FLOAT NOT NULL, "
-                "EE FLOAT NOT NULL, V FLOAT NOT NULL, M TEXT NOT NULL, c_L0 FLOAT NOT NULL, c_L1 FLOAT NOT NULL, "
-                "c_L2 FLOAT NOT NULL, c_L3 FLOAT NOT NULL, c_R FLOAT NOT NULL, c_R1 FLOAT NOT NULL, "
-                "c_R2 FLOAT NOT NULL, c_R3 FLOAT NOT NULL, c_r_ FLOAT NOT NULL, c_E FLOAT NOT NULL, "
-                "c_P0 FLOAT NOT NULL, c_P1 FLOAT NOT NULL, c_P2 FLOAT NOT NULL, c_alpha FLOAT NOT NULL, "
-                "c_S FLOAT NOT NULL, c_r1max FLOAT NOT NULL, c_r2_ FLOAT NOT NULL, c_H1 FLOAT NOT NULL, "
-                "c_H2 FLOAT NOT NULL, c_G FLOAT NOT NULL, c_G1 FLOAT NOT NULL, c_alpha1 FLOAT NOT NULL, "
-                "c_h_ FLOAT NOT NULL, c_s_ FLOAT NOT NULL, c_i_ FLOAT NOT NULL, c_w_ FLOAT NOT NULL, "
-                "c_F FLOAT NOT NULL, c_Z FLOAT NOT NULL, c_b_ FLOAT NOT NULL, c_N FLOAT NOT NULL, "
-                "c_u_ FLOAT NOT NULL, c_Q FLOAT NOT NULL, c_delta FLOAT NOT NULL, c_Fe FLOAT NOT NULL, "
-                "c_Fe_proof FLOAT NOT NULL, c_Fe_auto FLOAT NOT NULL, sebert FLOAT NOT NULL, cdate DATE NOT NULL, "
-                "cby TEXT NOT NULL, mdate DATE NOT NULL, mby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, "
-                "status TEXT NOT NULL, origin TEXT NOT NULL, descr TEXT NOT NULL, geloescht INTEGER NOT NULL"},
+    {"caliber",
+     "id INTEGER PRIMARY KEY AUTOINCREMENT, cipname TEXT NOT NULL, altname TEXT NOT NULL, "
+     "standard TEXT NOT NULL, ciporigin TEXT NOT NULL, ciptype TEXT NOT NULL, cipdate DATE NOT NULL, "
+     "ciprevdate DATE NOT NULL, cippdf TEXT NOT NULL, L0 FLOAT NOT NULL, L1 FLOAT NOT NULL, "
+     "L2 FLOAT NOT NULL, L3 FLOAT NOT NULL, L4 FLOAT NOT NULL, L5 FLOAT NOT NULL, L6 FLOAT NOT NULL, "
+     "R FLOAT NOT NULL, R1 FLOAT NOT NULL, R3 FLOAT NOT NULL, E FLOAT NOT NULL, E1 FLOAT NOT NULL, "
+     "Emin FLOAT NOT NULL, delta TEXT NOT NULL, FG FLOAT NOT NULL, beta TEXT NOT NULL, P0 FLOAT NOT NULL, "
+     "P1 FLOAT NOT NULL, P2 FLOAT NOT NULL, alpha TEXT NOT NULL, S FLOAT NOT NULL, r1min FLOAT NOT NULL, "
+     "r2 FLOAT NOT NULL, H1 FLOAT NOT NULL, H2 FLOAT NOT NULL, G1 FLOAT NOT NULL, G2 FLOAT NOT NULL, "
+     "f FLOAT NOT NULL, L3G FLOAT NOT NULL, Pmax FLOAT NOT NULL, PmaxSAAMI FLOAT NOT NULL DEFAULT 0, PK FLOAT NOT NULL, PE FLOAT NOT NULL, "
+     "EE FLOAT NOT NULL, V FLOAT NOT NULL, M TEXT NOT NULL, c_L0 FLOAT NOT NULL, c_L1 FLOAT NOT NULL, "
+     "c_L2 FLOAT NOT NULL, c_L3 FLOAT NOT NULL, c_R FLOAT NOT NULL, c_R1 FLOAT NOT NULL, "
+     "c_R2 FLOAT NOT NULL, c_R3 FLOAT NOT NULL, c_r_ FLOAT NOT NULL, c_E FLOAT NOT NULL, "
+     "c_P0 FLOAT NOT NULL, c_P1 FLOAT NOT NULL, c_P2 FLOAT NOT NULL, c_alpha FLOAT NOT NULL, "
+     "c_S FLOAT NOT NULL, c_r1max FLOAT NOT NULL, c_r2_ FLOAT NOT NULL, c_H1 FLOAT NOT NULL, "
+     "c_H2 FLOAT NOT NULL, c_G FLOAT NOT NULL, c_G1 FLOAT NOT NULL, c_alpha1 FLOAT NOT NULL, "
+     "c_h_ FLOAT NOT NULL, c_s_ FLOAT NOT NULL, c_i_ FLOAT NOT NULL, c_w_ FLOAT NOT NULL, "
+     "c_F FLOAT NOT NULL, c_Z FLOAT NOT NULL, c_b_ FLOAT NOT NULL, c_N FLOAT NOT NULL, "
+     "c_u_ FLOAT NOT NULL, c_Q FLOAT NOT NULL, c_delta FLOAT NOT NULL, c_Fe FLOAT NOT NULL, "
+     "c_Fe_proof FLOAT NOT NULL, c_Fe_auto FLOAT NOT NULL, sebert FLOAT NOT NULL, cdate DATE NOT NULL, "
+     "cby TEXT NOT NULL, mdate DATE NOT NULL, mby TEXT NOT NULL, type TEXT NOT NULL, mode TEXT NOT NULL, "
+     "status TEXT NOT NULL, origin TEXT NOT NULL, descr TEXT NOT NULL, geloescht INTEGER NOT NULL"},
     {"projectile", "id INTEGER PRIMARY KEY AUTOINCREMENT, mname TEXT COLLATE NOCASE NOT NULL, "
                    "pname TEXT COLLATE NOCASE NOT NULL, lotid TEXT COLLATE NOCASE NOT NULL, "
                    "caliber TEXT COLLATE NOCASE NOT NULL, gdia FLOAT NOT NULL, glen FLOAT NOT NULL, "
@@ -87,6 +89,19 @@ constexpr std::array<TableSchema, 5> kSchema{{
               "geloescht INTEGER NOT NULL"},
 }};
 
+// Columns the project added to the original's tables: own databases of older versions get them (ALTER TABLE) when opened.
+// The views show such a column right after `after` (an older own database has it at the end of its table).
+struct AddedColumn
+{
+    const char *table;
+    const char *name;
+    const char *declaration;
+    const char *after;
+};
+constexpr std::array<AddedColumn, 1> kAddedColumns{{
+    {"caliber", "PmaxSAAMI", "FLOAT NOT NULL DEFAULT 0", "Pmax"},  // SAAMI maximum average pressure [bar]; Pmax is the C.I.P. one
+}};
+
 QString lastError(const QSqlQuery &q)
 {
     return q.lastError().text();
@@ -108,6 +123,24 @@ std::vector<std::pair<QString, QString>> tableColumns(const QSqlDatabase &db, co
     if (q.exec(u"PRAGMA %1.table_info(%2)"_s.arg(schema, table)))
         while (q.next()) out.emplace_back(q.value(1).toString(), q.value(2).toString().toUpper());
     return out;
+}
+
+// The own table's columns in the order the program shows them: the project's added columns (kAddedColumns) next to the column they
+// belong to, also in an own database of an older version that has them at the end.
+std::vector<std::pair<QString, QString>> orderedColumns(const QSqlDatabase &db, const QString &table)
+{
+    auto cols = tableColumns(db, u"main"_s, table);
+    for (const AddedColumn &c : kAddedColumns)
+    {
+        if (table != QLatin1String(c.table)) continue;
+        const auto it = std::ranges::find_if(cols, [&](const auto &col) { return col.first == QLatin1String(c.name); });
+        if (it == cols.end()) continue;
+        const auto moved = *it;
+        cols.erase(it);
+        const auto anchor = std::ranges::find_if(cols, [&](const auto &col) { return col.first == QLatin1String(c.after); });
+        cols.insert(anchor == cols.end() ? anchor : anchor + 1, moved);
+    }
+    return cols;
 }
 
 // The columns are NOT NULL: a null string is stored as an empty one. Values SQLite would store as NULL (no value,
@@ -274,6 +307,16 @@ bool Database::createOwnTablesInTransaction(QString *error)
     {
         const QString name = QLatin1String(t.name);
         if (!exec(m_db, u"CREATE TABLE IF NOT EXISTS main.%1 (%2)"_s.arg(name, QLatin1String(t.columns)), error)) return false;
+        for (const AddedColumn &c : kAddedColumns)
+        {
+            if (name != QLatin1String(c.table)) continue;
+            const auto have = tableColumns(m_db, u"main"_s, name);
+            if (std::ranges::none_of(have,
+                                     [&](const auto &col) { return col.first.compare(QLatin1String(c.name), Qt::CaseInsensitive) == 0; }) &&
+                !exec(m_db, u"ALTER TABLE main.%1 ADD COLUMN %2 %3"_s.arg(name, QLatin1String(c.name), QLatin1String(c.declaration)),
+                      error))
+                return false;
+        }
         // own records of older versions move up to the own range (load files keep values, not ids)
         if (!exec(m_db,
                   u"UPDATE main.%1 SET id = id + %2 WHERE id >= %3 AND id < %4"_s.arg(name)
@@ -340,7 +383,7 @@ bool Database::createViews(QString *error)
     for (const TableSchema &t : kSchema)
     {
         const QString name = QLatin1String(t.name);
-        const auto own = tableColumns(m_db, u"main"_s, name);
+        const auto own = orderedColumns(m_db, name);
         QStringList cols, originalCols;
         const auto original = hasOriginal() ? tableColumns(m_db, u"grt"_s, name) : decltype(own){};
         for (const auto &[col, type] : own)
@@ -398,13 +441,13 @@ int Database::ownCount(Table t) const
 QStringList Database::columns(Table t) const
 {
     QStringList out;
-    for (const auto &[name, type] : tableColumns(m_db, u"main"_s, QLatin1String(tableName(t)))) out << name;
+    for (const auto &[name, type] : orderedColumns(m_db, QLatin1String(tableName(t)))) out << name;
     return out;
 }
 
 std::vector<std::pair<QString, QString>> Database::schema(Table t) const
 {
-    return tableColumns(m_db, u"main"_s, QLatin1String(tableName(t)));
+    return orderedColumns(m_db, QLatin1String(tableName(t)));
 }
 
 std::optional<QVariantMap> Database::record(Table t, int id) const

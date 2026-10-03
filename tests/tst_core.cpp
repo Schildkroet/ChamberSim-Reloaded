@@ -61,6 +61,7 @@ private slots:
     void physicalBurnInLoad();
     void tailEstimates();
     void sebertDefault();
+    void saamiColumnMigration();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -1977,6 +1978,37 @@ void CoreTest::sebertDefault()
     QCOMPARE(grt::simulate(zero, physical).maxPressure_bar, grt::simulate(half, physical).maxPressure_bar);
     const grt::Calibration original = grt::calibrationFor(grt::CalibrationProfile::Original);
     QVERIFY(grt::simulate(zero, original).maxPressure_bar != grt::simulate(half, original).maxPressure_bar);
+}
+
+// An own database of an older version (caliber table without the SAAMI pressure) gets the column when it is opened; the project's
+// records carry it next to the C.I.P. Pmax.
+void CoreTest::saamiColumnMigration()
+{
+    QTemporaryDir dir;
+    const QString own = dir.filePath(u"old.db"_s);
+    {
+        QSqlDatabase old = QSqlDatabase::addDatabase(u"QSQLITE"_s, u"old"_s);
+        old.setDatabaseName(own);
+        QVERIFY(old.open());
+        QSqlQuery q(old);
+        QVERIFY(q.exec(u"CREATE TABLE caliber (id INTEGER PRIMARY KEY AUTOINCREMENT, cipname TEXT NOT NULL, Pmax FLOAT NOT NULL, "
+                       "PK FLOAT NOT NULL)"_s));
+        QVERIFY(q.exec(u"INSERT INTO caliber (id, cipname, Pmax, PK) VALUES (10000001, 'Old', 3500, 4000)"_s));
+        old.close();
+    }
+    QSqlDatabase::removeDatabase(u"old"_s);
+    grt::Database db;
+    QVERIFY(db.open({}, own));
+    const QStringList cols = db.columns(grt::Table::Caliber);
+    QCOMPARE(cols.indexOf(u"PmaxSAAMI"_s), cols.indexOf(u"Pmax"_s) + 1);  // shown next to the C.I.P. value, not at the end
+    const auto rec = db.record(grt::Table::Caliber, 10000001);
+    QVERIFY(rec);
+    QCOMPARE(rec->value(u"PmaxSAAMI"_s).toDouble(), 0.0);  // no SAAMI value known
+
+    grt::Database fresh;
+    QVERIFY(fresh.open({}, dir.filePath(u"new.db"_s)));
+    const QStringList freshCols = fresh.columns(grt::Table::Caliber);
+    QCOMPARE(freshCols.indexOf(u"PmaxSAAMI"_s), freshCols.indexOf(u"Pmax"_s) + 1);
 }
 
 QTEST_APPLESS_MAIN(CoreTest)

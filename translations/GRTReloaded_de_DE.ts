@@ -238,29 +238,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+148"/>
-        <location line="+725"/>
+        <location line="+727"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-725"/>
-        <location line="+726"/>
+        <location line="-727"/>
+        <location line="+728"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-726"/>
+        <location line="-728"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+727"/>
+        <location line="+729"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-726"/>
+        <location line="-728"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -400,12 +400,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+496"/>
+        <location line="+498"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-495"/>
+        <location line="-497"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
@@ -470,7 +470,7 @@
         <translation>Der Datensatz konnte nicht aus der Datenbank gelesen werden.</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+68"/>
         <source>Fit to measurements</source>
         <translation>An Messungen anpassen</translation>
     </message>
@@ -2225,13 +2225,13 @@ Trotzdem exportieren?</translation>
     <name>grt::dbfields</name>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+32"/>
-        <location line="+48"/>
+        <location line="+49"/>
         <location line="+20"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location line="-67"/>
+        <location line="-68"/>
         <source>Case dimensions (CIP)</source>
         <translation>Hülsenmaße (CIP)</translation>
     </message>
@@ -2362,8 +2362,13 @@ Trotzdem exportieren?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Max. pressure (Pmax)</source>
-        <translation>Max. Druck (Pmax)</translation>
+        <source>Max. pressure C.I.P. (Pmax)</source>
+        <translation>Max. Druck C.I.P. (Pmax)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Max. pressure SAAMI (MAP)</source>
+        <translation>Max. Druck SAAMI (MAP)</translation>
     </message>
     <message>
         <location line="+4"/>

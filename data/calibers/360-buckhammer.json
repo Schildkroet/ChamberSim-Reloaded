@@ -15,5 +15,6 @@
   "V": 41.4,
   "c_Q": 64.9,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline",
+  "PmaxSAAMI": 3447
 }

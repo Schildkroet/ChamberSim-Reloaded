@@ -128,7 +128,9 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   `cip_estimate_v.py` estimates it from the outline (about 6 % rms against known capacities, 10 % for rimfire). 25 more
   cartridges that have no sheet (SAAMI, wildcats, newer than the sheets: .224 Valkyrie, 6.8 Western, .22-.33 Nosler, ...) come
   from Wikipedia's cartridge infoboxes (`wiki_calibers.py`); they lack body and shoulder lengths and tolerances. `cipname` is the
-  C.I.P. name, `altname` other names. Shotshells are not included.
+  C.I.P. name, `altname` other names. Shotshells are not included. `Pmax` is the C.I.P. maximum pressure; `PmaxSAAMI` (a column the
+  project added, shown next to it) the SAAMI maximum average pressure of 97 cartridges, from Wikipedia's infoboxes
+  (`tools/cipdata/saami_pressures.py`). Load data makers use the lower of the two.
 - **Projectiles (1761)**: the product pages of 16 manufacturers (Berger, Nosler, Speer, Hornady, Sierra, Barnes, Sellier & Bellot,
   Lapua, Norma, RWS, PPU, Federal, Winchester, Remington, H&N, Sako), read with `tools/bulletdata/*_fetch.py`: weight,
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
