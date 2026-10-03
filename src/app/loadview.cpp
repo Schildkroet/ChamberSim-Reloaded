@@ -133,6 +133,8 @@ LoadView::LoadView(QWidget *parent)
     , m_photo(new PhotoView)
     , m_heading(new QLabel)
     , m_status(new QLabel)
+    , m_overpressure(new QWidget)
+    , m_overpressureText(new QLabel)
     , m_leftResults(new QFormLayout)
     , m_rightResults(new QFormLayout)
     , m_comparison(new QLabel)
@@ -170,6 +172,27 @@ LoadView::LoadView(QWidget *parent)
     separator->setFrameShadow(QFrame::Plain);
     separator->setForegroundRole(QPalette::PlaceholderText);  // visible in the light and the dark theme
     infoCol->addWidget(separator);
+    {
+        // white on red in every theme; hidden unless the maximum pressure is above the permitted one
+        m_overpressure->setObjectName(u"overpressureWarning"_s);
+        m_overpressure->setAutoFillBackground(true);
+        QPalette pal = m_overpressure->palette();
+        pal.setColor(QPalette::Window, QColor(0xc4, 0x2b, 0x1c));
+        pal.setColor(QPalette::WindowText, Qt::white);
+        m_overpressure->setPalette(pal);
+        auto *icon = new QLabel;
+        const int size = style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+        icon->setPixmap(style()->standardIcon(QStyle::SP_MessageBoxWarning).pixmap(size, size));
+        icon->setAlignment(Qt::AlignTop);
+        m_overpressureText->setTextFormat(Qt::RichText);
+        m_overpressureText->setWordWrap(true);
+        auto *row = new QHBoxLayout(m_overpressure);
+        row->setContentsMargins(8, 6, 8, 6);
+        row->addWidget(icon);
+        row->addWidget(m_overpressureText, 1);
+        m_overpressure->hide();
+    }
+    infoCol->addWidget(m_overpressure);
     infoCol->addWidget(m_status);
     infoCol->addLayout(results);
     m_ladderTable->setHorizontalHeaderLabels({tr("Charge"), tr("Max. pressure"), tr("Velocity"), tr("Energy"), tr("Load ratio")});
@@ -670,6 +693,14 @@ void LoadView::updateLadderUi()
         if (s.result.ok())
         {
             cell(1, shown(s.result.maxPressure_bar, Quantity::Pressure));
+            if (m_input.maxPressure_bar > 0.0 && s.result.maxPressure_bar > m_input.maxPressure_bar)
+            {
+                QTableWidgetItem *item = m_ladderTable->item(row, 1);
+                item->setForeground(Qt::white);
+                item->setBackground(QColor(0xc4, 0x2b, 0x1c));
+                item->setText(u"\u26a0 "_s + item->text());
+                item->setToolTip(tr("Above the permitted maximum pressure %1").arg(shown(m_input.maxPressure_bar, Quantity::Pressure)));
+            }
             cell(2, shown(s.result.muzzleVelocity_ms, Quantity::Velocity));
             cell(3, shown(s.result.muzzleEnergy_J, Quantity::Energy));
             cell(4, QStringLiteral("%1 %").arg(num(100.0 * s.result.loadRatio, 1)));
@@ -807,10 +838,17 @@ QString LoadView::headingHtml() const
         .arg(shown(in.bulletLength_mm, Quantity::Length), shown(in.caseVolume_cm3, Quantity::Volume));
 }
 
+bool LoadView::overpressureShown() const
+{
+    return !m_overpressure->isHidden();
+}
+
 void LoadView::showResult()
 {
     m_heading->setText(headingHtml());
     m_comparison->clear();
+    m_overpressure->hide();
+    if (auto *item = m_leftResults->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet({});
     const auto clearAll = [&]
     {
         for (QFormLayout *f : {m_leftResults, m_rightResults})
@@ -841,6 +879,15 @@ void LoadView::showResult()
     const grt::SimResult &r = m_result;
     using grt::units::Quantity;
     setRow(m_leftResults, 0, shown(r.maxPressure_bar, Quantity::Pressure));
+    if (const double permitted = m_input.maxPressure_bar; permitted > 0.0 && r.maxPressure_bar > permitted)
+    {
+        m_overpressureText->setText(tr("<b>Overpressure!</b> The maximum pressure %1 is %2 % above the permitted %3. "
+                                       "Do not load this charge.")
+                                        .arg(shown(r.maxPressure_bar, Quantity::Pressure),
+                                             num(100.0 * (r.maxPressure_bar / permitted - 1.0), 1), shown(permitted, Quantity::Pressure)));
+        m_overpressure->show();
+        if (auto *item = m_leftResults->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet(u"color: #e0453a;"_s);
+    }
     setRow(m_leftResults, 1, shown(r.muzzlePressure_bar, Quantity::Pressure));
     setRow(m_leftResults, 2, shown(r.muzzleEnergy_J, Quantity::Energy));
     setRow(m_leftResults, 3, shown(r.muzzleVelocity_ms, Quantity::Velocity));

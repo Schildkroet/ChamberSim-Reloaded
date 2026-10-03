@@ -8,6 +8,7 @@ using namespace Qt::StringLiterals;
 
 #include <algorithm>
 #include <QComboBox>
+#include <QLineEdit>
 #include <QHeaderView>
 #include <QSettings>
 #include <QStyledItemDelegate>
@@ -87,7 +88,11 @@ public:
             connect(box, &QComboBox::activated, box, [box] { box->clearFocus(); });
             return box;
         }
-        return QStyledItemDelegate::createEditor(parent, option, index);
+        QWidget *editor = QStyledItemDelegate::createEditor(parent, option, index);
+        // aligned like the shown value (right): the text does not jump to the left while it is edited
+        if (auto *edit = qobject_cast<QLineEdit *>(editor))
+            if (const QVariant a = index.data(Qt::TextAlignmentRole); a.isValid()) edit->setAlignment(Qt::Alignment(a.toInt()));
+        return editor;
     }
 
     void setEditorData(QWidget *editor, const QModelIndex &index) const override

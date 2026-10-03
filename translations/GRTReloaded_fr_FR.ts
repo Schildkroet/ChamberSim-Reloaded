@@ -300,30 +300,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+150"/>
-        <location line="+725"/>
+        <location filename="../src/app/loadview.cpp" line="+152"/>
+        <location line="+770"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-725"/>
-        <location line="+726"/>
+        <location line="-770"/>
+        <location line="+771"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-726"/>
+        <location line="-771"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+727"/>
+        <location line="+772"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-726"/>
+        <location line="-771"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -354,12 +354,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+22"/>
+        <location line="+43"/>
         <source>Load ratio</source>
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-21"/>
+        <location line="-42"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
@@ -374,7 +374,7 @@
         <translation>Pertes chaleur / frottement</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+42"/>
         <source>Charge</source>
         <translation>Charge</translation>
     </message>
@@ -468,12 +468,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+505"/>
+        <location line="+513"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-512"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
@@ -554,6 +554,11 @@
     </message>
     <message>
         <location line="+85"/>
+        <source>Above the permitted maximum pressure %1</source>
+        <translation>Au-dessus de la pression maximale admissible %1</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>charge too high</source>
         <translation>charge trop élevée</translation>
     </message>
@@ -568,7 +573,7 @@
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile :&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Poudre :&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/LE :&lt;/b&gt; %6, &lt;b&gt;L6/LT :&lt;/b&gt; %7, &lt;b&gt;Profondeur d&apos;enfoncement :&lt;/b&gt; %8, &lt;b&gt;Longueur du projectile :&lt;/b&gt; %9, &lt;b&gt;Volume de l&apos;étui :&lt;/b&gt; %10</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+30"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Charge trop élevée :&lt;/b&gt; la charge de poudre ne tient pas dans l&apos;étui derrière la balle.</translation>
     </message>
@@ -593,7 +598,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
+        <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
+        <translation>&lt;b&gt;Surpression !&lt;/b&gt; La pression maximale %1 dépasse de %2 % la pression admissible %3. Ne chargez pas cette charge.</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>

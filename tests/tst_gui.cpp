@@ -135,6 +135,7 @@ private slots:
     void dialogsHaveAVisibleBorder();
     void scrollBarsVisibleInDarkMode();
     void chartCursorShowsTheValues();
+    void overpressureIsWarnedAbout();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
@@ -462,6 +463,13 @@ void GuiTest::panelShowsAndEditsInTheChosenUnit()
     t->item(rD, 1)->setText(u"abc"_s);
     QCOMPARE(spy.count(), 1);
     QCOMPARE(t->item(rD, 1)->text(), u"0.500"_s);
+
+    // the editor keeps the value right-aligned, as shown
+    t->openPersistentEditor(t->item(rD, 1));
+    auto *edit = qobject_cast<QLineEdit *>(t->cellWidget(rD, 1));
+    QVERIFY(edit);
+    QVERIFY(edit->alignment() & Qt::AlignRight);
+    t->closePersistentEditor(t->item(rD, 1));
     UnitPreferences::instance().setSystem(System::Original);
 }
 
@@ -2122,6 +2130,38 @@ void GuiTest::chartCursorShowsTheValues()
     if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) chart.grab().save(shots + u"/chartcursor.png"_s);
     QTest::mouseMove(chart.viewport(), QPoint(2, 2));  // outside the plot
     QTRY_VERIFY(!chart.cursorX().has_value());
+}
+
+// A maximum pressure above the permitted one: a red warning banner above the results; none for a load within the limit.
+void GuiTest::overpressureIsWarnedAbout()
+{
+    QString error;
+    LoadView normal;
+    QVERIFY2(normal.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY(normal.result().maxPressure_bar < 3900.0);
+    QVERIFY(!normal.overpressureShown());
+
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    lf->caliber.set(u"pMaxZul", 2000.0);  // below the load's maximum pressure
+    QTemporaryDir dir;
+    const QString path = dir.filePath(u"over.grtload"_s);
+    QVERIFY(lf->write(path));
+    LoadView over;
+    QVERIFY2(over.load(path, &error), qPrintable(error));
+    QVERIFY(over.result().maxPressure_bar > 2000.0);
+    QVERIFY(over.overpressureShown());
+    const auto *banner = over.findChild<QWidget *>(u"overpressureWarning"_s);
+    QVERIFY(banner);
+    const auto labels = banner->findChildren<QLabel *>();
+    QVERIFY(std::ranges::any_of(labels, [](const QLabel *l) { return l->text().contains(u"Overpressure"_s); }));
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    {
+        over.resize(1280, 800);
+        over.show();
+        QApplication::processEvents();
+        over.grab().save(shots + u"/overpressure.png"_s);
+    }
 }
 
 void GuiTest::fitToMeasurementsChangesThePowder()

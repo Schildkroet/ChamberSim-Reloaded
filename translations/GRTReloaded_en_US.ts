@@ -300,7 +300,7 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+387"/>
+        <location filename="../src/app/loadview.cpp" line="+410"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -338,35 +338,35 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+379"/>
+        <location line="+387"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+34"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-676"/>
-        <location line="+725"/>
+        <location line="-712"/>
+        <location line="+770"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-725"/>
-        <location line="+726"/>
+        <location line="-770"/>
+        <location line="+771"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-726"/>
-        <location line="+727"/>
+        <location line="-771"/>
+        <location line="+772"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-727"/>
+        <location line="-772"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -402,12 +402,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+22"/>
+        <location line="+43"/>
         <source>Load ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-21"/>
+        <location line="-42"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -422,7 +422,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+42"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -483,12 +483,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+505"/>
+        <location line="+513"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-512"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -564,6 +564,11 @@
     </message>
     <message>
         <location line="+85"/>
+        <source>Above the permitted maximum pressure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>charge too high</source>
         <translation type="unfinished"></translation>
     </message>
@@ -573,7 +578,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+84"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -593,7 +598,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
+        <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>%1 ms</source>
         <translation type="unfinished"></translation>
     </message>

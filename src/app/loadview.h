@@ -48,6 +48,7 @@ public:
     // Load development ladder: number of curves, the selected (focus) one, and its charge.
     [[nodiscard]] int ladderSize() const noexcept { return static_cast<int>(m_ladder.size()); }
     [[nodiscard]] int ladderFocus() const noexcept { return m_focus; }
+    [[nodiscard]] bool overpressureShown() const;
     void selectLadderStep(int index) { setFocus(index); }
     [[nodiscard]] double focusCharge_g() const noexcept { return m_focusInput.charge_g; }
     // The simulation result shown (the focused ladder step).
@@ -144,6 +145,8 @@ private:
     int m_photoTab{-1};
     QLabel *m_heading;
     QLabel *m_status;
+    QWidget *m_overpressure;  // warning banner: the maximum pressure is above the permitted one
+    QLabel *m_overpressureText;
     QFormLayout *m_leftResults;
     QFormLayout *m_rightResults;
     QLabel *m_comparison;
