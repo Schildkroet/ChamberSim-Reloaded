@@ -58,6 +58,8 @@ def main() -> int:
     ap.add_argument("--only", help="comma separated powders")
     ap.add_argument("--write", action="store_true", help="write the records (default: only report)")
     ap.add_argument("--overwrite", action="store_true")
+    ap.add_argument("--skip-existing", action="store_true", help="do not fit powders that already have a record")
+    ap.add_argument("--min-cartridges", type=int, default=1, help="records need samples of at least this many cartridges")
     args = ap.parse_args()
     rows, seen, names = [], set(), {}
     for samples in args.samples:
@@ -80,6 +82,9 @@ def main() -> int:
         mine = [r for r in rows if r["powder"] == powder]
         if len(mine) < args.min_samples:
             continue
+        mk, pn = (args.maker, powder) if args.maker else powder.split(" ", 1)
+        if args.skip_existing and (args.output / (slug(mk, pn) + ".json")).exists():
+            continue
         path = work / f"{slug(powder)}.csv"
         with open(path, "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, list(mine[0].keys()))
@@ -97,7 +102,7 @@ def main() -> int:
         cartridges = {r["caliber"] for r in mine}
         fits.append({"powder": powder, **best, "cartridges": len(cartridges)})
         print(f"{powder:7} n={best['samples']:4} {best['base']:11} Ba {best['Ba']:.4f}  velocity {best['v_rms']:.2f} %  pressure {best['p_rms']:.1f} %  ({len(cartridges)} cartridges)")
-        if not args.write or best["samples"] < args.min_samples or best["v_rms"] > args.max_rms:
+        if not args.write or best["samples"] < args.min_samples or best["v_rms"] > args.max_rms or len(cartridges) < args.min_cartridges:
             continue
         base = BASES[best["base"]]
         how = ("the type follows the name (S = single base, D = double base)" if args.base_from_name
@@ -109,7 +114,9 @@ def main() -> int:
                          f"({len(cartridges)} cartridges), velocity error {best['v_rms']:.1f} % rms"
                          + ("" if args.no_pressure else f", pressure error {best['p_rms']:.0f} % rms (published pressures)")
                          + f". Not published and therefore only typical or chosen values: Qex ({how}), k, material density pc, bulk density pcd, "
-                           "and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data.")}
+                           "and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
+                         + (" Fewer data or a poorer fit than most other records: use with more caution."
+                            if best["samples"] < 40 or best["v_rms"] > 5.5 else ""))}
         target = args.output / (slug(maker, pname) + ".json")
         if target.exists() and not args.overwrite:
             continue

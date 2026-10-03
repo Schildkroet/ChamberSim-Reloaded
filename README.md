@@ -131,8 +131,9 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.
-- **Propellants (81)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S060-S071 and D073.4-D073.6 (8), Reload Swiss RS50-RS76 (6), and
-  51 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals).
+- **Propellants (88)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), and
+  55 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals; Accurate 4100, Enforcer, H110 and W296 fit
+  less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so).
   Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate
   Ba was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
   (Explosia's Reloading Guide 2019), Reload Swiss (online loading data of Nitrochemie), the Hodgdon Reloading Manual 2024 and the

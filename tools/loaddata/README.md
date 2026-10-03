@@ -132,3 +132,11 @@ H4831 / H4895 / Hybrid 100V / Varget, IMR 3031 / 4350 / 4895 / 7828, W760; 5449 
 
 Several constants sit at their limits (kinetic factor 1.5, intrusion 0.3, initial gas 1.2) and the covolume and solid-volume terms go to zero: the
 profile is empirical. `calibrationFor(CalibrationProfile::Published)` in `src/core/solver.cpp` holds the values.
+
+### Powders with less data
+
+`published_fit.py --skip-existing --min-samples 9 --min-cartridges 3 --max-rms 7` looks at the powders that have no record yet. Written: Lovex S040 (9 loads),
+S053 (14), D063 (20; 7.1 %), Accurate 4100, Ramshot Enforcer, Hodgdon H110 and Winchester W296 (125-190 loads, but 6.2-6.9 % velocity error and 25 %
+pressure error; H110 / W296 are magnum handgun powders). Their descriptions say "use with more caution". Not written: the pistol and shotgun powders
+(Accurate Nitro 100, No. 2 / 5 / 7 / 9, Hodgdon Titegroup, Universal, Clays, Longshot, HS-6, W231, W244, Trail Boss, ... 8-19 %), Reload Swiss RS12-RS40 and
+RS80 (7-22 %), Hodgdon LVR (11 loads, 2 cartridges), CFE BLK (10.6 %), H4227 / IMR 4227 (8.7 / 8.9 %). `more_*_fits.csv` have the numbers.
