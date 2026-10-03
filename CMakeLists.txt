@@ -78,6 +78,8 @@ add_library(grtcore STATIC
     src/core/dbfields.cpp
     src/core/projectdata.h
     src/core/projectdata.cpp
+    src/core/burnfactors.h
+    src/core/burnfactors.cpp
     src/core/powderfit.h
     src/core/powderfit.cpp
     src/core/fieldnames.h
@@ -123,6 +125,8 @@ add_library(grtui STATIC
     src/app/recorddialog.cpp
     src/app/powderfitdialog.h
     src/app/powderfitdialog.cpp
+    src/app/burnratedialog.h
+    src/app/burnratedialog.cpp
     src/app/selectrecorddialog.h
     src/app/selectrecorddialog.cpp
     src/app/newloaddialog.h

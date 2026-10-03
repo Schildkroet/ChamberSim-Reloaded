@@ -9,6 +9,7 @@
 #include <QTemporaryDir>
 #include <QtTest>
 
+#include "burnfactors.h"
 #include "chronograph.h"
 #include "dates.h"
 #include "log.h"
@@ -53,6 +54,7 @@ private slots:
     void shotshellModel();
     void databaseImages();
     void ownRecordsKeepTheirPhotos();
+    void burnFactorsFollowTheModel();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -399,6 +401,36 @@ void CoreTest::ownRecordsKeepTheirPhotos()
     QCOMPARE(alone.addImage(fresh), id);
     QCOMPARE(alone.image(*id)->scale, 80.0);
     QVERIFY(!alone.addImage({}));  // no data
+}
+
+// Br, Bp, Brp of the original's N150 record (Br and Brp follow from the documented formulas, Bp uses an approximated phi(z1)).
+void CoreTest::burnFactorsFollowTheModel()
+{
+    const grt::BurnFactors n150 = grt::burnFactors(0.5814, 3790.0, 1.2184, 1.1286, 0.4597, 0.8169);
+    QVERIFY(qAbs(n150.Br - 0.1456) < 2e-4);
+    QVERIFY(qAbs(n150.Bp / 0.1691 - 1.0) < 0.04);
+    QVERIFY(qAbs(n150.Brp / 0.1578 - 1.0) < 0.03);
+    QCOMPARE(grt::burnFactors(0.0, 3790.0, 1.22, 1.0, 0.4, 0.8).Br, 0.0);  // no burn rate: nothing to derive
+
+    // the project's records get them when they are loaded; an edited own record gets new ones
+    QTemporaryDir dir;
+    grt::Database::setProjectDataLocation(QStringLiteral(GRT_SOURCE_DIR "/data"));
+    grt::Database db;
+    QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
+    QSqlQuery q(db.handle());
+    QVERIFY(q.exec(u"SELECT count(*), sum(Br > 0 AND Bp > 0 AND Brp > 0) FROM propellant"_s) && q.next());
+    QVERIFY(q.value(0).toInt() > 0);
+    QCOMPARE(q.value(1).toInt(), q.value(0).toInt());
+
+    QVariantMap own{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"X"_s}, {u"Ba"_s, 0.6}, {u"Qex"_s, 3800.0},
+                    {u"k"_s, 1.23},          {u"a0"_s, 1.0},       {u"z1"_s, 0.4}, {u"z2"_s, 0.8}};
+    const auto id = db.insert(grt::Table::Propellant, own);
+    QVERIFY(id);
+    const double br = db.record(grt::Table::Propellant, *id)->value(u"Br"_s).toDouble();
+    QVERIFY(br > 0.0);
+    QVERIFY(db.update(grt::Table::Propellant, *id, {{u"Ba"_s, 1.2}}));
+    QVERIFY(qAbs(db.record(grt::Table::Propellant, *id)->value(u"Br"_s).toDouble() / br - 2.0) < 1e-9);
+    grt::Database::setProjectDataLocation(u":/data"_s);
 }
 
 // The original's Ba*phi(z) curve has no jumps (documentation, "Form functions"): the three phases join at z1 and z2

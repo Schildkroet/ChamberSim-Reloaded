@@ -103,6 +103,7 @@ private:
     QAction *m_newLoadAction{nullptr};
     QAction *m_saveAction{nullptr};
     QAction *m_clearReferenceAction{nullptr};
+    QAction *m_burnRateAction{nullptr};
     std::vector<QAction *> m_loadActions;    // enabled while a load is shown
     std::vector<QAction *> m_recentActions;  // File menu: last used loads (File > Open recent)
     QMenu *m_recentMenu{nullptr};

@@ -112,6 +112,9 @@ constexpr Spec kPropellant[] = {
     {"pt", QT_TRANSLATE_NOOP("grt::dbfields", "Reference temperature"), kModel, Quantity::Temperature, 1, Kind::Number, ""},
     {"tcc", QT_TRANSLATE_NOOP("grt::dbfields", "Temperature coefficient, cold"), kModel, Quantity::None, 1, Kind::Number, ""},
     {"tch", QT_TRANSLATE_NOOP("grt::dbfields", "Temperature coefficient, hot"), kModel, Quantity::None, 1, Kind::Number, ""},
+    {"Br", QT_TRANSLATE_NOOP("grt::dbfields", "Brisance factor (Br)"), kModel, Quantity::None, 1, Kind::Number, ""},
+    {"Bp", QT_TRANSLATE_NOOP("grt::dbfields", "Progressivity factor (Bp)"), kModel, Quantity::None, 1, Kind::Number, ""},
+    {"Brp", QT_TRANSLATE_NOOP("grt::dbfields", "Combined factor (Brp)"), kModel, Quantity::None, 1, Kind::Number, ""},
     {"Qlty", QT_TRANSLATE_NOOP("grt::dbfields", "Model quality"), kModel, Quantity::None, 1, Kind::Number, ""},
 };
 
@@ -183,7 +186,8 @@ Field describe(Table t, const QString &column, const QString &sqlType)
             f.readOnly = true;
         }
     }
-    f.readOnly = f.readOnly || column == u"mdate";  // the date of the last change is set by the program
+    // set by the program: the date of the last change, the burn factors (derived from the model values)
+    f.readOnly = f.readOnly || column == u"mdate" || (t == Table::Propellant && (column == u"Br" || column == u"Bp" || column == u"Brp"));
     f.required = column == u"cipname" || column == u"pname";
     return f;
 }

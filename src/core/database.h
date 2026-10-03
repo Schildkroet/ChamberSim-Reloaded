@@ -122,7 +122,7 @@ private:
     [[nodiscard]] bool createViews(QString *error);
     // Copies the pictures a record refers to (imageUuid, imageDetailUuid) into the own database.
     void keepImages(const QVariantMap &values);
-    [[nodiscard]] std::optional<int> insertInto(const QString &schema, Table t, const QVariantMap &values, int id, QString *error);
+    [[nodiscard]] std::optional<int> insertInto(const QString &schema, Table t, const QVariantMap &given, int id, QString *error);
 
     QSqlDatabase m_db;
     QString m_originalPath;

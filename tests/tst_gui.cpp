@@ -34,6 +34,7 @@
 #include <QtTest>
 
 #include "about.h"
+#include "burnratedialog.h"
 #include "theme.h"
 #include "flags.h"
 #include "titlebar.h"
@@ -124,6 +125,7 @@ private slots:
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
+    void burnRateTableSortsAndFilters();
     void recordDialogShowsReadableFieldsInUserUnits();
     void recordsAreAddedCopiedEditedAndDeleted();
     void comboBoxesOpenAsAScrollingList();
@@ -160,6 +162,36 @@ int GuiTest::idOf(grt::Database &db, grt::Table t, const QString &where)
     if (q.exec(u"SELECT id FROM %1 WHERE geloescht = 0 AND %2 ORDER BY id"_s.arg(QLatin1String(grt::tableName(t)), where)) && q.next())
         return q.value(0).toInt();
     return -1;
+}
+
+void GuiTest::burnRateTableSortsAndFilters()
+{
+    BurnRateDialog dialog(m_db);
+    const int all = dialog.rowCount();
+    QVERIFY(all > 50);
+    const auto sortedDescending = [&](BurnRateDialog::Factor f)
+    {
+        for (int i = 1; i < dialog.rowCount(); ++i)
+            if (dialog.valueAt(i - 1, f) < dialog.valueAt(i, f)) return false;
+        return true;
+    };
+    QCOMPARE(dialog.factor(), BurnRateDialog::Progressivity);
+    QVERIFY(sortedDescending(BurnRateDialog::Progressivity));
+    for (const auto f : {BurnRateDialog::Brisance, BurnRateDialog::Combined})
+    {
+        dialog.setFactor(f);
+        QCOMPARE(dialog.factor(), f);
+        QVERIFY(sortedDescending(f));
+    }
+    // the project's records are in the table with derived factors, one row per powder
+    QStringList names;
+    for (int i = 0; i < all; ++i) names << dialog.powderAt(i);
+    QCOMPARE(names.count(u"Vihtavuori N150"_s), 1);
+    dialog.setSearch(u"vihtavuori"_s);
+    QVERIFY(dialog.rowCount() >= 16 && dialog.rowCount() < all);
+    for (int i = 0; i < dialog.rowCount(); ++i) QVERIFY(dialog.powderAt(i).startsWith(u"Vihtavuori"_s));
+    dialog.setSearch(u"no such powder"_s);
+    QCOMPARE(dialog.rowCount(), 0);
 }
 
 void GuiTest::tableBrowserFiltersAndSelects()
@@ -1820,7 +1852,7 @@ void GuiTest::ownTitleBarCanBeSwitched()
     QVERIFY(!bar->isDecorated());
     QCOMPARE(w.contentsMargins().left(), 0);
     QVERIFY(!bar->findChild<QAbstractButton *>(u"closeButton"_s)->isVisible());
-    QCOMPARE(w.mainMenu()->actions().size(), 3);  // File, View, Help still there
+    QCOMPARE(w.mainMenu()->actions().size(), 4);  // File, View, Tools, Help still there
     w.setCustomTitleBar(true);
     QVERIFY(bar->isDecorated());
     recentfiles::store({});

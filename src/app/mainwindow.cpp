@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "burnratedialog.h"
 #include "./ui_mainwindow.h"
 
 #include "about.h"
@@ -272,6 +273,16 @@ void MainWindow::createActions()
     };
     addLanguage(tr("System default"), {});
     for (const QString &l : translation::availableLanguages()) addLanguage(translation::displayName(l), l);
+
+    // Tools
+    QMenu *tools = m_menuBar->addMenu(tr("&Tools"));
+    m_burnRateAction = tools->addAction(tr("&Burn rate table…"), this,
+                                        [this]
+                                        {
+                                            if (!m_db.isOpen()) return;
+                                            BurnRateDialog dialog(m_db, this);
+                                            dialog.exec();
+                                        });
 
     // Help
     QMenu *help = m_menuBar->addMenu(tr("&Help"));

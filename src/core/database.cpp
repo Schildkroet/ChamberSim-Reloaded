@@ -1,4 +1,5 @@
 #include "database.h"
+#include "burnfactors.h"
 #include "dates.h"
 #include "log.h"
 
@@ -489,8 +490,10 @@ std::optional<int> Database::insert(Table t, const QVariantMap &values, QString 
 }
 
 // `id` < 0: the next free one (AUTOINCREMENT)
-std::optional<int> Database::insertInto(const QString &schemaName, Table t, const QVariantMap &values, int id, QString *error)
+std::optional<int> Database::insertInto(const QString &schemaName, Table t, const QVariantMap &given, int id, QString *error)
 {
+    QVariantMap values = given;
+    if (t == Table::Propellant && burnFactors(values).Br > 0.0) fillBurnFactors(values);  // derived, see burnfactors.h
     const QString name = QLatin1String(tableName(t));
     QStringList cols, marks;
     QVariantList binds;
@@ -565,6 +568,16 @@ bool Database::update(Table t, int id, const QVariantMap &values, QString *error
     }
     LOG_Info() << "Record changed:" << name << "id" << id << "fields" << sets.size();
     keepImages(values);
+    if (t == Table::Propellant)  // Br, Bp, Brp follow the model values
+        if (auto changed = record(t, id))
+        {
+            fillBurnFactors(*changed);
+            QSqlQuery factors(m_db);
+            factors.prepare(u"UPDATE main.propellant SET Br = ?, Bp = ?, Brp = ? WHERE id = ?"_s);
+            for (const char *col : {"Br", "Bp", "Brp"}) factors.addBindValue(changed->value(QLatin1String(col)));
+            factors.addBindValue(id);
+            if (!factors.exec()) LOG_Warn() << "Cannot update the burn factors of propellant" << id << ":" << lastError(factors);
+        }
     return true;
 }
 

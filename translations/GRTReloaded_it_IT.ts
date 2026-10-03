@@ -2,6 +2,92 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it_IT" sourcelanguage="en_US">
 <context>
+    <name>BurnRateDialog</name>
+    <message>
+        <location filename="../src/app/burnratedialog.cpp" line="+74"/>
+        <source>All lots</source>
+        <translation>Tutti i lotti</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Burn rate table</source>
+        <translation>Tabella della velocità di combustione</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Manufacturer</source>
+        <translation type="unfinished">Produttore</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Name</source>
+        <translation type="unfinished">Nome</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Lot</source>
+        <translation type="unfinished">Lotto</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Burn rate (Ba)</source>
+        <translation type="unfinished">Vivacità (Ba)</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Brisance (Br)</source>
+        <translation>Brisanza (Br)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Progressivity (Bp)</source>
+        <translation>Progressività (Bp)</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Combined (Brp)</source>
+        <translation>Combinato (Brp)</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Sort by:</source>
+        <translation>Ordina per:</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Progressivity</source>
+        <translation>Progressività</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Brisance</source>
+        <translation>Brisanza</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Brisance &amp;&amp; progressivity</source>
+        <translation>Brisanza &amp;&amp; progressività</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Search manufacturer or name</source>
+        <translation>Cerca produttore o nome</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The table is a rough overview of how the powders of different manufacturers compare. It says nothing about how a powder behaves in the pressure curve of a particular load: powders at the same level are not 1:1 substitutes.</source>
+        <translation>La tabella offre solo una panoramica approssimativa del confronto tra le polveri di produttori diversi. Non dice nulla sul comportamento di una polvere nella curva di pressione di una carica specifica: polveri allo stesso livello non sono sostituti 1:1.</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+144"/>
+        <source>%n propellants</source>
+        <translation>
+            <numerusform>%n polvere</numerusform>
+            <numerusform>%n polveri</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>CartridgeView</name>
     <message>
         <location filename="../src/app/cartridgeview.cpp" line="+330"/>
@@ -478,12 +564,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+302"/>
+        <location filename="../src/app/mainwindow.cpp" line="+313"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-247"/>
+        <location filename="../src/app/mainwindow.cpp" line="-257"/>
         <source>Calibers</source>
         <translation>Calibri</translation>
     </message>
@@ -539,7 +625,7 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+271"/>
+        <location line="+281"/>
         <location line="+165"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -547,7 +633,7 @@
         <translation>Banca dati</translation>
     </message>
     <message>
-        <location line="-437"/>
+        <location line="-447"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
@@ -563,12 +649,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+200"/>
+        <location line="+210"/>
         <source>Open load</source>
         <translation>Apri caricamento</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-210"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation>Caricamenti GRT (*.grtload);;Tutti i file (*)</translation>
     </message>
@@ -615,12 +701,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <location line="+400"/>
+        <location line="+410"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
     <message>
-        <location line="-396"/>
+        <location line="-406"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Sovrapponi un &amp;risultato di riferimento…</translation>
     </message>
@@ -692,6 +778,16 @@
     </message>
     <message>
         <location line="+7"/>
+        <source>&amp;Tools</source>
+        <translation>&amp;Strumenti</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Burn rate table…</source>
+        <translation>&amp;Tabella della velocità di combustione…</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>&amp;Help</source>
         <translation>&amp;Aiuto</translation>
     </message>
@@ -2377,6 +2473,21 @@ Esportarlo comunque?</translation>
         <location line="+1"/>
         <source>Temperature coefficient, hot</source>
         <translation>Coefficiente di temperatura, caldo</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Brisance factor (Br)</source>
+        <translation>Fattore di brisanza (Br)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Progressivity factor (Bp)</source>
+        <translation>Fattore di progressività (Bp)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Combined factor (Brp)</source>
+        <translation>Fattore combinato (Brp)</translation>
     </message>
     <message>
         <location line="+1"/>
