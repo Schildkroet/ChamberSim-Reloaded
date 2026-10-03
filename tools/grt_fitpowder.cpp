@@ -5,6 +5,7 @@
 //   grt_fitpowder [options] load.grtload [more loads ...]
 //     --params Ba,a0,z1,z2    values to fit (default: chosen from the amount of data)
 //     --pressure-weight W     weight of pressure errors against velocity errors (default 1; 0 = velocities only)
+//     --model original|physical  the original model's values (Ba, a0, z1, z2; default) or the physical model's (physBa ...)
 //     --out FILE.json         write the fitted powder as a record file (data/propellants/ format, see data/README.md)
 //     --save                  write each load with the fitted values as <name>-fitted.grtload next to it
 //
@@ -50,6 +51,7 @@ int main(int argc, char *argv[])
     cli.addPositionalArgument(u"loads"_s, u"*.grtload files with a Measurements tab (same powder)"_s, u"load..."_s);
     cli.addOptions({{u"params"_s, u"values to fit, e.g. Ba,a0,z1,z2 (default: chosen from the data)"_s, u"list"_s},
                     {u"pressure-weight"_s, u"weight of pressure errors (default 1, 0 = velocities only)"_s, u"w"_s, u"1"_s},
+                    {u"model"_s, u"original (Ba, a0, z1, z2) or physical (physBa ...)"_s, u"name"_s, u"original"_s},
                     {u"out"_s, u"write the fitted powder as a record file (JSON)"_s, u"file"_s},
                     {u"save"_s, u"write each load with the fitted values as <name>-fitted.grtload"_s}});
     cli.process(app);
@@ -106,6 +108,7 @@ int main(int argc, char *argv[])
         options.params = grt::powderfit::defaultParams(samples);
     }
     options.pressureWeight = cli.value(u"pressure-weight"_s).toDouble();
+    options.model = cli.value(u"model"_s) == u"physical"_s ? grt::powderfit::Model::Physical : grt::powderfit::Model::Original;
     int shots = 0;
     for (const auto &s : samples) shots += s.shots;
     if (static_cast<std::size_t>(samples.size()) < options.params.size())

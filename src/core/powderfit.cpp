@@ -24,16 +24,33 @@ namespace
 
 constexpr double kGrainToGram = 0.06479891;  // also cm3 of water per grain H2O
 
-// Whether a fit of this load changes the physical burn values (physBa ...) instead of Ba, a0, z1, z2: the active model is the physical
-// one and the load has them (the model then uses only those, see SimInput::physicalBurn); shotshells keep their own model.
-bool usesPhysical(const SimInput &in)
+// The model of a fit is in its (prepared) samples: with physical burn values the physical model and those values, without them the
+// original's model with Ba, a0, z1, z2 (see prepared()).
+const Calibration &calibrationOf(const SimInput &in)
 {
-    return activeCalibration().model == SolverModel::Physical && in.physicalBurn && !in.shotshell;
+    static const Calibration original = calibrationFor(CalibrationProfile::Original);
+    static const Calibration physical = calibrationFor(CalibrationProfile::Physical);
+    return in.physicalBurn ? physical : original;
+}
+
+// The physical values a load has, or the ones its own values amount to in the physical model (the scaled burn rate).
+PhysicalBurn physicalStart(const SimInput &in)
+{
+    if (in.physicalBurn) return *in.physicalBurn;
+    return {.Ba = in.vivacityBa * calibrationFor(CalibrationProfile::Physical).burnRateScale, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+}
+
+// A sample of a fit of `model`.
+Sample prepared(Sample s, Model model)
+{
+    if (model == Model::Physical) s.input.physicalBurn = physicalStart(s.input);
+    else s.input.physicalBurn.reset();
+    return s;
 }
 
 double &field(SimInput &in, Param p)
 {
-    if (usesPhysical(in)) switch (p)
+    if (in.physicalBurn) switch (p)
         {
         case Param::Ba: return in.physicalBurn->Ba;
         case Param::A0: return in.physicalBurn->a0;
@@ -83,7 +100,7 @@ Simulated simulateWith(const Sample &s, const std::vector<Param> &params, const 
     in.charge_g = s.charge_g;
     in.ladderCount = 1;
     for (std::size_t i = 0; i < params.size(); ++i) field(in, params[i]) = x[i];
-    const SimResult r = simulate(in);
+    const SimResult r = simulate(in, calibrationOf(in));
     return {r.ok(), r.muzzleVelocity_ms, r.maxPressure_bar};
 }
 
@@ -269,12 +286,15 @@ std::vector<Param> defaultParams(const std::vector<Sample> &samples)
     return {Param::Ba};
 }
 
-Result fit(const std::vector<Sample> &samples, const Options &options)
+Result fit(const std::vector<Sample> &given, const Options &options)
 {
     Result res;
     res.params = options.params;
-    if (samples.empty() || options.params.empty()) return res;
-    res.physical = usesPhysical(samples.front().input);
+    res.model = options.model;
+    if (given.empty() || options.params.empty()) return res;
+    std::vector<Sample> samples;
+    for (const Sample &s : given) samples.push_back(prepared(s, options.model));
+    const bool physical = options.model == Model::Physical;
     const auto &params = options.params;
     const std::size_t n = params.size();
     LOG_Debug() << "Powder fit:" << samples.size() << "samples," << n << "parameters, at most" << options.maxIterations << "iterations";
@@ -282,7 +302,9 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     std::vector<double> x;
     SimInput start = samples.front().input;
     for (const Param p : params) x.push_back(field(start, p));
-    clamp(x, params, res.physical);
+    // all four values of the model at the start (apply() writes them, with the fitted ones replaced)
+    for (const Param p : {Param::Ba, Param::A0, Param::Z1, Param::Z2}) res.base[static_cast<std::size_t>(p)] = field(start, p);
+    clamp(x, params, physical);
     res.before = x;
 
     std::vector<Simulated> simsBefore;
@@ -326,7 +348,7 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
             }
             std::vector<double> xn = x;
             for (std::size_t a = 0; a < n; ++a) xn[a] += step[a];
-            clamp(xn, params, res.physical);
+            clamp(xn, params, physical);
             const std::vector<double> rn = residuals(samples, params, xn, options.pressureWeight, options.threads);
             const double cn = sumSquares(rn);
             if (cn < cost)
@@ -364,28 +386,38 @@ Result fit(const std::vector<Sample> &samples, const Options &options)
     return res;
 }
 
-bool fitsPhysical(const std::vector<Sample> &samples)
+std::vector<Result> fitAll(const std::vector<Sample> &samples, Options options)
 {
-    return !samples.empty() && usesPhysical(samples.front().input);
+    std::vector<Result> out;
+    options.model = Model::Original;
+    out.push_back(fit(samples, options));
+    if (!samples.empty() && !samples.front().input.shotshell)  // shotshells: their model always uses the original's constants
+    {
+        options.model = Model::Physical;
+        out.push_back(fit(samples, options));
+    }
+    return out;
 }
 
 void apply(EntryList &propellant, const Result &result)
 {
-    if (result.physical)
-        if (auto burn = readPhysicalBurn(propellant))
-        {
-            for (std::size_t i = 0; i < result.params.size() && i < result.after.size(); ++i) switch (result.params[i])
-                {
-                case Param::Ba: burn->Ba = result.after[i]; break;
-                case Param::A0: burn->a0 = result.after[i]; break;
-                case Param::Z1: burn->z1 = result.after[i]; break;
-                case Param::Z2: burn->z2 = result.after[i]; break;
-                }
-            writePhysicalBurn(propellant, burn);  // Ba, a0, z1, z2 stay: physRef still matches
-            return;
-        }
+    auto values = result.base;
     for (std::size_t i = 0; i < result.params.size() && i < result.after.size(); ++i)
-        propellant.set(name(result.params[i]), result.after[i]);
+        values[static_cast<std::size_t>(result.params[i])] = result.after[i];
+    if (result.model == Model::Physical)
+    {
+        // physRef: the load's Ba, a0, z1, z2 at this moment (apply the original model's result first)
+        writePhysicalBurn(propellant, PhysicalBurn{.Ba = values[0], .a0 = values[1], .z1 = values[2], .z2 = values[3]});
+        return;
+    }
+    for (const Param p : result.params) propellant.set(name(p), values[static_cast<std::size_t>(p)]);
+}
+
+void apply(EntryList &propellant, const std::vector<Result> &results)
+{
+    for (const Model m : {Model::Original, Model::Physical})  // the physical values refer to the original's values: those first
+        for (const Result &r : results)
+            if (r.model == m && r.improved) apply(propellant, r);
 }
 
 QVariantMap toRecord(const EntryList &propellant, const Result &result, const projectdata::Schema &schema, const QString &descr)

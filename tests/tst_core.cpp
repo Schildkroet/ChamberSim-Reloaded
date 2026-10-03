@@ -2039,21 +2039,21 @@ void CoreTest::saamiColumnMigration()
     QCOMPARE(freshCols.indexOf(u"PmaxSAAMI"_s), freshCols.indexOf(u"Pmax"_s) + 1);
 }
 
-// With the physical model active and physical burn values in the load, the fit changes those (the model ignores Ba then) and puts
-// them back into the load; Ba, a0, z1, z2 stay, so the values still apply.
+// Measurements fitted for both models: the original's Ba and the physical values (velocities simulated with the physical model);
+// applied together, the physical values refer to the new Ba and still apply. A load without physical values gets them.
 void CoreTest::powderFitPhysicalValues()
 {
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     grt::writePhysicalBurn(lf->propellant, grt::PhysicalBurn{.Ba = 1.3, .a0 = 0.5, .z1 = 0.3, .z2 = 0.7});
-    grt::setCalibrationProfile(grt::CalibrationProfile::Physical);
     grt::SimInput truth = grt::SimInput::fromLoad(*lf);
     QVERIFY(truth.physicalBurn);
+    const grt::Calibration physical = grt::calibrationFor(grt::CalibrationProfile::Physical);
     grt::Measurement m{.title = u"M"_s, .charges = {}, .attributes = {}};
     for (const double g : {2.4, 2.6, 2.75})
     {
         truth.charge_g = g;
-        const grt::SimResult r = grt::simulate(truth);
+        const grt::SimResult r = grt::simulate(truth, physical);
         QVERIFY(r.ok());
         grt::MeasuredCharge c = grt::MeasuredCharge::create(u"c"_s, g);
         c.shots.push_back({.velocity_ms = r.muzzleVelocity_ms});
@@ -2065,18 +2065,32 @@ void CoreTest::powderFitPhysicalValues()
 
     QStringList warnings;
     const auto samples = grt::powderfit::samples(*lf, u"8x57"_s, &warnings);
-    QVERIFY(grt::powderfit::fitsPhysical(samples));
-    const auto res = grt::powderfit::fit(samples, {.params = {grt::powderfit::Param::Ba}, .pressureWeight = 1.0, .maxIterations = 60});
-    grt::setCalibrationProfile(grt::CalibrationProfile::Original);
-    QVERIFY(res.physical);
+    grt::setCalibrationProfile(grt::CalibrationProfile::Original);  // each model is fitted with its own constants, whatever is active
+    const auto results =
+        grt::powderfit::fitAll(samples, {.params = {grt::powderfit::Param::Ba}, .pressureWeight = 1.0, .maxIterations = 60});
+    QCOMPARE(results.size(), std::size_t{2});
+    QCOMPARE(results[0].model, grt::powderfit::Model::Original);
+    const auto &res = results[1];
+    QCOMPARE(res.model, grt::powderfit::Model::Physical);
     QVERIFY(res.improved);
     QCOMPARE_LT(std::abs(res.after[0] / 1.3 - 1.0), 0.003);
-    grt::powderfit::apply(lf->propellant, res);
+    grt::powderfit::apply(lf->propellant, results);  // the original's Ba first, then the physical values referring to it
     const auto burn = grt::readPhysicalBurn(lf->propellant);
-    QVERIFY(burn);  // still valid: physRef matches
+    QVERIFY(burn);  // still valid: physRef is the new Ba
     QCOMPARE_LT(std::abs(burn->Ba / 1.3 - 1.0), 0.003);
-    QCOMPARE(lf->propellant.number(u"Ba"), Ba);
-    QVERIFY(!grt::powderfit::fitsPhysical(samples));  // the Original model: the load's own values
+    QCOMPARE(burn->z2, 0.7);  // not fitted: kept
+    if (results[0].improved) QVERIFY(lf->propellant.number(u"Ba") != Ba);
+
+    // a load without physical values (own or GRT powder) gets them from the physical fit
+    grt::writePhysicalBurn(lf->propellant, std::nullopt);
+    const auto fresh = grt::powderfit::samples(*lf, u"8x57"_s, &warnings);
+    const auto physOnly = grt::powderfit::fit(
+        fresh,
+        {.params = {grt::powderfit::Param::Ba}, .pressureWeight = 1.0, .maxIterations = 60, .model = grt::powderfit::Model::Physical});
+    QVERIFY(physOnly.improved);
+    grt::powderfit::apply(lf->propellant, physOnly);
+    QVERIFY(grt::readPhysicalBurn(lf->propellant));
+    QCOMPARE_LT(physOnly.velocityRmsAfter, 0.01);  // another form function (the load's a0, z1, z2): Ba alone gets close, not exact
 }
 
 QTEST_APPLESS_MAIN(CoreTest)

@@ -1990,18 +1990,23 @@ void GuiTest::fitToMeasurementsChangesThePowder()
             return true;
         });
     dlg.runFit();
-    QVERIFY(dlg.result());
-    QVERIFY(dlg.result()->improved);
-    QCOMPARE(dlg.result()->params.size(), std::size_t{1});  // two charges: Ba only
-    QCOMPARE_LT(dlg.result()->velocityRmsAfter, dlg.result()->velocityRmsBefore);
+    QCOMPARE(dlg.results().size(), std::size_t{2});  // both models
+    for (const auto &r : dlg.results())
+    {
+        QVERIFY(r.improved);
+        QCOMPARE(r.params.size(), std::size_t{1});  // two charges: Ba only
+        QCOMPARE_LT(r.velocityRmsAfter, r.velocityRmsBefore);
+    }
     QPushButton *save = nullptr;
     for (QPushButton *b : dlg.findChildren<QPushButton *>())
         if (b->text().startsWith(u"Save as own propellant"_s)) save = b;
     QVERIFY(save && save->isEnabled());
     save->click();
     QVERIFY(saved);
+    QCOMPARE(saved->model, grt::powderfit::Model::Original);  // a record holds the original model's values
     if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) dlg.grab().save(shots + u"/powderfit.png"_s);
-    QVERIFY(dlg.findChild<QTableWidget *>()->item(0, 7)->text().endsWith(u"%"_s));
+    QVERIFY(dlg.findChild<QTableWidget *>()->item(0, 5)->text().endsWith(u"%"_s));  // original, after
+    QVERIFY(dlg.findChild<QTableWidget *>()->item(0, 8)->text().endsWith(u"%"_s));  // physical, after
 
     // through the button: shots about 5 % faster than simulated need a higher burn rate; "Apply to this load" puts
     // the fitted value into the propellant
@@ -2036,6 +2041,7 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QVERIFY(view.save(dir.filePath(u"fitted.grtload"_s)));
     after = *grt::LoadFile::read(dir.filePath(u"fitted.grtload"_s));
     QVERIFY2(after.propellant.number(u"Ba") > before * 1.02, qPrintable(u"Ba %1 -> %2"_s.arg(before).arg(after.propellant.number(u"Ba"))));
+    QVERIFY(grt::readPhysicalBurn(after.propellant));  // and the physical model's values
 
     // a record made from it: the database's columns, 21 degC, the photos of the powder
     const QVariantMap rec = grt::powderfit::toRecord(after.propellant, *saved, m_db.schema(grt::Table::Propellant), u"test"_s);

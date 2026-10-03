@@ -13,27 +13,29 @@ class QLabel;
 class QPushButton;
 class QTableWidget;
 
-// "Fit to measurements": changes the load's propellant values (Ba, a0, z1, z2) until the simulation agrees with the
-// measured charges, shows the difference per charge before and after, and applies the values to the load or saves
-// them as an own propellant record.
+// "Fit to measurements": changes the load's propellant values until the simulation agrees with the measured charges, for
+// both models (the original's Ba, a0, z1, z2, also used by the Published profile, and the physical model's physBa ...), shows the
+// difference per charge before and after, and applies the values to the load or saves the original's as an own propellant record.
 class PowderFitDialog : public QDialog
 {
     Q_OBJECT
 public:
     PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QStringList warnings, QWidget *parent = nullptr);
 
-    // Called by "Save as own propellant…" with the result (the dialog stays open); none: the button is hidden.
+    // Called by "Save as own propellant…" with the original model's result (the dialog stays open); none: the button is hidden.
     void setSaveHandler(std::function<bool(const grt::powderfit::Result &)> handler);
 
     void setParams(const std::vector<grt::powderfit::Param> &params);
     void runFit();
-    [[nodiscard]] const std::optional<grt::powderfit::Result> &result() const noexcept { return m_result; }
+    // one result per model (the original's first), empty before the fit
+    [[nodiscard]] const std::vector<grt::powderfit::Result> &results() const noexcept { return m_results; }
+    [[nodiscard]] bool improved() const;
 
 private:
     void showResult();
 
     std::vector<grt::powderfit::Sample> m_samples;
-    std::optional<grt::powderfit::Result> m_result;
+    std::vector<grt::powderfit::Result> m_results;
     std::function<bool(const grt::powderfit::Result &)> m_save;
     std::map<grt::powderfit::Param, QCheckBox *> m_params;
     QTableWidget *m_table;

@@ -573,13 +573,8 @@ void LoadView::fitPowder()
         QMessageBox::information(this, tr("Fit to measurements"), tr("Enter the measured velocity of the shots first."));
         return;
     }
-    // the physical model with the load's physical burn values: the fit changes those, and they live in the load only
-    const bool physical = grt::powderfit::fitsPhysical(samples);
-    if (physical)
-        warnings << tr("The physical model is active: the fit changes the physical burn values of this load (shown as \"Physical "
-                       "Model: ...\" in the propellant table). They are saved with the load, not as a propellant record.");
     PowderFitDialog dlg(samples, warnings, this);
-    if (!physical && m_saveRecord && m_db && m_db->isOpen())
+    if (m_saveRecord && m_db && m_db->isOpen())
     {
         dlg.setSaveHandler(
             [this, &samples](const grt::powderfit::Result &r)
@@ -591,9 +586,9 @@ void LoadView::fitPowder()
             });
     }
     dlg.runFit();
-    if (dlg.exec() != QDialog::Accepted || !dlg.result() || !dlg.result()->improved) return;
+    if (dlg.exec() != QDialog::Accepted || !dlg.improved()) return;
     LOG_Info() << "Powder fit applied to" << title();
-    grt::powderfit::apply(m_file.propellant, *dlg.result());
+    grt::powderfit::apply(m_file.propellant, dlg.results());  // both models: Ba ... and the physical values
     rebuildPanels();
     recompute();
     setModified(true);

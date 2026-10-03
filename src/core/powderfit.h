@@ -7,6 +7,7 @@
 #include <QString>
 #include <QStringList>
 
+#include <array>
 #include <vector>
 
 // Fitting a propellant model to measurements: the measured charges of one or more loads (Measurements tab:
@@ -21,6 +22,14 @@ enum class Param
     A0,
     Z1,
     Z2
+};
+
+// Which model's values a fit changes: the original's (Ba, a0, z1, z2 of the load; also used by the Published profile) or the physical
+// model's (physBa, physA0, physZ1, physZ2; a load without them gets them).
+enum class Model
+{
+    Original,
+    Physical
 };
 
 [[nodiscard]] QString name(Param p);                                                    // "Ba", "a0", "z1", "z2"
@@ -51,7 +60,8 @@ struct Options
     std::vector<Param> params;
     double pressureWeight{1.0};  // weight of the relative pressure errors against the velocity errors
     int maxIterations{60};
-    int threads{0};  // threads for the simulations (0: all cores); the samples are independent of each other
+    int threads{0};                // threads for the simulations (0: all cores); the samples are independent of each other
+    Model model{Model::Original};  // fitted with that model's own constants, whatever profile is active
 };
 
 struct SampleResult
@@ -69,19 +79,21 @@ struct Result
     double pressureRmsBefore{}, pressureRmsAfter{};  // relative (0 without pressure measurements)
     int iterations{};
     bool improved{};
-    // the fitted values are the load's physical burn values (physBa, physA0, ...: physical model active and the load has them); they are
-    // kept in the load only, a propellant record has no columns for them
-    bool physical{};
+    Model model{Model::Original};  // physical: the load's physical burn values (a propellant record has no columns for them)
+    std::array<double, 4> base{};  // Ba, a0, z1, z2 of the model at the start (apply() replaces the fitted ones)
 };
 
 // Starts from the model values of the first sample's load; all samples share them.
 [[nodiscard]] Result fit(const std::vector<Sample> &samples, const Options &options);
 
-// Whether fit() would change the physical burn values of these samples' load (see Result::physical).
-[[nodiscard]] bool fitsPhysical(const std::vector<Sample> &samples);
+// Fits both models (the physical one not for shotshells: their model uses the original's constants): one result per model, the
+// original's first.
+[[nodiscard]] std::vector<Result> fitAll(const std::vector<Sample> &samples, Options options);
 
-// The fitted values put into a load's propellant section (for saving or exporting); physical values into physBa ... .
+// The fitted values put into a load's propellant section (for saving or exporting); physical values into physBa ... . The list
+// version applies the improved results, the original model's first (the physical values refer to the load's values).
 void apply(EntryList &propellant, const Result &result);
+void apply(EntryList &propellant, const std::vector<Result> &results);
 
 // A propellant record (database columns of `schema`) from a load's propellant section with the fitted values:
 // reference temperature 21 degC (the fitted Ba refers to it), the photos of the powder (Database::insert copies them

@@ -3,6 +3,7 @@
 #include "unitprefs.h"
 
 #include <QApplication>
+#include <algorithm>
 #include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QHBoxLayout>
@@ -43,7 +44,7 @@ QTableWidgetItem *cell(const QString &text)
 PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QStringList warnings, QWidget *parent)
     : QDialog(parent)
     , m_samples(std::move(samples))
-    , m_table(new QTableWidget(0, 9))
+    , m_table(new QTableWidget(0, 10))
     , m_summary(new QLabel)
     , m_fit(new QPushButton(tr("Fit")))
     , m_apply(new QPushButton(tr("Apply to this load")))
@@ -51,8 +52,9 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
 {
     setWindowTitle(tr("Fit to measurements"));
     auto *intro = new QLabel(tr("Changes the propellant's model values until the simulation agrees with the measured "
-                                "charges. Check the case volume (fired case, water), the bullet length and the cartridge "
-                                "length first: wrong values there give a wrong model."));
+                                "charges, for both models: the original program's (Ba, a0, z1, z2; also used by the Published "
+                                "calibration) and the physical model's (its own burn values). Check the case volume (fired case, "
+                                "water), the bullet length and the cartridge length first: wrong values there give a wrong model."));
     intro->setWordWrap(true);
 
     // the values to fit, preset for the amount of data
@@ -81,8 +83,9 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
 
     const auto sym = [](Quantity q) { return QString::fromUtf8(UnitPreferences::instance().unitFor(q).symbol); };
     m_table->setHorizontalHeaderLabels({tr("Load"), tr("Charge [%1]").arg(sym(Quantity::BulletMass)), tr("Shots"),
-                                        tr("Measured [%1]").arg(sym(Quantity::Velocity)), tr("Before"), tr("Δ"), tr("After"), tr("Δ"),
-                                        tr("Pressure Δ after")});
+                                        tr("Measured [%1]").arg(sym(Quantity::Velocity)), tr("Original\nΔ before"), tr("Original\nΔ after"),
+                                        tr("Original\npressure Δ"), tr("Physical\nΔ before"), tr("Physical\nΔ after"),
+                                        tr("Physical\npressure Δ")});
     m_table->verticalHeader()->hide();
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     m_table->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -103,7 +106,7 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
     connect(m_saveButton, &QPushButton::clicked, this,
             [this]
             {
-                if (m_result && m_save && m_save(*m_result)) m_saveButton->setText(tr("Saved"));
+                if (!m_results.empty() && m_save && m_save(m_results.front())) m_saveButton->setText(tr("Saved"));
             });
     connect(m_fit, &QPushButton::clicked, this, &PowderFitDialog::runFit);
 
@@ -129,6 +132,11 @@ void PowderFitDialog::setParams(const std::vector<grt::powderfit::Param> &params
     for (auto &[p, box] : m_params) box->setChecked(std::ranges::find(params, p) != params.end());
 }
 
+bool PowderFitDialog::improved() const
+{
+    return std::ranges::any_of(m_results, [](const grt::powderfit::Result &r) { return r.improved; });
+}
+
 void PowderFitDialog::runFit()
 {
     grt::powderfit::Options options;
@@ -136,7 +144,7 @@ void PowderFitDialog::runFit()
         if (box->isChecked()) options.params.push_back(p);
     if (options.params.empty()) return;
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    m_result = grt::powderfit::fit(m_samples, options);
+    m_results = grt::powderfit::fitAll(m_samples, options);
     QApplication::restoreOverrideCursor();
     m_saveButton->setText(tr("Save as own propellant…"));
     showResult();
@@ -144,46 +152,67 @@ void PowderFitDialog::runFit()
 
 void PowderFitDialog::showResult()
 {
+    using grt::powderfit::Model;
+    const auto resultOf = [&](Model m) -> const grt::powderfit::Result *
+    {
+        const auto it = std::ranges::find_if(m_results, [m](const grt::powderfit::Result &r) { return r.model == m; });
+        return it == m_results.end() ? nullptr : &*it;
+    };
+    const bool anyPressure = std::ranges::any_of(m_samples, [](const auto &s) { return s.pressureShots > 0; });
+    const bool physicalShown = m_samples.empty() || !m_samples.front().input.shotshell;
     m_table->setRowCount(static_cast<int>(m_samples.size()));
     for (int row = 0; row < m_table->rowCount(); ++row)
     {
-        const grt::powderfit::Sample &s = m_samples[static_cast<std::size_t>(row)];
+        const auto i = static_cast<std::size_t>(row);
+        const grt::powderfit::Sample &s = m_samples[i];
         auto *name = new QTableWidgetItem(s.source);
         name->setFlags(name->flags() & ~Qt::ItemIsEditable);
         m_table->setItem(row, 0, name);
         m_table->setItem(row, 1, cell(shown(s.charge_g, Quantity::BulletMass, -1)));
         m_table->setItem(row, 2, cell(QString::number(s.shots)));
         m_table->setItem(row, 3, cell(shown(s.velocity_ms, Quantity::Velocity, 1)));
-        const grt::powderfit::SampleResult *r = m_result ? &m_result->samples[static_cast<std::size_t>(row)] : nullptr;
-        m_table->setItem(row, 4, cell(r ? shown(r->velocityBefore, Quantity::Velocity, 1) : QString()));
-        m_table->setItem(row, 5, cell(r ? percent(r->velocityBefore, s.velocity_ms) : QString()));
-        m_table->setItem(row, 6, cell(r ? shown(r->velocityAfter, Quantity::Velocity, 1) : QString()));
-        m_table->setItem(row, 7, cell(r ? percent(r->velocityAfter, s.velocity_ms) : QString()));
-        m_table->setItem(row, 8, cell(r && s.pressureShots > 0 ? percent(r->pressureAfter, s.pressure_bar) : QString()));
+        int col = 4;
+        for (const Model m : {Model::Original, Model::Physical})
+        {
+            const grt::powderfit::Result *res = resultOf(m);
+            const grt::powderfit::SampleResult *r = res && i < res->samples.size() ? &res->samples[i] : nullptr;
+            m_table->setItem(row, col++, cell(r ? percent(r->velocityBefore, s.velocity_ms) : QString()));
+            m_table->setItem(row, col++, cell(r ? percent(r->velocityAfter, s.velocity_ms) : QString()));
+            m_table->setItem(row, col++, cell(r && s.pressureShots > 0 ? percent(r->pressureAfter, s.pressure_bar) : QString()));
+        }
     }
-    m_table->setColumnHidden(8, std::ranges::none_of(m_samples, [](const auto &s) { return s.pressureShots > 0; }));
-    m_apply->setEnabled(m_result && m_result->improved);
-    m_saveButton->setEnabled(m_result && m_result->improved);
-    if (!m_result)
+    m_table->setColumnHidden(6, !anyPressure);
+    for (int c : {7, 8}) m_table->setColumnHidden(c, !physicalShown);
+    m_table->setColumnHidden(9, !physicalShown || !anyPressure);
+    m_apply->setEnabled(improved());
+    m_saveButton->setEnabled(resultOf(Model::Original) && resultOf(Model::Original)->improved);
+    if (m_results.empty())
     {
         m_summary->setText(tr("Choose the values to fit and click <b>Fit</b>."));
         return;
     }
-    QStringList values;
-    for (std::size_t i = 0; i < m_result->params.size(); ++i)
-        values << QStringLiteral("%1: %2 → <b>%3</b>")
-                      .arg(grt::powderfit::name(m_result->params[i]), QLocale().toString(m_result->before[i], 'f', 4),
-                           QLocale().toString(m_result->after[i], 'f', 4));
-    QString text = values.join(u", &nbsp; "_s) + u"<br>"_s +
-                   tr("Velocity error (rms): %1 % → <b>%2 %</b>")
-                       .arg(QLocale().toString(100 * m_result->velocityRmsBefore, 'f', 2),
-                            QLocale().toString(100 * m_result->velocityRmsAfter, 'f', 2));
-    if (m_result->pressureRmsBefore > 0.0)
-        text += u", "_s + tr("pressure error: %1 % → %2 %")
-                              .arg(QLocale().toString(100 * m_result->pressureRmsBefore, 'f', 1),
-                                   QLocale().toString(100 * m_result->pressureRmsAfter, 'f', 1));
-    if (!m_result->improved) text += u"<br>"_s + tr("The values were not changed: the current ones fit best.");
-    if (m_samples.size() < m_result->params.size())
+    QStringList blocks;
+    for (const grt::powderfit::Result &r : m_results)
+    {
+        QStringList values;
+        for (std::size_t i = 0; i < r.params.size(); ++i)
+            values << QStringLiteral("%1: %2 → <b>%3</b>")
+                          .arg(grt::powderfit::name(r.params[i]), QLocale().toString(r.before[i], 'f', 4),
+                               QLocale().toString(r.after[i], 'f', 4));
+        QString text =
+            u"<b>"_s + (r.model == Model::Original ? tr("Original model") : tr("Physical model")) + u"</b> &nbsp; "_s +
+            values.join(u", &nbsp; "_s) + u"<br>"_s +
+            tr("Velocity error (rms): %1 % → <b>%2 %</b>")
+                .arg(QLocale().toString(100 * r.velocityRmsBefore, 'f', 2), QLocale().toString(100 * r.velocityRmsAfter, 'f', 2));
+        if (r.pressureRmsBefore > 0.0)
+            text += u", "_s +
+                    tr("pressure error: %1 % → %2 %")
+                        .arg(QLocale().toString(100 * r.pressureRmsBefore, 'f', 1), QLocale().toString(100 * r.pressureRmsAfter, 'f', 1));
+        if (!r.improved) text += u"<br>"_s + tr("The values were not changed: the current ones fit best.");
+        blocks << text;
+    }
+    QString text = blocks.join(u"<br>"_s);
+    if (m_samples.size() < m_results.front().params.size())
         text += u"<br><span style='color:#c0392b'>"_s + tr("Fewer measured charges than values: the result is not well determined.") +
                 u"</span>"_s;
     m_summary->setText(text);
