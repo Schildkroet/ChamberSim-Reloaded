@@ -10,7 +10,7 @@ to the velocities and, where published, the measured pressures (relative errors,
 are the medians of the powders fitted with pressures. --fit ba fits only Ba for every powder, with the form function --form. --split train uses only the training cartridges (every cartridge but each 4th of the
 sorted list, the split of calibrate_published.py) and reports the error on the held-out ones; --split all (default) fits on everything.
 The file keeps the record values the burn values belong to: they apply only to the unchanged record (physicalpowders.h)."""
-import argparse, csv, json, os, subprocess, tempfile
+import argparse, csv, json, os, subprocess, sys, tempfile
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 from scipy.optimize import least_squares
@@ -30,9 +30,9 @@ DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 
 # ---- samples (identical rows and misread pressures dropped, like calibrate_published.py) and the project's powder records
 records = {}
-for f in sorted(os.listdir(os.path.join(DATA, "propellants"))):
-    try: r = json.load(open(os.path.join(DATA, "propellants", f)))
-    except (ValueError, OSError): continue
+sys.path.insert(0, os.path.join(DATA, "..", "tools"))
+import recordfiles  # noqa: E402  data/propellants/<manufacturer>.json
+for _, r in recordfiles.read(os.path.join(DATA, "propellants")):
     records[(r["mname"] + " " + r["pname"]).lower()] = r
 # a powder column without the maker ("N150" of vv_extract.py) is matched by the product name when that is unique among the records
 by_name = {}

@@ -108,8 +108,8 @@ ctest --preset release
 
 The program shows one database made of three parts:
 
-- the **project database**: calibers, projectiles and propellants contributed to this repository (`data/`, one JSON
-  file per record, CC BY-SA 4.0). It is built into the program, so every user has all of it; see
+- the **project database**: calibers, projectiles and propellants contributed to this repository (`data/`, JSON
+  files: one per caliber, one per manufacturer for projectiles and propellants; CC BY-SA 4.0). It is built into the program, so every user has all of it; see
   [data/README.md](data/README.md) and [CONTRIBUTING.md](CONTRIBUTING.md) to add records;
 - your **own records** (`GRTReloaded.db` in the application data folder): everything you create or copy in the
   *Database* tab; *Export…* turns one into a project file;
@@ -258,7 +258,8 @@ projectiles and propellants. Use a pull request on GitHub to send the data.
 7. Make a load with the new record. Make sure that the results are correct.
 8. Select the record in the tab *Database*.
 9. Click *Export…*. The program writes a `.json` file.
-10. Put the file into `data/calibers/` or `data/projectiles/`.
+10. Put the file into `data/calibers/` or `data/projectiles/`. For a projectile run
+    `python3 tools/recordfiles.py data/projectiles`: it moves the record into the file of its manufacturer.
 11. Do procedure 3.
 
 ### Procedure 2: Make a propellant model from measurements
@@ -300,7 +301,7 @@ Use a good chronograph (for example MagnetoSpeed or LabRadar). Measurements of t
 
     | File | Copy to |
     |---|---|
-    | the `.json` file from step 8 (one file) | `data/propellants/` |
+    | the `.json` file from step 8 (one file), then run `python3 tools/recordfiles.py data/propellants` (moves the record into the file of its manufacturer) | `data/propellants/` |
     | your load files from step 7 (not the `-fitted` files) | `data/measurements/<manufacturer>-<name>-<lot>/` |
 
     Other users can then do step 8 again with your load files and get the same model.

@@ -14,11 +14,15 @@ import csv
 import json
 import re
 import subprocess
+import sys
 import unicodedata
 from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools"))
+import recordfiles  # noqa: E402
+
 FORM = {"a0": 0.0, "z1": 0.3, "z2": 0.6}
 BASES = {"single-base": {"Qex": 3800.0, "k": 1.23, "pc": 1580.0}, "double-base": {"Qex": 4300.0, "k": 1.24, "pc": 1620.0}}
 PCD = 900.0
@@ -61,6 +65,7 @@ def main() -> int:
     ap.add_argument("--skip-existing", action="store_true", help="do not fit powders that already have a record")
     ap.add_argument("--min-cartridges", type=int, default=1, help="records need samples of at least this many cartridges")
     args = ap.parse_args()
+    existing = {recordfiles.key(r): r for _, r in recordfiles.read(args.output)}
     rows, seen, names = [], set(), {}
     for samples in args.samples:
         with open(samples, newline="", encoding="utf-8") as f:
@@ -83,7 +88,7 @@ def main() -> int:
         if len(mine) < args.min_samples:
             continue
         mk, pn = (args.maker, powder) if args.maker else powder.split(" ", 1)
-        if args.skip_existing and (args.output / (slug(mk, pn) + ".json")).exists():
+        if args.skip_existing and recordfiles.key({"mname": mk, "pname": pn}) in existing:
             continue
         path = work / f"{slug(powder)}.csv"
         with open(path, "w", newline="", encoding="utf-8") as f:
@@ -117,12 +122,12 @@ def main() -> int:
                            "and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
                          + (" Fewer data or a poorer fit than most other records: use with more caution."
                             if best["samples"] < 40 or best["v_rms"] > 5.5 else ""))}
-        target = args.output / (slug(maker, pname) + ".json")
-        if target.exists() and not args.overwrite:
+        if recordfiles.key(rec) in existing and not args.overwrite:
             continue
-        body = ",\n".join(f"  {json.dumps(k)}: {json.dumps(rec[k], ensure_ascii=False)}" for k in ORDER)
-        target.write_text("{\n" + body + "\n}\n", encoding="utf-8")
+        existing[recordfiles.key(rec)] = {k: rec[k] for k in ORDER}
         written += 1
+    if written:
+        recordfiles.write(args.output, list(existing.values()))  # data/propellants/<manufacturer>.json
     if args.fits:
         with open(args.fits, "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, ["powder", "samples", "cartridges", "base", "Ba", "v_rms", "p_rms", "too_high"])

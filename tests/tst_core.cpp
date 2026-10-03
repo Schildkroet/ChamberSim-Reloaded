@@ -1241,6 +1241,7 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
     QTemporaryDir dir;
     QDir().mkpath(dir.filePath(u"data/propellants"_s));
     QDir().mkpath(dir.filePath(u"data/calibers"_s));
+    QDir().mkpath(dir.filePath(u"data/projectiles"_s));
     const auto write = [&](const QString &name, const QByteArray &text)
     {
         QFile f(dir.filePath(u"data/"_s + name));
@@ -1252,6 +1253,10 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
     write(u"propellants/broken.json"_s, R"({"mname": "Acme", "pname": "P2", "Ba": "fast", "Qex": 3900})");
     write(u"propellants/not-json.json"_s, "this is not json");
     write(u"calibers/unknown-column.json"_s, R"({"cipname": "X", "L3": 50, "V": 60, "colour": "red"})");
+    // projectiles: one file per manufacturer with an array of records; a bad record does not cost the others
+    write(u"projectiles/acme.json"_s, R"([{"mname": "Acme", "pname": "B1", "gdia": 7.82, "glen": 30, "gmass": 150},
+        {"mname": "Acme", "pname": "B2", "gdia": 7.82, "glen": "long", "gmass": 168},
+        {"mname": "Acme", "pname": "B3", "gdia": 7.82, "glen": 33, "gmass": 180}])");
 
     grt::Database::setProjectDataLocation(dir.filePath(u"data"_s));
     grt::Database db;
@@ -1259,6 +1264,8 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
     QVERIFY2(db.open({}, dir.filePath(u"own.db"_s), &err), qPrintable(err));
     QCOMPARE(db.projectCount(grt::Table::Propellant), 1);
     QCOMPARE(db.projectCount(grt::Table::Caliber), 0);
+    QCOMPARE(db.projectCount(grt::Table::Projectile), 2);
+    QCOMPARE(db.record(grt::Table::Projectile, grt::Database::kProjectIdBase + 1)->value(u"pname"_s).toString(), u"B3"_s);  // file order
     QCOMPARE(db.count(grt::Table::Propellant), 1);
     const auto rec = db.record(grt::Table::Propellant, grt::Database::kProjectIdBase);
     QVERIFY(rec);
@@ -1273,6 +1280,7 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
     QVERIFY2(errors.contains(u"propellants/broken.json: \"Ba\" must be a number"_s), qPrintable(errors));
     QVERIFY(errors.contains(u"propellants/not-json.json"_s));
     QVERIFY(errors.contains(u"calibers/unknown-column.json: unknown column \"colour\""_s));
+    QVERIFY2(errors.contains(u"projectiles/acme.json #2 (B2): \"glen\" must be a number"_s), qPrintable(errors));
     // read-only; a copy becomes an own record
     QVERIFY(!db.update(grt::Table::Propellant, grt::Database::kProjectIdBase, {{u"Ba"_s, 0.7}}));
     QVERIFY(!db.remove(grt::Table::Propellant, grt::Database::kProjectIdBase));

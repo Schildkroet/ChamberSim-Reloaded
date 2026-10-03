@@ -27,7 +27,8 @@ converted, and a value of 1000 and more without unit is psi, below MPa. Wikipedi
 `berger_fetch.py`, `nosler_fetch.py`, `speer_fetch.py`, `hornady_fetch.py`, `sierra_fetch.py`, `barnes_fetch.py`,
 `sellier_fetch.py`, `lapua_fetch.py`, `norma_fetch.py`, `rws_fetch.py`, `ppu_fetch.py`, `federal_fetch.py`, `winchester_fetch.py`,
 `remington_fetch.py`, `hn_fetch.py`, `sako_fetch.py` (in `tools/bulletdata`) read the specification lists of the manufacturers' web shops into
-`bullets_<maker>.csv` (grain, inch); `bullets_to_json.py` writes the JSON files (mm, grain).
+`bullets_<maker>.csv` (grain, inch); `bullets_to_json.py` writes the records (mm, grain) into the manufacturers' files `data/projectiles/<maker>.json`
+(`tools/recordfiles.py`).
 
 - The column `valid` says whether a row may be used: `no` (with the reason in `note`) when weight, diameter or, for the
   makers that publish it (Berger, Nosler, Speer), the length is missing. Set it to `no` by hand to exclude a bullet.

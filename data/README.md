@@ -1,11 +1,12 @@
 # Project database
 
-Calibers, projectiles and propellants that come with GRT Reloaded. Every record is one JSON file:
+Calibers, projectiles and propellants that come with GRT Reloaded. A caliber is one JSON file; the projectiles and the
+propellants have one file per manufacturer with an array of records:
 
 ```
 data/calibers/<name>.json
-data/projectiles/<manufacturer>-<name>-<lot>.json
-data/propellants/<manufacturer>-<name>-<lot>.json
+data/projectiles/<manufacturer>.json
+data/propellants/<manufacturer>.json
 ```
 
 The files are built into the program and appear in the database together with your own records (and the
@@ -19,7 +20,10 @@ good they are: see "Where the project database comes from" in the [main README](
 
 1. Create the record in the program (*Database* tab ▸ *New…*, or *Copy…* of a similar one) and check it with a load.
 2. Select it and click *Export…*. This writes the file in the format below with a suitable name.
-3. Put the file into the matching folder and open a pull request (see [CONTRIBUTING.md](../CONTRIBUTING.md)).
+3. Put the file into the matching folder. A projectile or a propellant then goes into its manufacturer's file:
+   `python3 tools/recordfiles.py data/projectiles` (or `data/propellants`) merges it (a record with the same manufacturer,
+   name and lot is replaced) and removes the single file. The program reads a single-record file as well.
+4. Open a pull request (see [CONTRIBUTING.md](../CONTRIBUTING.md)).
 
 CI checks every file (`grt_datacheck`): valid JSON, known columns, numbers where numbers belong, a name, plausible
 model values, and no two records with the same name.

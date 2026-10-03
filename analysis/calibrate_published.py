@@ -100,11 +100,10 @@ if args.start: current.update(json.load(open(args.start))["calibration"])
 free = args.free.split(",")
 ba0 = {p.lower(): 0.6 for p in train_p}
 records = {}
-data = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "propellants")
-for f in os.listdir(data):
-    if f.endswith(".json"):
-        r = json.load(open(os.path.join(data, f)))
-        records[(r["mname"] + " " + r["pname"]).lower()] = r["Ba"]
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tools"))
+import recordfiles  # noqa: E402  data/propellants/<manufacturer>.json
+for _, r in recordfiles.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "propellants")):
+    records[(r["mname"] + " " + r["pname"]).lower()] = r["Ba"]
 ba0 = {p.lower(): records[p.lower()] for p in train_p}
 
 def fit_ba(setname, powders, cal, start):

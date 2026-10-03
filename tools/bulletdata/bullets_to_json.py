@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Writes the project's projectile records (data/projectiles/*.json) from CSVs made by the *_fetch.py scripts.
+"""Writes the project's projectile records (data/projectiles/<manufacturer>.json, see tools/recordfiles.py) from CSVs made by the
+*_fetch.py scripts. Records already in the files are kept (--overwrite: replaced by the CSV's).
 
     bullets_to_json.py bullets_berger.csv [more.csv ...] [-o data/projectiles] [--overwrite]
 
@@ -15,23 +16,13 @@ import csv
 import json
 import re
 import sys
-import unicodedata
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import recordfiles  # noqa: E402
 from estimate_length import length_in
 
 MM = 25.4
-
-
-def slug(*parts: str) -> str:
-    s = unicodedata.normalize("NFKD", "-".join(p for p in parts if p)).lower()
-    out = ""
-    for c in s:
-        if c.isascii() and c.isalnum():
-            out += c
-        elif out and not out.endswith("-"):
-            out += "-"
-    return out.strip("-")
 
 
 def f(row: dict, key: str) -> float:
@@ -68,7 +59,7 @@ def main() -> int:
     ap.add_argument("-o", "--output", type=Path, default=Path("data/projectiles"))
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args()
-    args.output.mkdir(parents=True, exist_ok=True)
+    records = {recordfiles.key(r): r for _, r in recordfiles.read(args.output)}
     written = kept = skipped = 0
     names = set()
     for path in args.csv:
@@ -81,19 +72,18 @@ def main() -> int:
                 if not all(k in rec for k in ("gdia", "glen", "gmass")):
                     print("incomplete:", row.get("url") or row, file=sys.stderr)
                     continue
-                name = slug(rec["mname"], rec["pname"])
+                name = recordfiles.key(rec)
                 if name in names:
                     print("duplicate name:", rec["mname"], rec["pname"], file=sys.stderr)
                     continue
                 names.add(name)
-                out = args.output / (name + ".json")
-                if out.exists() and not args.overwrite:
+                if name in records and not args.overwrite:
                     kept += 1
                     continue
-                body = ",\n".join(f"  {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}" for k, v in rec.items())
-                out.write_text("{\n" + body + "\n}\n", encoding="utf-8")
+                records[name] = rec
                 written += 1
-    print(f"{written} files written, {kept} kept, {skipped} rows marked invalid", file=sys.stderr)
+    recordfiles.write(args.output, list(records.values()))
+    print(f"{written} records written, {kept} kept, {skipped} rows marked invalid", file=sys.stderr)
     return 0
 
 

@@ -19,6 +19,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "bulletdata"))
 from estimate_length import length_in  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import recordfiles  # noqa: E402
 
 PAGE = "https://vihtavuori.com/reloading-data/reloading-data-tool/"
 GRAIN_G = 0.06479891
@@ -70,7 +72,7 @@ def main() -> int:
         rec = json.loads(f.read_text(encoding="utf-8"))
         for n in [rec["cipname"], *rec.get("altname", "").split(",")]:
             calibers.setdefault(norm(n), rec)
-    projectiles = [json.loads(f.read_text(encoding="utf-8")) for f in (args.data / "projectiles").glob("*.json")]
+    projectiles = [r for _, r in recordfiles.read(args.data / "projectiles")]
     bullets = {b["BulletId"]: b for b in db["Bulletdata"]}
     carts = {c["CartridgeID"]: c for c in db["CartridgeData"]}
 

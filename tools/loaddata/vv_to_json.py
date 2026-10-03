@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Writes the project's propellant records (data/propellants/*.json) from the fits of vv_fit_all.py.
+"""Writes the project's propellant records (data/propellants/<manufacturer>.json, see tools/recordfiles.py) from the fits of vv_fit_all.py.
 
     vv_to_json.py vv_fits.csv --work vv_work [-o data/propellants] [--max-rms 5.2] [--min-samples 80] [--overwrite]
 
@@ -10,19 +10,15 @@ velocity data (see README): k, the material density pc and the form function (a0
 """
 import argparse
 import csv
-import json
-import re
-import unicodedata
+import sys
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import recordfiles  # noqa: E402
+
 TYPICAL = {"a1": 0.0, "k": 1.23, "pc": 1580.0, "pt": 21.0, "tcc": 0.0, "tch": 0.0}  # typical values of nitrocellulose powders
 ORDER = ["mname", "pname", "lotid", "Ba", "Qex", "k", "a0", "a1", "z1", "z2", "pc", "pcd", "pt", "tcc", "tch", "cdate", "origin", "descr"]
-
-
-def slug(*parts: str) -> str:
-    s = unicodedata.normalize("NFKD", "-".join(p for p in parts if p)).lower()
-    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", s)).strip("-")
 
 
 def main() -> int:
@@ -36,7 +32,7 @@ def main() -> int:
     ap.add_argument("--min-samples", type=int, default=80)
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args()
-    args.output.mkdir(parents=True, exist_ok=True)
+    existing = {recordfiles.key(r): r for _, r in recordfiles.read(args.output)}
     written = 0
     a0, z1, z2 = (float(v) for v in args.form.split(","))
     with open(args.table, newline="", encoding="utf-8") as tf:
@@ -62,13 +58,13 @@ def main() -> int:
                              f"({len(cartridges)} cartridges), velocity error {float(row['rms_fit_%']):.1f} % rms. Not published and therefore only "
                              "typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces "
                              "the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data.")}
-            path = args.output / (slug("vihtavuori", powder) + ".json")
-            if path.exists() and not args.overwrite:
+            if recordfiles.key(rec) in existing and not args.overwrite:
                 continue
-            body = ",\n".join(f"  {json.dumps(k)}: {json.dumps(rec[k], ensure_ascii=False)}" for k in ORDER)
-            path.write_text("{\n" + body + "\n}\n", encoding="utf-8")
+            existing[recordfiles.key(rec)] = {k: rec[k] for k in ORDER}
             written += 1
-    print(f"{written} propellant files written to {args.output}")
+    if written:
+        recordfiles.write(args.output, list(existing.values()))
+    print(f"{written} propellant records written to {args.output}")
     return 0
 
 

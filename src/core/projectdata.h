@@ -10,8 +10,9 @@
 #include <utility>
 #include <vector>
 
-// The project's own records (calibers, projectiles, propellants contributed to the repository): one JSON file per
-// record in data/<calibers|projectiles|propellants>/, the values in the units of the database columns (as in the
+// The project's own records (calibers, projectiles, propellants contributed to the repository): JSON files in
+// data/<calibers|projectiles|propellants>/, each with one record (an object) or several (an array of objects; the
+// projectiles have one file per manufacturer), the values in the units of the database columns (as in the
 // original program's database: bullet mass and case capacity in grains, lengths in mm, pressures in bar, ...).
 // The files are built into the program and loaded into a read-only part of the database at startup.
 namespace grt::projectdata
@@ -25,11 +26,11 @@ using Schema = std::vector<std::pair<QString, QString>>;
 
 struct Loaded
 {
-    std::vector<QVariantMap> records;  // sorted by file name; no "id"
+    std::vector<QVariantMap> records;  // sorted by file name, then in the order of the file; no "id"
     QStringList errors;                // "file: problem", one per problem
 };
 
-// Reads and checks every *.json file of a table's folder below `dataDir` (a directory or a resource path like
+// Reads and checks every *.json file (one record or an array of them) of a table's folder below `dataDir` (a directory or a resource path like
 // ":/data"). Files with problems are reported and skipped.
 [[nodiscard]] Loaded load(const QString &dataDir, Table t, const Schema &schema);
 

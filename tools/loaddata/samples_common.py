@@ -6,6 +6,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "bulletdata"))
 from estimate_length import length_in  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import recordfiles  # noqa: E402
 from vv_extract import norm  # noqa: E402
 
 IN = 25.4
@@ -30,7 +32,7 @@ class Records:
             rec = json.loads(f.read_text(encoding="utf-8"))
             for n in [rec["cipname"], *rec.get("altname", "").split(",")]:
                 self.calibers.setdefault(norm(n), rec)
-        self.projectiles = [json.loads(f.read_text(encoding="utf-8")) for f in (data / "projectiles").glob("*.json")]
+        self.projectiles = [r for _, r in recordfiles.read(data / "projectiles")]
 
     def caliber(self, name: str):
         plain = re.sub(r"\s*\([^)]*\)", "", name).replace("®", "").strip()  # without "(WSM)", "(59,000 PSI)", ...

@@ -112,19 +112,33 @@ Loaded load(const QString &dataDir, Table t, const Schema &schema)
         }
         QJsonParseError err;
         const QJsonDocument doc = QJsonDocument::fromJson(file.readAll(), &err);
-        if (err.error != QJsonParseError::NoError || !doc.isObject())
+        if (err.error != QJsonParseError::NoError || (!doc.isObject() && !doc.isArray()))
         {
-            out.errors << where + u": not a JSON object ("_s + err.errorString() + u')';
+            out.errors << where + u": not a JSON object or array ("_s + err.errorString() + u')';
             continue;
         }
-        const QVariantMap record = doc.object().toVariantMap();
-        const QStringList problems = check(t, record, schema);
-        if (!problems.isEmpty())
+        // one record, or an array of records (the projectiles: one file per manufacturer)
+        const QJsonArray items = doc.isArray() ? doc.array() : QJsonArray{doc.object()};
+        for (qsizetype i = 0; i < items.size(); ++i)
         {
-            for (const QString &p : problems) out.errors << where + u": "_s + p;
-            continue;
+            // in an array: "projectiles/acme.json #2 (B2)"
+            QString at = doc.isArray() ? where + u" #"_s + QString::number(i + 1) : where;
+            if (!items.at(i).isObject())
+            {
+                out.errors << at + u": not a JSON object"_s;
+                continue;
+            }
+            const QVariantMap record = items.at(i).toObject().toVariantMap();
+            const QString name = record.value(t == Table::Caliber ? u"cipname"_s : u"pname"_s).toString();
+            if (doc.isArray() && !name.isEmpty()) at += u" ("_s + name + u')';
+            const QStringList problems = check(t, record, schema);
+            if (!problems.isEmpty())
+            {
+                for (const QString &p : problems) out.errors << at + u": "_s + p;
+                continue;
+            }
+            out.records.push_back(record);
         }
-        out.records.push_back(record);
     }
     return out;
 }

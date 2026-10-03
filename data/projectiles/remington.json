@@ -1,0 +1,112 @@
+[
+  {
+    "mname": "Remington",
+    "pname": "Core-Lokt 29-22733",
+    "caliber": ".257",
+    "gdia": 6.53,
+    "glen": 25.9,
+    "gmass": 100.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Core-Lokt 29-22756",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 31.0,
+    "gmass": 150.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Core-Lokt 29-22772",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.8,
+    "gmass": 150.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Core-Lokt 29-22788",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 31.0,
+    "gmass": 180.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Core-Lokt 29-22920",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 29.3,
+    "gmass": 100.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Remington Component 29-22742",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 25.2,
+    "gmass": 115.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Remington Component 29-22930",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 23.5,
+    "gmass": 80.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Remington Component 29-22958",
+    "caliber": ".223",
+    "gdia": 5.66,
+    "glen": 17.7,
+    "gmass": 50.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Remington Component 29-22960",
+    "caliber": ".223",
+    "gdia": 5.66,
+    "glen": 19.5,
+    "gmass": 55.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Remington Component 29-22962",
+    "caliber": ".223",
+    "gdia": 5.66,
+    "glen": 19.5,
+    "gmass": 55.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Remington",
+    "pname": "Remington Component 29-22968",
+    "caliber": ".223",
+    "gdia": 5.66,
+    "glen": 22.0,
+    "gmass": 62.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  }
+]

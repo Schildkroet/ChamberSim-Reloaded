@@ -17,6 +17,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import recordfiles  # noqa: E402
+
 # Checked with the physical model against the published pressures (held-out cartridges, burn values refitted): copper 350 bar instead of
 # 250 lowers the median peak pressure error 7.6 -> 6.3 % (bias -5.1 -> -1.3 %); lead (GRT 80 bar) is best at 150 bar (bias +4.1 % with
 # 250, -2.4 % with 150, -9.9 % with 80; only 77 loads); jacketed handgun bullets (GRT 150 bar) stay at 250 (150: median 8.1 -> 10.0 %).
@@ -62,22 +65,26 @@ def main() -> int:
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args()
     counts = {}
-    for f in sorted((Path(args.data) / "projectiles").glob("*.json")):
-        record = json.loads(f.read_text(encoding="utf-8"))
+    folder = Path(args.data) / "projectiles"
+    records = []
+    for _, record in recordfiles.read(folder):
         bar, cls = estimate(record.get("mname", ""), record.get("pname", ""), record.get("caliber", ""))
         counts[cls] = counts.get(cls, 0) + 1
         if not args.write:
             print(f"{cls:9s} {bar:5.0f}  {record.get('mname', '')} {record.get('pname', '')} ({record.get('caliber', '')})")
             continue
         if record.get("gpressure") and not args.overwrite:
+            records.append(record)
             continue
-        # after the mass, in the records' format (indent 2, schema order)
+        # after the mass, in the records' format (schema order)
         out = {}
         for k, v in record.items():
             if k != "gpressure": out[k] = v
             if k == "gmass": out["gpressure"] = bar
         out.setdefault("gpressure", bar)
-        f.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        records.append(out)
+    if args.write:
+        recordfiles.write(folder, records)
     print(counts, file=sys.stderr)
     return 0
 
