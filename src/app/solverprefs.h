@@ -29,5 +29,5 @@ signals:
 private:
     SolverPreferences();
 
-    grt::CalibrationProfile m_profile{grt::CalibrationProfile::Original};
+    grt::CalibrationProfile m_profile{grt::CalibrationProfile::Physical};
 };

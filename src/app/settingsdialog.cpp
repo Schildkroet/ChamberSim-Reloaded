@@ -86,9 +86,10 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     unitGrid->addWidget(m_unitSystem, 0, 1);
     unitGrid->addWidget(resetUnits, 0, 2);
 
-    // the calibration of the solver: the original program's, the one fitted to published load data, or the own physical model
+    // the solver: the own physical model (the default), the original's equations with constants fitted to published load data, or the
+    // original program's constants
     for (const grt::CalibrationProfile profile :
-         {grt::CalibrationProfile::Original, grt::CalibrationProfile::Published, grt::CalibrationProfile::Physical})
+         {grt::CalibrationProfile::Physical, grt::CalibrationProfile::Published, grt::CalibrationProfile::Original})
         m_calibration->addItem(SolverPreferences::name(profile), static_cast<int>(profile));
     m_calibration->setCurrentIndex(std::max(0, m_calibration->findData(static_cast<int>(SolverPreferences::instance().profile()))));
     m_calibration->setMinimumWidth(110);

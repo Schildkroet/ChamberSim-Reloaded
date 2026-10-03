@@ -200,7 +200,8 @@ void GuiTest::burnRateTableSortsAndFilters()
 void GuiTest::solverCalibrationIsChosenInTheSettings()
 {
     auto &prefs = SolverPreferences::instance();
-    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Original);  // the default: like the original program
+    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Physical);  // the default: the own physical model
+    prefs.setProfile(grt::CalibrationProfile::Original);
     SettingsDialog dlg;
     QComboBox *calibration = nullptr;
     for (auto *c : dlg.findChildren<QComboBox *>())
@@ -227,6 +228,7 @@ void GuiTest::solverCalibrationIsChosenInTheSettings()
     QVERIFY(std::abs(published / original - 1.0) > 0.01);
     prefs.setProfile(grt::CalibrationProfile::Original);
     QCOMPARE(view.result().maxPressure_bar, original);
+    prefs.setProfile(grt::CalibrationProfile::Physical, false);  // the default again, for the other tests
 }
 
 void GuiTest::tableBrowserFiltersAndSelects()
@@ -1388,7 +1390,7 @@ void GuiTest::ignoredInputsAreNamed()
     const auto statusText = [](LoadView &v)
     {
         for (QLabel *l : v.findChildren<QLabel *>())
-            if (l->text().contains(u"Calibrated against"_s)) return l->text();
+            if (l->text().contains(u"Calibrated against"_s) || l->text().contains(u"Physical model"_s)) return l->text();  // per profile
         return QString();
     };
     QTemporaryDir dir;
@@ -1423,7 +1425,7 @@ void GuiTest::ignoredInputsAreNamed()
     QVERIFY(view.load(path));
     const QString text = statusText(view);
     QVERIFY2(!text.contains(u"Not taken into account"_s), qPrintable(text));
-    QVERIFY(text.contains(u"Shotshell:"_s));
+    QVERIFY2(text.contains(u"Shotshell:"_s), qPrintable(text));
 }
 
 void GuiTest::propellantPhotoIsShown()

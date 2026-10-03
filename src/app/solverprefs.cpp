@@ -16,7 +16,7 @@ SolverPreferences &SolverPreferences::instance()
 SolverPreferences::SolverPreferences()
 {
     const auto stored = fromKey(QSettings().value(QLatin1String(kSettingsKey)).toString());
-    m_profile = stored.value_or(grt::CalibrationProfile::Original);
+    m_profile = stored.value_or(grt::CalibrationProfile::Physical);  // the default: the project's own physical model
     grt::setCalibrationProfile(m_profile);
 }
 

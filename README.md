@@ -325,14 +325,14 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
 
 *File ▸ Settings ▸ Solver ▸ Calibration* chooses the solver (`--calibration original|published|physical` for one run):
 
-- **Original program (GRT)**, the default: constants fitted to runs of Gordon's Reloading Tool. Results like the original (the accuracy
+- **Original program (GRT)**: constants fitted to runs of Gordon's Reloading Tool. Results like the original (the accuracy
   table above is for this choice).
 - **Published load data**: the original's equations, constants fitted to the loads and measured pressures of the Hodgdon Reloading Manual
   and the Western Powders Handloading Guide (22 powders, the burn rates of the records unchanged). Against the published tables of
   held-out cartridges and of other powders it is off by about 3.5 % in velocity and 10 % in peak pressure (the original's constants:
   4.5 % and 16 %), but its results differ from the original program (against its reference runs 27 % in peak pressure). Some of its
   constants are empirical without a physical meaning (covolume about 0, case capacity x 0.74).
-- **Physical model**: the project's own model, not the original's. Integrated in time to convergence (the result does not depend on the
+- **Physical model**, the default: the project's own model, not the original's. Integrated in time to convergence (the result does not depend on the
   number of curve points); the primer lights the powder, the burning spreads over the grains (flame spread, about 0.75 ms) and the bullet
   starts at the start pressure; covolume of the gas (x eta) and volume of the unburnt powder (1 / pc); engraving, friction of the bearing
   surface (bullet length), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
