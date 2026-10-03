@@ -14,6 +14,8 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
+#include <algorithm>
+
 namespace
 {
 
@@ -124,7 +126,9 @@ NewLoadDialog::NewLoadDialog(const grt::Database &db, QWidget *parent)
     right->addStretch(1);
     auto *rightWidget = new QWidget;
     rightWidget->setLayout(right);
-    rightWidget->setFixedWidth(320);
+    // 320 px, but wide enough for the labels and fields in the user's font (a fixed width cut the labels off with larger fonts)
+    rightWidget->setFixedWidth(
+        std::max(320, params->sizeHint().width() + right->contentsMargins().left() + right->contentsMargins().right()));
 
     auto *main = new QVBoxLayout(this);
     auto *row = new QHBoxLayout;
