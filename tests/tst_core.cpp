@@ -19,6 +19,7 @@
 #include "loadfile.h"
 #include "measurement.h"
 #include "numeric.h"
+#include "physicalpowders.h"
 #include "projectdata.h"
 #include "powderfit.h"
 #include "reference.h"
@@ -56,6 +57,8 @@ private slots:
     void ownRecordsKeepTheirPhotos();
     void burnFactorsFollowTheModel();
     void calibrationProfiles();
+    void physicalModel();
+    void physicalBurnInLoad();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -463,6 +466,99 @@ void CoreTest::calibrationProfiles()
     grt::setCalibrationProfile(grt::CalibrationProfile::Original);
     QCOMPARE(grt::simulate(in).maxPressure_bar, original.maxPressure_bar);
     QCOMPARE(grt::simulateLadder(in).front().result.maxPressure_bar, original.maxPressure_bar);
+}
+
+// The project's own model (physical profile): converged (the output grid and the tolerance do not change the result), causal (the
+// peak pressure does not depend on the barrel length), losses in the energy balance, and the inputs the original ignores act on it.
+void CoreTest::physicalModel()
+{
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const grt::SimInput in = grt::SimInput::fromLoad(*lf);
+    QCOMPARE(grt::calibrationFor(grt::CalibrationProfile::Published).model, grt::SolverModel::Original);  // the empirical constants
+    const grt::Calibration cal = grt::calibrationFor(grt::CalibrationProfile::Physical);
+    QCOMPARE(cal.model, grt::SolverModel::Physical);
+    const grt::SimResult r = grt::simulate(in, cal);
+    QVERIFY(r.ok());
+    QCOMPARE(r.points.size(), std::size_t{2000});
+    QVERIFY(qAbs(r.points.back().x_mm - in.barrelLength_mm) < 1e-6);  // the last point is the muzzle
+    QVERIFY(r.heatLoss_J > 0.0 && r.muzzleFrictionEnergy_J > 0.0);
+    QVERIFY(r.muzzleEnergy_J + r.heatLoss_J + r.muzzleFrictionEnergy_J < r.propellantEnergy_J);
+
+    const auto rel = [](double a, double b) { return qAbs(a / b - 1.0); };
+    const grt::SimResult coarse = grt::simulate(in, cal, 200);
+    QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-6);
+    QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 0.005);  // only the sampling of the peak
+    grt::Calibration fine = cal;
+    fine.integrationTolerance = 1e-9;
+    QVERIFY(rel(grt::simulate(in, fine).muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-4);
+    for (const double xe : {300.0, 1200.0})
+    {
+        grt::SimInput other = in;
+        other.barrelLength_mm = xe;
+        QVERIFY(rel(grt::simulate(other, cal).maxPressure_bar, r.maxPressure_bar) < 1e-3);
+    }
+    const auto velocity = [&](auto change)
+    {
+        grt::SimInput other = in;
+        change(other);
+        return grt::simulate(other, cal).muzzleVelocity_ms;
+    };
+    QVERIFY(velocity([](grt::SimInput &i) { i.twistLength_mm = 0.0; }) > r.muzzleVelocity_ms);    // spin takes energy
+    QVERIFY(velocity([](grt::SimInput &i) { i.bulletLength_mm *= 1.3; }) < r.muzzleVelocity_ms);  // longer bearing surface
+    QVERIFY(velocity([](grt::SimInput &i) { i.covolumeEta = 1.1; }) != r.muzzleVelocity_ms);      // the covolume of the record
+    QVERIFY(velocity([](grt::SimInput &i) { i.temperature_C = -10.0; }) < r.muzzleVelocity_ms);
+
+    grt::SimInput weak = in;  // far too little powder for a long, heavy bullet in a long barrel
+    weak.charge_g = 0.05;
+    weak.bulletMass_g = 40.0;
+    weak.barrelLength_mm = 3000.0;
+    weak.extraFrictionUnlocked = true;
+    weak.extraFriction_bar = 300.0;
+    QCOMPARE(grt::simulate(weak, cal).status, grt::SimStatus::BulletStuck);
+}
+
+// The physical burn values travel in the load file (physBa ... physRef): written when a project powder with such values is chosen,
+// used by the physical model only while Ba, a0, z1, z2 are unchanged, removed for a powder without values.
+void CoreTest::physicalBurnInLoad()
+{
+    QTemporaryDir dir;
+    const QString file = dir.filePath(u"physical.json"_s);
+    {
+        QFile f(file);
+        QVERIFY(f.open(QIODevice::WriteOnly));
+        f.write(R"({"propellants": [{"mname": "Test", "pname": "P1", "record": {"Ba": 0.6, "a0": 0, "z1": 0.3, "z2": 0.6},
+                    "Ba": 0.9, "a0": 1.5, "z1": 0.4, "z2": 0.75}]})");
+    }
+    grt::setPhysicalBurnFile(file);
+    const QVariantMap powder{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"P1"_s}, {u"Ba"_s, 0.6}, {u"a0"_s, 0.0},    {u"z1"_s, 0.3},
+                             {u"z2"_s, 0.6},          {u"Qex"_s, 3800.0},    {u"k"_s, 1.22}, {u"pc"_s, 1600.0}, {u"pcd"_s, 900.0}};
+    QVERIFY(grt::physicalBurnOf(powder));
+    QVariantMap other = powder;
+    other.insert(u"Ba"_s, 0.61);  // another lot of the same powder
+    QVERIFY(!grt::physicalBurnOf(other));
+
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    grt::applyPropellant(*lf, powder);
+    const auto again = grt::LoadFile::parse(lf->toXml());  // through the file format
+    QVERIFY(again);
+    grt::SimInput in = grt::SimInput::fromLoad(*again);
+    QVERIFY(in.physicalBurn);
+    QCOMPARE(in.physicalBurn->Ba, 0.9);
+    QCOMPARE(in.physicalBurn->z2, 0.75);
+    const grt::Calibration cal = grt::calibrationFor(grt::CalibrationProfile::Physical);
+    const double withValues = grt::simulate(in, cal).muzzleVelocity_ms;
+    QVERIFY(withValues > 0.0);
+    in.physicalBurn.reset();
+    QVERIFY(grt::simulate(in, cal).muzzleVelocity_ms != withValues);  // the model really uses them
+
+    grt::LoadFile edited = *again;
+    edited.propellant.set(u"Ba", 0.65);  // the user changes the burn rate: the physical values no longer apply
+    QVERIFY(!grt::SimInput::fromLoad(edited).physicalBurn);
+    grt::applyPropellant(edited, other);  // a powder without values removes them
+    QVERIFY(!edited.propellant.find(u"physBa"));
+    grt::setPhysicalBurnFile(QStringLiteral(GRT_SOURCE_DIR "/data/physical/propellants.json"));
 }
 
 // The original's Ba*phi(z) curve has no jumps (documentation, "Form functions"): the three phases join at z1 and z2

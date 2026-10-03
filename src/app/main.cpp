@@ -46,7 +46,8 @@ int main(int argc, char *argv[])
     const QCommandLineOption unitsOpt(QStringLiteral("units"), QStringLiteral("unit system: metric, imperial or original (saved)"),
                                       QStringLiteral("system"));
     const QCommandLineOption calibrationOpt(
-        QStringLiteral("calibration"), QStringLiteral("solver calibration for this run: original or published (overrides the settings)"),
+        QStringLiteral("calibration"),
+        QStringLiteral("solver calibration for this run: original, published or physical (overrides the settings)"),
         QStringLiteral("profile"));
     const QCommandLineOption logOpt(QStringLiteral("log-level"),
                                     QStringLiteral("log level for this run: debug, info, warning, error or off (overrides the settings)"),

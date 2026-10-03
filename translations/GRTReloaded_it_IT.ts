@@ -238,29 +238,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+148"/>
-        <location line="+691"/>
+        <location line="+725"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-691"/>
-        <location line="+692"/>
+        <location line="-725"/>
+        <location line="+726"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-692"/>
+        <location line="-726"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+693"/>
+        <location line="+727"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-692"/>
+        <location line="-726"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -299,6 +299,11 @@
         <location line="+0"/>
         <source>Effective efficiency</source>
         <translation>Rendimento effettivo</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Heat / friction loss</source>
+        <translation>Perdite calore / attrito</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -395,12 +400,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+484"/>
+        <location line="+496"/>
         <source>Measurements</source>
         <translation>Misure</translation>
     </message>
     <message>
-        <location line="-483"/>
+        <location line="-495"/>
         <source>Report</source>
         <translation>Rapporto</translation>
     </message>
@@ -465,7 +470,7 @@
         <translation>Non è stato possibile leggere il record dalla banca dati.</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+66"/>
         <source>Fit to measurements</source>
         <translation>Adatta alle misure</translation>
     </message>
@@ -500,22 +505,37 @@
         <translation>&lt;b&gt;Carica troppo alta:&lt;/b&gt; la carica di polvere non entra nel bossolo dietro la palla.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>&lt;b&gt;Bullet stuck:&lt;/b&gt; the gas cannot push the bullet out of the barrel (too little or too slow powder for this bullet and barrel).</source>
+        <translation>&lt;b&gt;Proiettile bloccato:&lt;/b&gt; il gas non riesce a spingere il proiettile fuori dalla canna (polvere troppo poca o troppo lenta per questo proiettile e questa canna).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation>&lt;b&gt;Dati non validi:&lt;/b&gt; la simulazione non può funzionare con questi valori.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+8"/>
         <source>&lt;i&gt;Calibrated against runs of the original program and checked against published load data: typical deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual loads can deviate more.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>&lt;i&gt;Calibration to published load data (Settings &gt; Solver): typical deviation about 3.5 % in velocity and 10 % in peak pressure against the manufacturers&apos; tables; results differ from the original program.&lt;/i&gt;</source>
         <translation>&lt;i&gt;Calibrazione sui dati di ricarica pubblicati (Impostazioni &gt; Solutore): scarto tipico di circa 3,5 % in velocità e 10 % nella pressione massima rispetto alle tabelle dei produttori; i risultati differiscono dal programma originale.&lt;/i&gt;</translation>
     </message>
     <message>
         <location line="+5"/>
+        <source>&lt;i&gt;Physical model (Settings &gt; Solver) with the physical burn values of this powder, fitted to its published loads.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore) con i valori di combustione fisici di questa polvere, adattati ai suoi caricamenti pubblicati.&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&lt;i&gt;Physical model (Settings &gt; Solver). This powder has no physical burn values (not a project powder, or its burn values were changed): its burn rate is only scaled, expect larger deviations.&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Modello fisico (Impostazioni &gt; Risolutore). Questa polvere non ha valori di combustione fisici (non è una polvere del progetto, oppure i suoi valori di combustione sono stati modificati): la sua vivacità viene solo scalata, sono da attendersi scostamenti maggiori.&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -540,7 +560,12 @@
         <translation>– (peso dell&apos;arma 0)</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+9"/>
+        <source>–, %1</source>
+        <translation>–, %1</translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Muzzle energy</source>
         <translation>Energia alla volata</translation>
     </message>
@@ -1299,7 +1324,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+62"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+64"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Mostra solo le palle adatte al calibro</translation>
     </message>
@@ -1369,7 +1394,7 @@ Esportarlo comunque?</translation>
         <translation>= %1 grani</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+23"/>
         <source>Create load</source>
         <translation>Crea caricamento</translation>
     </message>
@@ -1619,7 +1644,7 @@ Esportarlo comunque?</translation>
         <translation>Fai clic per scegliere un&apos;altra unità per questo campo</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+45"/>
         <location line="+13"/>
         <source>stored value: %1</source>
         <translation>valore salvato: %1</translation>
@@ -1908,7 +1933,7 @@ Esportarlo comunque?</translation>
         <translation>Dimentica le unità scelte per i singoli campi; ogni campo segue di nuovo il sistema di unità</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+20"/>
         <source>Solver</source>
         <translation>Solutore</translation>
     </message>
@@ -1991,24 +2016,34 @@ Esportarlo comunque?</translation>
 <context>
     <name>SolverPreferences</name>
     <message>
-        <location filename="../src/app/solverprefs.cpp" line="+34"/>
+        <location filename="../src/app/solverprefs.cpp" line="+36"/>
         <source>Original program (GRT)</source>
         <translation>Programma originale (GRT)</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Published load data</source>
         <translation>Dati di ricarica pubblicati</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+1"/>
+        <source>Physical model</source>
+        <translation>Modello fisico</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Constants fitted to runs of Gordon&apos;s Reloading Tool: results like the original program (velocity about 1 %, peak pressure about 3 % off).</source>
         <translation>Costanti adattate a calcoli di Gordon&apos;s Reloading Tool: risultati come il programma originale (velocità circa 1 %, pressione massima circa 3 % di scarto).</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Constants fitted to the loads and measured pressures published by the powder manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.</source>
-        <translation>Costanti adattate alle cariche e alle pressioni misurate pubblicate dai produttori di polvere (Hodgdon, Western Powders): più vicino alle pressioni misurate, ma non più al programma originale.</translation>
+        <location line="+3"/>
+        <source>The original program&apos;s equations with constants fitted to the loads and measured pressures published by the powder manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.</source>
+        <translation>Le equazioni del programma originale con costanti adattate ai caricamenti e alle pressioni misurate pubblicati dai produttori di polvere (Hodgdon, Western Powders): più vicino alle pressioni misurate, ma non più al programma originale.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>The project&apos;s own physical model (ignition and flame spread, engraving and friction, heat loss, spin; peak pressure independent of the barrel length), fitted to the same published loads. Uses the physical burn values of the project&apos;s powders when the load holds such a powder unchanged.</source>
+        <translation>Il modello fisico proprio del progetto (accensione e propagazione della fiamma, forzamento e attrito, perdite di calore, rotazione; pressione massima indipendente dalla lunghezza della canna), adattato agli stessi caricamenti pubblicati. Usa i valori di combustione fisici delle polveri del progetto quando il caricamento contiene una tale polvere invariata.</translation>
     </message>
 </context>
 <context>
@@ -2819,6 +2854,26 @@ Esportarlo comunque?</translation>
         <location line="+1"/>
         <source>vivacity coefficient</source>
         <translation>Coefficiente di vivacità</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: vivacity coefficient</source>
+        <translation>Modello fisico: coefficiente di vivacità</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: prog/deg coefficient</source>
+        <translation>Modello fisico: coefficiente prog./deg.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: burn-up limit z1</source>
+        <translation>Modello fisico: limite di combustione z1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: burn-up limit z2</source>
+        <translation>Modello fisico: limite di combustione z2</translation>
     </message>
 </context>
 <context>

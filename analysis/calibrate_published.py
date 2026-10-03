@@ -2,6 +2,11 @@
 """Recalibrates solver constants on published load data (tools/loaddata CSVs) and compares them with the current calibration.
 
     calibrate_published.py <grt_eval> <grt_compare> samples.csv [samples2.csv ...] [--powders "Accurate 4350,..."] [--free name,name,...]
+                           [--profile original|published|physical] [--start constants.json] [--evaluate-only]
+
+--profile chooses the model and its starting constants (physical = the project's physical model); --start replaces some of them (a
+JSON file as written by --out); --evaluate-only reports the starting constants without fitting. grt_compare (agreement with the original
+program) only runs for the original profile: the physical model is not meant to reproduce it.
 
 Training: the given powders (burn rates Ba free per powder, everything else of the records fixed) on the cartridges of the training split.
 Test A: the same powders on the held-out cartridges (every 4th cartridge). Test B: other powders, whose Ba is fitted on their training
@@ -25,6 +30,9 @@ ap.add_argument("--bound-frac", type=float, default=0.0, help="keep the constant
 ap.add_argument("--bounds", default="", help="name=lo:hi,... explicit limits of constants")
 ap.add_argument("--fixed-ba", action="store_true", help="keep the burn rates of the records (add burnRateScale to --free); nothing is refitted per powder")
 ap.add_argument("--out", default="calibrated_published.json")
+ap.add_argument("--profile", default="original", choices=["original", "published", "physical"])
+ap.add_argument("--start", default="", help="JSON file ({\"calibration\": {name: value}}) with starting constants")
+ap.add_argument("--evaluate-only", action="store_true", help="only report the starting constants")
 args = ap.parse_args()
 POOL = ThreadPoolExecutor(os.cpu_count())
 
@@ -61,7 +69,7 @@ def simulate(name, cal, ba, chunks=16):
         path = os.path.join(tmp, f"{name}_{os.getpid()}_{idx[0]}.csv")
         with open(path, "w", newline="") as f:
             w = csv.DictWriter(f, list(rows[0].keys())); w.writeheader(); w.writerows([rs[i] for i in idx])
-        cmd = [args.eval_exe, path] + [a for k, v in cal.items() for a in ("--set", f"{k}={v:.10g}")] + [a for k, v in ba.items() for a in ("--ba", f"{k}={v:.8g}")]
+        cmd = [args.eval_exe, path, "--profile", args.profile] + [a for k, v in cal.items() for a in ("--set", f"{k}={v:.10g}")] + [a for k, v in ba.items() for a in ("--ba", f"{k}={v:.8g}")]
         out = subprocess.run(cmd, capture_output=True, text=True).stdout
         os.remove(path)
         return [(idx[int(l.split(",")[0])], float(l.split(",")[1]), float(l.split(",")[2])) for l in out.splitlines() if l]
@@ -86,8 +94,9 @@ def stats(name, cal, ba):
     return dict(v_rms=100 * np.sqrt(np.mean(rv ** 2)), p_rms=100 * np.sqrt(np.mean((rp[has] / args.pressure_weight) ** 2)), p_bias=100 * np.mean(rp[has] / args.pressure_weight))
 
 current = {}
-for line in subprocess.run([args.eval_exe, "--list-params", "x"], capture_output=True, text=True).stdout.splitlines():
+for line in subprocess.run([args.eval_exe, "--list-params", "--profile", args.profile, "x"], capture_output=True, text=True).stdout.splitlines():
     k, v = line.split(); current[k] = float(v)
+if args.start: current.update(json.load(open(args.start))["calibration"])
 free = args.free.split(",")
 ba0 = {p.lower(): 0.6 for p in train_p}
 records = {}
@@ -109,6 +118,20 @@ def fit_ba(setname, powders, cal, start):
     sol = least_squares(fun, x0, x_scale=np.maximum(x0, 0.05), loss="soft_l1", f_scale=0.1, diff_step=2e-3, max_nfev=12, bounds=(0.05, 20))
     return {p.lower(): float(v) for p, v in zip(powders, sol.x)}
 
+# ---- comparison
+def report(title, cal, ba):
+    print(f"\n== {title}")
+    for n in free: print("   %-24s %12.6g   (current %.6g)" % (n, cal[n], current[n]))
+    s = {k: stats(k, cal, ba) for k in ("train", "testA")}
+    print("   training powders, training cartridges : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(s["train"].values()))
+    print("   training powders, held-out cartridges : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(s["testA"].values()))
+    bb = {} if args.fixed_ba else fit_ba("B_fit", test_p, cal, {p.lower(): records[p.lower()] for p in test_p})
+    sb = stats("B_test", cal, bb)
+    print("   other powders (Ba fitted), held-out    : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(sb.values()))
+    return s, sb
+if args.evaluate_only:
+    report("starting constants", current, {})
+    sys.exit(0)
 # ---- baseline: the current calibration, Ba fitted
 if args.fixed_ba:
     base_ba = {}  # the records' burn rates are used as they are
@@ -143,21 +166,11 @@ sol = least_squares(fun, np.clip(x0, lo + 1e-9, hi - 1e-9), jac=jac, method="trf
 new_cal, new_ba = unpack(sol.x)
 json.dump({"calibration": {n: new_cal[n] for n in free}, "ba": new_ba}, open(args.out, "w"), indent=1)
 
-# ---- comparison
-def report(title, cal, ba):
-    print(f"\n== {title}")
-    for n in free: print("   %-24s %12.6g   (current %.6g)" % (n, cal[n], current[n]))
-    s = {k: stats(k, cal, ba) for k in ("train", "testA")}
-    print("   training powders, training cartridges : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(s["train"].values()))
-    print("   training powders, held-out cartridges : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(s["testA"].values()))
-    bb = {} if args.fixed_ba else fit_ba("B_fit", test_p, cal, {p.lower(): records[p.lower()] for p in test_p})
-    sb = stats("B_test", cal, bb)
-    print("   other powders (Ba fitted), held-out    : velocity %.2f %%  pressure %.2f %%  (bias %+.1f %%)" % tuple(sb.values()))
-    return s, sb
 report("current calibration (Ba refitted)", current, base_ba)
 report("recalibrated", new_cal, new_ba)
 def compare(cal):
     out = subprocess.run([args.compare_exe] + [a for n in free for a in ("--set", f"{n}={cal[n]:.10g}")], capture_output=True, text=True).stdout
     return [l for l in out.splitlines() if "OBJECTIVE" in l or "mean" in l.lower()][-4:]
-print("\ngrt_compare against the original's reference runs:")
-print("  current     :", compare(current)); print("  recalibrated:", compare(new_cal))
+if args.profile != "physical":
+    print("\ngrt_compare against the original's reference runs:")
+    print("  current     :", compare(current)); print("  recalibrated:", compare(new_cal))

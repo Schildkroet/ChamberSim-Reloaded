@@ -58,7 +58,7 @@ const QList<Choice> *choicesFor(const QString &key)
 // the original uses the distance either way (measured, batch 10).
 bool hiddenField(const QString &key)
 {
-    return key == u"gjumpUnlock";
+    return key == u"gjumpUnlock" || key == u"physRef";  // physRef: the burn values the physical ones belong to
 }
 
 QString labelFor(const QList<Choice> &list, const QString &code)

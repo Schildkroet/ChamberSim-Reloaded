@@ -55,6 +55,7 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.charge_g = q.number(u"mc");
     in.ladderCount = toIntClamped(q.number(u"laddercnt", 1.0), 0, 1000);  // the solver limits it further
     in.ladderStep_g = q.number(u"laddermc");
+    in.physicalBurn = readPhysicalBurn(q);
     return in;
 }
 

@@ -323,15 +323,33 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
 
 ### Solver calibration
 
-*File ▸ Settings ▸ Solver ▸ Calibration* chooses the constants of the solver (`--calibration original|published` for one run):
+*File ▸ Settings ▸ Solver ▸ Calibration* chooses the solver (`--calibration original|published|physical` for one run):
 
 - **Original program (GRT)**, the default: constants fitted to runs of Gordon's Reloading Tool. Results like the original (the accuracy
   table above is for this choice).
-- **Published load data**: constants fitted to the loads and measured pressures of the Hodgdon Reloading Manual and the Western Powders
-  Handloading Guide (22 powders, the burn rates of the records unchanged). Against the published tables of held-out cartridges and of
-  other powders it is off by about 3.5 % in velocity and 10 % in peak pressure (the original's constants: 4.5 % and 16 %), but its results
-  differ from the original program (against its reference runs 27 % in peak pressure). Shotshells always keep the original's constants.
-  Method and numbers: `tools/loaddata/README.md`, `analysis/calibrate_published.py`.
+- **Published load data**: the original's equations, constants fitted to the loads and measured pressures of the Hodgdon Reloading Manual
+  and the Western Powders Handloading Guide (22 powders, the burn rates of the records unchanged). Against the published tables of
+  held-out cartridges and of other powders it is off by about 3.5 % in velocity and 10 % in peak pressure (the original's constants:
+  4.5 % and 16 %), but its results differ from the original program (against its reference runs 27 % in peak pressure). Some of its
+  constants are empirical without a physical meaning (covolume about 0, case capacity x 0.74).
+- **Physical model**: the project's own model, not the original's. Integrated in time to convergence (the result does not depend on the
+  number of curve points); the primer lights the powder, the burning spreads over the grains (flame spread, about 0.75 ms) and the bullet
+  starts at the start pressure; covolume of the gas (x eta) and volume of the unburnt powder (1 / pc); engraving, friction of the bearing
+  surface (bullet length), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
+  and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show heat and friction
+  loss; a bullet that cannot leave the barrel is reported.
+  Its constants and the **physical burn values** of 59 project powders (Ba, a0, z1, z2, fitted to each powder's published loads with
+  pressures: Hodgdon, Western, Lovex, Reload Swiss) come from `analysis/calibrate_published.py --profile physical` and
+  `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A load stores them in its propellant section (`physBa`,
+  `physA0`, `physZ1`, `physZ2`, `physRef` = the record values they belong to); they apply only while Ba, a0, z1, z2 of the load are
+  unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger.
+  Held-out cartridges (fitted on the other 3/4), 59 powders: velocity 5.9 % rms (median 2.5 %), peak pressure 12 % rms (median 6.1 %);
+  the Published constants 6.0 % (2.3 %) and 19 % (6.4 %). Rifle powders: velocity 4.2 % (Published 3.6 %), pressure 9.6 % (10.1 %);
+  pistol and shotgun powders: velocity 19 % (22 %), pressure 39 % (79 %). Velocity of rifle loads is still a little less accurate than
+  with the Published constants, pressure is better everywhere. Vihtavuori powders have no physical burn values yet (no sample file).
+  Shotshells always keep the original's constants.
+
+Method and numbers: `tools/loaddata/README.md`, `analysis/calibrate_published.py`, `analysis/fit_physical_powders.py`.
 
 Changing the setting recalculates every open load.
 

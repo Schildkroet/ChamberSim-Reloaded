@@ -275,35 +275,35 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+360"/>
+        <location line="+372"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+27"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-646"/>
-        <location line="+691"/>
+        <location line="-661"/>
+        <location line="+725"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-691"/>
-        <location line="+692"/>
+        <location line="-725"/>
+        <location line="+726"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-692"/>
-        <location line="+693"/>
+        <location line="-726"/>
+        <location line="+727"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-693"/>
+        <location line="-727"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -346,6 +346,11 @@
     <message>
         <location line="+0"/>
         <source>Effective efficiency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Heat / friction loss</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -410,12 +415,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+484"/>
+        <location line="+496"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-483"/>
+        <location line="-495"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -475,7 +480,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+66"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
     </message>
@@ -505,17 +510,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+2"/>
+        <source>&lt;b&gt;Bullet stuck:&lt;/b&gt; the gas cannot push the bullet out of the barrel (too little or too slow powder for this bullet and barrel).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>&lt;i&gt;Calibrated against runs of the original program and checked against published load data: typical deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual loads can deviate more.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+5"/>
         <source>&lt;i&gt;Calibration to published load data (Settings &gt; Solver): typical deviation about 3.5 % in velocity and 10 % in peak pressure against the manufacturers&apos; tables; results differ from the original program.&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
+        <source>&lt;i&gt;Physical model (Settings &gt; Solver) with the physical burn values of this powder, fitted to its published loads.&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&lt;i&gt;Physical model (Settings &gt; Solver). This powder has no physical burn values (not a project powder, or its burn values were changed): its burn rate is only scaled, expect larger deviations.&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -540,7 +560,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+9"/>
+        <source>–, %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Muzzle energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1286,7 +1311,7 @@ Export it anyway?</source>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+62"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+64"/>
         <source>Show only bullets that fit the caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1356,7 +1381,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+23"/>
         <source>Create load</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1606,7 +1631,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+45"/>
         <location line="+13"/>
         <source>stored value: %1</source>
         <translation type="unfinished"></translation>
@@ -1895,7 +1920,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+20"/>
         <source>Solver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1978,23 +2003,33 @@ Export it anyway?</source>
 <context>
     <name>SolverPreferences</name>
     <message>
-        <location filename="../src/app/solverprefs.cpp" line="+34"/>
+        <location filename="../src/app/solverprefs.cpp" line="+36"/>
         <source>Original program (GRT)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Published load data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+1"/>
+        <source>Physical model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Constants fitted to runs of Gordon&apos;s Reloading Tool: results like the original program (velocity about 1 %, peak pressure about 3 % off).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Constants fitted to the loads and measured pressures published by the powder manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.</source>
+        <location line="+3"/>
+        <source>The original program&apos;s equations with constants fitted to the loads and measured pressures published by the powder manufacturers (Hodgdon, Western Powders): closer to measured pressures, but no longer to the original program.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>The project&apos;s own physical model (ignition and flame spread, engraving and friction, heat loss, spin; peak pressure independent of the barrel length), fitted to the same published loads. Uses the physical burn values of the project&apos;s powders when the load holds such a powder unchanged.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2805,6 +2840,26 @@ Export it anyway?</source>
     <message>
         <location line="+1"/>
         <source>vivacity coefficient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: vivacity coefficient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: prog/deg coefficient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: burn-up limit z1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: burn-up limit z2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

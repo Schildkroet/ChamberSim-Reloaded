@@ -25,6 +25,7 @@ enum class SimStatus
     Ok,
     InvalidInput,
     ChargeTooHigh,  // charge exceeds the bulk-density capacity of the case
+    BulletStuck,    // physical model: the gas cannot push the bullet out of the barrel (or not even start it)
 };
 
 // Curves and summary values of one simulation. Only meaningful when ok().
@@ -66,6 +67,7 @@ struct SimResult
     double recoilVelocity_ms{};  // needs the gun weight
     double recoilEnergy_J{};
     double recoilAcceleration_ms2{};
+    double heatLoss_J{};  // physical model: heat lost to the chamber and bore walls up to the muzzle (0 in the original's model)
 
     [[nodiscard]] bool ok() const noexcept { return status == SimStatus::Ok; }
 };
@@ -79,6 +81,18 @@ struct LadderStep
 };
 
 inline constexpr int kMaxLadderSteps = 10;
+
+// Which equations the solver uses.
+//   Original:  the model identified from the original program's results (ignition ramp in grid steps, covolume tied to the powder
+//              density, friction only as an output, 2000 position steps); reproduces the original including its artifacts.
+//   Physical:  the project's own model (simulate() describes it): integrated in time to convergence, the bullet starts at the start
+//              pressure, resistance (engraving, bearing friction, air) and heat loss in the energy balance, spin inertia; its
+//              constants are fitted to measured (published) load data only.
+enum class SolverModel
+{
+    Original,
+    Physical
+};
 
 // Tunable constants of the model (see the overview at the top of solver.cpp). The structure of the model (uniform
 // position steps, implicit momentum balance, Sebert mass, initial gas energy, ignition ramp) was identified from
@@ -132,6 +146,24 @@ struct Calibration
     double gasImpulseFactor{1.1622};   // gas impulse after the muzzle = factor * mc * v
     double mipFactor{1.975};           // MIP = factor * IPSC
 
+    // ---- physical model (model == SolverModel::Physical; the Original model ignores these) ----
+    // It also uses burnRateScale, impetusFactor, capacityFactor, the burn law and the form function above; the other constants of the
+    // Original model (ignition ramp, covolume/solid density factors, intrusion and chamber offsets, kinetic factor, initial gas) do not
+    // apply to it.
+    SolverModel model{SolverModel::Original};
+    // covolume of the powder gas (times the powder's eta, 1 when unknown); the solid powder takes 1 / pc. 1.0 cm3/g is the median of
+    // closed-vessel tests of 470 powders (pressure at loading density 0.2 g/cm3 with f = impetusFactor (k-1) Qex), independent of pc.
+    double gasCovolume_cm3g{1.0};
+    double primerEnergy_J{50.0};     // energy of the primer gas that lights the powder (20-30 mg of priming compound)
+    double ignitionTime_ms{0.0};     // flame spread: the lit share of the grains is 1 - exp(-t / this) after ignition (0: all at once)
+    double engravingShare{0.5};      // rifling engraving: resistance = share x start pressure x bore area, decaying over the bearing length
+    double slideStress_MPa{3.0};     // friction stress on the bullet's bearing surface in the bore
+    double heatTransferFactor{0.5};  // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
+    double heatVelocity_ms{0.0};     // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
+    double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
+    double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
+    double integrationTolerance{1e-7};  // relative error per time step of the adaptive integration
+
     // ---- burn law dz/dt = Ba * p[bar] * (p / 1000 bar)^burnExponent * phi(z), identified from the powder sweeps ----
     //   phase 1 (z < z1):   phi = burnIntercept + (burnSlopeA0 * a0 + burnSlopeOffset) * z
     //   phase 2 (z1..z2):   phi = phi(z1) * poly2(s),  s = (z - z1) / (z2 - z1),  poly2(0) = 1
@@ -156,14 +188,18 @@ struct Calibration
     std::array<double, 3> phase3{-0.103524, -0.0695024, 0.00958064};
 };
 
-// Which constants the solver uses.
+// Which constants (and model) the solver uses.
 //   Original:  fitted to runs of the original program (analysis/calibrate.py); reproduces its results (README accuracy table).
-//   Published: fitted to the manufacturers' published load data (analysis/calibrate_published.py: velocities and measured pressures
-//              of the loads of Hodgdon, Western Powders, ...); closer to measured pressures, but no longer to the original program.
+//   Published: the Original model's equations, constants fitted to the manufacturers' published load data (analysis/calibrate_published.py:
+//              velocities and measured pressures of the loads of Hodgdon, Western Powders, ...); closer to measured pressures, but no
+//              longer to the original program. Empirical: some constants have no physical meaning.
+//   Physical:  the project's own physical model (SolverModel::Physical), constants fitted to the same published data; uses the physical
+//              burn values of the project's propellant records (physicalpowders.h) when the load holds such a record unchanged.
 enum class CalibrationProfile
 {
     Original,
-    Published
+    Published,
+    Physical
 };
 [[nodiscard]] Calibration calibrationFor(CalibrationProfile profile);
 // The profile every simulation without an explicit Calibration uses (Original unless a program sets another one at start-up
@@ -180,7 +216,8 @@ struct NamedParameter
 };
 [[nodiscard]] std::vector<NamedParameter> parameters(Calibration &cal);
 
-// Runs the simulation over `steps` equal position steps from the start position to the muzzle. The result is not
+// Runs the simulation. Original model: over `steps` equal position steps from the start position to the muzzle. Physical model:
+// adaptive in time, the curves resampled to `steps` equal position steps from the start position to the muzzle (both included). The result is not
 // ok() for invalid input (non-finite or non-positive values) or a charge that does not fit into the case (the
 // original's limit: 1.2 x bulk density in the volume left by the bullet).
 [[nodiscard]] SimResult simulate(const SimInput &in, const Calibration &cal = activeCalibration(), int steps = 2000);

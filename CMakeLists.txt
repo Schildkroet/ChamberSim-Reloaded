@@ -84,6 +84,8 @@ add_library(grtcore STATIC
     src/core/powderfit.cpp
     src/core/fieldnames.h
     src/core/fieldnames.cpp
+    src/core/physicalpowders.h
+    src/core/physicalpowders.cpp
 )
 target_include_directories(grtcore PUBLIC src/core)
 target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)

@@ -1,4 +1,5 @@
 #include "loadbuilder.h"
+#include "physicalpowders.h"
 #include "log.h"
 
 #include "loadspec.h"
@@ -212,6 +213,7 @@ void applyPropellant(LoadFile &lf, const QVariantMap &propellant, bool resetDepe
 {
     LOG_Debug() << "Load: propellant replaced, reset dependent values" << resetDependent;
     setFields(lf.propellant, propellantFields(propellant));
+    writePhysicalBurn(lf.propellant, physicalBurnOf(propellant));
     if (resetDependent && caliber) lf.propellant.set(u"mc", defaultCharge_g(*caliber, propellant));
     refreshTitleAndLength(lf);
 }
@@ -253,6 +255,7 @@ LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, co
     pro.insert(u"laddercnt"_s, u"1"_s);
     pro.insert(u"laddermc"_s, fmt(kGrainToGram));
     fill(lf.propellant, spec::kPropellant, pro);
+    writePhysicalBurn(lf.propellant, physicalBurnOf(propellant));
 
     refreshTitleAndLength(lf);
     return lf;

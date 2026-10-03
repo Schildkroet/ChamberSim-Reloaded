@@ -1,6 +1,9 @@
 #pragma once
 
 #include "loadfile.h"
+#include "physicalpowders.h"
+
+#include <optional>
 
 namespace grt
 {
@@ -54,6 +57,8 @@ struct SimInput
     double charge_g{};
     int ladderCount{1};     // load development ladder: number of curves (below 2: no ladder)
     double ladderStep_g{};  // charge difference between two ladder steps
+    // burn values of the physical model (load entries physBa ...; only while the load's Ba, a0, z1, z2 are the ones they belong to)
+    std::optional<PhysicalBurn> physicalBurn;
 
     // Reads the numeric inputs out of a load file (missing values keep their defaults).
     [[nodiscard]] static SimInput fromLoad(const LoadFile &lf);

@@ -149,7 +149,7 @@ LoadView::LoadView(QWidget *parent)
                                  tr("Barrel time (BT)"), tr("Burnout pressure")})
         m_leftResults->addRow(label + u':', valueLabel());
     for (const QString &label : {tr("Projectile speed"), tr("Recoil energy"), tr("IPSC / MIP factor"), tr("Load ratio"),
-                                 tr("Burnt propellant"), tr("Effective efficiency")})
+                                 tr("Burnt propellant"), tr("Effective efficiency"), tr("Heat / friction loss")})
         m_rightResults->addRow(label + u':', valueLabel());
     m_leftResults->setLabelAlignment(Qt::AlignLeft);
     m_rightResults->setLabelAlignment(Qt::AlignLeft);
@@ -803,16 +803,33 @@ void LoadView::showResult()
     {
         m_status->setText(m_result.status == grt::SimStatus::ChargeTooHigh
                               ? tr("<b>Charge too high:</b> the propellant charge does not fit into the case behind the bullet.")
+                          : m_result.status == grt::SimStatus::BulletStuck
+                              ? tr("<b>Bullet stuck:</b> the gas cannot push the bullet out of the barrel (too little or too slow "
+                                   "powder for this bullet and barrel).")
                               : tr("<b>Invalid input:</b> the simulation cannot run with these values."));
         clearAll();
         return;
     }
-    QString status = SolverPreferences::instance().profile() == grt::CalibrationProfile::Original
-                         ? tr("<i>Calibrated against runs of the original program and checked against published load data: typical "
-                              "deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual "
-                              "loads can deviate more.</i>")
-                         : tr("<i>Calibration to published load data (Settings > Solver): typical deviation about 3.5 % in velocity and "
-                              "10 % in peak pressure against the manufacturers' tables; results differ from the original program.</i>");
+    QString status;
+    switch (SolverPreferences::instance().profile())
+    {
+    case grt::CalibrationProfile::Original:
+        status = tr("<i>Calibrated against runs of the original program and checked against published load data: typical "
+                    "deviation about 1-3 % in velocity and 2-3 % in peak pressure; slow powders at low pressure and unusual "
+                    "loads can deviate more.</i>");
+        break;
+    case grt::CalibrationProfile::Published:
+        status = tr("<i>Calibration to published load data (Settings > Solver): typical deviation about 3.5 % in velocity and "
+                    "10 % in peak pressure against the manufacturers' tables; results differ from the original program.</i>");
+        break;
+    case grt::CalibrationProfile::Physical:
+        status = m_input.physicalBurn
+                     ? tr("<i>Physical model (Settings > Solver) with the physical burn values of this powder, fitted to its published "
+                          "loads.</i>")
+                     : tr("<i>Physical model (Settings > Solver). This powder has no physical burn values (not a project powder, or "
+                          "its burn values were changed): its burn rate is only scaled, expect larger deviations.</i>");
+        break;
+    }
     // shotshells: an own model, fitted to published shotgun loads (not to the original program)
     if (m_input.shotshell)
         status += u"<br>"_s +
@@ -836,6 +853,11 @@ void LoadView::showResult()
     setRow(m_rightResults, 3, QStringLiteral("%1 %").arg(num(100.0 * r.loadRatio, 1)));
     setRow(m_rightResults, 4, QStringLiteral("%1 %").arg(num(100.0 * r.burntFraction, 1)));
     setRow(m_rightResults, 5, QStringLiteral("%1 %").arg(num(100.0 * r.efficiency, 1)));
+    // the physical model computes both; the original's model has no heat loss and its friction is only an estimate
+    setRow(m_rightResults, 6,
+           r.heatLoss_J > 0.0
+               ? QStringLiteral("%1, %2").arg(shown(r.heatLoss_J, Quantity::Energy), shown(r.muzzleFrictionEnergy_J, Quantity::Energy))
+               : tr("–, %1").arg(shown(r.muzzleFrictionEnergy_J, Quantity::Energy)));
 
     if (!m_reference) return;
     struct Row

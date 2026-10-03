@@ -144,10 +144,11 @@ struct Model
 };
 
 // Vivacity Ba at the powder temperature (the powder data refers to 21 degC).
-[[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal) noexcept
+// `Ba` is the vivacity at 21 degC to use (default: the load's, times burnRateScale).
+[[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal, double Ba = 0.0) noexcept
 {
     const double dT = in.temperature_C - 21.0;
-    const double Ba = in.vivacityBa * cal.burnRateScale;
+    if (Ba <= 0.0) Ba = in.vivacityBa * cal.burnRateScale;
     if (dT == 0.0) return Ba;
     // Measured on the original: with both coefficients 0 the built-in defaults apply. Otherwise each side uses its
     // own coefficient, and a side whose coefficient is 0 has NO effect. An explicit coefficient acts on the burn
@@ -194,6 +195,350 @@ const Calibration &effectiveCalibration(const SimInput &in, const Calibration &c
     static const Calibration original;
     return in.shotshell && &cal == &g_active ? original : cal;
 }
+}  // namespace
+
+namespace
+{
+// Summary values and derived quantities of a finished curve (both models); sets the status to Ok.
+void summarize(SimResult &res, const SimInput &in, const Calibration &cal, double freeVolume_cm3)
+{
+    const auto &pts = res.points;
+    const auto pmax = std::ranges::max_element(pts, {}, &SimPoint::p_bar);
+    res.indexPmax = static_cast<std::size_t>(pmax - pts.begin());
+    res.maxPressure_bar = pmax->p_bar;
+    const SimPoint &last = pts.back();
+    res.muzzlePressure_bar = last.p_bar;
+    res.muzzleVelocity_ms = last.v_ms;
+    res.muzzleEnergy_J = last.e_J;
+    res.muzzleTime_ms = last.t_ms;
+    res.burntFraction = last.z;
+    res.efficiency = last.e_J / (in.charge_g * 1e-3 * in.heatQex_kJkg * 1e3);
+    const auto burnout = std::ranges::find_if(pts, [](const SimPoint &q) { return q.z >= 1.0; });
+    res.burnoutInBarrel = burnout != pts.end();
+    res.indexBurnout = static_cast<std::size_t>((res.burnoutInBarrel ? burnout : pts.end() - 1) - pts.begin());
+
+    // markers and ratios
+    const auto firstAtLeast = [&](auto value, double limit)
+    {
+        const auto it = std::ranges::find_if(pts, [&](const SimPoint &q) { return value(q) >= limit; });
+        return it == pts.end() ? std::size_t{0} : static_cast<std::size_t>(it - pts.begin());
+    };
+    const bool physicalBurn = cal.model == SolverModel::Physical && in.physicalBurn;  // the phase limits the physical model used
+    res.indexZ1 = firstAtLeast([](const SimPoint &q) { return q.z; }, physicalBurn ? in.physicalBurn->z1 : in.z1);
+    res.indexZ2 = firstAtLeast([](const SimPoint &q) { return q.z; }, physicalBurn ? in.physicalBurn->z2 : in.z2);
+    res.indexEnergy95 = firstAtLeast([](const SimPoint &q) { return q.e_J; }, 0.95 * last.e_J);
+    res.effectiveCaseVolume_cm3 = freeVolume_cm3;
+    res.loadRatio = in.charge_g / (in.bulkDensity_kgm3 * 1e-3 * freeVolume_cm3);
+    if (in.twistLength_mm > 0.0) res.muzzleRpm = last.v_ms / (in.twistLength_mm * 1e-3) * 60.0;
+
+    // ---- derived quantities (formulas identified from the original's results) ----
+    constexpr double kFtPerM = 3.280839895;
+    const double mc = in.charge_g * 1e-3, mp = in.bulletMass_g * 1e-3;
+    res.burnoutPressure_bar = pts[res.indexBurnout].p_bar;
+    res.propellantEnergy_J = in.heatQex_kJkg * 1e3 * mc * last.z;
+    res.frictionForce_N = cal.frictionStress_MPa * std::numbers::pi * in.bulletDiameter_mm * in.bulletLength_mm;
+    res.muzzleFrictionEnergy_J = res.frictionForce_N * (last.x_mm - pts.front().x_mm) * 1e-3;
+    res.ipscFactor = in.bulletMass_g / 0.06479890999975 * last.v_ms * kFtPerM / 1000.0;
+    res.mipFactor = cal.mipFactor * res.ipscFactor;
+    res.projectileImpulse_Ns = mp * last.v_ms;
+    res.propellantImpulse_Ns = in.sebert * mc * last.v_ms;
+    res.gasImpulse_Ns = cal.gasImpulseFactor * mc * last.v_ms;
+    res.recoilImpulse_Ns = res.projectileImpulse_Ns + res.propellantImpulse_Ns + res.gasImpulse_Ns;
+    if (last.t_ms > 0.0) res.meanRecoilForce_N = res.recoilImpulse_Ns / (last.t_ms * 1e-3);
+    if (in.gunWeight_kg > 0.0)
+    {
+        res.recoilVelocity_ms = res.recoilImpulse_Ns / in.gunWeight_kg;
+        res.recoilEnergy_J = 0.5 * in.gunWeight_kg * res.recoilVelocity_ms * res.recoilVelocity_ms;
+        res.recoilAcceleration_ms2 = res.meanRecoilForce_N / in.gunWeight_kg;
+    }
+    res.status = SimStatus::Ok;
+}
+
+// ---- the physical model (Calibration::model == SolverModel::Physical) ----
+//
+// State: bullet position x, velocity v, burnt fraction z, heat lost to the walls Q, work done against the resistance W; integrated in
+// time (Dormand-Prince 5(4) with error control, so the result does not depend on the output grid):
+//   dz/dt = Ba * p[bar] * (p / 1000 bar)^n * phi(z) * g   burn law and form function as in the Original model; g = 1 - exp(-t / tau)
+//                                                       is the lit share of the grains (flame spread from the primer, tau =
+//                                                       ignitionTime_ms, t counted from ignition)
+//   p     = (k - 1) * U / Vgas                         Resal: the space-mean pressure of the gas
+//   U     = impetusFactor * Qex * mc * z + Eprimer - 1/2 M v^2 - Q - W
+//   Vgas  = V0 + A (x - x0) - mc (1 - z) / pc - eta * b * mc * z
+//   M dv/dt = A p - F,   M = mp (1 + spin inertia) + sebert * mc
+//   dQ/dt = h S (T - Tw),   dW/dt = F v
+// The bullet stays at x0 until the gas pressure reaches the start pressure ps; until then the powder burns in the closed case, lit by
+// the primer gas (primerEnergy_J in the powder space). The resistance F: engraving (engravingShare * ps * A once the bullet has
+// crossed the free run gjump, decaying over the bearing length), friction of the bearing surface (slideStress * pi * D * bearing
+// length), the user's extra friction gfriction [bar] * A (when unlocked) and the air pushed out of the bore (piston-driven shock).
+// Heat transfer: Dittus-Boelter for turbulent pipe flow, h = factor * 0.023 * lambda * Pr^0.4 * mu^-0.8 * D^-0.2 * (rho u)^0.8 with
+// the gas velocity u = v / 2 + heatVelocity_ms (the turbulence of the burning charge, also before the bullet moves), the gas temperature T = p Vgas / (m_gas R), the wetted surface = powder space (a cylinder as long
+// as the case behind the bullet) + the bore behind the bullet. The reported pressure is the breech pressure of the Lagrange gradient.
+
+using PhysState = std::array<double, 6>;  // x [m], v [m/s], z, heat loss Q [J], resistance work W [J], time since ignition [s]
+
+struct PhysicalModel
+{
+    double A, D, mBullet, mMove, mc, V0, x0, solid, covolume, theta, eChem, ePrimer, mPrimerGas, startP, jump, bearing;
+    double engraveForce, slideForce, extraForce, heatCoeff, heatVelocity, gasR, chamberSurface, burnBa, burnExponent, ignitionTime;
+    FormFunction phi;
+
+    [[nodiscard]] double gasVolume(double x, double z) const noexcept
+    {
+        return V0 + A * (x - x0) - mc * (1.0 - z) * solid - covolume * mc * z;
+    }
+    [[nodiscard]] double gasPressure(const PhysState &y) const noexcept
+    {
+        const double e = eChem * mc * y[2] + ePrimer - 0.5 * mMove * y[1] * y[1] - y[3] - y[4];
+        const double vg = gasVolume(y[0], y[2]);
+        return vg > 0.0 ? theta * std::max(e, 0.0) / vg : 0.0;
+    }
+    // pressure of the air in front of the bullet [Pa]: a shock ahead of a piston moving at v into air at rest
+    [[nodiscard]] static double airPressure(double v) noexcept
+    {
+        constexpr double p1 = 101325.0, a1 = 343.0, g = 1.4, c = (g + 1.0) / 4.0;
+        const double M = v / a1;
+        return p1 * (1.0 + g * c * M * M + g * M * std::sqrt(1.0 + c * c * M * M));
+    }
+    [[nodiscard]] double resistance(double x, double v) const noexcept
+    {
+        double f = extraForce + airPressure(v) * A;
+        const double s = x - x0 - jump;  // travel in the rifling
+        if (s >= 0.0) f += slideForce + engraveForce * std::exp(-s / bearing);
+        return std::max(f, 0.0);
+    }
+    [[nodiscard]] double heatRate(const PhysState &y, double p) const noexcept
+    {
+        const double vg = gasVolume(y[0], y[2]);
+        const double u = 0.5 * y[1] + heatVelocity;
+        if (heatCoeff <= 0.0 || vg <= 0.0 || u <= 0.0) return 0.0;
+        const double mg = mc * y[2] + mPrimerGas;
+        const double T = p * vg / (mg * gasR);
+        const double h = heatCoeff * std::pow(mg / vg * u, 0.8);
+        return std::max(h * (chamberSurface + std::numbers::pi * D * (y[0] - x0)) * (T - 293.0), 0.0);
+    }
+    struct Rates
+    {
+        PhysState dy;
+        double p, a, force;
+    };
+    [[nodiscard]] Rates rates(const PhysState &y, bool released) const noexcept
+    {
+        const double p = gasPressure(y);
+        const double pBar = p / kBar;
+        const double term = pBar * (burnExponent == 0.0 ? 1.0 : std::pow(std::max(pBar, 1.0) / 1000.0, burnExponent));
+        const double lit = ignitionTime > 0.0 ? 1.0 - std::exp(-y[5] / ignitionTime) : 1.0;
+        const double dz = y[2] >= 1.0 ? 0.0 : burnBa * term * phi(y[2]) * lit;
+        double a = 0.0, force = 0.0;
+        if (released)
+        {
+            force = resistance(y[0], y[1]);
+            a = (A * p - force) / mMove;
+            if (y[1] <= 0.0 && a < 0.0) a = 0.0;  // the bullet waits until the gas overcomes the resistance
+        }
+        return {{y[1], a, dz, heatRate(y, p), force * std::max(y[1], 0.0), 1.0}, p, a, force};
+    }
+    // breech pressure (Lagrange): the bullet base needs (bullet mass * a + F) / A, the gas column adds mc * a / (2 A)
+    [[nodiscard]] double breechPressure(const Rates &r, bool released) const noexcept
+    {
+        return released ? (mBullet * r.a + r.force) / A + mc * r.a / (2.0 * A) : r.p;
+    }
+};
+
+// One Dormand-Prince 5(4) step of size h from y: the new state, and the error norm (<= 1: within the tolerance).
+double dopriStep(const PhysicalModel &m, bool released, const PhysState &y, double h, double tol, PhysState &out)
+{
+    static constexpr double a21 = 1.0 / 5, a31 = 3.0 / 40, a32 = 9.0 / 40, a41 = 44.0 / 45, a42 = -56.0 / 15, a43 = 32.0 / 9,
+                            a51 = 19372.0 / 6561, a52 = -25360.0 / 2187, a53 = 64448.0 / 6561, a54 = -212.0 / 729, a61 = 9017.0 / 3168,
+                            a62 = -355.0 / 33, a63 = 46732.0 / 5247, a64 = 49.0 / 176, a65 = -5103.0 / 18656, b1 = 35.0 / 384,
+                            b3 = 500.0 / 1113, b4 = 125.0 / 192, b5 = -2187.0 / 6784, b6 = 11.0 / 84, e1 = 71.0 / 57600, e3 = -71.0 / 16695,
+                            e4 = 71.0 / 1920, e5 = -17253.0 / 339200, e6 = 22.0 / 525, e7 = -1.0 / 40;
+    static constexpr PhysState atol{1e-9, 1e-6, 1e-9, 1e-4, 1e-4, 1e-12};
+    const auto f = [&](const PhysState &s) { return m.rates(s, released).dy; };
+    const auto at = [&](std::initializer_list<std::pair<double, const PhysState *>> terms)
+    {
+        PhysState s = y;
+        for (const auto &[c, k] : terms)
+            for (std::size_t i = 0; i < s.size(); ++i) s[i] += h * c * (*k)[i];
+        return s;
+    };
+    const PhysState k1 = f(y);
+    const PhysState k2 = f(at({{a21, &k1}}));
+    const PhysState k3 = f(at({{a31, &k1}, {a32, &k2}}));
+    const PhysState k4 = f(at({{a41, &k1}, {a42, &k2}, {a43, &k3}}));
+    const PhysState k5 = f(at({{a51, &k1}, {a52, &k2}, {a53, &k3}, {a54, &k4}}));
+    const PhysState k6 = f(at({{a61, &k1}, {a62, &k2}, {a63, &k3}, {a64, &k4}, {a65, &k5}}));
+    out = at({{b1, &k1}, {b3, &k3}, {b4, &k4}, {b5, &k5}, {b6, &k6}});
+    out[2] = std::min(out[2], 1.0);
+    out[1] = std::max(out[1], 0.0);
+    const PhysState k7 = f(out);
+    double err = 0.0;
+    for (std::size_t i = 0; i < y.size(); ++i)
+    {
+        const double e = h * (e1 * k1[i] + e3 * k3[i] + e4 * k4[i] + e5 * k5[i] + e6 * k6[i] + e7 * k7[i]);
+        err = std::max(err, std::abs(e) / (atol[i] + tol * std::max(std::abs(y[i]), std::abs(out[i]))));
+    }
+    return std::isfinite(err) ? err : 1e10;
+}
+
+SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps, double freeVolume_cm3)
+{
+    namespace n = std::numbers;
+    SimResult res;
+    PhysicalModel m{};
+    m.A = in.boreArea_mm2 * 1e-6;
+    m.D = std::sqrt(4.0 * m.A / n::pi);
+    const double mp = in.bulletMass_g * 1e-3;
+    const double bulletDia = (in.bulletDiameter_mm > 0.0 ? in.bulletDiameter_mm * 1e-3 : m.D);
+    const double spin = in.twistLength_mm > 0.0 ? cal.bulletInertiaFactor * 0.25 * bulletDia * bulletDia *
+                                                      std::pow(2.0 * n::pi / (in.twistLength_mm * 1e-3), 2.0)
+                                                : 0.0;
+    m.mBullet = mp * (1.0 + spin);
+    m.mc = in.charge_g * 1e-3;
+    m.mMove = m.mBullet + in.sebert * m.mc;
+    m.x0 = in.startPosition_mm() * 1e-3;
+    m.jump = in.bulletJump_mm * 1e-3;
+    m.V0 = cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - bulletIntrusion_m3(in) + m.A * m.jump;
+    m.solid = 1.0 / in.density_kgm3;
+    m.covolume = cal.gasCovolume_cm3g * 1e-3 * (in.covolumeEta > 0.0 ? in.covolumeEta : 1.0);
+    m.theta = in.kappa - 1.0;
+    m.eChem = cal.impetusFactor * in.heatQex_kJkg * 1e3;
+    m.startP = in.startPressure_bar * kBar;
+    m.gasR = cal.gasConstant_JkgK;
+    const double vg0 = m.gasVolume(m.x0, 0.0);
+    if (m.V0 <= 0.0 || vg0 <= 0.0 || m.x0 <= 0.0) return res;
+    m.ePrimer = cal.primerEnergy_J;
+    m.mPrimerGas = cal.primerEnergy_J * m.theta / (m.gasR * 2500.0);  // primer gas at about 2500 K
+    // bearing surface: the bullet's length without the boat tail and about one calibre of nose (one calibre if the length is unknown)
+    const double tail = in.tailType == 2 ? in.tailLength_mm * 1e-3 : 0.0;
+    m.bearing = std::max(in.bulletLength_mm > 0.0 ? in.bulletLength_mm * 1e-3 - tail - bulletDia : bulletDia, 0.3 * bulletDia);
+    m.engraveForce = cal.engravingShare * m.startP * m.A;
+    m.slideForce = cal.slideStress_MPa * 1e6 * n::pi * bulletDia * m.bearing;
+    m.extraForce = in.extraFrictionUnlocked ? in.extraFriction_bar * kBar * m.A : 0.0;
+    // gas: lambda 0.2 W/(m K), mu 8e-5 Pa s, Pr 0.7
+    m.heatCoeff = cal.heatTransferFactor * 0.023 * 0.2 * std::pow(0.7, 0.4) * std::pow(8e-5, -0.8) * std::pow(m.D, -0.2);
+    const double rc = std::sqrt(m.V0 / (n::pi * m.x0));
+    m.chamberSurface = 2.0 * n::pi * rc * m.x0 + 2.0 * n::pi * rc * rc;
+    // the powder's physical burn values when the load has them, else the load's (original model's) values with the scaled burn rate
+    const auto &pb = in.physicalBurn;
+    m.burnBa = pb ? burnCoefficient(in, cal, pb->Ba) : burnCoefficient(in, cal);
+    m.burnExponent = cal.burnExponent;
+    m.ignitionTime = cal.ignitionTime_ms * 1e-3;
+    m.heatVelocity = cal.heatVelocity_ms;
+    m.phi = pb ? FormFunction{.cal = &cal, .a0 = pb->a0, .z1 = pb->z1, .z2 = pb->z2}
+               : FormFunction{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+
+    const double xe = in.barrelLength_mm * 1e-3;
+    const double tol = cal.integrationTolerance > 0.0 ? cal.integrationTolerance : 1e-7;
+    const auto grow = [](double err) { return std::clamp(0.9 * std::pow(std::max(err, 1e-12), -0.2), 0.2, 5.0); };
+    PhysState y{m.x0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    PhysState yn{};
+    const auto stuck = [&]
+    {
+        res.status = SimStatus::BulletStuck;
+        return res;
+    };
+
+    // ---- the powder burns in the closed case until the pressure reaches the start pressure ----
+    double h = 1e-7;
+    bool released = m.gasPressure(y) >= m.startP;
+    for (int guard = 0; !released; ++guard)
+    {
+        if (guard > 200000) return stuck();
+        const double err = dopriStep(m, false, y, h, tol, yn);
+        if (err > 1.0)
+        {
+            h *= grow(err);
+            continue;
+        }
+        if (m.gasPressure(yn) >= m.startP)
+        {
+            double lo = 0.0, hi = h;  // the moment the pressure reaches ps
+            for (int k = 0; k < 60; ++k)
+            {
+                const double mid = 0.5 * (lo + hi);
+                (void)dopriStep(m, false, y, mid, tol, yn);
+                (m.gasPressure(yn) >= m.startP ? hi : lo) = mid;
+            }
+            (void)dopriStep(m, false, y, hi, tol, yn);
+            y = yn;
+            released = true;
+            break;
+        }
+        if (yn[2] >= 1.0) return stuck();  // everything burnt below the start pressure
+        y = yn;
+        h *= grow(err);
+    }
+
+    // ---- the bullet moves: accepted steps, resampled to the output grid afterwards ----
+    struct Sample
+    {
+        double t, x, v, z, p;
+    };
+    std::vector<Sample> samples;
+    const auto sample = [&](double t, const PhysState &s)
+    { samples.push_back({t, s[0], s[1], s[2], m.breechPressure(m.rates(s, true), true)}); };
+    const double dxOut = (xe - m.x0) / (steps - 1);
+    double t = 0.0;
+    h = 1e-8;
+    sample(t, y);
+    for (int guard = 0;; ++guard)
+    {
+        if (guard > 2000000 || t > 0.1) return stuck();
+        h = std::min(h, dxOut / std::max(y[1], 1.0));  // at least one sample per output step
+        const double err = dopriStep(m, true, y, h, tol, yn);
+        if (err > 1.0)
+        {
+            h *= grow(err);
+            continue;
+        }
+        if (yn[0] >= xe)
+        {
+            double lo = 0.0, hi = h;  // the step that ends at the muzzle
+            for (int k = 0; k < 60; ++k)
+            {
+                const double mid = 0.5 * (lo + hi);
+                (void)dopriStep(m, true, y, mid, tol, yn);
+                (yn[0] >= xe ? hi : lo) = mid;
+            }
+            (void)dopriStep(m, true, y, hi, tol, yn);
+            t += hi;
+            y = yn;
+            sample(t, y);
+            break;
+        }
+        t += h;
+        y = yn;
+        sample(t, y);
+        if (y[1] <= 1e-6 && y[2] >= 1.0 && m.rates(y, true).a <= 0.0) return stuck();  // burnt out and stopped in the bore
+        h *= grow(err);
+    }
+
+    // ---- equal position steps from the start position to the muzzle ----
+    res.points.reserve(static_cast<std::size_t>(steps));
+    std::size_t j = 0;
+    for (int i = 0; i < steps; ++i)
+    {
+        const double x = i + 1 == steps ? samples.back().x : m.x0 + i * dxOut;
+        while (j + 2 < samples.size() && samples[j + 1].x < x) ++j;
+        const Sample &a = samples[j];
+        const Sample &b = samples[std::min(j + 1, samples.size() - 1)];
+        const double w = b.x > a.x ? std::clamp((x - a.x) / (b.x - a.x), 0.0, 1.0) : 1.0;
+        const auto lerp = [w](double p, double q) { return p + w * (q - p); };
+        const double v = lerp(a.v, b.v);
+        res.points.push_back({.x_mm = x * 1e3,
+                              .z = lerp(a.z, b.z),
+                              .p_bar = lerp(a.p, b.p) / kBar,
+                              .v_ms = v,
+                              .e_J = 0.5 * mp * v * v,
+                              .t_ms = lerp(a.t, b.t) * 1e3});
+    }
+    summarize(res, in, cal, freeVolume_cm3);
+    res.frictionForce_N = m.slideForce + m.extraForce;
+    res.muzzleFrictionEnergy_J = y[4];
+    res.heatLoss_J = y[3];
+    return res;
+}
+
 }  // namespace
 
 // Chamber volume behind the bullet at the start: the case capacity (scaled: the database value is a water capacity,
@@ -259,6 +604,9 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
         res.status = SimStatus::ChargeTooHigh;
         return res;
     }
+
+    // the project's own model (shotshells keep their model, fitted with the Original equations)
+    if (cal.model == SolverModel::Physical && !in.shotshell) return simulatePhysical(in, cal, steps, freeVolume_cm3);
 
     // ---- the constants of this load ----
     Model m{};
@@ -393,56 +741,7 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
             {.x_mm = x1 * 1e3, .z = z, .p_bar = p / kBar, .v_ms = v, .e_J = 0.5 * in.bulletMass_g * 1e-3 * v * v, .t_ms = t * 1e3});
     }
 
-    // ---- summary values of the curve ----
-    const auto &pts = res.points;
-    const auto pmax = std::ranges::max_element(pts, {}, &SimPoint::p_bar);
-    res.indexPmax = static_cast<std::size_t>(pmax - pts.begin());
-    res.maxPressure_bar = pmax->p_bar;
-    const SimPoint &last = pts.back();
-    res.muzzlePressure_bar = last.p_bar;
-    res.muzzleVelocity_ms = last.v_ms;
-    res.muzzleEnergy_J = last.e_J;
-    res.muzzleTime_ms = last.t_ms;
-    res.burntFraction = last.z;
-    res.efficiency = last.e_J / (in.charge_g * 1e-3 * in.heatQex_kJkg * 1e3);
-    const auto burnout = std::ranges::find_if(pts, [](const SimPoint &q) { return q.z >= 1.0; });
-    res.burnoutInBarrel = burnout != pts.end();
-    res.indexBurnout = static_cast<std::size_t>((res.burnoutInBarrel ? burnout : pts.end() - 1) - pts.begin());
-
-    // markers and ratios
-    const auto firstAtLeast = [&](auto value, double limit)
-    {
-        const auto it = std::ranges::find_if(pts, [&](const SimPoint &q) { return value(q) >= limit; });
-        return it == pts.end() ? std::size_t{0} : static_cast<std::size_t>(it - pts.begin());
-    };
-    res.indexZ1 = firstAtLeast([](const SimPoint &q) { return q.z; }, in.z1);
-    res.indexZ2 = firstAtLeast([](const SimPoint &q) { return q.z; }, in.z2);
-    res.indexEnergy95 = firstAtLeast([](const SimPoint &q) { return q.e_J; }, 0.95 * last.e_J);
-    res.effectiveCaseVolume_cm3 = freeVolume_cm3;
-    res.loadRatio = in.charge_g / (in.bulkDensity_kgm3 * 1e-3 * freeVolume_cm3);
-    if (in.twistLength_mm > 0.0) res.muzzleRpm = last.v_ms / (in.twistLength_mm * 1e-3) * 60.0;
-
-    // ---- derived quantities (formulas identified from the original's results) ----
-    constexpr double kFtPerM = 3.280839895;
-    const double mc = in.charge_g * 1e-3, mp = in.bulletMass_g * 1e-3;
-    res.burnoutPressure_bar = pts[res.indexBurnout].p_bar;
-    res.propellantEnergy_J = in.heatQex_kJkg * 1e3 * mc * last.z;
-    res.frictionForce_N = cal.frictionStress_MPa * std::numbers::pi * in.bulletDiameter_mm * in.bulletLength_mm;
-    res.muzzleFrictionEnergy_J = res.frictionForce_N * (last.x_mm - pts.front().x_mm) * 1e-3;
-    res.ipscFactor = in.bulletMass_g / 0.06479890999975 * last.v_ms * kFtPerM / 1000.0;
-    res.mipFactor = cal.mipFactor * res.ipscFactor;
-    res.projectileImpulse_Ns = mp * last.v_ms;
-    res.propellantImpulse_Ns = in.sebert * mc * last.v_ms;
-    res.gasImpulse_Ns = cal.gasImpulseFactor * mc * last.v_ms;
-    res.recoilImpulse_Ns = res.projectileImpulse_Ns + res.propellantImpulse_Ns + res.gasImpulse_Ns;
-    if (last.t_ms > 0.0) res.meanRecoilForce_N = res.recoilImpulse_Ns / (last.t_ms * 1e-3);
-    if (in.gunWeight_kg > 0.0)
-    {
-        res.recoilVelocity_ms = res.recoilImpulse_Ns / in.gunWeight_kg;
-        res.recoilEnergy_J = 0.5 * in.gunWeight_kg * res.recoilVelocity_ms * res.recoilVelocity_ms;
-        res.recoilAcceleration_ms2 = res.meanRecoilForce_N / in.gunWeight_kg;
-    }
-    res.status = SimStatus::Ok;
+    summarize(res, in, cal, freeVolume_cm3);
     return res;
 }
 
@@ -466,8 +765,11 @@ std::vector<double> vivacityCurve(const SimInput &in, const Calibration &cal, in
     std::vector<double> out;
     if (n < 2) return out;
     out.reserve(static_cast<std::size_t>(n));
-    const FormFunction phi{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
-    const double ba = burnCoefficient(in, cal);
+    // the physical model with the powder's physical burn values: those
+    const auto &pb = cal.model == SolverModel::Physical && !in.shotshell ? in.physicalBurn : std::nullopt;
+    const FormFunction phi = pb ? FormFunction{.cal = &cal, .a0 = pb->a0, .z1 = pb->z1, .z2 = pb->z2}
+                                : FormFunction{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+    const double ba = pb ? burnCoefficient(in, cal, pb->Ba) : burnCoefficient(in, cal);
     for (int i = 0; i < n; ++i) out.push_back(ba * phi(static_cast<double>(i) / (n - 1)));
     return out;
 }
@@ -492,6 +794,27 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.burnIntercept = 1.28131;
         cal.burnExponent = -0.00676818;
         cal.initialGasFactor = 1.19872;
+    }
+    else if (profile == CalibrationProfile::Physical)
+    {
+        // the project's own physical model (simulatePhysical), fitted with analysis/calibrate_published.py to the velocities and measured
+        // pressures of 22 rifle powders of the Hodgdon and Western Powders manuals (3/4 of the cartridges), alternating with the powders'
+        // physical burn values (analysis/fit_physical_powders.py, data/physical/propellants.json). burnRateScale and burnSlopeOffset
+        // matter only for powders without physical burn values. At a limit of the fit: capacityFactor, engravingShare (upper),
+        // gasCovolume_cm3g, primerEnergy_J (lower).
+        cal.model = SolverModel::Physical;
+        cal.burnRateScale = 1.52516;
+        cal.burnSlopeOffset = 1.31191;
+        cal.impetusFactor = 1.01833;
+        cal.capacityFactor = 1.15;
+        cal.gasCovolume_cm3g = 0.8;
+        cal.primerEnergy_J = 10.0009;
+        cal.ignitionTime_ms = 0.75716;
+        cal.engravingShare = 0.998677;
+        cal.slideStress_MPa = 0.700469;
+        cal.heatTransferFactor = 0.0618079;
+        cal.heatVelocity_ms = 169.199;
+        cal.burnExponent = -0.327531;
     }
     return cal;
 }
@@ -549,7 +872,17 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"phase3Limit", &cal.phase3Limit},
             {"phase3_3", &cal.phase3[0]},
             {"phase3_2", &cal.phase3[1]},
-            {"phase3_1", &cal.phase3[2]}};
+            {"phase3_1", &cal.phase3[2]},
+            {"gasCovolume_cm3g", &cal.gasCovolume_cm3g},
+            {"primerEnergy_J", &cal.primerEnergy_J},
+            {"ignitionTime_ms", &cal.ignitionTime_ms},
+            {"engravingShare", &cal.engravingShare},
+            {"slideStress_MPa", &cal.slideStress_MPa},
+            {"heatTransferFactor", &cal.heatTransferFactor},
+            {"heatVelocity_ms", &cal.heatVelocity_ms},
+            {"bulletInertiaFactor", &cal.bulletInertiaFactor},
+            {"gasConstant_JkgK", &cal.gasConstant_JkgK},
+            {"integrationTolerance", &cal.integrationTolerance}};
 }
 
 }  // namespace grt

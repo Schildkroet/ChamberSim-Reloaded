@@ -67,6 +67,10 @@ namespace
     QT_TRANSLATE_NOOP("grt::fields", "unlocked bullet jump"),
     QT_TRANSLATE_NOOP("grt::fields", "unlocked friction"),
     QT_TRANSLATE_NOOP("grt::fields", "vivacity coefficient"),
+    QT_TRANSLATE_NOOP("grt::fields", "physical model: vivacity coefficient"),
+    QT_TRANSLATE_NOOP("grt::fields", "physical model: prog/deg coefficient"),
+    QT_TRANSLATE_NOOP("grt::fields", "physical model: burn-up limit z1"),
+    QT_TRANSLATE_NOOP("grt::fields", "physical model: burn-up limit z2"),
 };
 
 }  // namespace
