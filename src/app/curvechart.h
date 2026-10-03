@@ -5,6 +5,7 @@
 
 #include <QChartView>
 
+#include <optional>
 #include <span>
 #include <vector>
 
@@ -15,7 +16,8 @@ class QValueAxis;
 
 // Pressure, bullet energy and velocity over time (or position) with the markers of the original
 // program: z1, Pmax, z2, 95 % energy and burnout, plus warning bands below the permitted pressure.
-// A reference run (the original's curves) can be drawn dashed underneath.
+// A reference run (the original's curves) can be drawn dashed underneath. The mouse over the plot shows a cursor line with
+// the values of the curves at that point.
 class CurveChart : public QChartView
 {
     Q_OBJECT
@@ -40,8 +42,15 @@ public:
     void setXAxis(XAxis axis);
     [[nodiscard]] XAxis xAxis() const noexcept { return m_xAxis; }
 
+    // The curves' values at `x` (time or position, as on the x axis), interpolated; none outside the curves.
+    [[nodiscard]] std::optional<grt::SimPoint> pointAt(double x) const;
+    [[nodiscard]] std::optional<double> cursorX() const noexcept { return m_cursorX; }
+
 protected:
     void changeEvent(QEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+    void drawForeground(QPainter *painter, const QRectF &rect) override;
 
 private:
     struct Marker
@@ -81,7 +90,8 @@ private:
     QAreaSeries *m_bandRed{nullptr};
     QAreaSeries *m_bandBlue{nullptr};
     QLineSeries *m_redLo{nullptr}, *m_redHi{nullptr}, *m_blueLo{nullptr}, *m_blueHi{nullptr};
-    std::vector<Marker> m_markers;  // z1, Pmax, z2, 95 %, burnout
+    std::vector<Marker> m_markers;    // z1, Pmax, z2, 95 %, burnout
+    std::optional<double> m_cursorX;  // mouse cursor, in x axis units
     QValueAxis *m_axisX;
     QValueAxis *m_axisP;
     QValueAxis *m_axisE;

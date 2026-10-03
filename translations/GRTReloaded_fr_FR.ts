@@ -189,7 +189,7 @@
 <context>
     <name>CurveChart</name>
     <message>
-        <location filename="../src/app/curvechart.cpp" line="+63"/>
+        <location filename="../src/app/curvechart.cpp" line="+67"/>
         <source>Pressure</source>
         <translation>Pression</translation>
     </message>
@@ -224,7 +224,37 @@
         <translation>Pmax admissible</translation>
     </message>
     <message>
-        <location line="+309"/>
+        <location line="+193"/>
+        <source>Time: %1 ms</source>
+        <translation>Temps : %1 ms</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Bullet base: %1 %2</source>
+        <translation>Culot du projectile : %1 %2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pressure: %1 %2</source>
+        <translation>Pression : %1 %2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Velocity: %1 %2</source>
+        <translation>Vitesse : %1 %2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Energy: %1 %2</source>
+        <translation>Énergie : %1 %2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Burnt propellant: %1 %</source>
+        <translation>Poudre brûlée : %1 %</translation>
+    </message>
+    <message>
+        <location line="+216"/>
         <source>ms</source>
         <translation>ms</translation>
     </message>
@@ -270,30 +300,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+149"/>
-        <location line="+719"/>
+        <location filename="../src/app/loadview.cpp" line="+150"/>
+        <location line="+725"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-719"/>
-        <location line="+720"/>
+        <location line="-725"/>
+        <location line="+726"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-720"/>
+        <location line="-726"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+721"/>
+        <location line="+727"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-720"/>
+        <location line="-726"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -324,12 +354,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+16"/>
+        <location line="+22"/>
         <source>Load ratio</source>
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-21"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
@@ -344,7 +374,7 @@
         <translation>Pertes chaleur / frottement</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Charge</source>
         <translation>Charge</translation>
     </message>

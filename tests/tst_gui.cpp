@@ -45,6 +45,7 @@
 #include "appfont.h"
 #include "cartridgeview.h"
 #include "chamberview.h"
+#include "curvechart.h"
 #include "photoview.h"
 #include "chronographimportdialog.h"
 #include "database.h"
@@ -133,6 +134,7 @@ private slots:
     void checkBoxesVisibleInDarkMode();
     void dialogsHaveAVisibleBorder();
     void scrollBarsVisibleInDarkMode();
+    void chartCursorShowsTheValues();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
@@ -2089,6 +2091,37 @@ void GuiTest::scrollBarsVisibleInDarkMode()
     for (int y = 0; y < img.height(); ++y) brightest = std::max(brightest, img.pixelColor(img.width() / 2, y).lightness());
     theme::apply(*qApp, theme::Mode::System);
     QVERIFY2(brightest - window > 30, qPrintable(u"handle %1, window %2"_s.arg(brightest).arg(window)));
+}
+
+// The mouse over the pressure chart: a cursor with the interpolated values of the curves; gone when the mouse leaves.
+void GuiTest::chartCursorShowsTheValues()
+{
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(*lf));
+    QVERIFY(r.ok());
+    CurveChart chart;
+    chart.setResult(r, 3900.0);
+    chart.resize(800, 500);
+    chart.show();
+    QVERIFY(QTest::qWaitForWindowExposed(&chart));
+    const QRectF plot = chart.chart()->plotArea();
+    const QPoint inside = chart.mapFromScene(chart.chart()->mapToScene(plot.center()));
+    QTest::mouseMove(chart.viewport(), inside);
+    QTRY_VERIFY(chart.cursorX().has_value());
+    // at the time of the pressure peak the cursor shows the peak pressure
+    const grt::SimPoint &peak = r.points[r.indexPmax];
+    const auto atPeak = chart.pointAt(peak.t_ms);
+    QVERIFY(atPeak);
+    QCOMPARE(atPeak->p_bar, peak.p_bar);
+    // between two points: interpolated
+    const grt::SimPoint &a = r.points[10], &b = r.points[11];
+    const auto mid = chart.pointAt((a.t_ms + b.t_ms) / 2.0);
+    QVERIFY(mid && std::abs(mid->v_ms - (a.v_ms + b.v_ms) / 2.0) < 1e-9);
+    QVERIFY(!chart.pointAt(r.points.back().t_ms + 1.0));
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) chart.grab().save(shots + u"/chartcursor.png"_s);
+    QTest::mouseMove(chart.viewport(), QPoint(2, 2));  // outside the plot
+    QTRY_VERIFY(!chart.cursorX().has_value());
 }
 
 void GuiTest::fitToMeasurementsChangesThePowder()

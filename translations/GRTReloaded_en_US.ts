@@ -189,7 +189,7 @@
 <context>
     <name>CurveChart</name>
     <message>
-        <location filename="../src/app/curvechart.cpp" line="+63"/>
+        <location filename="../src/app/curvechart.cpp" line="+67"/>
         <source>Pressure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -224,7 +224,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+309"/>
+        <location line="+193"/>
+        <source>Time: %1 ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Bullet base: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pressure: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Velocity: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Energy: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Burnt propellant: %1 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+216"/>
         <source>Bullet base position [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -270,7 +300,7 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+380"/>
+        <location filename="../src/app/loadview.cpp" line="+387"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -318,25 +348,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-670"/>
-        <location line="+719"/>
+        <location line="-676"/>
+        <location line="+725"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-719"/>
-        <location line="+720"/>
+        <location line="-725"/>
+        <location line="+726"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-720"/>
-        <location line="+721"/>
+        <location line="-726"/>
+        <location line="+727"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-721"/>
+        <location line="-727"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -372,12 +402,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+16"/>
+        <location line="+22"/>
         <source>Load ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-21"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -392,7 +422,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>

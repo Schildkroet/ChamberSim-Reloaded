@@ -6,6 +6,9 @@
 #include <QGuiApplication>
 #include <QLegendMarker>
 #include <QLineSeries>
+#include <QLocale>
+#include <QMouseEvent>
+#include <QPainter>
 #include <QPalette>
 #include <QGraphicsSimpleTextItem>
 #include <QValueAxis>
@@ -56,6 +59,7 @@ CurveChart::CurveChart(QWidget *parent)
     , m_axisE(new QValueAxis)
     , m_axisV(new QValueAxis)
 {
+    viewport()->setMouseTracking(true);  // the cursor follows the mouse without a pressed button
     auto *chart = new QChart;
     chart->legend()->setAlignment(Qt::AlignBottom);
     chart->setMargins({4, 4, 4, 4});
@@ -194,6 +198,110 @@ void CurveChart::changeEvent(QEvent *event)
     }
 }
 
+void CurveChart::mouseMoveEvent(QMouseEvent *event)
+{
+    QChartView::mouseMoveEvent(event);
+    const QPointF pos = chart()->mapFromScene(mapToScene(event->position().toPoint()));
+    std::optional<double> x;
+    if (chart()->plotArea().contains(pos)) x = chart()->mapToValue(pos, m_pressure).x();
+    if (x && !pointAt(*x)) x.reset();
+    if (x == m_cursorX) return;
+    m_cursorX = x;
+    viewport()->update();
+}
+
+void CurveChart::leaveEvent(QEvent *event)
+{
+    QChartView::leaveEvent(event);
+    m_cursorX.reset();
+    viewport()->update();
+}
+
+std::optional<grt::SimPoint> CurveChart::pointAt(double x) const
+{
+    const auto &pts = m_result.points;
+    if (!m_result.ok() || pts.empty() || x < xOf(pts.front()) || x > xOf(pts.back())) return std::nullopt;
+    // x grows along the curve (time and bullet position)
+    const auto it = std::ranges::lower_bound(pts, x, {}, [&](const grt::SimPoint &p) { return xOf(p); });
+    if (it == pts.begin()) return pts.front();
+    const grt::SimPoint &a = *std::prev(it), &b = *it;
+    const double span = xOf(b) - xOf(a), f = span > 0.0 ? (x - xOf(a)) / span : 0.0;
+    const auto lerp = [f](double u, double v) { return u + f * (v - u); };
+    return grt::SimPoint{.x_mm = lerp(a.x_mm, b.x_mm),
+                         .z = lerp(a.z, b.z),
+                         .p_bar = lerp(a.p_bar, b.p_bar),
+                         .v_ms = lerp(a.v_ms, b.v_ms),
+                         .e_J = lerp(a.e_J, b.e_J),
+                         .t_ms = lerp(a.t_ms, b.t_ms)};
+}
+
+// The cursor: a vertical line at the mouse, a dot on each curve and a box with the values.
+void CurveChart::drawForeground(QPainter *painter, const QRectF &rect)
+{
+    QChartView::drawForeground(painter, rect);
+    if (!m_cursorX) return;
+    const std::optional<grt::SimPoint> pt = pointAt(*m_cursorX);
+    if (!pt) return;
+    using grt::units::format;
+    const QRectF plot = chart()->mapRectToScene(chart()->plotArea());
+    const auto scene = [&](double y, QLineSeries *s) { return chart()->mapToScene(chart()->mapToPosition({*m_cursorX, y}, s)); };
+    const double x = scene(0.0, m_pressure).x();
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing);
+    QColor lineColor = palette().color(QPalette::Text);
+    lineColor.setAlpha(140);
+    painter->setPen(QPen(lineColor, 1.0, Qt::DashLine));
+    painter->drawLine(QPointF(x, plot.top()), QPointF(x, plot.bottom()));
+    const struct
+    {
+        QLineSeries *series;
+        double value;
+        QColor color;
+    } dots[] = {{m_pressure, grt::units::toDisplay(pt->p_bar, *m_pressureUnit), kPressure},
+                {m_energy, grt::units::toDisplay(pt->e_J, *m_energyUnit), kEnergy},
+                {m_velocity, grt::units::toDisplay(pt->v_ms, *m_velocityUnit), kVelocity}};
+    for (const auto &d : dots)
+    {
+        painter->setPen(QPen(palette().color(QPalette::Base), 1.5));
+        painter->setBrush(d.color);
+        painter->drawEllipse(scene(d.value, d.series), 4.0, 4.0);
+    }
+
+    const auto unit = [](const grt::units::Unit &u) { return QString::fromUtf8(u.symbol); };
+    const QString lines[] = {
+        tr("Time: %1 ms").arg(QLocale().toString(pt->t_ms, 'f', 3)),
+        tr("Bullet base: %1 %2").arg(format(pt->x_mm, *m_lengthUnit), unit(*m_lengthUnit)),
+        tr("Pressure: %1 %2").arg(format(pt->p_bar, *m_pressureUnit), unit(*m_pressureUnit)),
+        tr("Velocity: %1 %2").arg(format(pt->v_ms, *m_velocityUnit), unit(*m_velocityUnit)),
+        tr("Energy: %1 %2").arg(format(pt->e_J, *m_energyUnit), unit(*m_energyUnit)),
+        tr("Burnt propellant: %1 %").arg(QLocale().toString(100.0 * pt->z, 'f', 1)),
+    };
+    const QColor colors[] = {palette().color(QPalette::Text), palette().color(QPalette::Text), kPressure, kVelocity, kEnergy,
+                             palette().color(QPalette::Text)};
+    QFont f = font();
+    f.setPointSizeF(f.pointSizeF() * 0.9);
+    painter->setFont(f);
+    const QFontMetricsF fm(f);
+    double w = 0.0;
+    for (const QString &l : lines) w = std::max(w, fm.horizontalAdvance(l));
+    const double pad = 6.0, h = std::size(lines) * fm.height() + 2 * pad;
+    w += 2 * pad;
+    // right of the line, on the left near the right edge
+    QRectF box(x + 10.0, plot.top() + 6.0, w, h);
+    if (box.right() > plot.right()) box.moveRight(x - 10.0);
+    QColor bg = palette().color(QPalette::Base);
+    bg.setAlpha(230);
+    painter->setPen(QPen(palette().color(QPalette::PlaceholderText), 1.0));
+    painter->setBrush(bg);
+    painter->drawRoundedRect(box, 4.0, 4.0);
+    for (std::size_t i = 0; i < std::size(lines); ++i)
+    {
+        painter->setPen(colors[i]);
+        painter->drawText(QPointF(box.left() + pad, box.top() + pad + fm.ascent() + i * fm.height()), lines[i]);
+    }
+    painter->restore();
+}
+
 void CurveChart::applyTheme()
 {
     const bool dark = palette().color(QPalette::Window).lightness() < 128;
@@ -304,6 +412,7 @@ void CurveChart::updateMarkerLabels()
 
 void CurveChart::rebuild()
 {
+    viewport()->update();  // the cursor shows the new values
     const auto &pts = m_result.points;
     const grt::units::Unit &pu = *m_pressureUnit, &eu = *m_energyUnit, &vu = *m_velocityUnit;
     const auto P = [&](double bar) { return grt::units::toDisplay(bar, pu); };
