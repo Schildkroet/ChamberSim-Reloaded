@@ -226,6 +226,11 @@ add_executable(grt_fitdata tools/grt_fitdata.cpp)
 target_link_libraries(grt_fitdata PRIVATE grtcore)
 target_compile_definitions(grt_fitdata PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
+# simulates published load data with an adjustable solver calibration (analysis/calibrate_published.py)
+add_executable(grt_eval tools/grt_eval.cpp)
+target_link_libraries(grt_eval PRIVATE grtcore)
+target_compile_definitions(grt_eval PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+
 add_executable(grt_compare tools/grt_compare.cpp)
 target_link_libraries(grt_compare PRIVATE grtcore)
 target_compile_definitions(grt_compare PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
@@ -241,7 +246,7 @@ if(GRT_FORMAT_ON_BUILD AND GRT_CLANG_FORMAT)
         COMMAND ${GRT_CLANG_FORMAT} -i --style=file ${GRT_FORMAT_FILES}
         COMMENT "clang-format"
         VERBATIM)
-    foreach(t grtcore grtui GRTReloaded grt_datacheck grt_fitpowder grt_fitdata grt_compare)
+    foreach(t grtcore grtui GRTReloaded grt_datacheck grt_fitpowder grt_fitdata grt_eval grt_compare)
         add_dependencies(${t} clang_format)
     endforeach()
 elseif(GRT_FORMAT_ON_BUILD)

@@ -97,3 +97,23 @@ automated requests or are not available. Nobel Sport / Vectan's catalogue has lo
 The fit runs thousands of simulations. The solver uses a secant method (Illinois) instead of 70 bisections per step
 (2.6 ms instead of 17.5 ms per simulation, identical results) and `powderfit::fit` runs the samples on all cores
 (`Options::threads`).
+
+## Recalibrating the solver on published pressures (experiment, not adopted)
+
+`tools/grt_eval` simulates a samples CSV with the project's propellant records and any solver constants (`--set name=value`, `--ba "Maker Name=value"`);
+`analysis/calibrate_published.py` uses it to fit shared solver constants and the burn rates of a few powders jointly (6 powders with the most samples:
+Accurate 4350, Ramshot Hunter, Accurate 2700, Ramshot Magnum, Ramshot Big Game, Hodgdon H4350; 2169 loads, 3/4 of the cartridges) and compares
+them with the current constants (burn rates refitted): on the held-out cartridges (788 loads) and on other powders (IMR 4350, Varget, H4831,
+W760, IMR 4064, Accurate 2520, IMR 4831, H4895; Ba fitted on the training cartridges, 833 held-out loads). `grt_compare` shows the effect on the
+accuracy against the original program (349 runs; current: mean |pmax| 2.81 %, |vmuz| 0.83 %).
+
+| Constants | Pressure error, trained powders / held-out cartridges / other powders | Velocity error (same) | grt_compare mean pmax / vmuz |
+|---|---|---|---|
+| current | 17.5 / 18.2 / 15.3 % | 4.0 / 4.7 / 5.0 % | 2.8 / 0.8 % |
+| 10 constants free | 7.2 / 8.9 / 8.7 % | 3.4 / 3.4 / 3.1 % | 40 / 5.5 % |
+| 10 constants within +-30 % | 12.5 / 14.0 / 11.2 % | 3.5 / 4.1 / 3.9 % | 29 / 9.7 % |
+| impetus, capacity, burn exponent only | 14.2 / 16.1 / 12.9 % | 4.1 / 4.9 / 4.9 % | 46 / 16 % |
+
+The published pressures are fitted much better (and it generalises to other cartridges and powders), but with constants that are unphysical
+(negative density factors, kinetic factor 1.9, capacity factor 0.26) and that no longer reproduce the original program. The original's model
+differs from measured pressures by about 17 % rms on these loads; the solver follows the original, not the measurements.
