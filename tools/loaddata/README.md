@@ -108,6 +108,19 @@ assumed (600 mm rifle, 120 mm handgun) and only velocities are fitted.
   200 mm, 3.3 with 80 mm): not included, as the other pistol powders.
 - Not read: the shotshell tables (pages 27-44, with pressures; A24, AS, A1, A0, 206 SV, 206 V, D20, Prima SV, Prima V, GM3).
 
+## ADI Powders (Australia)
+
+`adi_extract.py -o adi_samples.csv --cache dir` reads the rifle data of adiworldclass.com.au/data-rifle: one page per cartridge (191), with
+the test barrel (barrel length, twist, primer) and per bullet and powder the cartridge length and the starting and maximum load with
+velocity and pressure (psi). The site shows the data only after the visitor acknowledged its warnings; running the script submits that form
+once (the user of the script accepts the Warnings and Reloading Safety pages of ADI). Subsonic and reduced-recoil loads are skipped. 7,296
+samples (3,251 with pressure) of 21 powders on 133 cartridges (the others are not in the C.I.P. records).
+
+Fitted with `published_fit.py --min-samples 20 --max-rms 6.5 --min-cartridges 3`: 13 powders (AR2205, AR2206H, AR2207, AR2208, AR2209,
+AR2213SC, AR2217, AR2218, AR2219, AR2225, Bench Mark 1, 2, 8208), velocity error 4.2-6.4 %, pressure error 13-27 %. Physical model
+(`fit_physical_powders.py`, form function fitted from the pressures): velocity 4.6 %, pressure 11 % rms over all 13. Not included: the pistol and
+shotgun powders (AP, AS, Trail Boss, AR2206: 7-13 % velocity error or too few cartridges).
+
 ## Speed
 
 The fit runs thousands of simulations. The solver uses a secant method (Illinois) instead of 70 bisections per step
