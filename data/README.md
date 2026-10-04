@@ -14,7 +14,7 @@ records of the original program's database, if you have chosen one in *File ▸ 
 program: *Copy…* makes an editable own copy.
 
 Where the records come from (C.I.P. sheets, manufacturers' product pages, Wikipedia infoboxes, fits to published load data) and how
-good they are: see "Where the project database comes from" in the [main README](../README.md#where-the-project-database-comes-from).
+good they are: see "Where the project database comes from" in the [main README](../README.md#-where-the-project-database-comes-from).
 
 ## Adding a record
 

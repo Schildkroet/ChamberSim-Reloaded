@@ -4,7 +4,7 @@
 
 The project database (`data/`) is shared by every user of GRT Reloaded, so new calibers, projectiles and
 propellants are very welcome. The procedures are in the README, section
-[Add data to the project database](README.md#add-data-to-the-project-database); the file format is described in
+[Add data to the project database](README.md#-add-data-to-the-project-database); the file format is described in
 [data/README.md](data/README.md).
 
 Please make sure that:

@@ -1,4 +1,5 @@
-# GRT Reloaded
+# <img src="packaging/linux/grtreloaded.svg" width="48" height="48"> GRT Reloaded
+**Interior ballistics for handloaders — Linux 🐧 / Windows 🪟**
 
 A Qt 6 / C++20 desktop application for **interior ballistics of handloads**: choose a cartridge, bullet and
 powder, enter the charge, and see pressure, bullet energy and velocity along the barrel, with a load development
@@ -8,7 +9,7 @@ ladder, reports and printouts. It follows the workflow of *Gordon's Reloading To
 > **Not affiliated.** This is an independent project. It is not affiliated with, endorsed or supported by
 > Gordon's Reloading Tool or its author.
 
-## Safety and disclaimer
+## ⚠️ Safety and disclaimer
 
 The results are **calculated** and can differ considerably from reality. Compare every load with the current
 loading tables of the component manufacturers and start low.
@@ -19,25 +20,25 @@ liability** for any damage, injury or death, loss, or any other consequence aris
 of its results, including damage to firearms or property. Reloading ammunition is dangerous and is done entirely at
 your own responsibility.
 
-## Features
+## ✨ Features
 
-- Cartridge, projectile and propellant records from a database; replace any component of a load; add your own
+- 🗃️ Cartridge, projectile and propellant records from a database; replace any component of a load; add your own
   records or changed copies of existing ones (they are stored in the program's own database)
-- Pressure, energy and velocity curves with markers and pressure bands, burn-rate chart, load ladder
-- Cartridge and chamber drawings with CIP dimensions (hover a table row to see the dimension in the drawing)
-- Measurements tab: chronograph velocity and pressure per charge with statistics (mean, SD, ES), compared with the
+- 📈 Pressure, energy and velocity curves with markers and pressure bands, burn-rate chart, load ladder
+- 📐 Cartridge and chamber drawings with CIP dimensions (hover a table row to see the dimension in the drawing)
+- ⏱️ Measurements tab: chronograph velocity and pressure per charge with statistics (mean, SD, ES), compared with the
   simulation in a table and a chart over the charge; several measurement series per load; import of MagnetoSpeed
   and Labradar files; stored in the load file like the original does
-- **Fit to measurements**: changes the powder's model values (Ba, a0, z1, z2) until the simulation agrees with
+- 🎛️ **Fit to measurements**: changes the powder's model values (Ba, a0, z1, z2) until the simulation agrees with
   your chronograph (and pressure) data, and saves the result as your own propellant
-- Photos of the powder (overview and detail, with a scale bar) from the database; you can add your own photos to
+- 📷 Photos of the powder (overview and detail, with a scale bar) from the database; you can add your own photos to
   your own propellant records
-- Reports with a template editor, print preview and PDF export, adjustable scale
-- Metric / imperial / original units, also per field; themes (light, dark); global font size; own title bar on Linux
-- Logging (level, console, log file) that you can set in the settings
-- Translations (American English is the source language)
+- 🖨️ Reports with a template editor, print preview and PDF export, adjustable scale
+- 📏 Metric / imperial / original units, also per field; themes (light, dark); global font size; own title bar on Linux
+- 📝 Logging (level, console, log file) that you can set in the settings
+- 🌍 Translations: English, German, French, Italian
 
-## Accuracy
+## 🎯 Accuracy
 
 The solver is an own lumped-parameter model, calibrated against reference runs of the original program. It is
 **not** the algorithm of any other program. How far off it currently is (errors of the solver against the
@@ -92,7 +93,7 @@ pressures of the maximum loads up to 1800 bar, where the guide's loads are press
 - seated completely inside the hull: *Cartridge Overall Length* = hull length, *Seating depth* = projectile length;
 - *Initial Gas Pressure* (start pressure) = crimp release, about 20 bar.
 
-## Building
+## 🛠️ Building
 
 Requirements: Qt 6.4 or newer (Widgets, Sql, Charts, Xml, PrintSupport, Test, LinguistTools), CMake 3.16+, a C++20
 compiler (GCC 13 tested), Ninja recommended.
@@ -104,7 +105,7 @@ cmake --preset release && cmake --build --preset release --parallel
 ctest --preset release
 ```
 
-## Data
+## 🗃️ Data
 
 The program shows one database made of three parts:
 
@@ -117,7 +118,7 @@ The program shows one database made of three parts:
   *File ▸ Settings ▸ Database*. It is only read; no database of the original is included in this repository, and
   the program does not decrypt one.
 
-### Where the project database comes from
+### 📚 Where the project database comes from
 
 The records in `data/` were collected from public sources with scripts; nothing was copied from the database of Gordon's
 Reloading Tool. The scripts, the collected tables (CSV) and the notes on quality are in the repository, so the data can be
@@ -162,7 +163,7 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
 The details, the commands to repeat each step and the limits of the data are in `tools/cipdata/README.md` and
 `tools/loaddata/README.md`. Please check every load against the manufacturer's current load data.
 
-### Using the records of Gordon's Reloading Tool
+### 🔗 Using the records of Gordon's Reloading Tool
 
 Gordon's Reloading Tool keeps its database encrypted. A script makes a plain copy of it; put it into the folder of
 GRT and run it there, then choose the resulting `GordonsReloadingTool.plain.db` in *File ▸ Settings ▸ Database*.
@@ -186,11 +187,11 @@ and `.clangd` point to it).
 Several tests use sample loads and a database that are not part of the repository; those that need them are skipped
 or have to be supplied locally in `tests/data/` and `tools/`.
 
-## Add a new powder from your own measurements
+## 🧪 Add a new powder from your own measurements
 
 You can make a propellant model for your own use directly in the program. The model values (Ba, a0, z1, z2) are
 fitted to your chronograph data. The result is saved as an own record, so you can use the powder in every load.
-(To contribute a powder to the project database, see [Procedure 2](#procedure-2-make-a-propellant-model-from-measurements).)
+(To contribute a powder to the project database, see [Procedure 2](#-procedure-2-make-a-propellant-model-from-measurements).)
 
 CAUTION: Reloading is dangerous. Use only loads from the current load data of the manufacturer, and start low.
 The result is only as good as the measurements and the data of the powder.
@@ -234,12 +235,12 @@ per charge), the better the model fits other loads. One load with few charges on
 The fit is made for one load at a time. A powder that is fitted to one caliber and one bullet only can give wrong
 results in other cartridges. Check every new load with a measurement before you trust the model.
 
-## Add data to the project database
+## 🤝 Add data to the project database
 
 The project database is in the folder `data/`. All users get this data with the program. You can add calibers,
 projectiles and propellants. Use a pull request on GitHub to send the data.
 
-### Rules for the data
+### 📏 Rules for the data
 
 - Use only data from your own measurements, or data that a manufacturer, CIP or SAAMI published.
 - Do not copy data from the database of Gordon's Reloading Tool or from other programs. This includes their
@@ -247,7 +248,7 @@ projectiles and propellants. Use a pull request on GitHub to send the data.
 - Write the source of the data in the field `origin` or `descr`.
 - The data in `data/` has the license CC BY-SA 4.0. When you send a pull request, you agree to this license.
 
-### Procedure 1: Add a caliber or a projectile
+### 📦 Procedure 1: Add a caliber or a projectile
 
 1. Start GRT Reloaded.
 2. Open the tab *Database*.
@@ -262,7 +263,7 @@ projectiles and propellants. Use a pull request on GitHub to send the data.
     `python3 tools/recordfiles.py data/projectiles`: it moves the record into the file of its manufacturer.
 11. Do procedure 3.
 
-### Procedure 2: Make a propellant model from measurements
+### 🔥 Procedure 2: Make a propellant model from measurements
 
 CAUTION: Reloading is dangerous. Use only loads from the current load data of the manufacturer.
 
@@ -315,7 +316,7 @@ program. Do not copy the `-fitted` files into `data/`.
 Note: The program contains the records of `data/` when it is built. After step 12, build the program again to see
 the new propellant in the tab *Database*.
 
-### Procedure 3: Send the data
+### 📨 Procedure 3: Send the data
 
 1. Make a fork of the repository on GitHub.
 2. Add your files to the fork (commit).
@@ -325,13 +326,13 @@ the new propellant in the tab *Database*.
 The CI checks all files in `data/`. If a check fails, the pull request shows the problem. Correct the file and
 push again.
 
-## Settings
+## ⚙️ Settings
 
 Stored with `QSettings` (organization and application name `GRTReloaded`): on Linux in
 `~/.config/GRTReloaded/GRTReloaded.conf`, on Windows in the registry under
 `HKEY_CURRENT_USER\Software\GRTReloaded\GRTReloaded`.
 
-### Solver model
+### 🧮 Solver model
 
 *File ▸ Settings ▸ Solver ▸ Model* chooses the solver (`--calibration original|published|physical` for one run: GRT Original, GRT Tuned, Physical Model):
 
@@ -368,7 +369,7 @@ Method and numbers: `tools/loaddata/README.md`, `analysis/calibrate_published.py
 
 Changing the setting recalculates every open load.
 
-### Logging
+### 📝 Logging
 
 *File ▸ Settings ▸ Logging* sets the log level (Debug, Info, Warning, Error or Off), whether the messages go to
 the console (stderr) and whether they go to a log file (`GRTReloaded.log` in the application data folder; it is
@@ -376,11 +377,16 @@ renamed to `.log.1` at 1 MB). The default is Warning, to the console only. For o
 `info`, `warning`, `error`, `off`) overrides the saved level. In the code use `LOG_Debug()`, `LOG_Info()`,
 `LOG_Warn()` and `LOG_Error()` (header `log.h`) like a stream: `LOG_Info() << "Load opened:" << path;`.
 
-## Translations
+## 🌍 Translations
 
-See [translations/README.md](translations/README.md).
+* 🇺🇸 English (American English, the source language and default)
+* 🇩🇪 German
+* 🇫🇷 French
+* 🇮🇹 Italian
 
-## License
+*View ▸ Language* switches the language (after a restart). How to translate: [translations/README.md](translations/README.md).
+
+## 📜 License
 
 GNU General Public License v3.0 — see [LICENSE](LICENSE). Qt Charts is GPL-licensed as well.
 
