@@ -111,6 +111,8 @@ GRT_STEPS=2000 .venv/bin/python analysis/calibrate.py build/release/grt_compare 
 .venv/bin/python analysis/calibrate_published.py build/release/grt_eval build/release/grt_compare \
     hod_samples.csv west_samples.csv --profile physical [--free a,b,c] [--start constants.json] [--evaluate-only]
 build/release/grt_eval hod_samples.csv --profile physical [--set name=value] [--phys "Maker Name=Ba,a0,z1,z2"]
+# test constants of the physical model powder by powder (parallel, held-out cartridges, trends over loading density and bullet mass)
+.venv/bin/python analysis/scan_physical.py build/release/grt_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--quiet]
 
 # shotshells
 .venv/bin/python analysis/calibrate_shotshell.py build/release/grt_eval <data dir> hodgdon_shot_samples.csv

@@ -160,6 +160,7 @@ struct Calibration
     double slideStress_MPa{3.0};     // friction stress on the bullet's bearing surface in the bore
     double heatTransferFactor{0.5};  // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
     double heatVelocity_ms{0.0};     // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
+    double gasInertiaFactor{1.0};    // x the load's Sebert factor: the share of the powder gas that moves with the bullet (Lagrange: 1/3)
     double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
     double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
     double integrationTolerance{1e-7};  // relative error per time step of the adaptive integration

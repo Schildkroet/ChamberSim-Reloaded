@@ -397,7 +397,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.mc = in.charge_g * 1e-3;
     // a moving powder charge without kinetic energy is not physical: Sebert 0 (loads built from the project's caliber records by earlier
     // versions, which have none) counts as 0.5 like the original's default; the Original model keeps 0 (the original program does)
-    m.mMove = m.mBullet + (in.sebert > 0.0 ? in.sebert : 0.5) * m.mc;
+    m.mMove = m.mBullet + cal.gasInertiaFactor * (in.sebert > 0.0 ? in.sebert : 0.5) * m.mc;
     m.x0 = in.startPosition_mm() * 1e-3;
     m.jump = in.bulletJump_mm * 1e-3;
     m.V0 = cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - bulletIntrusion_m3(in) + m.A * m.jump;
@@ -898,6 +898,7 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"heatTransferFactor", &cal.heatTransferFactor},
             {"heatVelocity_ms", &cal.heatVelocity_ms},
             {"bulletInertiaFactor", &cal.bulletInertiaFactor},
+            {"gasInertiaFactor", &cal.gasInertiaFactor},
             {"gasConstant_JkgK", &cal.gasConstant_JkgK},
             {"integrationTolerance", &cal.integrationTolerance}};
 }
