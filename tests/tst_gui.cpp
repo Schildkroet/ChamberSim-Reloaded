@@ -65,6 +65,7 @@
 #include "recentfiles.h"
 #include "reportview.h"
 #include "selectrecorddialog.h"
+#include "session.h"
 #include "settingsdialog.h"
 #include "solverprefs.h"
 #include "unitprefs.h"
@@ -110,6 +111,7 @@ private slots:
     void fontSizeIsLimitedAndStored();
     void fontSizeAppliesToTheWholeApplication();
     void settingsDialogChangesAndRevertsTheFont();
+    void lastLoadsAreReopened();
     void fileMenuHasSettingsAndPrinting();
     void helpMenuHasAbout();
     void unitsLiveInSettingsNotInViewMenu();
@@ -774,6 +776,57 @@ void GuiTest::fontSizeAppliesToTheWholeApplication()
     const double at18 = axisLabelSize();
     QVERIFY2(at10 > 0 && at18 > at10 * 1.5, qPrintable(u"%1 -> %2"_s.arg(at10).arg(at18)));
     appfont::apply(app, system);
+}
+
+void GuiTest::lastLoadsAreReopened()
+{
+    session::setReopen(false);
+    session::store({}, -1);
+    // the option is in the settings: OK stores it, Cancel puts the old value back
+    {
+        SettingsDialog dlg;
+        auto *box = dlg.findChild<QCheckBox *>(u"reopenLastLoads"_s);
+        QVERIFY(box && !box->isChecked());
+        box->setChecked(true);
+        dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
+        QVERIFY(session::reopen());
+        dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Cancel)->click();
+        QVERIFY(!session::reopen());
+    }
+    {
+        SettingsDialog dlg;
+        dlg.findChild<QCheckBox *>(u"reopenLastLoads"_s)->setChecked(true);
+        dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Ok)->click();
+        QVERIFY(session::reopen());
+    }
+    // two loads (copies of a sample, so that the files can be removed) and the one that was shown
+    static QTemporaryDir dir;
+    const QString a = dir.filePath(u"first.grtload"_s), b = dir.filePath(u"second.grtload"_s);
+    for (const QString &f : {a, b}) QVERIFY(QFile::copy(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), f));
+    {
+        MainWindow w;
+        QVERIFY(w.openLoad(a));
+        QVERIFY(w.openLoad(b));
+        w.showTab(1);  // the first load (tab 0 is the database)
+        w.saveSession();
+    }
+    QCOMPARE(session::loads(), (QStringList{a, b}));
+    QCOMPARE(session::current(), 0);
+    QVERIFY(QFile::remove(b));  // a file that is gone is skipped
+    MainWindow w2;
+    w2.restoreSession();
+    int loads = 0;
+    QString shown;
+    for (auto *tabs : w2.findChildren<QTabWidget *>())
+        for (int i = 0; i < tabs->count(); ++i)
+            if (auto *v = qobject_cast<LoadView *>(tabs->widget(i)))
+            {
+                ++loads;
+                if (i == tabs->currentIndex()) shown = v->path();
+            }
+    QCOMPARE(loads, 1);
+    QCOMPARE(shown, a);
+    session::setReopen(false);
 }
 
 void GuiTest::settingsDialogChangesAndRevertsTheFont()

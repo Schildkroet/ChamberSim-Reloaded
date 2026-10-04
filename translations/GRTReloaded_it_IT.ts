@@ -657,7 +657,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+335"/>
+        <location filename="../src/app/mainwindow.cpp" line="+336"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
@@ -2054,7 +2054,12 @@ pressione Δ</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <source>Open the loads of the last session at start</source>
+        <translation>Apri all&apos;avvio i caricamenti dell&apos;ultima sessione</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Write to the console (stderr)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2092,6 +2097,21 @@ pressione Δ</translation>
         <location line="+6"/>
         <source>Custom Title Bar:</source>
         <translation>Barra del titolo personalizzata:</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The files of the open loads are remembered when the program is closed and opened again at the next start (not when load files are given on the command line)</source>
+        <translation>I file dei caricamenti aperti vengono memorizzati alla chiusura del programma e riaperti al prossimo avvio (non quando i file di caricamento sono indicati sulla riga di comando)</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Start-up</source>
+        <translation>Avvio</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Last loads:</source>
+        <translation>Ultimi caricamenti:</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2189,7 +2209,7 @@ pressione Δ</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+77"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation>&lt;small&gt;%1&lt;br&gt;I nuovi record sono salvati nella banca dati propria del programma:&lt;br&gt;%2&lt;/small&gt;</translation>
     </message>

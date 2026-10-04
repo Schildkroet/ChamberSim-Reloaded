@@ -2,6 +2,7 @@
 #include "solverprefs.h"
 
 #include "appfont.h"
+#include "session.h"
 #include "database.h"
 #include "titlebar.h"
 #include "unitprefs.h"
@@ -30,6 +31,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     , m_fontSize(new QSpinBox)
     , m_titleBar(new QCheckBox)
     , m_originalTitleBar(TitleBar::stored())
+    , m_reopen(new QCheckBox(tr("Open the loads of the last session at start")))
+    , m_originalReopen(session::reopen())
     , m_unitSystem(new QComboBox)
     , m_calibration(new QComboBox)
     , m_calibrationInfo(new QLabel)
@@ -71,6 +74,18 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     titleBarLabel->setBuddy(m_titleBar);
     appearanceGrid->addWidget(titleBarLabel, 1, 0);
     appearanceGrid->addWidget(m_titleBar, 1, 1, 1, 2);
+
+    // start-up: the loads that were open when the program was closed
+    m_reopen->setObjectName(QStringLiteral("reopenLastLoads"));
+    m_reopen->setChecked(m_originalReopen);
+    m_reopen->setToolTip(tr("The files of the open loads are remembered when the program is closed and opened again at the next start "
+                            "(not when load files are given on the command line)"));
+    auto *startup = new QGroupBox(tr("Start-up"));
+    auto *startupGrid = makeForm(startup);
+    auto *startupLabel = new QLabel(tr("Last loads:"));
+    startupLabel->setBuddy(m_reopen);
+    startupGrid->addWidget(startupLabel, 0, 0);
+    startupGrid->addWidget(m_reopen, 0, 1, 1, 2);
 
     for (const grt::units::System sys : {grt::units::System::Original, grt::units::System::Metric, grt::units::System::Imperial})
         m_unitSystem->addItem(grt::units::systemName(sys), static_cast<int>(sys));
@@ -171,13 +186,15 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_fontSize->setMinimumWidth(110);
     m_unitSystem->setMinimumWidth(110);
     m_fontSize->setAlignment(Qt::AlignRight);
-    const int labelWidth =
-        std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
-                  titleBarLabel->sizeHint().width(), logLabel->sizeHint().width(), calibrationLabel->sizeHint().width()}) +
-        36;
+    const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
+                                     titleBarLabel->sizeHint().width(), logLabel->sizeHint().width(), calibrationLabel->sizeHint().width(),
+                                     startupLabel->sizeHint().width()}) +
+                           36;
     // 48 px from the labels to the fields (the grid's 12 px plus this margin)
-    for (QLabel *l : {fontLabel, titleBarLabel, systemLabel, calibrationLabel, databaseLabel, logLabel}) l->setContentsMargins(0, 0, 36, 0);
+    for (QLabel *l : {fontLabel, titleBarLabel, startupLabel, systemLabel, calibrationLabel, databaseLabel, logLabel})
+        l->setContentsMargins(0, 0, 36, 0);
     fontLabel->setMinimumWidth(labelWidth);
+    startupLabel->setMinimumWidth(labelWidth);
     systemLabel->setMinimumWidth(labelWidth);
     databaseLabel->setMinimumWidth(labelWidth);
     logLabel->setMinimumWidth(labelWidth);
@@ -200,6 +217,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
                 UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_originalSystem));
                 grt::log::setConfig(m_originalLog);
                 grt::log::storeConfig(m_originalLog);
+                session::setReopen(m_originalReopen);
                 if (TitleBar::stored() != m_originalTitleBar)
                 {
                     TitleBar::store(m_originalTitleBar);
@@ -210,6 +228,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     auto *layout = new QVBoxLayout(this);
     layout->setSpacing(12);
     layout->addWidget(appearance);
+    layout->addWidget(startup);
     layout->addWidget(units);
     layout->addWidget(solver);
     layout->addWidget(database);
@@ -255,6 +274,7 @@ void SettingsDialog::apply()
     const int applied = appfont::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), m_fontSize->value());
     appfont::storeSize(applied);
     m_fontSize->setValue(applied);
+    session::setReopen(m_reopen->isChecked());
     UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_unitSystem->currentData().toInt()));
     SolverPreferences::instance().setProfile(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt()));
     if (m_titleBar->isChecked() != TitleBar::stored())

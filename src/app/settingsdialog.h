@@ -35,6 +35,8 @@ private:
 
     QSpinBox *m_fontSize;
     QCheckBox *m_titleBar;
+    QCheckBox *m_reopen;
+    bool m_originalReopen;
     bool m_originalTitleBar;
     QComboBox *m_unitSystem;
     QComboBox *m_calibration;

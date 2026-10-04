@@ -33,6 +33,10 @@ public:
     ~MainWindow() override;
 
     bool openLoad(const QString &path);
+    // The loads of the last session: their files are remembered when the program is closed (saveSession), reopened at the next start
+    // when the option is set (restoreSession: files that are gone are skipped, the tab that was shown is shown again).
+    void saveSession() const;
+    void restoreSession();
     // The menu bar (it sits in the title bar row; use this instead of QMainWindow::menuBar()).
     [[nodiscard]] QMenuBar *mainMenu() const noexcept { return m_menuBar; }
     // Draws the window's own title bar and border (frameless window) instead of the system's.

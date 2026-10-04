@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "burnratedialog.h"
 #include "recordviewdialog.h"
+#include "session.h"
 #include "unitconverterdialog.h"
 #include "./ui_mainwindow.h"
 
@@ -788,6 +789,30 @@ bool MainWindow::maybeSave(LoadView *view)
     return answer == QMessageBox::Discard || saveLoad(view, false);
 }
 
+void MainWindow::saveSession() const
+{
+    QStringList files;
+    int current = -1;
+    for (int i = 0; i < m_tabs->count(); ++i)
+        if (const auto *v = qobject_cast<LoadView *>(m_tabs->widget(i)); v && !v->path().isEmpty())
+        {
+            if (i == m_tabs->currentIndex()) current = static_cast<int>(files.size());
+            files << v->path();
+        }
+    session::store(files, current);
+}
+
+void MainWindow::restoreSession()
+{
+    const QStringList files = session::loads();
+    for (const QString &f : files)
+        if (QFileInfo::exists(f)) openLoad(f);
+    if (const int current = session::current(); current >= 0 && current < files.size())
+        for (int i = 0; i < m_tabs->count(); ++i)
+            if (const auto *v = qobject_cast<LoadView *>(m_tabs->widget(i)); v && v->path() == files[current]) m_tabs->setCurrentIndex(i);
+    LOG_Info() << "Last session: reopened" << files.size() << "load(s)";
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     for (int i = 0; i < m_tabs->count(); ++i)
@@ -799,6 +824,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
         }
     }
     QSettings().setValue(QStringLiteral("window/geometry"), saveGeometry());
+    saveSession();
     LOG_Info() << "GRT Reloaded closed";
     event->accept();
 }

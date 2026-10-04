@@ -657,7 +657,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+335"/>
+        <location filename="../src/app/mainwindow.cpp" line="+336"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2035,7 +2035,12 @@ pressure Δ</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <source>Open the loads of the last session at start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Write to the console (stderr)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2072,6 +2077,21 @@ pressure Δ</source>
     <message>
         <location line="+6"/>
         <source>Custom Title Bar:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The files of the open loads are remembered when the program is closed and opened again at the next start (not when load files are given on the command line)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Start-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Last loads:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2170,7 +2190,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+77"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation type="unfinished"></translation>
     </message>

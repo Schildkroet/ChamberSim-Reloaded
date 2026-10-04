@@ -1,5 +1,6 @@
 #include "disclaimer.h"
 #include "mainwindow.h"
+#include "session.h"
 #include "solverprefs.h"
 #include "appfont.h"
 #include "log.h"
@@ -80,6 +81,7 @@ int main(int argc, char *argv[])
     if (cli.isSet(dbOpt)) w.openDatabase(cli.value(dbOpt));
     const QStringList loads = cli.positionalArguments();
     for (const QString &f : loads) w.openLoad(f);
+    if (loads.isEmpty() && !cli.isSet(shotOpt) && session::reopen()) w.restoreSession();  // Settings > Start-up
     if (cli.isSet(refOpt) && !loads.isEmpty()) w.overlayReference(cli.value(refOpt));
     w.show();
     // the safety notice over the main window, once it is on the screen (not in the screenshot mode: no one to answer it)
