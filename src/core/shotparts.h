@@ -31,11 +31,10 @@ struct ShotPartInfo
     double capacityScale{1.0};  // x Calibration::shotCapacityFactor
     double energyScale{1.0};    // x Calibration::shotEnergyFactor
     int loads{};                // published loads the factors were fitted to
-    // a group of similar parts (low, medium or high pressure) instead of one part: its rank and some of its members
+    // a group of similar parts (low, medium or high pressure) instead of one part: its rank and its members
     QString groupId;  // parts: the group they belong to
     bool group{false};
     QString rank;         // "low", "medium" or "high" (the pressure the parts give)
-    QString examples;     // the members with most loads, e.g. "Federal Gold Medal (plastic), Federal Gold Medal (paper)"
     QStringList members;  // all members (names), most loads first
 };
 

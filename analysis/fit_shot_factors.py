@@ -210,7 +210,7 @@ if args.out:
             fc, fe = gfac.get((pr, f"group-{rk}"), (0.0, 0.0))
             def nice(c): return c if pr == "shell" else display(pr, c)
             out.append({"id": f"group-{rk}", "rank": rk, "capacity": round(math.exp(fc), 4), "energy": round(math.exp(fe), 4), "loads": sum(t[2] for t in g),
-                        "examples": ", ".join(nice(t[0]) for t in sorted(g, key=lambda t: -t[2])[:3]), "members": [nice(t[0]) for t in sorted(g, key=lambda t: -t[2])]})
+                        "members": [nice(t[0]) for t in sorted(g, key=lambda t: -t[2])]})
         return out
     def with_group(pr, e):
         """The group a part belongs to (a load that names the part is shown with the group)."""

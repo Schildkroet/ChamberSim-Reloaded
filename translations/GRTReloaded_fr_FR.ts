@@ -1684,62 +1684,24 @@ pression Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+45"/>
-        <source>Powder space ×%1, gas energy ×%2</source>
-        <translation>Volume de poudre ×%1, énergie des gaz ×%2</translation>
-    </message>
-    <message numerus="yes">
-        <location line="+1"/>
-        <source>A group of %n part(s) that give a similar pressure:</source>
-        <translation>
-            <numerusform>Un groupe de %n pièce qui donnent une pression semblable :</numerusform>
-            <numerusform>Un groupe de %n pièces qui donnent une pression semblable :</numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>A larger powder space gives a lower pressure.</source>
-        <translation>Un volume de poudre plus grand donne une pression plus basse.</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location filename="../src/app/propertypanel.cpp" line="+51"/>
         <source>not specified (average)</source>
         <translation>non précisé (moyenne)</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>No correction: the average of all published loads.</source>
-        <translation>Aucune correction : la moyenne de toutes les charges publiées.</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>shells</source>
-        <translation>douilles</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>wads</source>
-        <translation>bourres</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>primers</source>
-        <translation>amorces</translation>
-    </message>
-    <message>
         <location line="+3"/>
-        <source>Low-pressure %1 (e.g. %2)</source>
-        <translation>%1 à basse pression (p. ex. %2)</translation>
+        <source>Low pressure</source>
+        <translation>Basse pression</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>High-pressure %1 (e.g. %2)</source>
-        <translation>%1 à haute pression (p. ex. %2)</translation>
+        <source>High pressure</source>
+        <translation>Haute pression</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Medium-pressure %1 (e.g. %2)</source>
-        <translation>%1 à pression moyenne (p. ex. %2)</translation>
+        <source>Medium pressure</source>
+        <translation>Pression moyenne</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1802,7 +1764,7 @@ pression Δ</translation>
         <translation>Cliquez pour choisir une autre unité pour ce champ</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+48"/>
         <location line="+13"/>
         <source>stored value: %1</source>
         <translation>valeur enregistrée : %1</translation>

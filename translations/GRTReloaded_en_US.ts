@@ -1665,61 +1665,23 @@ pressure Δ</source>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+45"/>
-        <source>Powder space ×%1, gas energy ×%2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+1"/>
-        <source>A group of %n part(s) that give a similar pressure:</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>A larger powder space gives a lower pressure.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location filename="../src/app/propertypanel.cpp" line="+51"/>
         <source>not specified (average)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>No correction: the average of all published loads.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>shells</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>wads</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>primers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+3"/>
-        <source>Low-pressure %1 (e.g. %2)</source>
+        <source>Low pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>High-pressure %1 (e.g. %2)</source>
+        <source>High pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Medium-pressure %1 (e.g. %2)</source>
+        <source>Medium pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1783,7 +1745,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+48"/>
         <location line="+13"/>
         <source>stored value: %1</source>
         <translation type="unfinished"></translation>

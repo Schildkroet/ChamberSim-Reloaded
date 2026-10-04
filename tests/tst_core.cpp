@@ -155,7 +155,7 @@ void CoreTest::shotshellPartsChangeTheFactors()
         QCOMPARE(groups.size(), std::size_t(3));
         QVERIFY(groups[0].group && groups[0].rank == u"low"_s && groups[2].rank == u"high"_s);
         QVERIFY(groups[0].capacityScale > groups[1].capacityScale && groups[1].capacityScale > groups[2].capacityScale);
-        QVERIFY(!groups[0].examples.isEmpty());
+        QVERIFY(!groups[0].members.isEmpty());
         QCOMPARE(grt::findShotPart(part, u"group-low"_s), &groups[0]);
     }
     caliber.set(u"shothull", u"group-high"_s);

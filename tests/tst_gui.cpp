@@ -410,13 +410,15 @@ void GuiTest::shotshellPartsAreChoices()
     panel.setSections({{0, u"caliber"_s, u"Caliber"_s, &caliber}});
     QTableWidget *t = tableOf(panel);
     const QString hull = t->item(rowOf(t, u"shothull"_s), 1)->text();
-    QVERIFY2(hull.startsWith(u"High-pressure shells (e.g. "_s) && hull.contains(u"Winchester AA / HS"_s), qPrintable(hull));
+    QCOMPARE(hull, u"High pressure"_s);  // the brands are in the tooltip only
     const QString wad = t->item(rowOf(t, u"shotwad"_s), 1)->text();
-    QVERIFY2(wad.startsWith(u"Low-pressure wads (e.g. "_s), qPrintable(wad));
+    QCOMPARE(wad, u"Low pressure"_s);
     QCOMPARE(t->item(rowOf(t, u"shotprimer"_s), 1)->text(), u"nonsense"_s);
-    // the tooltip of a group lists the individual parts and the correction
+    // the tooltip of a group lists the brands (the individual parts), one per line, and nothing else
     const QString tip = t->item(rowOf(t, u"shotwad"_s), 1)->toolTip();
-    QVERIFY2(tip.contains(u"A group of"_s) && tip.contains(u"Remington TGT12"_s) && tip.contains(u"Powder space ×"_s), qPrintable(tip));
+    QVERIFY2(tip.contains(u"Remington TGT12"_s) && tip.contains(u"Winchester WAA12SL"_s), qPrintable(tip));
+    QVERIFY2(!tip.contains(u"group"_s, Qt::CaseInsensitive) && !tip.contains(u"×"_s), qPrintable(tip));
+    QVERIFY(t->item(rowOf(t, u"shothull"_s), 1)->toolTip().contains(u"Winchester AA / HS"_s));
     caliber.set(u"shothull", QString());
     panel.syncValues();
     QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"not specified (average)"_s);

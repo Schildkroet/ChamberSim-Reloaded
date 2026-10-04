@@ -38,18 +38,8 @@ struct Choice
     QString tip;    // explanation shown as a tooltip of the entry (empty: none)
 };
 
-// What a group does to the model: its members (the individual parts) and its factors.
-QString partTip(const grt::ShotPartInfo &info)
-{
-    const QString factors =
-        PropertyPanel::tr("Powder space ×%1, gas energy ×%2").arg(info.capacityScale, 0, 'f', 2).arg(info.energyScale, 0, 'f', 2);
-    return PropertyPanel::tr("A group of %n part(s) that give a similar pressure:", nullptr, static_cast<int>(info.members.size())) +
-           u"\n  "_s + info.members.join(u"\n  "_s) + u"\n\n"_s + factors + u". "_s +
-           PropertyPanel::tr("A larger powder space gives a lower pressure.");
-}
-
 // The choices of a part of a shotshell: "not specified" (the model's average) and the groups of similar parts (low, medium and high pressure);
-// the tooltip of a group lists its individual parts.
+// the tooltip of a group lists the brands (the individual parts) it stands for.
 const QList<Choice> &shotPartChoices(grt::ShotPart part)
 {
     static const std::array<QList<Choice>, 3> lists = []
@@ -58,18 +48,13 @@ const QList<Choice> &shotPartChoices(grt::ShotPart part)
         for (const grt::ShotPart p : grt::kShotParts)
         {
             auto &list = all[static_cast<std::size_t>(p)];
-            list.push_back({QString(), PropertyPanel::tr("not specified (average)"),
-                            PropertyPanel::tr("No correction: the average of all published loads.")});
-            // groups of parts that give a similar pressure
-            const QString kind = p == grt::ShotPart::Shell ? PropertyPanel::tr("shells")
-                                 : p == grt::ShotPart::Wad ? PropertyPanel::tr("wads")
-                                                           : PropertyPanel::tr("primers");
+            list.push_back({QString(), PropertyPanel::tr("not specified (average)"), {}});
             for (const grt::ShotPartInfo &info : grt::shotPartGroups(p))
             {
-                const QString text = info.rank == u"low"    ? PropertyPanel::tr("Low-pressure %1 (e.g. %2)")
-                                     : info.rank == u"high" ? PropertyPanel::tr("High-pressure %1 (e.g. %2)")
-                                                            : PropertyPanel::tr("Medium-pressure %1 (e.g. %2)");
-                list.push_back({info.id, text.arg(kind, info.examples), partTip(info)});
+                const QString text = info.rank == u"low"    ? PropertyPanel::tr("Low pressure")
+                                     : info.rank == u"high" ? PropertyPanel::tr("High pressure")
+                                                            : PropertyPanel::tr("Medium pressure");
+                list.push_back({info.id, text, info.members.join(u'\n')});
             }
         }
         return all;
@@ -371,7 +356,9 @@ void PropertyPanel::refreshValues()
         {
             val->setText(labelFor(*choices, base));
             const QString tip = tipFor(*choices, base);
-            val->setToolTip(tip.isEmpty() ? tr("stored value: %1").arg(base) : tip);
+            const bool isPart =
+                std::ranges::any_of(grt::kShotParts, [&](grt::ShotPart p) { return val->data(KeyRole).toString() == grt::shotPartKey(p); });
+            val->setToolTip(tip.isEmpty() && !isPart ? tr("stored value: %1").arg(base) : tip);  // the parts: only the brands
             continue;
         }
         if (q == grt::units::Quantity::None)

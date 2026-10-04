@@ -7,7 +7,6 @@
    "capacity": 1.2208,
    "energy": 1.0534,
    "loads": 1394,
-   "examples": "Federal Gold Medal (plastic), Federal Gold Medal (paper)",
    "members": [
     "Federal Gold Medal (plastic)",
     "Federal Gold Medal (paper)"
@@ -19,7 +18,6 @@
    "capacity": 1.1436,
    "energy": 1.0011,
    "loads": 340,
-   "examples": "Fiocchi, Cheddite / Rio",
    "members": [
     "Fiocchi",
     "Cheddite / Rio"
@@ -31,7 +29,6 @@
    "capacity": 0.881,
    "energy": 0.9749,
    "loads": 2854,
-   "examples": "Winchester AA / HS, Remington STS / Nitro 27 / Gun Club, Federal Hi-Over-All",
    "members": [
     "Winchester AA / HS",
     "Remington STS / Nitro 27 / Gun Club",
@@ -46,7 +43,6 @@
    "capacity": 1.1875,
    "energy": 1.0558,
    "loads": 1192,
-   "examples": "Remington TGT12, Winchester WAA12SL, Purple PC",
    "members": [
     "Remington TGT12",
     "Winchester WAA12SL",
@@ -64,7 +60,6 @@
    "capacity": 1.0344,
    "energy": 0.9944,
    "loads": 1792,
-   "examples": "Windjammer, Remington FIG8, Federal 12S3",
    "members": [
     "Windjammer",
     "Remington FIG8",
@@ -89,7 +84,6 @@
    "capacity": 0.9165,
    "energy": 0.9575,
    "loads": 586,
-   "examples": "Winchester WAA12, 12S3 & DRF3, Hdy Versalite",
    "members": [
     "Winchester WAA12",
     "12S3 & DRF3",
@@ -107,7 +101,6 @@
    "capacity": 0.9791,
    "energy": 0.9993,
    "loads": 1919,
-   "examples": "Win. 209, Rem. 209P, Rem 209",
    "members": [
     "Win. 209",
     "Rem. 209P",
@@ -120,7 +113,6 @@
    "capacity": 0.9113,
    "energy": 0.9827,
    "loads": 1670,
-   "examples": "Ched 209, Fiocchi 616, CCI 209",
    "members": [
     "Ched 209",
     "Fiocchi 616",
@@ -134,7 +126,6 @@
    "capacity": 0.8569,
    "energy": 0.9729,
    "loads": 994,
-   "examples": "Fed. 209A",
    "members": [
     "Fed. 209A"
    ]
