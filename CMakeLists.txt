@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # The application version: the single place to change it (shown in Help > About, bundle info, ...).
-set(GRT_VERSION "0.2")
+set(GRT_VERSION "0.3")
 
 project(GRTReloaded VERSION ${GRT_VERSION} LANGUAGES CXX)
 
@@ -87,6 +87,7 @@ add_library(grtcore STATIC
     src/core/physicalpowders.h
     src/core/physicalpowders.cpp
 )
+
 target_include_directories(grtcore PUBLIC src/core)
 target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
 target_compile_options(grtcore PRIVATE
@@ -154,6 +155,7 @@ add_library(grtui STATIC
     src/app/flags.cpp
     src/app/theme.cpp
 )
+
 target_include_directories(grtui PUBLIC src/app)
 target_compile_definitions(grtui PUBLIC GRT_VERSION="${GRT_VERSION}")
 target_link_libraries(grtui PUBLIC grtcore Qt6::Widgets Qt6::Charts Qt6::PrintSupport)

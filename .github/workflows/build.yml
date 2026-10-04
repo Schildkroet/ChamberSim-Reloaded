@@ -39,10 +39,11 @@ jobs:
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
           cmake --build build --target GRTReloaded grt_fitpowder --parallel
 
-      - name: Check the project database (data/)
+      # tst_core, tst_gui (offscreen) and the check of the project database (data/)
+      - name: Build and run the tests
         run: |
-          cmake --build build --target grt_datacheck --parallel
-          build/grt_datacheck data
+          cmake --build build --target tst_core tst_gui grt_datacheck --parallel
+          ctest --test-dir build --output-on-failure
 
       - name: Smoke test (starts the app offscreen and takes a screenshot)
         env:
