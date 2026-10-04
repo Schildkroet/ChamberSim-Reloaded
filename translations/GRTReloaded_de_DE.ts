@@ -1753,7 +1753,7 @@ Druck Δ</translation>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+90"/>
+        <location filename="../src/app/recorddialog.cpp" line="+91"/>
         <source>caliber</source>
         <translation>Kaliber</translation>
     </message>
@@ -1818,7 +1818,17 @@ Druck Δ</translation>
         <translation>Datenbankspalte: %1</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+7"/>
+        <source>Calculate</source>
+        <translation>Berechnen</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Q = π/4·F² + N·b·(Z − F)/2 from the bore diameter F, the groove diameter Z, the number N and the width b of the grooves</source>
+        <translation>Q = π/4·F² + N·b·(Z − F)/2 aus Felddurchmesser F, Zugdurchmesser Z, Anzahl N und Breite b der Züge</translation>
+    </message>
+    <message>
+        <location line="+28"/>
         <source> (copy)</source>
         <translation> (Kopie)</translation>
     </message>
@@ -1828,7 +1838,17 @@ Druck Δ</translation>
         <translation>&lt;small&gt;Mit * markierte Felder sind Pflicht. Zahlen werden in Ihren Einheiten angezeigt (Datei ▸ Einstellungen).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+22"/>
+        <source>Bore cross-section</source>
+        <translation>Laufquerschnitt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enter the bore diameter (F), the groove diameter (Z), the number of grooves (N) and the groove width (b) first.</source>
+        <translation>Zuerst Felddurchmesser (F), Zugdurchmesser (Z), Anzahl der Züge (N) und Zugbreite (b) eingeben.</translation>
+    </message>
+    <message>
+        <location line="+76"/>
         <source>Overview photo:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2463,13 +2483,13 @@ Druck Δ</translation>
     <name>grt::dbfields</name>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+32"/>
-        <location line="+49"/>
+        <location line="+50"/>
         <location line="+20"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-69"/>
         <source>Case dimensions (CIP)</source>
         <translation>Hülsenmaße (CIP)</translation>
     </message>
@@ -2632,6 +2652,11 @@ Druck Δ</translation>
         <location line="+1"/>
         <source>Number of grooves (N)</source>
         <translation>Anzahl der Züge (N)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Groove width (b)</source>
+        <translation>Zugbreite (b)</translation>
     </message>
     <message>
         <location line="+1"/>

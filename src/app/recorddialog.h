@@ -58,6 +58,7 @@ private:
         QWidget *widget;
     };
 
+    void calculateBoreCrossSection();
     [[nodiscard]] const Editor *editor(const QString &column) const;
     [[nodiscard]] std::optional<QVariant> valueOf(const Editor &e) const;
 

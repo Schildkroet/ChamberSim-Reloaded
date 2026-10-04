@@ -1,6 +1,7 @@
 #include "recorddialog.h"
 
 #include "dates.h"
+#include "barrel.h"
 #include "numeric.h"
 #include "unitprefs.h"
 
@@ -193,7 +194,25 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
             const int span = f.kind == Kind::LongText ? 2 * pairs - 1 : 1;
             const int row = i / pairs, col = 2 * (i % pairs);
             grid->addWidget(label, row, col);
-            grid->addWidget(w, row, col + 1, 1, span);
+            if (table == grt::Table::Caliber && f.column == u"c_Q")
+            {
+                // the bore cross-section can be calculated from the bore and groove diameters, the number and the width of the grooves
+                auto *calculate = new QPushButton(tr("Calculate"));
+                calculate->setObjectName(u"calculateBoreArea"_s);
+                calculate->setToolTip(tr("Q = π/4·F² + N·b·(Z − F)/2 from the bore diameter F, the groove diameter Z, the number N and "
+                                         "the width b of the grooves"));
+                connect(calculate, &QPushButton::clicked, this, &RecordDialog::calculateBoreCrossSection);
+                auto *cell = new QWidget;
+                auto *cellLayout = new QHBoxLayout(cell);
+                cellLayout->setContentsMargins(0, 0, 0, 0);
+                cellLayout->addWidget(w, 1);
+                cellLayout->addWidget(calculate);
+                grid->addWidget(cell, row, col + 1, 1, span);
+            }
+            else
+            {
+                grid->addWidget(w, row, col + 1, 1, span);
+            }
             i += f.kind == Kind::LongText ? pairs - i % pairs : 1;
             m_editors.push_back({f, w});
         }
@@ -224,6 +243,26 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     layout->addWidget(hint);
     layout->addWidget(buttons);
     resize(table == grt::Table::Caliber ? 900 : 860, 760);
+}
+
+void RecordDialog::calculateBoreCrossSection()
+{
+    const auto number = [this](const QString &column) -> std::optional<double>
+    {
+        const Editor *e = editor(column);
+        return e ? parseNumber(e->field, text(column)) : std::nullopt;
+    };
+    const auto bore = number(u"c_F"_s), groove = number(u"c_Z"_s), count = number(u"c_N"_s), width = number(u"c_b_"_s);
+    if (!bore || !groove || !count || !width || *bore <= 0.0)
+    {
+        QMessageBox::information(this, tr("Bore cross-section"),
+                                 tr("Enter the bore diameter (F), the groove diameter (Z), the number of grooves (N) and the groove "
+                                    "width (b) first."));
+        return;
+    }
+    // the fields hold the stored (base) unit values of their columns: mm for the lengths, mm² for Q
+    if (const Editor *q = editor(u"c_Q"_s))
+        setText(u"c_Q"_s, shownNumber(q->field, grt::boreCrossSection_mm2(*bore, *groove, *count, *width)));
 }
 
 const RecordDialog::Editor *RecordDialog::editor(const QString &column) const

@@ -132,6 +132,7 @@ private slots:
     void propellantPhotoIsShown();
     void ignoredInputsAreNamed();
     void recordDialogDatesAndWidth();
+    void recordDialogCalculatesTheBoreCrossSection();
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void disclaimerAtStartup();
     void checkBoxesVisibleInDarkMode();
@@ -1421,6 +1422,24 @@ void GuiTest::measurementTabShowsTheFilesResults()
 
 // Dates in the record dialog: a date picker in the form yyyy-MM-dd ("– not set –" = empty), the program's dates as
 // text; propellant and projectile dialogs are wide enough for two columns.
+void GuiTest::recordDialogCalculatesTheBoreCrossSection()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    RecordDialog dlg(m_db, grt::Table::Caliber, RecordDialog::Mode::New);
+    auto *button = dlg.findChild<QPushButton *>(u"calculateBoreArea"_s);
+    QVERIFY(button);
+    // nothing entered yet: no value, a hint
+    dlg.setText(u"c_Q"_s, QString());
+    // the 10.3 Capra of the C.I.P.: Q = 85.16 mm2
+    dlg.setText(u"c_F"_s, u"10.25"_s);
+    dlg.setText(u"c_Z"_s, u"10.49"_s);
+    dlg.setText(u"c_N"_s, u"6"_s);
+    dlg.setText(u"c_b_"_s, u"3.6"_s);
+    button->click();
+    QVERIFY(std::abs(QLocale().toDouble(dlg.text(u"c_Q"_s)) - 85.16) < 0.2);
+    QVERIFY(dlg.values().value(u"c_Q"_s).toDouble() > 85.0);
+}
+
 void GuiTest::recordDialogDatesAndWidth()
 {
     RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy,

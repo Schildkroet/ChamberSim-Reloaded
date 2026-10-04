@@ -17,6 +17,7 @@
 #include "language.h"
 #include "loadbuilder.h"
 #include "loadfile.h"
+#include "barrel.h"
 #include "measurement.h"
 #include "numeric.h"
 #include "physicalpowders.h"
@@ -49,6 +50,7 @@ class CoreTest : public QObject
 
 private slots:
     void initTestCase();
+    void boreCrossSectionFromTheRifling();
     void loadFileReadsSections();
     void loadFileRoundTrip();
     void loadFileKeepsAppendix();
@@ -123,6 +125,16 @@ private slots:
 void CoreTest::initTestCase()
 {
     QStandardPaths::setTestModeEnabled(true);  // the own database must not be the user's
+}
+
+// Q of the C.I.P. sheets from F, Z, N and b.
+void CoreTest::boreCrossSectionFromTheRifling()
+{
+    QVERIFY(std::abs(grt::boreCrossSection_mm2(10.25, 10.49, 6, 3.6) / 85.16 - 1.0) < 0.002);  // 10.3 Capra
+    QVERIFY(std::abs(grt::boreCrossSection_mm2(7.89, 8.2, 4, 4.4) / 51.78 - 1.0) < 0.005);     // 8 x 57 IS
+    QCOMPARE(grt::boreCrossSection_mm2(10.0, 10.0, 6, 3.0), std::numbers::pi / 4.0 * 100.0);   // no groove depth
+    QCOMPARE(grt::boreCrossSection_mm2(10.0, 10.4, 0, 3.0), std::numbers::pi / 4.0 * 100.0);   // smooth bore
+    QCOMPARE(grt::boreCrossSection_mm2(10.0, 9.0, 6, -3.0), std::numbers::pi / 4.0 * 100.0);   // nonsense input does not subtract
 }
 
 void CoreTest::loadFileReadsSections()

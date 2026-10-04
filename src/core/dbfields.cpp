@@ -71,6 +71,7 @@ constexpr Spec kCaliber[] = {
     {"c_F", QT_TRANSLATE_NOOP("grt::dbfields", "Bore diameter (F)"), kChamber, Quantity::Length, 1, Kind::Number, ""},
     {"c_Q", QT_TRANSLATE_NOOP("grt::dbfields", "Bore cross-section (Q)"), kChamber, Quantity::Area, 1, Kind::Number, ""},
     {"c_N", QT_TRANSLATE_NOOP("grt::dbfields", "Number of grooves (N)"), kChamber, Quantity::None, 1, Kind::Number, ""},
+    {"c_b_", QT_TRANSLATE_NOOP("grt::dbfields", "Groove width (b)"), kChamber, Quantity::Length, 1, Kind::Number, ""},
     {"c_u_", QT_TRANSLATE_NOOP("grt::dbfields", "Twist length (u)"), kChamber, Quantity::Length, 1, Kind::Number, ""},
     {"c_L3", QT_TRANSLATE_NOOP("grt::dbfields", "Chamber length (L3)"), kChamber, Quantity::Length, 1, Kind::Number, ""},
     {"sebert", QT_TRANSLATE_NOOP("grt::dbfields", "Sebert factor"), kChamber, Quantity::None, 1, Kind::Number, ""},

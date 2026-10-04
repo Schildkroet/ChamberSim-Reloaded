@@ -1753,7 +1753,7 @@ pression Δ</translation>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+90"/>
+        <location filename="../src/app/recorddialog.cpp" line="+91"/>
         <source>caliber</source>
         <translation>calibre</translation>
     </message>
@@ -1818,7 +1818,17 @@ pression Δ</translation>
         <translation>Colonne de la base : %1</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+7"/>
+        <source>Calculate</source>
+        <translation>Calculer</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Q = π/4·F² + N·b·(Z − F)/2 from the bore diameter F, the groove diameter Z, the number N and the width b of the grooves</source>
+        <translation>Q = π/4·F² + N·b·(Z − F)/2 à partir du diamètre de l&apos;âme F, du diamètre au fond des rayures Z, du nombre N et de la largeur b des rayures</translation>
+    </message>
+    <message>
+        <location line="+28"/>
         <source> (copy)</source>
         <translation> (copie)</translation>
     </message>
@@ -1828,7 +1838,17 @@ pression Δ</translation>
         <translation>&lt;small&gt;Les champs marqués * sont obligatoires. Les nombres sont affichés dans vos unités (Fichier ▸ Paramètres).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+22"/>
+        <source>Bore cross-section</source>
+        <translation>Section du canon</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enter the bore diameter (F), the groove diameter (Z), the number of grooves (N) and the groove width (b) first.</source>
+        <translation>Saisissez d&apos;abord le diamètre de l&apos;âme (F), le diamètre au fond des rayures (Z), le nombre de rayures (N) et leur largeur (b).</translation>
+    </message>
+    <message>
+        <location line="+76"/>
         <source>Overview photo:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2463,13 +2483,13 @@ pression Δ</translation>
     <name>grt::dbfields</name>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+32"/>
-        <location line="+49"/>
+        <location line="+50"/>
         <location line="+20"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-69"/>
         <source>Case dimensions (CIP)</source>
         <translation>Cotes de l&apos;étui (CIP)</translation>
     </message>
@@ -2632,6 +2652,11 @@ pression Δ</translation>
         <location line="+1"/>
         <source>Number of grooves (N)</source>
         <translation>Nombre de rayures (N)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Groove width (b)</source>
+        <translation>Largeur des rayures (b)</translation>
     </message>
     <message>
         <location line="+1"/>
