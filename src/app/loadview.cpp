@@ -735,7 +735,7 @@ grt::report::Data LoadView::reportData() const
 
     VivacityChart burn;
     if (m_input.vivacityBa > 0.0) burn.setCurve(grt::vivacityCurve(m_input), m_input.z1, m_input.z2);
-    const QImage burnImage = renderOffscreen(burn, {1100, 300});
+    const QImage burnImage = renderOffscreen(burn, {1100, 600});
 
     QImage stacked(1100, curvesImage.height() + burnImage.height(), QImage::Format_ARGB32);
     stacked.fill(Qt::white);
