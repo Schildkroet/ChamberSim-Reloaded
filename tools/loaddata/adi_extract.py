@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Turns the rifle data of ADI Powders (adiworldclass.com.au/data-rifle/) into fit samples (CSV), like lovex_extract.py.
+"""Turns the rifle or pistol data of ADI Powders (adiworldclass.com.au/data-rifle/, /data-pistol/) into fit samples (CSV), like lovex_extract.py.
 
-    adi_extract.py [-o adi_samples.csv] [--cache DIR] [--only 308-winchester,...] [--delay 0.5]
+    adi_extract.py [--weapon rifle|pistol] [-o adi_samples.csv] [--cache DIR] [--only 308-winchester,...] [--delay 0.5]
 
 The site shows the data only after the visitor has acknowledged its warnings ("By clicking below you acknowledge the Warnings page and
 agree to abide by the Reloading Safety page"). Running this script is that acknowledgement: it submits the form once and keeps the
@@ -23,7 +23,7 @@ from pathlib import Path
 
 from samples_common import Records  # noqa: E402
 
-BASE = "https://www.adiworldclass.com.au/data-rifle/"
+SITE = "https://www.adiworldclass.com.au/data-"  # + rifle/ or pistol/
 IN = 25.4
 GR = 0.06479891
 FPS = 0.3048
@@ -41,12 +41,17 @@ ALIASES = {"308 Winchester": "308 Win.", "30-06 Springfield": "30-06 Spring.", "
            "6mm Advanced Rifle Cartridge (6mm ARC)": "6 mm ARC", "6.5mm Grendel": "6.5 x 39", "325 Winchester Short Magnum": "325 WSM",
            "416 Rigby": "416 Rigby N°2", "22 PPC": "22 PPC-USA", "50 Browning Machine Gun": "50 Browning",
            "45-70 Government (Modern Rifles)": "45-70 Govt.", "45-70 Government (Lever Actions)": "45-70 Govt.",
-           "45-70 Government (Trapdoor Rifles)": "45-70 Govt."}
+           "45-70 Government (Trapdoor Rifles)": "45-70 Govt.", "45-70 Government": "45-70 Govt.",
+           # pistol and revolver
+           "25 ACP": "6.35 Browning", "32 ACP": "7.65 mm Browning", "32 Smith & Wesson": "32 S&W", "38 Smith & Wesson": "38 S&W",
+           "38 Special +P": "38 Special", "380 Auto (9mm Kurz)": "9 mm Browning court", "40 Smith & Wesson": "40 S.& W.",
+           "45 ACP": "45 Auto", "9 x 18mm Makarov": "9 mm Makarov", "44 Russian": "44 S&W Russian", "41 Action Express": "41 ACT EXP",
+           "357 Remington Maximum": "357 Rem. Max.", "45 SUPER": "45 Auto", "500 Wyoming Express": "500 Wyoming Express"}
 
 
 class Site:
-    def __init__(self, cache: Path | None, delay: float):
-        self.cache, self.delay = cache, delay
+    def __init__(self, cache: Path | None, delay: float, base: str):
+        self.cache, self.delay, self.base = cache, delay, base
         self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
         self.opener.addheaders = [("User-Agent", UA)]
         self.last = 0.0
@@ -61,8 +66,8 @@ class Site:
             time.sleep(wait)
         if not self.acknowledged:  # the cookie of the acknowledgement
             self.acknowledged = True
-            self.opener.open(BASE).read()
-            self.opener.open(BASE, urllib.parse.urlencode({
+            self.opener.open(self.base).read()
+            self.opener.open(self.base, urllib.parse.urlencode({
                 "adi_powders_acknowledge__context": "_COMMON_v3", "adi_powders_acknowledge__submit": "I acknowledge this warning"}).encode()).read()
         text = self.opener.open(url).read().decode("utf-8", "replace")
         self.last = time.time()
@@ -99,14 +104,16 @@ def parse(page: str):
 
 def main() -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--weapon", choices=["rifle", "pistol"], default="rifle")
     ap.add_argument("-o", "--output", type=Path, default=Path("adi_samples.csv"))
     ap.add_argument("--cache", type=Path, help="directory for the downloaded pages")
     ap.add_argument("--only", help="comma separated cartridge slugs (default: all)")
     ap.add_argument("--delay", type=float, default=0.5, help="seconds between two requests")
     ap.add_argument("--data", type=Path, default=Path(__file__).resolve().parents[2] / "data")
     args = ap.parse_args()
-    site = Site(args.cache, args.delay)
-    index = site.get(BASE, "index")
+    base = f"{SITE}{args.weapon}/"
+    site = Site(args.cache, args.delay, base)
+    index = site.get(base, "index")
     select = re.search(r'<select name="Filter_calibre".*?</select>', index, re.S)[0]
     slugs = [(v, html.unescape(n)) for v, n in re.findall(r'<option value="([^"]+)"[^>]*>(.*?)</option>', select)]
     if args.only:
@@ -115,7 +122,7 @@ def main() -> int:
 
     out, miss, nrows = [], {}, 0
     for slug, name in slugs:
-        props, rows = parse(site.get(BASE + slug, slug))
+        props, rows = parse(site.get(base + slug, slug))
         barrel, twist = number(props.get("Barrel Length", "")), re.search(r"1\s*:\s*([\d.]+)", props.get("Twist", ""))
         cal = records.caliber(ALIASES.get(name, name))
         if not cal:
@@ -124,7 +131,7 @@ def main() -> int:
         if not barrel or not rows:
             continue
         for r in rows:
-            m = re.match(r"([\d.]+)\s*GR\.?\s*(.*)", r.get("bullet-weight", ""), re.I)
+            m = re.match(r"([\d.]+)\s*GR\.?\s*(.*)", re.sub(r"\s*\(\d+\)\s*$", "", r.get("bullet-weight", "")), re.I)
             dia, col = number(r.get("bullet-diameter", "")), number(r.get("col", ""))
             if not (m and dia and col and r.get("powder-type")):
                 continue

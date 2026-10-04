@@ -121,6 +121,9 @@ AR2213SC, AR2217, AR2218, AR2219, AR2225, Bench Mark 1, 2, 8208), velocity error
 (`fit_physical_powders.py`, form function fitted from the pressures): velocity 4.6 %, pressure 11 % rms over all 13. Not included: the pistol and
 shotgun powders (AP, AS, Trail Boss, AR2206: 7-13 % velocity error or too few cartridges).
 
+`adi_extract.py --weapon pistol` reads the pistol and revolver data of the same site (`/data-pistol/`, 83 cartridges, 2,340 samples of 52 cartridges, 918 with pressure).
+On these loads the powders fitted on rifle data (physical model) come out 0.8 % low in velocity (7.6 % rms) and 13 % low in pressure (18 % rms).
+
 ## Speed
 
 The fit runs thousands of simulations. The solver uses a secant method (Illinois) instead of 70 bisections per step
