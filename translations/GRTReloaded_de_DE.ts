@@ -1689,7 +1689,7 @@ Druck Δ</translation>
         <translation>Pulverraum ×%1, Gasenergie ×%2</translation>
     </message>
     <message numerus="yes">
-        <location line="+2"/>
+        <location line="+1"/>
         <source>A group of %n part(s) that give a similar pressure:</source>
         <translation>
             <numerusform>Eine Gruppe von %n Teil, die einen ähnlichen Druck ergeben:</numerusform>
@@ -1700,14 +1700,6 @@ Druck Δ</translation>
         <location line="+2"/>
         <source>A larger powder space gives a lower pressure.</source>
         <translation>Ein größerer Pulverraum ergibt einen niedrigeren Druck.</translation>
-    </message>
-    <message numerus="yes">
-        <location line="+2"/>
-        <source> (fitted to %n published load(s)). A larger powder space gives a lower pressure.</source>
-        <translation>
-            <numerusform> (an %n veröffentlichte Ladung angepasst). Ein größerer Pulverraum ergibt einen niedrigeren Druck.</numerusform>
-            <numerusform> (an %n veröffentlichte Ladungen angepasst). Ein größerer Pulverraum ergibt einen niedrigeren Druck.</numerusform>
-        </translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1750,12 +1742,7 @@ Druck Δ</translation>
         <translation>Mitteldruck-%1 (z. B. %2)</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>%1 (%2 gauge)</source>
-        <translation>%1 (Kaliber %2)</translation>
-    </message>
-    <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>flat base</source>
         <translation>Flachboden</translation>
     </message>

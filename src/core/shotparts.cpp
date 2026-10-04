@@ -62,7 +62,8 @@ void loadLocked(Store &s)
                               .gauge = o.value(u"gauge"_s).toInt(),
                               .capacityScale = o.value(u"capacity"_s).toDouble(1.0),
                               .energyScale = o.value(u"energy"_s).toDouble(1.0),
-                              .loads = o.value(u"loads"_s).toInt()};
+                              .loads = o.value(u"loads"_s).toInt(),
+                              .groupId = o.value(u"group"_s).toString()};
             if (!info.id.isEmpty()) list.push_back(std::move(info));
         }
         std::ranges::sort(list, [](const ShotPartInfo &a, const ShotPartInfo &b)
@@ -143,21 +144,32 @@ ShotFactors shotFactorsOf(const EntryList &caliber)
 bool ensureShotParts(EntryList &caliber)
 {
     if (!caliber.flag(u"shotshell")) return false;
-    bool added = false;
+    bool changed = false;
     // like the original's entries: a type and an English description (the property panel's label)
     constexpr std::array<const char16_t *, 3> descriptions{u"shotshell hull", u"shotshell wad", u"shotshell primer"};
     for (const ShotPart part : kShotParts)
     {
         const QString key = shotPartKey(part);
-        if (caliber.find(key)) continue;
+        if (const Entry *existing = caliber.find(key))
+        {
+            // an individual part (a file of an earlier version, or a tool): the group it belongs to is offered instead
+            const auto &list = shotParts(part);
+            const auto it = std::ranges::find(list, existing->value, &ShotPartInfo::id);
+            if (it != list.end() && !it->groupId.isEmpty())
+            {
+                caliber.set(key, it->groupId);
+                changed = true;
+            }
+            continue;
+        }
         Entry e;
         e.name = key;
         e.type = u"string"_s;
         e.descr = QString::fromUtf16(descriptions[index(part)]);
         caliber.entries().push_back(std::move(e));
-        added = true;
+        changed = true;
     }
-    return added;
+    return changed;
 }
 
 }  // namespace grt

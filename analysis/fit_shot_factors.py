@@ -212,14 +212,21 @@ if args.out:
             out.append({"id": f"group-{rk}", "rank": rk, "capacity": round(math.exp(fc), 4), "energy": round(math.exp(fe), 4), "loads": sum(t[2] for t in g),
                         "examples": ", ".join(nice(t[0]) for t in sorted(g, key=lambda t: -t[2])[:3]), "members": [nice(t[0]) for t in sorted(g, key=lambda t: -t[2])]})
         return out
+    def with_group(pr, e):
+        """The group a part belongs to (a load that names the part is shown with the group)."""
+        for i, g in enumerate(groups[pr]):
+            if any(display_key(pr, t[0]) == e["id"] for t in g): e["group"] = f"group-{rank[min(i, 2)] if len(groups[pr]) == 3 else i}"
+        return e
+    def display_key(pr, c): return re.sub(r"[^a-z0-9]+", "-", c.lower()).strip("-")
     out = {"note": "Factors of the shell (hull), wad and primer of shotshell loads on the shotshell model: capacity = powder space, energy = gas energy; the "
                    "factors of a load multiply. Fitted with analysis/fit_shot_factors.py to the published loads of Hodgdon, Alliant and Vectan. "
-                   "A load names its parts in the caliber entries shothull, shotwad and shotprimer, a specific part or a group of similar ones (low, medium, high pressure). "
+                   "A load names its parts in the caliber entries shothull, shotwad and shotprimer: a group of similar parts (low, medium, high pressure), which is what the "
+                   "program offers; the individual parts (members of the groups, with their own factors) are listed in the tooltips and used to move loads that name one. "
                    "Generated - do not edit by hand.",
-           "shells": [entry("shell", c, c) for c in cls["shell"]],
            "shell_groups": group_entries("shell"), "wad_groups": group_entries("wad"), "primer_groups": group_entries("primer"),
-           "wads": [entry("wad", c, display("wad", c), int(c.split("-")[0])) for c in cls["wad"]],
-           "primers": [entry("primer", c, display("primer", c)) for c in cls["primer"]]}
+           "shells": [with_group("shell", entry("shell", c, c)) for c in cls["shell"]],
+           "wads": [with_group("wad", entry("wad", c, display("wad", c), int(c.split("-")[0]))) for c in cls["wad"]],
+           "primers": [with_group("primer", entry("primer", c, display("primer", c))) for c in cls["primer"]]}
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     json.dump(out, open(args.out, "w"), indent=1, ensure_ascii=False)
     print("written", args.out)

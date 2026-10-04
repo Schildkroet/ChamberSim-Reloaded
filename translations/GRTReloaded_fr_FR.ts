@@ -1689,7 +1689,7 @@ pression Δ</translation>
         <translation>Volume de poudre ×%1, énergie des gaz ×%2</translation>
     </message>
     <message numerus="yes">
-        <location line="+2"/>
+        <location line="+1"/>
         <source>A group of %n part(s) that give a similar pressure:</source>
         <translation>
             <numerusform>Un groupe de %n pièce qui donnent une pression semblable :</numerusform>
@@ -1700,14 +1700,6 @@ pression Δ</translation>
         <location line="+2"/>
         <source>A larger powder space gives a lower pressure.</source>
         <translation>Un volume de poudre plus grand donne une pression plus basse.</translation>
-    </message>
-    <message numerus="yes">
-        <location line="+2"/>
-        <source> (fitted to %n published load(s)). A larger powder space gives a lower pressure.</source>
-        <translation>
-            <numerusform> (ajusté à %n charge publiée). Un volume de poudre plus grand donne une pression plus basse.</numerusform>
-            <numerusform> (ajusté à %n charges publiées). Un volume de poudre plus grand donne une pression plus basse.</numerusform>
-        </translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1750,12 +1742,7 @@ pression Δ</translation>
         <translation>%1 à pression moyenne (p. ex. %2)</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>%1 (%2 gauge)</source>
-        <translation>%1 (calibre %2)</translation>
-    </message>
-    <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>flat base</source>
         <translation>culot plat</translation>
     </message>

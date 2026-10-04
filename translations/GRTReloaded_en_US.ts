@@ -1670,7 +1670,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+2"/>
+        <location line="+1"/>
         <source>A group of %n part(s) that give a similar pressure:</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -1681,14 +1681,6 @@ pressure Δ</source>
         <location line="+2"/>
         <source>A larger powder space gives a lower pressure.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+2"/>
-        <source> (fitted to %n published load(s)). A larger powder space gives a lower pressure.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1731,12 +1723,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>%1 (%2 gauge)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <source>flat base</source>
         <translation type="unfinished"></translation>
     </message>

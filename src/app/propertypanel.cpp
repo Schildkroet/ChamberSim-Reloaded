@@ -38,21 +38,18 @@ struct Choice
     QString tip;    // explanation shown as a tooltip of the entry (empty: none)
 };
 
-// What a part or group does to the model: its factors, and for a group its members.
+// What a group does to the model: its members (the individual parts) and its factors.
 QString partTip(const grt::ShotPartInfo &info)
 {
     const QString factors =
         PropertyPanel::tr("Powder space ×%1, gas energy ×%2").arg(info.capacityScale, 0, 'f', 2).arg(info.energyScale, 0, 'f', 2);
-    if (info.group)
-        return PropertyPanel::tr("A group of %n part(s) that give a similar pressure:", nullptr, static_cast<int>(info.members.size())) +
-               u"\n  "_s + info.members.join(u"\n  "_s) + u"\n\n"_s + factors + u". "_s +
-               PropertyPanel::tr("A larger powder space gives a lower pressure.");
-    return factors +
-           PropertyPanel::tr(" (fitted to %n published load(s)). A larger powder space gives a lower pressure.", nullptr, info.loads);
+    return PropertyPanel::tr("A group of %n part(s) that give a similar pressure:", nullptr, static_cast<int>(info.members.size())) +
+           u"\n  "_s + info.members.join(u"\n  "_s) + u"\n\n"_s + factors + u". "_s +
+           PropertyPanel::tr("A larger powder space gives a lower pressure.");
 }
 
-// The choices of a part of a shotshell: "not specified" (the model's average) and the parts of the data file; wads of other gauges than 12
-// show their gauge.
+// The choices of a part of a shotshell: "not specified" (the model's average) and the groups of similar parts (low, medium and high pressure);
+// the tooltip of a group lists its individual parts.
 const QList<Choice> &shotPartChoices(grt::ShotPart part)
 {
     static const std::array<QList<Choice>, 3> lists = []
@@ -63,7 +60,7 @@ const QList<Choice> &shotPartChoices(grt::ShotPart part)
             auto &list = all[static_cast<std::size_t>(p)];
             list.push_back({QString(), PropertyPanel::tr("not specified (average)"),
                             PropertyPanel::tr("No correction: the average of all published loads.")});
-            // general entries first: groups of parts that give a similar pressure (for those who do not know the exact part)
+            // groups of parts that give a similar pressure
             const QString kind = p == grt::ShotPart::Shell ? PropertyPanel::tr("shells")
                                  : p == grt::ShotPart::Wad ? PropertyPanel::tr("wads")
                                                            : PropertyPanel::tr("primers");
@@ -74,11 +71,6 @@ const QList<Choice> &shotPartChoices(grt::ShotPart part)
                                                             : PropertyPanel::tr("Medium-pressure %1 (e.g. %2)");
                 list.push_back({info.id, text.arg(kind, info.examples), partTip(info)});
             }
-            for (const grt::ShotPartInfo &info : grt::shotParts(p))
-                list.push_back(
-                    {info.id,
-                     info.gauge && info.gauge != 12 ? PropertyPanel::tr("%1 (%2 gauge)").arg(info.name).arg(info.gauge) : info.name,
-                     partTip(info)});
         }
         return all;
     }();

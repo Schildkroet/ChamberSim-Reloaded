@@ -32,6 +32,7 @@ struct ShotPartInfo
     double energyScale{1.0};    // x Calibration::shotEnergyFactor
     int loads{};                // published loads the factors were fitted to
     // a group of similar parts (low, medium or high pressure) instead of one part: its rank and some of its members
+    QString groupId;  // parts: the group they belong to
     bool group{false};
     QString rank;         // "low", "medium" or "high" (the pressure the parts give)
     QString examples;     // the members with most loads, e.g. "Federal Gold Medal (plastic), Federal Gold Medal (paper)"
@@ -63,7 +64,9 @@ struct ShotFactors
 };
 [[nodiscard]] ShotFactors shotFactorsOf(const EntryList &caliber);
 
-// Adds the entries shothull, shotwad and shotprimer (empty: not chosen) to the caliber of a shotshell load that has none; returns whether it did.
+// Prepares the caliber of a shotshell load: adds the entries shothull, shotwad and shotprimer (empty: not chosen) when it has none, and replaces an
+// individual part by the group it belongs to (the program offers the groups; the individual parts are the members listed in their tooltips).
+// Returns whether it changed something.
 bool ensureShotParts(EntryList &caliber);
 
 }  // namespace grt

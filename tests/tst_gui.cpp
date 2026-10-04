@@ -398,28 +398,25 @@ void GuiTest::shotshellPartsAreChoices()
     caliber.set(u"shotshell", u"true"_s);
     QVERIFY(grt::ensureShotParts(caliber));   // an older shotshell load gets the entries ...
     QVERIFY(!grt::ensureShotParts(caliber));  // ... once
+    // an individual part (a file of an earlier version) is replaced by the group it belongs to
     caliber.set(u"shothull", u"winchester-aa-hs"_s);
     caliber.set(u"shotwad", u"12-waa12sl"_s);
+    QVERIFY(grt::ensureShotParts(caliber));
+    QCOMPARE(caliber.text(u"shothull"), u"group-high"_s);
+    QCOMPARE(caliber.text(u"shotwad"), u"group-low"_s);
+    QVERIFY(!grt::ensureShotParts(caliber));
     caliber.set(u"shotprimer", u"nonsense"_s);  // an id of another version stays visible
     PropertyPanel panel;
     panel.setSections({{0, u"caliber"_s, u"Caliber"_s, &caliber}});
     QTableWidget *t = tableOf(panel);
-    QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"Winchester AA / HS"_s);
-    QCOMPARE(t->item(rowOf(t, u"shotwad"_s), 1)->text(), u"Winchester WAA12SL"_s);
+    const QString hull = t->item(rowOf(t, u"shothull"_s), 1)->text();
+    QVERIFY2(hull.startsWith(u"High-pressure shells (e.g. "_s) && hull.contains(u"Winchester AA / HS"_s), qPrintable(hull));
+    const QString wad = t->item(rowOf(t, u"shotwad"_s), 1)->text();
+    QVERIFY2(wad.startsWith(u"Low-pressure wads (e.g. "_s), qPrintable(wad));
     QCOMPARE(t->item(rowOf(t, u"shotprimer"_s), 1)->text(), u"nonsense"_s);
-    // a general entry: a group of similar parts with examples
-    caliber.set(u"shotwad", u"group-low"_s);
-    panel.syncValues();
-    const QString low = t->item(rowOf(t, u"shotwad"_s), 1)->text();
-    QVERIFY2(low.startsWith(u"Low-pressure wads (e.g. "_s), qPrintable(low));
-    const QString groupTip = t->item(rowOf(t, u"shotwad"_s), 1)->toolTip();
-    QVERIFY2(groupTip.contains(u"A group of"_s) && groupTip.contains(u"Remington TGT12"_s) && groupTip.contains(u"Powder space ×"_s),
-             qPrintable(groupTip));
-    caliber.set(u"shotwad", u"12-waa12sl"_s);
-    panel.syncValues();
-    QVERIFY(t->item(rowOf(t, u"shotwad"_s), 1)
-                ->toolTip()
-                .contains(u"published load"_s));  // a specific part: its factors and the loads they come from
+    // the tooltip of a group lists the individual parts and the correction
+    const QString tip = t->item(rowOf(t, u"shotwad"_s), 1)->toolTip();
+    QVERIFY2(tip.contains(u"A group of"_s) && tip.contains(u"Remington TGT12"_s) && tip.contains(u"Powder space ×"_s), qPrintable(tip));
     caliber.set(u"shothull", QString());
     panel.syncValues();
     QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"not specified (average)"_s);
