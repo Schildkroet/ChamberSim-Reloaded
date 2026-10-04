@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
          u"skip runs whose name matches this regex (default: stale runs, and extreme probes of batch 7 whose reference is an artifact of the original's unclamped first step)"_s,
          u"re"_s,
          u"^(casevol_x1\\.25|cv_mp200_casevol1\\.5|x7_fa_Ba16.*|x7_fa_Ba32|x7_fc8_ps1000|x8_Ba16|f(b3|b6)_z0\\.(05_0\\.12|3_0\\.45)|sa_.*|sb_12-70_shot.*|sh_.*_on|sg_.*)$"_s},
+        {u"profile"_s, u"constants and model: original (default), published or physical"_s, u"name"_s, u"original"_s},
         {u"set"_s, u"override a calibration constant (name=value)"_s, u"kv"_s},
         {u"loads"_s, u"only simulate every exp_*.grtload of this directory and print one line each (name, ok, pmax, v0, load ratio)"_s,
          u"dir"_s},
@@ -97,7 +98,10 @@ int main(int argc, char *argv[])
     });
     cli.process(app);
 
-    grt::Calibration cal;
+    const QString profile = cli.value(u"profile"_s);
+    grt::Calibration cal = grt::calibrationFor(profile == u"published"_s  ? grt::CalibrationProfile::Published
+                                               : profile == u"physical"_s ? grt::CalibrationProfile::Physical
+                                                                          : grt::CalibrationProfile::Original);
     auto params = grt::parameters(cal);
     QTextStream out(stdout);
     if (cli.isSet(u"list-params"_s))

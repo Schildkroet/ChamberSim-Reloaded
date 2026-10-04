@@ -130,6 +130,30 @@ public:
         painter->drawRoundedRect(r, 3, 3);
         painter->restore();
     }
+    // Splitter handles: Fusion's dots are barely visible, draw a row of clearly visible dots in both themes
+    void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const override
+    {
+        if (element != CE_Splitter) return QProxyStyle::drawControl(element, option, painter, widget);
+        const QRect r = option->rect;
+        painter->fillRect(r, option->palette.color(QPalette::Window));
+        const bool horizontal = option->state & State_Horizontal;  // horizontal = side-by-side panels, vertical handle
+        const bool dark = option->palette.color(QPalette::Window).lightness() < 128;
+        QColor dot = option->palette.color(QPalette::WindowText);
+        dot.setAlpha(option->state & State_MouseOver ? 220 : dark ? 150 : 130);
+        painter->save();
+        painter->setRenderHint(QPainter::Antialiasing);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(dot);
+        constexpr int count = 5;
+        constexpr double size = 3.8, gap = 8.0;
+        const QPointF c = QRectF(r).center();
+        for (int i = 0; i < count; ++i)
+        {
+            const double off = (i - (count - 1) / 2.0) * gap;
+            painter->drawEllipse(horizontal ? QPointF(c.x(), c.y() + off) : QPointF(c.x() + off, c.y()), size / 2, size / 2);
+        }
+        painter->restore();
+    }
     void drawPrimitive(PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const override
     {
         QProxyStyle::drawPrimitive(element, option, painter, widget);

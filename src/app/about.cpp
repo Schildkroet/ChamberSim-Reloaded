@@ -1,6 +1,7 @@
 #include "about.h"
 
 #include <QApplication>
+#include <QDateTime>
 #include <QFileInfo>
 #include <QLocale>
 #include <QDialog>
@@ -29,6 +30,14 @@ QString countsText(const Counts &c)
     return QApplication::translate("about", "%Ln caliber(s)", nullptr, c.calibers) + QStringLiteral(", ") +
            QApplication::translate("about", "%Ln projectile(s)", nullptr, c.projectiles) + QStringLiteral(", ") +
            QApplication::translate("about", "%Ln propellant(s)", nullptr, c.propellants);
+}
+
+// compile date and time of this file (__DATE__ is always "Mmm dd yyyy" in English), shown as ISO 8601
+QString buildDate()
+{
+    const QString stamp = QString::fromLatin1(__DATE__ " " __TIME__).simplified();
+    const QDateTime time = QLocale::c().toDateTime(stamp, QStringLiteral("MMM d yyyy HH:mm:ss"));
+    return time.isValid() ? time.toString(QStringLiteral("yyyy-MM-dd HH:mm:ss")) : stamp;
 }
 
 }  // namespace
@@ -83,6 +92,7 @@ QString html(const std::optional<DatabaseInfo> &database)
     text += QApplication::translate("about", "<hr><p><small>Qt %1 (built with %2) · %3 · language %4</small></p>")
                 .arg(QString::fromLatin1(qVersion()), QStringLiteral(QT_VERSION_STR), QSysInfo::prettyProductName().toHtmlEscaped(),
                      QLocale().name());
+    text += QApplication::translate("about", "<p><small>Build date: %1</small></p>").arg(buildDate());
     if (database)
     {
         const QString original =

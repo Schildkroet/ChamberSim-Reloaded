@@ -40,11 +40,33 @@ your own responsibility.
 
 ## 🎯 Accuracy
 
-The solver is an own lumped-parameter model, calibrated against reference runs of the original program. It is
-**not** the algorithm of any other program. How far off it currently is (errors of the solver against the
-original's results; lower is better):
+The solver has two main models (File > Settings > Solver, see below). The default **Physical Model** is fitted to published
+load data of powder manufacturers; **GRT Original** is calibrated against reference runs of the original program. Neither
+is the algorithm of any other program.
+
+### Physical Model against published loads
+
+Simulated with the project's powder records and compared with the manufacturers' tables (velocity, and measured peak
+pressure where published). Hodgdon and Western: only cartridges that were left out of the fit (fitted on the other 3/4).
+The other rows are the loads the powders' burn rates were fitted to, so they are not independent:
+
+| Published data | Powders | Velocity: rms (median) | Peak pressure: rms (median) |
+|---|---:|---:|---:|
+| Hodgdon and Western, all | 59 | 5.9 % (2.5 %) | 12 % (6.1 %) |
+| of these rifle powders | | 4.2 % | 9.6 % |
+| of these pistol and shotgun powders | | 19 % | 39 % |
+| Vihtavuori (velocities only) | 16 | 3.25 % | - |
+| Lovex | 8 | 2.5 - 4.2 % | 6.5 - 11 % |
+| Reload Swiss | 6 | 5 - 7 % | 13 - 20 % |
+| Shotgun loads (Hodgdon, Alliant; 5,198 loads) | | 3.1 % | 13.9 % |
+
+Single loads can deviate much more. Details of the method: `tools/loaddata/README.md`.
+
+### Against the original program's runs
 
 <!-- accuracy:start -->
+**GRT Original** (the model that reproduces the original program):
+
 | Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
 |---|---:|---:|---:|---:|---:|---:|
 | Other cartridges (caliber sweep) | 28 | 1.3 % | 4.0 % | 1.2 % | 10.9 % | 4.5 % |
@@ -65,7 +87,29 @@ original's results; lower is better):
 | Other | 1 | 9.2 % | 9.2 % | 0.7 % | 0.7 % | 6.6 % |
 | **All runs** | 349 | 2.8 % | 30.7 % | 0.8 % | 10.9 % | 6.8 % |
 
-_Absolute errors against 349 runs of the original program; updated 2026-10-02 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+**Physical Model** (the default), for comparison: how far its results are from the same runs of the original. The Physical Model is not fitted to the original program but to published load data, so these deviations are differences between two models, not errors of the Physical Model (its accuracy against published loads is given below):
+
+| Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
+|---|---:|---:|---:|---:|---:|---:|
+| Other cartridges (caliber sweep) | 28 | 55.7 % | 129.3 % | 9.7 % | 25.6 % | 39.6 % |
+| Powders (40 powders, one cartridge) | 39 | 52.5 % | 195.5 % | 9.9 % | 43.1 % | 30.0 % |
+| Charge, bullet weight, start pressure, case volume | 24 | 54.6 % | 196.4 % | 6.7 % | 20.6 % | 32.3 % |
+| Barrel length, twist, Sebert factor | 10 | 51.6 % | 67.0 % | 8.1 % | 24.6 % | 37.4 % |
+| Powder temperature | 26 | 49.6 % | 60.5 % | 5.6 % | 7.9 % | 29.4 % |
+| Bullet friction | 11 | 54.3 % | 64.0 % | 6.0 % | 15.6 % | 36.0 % |
+| Almost closed vessel (very heavy bullet) | 9 | 3.8 % | 14.2 % | 6.7 % | 15.7 % | 11.9 % |
+| Fast powders (burn rate, step length, form function) | 21 | 27.3 % | 160.9 % | 4.7 % | 10.0 % | 11.9 % |
+| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 32 | 20.2 % | 66.5 % | 5.1 % | 10.8 % | 7.1 % |
+| Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 37.9 % | 194.8 % | 6.4 % | 14.8 % | 19.9 % |
+| Pistol and revolver loads with fast powders | 28 | 30.7 % | 63.5 % | 6.5 % | 14.2 % | 18.9 % |
+| Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 34 | 118.9 % | 226.8 % | 2.1 % | 23.0 % | 77.8 % |
+| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 34.5 % | 50.7 % | 6.4 % | 10.1 % | 15.6 % |
+| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 56.3 % | 160.9 % | 5.8 % | 13.6 % | 34.4 % |
+| Loading density (charge, case volume, powder density, Qex) | 22 | 59.3 % | 253.0 % | 6.8 % | 20.6 % | 30.6 % |
+| Other | 1 | 61.9 % | 61.9 % | 2.9 % | 2.9 % | 61.8 % |
+| **All runs** | 349 | 49.9 % | 253.0 % | 6.4 % | 43.1 % | 30.0 % |
+
+_Absolute deviations against 349 runs of the original program; updated 2026-10-04 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is

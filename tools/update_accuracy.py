@@ -9,7 +9,8 @@ between the markers <!-- accuracy:start --> and <!-- accuracy:end --> in README.
 import re, subprocess, sys, os, datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 exe = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "build", "release", "grt_compare")
-out = subprocess.run([exe], capture_output=True, text=True, check=True).stdout
+def run(profile):
+    return subprocess.run([exe, "--profile", profile], capture_output=True, text=True, check=True).stdout
 
 GROUPS = [  # (label, name regex)
     ("Other cartridges (caliber sweep)", r"^cal_"),
@@ -29,30 +30,40 @@ GROUPS = [  # (label, name regex)
     ("Loading density (charge, case volume, powder density, Qex)", r"^ld"),
 ]
 line = re.compile(r"^(\S+)\s+pmax\s+([+-]?[\d.]+) %\s+vmuz\s+([+-]?[\d.]+) %\s+curve rms\s+([\d.]+) %")
-runs = []
-for l in out.splitlines():
-    m = line.match(l)
-    if m: runs.append((m.group(1), abs(float(m.group(2))), abs(float(m.group(3))), float(m.group(4))))
+def parse(out):
+    runs = []
+    for l in out.splitlines():
+        m = line.match(l)
+        if m: runs.append((m.group(1), abs(float(m.group(2))), abs(float(m.group(3))), float(m.group(4))))
+    return runs
 
 def row(label, rs):
     n = len(rs)
     mean = lambda i: sum(r[i] for r in rs) / n
     return f"| {label} | {n} | {mean(1):.1f} % | {max(r[1] for r in rs):.1f} % | {mean(2):.1f} % | {max(r[2] for r in rs):.1f} % | {mean(3):.1f} % |"
 
-rows, used = [], set()
-for label, rx in GROUPS:
-    rs = [r for r in runs if re.search(rx, r[0])]
-    if rs: rows.append(row(label, rs)); used.update(r[0] for r in rs)
-rest = [r for r in runs if r[0] not in used]
-if rest: rows.append(row("Other", rest))
-table = "\n".join([
-    "| Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |",
-    "|---|---:|---:|---:|---:|---:|---:|",
-    *rows,
-    row("**All runs**", runs),
-])
-text = (f"<!-- accuracy:start -->\n{table}\n\n"
-        f"_Absolute errors against {len(runs)} runs of the original program; updated {datetime.date.today().isoformat()} "
+def table(runs):
+    rows, used = [], set()
+    for label, rx in GROUPS:
+        rs = [r for r in runs if re.search(rx, r[0])]
+        if rs: rows.append(row(label, rs)); used.update(r[0] for r in rs)
+    rest = [r for r in runs if r[0] not in used]
+    if rest: rows.append(row("Other", rest))
+    return "\n".join([
+        "| Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |",
+        "|---|---:|---:|---:|---:|---:|---:|",
+        *rows,
+        row("**All runs**", runs),
+    ])
+
+orig, phys = parse(run("original")), parse(run("physical"))
+today = datetime.date.today().isoformat()
+text = (f"<!-- accuracy:start -->\n**GRT Original** (the model that reproduces the original program):\n\n{table(orig)}\n\n"
+        f"**Physical Model** (the default), for comparison: how far its results are from the same runs of the original. "
+        f"The Physical Model is not fitted to the original program but to published load data, so these deviations are "
+        f"differences between two models, not errors of the Physical Model (its accuracy against published loads is given "
+        f"below):\n\n{table(phys)}\n\n"
+        f"_Absolute deviations against {len(orig)} runs of the original program; updated {today} "
         f"with `tools/update_accuracy.py`. \"Curve shape\" is the rms relative pressure error along the barrel (where the "
         f"pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._\n<!-- accuracy:end -->")
 p = os.path.join(ROOT, "README.md")
@@ -60,4 +71,4 @@ s = open(p, encoding="utf-8").read()
 new, n = re.subn(r"<!-- accuracy:start -->.*?<!-- accuracy:end -->", lambda m: text, s, flags=re.S)
 if n != 1: sys.exit("markers not found in README.md")
 open(p, "w", encoding="utf-8").write(new)
-print(table)
+print(text)
