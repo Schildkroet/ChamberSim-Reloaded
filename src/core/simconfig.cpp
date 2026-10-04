@@ -1,6 +1,7 @@
 #include "simconfig.h"
 
 #include "numeric.h"
+#include "shotparts.h"
 
 #include <algorithm>
 
@@ -22,6 +23,12 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.startPressure_bar = c.number(u"ps", in.startPressure_bar);
     in.maxPressure_bar = c.number(u"pMaxZul");
     in.shotshell = c.flag(u"shotshell");
+    if (in.shotshell)
+    {
+        const ShotFactors f = shotFactorsOf(c);
+        in.shotCapacityScale = f.capacity;
+        in.shotEnergyScale = f.energy;
+    }
 
     in.barrelLength_mm = g.number(u"xe");
     in.twistLength_mm = g.number(u"twistlen");

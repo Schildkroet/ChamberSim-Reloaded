@@ -40,6 +40,20 @@ def shot_oz(text: str) -> float:
     return total
 
 
+BRANDS = re.compile(r"federal|winchester|remington|fiocchi|rio|cheddite|estate|baschieri|activ|nobel", re.I)
+
+
+def shell_name(heading: str) -> str:
+    """The shell (hull) named in a table heading: "12G FeDeral GolD MeDal 2 3/4” PlaStiC ShellS - 1 1/8oz leaD Shot" -> "Federal Gold Medal"
+    (the manual's small caps come out as mixed case)."""
+    s = re.sub(r"^\s*\d+\s*G(?:A)?[,.]?\s*", "", heading)
+    s = re.sub(r"\d\s+\d/\d\W*", " ", s)  # the hull length
+    s = re.sub(r"[-–—]\s*[\d ./]+\s*oz.*$", "", s, flags=re.I)  # the shot weight and what follows
+    s = re.sub(r"plastic\s*shells?", "", s, flags=re.I)
+    s = re.sub(r"\s+", " ", s).strip(" ,-").title()
+    return s if BRANDS.search(s) else ""  # a heading without a shell ("... Heavy Loads Continued"): the previous one still applies
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("pdf", type=Path)
@@ -52,6 +66,7 @@ def main() -> int:
         text += subprocess.run(["pdftotext", "-f", str(page), "-l", str(page), "-layout", str(args.pdf), "-"], capture_output=True, text=True).stdout
     rows, unknown = [], {}
     gauge = hull_in = shot = None
+    shell = ""
     levels: list[float] = []
     for line in text.splitlines():
         m = HEAD.match(line)
@@ -59,6 +74,7 @@ def main() -> int:
             gauge = int(m[1])
             hull_in = int(m[2]) + int(m[3]) / int(m[4])
             shot = shot_oz(m[5].strip()) * OZ_G
+            shell = shell_name(line) or shell
             levels = []
             continue
         m = re.match(r"^\s*((?:\d{3,4}\s*fps\s*)+)$", line)
@@ -90,7 +106,7 @@ def main() -> int:
                 continue
             charge = float(c[1]) * GRAIN_G
             pressure = float(c[2].replace(",", "")) * PSI_BAR if c[3] == "PSI" else ""
-            rows.append({"powder": name, "gauge": gauge, "hull_mm": round(hull_in * 25.4), "shot_g": round(shot, 2), "wad": wad, "primer": primer,
+            rows.append({"powder": name, "gauge": gauge, "hull_mm": round(hull_in * 25.4), "shot_g": round(shot, 2), "wad": wad, "primer": primer, "shell": shell,
                          "charge_g": round(charge, 4), "velocity_ms": round(velocity, 1), "pressure_bar": f"{pressure:.0f}" if pressure != "" else ""})
     with open(args.output, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, list(rows[0].keys()))

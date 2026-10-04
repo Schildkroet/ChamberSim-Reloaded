@@ -152,6 +152,9 @@ alliantpowder.com/resources/catalog/AP398_2022AlliantPowderReloadersGuide_NoCrop
 16 / 20 gauge, nine powders) give the shot samples (`sources/samples/*_shot_samples.csv`). `analysis/calibrate_shotshell.py` fits the shot constants and
 the burn rate of every shotgun powder to them. The refit with the shot constants free gave no better result (velocity 3.1 % instead of 2.9 %,
 pressure 15.0 % instead of 15.6 %), so the constants stayed and only the burn rates were refitted (Hodgdon's pressure bias -7.9 % -> -3.0 %).
+`analysis/fit_shot_factors.py` fits the factors of the shell (hull), wad and primer named in the tables (`shell`, `wad`, `primer` columns; the shell is the
+table heading) in 4 seconds: the sensitivities of every load to the two shot factors are measured once, the factors then follow from a ridge-regularised linear
+least squares and are checked with true simulations on held-out series (the load names its parts in the caliber entries `shothull`, `shotwad`, `shotprimer`).
 The remaining error is that of the tables: the pressure depends on the wad (-27 % DRV-12 ... +11 % CB 6118 against the model's average) and the primer;
 with a correction per wad and primer it would still be 12 %. A capacity factor per gauge would remove the 20 gauge bias (-12 %) but the 16 gauge (+13 %)
 and 3.5" (-15 %) loads, which are few, point the other way: no term was added.

@@ -47,6 +47,20 @@ def pressure_bar(text: str, unit: str):
     return f"{float(t) * PSI_BAR:.0f}"
 
 
+BRANDS = re.compile(r"federal|winchester|remington|fiocchi|rio|cheddite|estate|baschieri|activ|nobel", re.I)
+
+
+def shell_name(title: str) -> str:
+    """The shells named in a table title: "12-GAUGE 2 3/4 INCH FEDERAL HIGH OVER ALL, REMINGTON PLASTIC SHELLS (STS, NITRO 27, ...)" ->
+    "Federal High Over All, Remington" (the group of shells the table was fired with)."""
+    s = re.sub(r"^\s*\.?\d+\s*-?\s*(?:GAUGE|GA|BORE)\s*", "", title, flags=re.I)
+    s = re.sub(r"^\s*\d+(?:\s+\d/\d)?\s*(?:INCH|IN|\")\s*", "", s, flags=re.I)
+    s = re.sub(r"\(.*$", "", s)
+    s = re.sub(r"PLASTIC\s*SHELLS?.*$", "", s, flags=re.I)
+    s = re.sub(r"\s+", " ", s).strip(" ,-").title()
+    return s if BRANDS.search(s) else ""  # a heading without a shell ("... Heavy Loads Continued"): the previous one still applies
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("pdf", type=Path)
@@ -56,6 +70,7 @@ def main() -> int:
     lines = text.splitlines()
     rows, unknown = [], {}
     gauge = hull_mm = None
+    shell = ""
     nontoxic = False
     levels: list[tuple[int, float]] = []  # (x of the heading, velocity m/s)
     a_powders: list[str] = []
@@ -70,6 +85,7 @@ def main() -> int:
                 inch = int(m[2]) + (int(m[3]) / int(m[4]) if m[3] else 0.0)
                 hull_mm = min((65, 70, 76, 89), key=lambda h: abs(h - inch * 25.4))  # 2 1/2, 2 3/4, 3 and 3 1/2 inch
                 levels, a_powders, a_cols = [], [], []
+                shell = shell_name(line) or shell
             continue
         if NONTOXIC.search(line) and re.search(r"POWDER FOR RELOADING|NON-TOXIC SHOTSHELL", line, re.I):
             nontoxic = True
@@ -117,7 +133,7 @@ def main() -> int:
                 col = min(levels, key=lambda lv: abs(lv[0] - c.start()))
                 if gauge not in (12, 16, 20, 28, 410):
                     continue
-                rows.append({"powder": "Alliant " + powder[0], "gauge": gauge, "hull_mm": hull_mm, "shot_g": round(shot_g, 2), "wad": wad, "primer": primer,
+                rows.append({"powder": "Alliant " + powder[0], "gauge": gauge, "hull_mm": hull_mm, "shot_g": round(shot_g, 2), "wad": wad, "primer": primer, "shell": shell,
                              "charge_g": round(float(c[1]) * GRAIN_G, 4), "velocity_ms": round(col[1], 1), "pressure_bar": pressure_bar(c[2], c[3])})
             continue
         if a_powders and a_cols:
@@ -140,11 +156,11 @@ def main() -> int:
                 if len(vals) < 1 or k >= len(a_powders):
                     continue
                 pname = next((v for pat, v in POWDERS if re.fullmatch(pat, a_powders[k], re.I)), a_powders[k])
-                rows.append({"powder": "Alliant " + pname, "gauge": gauge, "hull_mm": hull_mm, "shot_g": float(m[1]), "wad": wad, "primer": primer,
+                rows.append({"powder": "Alliant " + pname, "gauge": gauge, "hull_mm": hull_mm, "shot_g": float(m[1]), "wad": wad, "primer": primer, "shell": shell,
                              "charge_g": round(vals[0] * GRAIN_G, 4), "velocity_ms": round(int(m[2]) * FPS, 1),
                              "pressure_bar": f"{vals[1] * PSI_BAR:.0f}" if len(vals) > 1 else ""})
     with open(args.output, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, ["powder", "gauge", "hull_mm", "shot_g", "wad", "primer", "charge_g", "velocity_ms", "pressure_bar"])
+        w = csv.DictWriter(f, ["powder", "gauge", "hull_mm", "shot_g", "wad", "primer", "shell", "charge_g", "velocity_ms", "pressure_bar"])
         w.writeheader()
         w.writerows(rows)
     print(f"{len(rows)} loads -> {args.output}", file=sys.stderr)

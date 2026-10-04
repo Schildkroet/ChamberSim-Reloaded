@@ -116,6 +116,7 @@ build/release/grt_eval hod_samples.csv --profile physical [--set name=value] [--
 # test constants of the physical model powder by powder (parallel, held-out cartridges, trends over loading density and bullet mass)
 .venv/bin/python analysis/scan_physical.py build/release/grt_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--quiet]
 
+.venv/bin/python analysis/fit_shot_factors.py build/release/grt_eval hodgdon_shot_samples.csv alliant_shot_samples.csv vectan_shot_samples.csv --out data/shotshell/parts.json   # shell, wad and primer factors (seconds)
 # shotshells
 .venv/bin/python analysis/calibrate_shotshell.py build/release/grt_eval <data dir> hodgdon_shot_samples.csv
 ```

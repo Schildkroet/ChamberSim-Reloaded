@@ -42,6 +42,7 @@
 #include "about.h"
 #include "burnratedialog.h"
 #include "recordviewdialog.h"
+#include "shotparts.h"
 #include "unitconverterdialog.h"
 #include "theme.h"
 #include "flags.h"
@@ -100,6 +101,7 @@ private slots:
     void newLoadDialogBuildsARunnableLoad();
     void newLoadDialogNeedsAllThreeRecords();
     void codedFieldsShowReadableText();
+    void shotshellPartsAreChoices();
     void panelShowsAndEditsInTheChosenUnit();
     void perFieldUnitOverridesTheSystem();
     void resultsFollowTheUnitSystem();
@@ -163,6 +165,8 @@ private:
 
 void GuiTest::initTestCase()
 {
+    // the shotshell parts are in the resources of the program only: the tests read the file of the source tree
+    grt::setShotPartsFile(QStringLiteral(GRT_SOURCE_DIR "/data/shotshell/parts.json"));
     // never touch the user's real settings or own database
     QStandardPaths::setTestModeEnabled(true);
     QFile::remove(grt::Database::defaultOwnPath());  // start every run with an empty own database
@@ -349,6 +353,30 @@ int rowOf(QTableWidget *t, const QString &key)
 }
 
 }  // namespace
+
+void GuiTest::shotshellPartsAreChoices()
+{
+    grt::EntryList caliber;
+    caliber.set(u"shotshell", u"true"_s);
+    QVERIFY(grt::ensureShotParts(caliber));   // an older shotshell load gets the entries ...
+    QVERIFY(!grt::ensureShotParts(caliber));  // ... once
+    caliber.set(u"shothull", u"winchester-aa-hs"_s);
+    caliber.set(u"shotwad", u"12-waa12sl"_s);
+    caliber.set(u"shotprimer", u"nonsense"_s);  // an id of another version stays visible
+    PropertyPanel panel;
+    panel.setSections({{0, u"caliber"_s, u"Caliber"_s, &caliber}});
+    QTableWidget *t = tableOf(panel);
+    QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"Winchester AA / HS"_s);
+    QCOMPARE(t->item(rowOf(t, u"shotwad"_s), 1)->text(), u"Winchester WAA12SL"_s);
+    QCOMPARE(t->item(rowOf(t, u"shotprimer"_s), 1)->text(), u"nonsense"_s);
+    caliber.set(u"shothull", QString());
+    panel.syncValues();
+    QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"not specified (average)"_s);
+    // a cartridge that is no shotshell gets nothing
+    grt::EntryList rifle;
+    rifle.set(u"shotshell", u"false"_s);
+    QVERIFY(!grt::ensureShotParts(rifle));
+}
 
 void GuiTest::codedFieldsShowReadableText()
 {

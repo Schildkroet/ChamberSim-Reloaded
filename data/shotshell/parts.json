@@ -1,0 +1,346 @@
+{
+ "note": "Factors of the shell (hull), wad and primer of shotshell loads on the shotshell model: capacity = powder space, energy = gas energy; the factors of a load multiply. Fitted with analysis/fit_shot_factors.py to the published loads of Hodgdon, Alliant and Vectan. A load names its parts in the caliber entries shothull, shotwad and shotprimer. Generated - do not edit by hand.",
+ "shells": [
+  {
+   "id": "cheddite-rio",
+   "name": "Cheddite / Rio",
+   "capacity": 1.1206,
+   "energy": 0.9825,
+   "loads": 127
+  },
+  {
+   "id": "federal-gold-medal-paper",
+   "name": "Federal Gold Medal (paper)",
+   "capacity": 1.1749,
+   "energy": 1.0655,
+   "loads": 124
+  },
+  {
+   "id": "federal-gold-medal-plastic",
+   "name": "Federal Gold Medal (plastic)",
+   "capacity": 1.1847,
+   "energy": 1.0648,
+   "loads": 1270
+  },
+  {
+   "id": "federal-hi-over-all",
+   "name": "Federal Hi-Over-All",
+   "capacity": 0.8948,
+   "energy": 1.0037,
+   "loads": 468
+  },
+  {
+   "id": "fiocchi",
+   "name": "Fiocchi",
+   "capacity": 1.0747,
+   "energy": 1.0238,
+   "loads": 213
+  },
+  {
+   "id": "remington-sts-nitro-27-gun-club",
+   "name": "Remington STS / Nitro 27 / Gun Club",
+   "capacity": 0.8247,
+   "energy": 0.9696,
+   "loads": 1125
+  },
+  {
+   "id": "winchester-aa-hs",
+   "name": "Winchester AA / HS",
+   "capacity": 0.8458,
+   "energy": 0.9909,
+   "loads": 1261
+  }
+ ],
+ "wads": [
+  {
+   "id": "12-12s3drf3",
+   "name": "12S3 & DRF3",
+   "capacity": 0.9298,
+   "energy": 0.9648,
+   "loads": 97,
+   "gauge": 12
+  },
+  {
+   "id": "12-12s4",
+   "name": "12S4",
+   "capacity": 0.907,
+   "energy": 0.9685,
+   "loads": 42,
+   "gauge": 12
+  },
+  {
+   "id": "12-cb110012",
+   "name": "CB 1100-12",
+   "capacity": 1.2622,
+   "energy": 1.0781,
+   "loads": 56,
+   "gauge": 12
+  },
+  {
+   "id": "12-cb311812",
+   "name": "CB 3118-12",
+   "capacity": 1.0788,
+   "energy": 1.029,
+   "loads": 44,
+   "gauge": 12
+  },
+  {
+   "id": "12-cb410012b",
+   "name": "Claybuster 4100-12B",
+   "capacity": 1.2353,
+   "energy": 1.0712,
+   "loads": 123,
+   "gauge": 12
+  },
+  {
+   "id": "12-cb610012",
+   "name": "CB 6100-12",
+   "capacity": 1.1812,
+   "energy": 1.0419,
+   "loads": 56,
+   "gauge": 12
+  },
+  {
+   "id": "12-cb611812",
+   "name": "CB 6118-12",
+   "capacity": 1.1256,
+   "energy": 1.026,
+   "loads": 67,
+   "gauge": 12
+  },
+  {
+   "id": "12-drv12",
+   "name": "DRV-12",
+   "capacity": 0.898,
+   "energy": 0.9549,
+   "loads": 79,
+   "gauge": 12
+  },
+  {
+   "id": "12-drxl1",
+   "name": "DR XL-1",
+   "capacity": 1.0009,
+   "energy": 0.9897,
+   "loads": 104,
+   "gauge": 12
+  },
+  {
+   "id": "12-fed12s0",
+   "name": "Federal 12S0",
+   "capacity": 0.9747,
+   "energy": 0.9521,
+   "loads": 40,
+   "gauge": 12
+  },
+  {
+   "id": "12-fed12s3",
+   "name": "Federal 12S3",
+   "capacity": 1.0045,
+   "energy": 0.9996,
+   "loads": 189,
+   "gauge": 12
+  },
+  {
+   "id": "12-fed12so",
+   "name": "Fed. 12SO",
+   "capacity": 1.0406,
+   "energy": 1.0046,
+   "loads": 139,
+   "gauge": 12
+  },
+  {
+   "id": "12-figure8drrf8",
+   "name": "Figure 8 & DRRF8",
+   "capacity": 1.0662,
+   "energy": 1.01,
+   "loads": 115,
+   "gauge": 12
+  },
+  {
+   "id": "12-hdyversalite",
+   "name": "Hdy Versalite",
+   "capacity": 0.9023,
+   "energy": 0.9447,
+   "loads": 91,
+   "gauge": 12
+  },
+  {
+   "id": "12-purplepc",
+   "name": "Purple PC",
+   "capacity": 1.2482,
+   "energy": 1.048,
+   "loads": 174,
+   "gauge": 12
+  },
+  {
+   "id": "12-redpc",
+   "name": "Red PC",
+   "capacity": 1.0147,
+   "energy": 0.9729,
+   "loads": 159,
+   "gauge": 12
+  },
+  {
+   "id": "12-remfig8",
+   "name": "Remington FIG8",
+   "capacity": 0.9859,
+   "energy": 0.9696,
+   "loads": 249,
+   "gauge": 12
+  },
+  {
+   "id": "12-remr12l",
+   "name": "Remington R12L",
+   "capacity": 1.0424,
+   "energy": 1.0026,
+   "loads": 51,
+   "gauge": 12
+  },
+  {
+   "id": "12-remtgt12",
+   "name": "Remington TGT12",
+   "capacity": 1.188,
+   "energy": 1.0639,
+   "loads": 342,
+   "gauge": 12
+  },
+  {
+   "id": "12-rp12",
+   "name": "RP 12",
+   "capacity": 1.0268,
+   "energy": 0.9742,
+   "loads": 50,
+   "gauge": 12
+  },
+  {
+   "id": "12-rxp12",
+   "name": "RXP 12",
+   "capacity": 1.0175,
+   "energy": 0.9992,
+   "loads": 110,
+   "gauge": 12
+  },
+  {
+   "id": "12-sp12",
+   "name": "SP 12",
+   "capacity": 1.032,
+   "energy": 0.9933,
+   "loads": 68,
+   "gauge": 12
+  },
+  {
+   "id": "12-tgt12drrt12",
+   "name": "TGT 12 & DRRT12",
+   "capacity": 0.9921,
+   "energy": 0.9942,
+   "loads": 86,
+   "gauge": 12
+  },
+  {
+   "id": "12-versalite",
+   "name": "Versalite",
+   "capacity": 1.014,
+   "energy": 0.9918,
+   "loads": 78,
+   "gauge": 12
+  },
+  {
+   "id": "12-waa12",
+   "name": "Winchester WAA12",
+   "capacity": 0.9309,
+   "energy": 0.9617,
+   "loads": 237,
+   "gauge": 12
+  },
+  {
+   "id": "12-waa12f114",
+   "name": "WAA12F114",
+   "capacity": 1.0405,
+   "energy": 0.9951,
+   "loads": 33,
+   "gauge": 12
+  },
+  {
+   "id": "12-waa12l",
+   "name": "Winchester WAA12L",
+   "capacity": 1.1556,
+   "energy": 1.0424,
+   "loads": 70,
+   "gauge": 12
+  },
+  {
+   "id": "12-waa12sl",
+   "name": "Winchester WAA12SL",
+   "capacity": 1.174,
+   "energy": 1.0592,
+   "loads": 304,
+   "gauge": 12
+  },
+  {
+   "id": "12-windjammer",
+   "name": "Windjammer",
+   "capacity": 1.0956,
+   "energy": 0.9906,
+   "loads": 317,
+   "gauge": 12
+  }
+ ],
+ "primers": [
+  {
+   "id": "cci209",
+   "name": "CCI 209",
+   "capacity": 0.947,
+   "energy": 0.9647,
+   "loads": 248
+  },
+  {
+   "id": "cci209m",
+   "name": "CCI 209M",
+   "capacity": 0.96,
+   "energy": 0.9917,
+   "loads": 237
+  },
+  {
+   "id": "ched209",
+   "name": "Ched 209",
+   "capacity": 0.9428,
+   "energy": 0.979,
+   "loads": 607
+  },
+  {
+   "id": "fed209a",
+   "name": "Fed. 209A",
+   "capacity": 0.8869,
+   "energy": 0.965,
+   "loads": 994
+  },
+  {
+   "id": "fio616",
+   "name": "Fiocchi 616",
+   "capacity": 0.9576,
+   "energy": 0.9689,
+   "loads": 578
+  },
+  {
+   "id": "rem209",
+   "name": "Rem 209",
+   "capacity": 1.0336,
+   "energy": 0.9744,
+   "loads": 113
+  },
+  {
+   "id": "rem209p",
+   "name": "Rem. 209P",
+   "capacity": 1.0332,
+   "energy": 0.9958,
+   "loads": 790
+  },
+  {
+   "id": "win209",
+   "name": "Win. 209",
+   "capacity": 0.9951,
+   "energy": 0.9831,
+   "loads": 1016
+  }
+ ]
+}

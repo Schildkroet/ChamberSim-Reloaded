@@ -2,6 +2,7 @@
 #include "log.h"
 #include "photoview.h"
 #include "physicalpowders.h"
+#include "shotparts.h"
 #include "solverprefs.h"
 
 #include "cartridgeview.h"
@@ -35,6 +36,7 @@
 #include <QSettings>
 #include "layoutstate.h"
 #include <QSplitter>
+#include <QTimer>
 #include <QStyle>
 #include <QTabBar>
 #include <QTableWidget>
@@ -365,6 +367,7 @@ bool LoadView::load(const QString &path, QString *error)
     m_path = path;
     // a load saved before the physical burn values existed gets those of its (unchanged) project powder; they are saved with it next time
     if (grt::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
+    grt::ensureShotParts(m_file.caliber);  // a shotshell load of an older file: the entries for shell, wad and primer (not chosen)
     rebuildPanels();
     loadMeasurement();
     recompute();
@@ -375,6 +378,7 @@ bool LoadView::load(const QString &path, QString *error)
 void LoadView::setNewLoad(grt::LoadFile file)
 {
     m_file = std::move(file);
+    grt::ensureShotParts(m_file.caliber);
     m_path.clear();
     rebuildPanels();
     loadMeasurement();
@@ -538,6 +542,9 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     const double previousDiameter = m_file.projectile.number(u"Dbul");
     const double previousCaseLength = m_file.caliber.number(u"caselen");
     section(sectionId).set(key, text);
+    // a cartridge that becomes a shotshell gets the choices of its shell, wad and primer
+    if (sectionId == Caliber && key == u"shotshell" && grt::ensureShotParts(m_file.caliber))
+        QTimer::singleShot(0, this, &LoadView::rebuildPanels);  // after the edit is finished
     // The cartridge overall length is the case length plus the projectile length minus the seating depth; the solver uses the seating
     // depth. Editing either of them (or the case or projectile length) keeps the other one in step.
     grt::EntryList &cal = m_file.caliber, &prj = m_file.projectile;

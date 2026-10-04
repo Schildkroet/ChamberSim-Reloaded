@@ -18,6 +18,7 @@
 #include "loadbuilder.h"
 #include "loadfile.h"
 #include "barrel.h"
+#include "shotparts.h"
 #include "measurement.h"
 #include "numeric.h"
 #include "physicalpowders.h"
@@ -51,6 +52,7 @@ class CoreTest : public QObject
 private slots:
     void initTestCase();
     void boreCrossSectionFromTheRifling();
+    void shotshellPartsChangeTheFactors();
     void loadFileReadsSections();
     void loadFileRoundTrip();
     void loadFileKeepsAppendix();
@@ -125,6 +127,53 @@ private slots:
 void CoreTest::initTestCase()
 {
     QStandardPaths::setTestModeEnabled(true);  // the own database must not be the user's
+}
+
+// The shell, wad and primer a shotshell load names scale the model (data/shotshell/parts.json); nothing named, or an unknown id: no change.
+void CoreTest::shotshellPartsChangeTheFactors()
+{
+    grt::setShotPartsFile(QStringLiteral(GRT_SOURCE_DIR "/data/shotshell/parts.json"));
+    grt::EntryList caliber;
+    caliber.set(u"shotshell", u"true"_s);
+    QCOMPARE(grt::shotFactorsOf(caliber).capacity, 1.0);
+    const auto *remington = grt::findShotPart(grt::ShotPart::Shell, u"remington-sts-nitro-27-gun-club"_s);
+    const auto *federal = grt::findShotPart(grt::ShotPart::Shell, u"federal-gold-medal-plastic"_s);
+    QVERIFY(remington && federal);
+    QVERIFY(remington->capacityScale < 1.0 && federal->capacityScale > 1.0);  // the Remington hull gives the higher pressure
+    caliber.set(u"shothull", u"remington-sts-nitro-27-gun-club"_s);
+    QCOMPARE(grt::shotFactorsOf(caliber).capacity, remington->capacityScale);
+    caliber.set(u"shotprimer", u"win209"_s);  // the factors of the parts multiply
+    const auto *primer = grt::findShotPart(grt::ShotPart::Primer, u"win209"_s);
+    QVERIFY(primer);
+    QCOMPARE(grt::shotFactorsOf(caliber).capacity, remington->capacityScale * primer->capacityScale);
+    caliber.set(u"shothull", u"unknown"_s);
+    QCOMPARE(grt::shotFactorsOf(caliber).capacity, primer->capacityScale);
+    // the simulation: the same load with the Remington hull peaks higher than with the Federal one
+    grt::SimInput in;
+    in.shotshell = true;
+    in.boreArea_mm2 = 260.16;
+    in.caseVolume_cm3 = 17.24;
+    in.caseLength_mm = 70.0;
+    in.bulletDiameter_mm = 18.2;
+    in.bulletMass_g = 30.85;
+    in.bulletLength_mm = in.seatingDepth_mm = 40.5;
+    in.charge_g = 1.13;
+    in.barrelLength_mm = 711.0;
+    in.startPressure_bar = 20.0;
+    in.heatQex_kJkg = 4000.0;
+    in.density_kgm3 = 1600.0;
+    in.kappa = 1.23;
+    in.vivacityBa = 11.0;
+    in.z1 = 0.3;
+    in.z2 = 0.6;
+    const double plain = grt::simulate(in).maxPressure_bar;
+    in.shotCapacityScale = remington->capacityScale;
+    in.shotEnergyScale = remington->energyScale;
+    const double high = grt::simulate(in).maxPressure_bar;
+    in.shotCapacityScale = federal->capacityScale;
+    in.shotEnergyScale = federal->energyScale;
+    const double low = grt::simulate(in).maxPressure_bar;
+    QVERIFY2(plain > 100.0 && high > plain && low < plain, qPrintable(u"%1 %2 %3"_s.arg(plain).arg(high).arg(low)));
 }
 
 // Q of the C.I.P. sheets from F, Z, N and b.

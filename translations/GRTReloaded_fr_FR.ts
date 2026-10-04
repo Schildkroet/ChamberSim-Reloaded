@@ -300,30 +300,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+152"/>
-        <location line="+770"/>
+        <location filename="../src/app/loadview.cpp" line="+154"/>
+        <location line="+775"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-770"/>
-        <location line="+771"/>
+        <location line="-775"/>
+        <location line="+776"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-771"/>
+        <location line="-776"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+772"/>
+        <location line="+777"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-771"/>
+        <location line="-776"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -415,18 +415,18 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+165"/>
+        <location line="+167"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-165"/>
-        <location line="+166"/>
+        <location line="-167"/>
+        <location line="+168"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-165"/>
+        <location line="-167"/>
         <source>Select Caliber…</source>
         <translation>Choisir le calibre…</translation>
     </message>
@@ -442,12 +442,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+182"/>
+        <location line="+184"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
     </message>
     <message>
-        <location line="-166"/>
+        <location line="-168"/>
         <source>Cartridge</source>
         <translation>Cartouche</translation>
     </message>
@@ -468,17 +468,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+513"/>
+        <location line="+518"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-512"/>
+        <location line="-517"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+119"/>
         <source>Caliber / cartridge</source>
         <translation>Calibre / cartouche</translation>
     </message>
@@ -538,7 +538,7 @@
         <translation>L&apos;enregistrement n&apos;a pas pu être lu dans la base de données.</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+76"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
     </message>
@@ -1684,7 +1684,17 @@ pression Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+42"/>
+        <location filename="../src/app/propertypanel.cpp" line="+50"/>
+        <source>not specified (average)</source>
+        <translation>non précisé (moyenne)</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 (%2 gauge)</source>
+        <translation>%1 (calibre %2)</translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>flat base</source>
         <translation>culot plat</translation>
     </message>
@@ -1719,7 +1729,7 @@ pression Δ</translation>
         <translation>oui</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+30"/>
         <source>type %1</source>
         <translation>type %1</translation>
     </message>
@@ -3118,6 +3128,21 @@ pression Δ</translation>
         <location line="+1"/>
         <source>selected ladder curve for display</source>
         <translation>Courbe de l&apos;échelle affichée</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>shotshell hull</source>
+        <translation>douille de cartouche à plomb</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>shotshell primer</source>
+        <translation>amorce de cartouche à plomb</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>shotshell wad</source>
+        <translation>bourre de cartouche à plomb</translation>
     </message>
     <message>
         <location line="+1"/>

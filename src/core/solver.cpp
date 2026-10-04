@@ -629,13 +629,13 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
     m.A_m2 = in.boreArea_mm2 * 1e-6;
     m.mEff_kg = in.effectiveMass_g() * 1e-3;
     m.mc_kg = in.charge_g * 1e-3;
-    m.V0_m3 = chamberVolume_m3(in, cal) * (in.shotshell ? cal.shotCapacityFactor : 1.0);
+    m.V0_m3 = chamberVolume_m3(in, cal) * (in.shotshell ? cal.shotCapacityFactor * in.shotCapacityScale : 1.0);
     m.x0_m = x0;
     m.solid_m3kg = cal.solidDensityFactor / in.density_kgm3;
     // measured: the original ignores eta (a load with eta 1.2 gives the identical curve)
     m.covolume_m3kg = cal.covolume_cm3g * 1e-3 + cal.covolumeDensityFactor / in.density_kgm3;
     m.theta = in.kappa - 1.0;
-    m.fEnergy = cal.impetusFactor * m.theta * in.heatQex_kJkg * 1e3 * (in.shotshell ? cal.shotEnergyFactor : 1.0);
+    m.fEnergy = cal.impetusFactor * m.theta * in.heatQex_kJkg * 1e3 * (in.shotshell ? cal.shotEnergyFactor * in.shotEnergyScale : 1.0);
     m.kinetic = cal.kineticFactor;
     m.burnBa = burnCoefficient(in, cal);
     m.burnExponent = cal.burnExponent;

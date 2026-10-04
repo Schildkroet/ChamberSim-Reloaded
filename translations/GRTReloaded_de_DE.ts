@@ -300,30 +300,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+152"/>
-        <location line="+770"/>
+        <location filename="../src/app/loadview.cpp" line="+154"/>
+        <location line="+775"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-770"/>
-        <location line="+771"/>
+        <location line="-775"/>
+        <location line="+776"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-771"/>
+        <location line="-776"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+772"/>
+        <location line="+777"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-771"/>
+        <location line="-776"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -415,18 +415,18 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+165"/>
+        <location line="+167"/>
         <source>Projectile</source>
         <translation>Geschoss</translation>
     </message>
     <message>
-        <location line="-165"/>
-        <location line="+166"/>
+        <location line="-167"/>
+        <location line="+168"/>
         <source>Propellant</source>
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="-165"/>
+        <location line="-167"/>
         <source>Select Caliber…</source>
         <translation>Kaliber wählen…</translation>
     </message>
@@ -442,12 +442,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+182"/>
+        <location line="+184"/>
         <source>No database available</source>
         <translation>Keine Datenbank verfügbar</translation>
     </message>
     <message>
-        <location line="-166"/>
+        <location line="-168"/>
         <source>Cartridge</source>
         <translation>Patrone</translation>
     </message>
@@ -468,17 +468,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+513"/>
+        <location line="+518"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-512"/>
+        <location line="-517"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+119"/>
         <source>Caliber / cartridge</source>
         <translation>Kaliber / Patrone</translation>
     </message>
@@ -538,7 +538,7 @@
         <translation>Der Datensatz konnte nicht aus der Datenbank gelesen werden.</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+76"/>
         <source>Fit to measurements</source>
         <translation>An Messungen anpassen</translation>
     </message>
@@ -1684,7 +1684,17 @@ Druck Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+42"/>
+        <location filename="../src/app/propertypanel.cpp" line="+50"/>
+        <source>not specified (average)</source>
+        <translation>nicht angegeben (Durchschnitt)</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 (%2 gauge)</source>
+        <translation>%1 (Kaliber %2)</translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>flat base</source>
         <translation>Flachboden</translation>
     </message>
@@ -1719,7 +1729,7 @@ Druck Δ</translation>
         <translation>ja</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+30"/>
         <source>type %1</source>
         <translation>Typ %1</translation>
     </message>
@@ -3118,6 +3128,21 @@ Druck Δ</translation>
         <location line="+1"/>
         <source>selected ladder curve for display</source>
         <translation>Angezeigte Leiterkurve</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>shotshell hull</source>
+        <translation>Schrotpatronenhülse</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>shotshell primer</source>
+        <translation>Schrotpatronen-Zündhütchen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>shotshell wad</source>
+        <translation>Schrotpatronen-Pfropfen</translation>
     </message>
     <message>
         <location line="+1"/>

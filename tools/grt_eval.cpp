@@ -194,7 +194,11 @@ int main(int argc, char *argv[])
             p.seatingDepth_mm = column_mm;  // completely inside the hull
             grt::LoadFile lf = grt::buildLoad(caliber, bullet, powder, p, calColumns);
             lf.caliber.set(u"shotshell"_s, u"true"_s);
-            const grt::SimResult r = grt::simulate(withPhys(lf, key), cal, steps);
+            grt::SimInput si = withPhys(lf, key);
+            // factors of the row itself on top of those of the shell, wad and primer of the load (fits): columns shot_cap and shot_energy
+            if (row.contains(u"shot_cap"_s)) si.shotCapacityScale *= row.value(u"shot_cap"_s).toDouble();
+            if (row.contains(u"shot_energy"_s)) si.shotEnergyScale *= row.value(u"shot_energy"_s).toDouble();
+            const grt::SimResult r = grt::simulate(si, cal, steps);
             if (r.status != grt::SimStatus::Ok) continue;
             out << n << ',' << QString::asprintf("%.3f,%.1f", r.muzzleVelocity_ms, r.maxPressure_bar) << '\n';
             continue;

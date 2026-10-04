@@ -145,6 +145,14 @@ pressures of the maximum loads up to 1800 bar, where the guide's loads are press
 - seated completely inside the hull: *Cartridge Overall Length* = hull length, *Seating depth* = projectile length;
 - *Initial Gas Pressure* (start pressure) = crimp release, about 20 bar.
 
+A shotshell load also has the choices **Shotshell Hull**, **Shotshell Wad** and **Shotshell Primer** (Cartridge tab, below *Shotshell*; "not specified" = the
+model's average). They matter: at the same velocity the pressure of published loads varies with the shell brand and type by about +-20 % (Remington STS
+and Winchester AA hulls give the highest pressures, Federal Gold Medal the lowest), with the wad by +-15 % and with the primer by +-10 %, and the model does not
+know them. Every part has two factors on the model (powder space and gas energy; `data/shotshell/parts.json`, 7 shells, 29 wads, 8 primers, fitted by
+`analysis/fit_shot_factors.py` to 5,000 published loads of Hodgdon, Alliant and Vectan); the factors of a load multiply. On loads that were
+left out of the fit, naming all three reduces the pressure error from 16.1 % to 10.2 % (velocity 2.9 % -> 2.7 %); the shell alone gives 12.0 %, the wad 15.0 %,
+the primer 15.6 %. Crimp type is not in the tables (Vectan's are all fold crimps); paper hulls only in Alliant's (Federal Gold Medal paper).
+
 ## 🛠️ Building
 
 Requirements: Qt 6.4 or newer (Widgets, Sql, Charts, Xml, PrintSupport, Test, LinguistTools), CMake 3.16+, a C++20

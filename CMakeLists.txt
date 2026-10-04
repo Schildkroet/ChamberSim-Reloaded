@@ -86,6 +86,8 @@ add_library(grtcore STATIC
     src/core/fieldnames.cpp
     src/core/physicalpowders.h
     src/core/physicalpowders.cpp
+    src/core/shotparts.h
+    src/core/shotparts.cpp
 )
 
 target_include_directories(grtcore PUBLIC src/core)

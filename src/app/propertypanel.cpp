@@ -2,11 +2,13 @@
 
 #include "fieldnames.h"
 
+#include "shotparts.h"
 #include "unitprefs.h"
 
 using namespace Qt::StringLiterals;
 
 #include <algorithm>
+#include <array>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QHeaderView>
@@ -35,6 +37,26 @@ struct Choice
     QString label;  // what the user sees
 };
 
+// The choices of a part of a shotshell: "not specified" (the model's average) and the parts of the data file; wads of other gauges than 12
+// show their gauge.
+const QList<Choice> &shotPartChoices(grt::ShotPart part)
+{
+    static const std::array<QList<Choice>, 3> lists = []
+    {
+        std::array<QList<Choice>, 3> all;
+        for (const grt::ShotPart p : grt::kShotParts)
+        {
+            auto &list = all[static_cast<std::size_t>(p)];
+            list.push_back({QString(), PropertyPanel::tr("not specified (average)")});
+            for (const grt::ShotPartInfo &info : grt::shotParts(p))
+                list.push_back({info.id, info.gauge && info.gauge != 12 ? PropertyPanel::tr("%1 (%2 gauge)").arg(info.name).arg(info.gauge)
+                                                                        : info.name});
+        }
+        return all;
+    }();
+    return lists[static_cast<std::size_t>(part)];
+}
+
 // Fields whose stored value is a code: shown as readable text and edited with a drop-down.
 const QList<Choice> *choicesFor(const QString &key)
 {
@@ -52,6 +74,9 @@ const QList<Choice> *choicesFor(const QString &key)
     if (key == u"gTailType") return &tail;
     if (key == u"gfrictionUnlock") return &lock;
     if (key == u"shotshell") return &yesNo;
+    // the shell, wad and primer of a shotshell load: the parts of the data file (their factors correct the model), or none
+    for (const grt::ShotPart part : grt::kShotParts)
+        if (key == grt::shotPartKey(part)) return &shotPartChoices(part);
     return nullptr;
 }
 
@@ -67,7 +92,8 @@ QString labelFor(const QList<Choice> &list, const QString &code)
     for (const Choice &c : list)
         if (c.code == code) return c.label;
     if (!list.isEmpty() && list.front().code == list.front().label) return code;  // plain numbers: show what the file has
-    return PropertyPanel::tr("type %1").arg(code);                                // a code we do not know: keep it visible
+    if (!list.isEmpty() && list.front().code.isEmpty()) return code;  // names of parts: an id this version does not know stays visible
+    return PropertyPanel::tr("type %1").arg(code);                    // a code we do not know: keep it visible
 }
 
 }  // namespace
