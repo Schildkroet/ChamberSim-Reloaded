@@ -34,6 +34,13 @@
 #include <numbers>
 #include <limits>
 
+// The sample loads (tests/data) and the original's plain database come from the original program and are not in the
+// repository (.gitignore): without them (CI) the tests that need them are skipped.
+#define REQUIRE_SAMPLE_LOADS()                                                                                                             \
+    if (!QFile::exists(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"))) QSKIP("sample loads not available (local only)")
+#define REQUIRE_PLAIN_DB()                                                                                                                 \
+    if (!QFile::exists(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db"))) QSKIP("plain database not available")
+
 using namespace Qt::StringLiterals;
 
 class CoreTest : public QObject
@@ -120,6 +127,7 @@ void CoreTest::initTestCase()
 
 void CoreTest::loadFileReadsSections()
 {
+    REQUIRE_SAMPLE_LOADS();
     QString err;
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &err);
     QVERIFY2(lf.has_value(), qPrintable(err));
@@ -135,6 +143,7 @@ void CoreTest::loadFileReadsSections()
 
 void CoreTest::loadFileRoundTrip()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto a = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(a);
     const auto b = grt::LoadFile::parse(a->toXml());
@@ -158,6 +167,7 @@ void CoreTest::loadFileRoundTrip()
 
 void CoreTest::loadFileKeepsAppendix()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto a = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload"));
     QVERIFY(a);
     QVERIFY(a->appendixXml.contains(u"<Measurement"_s));
@@ -170,6 +180,7 @@ void CoreTest::loadFileKeepsAppendix()
 
 void CoreTest::measurementReadsTheOriginalsBlock()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload"));
     QVERIFY(lf);
     const auto m = grt::readMeasurement(lf->appendixXml);
@@ -187,6 +198,7 @@ void CoreTest::measurementReadsTheOriginalsBlock()
 
 void CoreTest::measurementWritesBackWithoutLosingData()
 {
+    REQUIRE_SAMPLE_LOADS();
     // a block like the original writes it, with a pressure trace inside a charge and a note before it
     const QString appendix = uR"(<note index="1" title="N" text="hello%20world" />
 <Measurement index="2" showinreport="false" title="Measurement%20MagnetoSpeed">
@@ -369,6 +381,7 @@ void CoreTest::databaseImages()
 
 void CoreTest::ownRecordsKeepTheirPhotos()
 {
+    REQUIRE_PLAIN_DB();
     QTemporaryDir dir;
     const QString own = dir.filePath(u"own.db"_s);
     QString uuid, detail;
@@ -447,6 +460,7 @@ void CoreTest::burnFactorsFollowTheModel()
 // shotshells keep the original's constants.
 void CoreTest::calibrationProfiles()
 {
+    REQUIRE_SAMPLE_LOADS();
     QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Original);
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
@@ -478,6 +492,7 @@ void CoreTest::calibrationProfiles()
 // peak pressure does not depend on the barrel length), losses in the energy balance, and the inputs the original ignores act on it.
 void CoreTest::physicalModel()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -537,6 +552,7 @@ void CoreTest::physicalModel()
 // used by the physical model only while Ba, a0, z1, z2 are unchanged, removed for a powder without values.
 void CoreTest::physicalBurnInLoad()
 {
+    REQUIRE_SAMPLE_LOADS();
     QTemporaryDir dir;
     const QString file = dir.filePath(u"physical.json"_s);
     {
@@ -588,6 +604,7 @@ void CoreTest::physicalBurnInLoad()
 // A boat-tail or hollow-base bullet without tail dimensions gets typical ones, so the base type changes the result; given dimensions stay.
 void CoreTest::tailEstimates()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     grt::EntryList &prj = lf->projectile;
@@ -630,6 +647,7 @@ void CoreTest::tailEstimates()
 // the powder space behind the bullet stays, so the result hardly changes.
 void CoreTest::caseLengthChange()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimInput before = grt::SimInput::fromLoad(*lf);
@@ -654,6 +672,7 @@ void CoreTest::caseLengthChange()
 // and the curve drops towards z = 1.
 void CoreTest::burnRateCurveIsContinuous()
 {
+    REQUIRE_SAMPLE_LOADS();
     for (const char *file : {"/8x57is.grtload", "/POWDER-MEASURE-TEMPLATE.grtload"})
     {
         const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR) + QLatin1String(file));
@@ -678,6 +697,7 @@ void CoreTest::burnRateCurveIsContinuous()
 // base load by 2.5 % / 0.5 % at 1 mm and 9.4 % / 2.1 % at 4 mm.
 void CoreTest::bulletJumpLowersThePressure()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -739,6 +759,7 @@ void CoreTest::datesAreStoredAsIso()
 // Shotshells have their own terms (bigger powder space, wad friction, energy); everything else is untouched.
 void CoreTest::shotshellModel()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -770,6 +791,7 @@ void CoreTest::measurementStatistics()
 
 void CoreTest::simInputFromLoad()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -783,6 +805,7 @@ void CoreTest::simInputFromLoad()
 // coefficients act linearly with their own sign (a positive tcc raises the burn rate when cold).
 void CoreTest::temperatureCoefficients()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const auto pmax = [&](double T, double tcc, double tch)
@@ -813,6 +836,7 @@ void CoreTest::temperatureCoefficients()
 // The covolume grows for powders of low material density; eta has no effect.
 void CoreTest::fastPowdersAndCovolume()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const auto pmax = [&](double ba, double xe, double pc)
@@ -836,6 +860,7 @@ void CoreTest::fastPowdersAndCovolume()
 
 void CoreTest::chargeTooHighIsRejected()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     lf->propellant.set(u"mc", 4.35);  // 1.06 g/cm3 > bulk density 0.89 g/cm3 (the original reports invalidData)
@@ -847,6 +872,7 @@ void CoreTest::chargeTooHighIsRejected()
 // The original's implicit momentum rule: 0.5*m'*(v1^2 - v0^2) = A*dx*p1, exactly, for every step.
 void CoreTest::solverMatchesMomentumRule()
 {
+    REQUIRE_SAMPLE_LOADS();
     const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -904,6 +930,7 @@ void CoreTest::derivedOutputsMatchReference()
 // twist 240 mm  ->  eff. case volume 3.5688 cm3, load ratio 71.0 %, rotation 165.3k/min at 661.2 m/s.
 void CoreTest::ratiosMatchTheOriginalsScreen()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     lf->caliber.set(u"casevol", 63.30 * grt::kGrainToGram);
@@ -926,6 +953,7 @@ void CoreTest::ratiosMatchTheOriginalsScreen()
 // volume is left. Hollow base: the cavity is extra volume. Diameters A and B define the cone.
 void CoreTest::bulletBaseTypesChangeTheChamberVolume()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const auto effective = [&](int type)
@@ -952,6 +980,7 @@ void CoreTest::bulletBaseTypesChangeTheChamberVolume()
 
 void CoreTest::ladderStepsDescendFromTheSelectedCharge()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const double mc = lf->propellant.number(u"mc");
@@ -977,6 +1006,7 @@ void CoreTest::ladderStepsDescendFromTheSelectedCharge()
 
 void CoreTest::ladderEdgeCases()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const double mc = lf->propellant.number(u"mc");
@@ -1008,6 +1038,7 @@ void CoreTest::ladderEdgeCases()
 // "nan" and "inf" are numbers for QString::toDouble: they must not reach the model.
 void CoreTest::nonFiniteInputIsRejected()
 {
+    REQUIRE_SAMPLE_LOADS();
     QVERIFY(!grt::parseFinite(u"nan"_s));
     QVERIFY(!grt::parseFinite(u"inf"_s));
     QVERIFY(!grt::parseFinite(u"-inf"_s));
@@ -1335,6 +1366,7 @@ void CoreTest::ownRecordsOfOlderVersionsMoveUp()
 // Measurements made with a known burn rate: the fit must find it again from another start value.
 void CoreTest::powderFitFindsTheBurnRate()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const double trueBa = 0.65;
@@ -1940,6 +1972,7 @@ void CoreTest::reportUnitsInPlaceholders()
 
 void CoreTest::reportDataFromALoad()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -1994,6 +2027,7 @@ void CoreTest::reportDataFromALoad()
 
 void CoreTest::defaultReportRendersEverything()
 {
+    REQUIRE_SAMPLE_LOADS();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimInput in = grt::SimInput::fromLoad(*lf);
@@ -2077,6 +2111,8 @@ void CoreTest::saamiColumnMigration()
 // applied together, the physical values refer to the new Ba and still apply. A load without physical values gets them.
 void CoreTest::powderFitPhysicalValues()
 {
+    REQUIRE_SAMPLE_LOADS();
+    REQUIRE_PLAIN_DB();
     auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     grt::writePhysicalBurn(lf->propellant, grt::PhysicalBurn{.Ba = 1.3, .a0 = 0.5, .z1 = 0.3, .z2 = 0.7});
