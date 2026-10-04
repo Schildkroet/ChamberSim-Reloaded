@@ -77,6 +77,7 @@ python3 rs_extract.py -o rs_samples.csv [--html page.html]
 python3 vv_extract.py N150 -o vv_N150.csv [--cache dir]
 python3 hodgdon_shot_extract.py manual.pdf -o hodgdon_shot_samples.csv
 python3 alliant_shot_extract.py guide.pdf -o alliant_shot_samples.csv
+python3 vectan_extract.py catalogue.pdf -o vectan_samples.csv --ocr-cache ocr.json   # needs rapidocr-onnxruntime (OCR)
 ```
 
 ## 🔥 Powders: fit and write records

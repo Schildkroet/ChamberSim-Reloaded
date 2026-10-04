@@ -188,7 +188,7 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   Hornady CX/GMX, lead-free ...) 350 bar. Checked with the physical model against published pressures: copper loads median peak
   pressure error 7.6 -> 6.3 % (no longer 5 % too low), lead loads bias +4 -> -2 %; the original's 150 bar for jacketed handgun bullets
   made those results worse and is not used.
-- **Propellants (108)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), and
+- **Propellants (112)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), Vectan Tubal 3000-8000 (4: from the Nobel Sport catalogue, which publishes no test barrel and no pressures, so a 600 mm barrel is assumed; its handgun powders fit too poorly and are not included), and
   55 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals; Accurate 4100, Enforcer, H110 and W296 fit
   less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so), and 20 shotgun powders
   (Hodgdon Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Winchester Super Handicap and WST, Ramshot Competition; Alliant Red Dot,
@@ -395,7 +395,7 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
   surface (bullet length), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
   and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show heat and friction
   loss; a bullet that cannot leave the barrel is reported.
-  Its constants and the **physical burn values** of 88 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
+  Its constants and the **physical burn values** of 92 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
   pressures: Hodgdon, Western, Lovex, Reload Swiss; Vihtavuori publishes no pressures, its 16 powders have a fitted Ba and the median
   form function of the others) come from `analysis/calibrate_published.py --profile physical` and
   `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A load stores them in its propellant section (`physBa`,

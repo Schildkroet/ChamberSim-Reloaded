@@ -54,6 +54,8 @@ def main() -> int:
     ap.add_argument("--source", required=True, help="where the data come from, for the record's origin and description")
     ap.add_argument("--base-from-name", action="store_true", help="S... = single base, D... = double base (Lovex)")
     ap.add_argument("--fitdata", type=Path, default=ROOT / "build" / "release" / "grt_fitdata")
+    ap.add_argument("--base", choices=list(BASES), help="the type of all powders when the maker states it (Vectan: single base)")
+    ap.add_argument("--note", default="", help="added to the description of the records (assumptions about the data)")
     ap.add_argument("--no-pressure", action="store_true", help="fit the velocities only")
     ap.add_argument("--min-samples", type=int, default=40)
     ap.add_argument("--max-rms", type=float, default=6.0)
@@ -95,7 +97,8 @@ def main() -> int:
             w = csv.DictWriter(f, list(mine[0].keys()))
             w.writeheader()
             w.writerows(mine)
-        kinds = [("single-base" if powder.upper().startswith("S") else "double-base")] if args.base_from_name else list(BASES)
+        kinds = ([("single-base" if powder.upper().startswith("S") else "double-base")] if args.base_from_name
+                 else [args.base] if args.base else list(BASES))
         best = None
         for kind in kinds:
             res = fit(path, BASES[kind], args.fitdata, not args.no_pressure)
@@ -111,6 +114,7 @@ def main() -> int:
             continue
         base = BASES[best["base"]]
         how = ("the type follows the name (S = single base, D = double base)" if args.base_from_name
+               else f"the maker states {args.base}" if args.base
                else f"the type (single/double base) is not published, {best['base']} assumed because it fits the velocities better")
         maker, pname = (args.maker, powder) if args.maker else powder.split(" ", 1)
         rec = {"mname": maker, "pname": pname, "lotid": "", "Ba": round(best["Ba"], 4), "Qex": base["Qex"], "k": base["k"], **FORM, "a1": 0.0,
@@ -120,6 +124,7 @@ def main() -> int:
                          + ("" if args.no_pressure else f", pressure error {best['p_rms']:.0f} % rms (published pressures)")
                          + f". Not published and therefore only typical or chosen values: Qex ({how}), k, material density pc, bulk density pcd, "
                            "and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
+                         + (f" {args.note}" if args.note else "")
                          + (" Fewer data or a poorer fit than most other records: use with more caution."
                             if best["samples"] < 40 or best["v_rms"] > 5.5 else ""))}
         if recordfiles.key(rec) in existing and not args.overwrite:

@@ -44,3 +44,6 @@ CLAUDE.md
 # files exchanged with the VM that runs the original program
 results/
 *.log
+
+# manufacturer catalogues used as data sources (not ours to redistribute)
+/Vectan-Reloading-catalogue*.pdf

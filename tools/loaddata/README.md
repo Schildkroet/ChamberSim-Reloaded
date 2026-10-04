@@ -90,7 +90,23 @@ Not used: Norma (norma-ammunition.com, one page per cartridge with minimum and m
 pressures are published, and with an assumed barrel the fitted Ba values did not follow the manufacturer's burn rate chart. Norma's
 burning rate chart (relative velocity and pressure of one reference load, many manufacturers) is a ranking, not a load: Ba estimated from
 it has about 10 % scatter (against the Vihtavuori records), too coarse for records. Hodgdon's, Alliant's and Accurate's websites refuse
-automated requests or are not available. Nobel Sport / Vectan's catalogue has loads without a test barrel.
+automated requests or are not available. Vectan's website lists only black powder charges.
+
+## Vectan (Nobel Sport catalogue)
+
+`vectan_extract.py catalogue.pdf -o vectan_samples.csv --ocr-cache ocr.json` reads the pistol, revolver and rifle tables of the Vectan
+reloading catalogue (pages 6-23). They are drawn as graphics without a text layer, so the pages are read with RapidOCR
+(`pip install rapidocr-onnxruntime pillow numpy`); the columns are found from the positions of the words, the cartridge names are
+matched to the records by a table of the OCR spellings, and rows with implausible values (start load above the maximum, ...) are
+dropped (`--list-dropped`). 1,146 samples of 11 powders. The catalogue gives **no test barrel and no pressures**: the barrel is
+assumed (600 mm rifle, 120 mm handgun) and only velocities are fitted.
+
+- Rifle powders Tubal 3000 / 5000 / 7000 / 8000 (`published_fit.py --base single-base --max-rms 6.6`): Ba 0.776 / 0.701 / 0.601 / 0.514
+  (as the catalogue orders them, 3000 the fastest), velocity error 6.5 / 6.0 / 4.9 / 4.4 %. A rifle barrel 100 mm shorter changes Ba by about
+  10 %. Physical model: Ba 1.44 / 1.27 / 1.10 / 0.93 with the median form function, velocity 5.5 / 3.7 / 2.7 / 2.9 %.
+- Handgun powders (Ba6 1/2 ... Ba10, A1, AS): velocity error 10-16 % and Ba that depends strongly on the assumed barrel (Ba9: 2.2 with
+  200 mm, 3.3 with 80 mm): not included, as the other pistol powders.
+- Not read: the shotshell tables (pages 27-44, with pressures; A24, AS, A1, A0, 206 SV, 206 V, D20, Prima SV, Prima V, GM3).
 
 ## Speed
 
