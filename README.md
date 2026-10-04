@@ -105,6 +105,8 @@ cmake --preset release && cmake --build --preset release --parallel
 ctest --preset release
 ```
 
+All other commands (tests, screenshots, data tools, powder fits, calibration, release): [CHEATSHEET.md](CHEATSHEET.md).
+
 ## 🗃️ Data
 
 The program shows one database made of three parts:
