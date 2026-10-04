@@ -35,7 +35,21 @@ struct Choice
 {
     QString code;   // what is stored in the file
     QString label;  // what the user sees
+    QString tip;    // explanation shown as a tooltip of the entry (empty: none)
 };
+
+// What a part or group does to the model: its factors, and for a group its members.
+QString partTip(const grt::ShotPartInfo &info)
+{
+    const QString factors =
+        PropertyPanel::tr("Powder space ×%1, gas energy ×%2").arg(info.capacityScale, 0, 'f', 2).arg(info.energyScale, 0, 'f', 2);
+    if (info.group)
+        return PropertyPanel::tr("A group of %n part(s) that give a similar pressure:", nullptr, static_cast<int>(info.members.size())) +
+               u"\n  "_s + info.members.join(u"\n  "_s) + u"\n\n"_s + factors + u". "_s +
+               PropertyPanel::tr("A larger powder space gives a lower pressure.");
+    return factors +
+           PropertyPanel::tr(" (fitted to %n published load(s)). A larger powder space gives a lower pressure.", nullptr, info.loads);
+}
 
 // The choices of a part of a shotshell: "not specified" (the model's average) and the parts of the data file; wads of other gauges than 12
 // show their gauge.
@@ -47,7 +61,8 @@ const QList<Choice> &shotPartChoices(grt::ShotPart part)
         for (const grt::ShotPart p : grt::kShotParts)
         {
             auto &list = all[static_cast<std::size_t>(p)];
-            list.push_back({QString(), PropertyPanel::tr("not specified (average)")});
+            list.push_back({QString(), PropertyPanel::tr("not specified (average)"),
+                            PropertyPanel::tr("No correction: the average of all published loads.")});
             // general entries first: groups of parts that give a similar pressure (for those who do not know the exact part)
             const QString kind = p == grt::ShotPart::Shell ? PropertyPanel::tr("shells")
                                  : p == grt::ShotPart::Wad ? PropertyPanel::tr("wads")
@@ -57,11 +72,13 @@ const QList<Choice> &shotPartChoices(grt::ShotPart part)
                 const QString text = info.rank == u"low"    ? PropertyPanel::tr("Low-pressure %1 (e.g. %2)")
                                      : info.rank == u"high" ? PropertyPanel::tr("High-pressure %1 (e.g. %2)")
                                                             : PropertyPanel::tr("Medium-pressure %1 (e.g. %2)");
-                list.push_back({info.id, text.arg(kind, info.examples)});
+                list.push_back({info.id, text.arg(kind, info.examples), partTip(info)});
             }
             for (const grt::ShotPartInfo &info : grt::shotParts(p))
-                list.push_back({info.id, info.gauge && info.gauge != 12 ? PropertyPanel::tr("%1 (%2 gauge)").arg(info.name).arg(info.gauge)
-                                                                        : info.name});
+                list.push_back(
+                    {info.id,
+                     info.gauge && info.gauge != 12 ? PropertyPanel::tr("%1 (%2 gauge)").arg(info.name).arg(info.gauge) : info.name,
+                     partTip(info)});
         }
         return all;
     }();
@@ -98,6 +115,13 @@ bool hiddenField(const QString &key)
     return key == u"gjumpUnlock" || key == u"physRef";  // physRef: the burn values the physical ones belong to
 }
 
+QString tipFor(const QList<Choice> &list, const QString &code)
+{
+    for (const Choice &c : list)
+        if (c.code == code) return c.tip;
+    return {};
+}
+
 QString labelFor(const QList<Choice> &list, const QString &code)
 {
     for (const Choice &c : list)
@@ -121,7 +145,11 @@ public:
         if (const auto *list = choicesFor(key))
         {
             auto *box = new QComboBox(parent);
-            for (const Choice &c : *list) box->addItem(c.label, c.code);
+            for (const Choice &c : *list)
+            {
+                box->addItem(c.label, c.code);
+                if (!c.tip.isEmpty()) box->setItemData(box->count() - 1, c.tip, Qt::ToolTipRole);
+            }
             connect(box, &QComboBox::activated, box, [box] { box->clearFocus(); });
             return box;
         }
@@ -350,7 +378,8 @@ void PropertyPanel::refreshValues()
         if (const auto *choices = val->data(ChoiceRole).toBool() ? choicesFor(val->data(KeyRole).toString()) : nullptr)
         {
             val->setText(labelFor(*choices, base));
-            val->setToolTip(tr("stored value: %1").arg(base));
+            const QString tip = tipFor(*choices, base);
+            val->setToolTip(tip.isEmpty() ? tr("stored value: %1").arg(base) : tip);
             continue;
         }
         if (q == grt::units::Quantity::None)

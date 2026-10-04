@@ -412,8 +412,14 @@ void GuiTest::shotshellPartsAreChoices()
     panel.syncValues();
     const QString low = t->item(rowOf(t, u"shotwad"_s), 1)->text();
     QVERIFY2(low.startsWith(u"Low-pressure wads (e.g. "_s), qPrintable(low));
+    const QString groupTip = t->item(rowOf(t, u"shotwad"_s), 1)->toolTip();
+    QVERIFY2(groupTip.contains(u"A group of"_s) && groupTip.contains(u"Remington TGT12"_s) && groupTip.contains(u"Powder space ×"_s),
+             qPrintable(groupTip));
     caliber.set(u"shotwad", u"12-waa12sl"_s);
     panel.syncValues();
+    QVERIFY(t->item(rowOf(t, u"shotwad"_s), 1)
+                ->toolTip()
+                .contains(u"published load"_s));  // a specific part: its factors and the loads they come from
     caliber.set(u"shothull", QString());
     panel.syncValues();
     QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"not specified (average)"_s);

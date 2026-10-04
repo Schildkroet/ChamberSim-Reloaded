@@ -79,6 +79,7 @@ void loadLocked(Store &s)
                               .group = true,
                               .rank = o.value(u"rank"_s).toString(),
                               .examples = o.value(u"examples"_s).toString()};
+            for (const auto &m : o.value(u"members"_s).toArray()) info.members << m.toString();
             info.name = info.rank;
             if (!info.id.isEmpty()) s.groups[index(part)].push_back(std::move(info));
         }

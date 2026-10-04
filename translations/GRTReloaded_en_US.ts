@@ -1665,8 +1665,39 @@ pressure Δ</source>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+50"/>
+        <location filename="../src/app/propertypanel.cpp" line="+45"/>
+        <source>Powder space ×%1, gas energy ×%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>A group of %n part(s) that give a similar pressure:</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>A larger powder space gives a lower pressure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source> (fitted to %n published load(s)). A larger powder space gives a lower pressure.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>not specified (average)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>No correction: the average of all published loads.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1700,7 +1731,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>%1 (%2 gauge)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1740,12 +1771,12 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+37"/>
         <source>type %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+116"/>
         <source>Property</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1765,7 +1796,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+46"/>
         <location line="+13"/>
         <source>stored value: %1</source>
         <translation type="unfinished"></translation>

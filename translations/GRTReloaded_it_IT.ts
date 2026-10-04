@@ -1684,9 +1684,40 @@ pressione Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+50"/>
+        <location filename="../src/app/propertypanel.cpp" line="+45"/>
+        <source>Powder space ×%1, gas energy ×%2</source>
+        <translation>Volume della polvere ×%1, energia dei gas ×%2</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>A group of %n part(s) that give a similar pressure:</source>
+        <translation>
+            <numerusform>Un gruppo di %n elemento che danno una pressione simile:</numerusform>
+            <numerusform>Un gruppo di %n elementi che danno una pressione simile:</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>A larger powder space gives a lower pressure.</source>
+        <translation>Un volume della polvere maggiore dà una pressione più bassa.</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source> (fitted to %n published load(s)). A larger powder space gives a lower pressure.</source>
+        <translation>
+            <numerusform> (adattato a %n carica pubblicata). Un volume della polvere maggiore dà una pressione più bassa.</numerusform>
+            <numerusform> (adattato a %n cariche pubblicate). Un volume della polvere maggiore dà una pressione più bassa.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>not specified (average)</source>
         <translation>non specificato (media)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>No correction: the average of all published loads.</source>
+        <translation>Nessuna correzione: la media di tutte le cariche pubblicate.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1719,7 +1750,7 @@ pressione Δ</translation>
         <translation>%1 a pressione media (es. %2)</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>%1 (%2 gauge)</source>
         <translation>%1 (calibro %2)</translation>
     </message>
@@ -1759,12 +1790,12 @@ pressione Δ</translation>
         <translation>sì</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+37"/>
         <source>type %1</source>
         <translation>tipo %1</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+116"/>
         <source>Property</source>
         <translation>Proprietà</translation>
     </message>
@@ -1784,7 +1815,7 @@ pressione Δ</translation>
         <translation>Fai clic per scegliere un&apos;altra unità per questo campo</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+46"/>
         <location line="+13"/>
         <source>stored value: %1</source>
         <translation>valore salvato: %1</translation>

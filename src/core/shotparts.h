@@ -3,6 +3,7 @@
 #include "loadfile.h"
 
 #include <QString>
+#include <QStringList>
 
 #include <array>
 #include <vector>
@@ -32,8 +33,9 @@ struct ShotPartInfo
     int loads{};                // published loads the factors were fitted to
     // a group of similar parts (low, medium or high pressure) instead of one part: its rank and some of its members
     bool group{false};
-    QString rank;      // "low", "medium" or "high" (the pressure the parts give)
-    QString examples;  // the members with most loads, e.g. "Federal Gold Medal (plastic), Federal Gold Medal (paper)"
+    QString rank;         // "low", "medium" or "high" (the pressure the parts give)
+    QString examples;     // the members with most loads, e.g. "Federal Gold Medal (plastic), Federal Gold Medal (paper)"
+    QStringList members;  // all members (names), most loads first
 };
 
 // The caliber entry that holds the part of a load: "shothull", "shotwad" or "shotprimer".

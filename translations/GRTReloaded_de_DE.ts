@@ -1684,9 +1684,40 @@ Druck Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+50"/>
+        <location filename="../src/app/propertypanel.cpp" line="+45"/>
+        <source>Powder space ×%1, gas energy ×%2</source>
+        <translation>Pulverraum ×%1, Gasenergie ×%2</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>A group of %n part(s) that give a similar pressure:</source>
+        <translation>
+            <numerusform>Eine Gruppe von %n Teil, die einen ähnlichen Druck ergeben:</numerusform>
+            <numerusform>Eine Gruppe von %n Teilen, die einen ähnlichen Druck ergeben:</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>A larger powder space gives a lower pressure.</source>
+        <translation>Ein größerer Pulverraum ergibt einen niedrigeren Druck.</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source> (fitted to %n published load(s)). A larger powder space gives a lower pressure.</source>
+        <translation>
+            <numerusform> (an %n veröffentlichte Ladung angepasst). Ein größerer Pulverraum ergibt einen niedrigeren Druck.</numerusform>
+            <numerusform> (an %n veröffentlichte Ladungen angepasst). Ein größerer Pulverraum ergibt einen niedrigeren Druck.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>not specified (average)</source>
         <translation>nicht angegeben (Durchschnitt)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>No correction: the average of all published loads.</source>
+        <translation>Keine Korrektur: der Durchschnitt aller veröffentlichten Ladungen.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1719,7 +1750,7 @@ Druck Δ</translation>
         <translation>Mitteldruck-%1 (z. B. %2)</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>%1 (%2 gauge)</source>
         <translation>%1 (Kaliber %2)</translation>
     </message>
@@ -1759,12 +1790,12 @@ Druck Δ</translation>
         <translation>ja</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+37"/>
         <source>type %1</source>
         <translation>Typ %1</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+116"/>
         <source>Property</source>
         <translation>Eigenschaft</translation>
     </message>
@@ -1784,7 +1815,7 @@ Druck Δ</translation>
         <translation>Klicken, um eine andere Einheit für dieses Feld zu wählen</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+46"/>
         <location line="+13"/>
         <source>stored value: %1</source>
         <translation>gespeicherter Wert: %1</translation>
