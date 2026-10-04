@@ -32,6 +32,8 @@ ap.add_argument("--fixed-ba", action="store_true", help="keep the burn rates of 
 ap.add_argument("--out", default="calibrated_published.json")
 ap.add_argument("--profile", default="original", choices=["original", "published", "physical"])
 ap.add_argument("--start", default="", help="JSON file ({\"calibration\": {name: value}}) with starting constants")
+ap.add_argument("--phys-values", action="store_true", help="physical profile: fit the Ba of the physical burn values (data/physical/propellants.json, "
+                "form function kept) instead of the record's Ba; the loads keep the powders' physical values and the fit is continuous in Ba")
 ap.add_argument("--evaluate-only", action="store_true", help="only report the starting constants")
 args = ap.parse_args()
 POOL = ThreadPoolExecutor(os.cpu_count())
@@ -60,6 +62,17 @@ for name, rs in sets.items():
         w = csv.DictWriter(f, list(rows[0].keys())); w.writeheader(); w.writerows(rs)
 print({k: len(v) for k, v in sets.items()}, "test cartridges:", len(test_cartridges), "of", len(cartridges), flush=True)
 
+PHYS = {}
+if args.phys_values:
+    for e in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "physical", "propellants.json")))["propellants"]:
+        PHYS[(e["mname"] + " " + e["pname"]).lower()] = e
+
+def ba_args(ba):
+    """The grt_eval options for the burn rates `ba` (key: lower-case "Maker Name")."""
+    if not args.phys_values:
+        return [a for k, v in ba.items() for a in ("--ba", f"{k}={v:.8g}")]
+    return [a for k, v in ba.items() for a in ("--phys", f"{k}={v:.8g},{PHYS[k]['a0']},{PHYS[k]['z1']},{PHYS[k]['z2']}")]
+
 def simulate(name, cal, ba, chunks=16):
     """(velocity, pressure) arrays of a set (nan where it cannot be simulated)."""
     rs = sets[name]; n = len(rs)
@@ -69,7 +82,7 @@ def simulate(name, cal, ba, chunks=16):
         path = os.path.join(tmp, f"{name}_{os.getpid()}_{idx[0]}.csv")
         with open(path, "w", newline="") as f:
             w = csv.DictWriter(f, list(rows[0].keys())); w.writeheader(); w.writerows([rs[i] for i in idx])
-        cmd = [args.eval_exe, path, "--profile", args.profile] + [a for k, v in cal.items() for a in ("--set", f"{k}={v:.10g}")] + [a for k, v in ba.items() for a in ("--ba", f"{k}={v:.8g}")]
+        cmd = [args.eval_exe, path, "--profile", args.profile] + [a for k, v in cal.items() for a in ("--set", f"{k}={v:.10g}")] + ba_args(ba)
         out = subprocess.run(cmd, capture_output=True, text=True).stdout
         os.remove(path)
         return [(idx[int(l.split(",")[0])], float(l.split(",")[1]), float(l.split(",")[2])) for l in out.splitlines() if l]
@@ -104,6 +117,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 import recordfiles  # noqa: E402  data/propellants/<manufacturer>.json
 for _, r in recordfiles.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "propellants")):
     records[(r["mname"] + " " + r["pname"]).lower()] = r["Ba"]
+if args.phys_values:
+    records = {k: PHYS[k]["Ba"] for k in records if k in PHYS}  # the physical model's own burn rates are the starting values
 ba0 = {p.lower(): records[p.lower()] for p in train_p}
 
 def fit_ba(setname, powders, cal, start):
