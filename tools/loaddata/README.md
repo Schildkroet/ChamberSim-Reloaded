@@ -124,6 +124,27 @@ shotgun powders (AP, AS, Trail Boss, AR2206: 7-13 % velocity error or too few ca
 `adi_extract.py --weapon pistol` reads the pistol and revolver data of the same site (`/data-pistol/`, 83 cartridges, 2,340 samples of 52 cartridges, 918 with pressure).
 On these loads the powders fitted on rifle data (physical model) come out 0.8 % low in velocity (7.6 % rms) and 13 % low in pressure (18 % rms).
 
+## Sources saved locally (`tools/loaddata/sources/`, not in the repository)
+
+The manufacturers' manuals and pages are kept for later refits in `tools/loaddata/sources/` (git-ignored: the files are the
+manufacturers' publications, not ours to redistribute). `pdf/` holds the documents, `samples/` the CSV files made from them with the
+extractors above (re-made 2026-10-04, ready for `fit_physical_powders.py`, `calibrate_published.py` and `analysis/scan_physical.py`),
+`adi_*_pages/` and `vv_cache/` the downloaded web pages and the Vihtavuori database.
+
+| Source | File | Where it came from |
+|---|---|---|
+| Hodgdon Reloading Manual 2024 | `pdf/Hodgdon_Reloading_Manual_2024.pdf` | hodgdonpowderco.com/wp-content/uploads/2025/10/Hodgdon_Reloading_Manual_2024.pdf |
+| Western Powders Handloading Guide 8.0 | `pdf/WesternPowdersHandloadingGuide8.0_WEB-1.pdf` | provided by the user |
+| Lovex rifle data (Explosia, reloading_Lovex_EN_37) | `pdf/Lovex_reloading_EN_37_rifle.pdf` | www.reloading.co.uk/trade/lovex.pdf (explosia.cz refuses automated requests) |
+| Reload Swiss loading data | `pdf/rs_loading_data_page.html` | www.reload-swiss.com/en/loading-data/rs-loading-data |
+| Vihtavuori reloading database | `vv_cache/vv_data.json` | vihtavuori.com/reloading-data/reloading-data-tool/ |
+| ADI Powders rifle and pistol data | `adi_rifle_pages/`, `adi_pistol_pages/` | adiworldclass.com.au/data-rifle/, /data-pistol/ |
+| Vectan catalogue (Nobel Sport) | `pdf/Vectan-Reloading-catalogue_vUS_compressed.pdf` | shootersworldpowder.com/wp-content/uploads/2025/05/Vectan-Reloading-catalogue_vUS_compressed.pdf (user) |
+| Hodgdon Reloading Data Center, 12 gauge 2 3/4" | `pdf/Hodgdon_RLDC_12ga_2.75_export.pdf` | export of the Reloading Data Center (user) |
+
+Sample counts (2026-10-04): Hodgdon 14,664 (122 powders, 10,563 with pressure), Western 5,526 (29, 2,770), Lovex 1,056 (11, 528),
+Reload Swiss 2,002 (14, 2,002), Vihtavuori 16 powders (no pressures), ADI 9,636 (rifle 7,296 + pistol 2,340).
+
 ## Speed
 
 The fit runs thousands of simulations. The solver uses a secant method (Illinois) instead of 70 bisections per step

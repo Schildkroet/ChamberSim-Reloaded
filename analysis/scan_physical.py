@@ -30,9 +30,15 @@ case = {}
 for f in glob.glob(os.path.join(ROOT, "data", "calibers", "*.json")):
     r = json.load(open(f)); case[r["cipname"]] = r
 
+by_name = {}
+for k, e in PHYS.items(): by_name.setdefault(e["pname"].lower(), []).append(k)
 rows, seen = [], set()
 for f in args.samples:
     for r in csv.DictReader(open(f)):
+        r["_src"] = os.path.basename(f).split("_")[0]
+        if r["powder"].lower() not in PHYS and len(by_name.get(r["powder"].lower(), [])) == 1:  # "N150" of the Vihtavuori files
+            k = by_name[r["powder"].lower()][0]; r["powder"] = PHYS[k]["mname"] + " " + PHYS[k]["pname"]
+        r.setdefault("pressure_bar", "")  # files without pressures (Vihtavuori)
         if r["pressure_bar"] and not 500 <= float(r["pressure_bar"]) <= 9000: r["pressure_bar"] = ""
         key = (r["powder"].upper(), r["caliber"], r["bullet_gr"], r["kind"], r["charge_g"], r["velocity_ms"], r["col_mm"])
         if key not in seen: seen.add(key); rows.append(r)
@@ -43,14 +49,14 @@ for r in rows:
 want = [p.strip() for p in args.powders.split(",") if p.strip()]
 powders = [p for p in sorted(by) if len(by[p]) >= args.min_samples and (not want or p in want)]
 tmp = tempfile.mkdtemp()
-header = list(rows[0].keys())
+header = [h for h in rows[0].keys() if h != "_src"]
 
 class Powder:
     def __init__(self, name):
         self.name, self.rows = name, by[name]
         self.path = os.path.join(tmp, name.replace(" ", "_") + ".csv")
         with open(self.path, "w", newline="") as f:
-            w = csv.DictWriter(f, header); w.writeheader(); w.writerows(self.rows)
+            w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(self.rows)
         self.mv = np.array([float(r["velocity_ms"]) for r in self.rows])
         self.mp = np.array([float(r["pressure_bar"]) if r["pressure_bar"] else np.nan for r in self.rows])
         self.test = np.array([r["caliber"] in held for r in self.rows])
@@ -85,7 +91,7 @@ class Powder:
         return self
 
     def fit(self):
-        if args.fit_form: return self.fit_form()
+        if args.fit_form and np.sum(~np.isnan(self.mp) & ~self.test) >= 20: return self.fit_form()  # with pressures: Ba and the form function
         def cost(lb):
             ev, ep = self.resid(np.exp(lb)); m = ~self.test & ~np.isnan(ev)
             c = np.concatenate([ev[m], args.pressure_weight * ep[m & ~np.isnan(ep)]])
@@ -111,11 +117,15 @@ def stat(sel):
 tr, te = stat(lambda f: ~f.test), stat(lambda f: f.test)
 allev = np.concatenate([f.ev for f in fits]); allep = np.concatenate([f.ep for f in fits]); X = np.vstack([covariates(f) for f in fits])
 def slope(y, j):
-    m = ~np.isnan(y) & ~np.isnan(X[:, j]); return np.polyfit(X[m, j], y[m], 1)[0]
+    m = ~np.isnan(y) & ~np.isnan(X[:, j]); return np.polyfit(X[m, j], y[m], 1)[0] if m.sum() > 3 else float("nan")
 kind = np.array([r["kind"] for f in fits for r in f.rows])
 if not args.quiet:
     for f in fits: print(f"  {f.name:22} Ba {f.ba:.4f} (file {f.e['Ba']:.4f})  v {rms(f.ev[~f.test]):.2f}/{rms(f.ev[f.test]):.2f} %  p {rms(f.ep[~f.test]):.2f}/{rms(f.ep[f.test]):.2f} %")
 print(f"train      : velocity {tr[0]:.2f} %  pressure {tr[1]:.2f} %  (bias {tr[2]:+.1f} %)")
 print(f"held-out   : velocity {te[0]:.2f} %  pressure {te[1]:.2f} %  (bias {te[2]:+.1f} %)")
+src = np.array([r["_src"] for f in fits for r in f.rows]); tst = np.concatenate([f.test for f in fits])
+for name in sorted(set(src)):
+    m = (src == name) & tst
+    print(f"  {name:8} held-out: velocity {rms(allev[m]):.2f} %  pressure {rms(allep[m]):.2f} %  (bias {100*np.nanmean(allep[m]) if np.any(~np.isnan(allep[m])) else float('nan'):+.1f} %)  n={int(m.sum())}")
 print(f"trends (slope of ln sim/published): loading density  v {slope(allev,0):+.3f} p {slope(allep,0):+.3f} | bullet mass  v {slope(allev,1):+.3f} p {slope(allep,1):+.3f}")
 print(f"start/max velocity bias: {100*np.nanmean(allev[kind=='start']):+.2f} / {100*np.nanmean(allev[kind=='max']):+.2f} %  pressure {100*np.nanmean(allep[kind=='start']):+.2f} / {100*np.nanmean(allep[kind=='max']):+.2f} %")
