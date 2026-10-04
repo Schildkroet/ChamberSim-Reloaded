@@ -3,7 +3,7 @@
     "mname": "Hodgdon",
     "pname": "700-X",
     "lotid": "shotshell",
-    "Ba": 10.165,
+    "Ba": 11.204,
     "Qex": 4000.0,
     "k": 1.23,
     "a0": 0.0,
@@ -15,9 +15,9 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "cdate": "2026-10-03",
+    "cdate": "2026-10-05",
     "origin": "Hodgdon Reloading Manual 2024, shotshell data (12 gauge 2 3/4\", 1 and 1 1/8 oz lead shot; loads, velocities, PSI pressures; tools/loaddata)",
-    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 473 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 4.2 % rms, pressure error 13 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
+    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 379 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 3.0 % rms, pressure error 17 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
   },
   {
     "mname": "Hodgdon",
@@ -83,7 +83,7 @@
     "mname": "Hodgdon",
     "pname": "Clays",
     "lotid": "shotshell",
-    "Ba": 10.45,
+    "Ba": 11.063,
     "Qex": 4000.0,
     "k": 1.23,
     "a0": 0.0,
@@ -95,9 +95,9 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "cdate": "2026-10-03",
+    "cdate": "2026-10-05",
     "origin": "Hodgdon Reloading Manual 2024, shotshell data (12 gauge 2 3/4\", 1 and 1 1/8 oz lead shot; loads, velocities, PSI pressures; tools/loaddata)",
-    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 658 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 3.0 % rms, pressure error 15 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
+    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 472 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 2.7 % rms, pressure error 17 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
   },
   {
     "mname": "Hodgdon",
@@ -323,7 +323,7 @@
     "mname": "Hodgdon",
     "pname": "International",
     "lotid": "shotshell",
-    "Ba": 7.957,
+    "Ba": 8.498,
     "Qex": 4000.0,
     "k": 1.23,
     "a0": 0.0,
@@ -335,15 +335,15 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "cdate": "2026-10-03",
+    "cdate": "2026-10-05",
     "origin": "Hodgdon Reloading Manual 2024, shotshell data (12 gauge 2 3/4\", 1 and 1 1/8 oz lead shot; loads, velocities, PSI pressures; tools/loaddata)",
-    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 710 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 2.4 % rms, pressure error 15 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
+    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 502 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 3.4 % rms, pressure error 19 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
   },
   {
     "mname": "Hodgdon",
     "pname": "Longshot",
     "lotid": "shotshell",
-    "Ba": 3.273,
+    "Ba": 3.517,
     "Qex": 4000.0,
     "k": 1.23,
     "a0": 0.0,
@@ -355,9 +355,9 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "cdate": "2026-10-03",
+    "cdate": "2026-10-05",
     "origin": "Hodgdon Reloading Manual 2024, shotshell data (12 gauge 2 3/4\", 1 and 1 1/8 oz lead shot; loads, velocities, PSI pressures; tools/loaddata)",
-    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 183 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 3.0 % rms, pressure error 16 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
+    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 167 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 1.9 % rms, pressure error 19 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
   },
   {
     "mname": "Hodgdon",
@@ -423,7 +423,7 @@
     "mname": "Hodgdon",
     "pname": "Titewad",
     "lotid": "shotshell",
-    "Ba": 12.061,
+    "Ba": 12.937,
     "Qex": 4000.0,
     "k": 1.23,
     "a0": 0.0,
@@ -435,15 +435,15 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "cdate": "2026-10-03",
+    "cdate": "2026-10-05",
     "origin": "Hodgdon Reloading Manual 2024, shotshell data (12 gauge 2 3/4\", 1 and 1 1/8 oz lead shot; loads, velocities, PSI pressures; tools/loaddata)",
-    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 573 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 3.6 % rms, pressure error 13 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
+    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 415 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 2.5 % rms, pressure error 16 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
   },
   {
     "mname": "Hodgdon",
     "pname": "Universal",
     "lotid": "shotshell",
-    "Ba": 5.824,
+    "Ba": 6.39,
     "Qex": 4000.0,
     "k": 1.23,
     "a0": 0.0,
@@ -455,9 +455,9 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "cdate": "2026-10-03",
+    "cdate": "2026-10-05",
     "origin": "Hodgdon Reloading Manual 2024, shotshell data (12 gauge 2 3/4\", 1 and 1 1/8 oz lead shot; loads, velocities, PSI pressures; tools/loaddata)",
-    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 42 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 4.1 % rms, pressure error 15 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
+    "descr": "FOR SHOTSHELLS ONLY (caliber with Shotshell = yes). The burn rate Ba is fitted to 31 published shotgun loads with the shotshell model of the solver (shot column and 2.5 g wad as the projectile, 28 inch barrel): velocity error 6.7 % rms, pressure error 21 % rms (pressure varies with wad and primer, which the model does not know). With a rifle or handgun cartridge the value is wrong: use another record of this powder. Not published and therefore only typical values: Qex, k, material and bulk density, form function. Check every load against the manufacturer's current load data."
   },
   {
     "mname": "Hodgdon",

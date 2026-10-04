@@ -39,7 +39,7 @@ def fun(x):
     print("eval %3d  rms %.5f" % (calls, np.sqrt(np.mean(r**2))), flush=True)
     return r
 
-pool = ThreadPoolExecutor(os.cpu_count())
+pool = ThreadPoolExecutor(int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1))))
 def jac(x):
     f0 = run(x); h = 2e-3 * scale
     cols = pool.map(lambda i: (run(x + h[i] * np.eye(len(x))[i]) - f0) / h[i], range(len(x)))

@@ -36,7 +36,7 @@ ap.add_argument("--phys-values", action="store_true", help="physical profile: fi
                 "form function kept) instead of the record's Ba; the loads keep the powders' physical values and the fit is continuous in Ba")
 ap.add_argument("--evaluate-only", action="store_true", help="only report the starting constants")
 args = ap.parse_args()
-POOL = ThreadPoolExecutor(os.cpu_count())
+POOL = ThreadPoolExecutor(int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1))))
 
 # ---- samples: merge, drop identical ones and misread pressures, split by cartridge
 rows, seen = [], set()
@@ -73,7 +73,7 @@ def ba_args(ba):
         return [a for k, v in ba.items() for a in ("--ba", f"{k}={v:.8g}")]
     return [a for k, v in ba.items() for a in ("--phys", f"{k}={v:.8g},{PHYS[k]['a0']},{PHYS[k]['z1']},{PHYS[k]['z2']}")]
 
-def simulate(name, cal, ba, chunks=16):
+def simulate(name, cal, ba, chunks=int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1)))):
     """(velocity, pressure) arrays of a set (nan where it cannot be simulated)."""
     rs = sets[name]; n = len(rs)
     parts = [list(range(i, n, chunks)) for i in range(chunks)]

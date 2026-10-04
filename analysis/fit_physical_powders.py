@@ -116,7 +116,7 @@ with_p = [p for p in candidates if sum(1 for r in by_powder[p] if r["pressure_ba
 without_p = [p for p in candidates if p not in with_p]
 print(f"{len(candidates)} powders ({len(with_p)} with pressures), held-out cartridges: {len(held_out)}", flush=True)
 results = {}
-with ThreadPoolExecutor(os.cpu_count()) as pool:
+with ThreadPoolExecutor(int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1)))) as pool:
     for powder, burn, tr, te in pool.map(lambda p: run(p, True), with_p):
         results[powder] = (burn, tr, te); print(powder, [round(b, 4) for b in burn], tr, te, flush=True)
     form = tuple(float(np.median([results[p][0][i] for p in with_p])) for i in (1, 2, 3)) if with_p else tuple(map(float, args.form.split(",")))

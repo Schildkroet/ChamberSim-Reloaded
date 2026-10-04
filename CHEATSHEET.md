@@ -102,6 +102,8 @@ python3 tools/loaddata/vv_to_json.py vv_fits.csv --work vv_work
 
 ## 🧮 Solver calibration
 
+The analysis scripts use at most 14 cores (`GRT_JOBS=n` changes it), so the rest of the system keeps some.
+
 ```bash
 # against the original program's reference runs (tools/GRTRef/jobs_all + reference/results, local only)
 build/release/grt_compare [--include RE] [--exclude RE] [--set name=value] [--list-params]

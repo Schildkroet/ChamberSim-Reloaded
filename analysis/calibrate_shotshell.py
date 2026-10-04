@@ -24,17 +24,17 @@ powders = sorted({r["powder"] for r in rows})
 held = [r for r in rows if r["primer"].replace(" ", "") == HELD_OUT_PRIMER.replace(" ", "")]
 train = [r for r in rows if r not in held]
 tmp = tempfile.mkdtemp()
-POOL = ThreadPoolExecutor(os.cpu_count())
+POOL = ThreadPoolExecutor(int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1))))
 K = 1.2 * 0.47 * 3.0 / (8 * 11340.0 * 0.0012)  # air drag of a 2.4 mm lead pellet per metre
 CORR = math.exp(K * 0.914)
 
-def simulate(rs, cal, ba, chunks=16):
+def simulate(rs, cal, ba, chunks=int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1)))):
     n = len(rs)
     def one(idx):
         if not idx: return []
         path = os.path.join(tmp, f"c{idx[0]}_{os.getpid()}.csv")
         with open(path, "w", newline="") as f:
-            w = csv.DictWriter(f, fields); w.writeheader(); w.writerows([rs[i] for i in idx])
+            w = csv.DictWriter(f, fields, extrasaction="ignore"); w.writeheader(); w.writerows([rs[i] for i in idx])
         cmd = [EXE, path, "--data", DATA] + [a for k, v in cal.items() for a in ("--set", f"{k}={v:.8g}")] + [a for k, v in ba.items() for a in ("--ba", f"{k.lower()}={v:.8g}")]
         out = subprocess.run(cmd, capture_output=True, text=True).stdout
         os.remove(path)

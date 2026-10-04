@@ -145,6 +145,17 @@ extractors above (re-made 2026-10-04, ready for `fit_physical_powders.py`, `cali
 Sample counts (2026-10-04): Hodgdon 14,664 (122 powders, 10,563 with pressure), Western 5,526 (29, 2,770), Lovex 1,056 (11, 528),
 Reload Swiss 2,002 (14, 2,002), Vihtavuori 16 powders (no pressures), ADI 9,636 (rifle 7,296 + pistol 2,340).
 
+## Shotshells (re-made 2026-10-05)
+
+`hodgdon_shot_extract.py` (Hodgdon manual, 2,616 loads), `alliant_shot_extract.py` (Alliant Reloader's Guide 2022, 1,993 loads, downloaded from
+alliantpowder.com/resources/catalog/AP398_2022AlliantPowderReloadersGuide_NoCrops.pdf) and `vectan_shot_extract.py` (Vectan catalogue, 450 loads, 12 /
+16 / 20 gauge, nine powders) give the shot samples (`sources/samples/*_shot_samples.csv`). `analysis/calibrate_shotshell.py` fits the shot constants and
+the burn rate of every shotgun powder to them. The refit with the shot constants free gave no better result (velocity 3.1 % instead of 2.9 %,
+pressure 15.0 % instead of 15.6 %), so the constants stayed and only the burn rates were refitted (Hodgdon's pressure bias -7.9 % -> -3.0 %).
+The remaining error is that of the tables: the pressure depends on the wad (-27 % DRV-12 ... +11 % CB 6118 against the model's average) and the primer;
+with a correction per wad and primer it would still be 12 %. A capacity factor per gauge would remove the 20 gauge bias (-12 %) but the 16 gauge (+13 %)
+and 3.5" (-15 %) loads, which are few, point the other way: no term was added.
+
 ## Speed
 
 The fit runs thousands of simulations. The solver uses a secant method (Illinois) instead of 70 bisections per step

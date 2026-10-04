@@ -61,7 +61,7 @@ about 42,000 loads of Hodgdon, Western, Lovex, Reload Swiss, Vihtavuori, ADI and
 | Lovex | 104 | 2.80 % → 2.41 % | 12.3 % → 12.3 % |
 | Reload Swiss | 152 | 5.77 % → 4.63 % | 15.5 % → 16.9 % |
 | Vihtavuori (velocities only) | 1,372 | 3.16 % → 2.96 % | - |
-| Shotgun loads (Hodgdon, Alliant; 5,198 loads, original's constants) | | 3.1 % | 13.9 % |
+| Shotgun loads (Hodgdon, Alliant, Vectan; 4,883 loads, original's constants) | | 2.9 % | 15.6 % |
 
 The error no longer depends on the charge and the bullet: the velocity of start loads was 2.3 % too high and of maximum loads 1.7 % too low,
 now +1.3 % and -0.9 %; the pressure bias of start and maximum loads fell from +4.0 / -2.3 % to +1.0 / -0.6 %; the trend of the velocity
@@ -133,9 +133,9 @@ Universal and W244); the last 14 with measured pressure. The published velocitie
 muzzle and converted to the muzzle with the air drag of the pellets. Result: muzzle velocity typically 5-7 % low (up
 to 15 %); pressure right on average, but **up to 30 % too high or too low depending on the powder** (the powders'
 models were made for rifles and handguns; Universal and RS12 come out high, W244 and Nitro 100 low). With the project's records of shotgun powders
-(lot "shotshell", their burn rates fitted to 3,448 loads of the Hodgdon Reloading Manual: 12 gauge 2 3/4", 1 and 1 1/8 oz) the error against these loads is
-3.1 % rms in velocity and 13.9 % in pressure over 5,198 loads of Hodgdon and Alliant (the pressure of one charge varies with wad and primer by about that much, which
-the model does not know). Almost all of these loads are 12 gauge 2 3/4"; the few 20 gauge loads come out 16 % low in pressure, the 16 gauge ones 26 % high. For comparison,
+(lot "shotshell", their burn rates fitted to 5,059 loads of the Hodgdon Reloading Manual, the Alliant Reloader's Guide and the Vectan catalogue: 12, 16 and 20 gauge, 21 - 42 g of lead shot) the error against these loads is
+2.9 % rms in velocity and 15.6 % in pressure over 4,883 loads (Hodgdon 2.9 % / 17.6 %, Alliant 2.8 % / 13.5 %, Vectan 2.9 % / 11.8 %). Even a model that knew the wad and the primer of every load
+would still be 12 % off in pressure: it varies with them, which the model does not know. Almost all of these loads are 12 gauge 2 3/4"; the few 20 gauge loads come out 16 % low in pressure, the 16 gauge ones 26 % high. For comparison,
 the original program with the same 50 Vihtavuori loads: velocity +3 % on average (typically 4.8 % off) - closer - but
 pressures of the maximum loads up to 1800 bar, where the guide's loads are pressure-tested within the CIP limit of
 1050 bar (its shotshell setting changes little). Always check a shotgun load against the powder maker's data. Enter a shotgun load like this, the fit depends on it:
@@ -196,12 +196,12 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   Hornady CX/GMX, lead-free ...) 350 bar. Checked with the physical model against published pressures: copper loads median peak
   pressure error 7.6 -> 6.3 % (no longer 5 % too low), lead loads bias +4 -> -2 %; the original's 150 bar for jacketed handgun bullets
   made those results worse and is not used.
-- **Propellants (125)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), ADI AR2205-AR2225 and Bench Mark (13: ADI Powders' rifle data with test barrel, velocities and pressures), Vectan Tubal 3000-8000 (4: from the Nobel Sport catalogue, which publishes no test barrel and no pressures, so a 600 mm barrel is assumed; its handgun powders fit too poorly and are not included), and
+- **Propellants (134)**: Vihtavuori N130-N170 and N530-N570 (16), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), ADI AR2205-AR2225 and Bench Mark (13: ADI Powders' rifle data with test barrel, velocities and pressures), Vectan Tubal 3000-8000 (4: from the Nobel Sport catalogue, which publishes no test barrel and no pressures, so a 600 mm barrel is assumed; its handgun powders fit too poorly and are not included), and
   55 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals; Accurate 4100, Enforcer, H110 and W296 fit
-  less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so), and 20 shotgun powders
-  (Hodgdon Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Winchester Super Handicap and WST, Ramshot Competition; Alliant Red Dot,
-  Green Dot, Blue Dot, Unique, Herco, Promo, American Select, Clay Dot, Pro Reach and 20/28; lot "shotshell", for shotshell loads only: 3,448 loads of the Hodgdon
-  manual's 12 gauge tables and 1,993 of Alliant's Reloader's Guide).
+  less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so), and 29 shotgun powders
+  (Vectan A24, AS, A1, A0, 206V, GM3, D20, Prima SV and Prima V; Hodgdon Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Winchester Super Handicap and WST, Ramshot Competition; Alliant Red Dot,
+  Green Dot, Blue Dot, Unique, Herco, Promo, American Select, Clay Dot, Pro Reach and 20/28; lot "shotshell", for shotshell loads only: 2,616 loads of the Hodgdon
+  manual's 12 gauge tables, 1,993 of Alliant's Reloader's Guide and 450 of the Vectan catalogue, burn rates refitted 2026-10-05).
   Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate
   Ba was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
   (Explosia's Reloading Guide 2019), Reload Swiss (online loading data of Nitrochemie), the Hodgdon Reloading Manual 2024 and the
