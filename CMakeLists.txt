@@ -128,6 +128,10 @@ add_library(grtui STATIC
     src/app/chronographimportdialog.cpp
     src/app/recorddialog.h
     src/app/recorddialog.cpp
+    src/app/recordfields.h
+    src/app/recordfields.cpp
+    src/app/recordviewdialog.h
+    src/app/recordviewdialog.cpp
     src/app/powderfitdialog.h
     src/app/powderfitdialog.cpp
     src/app/solverprefs.h

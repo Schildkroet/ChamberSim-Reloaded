@@ -662,7 +662,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-278"/>
+        <location filename="../src/app/mainwindow.cpp" line="-277"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -677,7 +677,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
         <source>New…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -712,21 +712,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Add a changed copy of the selected record (double click on a record of the original database)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <location line="+302"/>
-        <location line="+165"/>
+        <location line="+178"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-468"/>
+        <location line="-481"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -794,12 +789,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <location line="+431"/>
+        <location line="+444"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-357"/>
+        <location line="-370"/>
         <source>&amp;Tools</source>
         <translation type="unfinished"></translation>
     </message>
@@ -858,7 +853,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+42"/>
         <source>The photo could not be stored:
 %1</source>
         <translation type="unfinished"></translation>
@@ -898,7 +893,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-496"/>
+        <location line="-509"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -969,7 +964,12 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-197"/>
+        <source>Add a changed copy of the selected record (a double click shows a record and offers this)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+217"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -980,18 +980,18 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+81"/>
-        <location line="+294"/>
+        <location line="+307"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location line="-152"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+104"/>
         <location line="+7"/>
         <location line="+6"/>
         <source>Export record</source>
@@ -1734,7 +1734,7 @@ pressure Δ</source>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+91"/>
+        <location filename="../src/app/recorddialog.cpp" line="+81"/>
         <source>caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1765,16 +1765,19 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+29"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+41"/>
         <source>flat base</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="-2"/>
         <source>hollow base</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+1"/>
         <source>boat tail</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1896,6 +1899,44 @@ pressure Δ</source>
     <message>
         <location line="+78"/>
         <source>Please check the field &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RecordViewDialog</name>
+    <message>
+        <location filename="../src/app/recordviewdialog.cpp" line="+26"/>
+        <source>Caliber</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Projectile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Propellant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>Edit…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Copy…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change this record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Only your own records can be changed: add a changed copy</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

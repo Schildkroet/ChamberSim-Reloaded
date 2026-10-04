@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "burnratedialog.h"
+#include "recordviewdialog.h"
 #include "unitconverterdialog.h"
 #include "./ui_mainwindow.h"
 
@@ -60,8 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
         m_browsers[i] = new TableBrowser(tables[i]);
         m_dbTabs->addTab(m_browsers[i], titles[i]);
         connect(m_browsers[i], &TableBrowser::currentIdChanged, this, &MainWindow::updateRecordButtons);
-        connect(m_browsers[i], &TableBrowser::idActivated, this,
-                [this](int id) { editRecord(grt::Database::isOwnId(id) ? RecordDialog::Mode::Edit : RecordDialog::Mode::Copy); });
+        connect(m_browsers[i], &TableBrowser::idActivated, this, [this](int id) { viewRecord(id); });
     }
     connect(m_dbTabs, &QTabWidget::currentChanged, this, &MainWindow::updateRecordButtons);
 
@@ -75,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
                                   "(see CONTRIBUTING.md)"));
     markPrimary(m_newRecord);
     m_newRecord->setToolTip(tr("Add a new record to the database"));
-    m_copyRecord->setToolTip(tr("Add a changed copy of the selected record (double click on a record of the original database)"));
+    m_copyRecord->setToolTip(tr("Add a changed copy of the selected record (a double click shows a record and offers this)"));
     connect(m_newRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::New); });
     connect(m_copyRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::Copy); });
     connect(m_editRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::Edit); });
@@ -532,6 +532,19 @@ void MainWindow::updateRecordButtons()
     const QString locked = tr("Only your own records can be changed: make a copy");
     m_editRecord->setToolTip(id >= 0 && !own ? locked : tr("Change the selected record"));
     m_deleteRecord->setToolTip(id >= 0 && !own ? locked : tr("Delete the selected record"));
+}
+
+// A double click shows all data of the record; the viewer offers to edit (own records) or to copy it.
+void MainWindow::viewRecord(int id)
+{
+    if (!m_db.isOpen()) return;
+    const grt::Table table = currentTable();
+    const auto record = m_db.record(table, id);
+    if (!record) return;
+    RecordViewDialog dlg(m_db, table, id, *record, this);
+    const int result = dlg.exec();
+    if (result == RecordViewDialog::EditRequested) editRecord(RecordDialog::Mode::Edit);
+    else if (result == RecordViewDialog::CopyRequested) editRecord(RecordDialog::Mode::Copy);
 }
 
 void MainWindow::editRecord(RecordDialog::Mode mode)

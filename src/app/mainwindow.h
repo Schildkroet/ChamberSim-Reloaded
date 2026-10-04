@@ -52,6 +52,7 @@ public:
     // Database tab: the table shown and its selected record.
     [[nodiscard]] grt::Table currentTable() const;
     // Opens the record dialog (New: empty, Copy/Edit: the selected record) and stores the result.
+    void viewRecord(int id);
     void editRecord(RecordDialog::Mode mode);
     // Stores a new (New, Copy) or changed (Edit, `id`) record in the own database and shows it; returns its id or -1.
     int storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values,

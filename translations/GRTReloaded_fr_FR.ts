@@ -662,7 +662,7 @@
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-278"/>
+        <location filename="../src/app/mainwindow.cpp" line="-277"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -677,7 +677,7 @@
         <translation>Poudres</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
         <source>New…</source>
         <translation>Nouveau…</translation>
     </message>
@@ -713,20 +713,20 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Add a changed copy of the selected record (double click on a record of the original database)</source>
-        <translation>Ajouter une copie modifiée de l&apos;enregistrement choisi (double-clic sur un enregistrement de la base d&apos;origine)</translation>
+        <source>Add a changed copy of the selected record (a double click shows a record and offers this)</source>
+        <translation>Ajouter une copie modifiée de l&apos;enregistrement sélectionné (un double-clic affiche un enregistrement et le propose)</translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+302"/>
-        <location line="+165"/>
+        <location line="+178"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-468"/>
+        <location line="-481"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -794,12 +794,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <location line="+431"/>
+        <location line="+444"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-427"/>
+        <location line="-440"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -896,14 +896,14 @@
     </message>
     <message>
         <location line="+81"/>
-        <location line="+294"/>
+        <location line="+307"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossible de lire %1 :
 %2</translation>
     </message>
     <message>
-        <location line="-273"/>
+        <location line="-286"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossible d&apos;ouvrir la base de données %1 :
@@ -956,7 +956,7 @@ La base GordonsReloadingTool.db d&apos;origine est chiffrée ; choisissez une co
         <translation>Supprimer l&apos;enregistrement choisi</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+42"/>
         <source>The photo could not be stored:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1753,7 +1753,7 @@ pression Δ</translation>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+91"/>
+        <location filename="../src/app/recorddialog.cpp" line="+81"/>
         <source>caliber</source>
         <translation>calibre</translation>
     </message>
@@ -1784,16 +1784,19 @@ pression Δ</translation>
     </message>
     <message>
         <location line="+29"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+41"/>
         <source>flat base</source>
         <translation>culot plat</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="-2"/>
         <source>hollow base</source>
         <translation>culot creux</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+1"/>
         <source>boat tail</source>
         <translation>culot rétreint</translation>
     </message>
@@ -1916,6 +1919,44 @@ pression Δ</translation>
         <location line="+78"/>
         <source>Please check the field &quot;%1&quot;.</source>
         <translation>Veuillez vérifier le champ « %1 ».</translation>
+    </message>
+</context>
+<context>
+    <name>RecordViewDialog</name>
+    <message>
+        <location filename="../src/app/recordviewdialog.cpp" line="+26"/>
+        <source>Caliber</source>
+        <translation>Calibre</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Projectile</source>
+        <translation>Projectile</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Propellant</source>
+        <translation>Poudre</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>Edit…</source>
+        <translation>Modifier…</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Copy…</source>
+        <translation>Copier…</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change this record</source>
+        <translation>Modifier cet enregistrement</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Only your own records can be changed: add a changed copy</source>
+        <translation>Seuls vos propres enregistrements peuvent être modifiés : ajoutez une copie modifiée</translation>
     </message>
 </context>
 <context>

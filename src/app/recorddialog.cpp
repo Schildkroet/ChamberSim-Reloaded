@@ -3,6 +3,7 @@
 #include "dates.h"
 #include "barrel.h"
 #include "numeric.h"
+#include "recordfields.h"
 #include "unitprefs.h"
 
 #include <QBuffer>
@@ -41,7 +42,7 @@ const QDate kNoDate(1800, 1, 1);  // the date editor's "– not set –"
 
 const grt::units::Unit *unitOf(const grt::dbfields::Field &f)
 {
-    return f.quantity == grt::units::Quantity::None ? nullptr : &UnitPreferences::instance().unitFor(f.quantity);
+    return recordfields::unitOf(f);
 }
 
 QString labelText(const grt::dbfields::Field &f)
@@ -51,20 +52,9 @@ QString labelText(const grt::dbfields::Field &f)
     return (unit.isEmpty() ? f.label : QStringLiteral("%1 [%2]").arg(f.label, unit)) + (f.required ? u" *"_s : u""_s) + u':';
 }
 
-// a stored number as shown to the user: the unit's usual decimals, more only where the value has them; no
-// thousands separators in an input field
 QString shownNumber(const grt::dbfields::Field &f, double stored)
 {
-    QLocale locale;
-    locale.setNumberOptions(QLocale::OmitGroupSeparator);
-    const auto *u = unitOf(f);
-    const double v = u ? grt::units::toDisplay(stored * f.toBase, *u) : stored;
-    for (int d = u ? u->decimals : 0; d < 8; ++d)
-    {
-        const double scale = std::pow(10.0, d);
-        if (std::abs(std::round(v * scale) / scale - v) <= 1e-9 * std::max(1.0, std::abs(v))) return locale.toString(v, 'f', d);
-    }
-    return locale.toString(v, 'g', 10);
+    return recordfields::shownNumber(f, stored);
 }
 
 std::optional<double> parseNumber(const grt::dbfields::Field &f, const QString &text)
@@ -177,12 +167,12 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 else if (f.kind == Kind::Number)
                 {
                     edit->setText(stored.isValid() ? shownNumber(f, stored.toDouble()) : QString());
-                    edit->setAlignment(Qt::AlignRight);
                 }
                 else
                 {
                     edit->setText(stored.toString());
                 }
+                if (f.alignRight) edit->setAlignment(Qt::AlignRight);
                 edit->setReadOnly(f.readOnly);
                 if (f.readOnly) edit->setToolTip(tr("Set by the program"));
                 w = edit;

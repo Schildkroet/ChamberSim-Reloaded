@@ -662,7 +662,7 @@
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-278"/>
+        <location filename="../src/app/mainwindow.cpp" line="-277"/>
         <source>Calibers</source>
         <translation>Calibri</translation>
     </message>
@@ -677,7 +677,7 @@
         <translation>Polveri</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
         <source>New…</source>
         <translation>Nuovo…</translation>
     </message>
@@ -713,20 +713,20 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Add a changed copy of the selected record (double click on a record of the original database)</source>
-        <translation>Aggiungi una copia modificata del record scelto (doppio clic su un record della banca dati originale)</translation>
+        <source>Add a changed copy of the selected record (a double click shows a record and offers this)</source>
+        <translation>Aggiungi una copia modificata del record selezionato (un doppio clic mostra un record e lo propone)</translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+302"/>
-        <location line="+165"/>
+        <location line="+178"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Banca dati</translation>
     </message>
     <message>
-        <location line="-468"/>
+        <location line="-481"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
@@ -794,12 +794,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <location line="+431"/>
+        <location line="+444"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
     <message>
-        <location line="-427"/>
+        <location line="-440"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Sovrapponi un &amp;risultato di riferimento…</translation>
     </message>
@@ -896,14 +896,14 @@
     </message>
     <message>
         <location line="+81"/>
-        <location line="+294"/>
+        <location line="+307"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossibile leggere %1:
 %2</translation>
     </message>
     <message>
-        <location line="-273"/>
+        <location line="-286"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossibile aprire la banca dati %1:
@@ -956,7 +956,7 @@ Il file originale GordonsReloadingTool.db è cifrato; scegli una copia decifrata
         <translation>Elimina il record scelto</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+42"/>
         <source>The photo could not be stored:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1753,7 +1753,7 @@ pressione Δ</translation>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+91"/>
+        <location filename="../src/app/recorddialog.cpp" line="+81"/>
         <source>caliber</source>
         <translation>calibro</translation>
     </message>
@@ -1784,16 +1784,19 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+29"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+41"/>
         <source>flat base</source>
         <translation>fondello piatto</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="-2"/>
         <source>hollow base</source>
         <translation>fondello cavo</translation>
     </message>
     <message>
         <location line="+1"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+1"/>
         <source>boat tail</source>
         <translation>boat tail</translation>
     </message>
@@ -1916,6 +1919,44 @@ pressione Δ</translation>
         <location line="+78"/>
         <source>Please check the field &quot;%1&quot;.</source>
         <translation>Controlla il campo «%1».</translation>
+    </message>
+</context>
+<context>
+    <name>RecordViewDialog</name>
+    <message>
+        <location filename="../src/app/recordviewdialog.cpp" line="+26"/>
+        <source>Caliber</source>
+        <translation>Calibro</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Projectile</source>
+        <translation>Proiettile</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Propellant</source>
+        <translation>Polvere</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>Edit…</source>
+        <translation>Modifica…</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Copy…</source>
+        <translation>Copia…</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change this record</source>
+        <translation>Modifica questo record</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Only your own records can be changed: add a changed copy</source>
+        <translation>Solo i propri record possono essere modificati: aggiungi una copia modificata</translation>
     </message>
 </context>
 <context>

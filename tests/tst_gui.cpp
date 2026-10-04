@@ -41,6 +41,7 @@
 
 #include "about.h"
 #include "burnratedialog.h"
+#include "recordviewdialog.h"
 #include "unitconverterdialog.h"
 #include "theme.h"
 #include "flags.h"
@@ -132,6 +133,7 @@ private slots:
     void propellantPhotoIsShown();
     void ignoredInputsAreNamed();
     void recordDialogDatesAndWidth();
+    void recordViewerShowsAllData();
     void recordDialogCalculatesTheBoreCrossSection();
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void disclaimerAtStartup();
@@ -1438,6 +1440,41 @@ void GuiTest::recordDialogCalculatesTheBoreCrossSection()
     button->click();
     QVERIFY(std::abs(QLocale().toDouble(dlg.text(u"c_Q"_s)) - 85.16) < 0.2);
     QVERIFY(dlg.values().value(u"c_Q"_s).toDouble() > 85.0);
+}
+
+void GuiTest::recordViewerShowsAllData()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    // the numbers that the original database stores as text are aligned like the other numbers
+    {
+        RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::New);
+        for (const QString column : {u"delta"_s, u"beta"_s, u"alpha"_s, u"L3"_s})
+        {
+            auto *edit = cal.findChild<QLineEdit *>(column);
+            QVERIFY2(edit, qPrintable(column));
+            QVERIFY2(edit->alignment() & Qt::AlignRight, qPrintable(column));
+        }
+    }
+    for (const grt::Table t : {grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant})
+    {
+        const int id = idOf(m_db, t, u"1=1"_s);
+        QVERIFY(id >= 0);
+        const auto record = m_db.record(t, id);
+        QVERIFY(record);
+        RecordViewDialog view(m_db, t, id, *record);
+        QVERIFY(view.fieldCount() > 10);
+        QVERIFY(!view.windowTitle().isEmpty());
+        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+            view.grab().save(u"%1/recordview%2.png"_s.arg(shots).arg(static_cast<int>(t)));
+        // the original's records cannot be changed: the viewer offers a copy
+        const bool own = grt::Database::isOwnId(id);
+        QVERIFY(view.findChild<QPushButton *>(own ? u"editRecordButton"_s : u"copyRecordButton"_s));
+        if (t == grt::Table::Caliber)
+        {
+            QCOMPARE(view.valueText(u"cipname"_s), record->value(u"cipname"_s).toString());
+            QVERIFY(view.valueText(u"L3"_s).contains(QLocale().decimalPoint()));  // the length in mm
+        }
+    }
 }
 
 void GuiTest::recordDialogDatesAndWidth()

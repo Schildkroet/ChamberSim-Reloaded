@@ -191,6 +191,9 @@ Field describe(Table t, const QString &column, const QString &sqlType)
     // set by the program: the date of the last change, the burn factors (derived from the model values)
     f.readOnly = f.readOnly || column == u"mdate" || (t == Table::Propellant && (column == u"Br" || column == u"Bp" || column == u"Brp"));
     f.required = column == u"cipname" || column == u"pname";
+    // delta, beta, alpha and M are numbers that the original database stores as text
+    f.alignRight = f.kind == Kind::Number ||
+                   (t == Table::Caliber && (column == u"delta" || column == u"beta" || column == u"alpha" || column == u"M"));
     return f;
 }
 

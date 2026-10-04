@@ -33,9 +33,10 @@ struct Field
     units::Quantity quantity{units::Quantity::None};
     double toBase{1.0};
     Kind kind{Kind::Text};
-    bool readOnly{false};  // set by the program (date of the last change, image ids)
-    bool required{false};  // a record needs it (its name)
-    QString unitText;      // shown for numbers without a quantity (e.g. "kJ/kg")
+    bool readOnly{false};    // set by the program (date of the last change, image ids)
+    bool required{false};    // a record needs it (its name)
+    bool alignRight{false};  // numbers, and the numbers that are stored as text (angles of the caliber table)
+    QString unitText;        // shown for numbers without a quantity (e.g. "kJ/kg")
 };
 
 // Describes a column; `sqlType` (TEXT, FLOAT, INTEGER, DATE) decides the kind of undescribed columns.

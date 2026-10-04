@@ -1,0 +1,134 @@
+#include "recordviewdialog.h"
+
+#include "dates.h"
+#include "recordfields.h"
+
+#include <QCoreApplication>
+#include <QDialogButtonBox>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLocale>
+#include <QPushButton>
+#include <QScrollArea>
+#include <QVBoxLayout>
+
+#include <map>
+
+using namespace Qt::StringLiterals;
+using grt::dbfields::Kind;
+
+namespace
+{
+
+QString choiceText(grt::Table table, const grt::dbfields::Field &f, const QString &value)
+{
+    for (const auto &[v, text] : grt::dbfields::choices(table, f.column))
+        if (v.compare(value, Qt::CaseInsensitive) == 0) return text;
+    return value;
+}
+
+QString shownValue(grt::Table table, const grt::dbfields::Field &f, const QVariant &stored)
+{
+    switch (f.kind)
+    {
+    case Kind::Number: return stored.isValid() ? recordfields::shownNumber(f, stored.toDouble()) : QString();
+    case Kind::BaseType:
+        switch (stored.toInt())
+        {
+        case 1: return QCoreApplication::translate("RecordDialog", "hollow base");
+        case 2: return QCoreApplication::translate("RecordDialog", "boat tail");
+        default: return QCoreApplication::translate("RecordDialog", "flat base");
+        }
+    case Kind::Choice: return choiceText(table, f, stored.toString());
+    case Kind::Date:
+    {
+        const auto date = grt::normalizedDate(stored);
+        return date ? *date : stored.toString();
+    }
+    default:
+        if (f.alignRight && stored.metaType().id() == QMetaType::QString)
+        {
+            bool ok = false;
+            const double v = QLocale::c().toDouble(stored.toString(), &ok);
+            if (ok) return recordfields::shownNumber({.column = f.column}, v);
+        }
+        return stored.toString();
+    }
+}
+
+}  // namespace
+
+RecordViewDialog::RecordViewDialog(const grt::Database &db, grt::Table table, int id, const QVariantMap &record, QWidget *parent)
+    : QDialog(parent)
+{
+    setObjectName(u"recordViewDialog"_s);
+    const QString kind = table == grt::Table::Caliber      ? tr("Caliber")
+                         : table == grt::Table::Projectile ? tr("Projectile")
+                                                           : tr("Propellant");
+    setWindowTitle(u"%1 – %2"_s.arg(kind, grt::dbfields::recordTitle(table, record)));
+
+    std::map<QString, std::vector<std::pair<grt::dbfields::Field, QVariant>>> byGroup;
+    for (const auto &[column, type] : db.schema(table))
+    {
+        const grt::dbfields::Field f = grt::dbfields::describe(table, column, type);
+        if (f.kind == Kind::Hidden) continue;
+        byGroup[f.group].push_back({f, record.value(column)});
+    }
+    auto *content = new QWidget;
+    auto *contentLayout = new QVBoxLayout(content);
+    for (const QString &group : grt::dbfields::groups(table))
+    {
+        const auto it = byGroup.find(group);
+        if (it == byGroup.end()) continue;
+        auto *box = new QGroupBox(group);
+        auto *grid = new QGridLayout(box);
+        grid->setHorizontalSpacing(10);
+        // groups with many fields get two label / value pairs per row, like the edit dialog
+        const int pairs = it->second.size() > 10 ? 2 : 1;
+        for (int c = 0; c < pairs; ++c) grid->setColumnStretch(2 * c + 1, 1);
+        int i = 0;
+        for (const auto &[f, stored] : it->second)
+        {
+            QString label = f.label;
+            if (const auto *u = recordfields::unitOf(f)) label += u" [%1]"_s.arg(QString::fromUtf8(u->symbol));
+            else if (!f.unitText.isEmpty()) label += u" [%1]"_s.arg(f.unitText);
+            auto *value = new QLabel(shownValue(table, f, stored));
+            value->setObjectName(f.column);
+            value->setTextInteractionFlags(Qt::TextSelectableByMouse);
+            value->setWordWrap(true);
+            if (f.alignRight) value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            const bool wide = f.kind == Kind::Text && stored.toString().size() > 24;  // long texts (origin, description) use the full row
+            const int row = wide ? (i + pairs - 1) / pairs : i / pairs, col = wide ? 0 : 2 * (i % pairs);
+            grid->addWidget(new QLabel(label + u':'), row, col);
+            grid->addWidget(value, row, col + 1, 1, wide ? 2 * pairs - 1 : 1);
+            i = wide ? ((i + pairs - 1) / pairs + 1) * pairs : i + 1;
+            ++m_fieldCount;
+        }
+        contentLayout->addWidget(box);
+    }
+    contentLayout->addStretch(1);
+
+    auto *scroll = new QScrollArea;
+    scroll->setWidgetResizable(true);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll->setWidget(content);
+    auto *buttons = new QDialogButtonBox;
+    const bool own = grt::Database::isOwnId(id);
+    auto *edit = buttons->addButton(own ? tr("Edit…") : tr("Copy…"), QDialogButtonBox::ActionRole);
+    edit->setObjectName(own ? u"editRecordButton"_s : u"copyRecordButton"_s);
+    edit->setToolTip(own ? tr("Change this record") : tr("Only your own records can be changed: add a changed copy"));
+    connect(edit, &QPushButton::clicked, this, [this, own] { done(own ? EditRequested : CopyRequested); });
+    buttons->addButton(QDialogButtonBox::Close);
+    connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    auto *layout = new QVBoxLayout(this);
+    layout->addWidget(scroll, 1);
+    layout->addWidget(buttons);
+    resize(table == grt::Table::Caliber ? 760 : 620, 700);
+}
+
+QString RecordViewDialog::valueText(const QString &column) const
+{
+    const auto *label = findChild<QLabel *>(column);
+    return label ? label->text() : QString();
+}
