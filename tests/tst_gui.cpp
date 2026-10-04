@@ -102,6 +102,7 @@ private slots:
     void newLoadDialogNeedsAllThreeRecords();
     void codedFieldsShowReadableText();
     void shotshellPartsAreChoices();
+    void shotshellIsDrawnAsAShell();
     void panelShowsAndEditsInTheChosenUnit();
     void perFieldUnitOverridesTheSystem();
     void resultsFollowTheUnitSystem();
@@ -353,6 +354,43 @@ int rowOf(QTableWidget *t, const QString &key)
 }
 
 }  // namespace
+
+void GuiTest::shotshellIsDrawnAsAShell()
+{
+    grt::LoadFile file;
+    file.caliber.set(u"shotshell", u"true"_s);
+    file.caliber.set(u"caselen", 70.0);
+    grt::SimInput in;
+    in.shotshell = true;
+    in.caseLength_mm = 70.0;
+    in.caseVolume_cm3 = 17.24;
+    in.bulletDiameter_mm = 18.2;
+    in.bulletLength_mm = in.seatingDepth_mm = 40.5;
+    in.bulkDensity_kgm3 = 650.0;
+    in.charge_g = 1.13;
+    CartridgeView view;
+    view.resize(420, 520);
+    view.setLoad(file, in);
+    const auto &round = view.round();
+    QVERIFY(round.shotshell && round.geometry.valid);
+    QVERIFY(std::abs(round.hullDiameter - 20.3) < 0.01);                                   // 12 gauge: 20.3 mm hull
+    QVERIFY(round.powderTop > round.floorHeight && round.powderTop < round.bulletBase());  // the powder lies on the base wad, below the wad
+    const QImage img = view.grab().toImage();
+    QVERIFY(!img.isNull());
+    // the hull is red: there are red pixels in the drawing (a bullet alone has none)
+    int red = 0;
+    for (int y = 0; y < img.height(); ++y)
+        for (int x = 0; x < img.width(); ++x)
+        {
+            const QColor c = img.pixelColor(x, y);
+            red += c.red() > 140 && c.green() < 110 && c.blue() < 110;
+        }
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/shotshell.png"_s);
+    QVERIFY2(red > 100, qPrintable(QString::number(red)));
+    ChamberView chamber;
+    chamber.setLoad(file, in);  // without C.I.P. dimensions: nothing to draw, but no crash
+    QVERIFY(!chamber.grab().toImage().isNull());
+}
 
 void GuiTest::shotshellPartsAreChoices()
 {

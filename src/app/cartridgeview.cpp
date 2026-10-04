@@ -209,6 +209,22 @@ CartridgeView::RoundShape CartridgeView::makeRound(const grt::LoadFile &file, co
     r.tailLength = input.tailLength_mm;
     r.tailDiameter = input.tailType == 2 ? input.tailDiameterB_mm : input.bulletDiameter_mm;
     const double powderCm3 = input.bulkDensity_kgm3 > 0.0 ? input.charge_g / (input.bulkDensity_kgm3 * 1e-3) : 0.0;
+    if (input.shotshell)
+    {
+        // typical proportions of a shotshell hull (12 gauge: 20.3 mm hull, 22.9 mm rim, 16 mm brass head), scaled by the bore
+        const double bore = r.bulletDiameter > 0.0 ? r.bulletDiameter : 18.2;
+        r.shotshell = true;
+        r.hullDiameter = bore + 2.1;
+        r.rimDiameter = r.hullDiameter + 2.6;
+        r.headHeight = std::clamp(0.88 * bore, 9.0, 19.0);
+        r.floorHeight = 0.7 * r.headHeight;  // the top of the base wad inside the head: the powder lies on it
+        r.wadHeight = std::min(25.0, std::max(input.bulletLength_mm - 6.0, 10.0));
+        const double inner = r.hullDiameter / 2.0 - 0.5;
+        r.powderTop = r.floorHeight + (inner > 0.0 ? powderCm3 * 1e3 / (std::numbers::pi * inner * inner) : 0.0);
+        r.geometry.wall = 0.5;
+        r.geometry.valid = true;
+        return r;
+    }
     r.geometry = buildGeometry(r.dims, input.caseVolume_cm3, powderCm3);
     return r;
 }
@@ -234,9 +250,129 @@ void CartridgeView::clear()
     update();
 }
 
+void CartridgeView::paintShotshell(QPainter &p, const RoundShape &round, const std::function<double(double)> &X,
+                                   const std::function<double(double)> &Y, bool dark)
+{
+    const double L = round.caseLength();
+    const double rh = round.hullDiameter / 2.0, rr = round.rimDiameter / 2.0, wall = 0.55;
+    const double yBase = round.bulletBase(), yTip = std::min(round.bulletTip(), L);
+    const double crimp = std::min(7.0, 0.1 * L);
+    const QColor edge = dark ? QColor(0xc8, 0xcc, 0xd2) : QColor(0x30, 0x34, 0x3a);
+    p.setPen(Qt::NoPen);
+
+    // ---- hull: translucent plastic tube, closed by a fold crimp at the mouth ----
+    QPainterPath hull;
+    hull.moveTo(X(-rh), Y(round.headHeight));
+    hull.lineTo(X(-rh), Y(L - crimp));
+    hull.lineTo(X(-rh * 0.78), Y(L - crimp * 0.35));
+    hull.lineTo(X(-rh * 0.2), Y(L));
+    hull.lineTo(X(rh * 0.2), Y(L));
+    hull.lineTo(X(rh * 0.78), Y(L - crimp * 0.35));
+    hull.lineTo(X(rh), Y(L - crimp));
+    hull.lineTo(X(rh), Y(round.headHeight));
+    hull.closeSubpath();
+    QLinearGradient plastic(X(-rh), 0, X(rh), 0);
+    plastic.setColorAt(0.0, QColor(0xa8, 0x22, 0x22));
+    plastic.setColorAt(0.35, QColor(0xe0, 0x4a, 0x40));
+    plastic.setColorAt(1.0, QColor(0x90, 0x1c, 0x1c));
+    p.setBrush(plastic);
+    p.drawPath(hull);
+    // the inside: the wall thickness cut out (the crimp folds close the mouth)
+    QPainterPath inside;
+    inside.moveTo(X(-rh + wall), Y(round.headHeight));
+    inside.lineTo(X(-rh + wall), Y(L - crimp));
+    inside.lineTo(X(-rh * 0.7), Y(L - crimp * 0.4));
+    inside.lineTo(X(-rh * 0.12), Y(L - 0.25 * wall));
+    inside.lineTo(X(rh * 0.12), Y(L - 0.25 * wall));
+    inside.lineTo(X(rh * 0.7), Y(L - crimp * 0.4));
+    inside.lineTo(X(rh - wall), Y(L - crimp));
+    inside.lineTo(X(rh - wall), Y(round.headHeight));
+    inside.closeSubpath();
+    p.setBrush(dark ? QColor(0x18, 0x1c, 0x22) : QColor(0xf4, 0xf0, 0xe6));
+    p.drawPath(inside);
+
+    // ---- brass head with the rim, the inner base wad and the primer ----
+    QPainterPath head;
+    head.moveTo(X(-rr), Y(0));
+    head.lineTo(X(-rr), Y(1.8));
+    head.lineTo(X(-rh - 0.2), Y(1.8));
+    head.lineTo(X(-rh - 0.2), Y(round.headHeight));
+    head.lineTo(X(rh + 0.2), Y(round.headHeight));
+    head.lineTo(X(rh + 0.2), Y(1.8));
+    head.lineTo(X(rr), Y(1.8));
+    head.lineTo(X(rr), Y(0));
+    head.closeSubpath();
+    QLinearGradient brass(X(-rr), 0, X(rr), 0);
+    brass.setColorAt(0.0, QColor(0x8a, 0x68, 0x28));
+    brass.setColorAt(0.35, QColor(0xe6, 0xc2, 0x62));
+    brass.setColorAt(1.0, QColor(0x7a, 0x5a, 0x22));
+    p.setPen(QPen(dark ? QColor(0xd8, 0xb0, 0x58) : QColor(0x70, 0x52, 0x1c), 1.0));
+    p.setBrush(brass);
+    p.drawPath(head);
+    p.setPen(Qt::NoPen);
+    p.setBrush(QColor(0xd8, 0xd2, 0xc4));  // the base wad inside the head
+    p.drawRect(QRectF(QPointF(X(-rh + wall), Y(round.floorHeight)), QPointF(X(rh - wall), Y(2.2))));
+    p.setBrush(QColor(0x9a, 0x9d, 0xa4));  // the primer
+    p.drawRoundedRect(QRectF(QPointF(X(-4.9), Y(0.6)), QPointF(X(4.9), Y(3.4))), 1.0, 1.0);
+
+    // ---- powder ----
+    p.setBrush(QBrush(QColor(0x8c, 0x8f, 0x5a, 200), Qt::Dense4Pattern));
+    p.drawRect(QRectF(QPointF(X(-rh + wall), Y(std::min(round.powderTop, yBase))), QPointF(X(rh - wall), Y(round.floorHeight))));
+    p.setBrush(QColor(0x7c, 0x80, 0x4c, 120));
+    p.drawRect(QRectF(QPointF(X(-rh + wall), Y(std::min(round.powderTop, yBase))), QPointF(X(rh - wall), Y(round.floorHeight))));
+
+    // ---- wad: the cushion (a zigzag column) below, the cup with the petals around the shot above ----
+    const double rw = rh - wall - 0.15;
+    const double cushion = round.wadHeight * 0.45, cup = round.wadHeight - cushion;
+    p.setBrush(dark ? QColor(0xe8, 0xe4, 0xd0) : QColor(0xf2, 0xe9, 0xc8));
+    p.setPen(QPen(edge, 0.8));
+    p.drawRect(QRectF(QPointF(X(-rw), Y(yBase + 0.8)), QPointF(X(rw), Y(yBase))));  // the wad's base
+    QPainterPath zigzag;
+    constexpr int folds = 4;
+    for (int i = 0; i <= folds * 2; ++i)
+    {
+        const double y = yBase + 0.8 + cushion * i / (folds * 2);
+        const double r = (i % 2 == 0) ? rw : rw * 0.55;
+        if (i == 0) zigzag.moveTo(X(-r), Y(y));
+        else zigzag.lineTo(X(-r), Y(y));
+    }
+    for (int i = folds * 2; i >= 0; --i) zigzag.lineTo(X((i % 2 == 0) ? rw : rw * 0.55), Y(yBase + 0.8 + cushion * i / (folds * 2)));
+    zigzag.closeSubpath();
+    p.drawPath(zigzag);
+    const double yCupFloor = yBase + 0.8 + cushion;
+    p.drawRect(QRectF(QPointF(X(-rw), Y(yCupFloor + 0.8)), QPointF(X(rw), Y(yCupFloor))));  // the cup floor
+
+    // ---- shot column: pellets from the cup floor to the top of the load ----
+    const double yShot0 = yCupFloor + 0.8, yShot1 = std::max(yTip, yShot0);
+    p.setPen(Qt::NoPen);
+    p.setBrush(dark ? QColor(0x8a, 0x90, 0x9a) : QColor(0x70, 0x76, 0x80));
+    p.drawRect(QRectF(QPointF(X(-rw + 0.3), Y(yShot1)), QPointF(X(rw - 0.3), Y(yShot0))));
+    p.setPen(QPen(dark ? QColor(0xc4, 0xca, 0xd2) : QColor(0xa8, 0xae, 0xb8), 0.9));
+    p.setBrush(Qt::NoBrush);
+    const double pellet = 2.4, step = pellet * 0.9;  // #7.5 - 8 lead shot
+    for (int row = 0; yShot0 + row * step * 0.87 + pellet / 2.0 <= yShot1; ++row)
+    {
+        const double y = yShot0 + pellet / 2.0 + row * step * 0.87;
+        const double offset = (row % 2) ? step / 2.0 : 0.0;
+        for (double x = -rw + pellet / 2.0 + 0.3 + offset; x <= rw - pellet / 2.0 - 0.3; x += step)
+            p.drawEllipse(QRectF(QPointF(X(x - pellet / 2.0), Y(y + pellet / 2.0)), QPointF(X(x + pellet / 2.0), Y(y - pellet / 2.0))));
+    }
+    // the petals of the cup around the shot (to the top of the cup)
+    p.setPen(QPen(edge, 0.8));
+    p.setBrush(dark ? QColor(0xe8, 0xe4, 0xd0, 180) : QColor(0xf2, 0xe9, 0xc8, 200));
+    const double cupTop = std::min(yCupFloor + cup, yShot1);
+    p.drawRect(QRectF(QPointF(X(-rw), Y(cupTop)), QPointF(X(-rw + 0.9), Y(yCupFloor))));
+    p.drawRect(QRectF(QPointF(X(rw - 0.9), Y(cupTop)), QPointF(X(rw), Y(yCupFloor))));
+    // outline of the hull on top of everything
+    p.setPen(QPen(dark ? QColor(0xe0, 0x6a, 0x60) : QColor(0x70, 0x14, 0x14), 1.0));
+    p.setBrush(Qt::NoBrush);
+    p.drawPath(hull);
+}
+
 void CartridgeView::paintRound(QPainter &p, const RoundShape &round, const std::function<double(double)> &X,
                                const std::function<double(double)> &Y, bool dark)
 {
+    if (round.shotshell) return paintShotshell(p, round, X, Y, dark);
     const double L3 = round.caseLength();
     const double yBase = round.bulletBase();
     const double yTip = round.bulletTip();

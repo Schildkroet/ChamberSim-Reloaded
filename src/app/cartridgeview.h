@@ -43,6 +43,9 @@ public:
         QMap<QString, double> dims;
         double bulletDiameter{}, bulletLength{}, depth{}, tailLength{}, tailDiameter{};
         Geometry geometry;
+        // a shotshell (no C.I.P. dimensions of a case): brass head, plastic hull, powder, wad and shot column, drawn by paintShotshell
+        bool shotshell{false};
+        double hullDiameter{}, rimDiameter{}, headHeight{}, floorHeight{}, wadHeight{}, powderTop{};
         [[nodiscard]] double dim(const char *key) const { return dims.value(QLatin1String(key), 0.0); }
         [[nodiscard]] double caseLength() const { return dim("L3"); }
         [[nodiscard]] double bulletBase() const { return caseLength() - depth; }
@@ -53,6 +56,9 @@ public:
     // (0 = case head) to widget coordinates; the drawing is symmetric about X(0).
     static void paintRound(QPainter &p, const RoundShape &round, const std::function<double(double)> &X,
                            const std::function<double(double)> &Y, bool dark);
+    // The same for a shotshell: head with rim and primer, hull, powder, wad (cushion and cup), shot and the crimp.
+    static void paintShotshell(QPainter &p, const RoundShape &round, const std::function<double(double)> &X,
+                               const std::function<double(double)> &Y, bool dark);
     [[nodiscard]] const RoundShape &round() const noexcept { return m_round; }
 
 protected:
