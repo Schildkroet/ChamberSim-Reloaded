@@ -29,6 +29,7 @@ struct Store
     QString path{u":/data/shotshell/parts.json"_s};
     bool loaded{};
     std::array<std::vector<ShotPartInfo>, 3> parts;
+    std::array<std::vector<ShotPartInfo>, 3> groups;
 };
 
 Store &store()
@@ -41,6 +42,7 @@ void loadLocked(Store &s)
 {
     s.loaded = true;
     for (auto &list : s.parts) list.clear();
+    for (auto &list : s.groups) list.clear();
     QFile f(s.path);
     if (!f.open(QIODevice::ReadOnly))
     {
@@ -65,6 +67,21 @@ void loadLocked(Store &s)
         }
         std::ranges::sort(list, [](const ShotPartInfo &a, const ShotPartInfo &b)
                           { return a.gauge != b.gauge ? a.gauge < b.gauge : a.name < b.name; });
+        // the groups of similar parts: low, medium and high pressure, in this order
+        constexpr std::array<const char16_t *, 3> groupLists{u"shell_groups", u"wad_groups", u"primer_groups"};
+        for (const auto &item : root.value(QString::fromUtf16(groupLists[index(part)])).toArray())
+        {
+            const QJsonObject o = item.toObject();
+            ShotPartInfo info{.id = o.value(u"id"_s).toString(),
+                              .capacityScale = o.value(u"capacity"_s).toDouble(1.0),
+                              .energyScale = o.value(u"energy"_s).toDouble(1.0),
+                              .loads = o.value(u"loads"_s).toInt(),
+                              .group = true,
+                              .rank = o.value(u"rank"_s).toString(),
+                              .examples = o.value(u"examples"_s).toString()};
+            info.name = info.rank;
+            if (!info.id.isEmpty()) s.groups[index(part)].push_back(std::move(info));
+        }
     }
     LOG_Debug() << "Shotshell parts:" << s.parts[0].size() << "shells," << s.parts[1].size() << "wads," << s.parts[2].size()
                 << "primers from" << s.path;
@@ -94,12 +111,20 @@ const std::vector<ShotPartInfo> &shotParts(ShotPart part)
     return s.parts[index(part)];  // not changed after loading (tools replace the file before they use it)
 }
 
+const std::vector<ShotPartInfo> &shotPartGroups(ShotPart part)
+{
+    Store &s = store();
+    const std::scoped_lock lock(s.mutex);
+    if (!s.loaded) loadLocked(s);
+    return s.groups[index(part)];
+}
+
 const ShotPartInfo *findShotPart(ShotPart part, const QString &id)
 {
     if (id.isEmpty()) return nullptr;
-    const auto &list = shotParts(part);
-    const auto it = std::ranges::find(list, id, &ShotPartInfo::id);
-    return it == list.end() ? nullptr : &*it;
+    for (const auto *list : {&shotParts(part), &shotPartGroups(part)})
+        if (const auto it = std::ranges::find(*list, id, &ShotPartInfo::id); it != list->end()) return &*it;
+    return nullptr;
 }
 
 ShotFactors shotFactorsOf(const EntryList &caliber)

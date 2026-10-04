@@ -30,6 +30,10 @@ struct ShotPartInfo
     double capacityScale{1.0};  // x Calibration::shotCapacityFactor
     double energyScale{1.0};    // x Calibration::shotEnergyFactor
     int loads{};                // published loads the factors were fitted to
+    // a group of similar parts (low, medium or high pressure) instead of one part: its rank and some of its members
+    bool group{false};
+    QString rank;      // "low", "medium" or "high" (the pressure the parts give)
+    QString examples;  // the members with most loads, e.g. "Federal Gold Medal (plastic), Federal Gold Medal (paper)"
 };
 
 // The caliber entry that holds the part of a load: "shothull", "shotwad" or "shotprimer".
@@ -41,7 +45,12 @@ void setShotPartsFile(const QString &path);
 // All parts of a kind, sorted by gauge and name.
 [[nodiscard]] const std::vector<ShotPartInfo> &shotParts(ShotPart part);
 
-// The part with this id, or null (none chosen, or an id this version does not know: the shotshell model's average is used).
+// General entries for those who do not know the exact part: groups of parts with a similar effect (id "group-low", "group-medium",
+// "group-high": low-pressure parts first). Held-out loads: three groups of every kind are almost as good as all parts (10.6 % against
+// 10.3 % pressure error).
+[[nodiscard]] const std::vector<ShotPartInfo> &shotPartGroups(ShotPart part);
+
+// The part or group with this id, or null (none chosen, or an id this version does not know: the shotshell model's average is used).
 [[nodiscard]] const ShotPartInfo *findShotPart(ShotPart part, const QString &id);
 
 // The factors of the shell, wad and primer a shotshell load names (1 for those it does not name).

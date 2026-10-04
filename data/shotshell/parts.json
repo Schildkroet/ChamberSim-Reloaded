@@ -1,5 +1,5 @@
 {
- "note": "Factors of the shell (hull), wad and primer of shotshell loads on the shotshell model: capacity = powder space, energy = gas energy; the factors of a load multiply. Fitted with analysis/fit_shot_factors.py to the published loads of Hodgdon, Alliant and Vectan. A load names its parts in the caliber entries shothull, shotwad and shotprimer. Generated - do not edit by hand.",
+ "note": "Factors of the shell (hull), wad and primer of shotshell loads on the shotshell model: capacity = powder space, energy = gas energy; the factors of a load multiply. Fitted with analysis/fit_shot_factors.py to the published loads of Hodgdon, Alliant and Vectan. A load names its parts in the caliber entries shothull, shotwad and shotprimer, a specific part or a group of similar ones (low, medium, high pressure). Generated - do not edit by hand.",
  "shells": [
   {
    "id": "cheddite-rio",
@@ -49,6 +49,146 @@
    "capacity": 0.8458,
    "energy": 0.9909,
    "loads": 1261
+  }
+ ],
+ "shell_groups": [
+  {
+   "id": "group-low",
+   "rank": "low",
+   "capacity": 1.2208,
+   "energy": 1.0534,
+   "loads": 1394,
+   "examples": "Federal Gold Medal (plastic), Federal Gold Medal (paper)",
+   "members": [
+    "Federal Gold Medal (plastic)",
+    "Federal Gold Medal (paper)"
+   ]
+  },
+  {
+   "id": "group-medium",
+   "rank": "medium",
+   "capacity": 1.1436,
+   "energy": 1.0011,
+   "loads": 340,
+   "examples": "Fiocchi, Cheddite / Rio",
+   "members": [
+    "Cheddite / Rio",
+    "Fiocchi"
+   ]
+  },
+  {
+   "id": "group-high",
+   "rank": "high",
+   "capacity": 0.881,
+   "energy": 0.9749,
+   "loads": 2854,
+   "examples": "Winchester AA / HS, Remington STS / Nitro 27 / Gun Club, Federal Hi-Over-All",
+   "members": [
+    "Federal Hi-Over-All",
+    "Winchester AA / HS",
+    "Remington STS / Nitro 27 / Gun Club"
+   ]
+  }
+ ],
+ "wad_groups": [
+  {
+   "id": "group-low",
+   "rank": "low",
+   "capacity": 1.1875,
+   "energy": 1.0558,
+   "loads": 1192,
+   "examples": "Remington TGT12, Winchester WAA12SL, Purple PC",
+   "members": [
+    "12-CB110012",
+    "12-PURPLEPC",
+    "12-CB410012B",
+    "12-REMTGT12",
+    "12-CB610012",
+    "12-WAA12SL",
+    "12-WAA12L",
+    "12-CB611812"
+   ]
+  },
+  {
+   "id": "group-medium",
+   "rank": "medium",
+   "capacity": 1.0344,
+   "energy": 0.9944,
+   "loads": 1792,
+   "examples": "Windjammer, Remington FIG8, Federal 12S3",
+   "members": [
+    "12-WINDJAMMER",
+    "12-CB311812",
+    "12-FIGURE8DRRF8",
+    "12-REMR12L",
+    "12-FED12SO",
+    "12-WAA12F114",
+    "12-SP12",
+    "12-RP12",
+    "12-RXP12",
+    "12-REDPC",
+    "12-VERSALITE",
+    "12-FED12S3",
+    "12-DRXL1",
+    "12-TGT12DRRT12",
+    "12-REMFIG8"
+   ]
+  },
+  {
+   "id": "group-high",
+   "rank": "high",
+   "capacity": 0.9165,
+   "energy": 0.9575,
+   "loads": 586,
+   "examples": "Winchester WAA12, 12S3 & DRF3, Hdy Versalite",
+   "members": [
+    "12-FED12S0",
+    "12-WAA12",
+    "12-12S3DRF3",
+    "12-12S4",
+    "12-HDYVERSALITE",
+    "12-DRV12"
+   ]
+  }
+ ],
+ "primer_groups": [
+  {
+   "id": "group-low",
+   "rank": "low",
+   "capacity": 0.9791,
+   "energy": 0.9993,
+   "loads": 1919,
+   "examples": "Win. 209, Rem. 209P, Rem 209",
+   "members": [
+    "REM209",
+    "REM209P",
+    "WIN209"
+   ]
+  },
+  {
+   "id": "group-medium",
+   "rank": "medium",
+   "capacity": 0.9113,
+   "energy": 0.9827,
+   "loads": 1670,
+   "examples": "Ched 209, Fiocchi 616, CCI 209",
+   "members": [
+    "CCI209M",
+    "FIO616",
+    "CCI209",
+    "CHED209"
+   ]
+  },
+  {
+   "id": "group-high",
+   "rank": "high",
+   "capacity": 0.8569,
+   "energy": 0.9729,
+   "loads": 994,
+   "examples": "Fed. 209A",
+   "members": [
+    "FED209A"
+   ]
   }
  ],
  "wads": [

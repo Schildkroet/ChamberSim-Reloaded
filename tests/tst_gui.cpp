@@ -407,6 +407,13 @@ void GuiTest::shotshellPartsAreChoices()
     QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"Winchester AA / HS"_s);
     QCOMPARE(t->item(rowOf(t, u"shotwad"_s), 1)->text(), u"Winchester WAA12SL"_s);
     QCOMPARE(t->item(rowOf(t, u"shotprimer"_s), 1)->text(), u"nonsense"_s);
+    // a general entry: a group of similar parts with examples
+    caliber.set(u"shotwad", u"group-low"_s);
+    panel.syncValues();
+    const QString low = t->item(rowOf(t, u"shotwad"_s), 1)->text();
+    QVERIFY2(low.startsWith(u"Low-pressure wads (e.g. "_s), qPrintable(low));
+    caliber.set(u"shotwad", u"12-waa12sl"_s);
+    panel.syncValues();
     caliber.set(u"shothull", QString());
     panel.syncValues();
     QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"not specified (average)"_s);

@@ -90,7 +90,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+330"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+466"/>
         <source>No cartridge data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1671,6 +1671,36 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+2"/>
+        <source>shells</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>wads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>primers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Low-pressure %1 (e.g. %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>High-pressure %1 (e.g. %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Medium-pressure %1 (e.g. %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>%1 (%2 gauge)</source>
         <translation type="unfinished"></translation>
     </message>

@@ -48,6 +48,17 @@ const QList<Choice> &shotPartChoices(grt::ShotPart part)
         {
             auto &list = all[static_cast<std::size_t>(p)];
             list.push_back({QString(), PropertyPanel::tr("not specified (average)")});
+            // general entries first: groups of parts that give a similar pressure (for those who do not know the exact part)
+            const QString kind = p == grt::ShotPart::Shell ? PropertyPanel::tr("shells")
+                                 : p == grt::ShotPart::Wad ? PropertyPanel::tr("wads")
+                                                           : PropertyPanel::tr("primers");
+            for (const grt::ShotPartInfo &info : grt::shotPartGroups(p))
+            {
+                const QString text = info.rank == u"low"    ? PropertyPanel::tr("Low-pressure %1 (e.g. %2)")
+                                     : info.rank == u"high" ? PropertyPanel::tr("High-pressure %1 (e.g. %2)")
+                                                            : PropertyPanel::tr("Medium-pressure %1 (e.g. %2)");
+                list.push_back({info.id, text.arg(kind, info.examples)});
+            }
             for (const grt::ShotPartInfo &info : grt::shotParts(p))
                 list.push_back({info.id, info.gauge && info.gauge != 12 ? PropertyPanel::tr("%1 (%2 gauge)").arg(info.name).arg(info.gauge)
                                                                         : info.name});

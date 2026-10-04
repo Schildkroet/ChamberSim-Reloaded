@@ -90,7 +90,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+330"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+466"/>
         <source>No cartridge data</source>
         <translation>Keine Patronendaten</translation>
     </message>
@@ -1690,6 +1690,36 @@ Druck Δ</translation>
     </message>
     <message>
         <location line="+2"/>
+        <source>shells</source>
+        <translation>Hülsen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>wads</source>
+        <translation>Pfropfen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>primers</source>
+        <translation>Zündhütchen</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Low-pressure %1 (e.g. %2)</source>
+        <translation>Niederdruck-%1 (z. B. %2)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>High-pressure %1 (e.g. %2)</source>
+        <translation>Hochdruck-%1 (z. B. %2)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Medium-pressure %1 (e.g. %2)</source>
+        <translation>Mitteldruck-%1 (z. B. %2)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>%1 (%2 gauge)</source>
         <translation>%1 (Kaliber %2)</translation>
     </message>

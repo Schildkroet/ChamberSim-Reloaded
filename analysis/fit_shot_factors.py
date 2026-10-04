@@ -162,7 +162,38 @@ for pr in PROPS:
         n = sum(1 for r in R if r[PROPS[pr]] == c)
         fc, fe = factors[(pr, c)]
         print(f"   {pr:6} {c:40} {n:5d}  {math.exp(fc):6.3f} / {math.exp(fe):6.3f}")
+def kmeans_groups(prop, k=3):
+    """The classes of a property in k groups of similar capacity factor (1-D k-means weighted by the loads), the highest capacity (lowest pressure) first."""
+    items = sorted(((c, factors[(prop, c)][0], sum(1 for r in R if r[PROPS[prop]] == c)) for c in cls[prop]), key=lambda t: -t[1])
+    k = min(k, len(items))
+    centers = [items[int((i + 0.5) * len(items) / k)][1] for i in range(k)]
+    for _ in range(100):
+        lab = [min(range(k), key=lambda i: abs(t[1] - centers[i])) for t in items]
+        new = [np.average([t[1] for t, l in zip(items, lab) if l == i], weights=[t[2] for t, l in zip(items, lab) if l == i]) if i in lab else centers[i] for i in range(k)]
+        if np.allclose(new, centers): break
+        centers = new
+    groups = [[t for t, l in zip(items, lab) if l == i] for i in sorted(set(lab), key=lambda i: -centers[i])]
+    return [g for g in groups if g]
+
 if args.out:
+    GROUP_K = 3
+    groups = {pr: kmeans_groups(pr, GROUP_K) for pr in PROPS}
+    # the factors of the groups: refitted on all loads with the groups as the classes (like the cross-validated check above)
+    saved = {k: [r[k] for r in R] for k in PROPS.values()}
+    rank = ["low", "medium", "high"]
+    for pr, col in PROPS.items():
+        gid = {c: f"group-{rank[min(i, 2)] if len(groups[pr]) == 3 else i}" for i, g in enumerate(groups[pr]) for c, _, _ in g}
+        for r in R: r[col] = gid.get(r[col], "")
+    gfac = solve(list(range(len(R))), ("shell", "wad", "primer"), args.ridge)
+    for col in PROPS.values():
+        for r, v in zip(R, saved[col]): r[col] = v
+    # the check of the groups (held-out loads, as above)
+    print("\ngroups:")
+    for pr in PROPS:
+        for i, g in enumerate(groups[pr]):
+            gk = (pr, f"group-{rank[min(i, 2)]}")
+            fc, fe = gfac.get(gk, (0.0, 0.0))
+            print(f"   {pr:6} {gk[1]:13} capacity {math.exp(fc):.3f} energy {math.exp(fe):.3f}  {sum(t[2] for t in g):5d} loads: " + ", ".join(t[0] for t in g[:6]))
     def display(pr, c):
         names = collections.Counter((r["wad"] if pr == "wad" else r["primer"]).strip() for r in R if r[PROPS[pr]] == c)
         return max(names, key=lambda n: (len(n), names[n]))  # the longest spelling is not the abbreviation
@@ -172,10 +203,21 @@ if args.out:
              "loads": sum(1 for r in R if r[PROPS[pr]] == c)}
         if gauge: e["gauge"] = gauge
         return e
+    def group_entries(pr):
+        out = []
+        for i, g in enumerate(groups[pr]):
+            rk = rank[min(i, 2)] if len(groups[pr]) == 3 else str(i)
+            fc, fe = gfac.get((pr, f"group-{rk}"), (0.0, 0.0))
+            def nice(c): return c if pr == "shell" else display(pr, c)
+            out.append({"id": f"group-{rk}", "rank": rk, "capacity": round(math.exp(fc), 4), "energy": round(math.exp(fe), 4), "loads": sum(t[2] for t in g),
+                        "examples": ", ".join(nice(t[0]) for t in sorted(g, key=lambda t: -t[2])[:3]), "members": [t[0] for t in g]})
+        return out
     out = {"note": "Factors of the shell (hull), wad and primer of shotshell loads on the shotshell model: capacity = powder space, energy = gas energy; the "
                    "factors of a load multiply. Fitted with analysis/fit_shot_factors.py to the published loads of Hodgdon, Alliant and Vectan. "
-                   "A load names its parts in the caliber entries shothull, shotwad and shotprimer. Generated - do not edit by hand.",
+                   "A load names its parts in the caliber entries shothull, shotwad and shotprimer, a specific part or a group of similar ones (low, medium, high pressure). "
+                   "Generated - do not edit by hand.",
            "shells": [entry("shell", c, c) for c in cls["shell"]],
+           "shell_groups": group_entries("shell"), "wad_groups": group_entries("wad"), "primer_groups": group_entries("primer"),
            "wads": [entry("wad", c, display("wad", c), int(c.split("-")[0])) for c in cls["wad"]],
            "primers": [entry("primer", c, display("primer", c)) for c in cls["primer"]]}
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)

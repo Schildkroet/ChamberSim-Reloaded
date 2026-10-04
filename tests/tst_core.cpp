@@ -148,6 +148,19 @@ void CoreTest::shotshellPartsChangeTheFactors()
     QCOMPARE(grt::shotFactorsOf(caliber).capacity, remington->capacityScale * primer->capacityScale);
     caliber.set(u"shothull", u"unknown"_s);
     QCOMPARE(grt::shotFactorsOf(caliber).capacity, primer->capacityScale);
+    // groups of similar parts for those who do not know the exact one: low-pressure parts have more powder space than medium ones, those more than high ones
+    for (const grt::ShotPart part : grt::kShotParts)
+    {
+        const auto &groups = grt::shotPartGroups(part);
+        QCOMPARE(groups.size(), std::size_t(3));
+        QVERIFY(groups[0].group && groups[0].rank == u"low"_s && groups[2].rank == u"high"_s);
+        QVERIFY(groups[0].capacityScale > groups[1].capacityScale && groups[1].capacityScale > groups[2].capacityScale);
+        QVERIFY(!groups[0].examples.isEmpty());
+        QCOMPARE(grt::findShotPart(part, u"group-low"_s), &groups[0]);
+    }
+    caliber.set(u"shothull", u"group-high"_s);
+    caliber.set(u"shotprimer", QString());
+    QCOMPARE(grt::shotFactorsOf(caliber).capacity, grt::shotPartGroups(grt::ShotPart::Shell)[2].capacityScale);
     // the simulation: the same load with the Remington hull peaks higher than with the Federal one
     grt::SimInput in;
     in.shotshell = true;
