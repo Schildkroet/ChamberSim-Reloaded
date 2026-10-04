@@ -84,8 +84,8 @@ class Powder:
             return np.concatenate([np.nan_to_num(ev[m]), args.pressure_weight * np.nan_to_num(ep[m])])
         d0 = (e["z2"] - e["z1"]) / (1 - e["z1"])
         x0 = np.array([np.log(e["Ba"]), e["a0"], e["z1"], d0])
-        sol = least_squares(fun, x0, loss="soft_l1", f_scale=0.1, diff_step=2e-3, max_nfev=30,
-                            bounds=([np.log(0.05), -1.0, 0.05, 0.1], [np.log(20.0), 3.0, 0.7, 0.95]))
+        lo, hi = np.array([np.log(0.05), -3.0, 0.05, 0.05]), np.array([np.log(20.0), 10.0, 0.8, 0.95])  # as fit_physical_powders.py
+        sol = least_squares(fun, np.clip(x0, lo + 1e-6, hi - 1e-6), loss="soft_l1", f_scale=0.1, diff_step=2e-3, x_scale=np.maximum(np.abs(x0), 0.1), max_nfev=40, bounds=(lo, hi))
         self.ba, self.form = unpack(sol.x)
         self.ev, self.ep = self.resid(self.ba, self.form)
         return self
@@ -122,6 +122,9 @@ kind = np.array([r["kind"] for f in fits for r in f.rows])
 if not args.quiet:
     for f in fits: print(f"  {f.name:22} Ba {f.ba:.4f} (file {f.e['Ba']:.4f})  v {rms(f.ev[~f.test]):.2f}/{rms(f.ev[f.test]):.2f} %  p {rms(f.ep[~f.test]):.2f}/{rms(f.ep[f.test]):.2f} %")
 print(f"train      : velocity {tr[0]:.2f} %  pressure {tr[1]:.2f} %  (bias {tr[2]:+.1f} %)")
+def med(x): x = np.abs(x[~np.isnan(x)]); return 100 * np.median(x) if len(x) else float("nan")
+hev = np.concatenate([f.ev[f.test] for f in fits]); hep = np.concatenate([f.ep[f.test] for f in fits])
+print(f"held-out median |error|: velocity {med(hev):.2f} %  pressure {med(hep):.2f} %")
 print(f"held-out   : velocity {te[0]:.2f} %  pressure {te[1]:.2f} %  (bias {te[2]:+.1f} %)")
 src = np.array([r["_src"] for f in fits for r in f.rows]); tst = np.concatenate([f.test for f in fits])
 for name in sorted(set(src)):

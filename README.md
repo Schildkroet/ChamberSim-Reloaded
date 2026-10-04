@@ -46,20 +46,27 @@ is the algorithm of any other program.
 
 ### Physical Model against published loads
 
-Simulated with the project's powder records and compared with the manufacturers' tables (velocity, and measured peak
-pressure where published). Hodgdon and Western: only cartridges that were left out of the fit (fitted on the other 3/4).
-The other rows are the loads the powders' burn rates were fitted to, so they are not independent:
+Simulated with the project's powder records and compared with the manufacturers' tables (velocity, and measured peak pressure where
+published). Every powder's burn values were fitted on 3/4 of the cartridges, the figures are for the **cartridges that were left out**
+(every 4th cartridge). Before = the constants until 2026-10-04, after = the current ones (the same fit on the same data, 106 powders,
+about 42,000 loads of Hodgdon, Western, Lovex, Reload Swiss, Vihtavuori, ADI and Vectan):
 
-| Published data | Powders | Velocity: rms (median) | Peak pressure: rms (median) |
+| Published data | Held-out loads | Velocity: before → after (rms) | Peak pressure: before → after (rms) |
 |---|---:|---:|---:|
-| Hodgdon and Western, all | 59 | 5.9 % (2.5 %) | 12 % (6.1 %) |
-| of these rifle powders | | 4.2 % | 9.6 % |
-| of these pistol and shotgun powders | | 19 % | 39 % |
-| Vihtavuori (velocities only) | 16 | 3.25 % | - |
-| Lovex | 8 | 2.5 - 4.2 % | 6.5 - 11 % |
-| Reload Swiss | 6 | 5 - 7 % | 13 - 20 % |
-| ADI Powders (rifle data, 7,296 loads) | 13 | 4.6 % | 11 % |
-| Shotgun loads (Hodgdon, Alliant; 5,198 loads) | | 3.1 % | 13.9 % |
+| All powders with published pressures (84) | 6,939 | 5.47 % → 4.83 % | 14.8 % → 14.6 % |
+| All powders without pressures (20: Vihtavuori, Vectan) | 3,119 | 3.17 % → 2.90 % | - |
+| Hodgdon (IMR, Winchester, ...) | 2,022 | 6.19 % → 5.91 % | 15.3 % → 14.8 % |
+| Western (Accurate, Ramshot) | 630 | 4.10 % → 3.11 % | 10.5 % → 10.8 % |
+| ADI Powders (rifle and pistol) | 1,660 | 3.94 % → 3.33 % | 9.6 % → 10.8 % |
+| Lovex | 104 | 2.80 % → 2.41 % | 12.3 % → 12.3 % |
+| Reload Swiss | 152 | 5.77 % → 4.63 % | 15.5 % → 16.9 % |
+| Vihtavuori (velocities only) | 1,372 | 3.16 % → 2.96 % | - |
+| Shotgun loads (Hodgdon, Alliant; 5,198 loads, original's constants) | | 3.1 % | 13.9 % |
+
+The error no longer depends on the charge and the bullet: the velocity of start loads was 2.3 % too high and of maximum loads 1.7 % too low,
+now +1.3 % and -0.9 %; the pressure bias of start and maximum loads fell from +4.0 / -2.3 % to +1.0 / -0.6 %; the trend of the velocity
+error with the bullet mass (heavy bullets too fast) is gone. The remaining scatter (3-4 % in velocity) is that of the published tables
+(lots, barrels, components) and cannot be removed by the model.
 
 Single loads can deviate much more. Details of the method: `tools/loaddata/README.md`.
 
@@ -92,25 +99,25 @@ Single loads can deviate much more. Details of the method: `tools/loaddata/READM
 
 | Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
 |---|---:|---:|---:|---:|---:|---:|
-| Other cartridges (caliber sweep) | 28 | 55.7 % | 129.3 % | 9.7 % | 25.6 % | 39.6 % |
-| Powders (40 powders, one cartridge) | 39 | 52.5 % | 195.5 % | 9.9 % | 43.1 % | 30.0 % |
-| Charge, bullet weight, start pressure, case volume | 24 | 54.6 % | 196.4 % | 6.7 % | 20.6 % | 32.3 % |
-| Barrel length, twist, Sebert factor | 10 | 51.6 % | 67.0 % | 8.1 % | 24.6 % | 37.4 % |
-| Powder temperature | 26 | 49.6 % | 60.5 % | 5.6 % | 7.9 % | 29.4 % |
-| Bullet friction | 11 | 54.3 % | 64.0 % | 6.0 % | 15.6 % | 36.0 % |
-| Almost closed vessel (very heavy bullet) | 9 | 3.8 % | 14.2 % | 6.7 % | 15.7 % | 11.9 % |
-| Fast powders (burn rate, step length, form function) | 21 | 27.3 % | 160.9 % | 4.7 % | 10.0 % | 11.9 % |
-| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 32 | 20.2 % | 66.5 % | 5.1 % | 10.8 % | 7.1 % |
-| Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 37.9 % | 194.8 % | 6.4 % | 14.8 % | 19.9 % |
-| Pistol and revolver loads with fast powders | 28 | 30.7 % | 63.5 % | 6.5 % | 14.2 % | 18.9 % |
-| Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 34 | 118.9 % | 226.8 % | 2.1 % | 23.0 % | 77.8 % |
-| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 34.5 % | 50.7 % | 6.4 % | 10.1 % | 15.6 % |
-| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 56.3 % | 160.9 % | 5.8 % | 13.6 % | 34.4 % |
-| Loading density (charge, case volume, powder density, Qex) | 22 | 59.3 % | 253.0 % | 6.8 % | 20.6 % | 30.6 % |
-| Other | 1 | 61.9 % | 61.9 % | 2.9 % | 2.9 % | 61.8 % |
-| **All runs** | 349 | 49.9 % | 253.0 % | 6.4 % | 43.1 % | 30.0 % |
+| Other cartridges (caliber sweep) | 28 | 30.8 % | 61.3 % | 7.6 % | 14.4 % | 28.0 % |
+| Powders (40 powders, one cartridge) | 39 | 27.5 % | 80.1 % | 5.2 % | 19.6 % | 21.4 % |
+| Charge, bullet weight, start pressure, case volume | 24 | 34.2 % | 118.2 % | 5.3 % | 13.3 % | 24.7 % |
+| Barrel length, twist, Sebert factor | 10 | 33.8 % | 47.1 % | 6.5 % | 15.9 % | 28.7 % |
+| Powder temperature | 26 | 32.2 % | 37.4 % | 5.1 % | 6.2 % | 23.3 % |
+| Bullet friction | 11 | 39.4 % | 57.8 % | 5.2 % | 12.3 % | 29.8 % |
+| Almost closed vessel (very heavy bullet) | 9 | 4.3 % | 15.7 % | 6.7 % | 15.7 % | 11.1 % |
+| Fast powders (burn rate, step length, form function) | 21 | 11.2 % | 75.9 % | 1.0 % | 6.1 % | 11.9 % |
+| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 32 | 10.3 % | 60.4 % | 1.4 % | 6.3 % | 10.5 % |
+| Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 28.1 % | 122.3 % | 5.5 % | 12.6 % | 14.2 % |
+| Pistol and revolver loads with fast powders | 28 | 24.7 % | 48.4 % | 5.8 % | 11.1 % | 15.6 % |
+| Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 34 | 66.9 % | 123.5 % | 1.7 % | 13.2 % | 38.7 % |
+| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 22.5 % | 36.8 % | 5.2 % | 10.6 % | 13.2 % |
+| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 33.5 % | 75.9 % | 4.0 % | 9.8 % | 23.6 % |
+| Loading density (charge, case volume, powder density, Qex) | 22 | 37.1 % | 150.6 % | 4.8 % | 13.3 % | 24.2 % |
+| Other | 1 | 37.5 % | 37.5 % | 2.2 % | 2.2 % | 35.7 % |
+| **All runs** | 349 | 30.2 % | 150.6 % | 4.5 % | 19.6 % | 21.3 % |
 
-_Absolute deviations against 349 runs of the original program; updated 2026-10-04 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute deviations against 349 runs of the original program; updated 2026-10-05 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is
@@ -391,25 +398,22 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
   4.5 % and 16 %), but its results differ from the original program (against its reference runs 27 % in peak pressure). Some of its
   constants are empirical without a physical meaning (covolume about 0, case capacity x 0.74).
 - **Physical Model**, the default: the project's own model, not the original's. Integrated in time to convergence (the result does not depend on the
-  number of curve points); the primer lights the powder, the burning spreads over the grains (flame spread, about 0.75 ms) and the bullet
+  number of curve points); the primer lights the powder, the burning spreads over the grains (flame spread, about 0.3 ms) and the bullet
   starts at the start pressure; covolume of the gas (x eta) and volume of the unburnt powder (1 / pc); engraving, friction of the bearing
   surface (bullet length), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
   and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show heat and friction
   loss; a bullet that cannot leave the barrel is reported.
-  Its constants and the **physical burn values** of 105 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
-  pressures: Hodgdon, Western, Lovex, Reload Swiss; Vihtavuori publishes no pressures, its 16 powders have a fitted Ba and the median
+  Its constants and the **physical burn values** of 106 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
+  pressures: Hodgdon, Western, Lovex, Reload Swiss, ADI; Vihtavuori and Vectan publish no pressures, their 20 powders have a fitted Ba and the median
   form function of the others) come from `analysis/calibrate_published.py --profile physical` and
   `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A load stores them in its propellant section (`physBa`,
   `physA0`, `physZ1`, `physZ2`, `physRef` = the record values they belong to); they apply only while Ba, a0, z1, z2 of the load are
   unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger. A load saved
   before these values existed gets them when it is opened. The curves and the barrel time begin when the bullet moves (it waits at
   the start pressure until the gas overcomes the engraving and friction).
-  Held-out cartridges (fitted on the other 3/4), the 59 Hodgdon and Western powders: velocity 5.9 % rms (median 2.5 %), peak pressure 12 % rms (median 6.1 %);
-  the Published constants 6.0 % (2.3 %) and 19 % (6.4 %). Rifle powders: velocity 4.2 % (Published 3.6 %), pressure 9.6 % (10.1 %);
-  pistol and shotgun powders: velocity 19 % (22 %), pressure 39 % (79 %). Velocity of rifle loads is still a little less accurate than
-  with the Published constants, pressure is better everywhere. Vihtavuori (16 powders, velocities only): 3.25 % (Published 3.16 %,
-  whose record burn rates were fitted to all of these loads). Lovex (8 powders): velocity 2.5-4.2 %, pressure 6.5-11 %;
-  Reload Swiss (6): 5-7 % and 13-20 %.
+  Accuracy against the published loads: see the table in the Accuracy section (held-out cartridges: velocity 4.8 %, pressure 14.6 % rms for the
+  powders with published pressures; 2.9 % in velocity for those without). Powders without physical values (own records, edited values)
+  use the load's burn rate with a scale (`burnRateScale`) and are less accurate.
   Shotshells always keep the original's constants.
 
 Method and numbers: `tools/loaddata/README.md`, `analysis/calibrate_published.py`, `analysis/fit_physical_powders.py`.

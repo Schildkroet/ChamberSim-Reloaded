@@ -814,24 +814,28 @@ Calibration calibrationFor(CalibrationProfile profile)
     }
     else if (profile == CalibrationProfile::Physical)
     {
-        // the project's own physical model (simulatePhysical), fitted with analysis/calibrate_published.py to the velocities and measured
-        // pressures of 22 rifle powders of the Hodgdon and Western Powders manuals (3/4 of the cartridges), alternating with the powders'
-        // physical burn values (analysis/fit_physical_powders.py, data/physical/propellants.json). burnRateScale and burnSlopeOffset
-        // matter only for powders without physical burn values. At a limit of the fit: capacityFactor, engravingShare (upper),
-        // gasCovolume_cm3g, primerEnergy_J (lower).
+        // the project's own physical model (simulatePhysical), constants first fitted with analysis/calibrate_published.py to the velocities
+        // and measured pressures of 22 rifle powders of the Hodgdon and Western Powders manuals (3/4 of the cartridges), alternating with
+        // the powders' physical burn values (analysis/fit_physical_powders.py, data/physical/propellants.json). burnRateScale and
+        // burnSlopeOffset matter only for powders without physical burn values (burnRateScale: 0.84 balances velocity and pressure when
+        // all powders are simulated without their values). At a limit of the fit: capacityFactor, engravingShare (upper), gasCovolume_cm3g,
+        // primerEnergy_J (lower).
+        // 2026-10-04: gasInertiaFactor 0.2, burnExponent -0.15 and ignitionTime 0.3 ms (analysis/scan_physical.py on the loads of all
+        // makers, the trends of the error over loading density and bullet mass are gone or small), all powders refitted.
         cal.model = SolverModel::Physical;
-        cal.burnRateScale = 1.52516;
+        cal.burnRateScale = 0.84;
         cal.burnSlopeOffset = 1.31191;
         cal.impetusFactor = 1.01833;
         cal.capacityFactor = 1.15;
         cal.gasCovolume_cm3g = 0.8;
         cal.primerEnergy_J = 10.0009;
-        cal.ignitionTime_ms = 0.75716;
+        cal.ignitionTime_ms = 0.3;
         cal.engravingShare = 0.998677;
         cal.slideStress_MPa = 0.700469;
         cal.heatTransferFactor = 0.0618079;
         cal.heatVelocity_ms = 169.199;
-        cal.burnExponent = -0.327531;
+        cal.burnExponent = -0.15;
+        cal.gasInertiaFactor = 0.2;
     }
     return cal;
 }

@@ -67,8 +67,8 @@ QString html(const std::optional<DatabaseInfo> &database)
                                              "</ul>");
     text += QApplication::translate("about", "<h3>Accuracy</h3>"
                                              "<p>The default <b>Physical Model</b> was fitted to the published load data of powder "
-                                             "manufacturers. On cartridges not used for the fit it typically deviates about 2.5&nbsp;% in "
-                                             "muzzle velocity and 6&nbsp;% in peak pressure from the published values (median); single "
+                                             "manufacturers. On cartridges not used for the fit it typically deviates about 2&nbsp;% in "
+                                             "muzzle velocity and 7.5&nbsp;% in peak pressure from the published values (median); single "
                                              "loads, and pistol and shotgun powders, can deviate much more.</p>"
                                              "<p>The <b>GRT Original</b> model (File &gt; Settings &gt; Solver) reproduces the original "
                                              "program: on average 0.8&nbsp;% in muzzle velocity and 2.8&nbsp;% in peak pressure over 349 "

@@ -2415,7 +2415,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+10"/>
-        <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The default &lt;b&gt;Physical Model&lt;/b&gt; was fitted to the published load data of powder manufacturers. On cartridges not used for the fit it typically deviates about 2.5&amp;nbsp;% in muzzle velocity and 6&amp;nbsp;% in peak pressure from the published values (median); single loads, and pistol and shotgun powders, can deviate much more.&lt;/p&gt;&lt;p&gt;The &lt;b&gt;GRT Original&lt;/b&gt; model (File &amp;gt; Settings &amp;gt; Solver) reproduces the original program: on average 0.8&amp;nbsp;% in muzzle velocity and 2.8&amp;nbsp;% in peak pressure over 349 reference runs.&lt;/p&gt;</source>
+        <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The default &lt;b&gt;Physical Model&lt;/b&gt; was fitted to the published load data of powder manufacturers. On cartridges not used for the fit it typically deviates about 2&amp;nbsp;% in muzzle velocity and 7.5&amp;nbsp;% in peak pressure from the published values (median); single loads, and pistol and shotgun powders, can deviate much more.&lt;/p&gt;&lt;p&gt;The &lt;b&gt;GRT Original&lt;/b&gt; model (File &amp;gt; Settings &amp;gt; Solver) reproduces the original program: on average 0.8&amp;nbsp;% in muzzle velocity and 2.8&amp;nbsp;% in peak pressure over 349 reference runs.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
