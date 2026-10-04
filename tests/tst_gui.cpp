@@ -1,3 +1,4 @@
+#include <limits>
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
@@ -40,6 +41,7 @@
 
 #include "about.h"
 #include "burnratedialog.h"
+#include "unitconverterdialog.h"
 #include "theme.h"
 #include "flags.h"
 #include "titlebar.h"
@@ -140,6 +142,7 @@ private slots:
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
     void burnRateTableSortsAndFilters();
+    void unitConverterConvertsAllUnits();
     void solverCalibrationIsChosenInTheSettings();
     void overallLengthAndSeatingDepthStayInStep();
     void recordDialogShowsReadableFieldsInUserUnits();
@@ -178,6 +181,32 @@ int GuiTest::idOf(grt::Database &db, grt::Table t, const QString &where)
     if (q.exec(u"SELECT id FROM %1 WHERE geloescht = 0 AND %2 ORDER BY id"_s.arg(QLatin1String(grt::tableName(t)), where)) && q.next())
         return q.value(0).toInt();
     return -1;
+}
+
+void GuiTest::unitConverterConvertsAllUnits()
+{
+    UnitConverterDialog dialog;
+    const auto value = [&](const QString &symbol)
+    {
+        for (int i = 0; i < dialog.rowCount(); ++i)
+            if (dialog.symbolAt(i) == symbol) return QLocale().toDouble(dialog.valueAt(i));
+        return std::numeric_limits<double>::quiet_NaN();
+    };
+    dialog.setQuantity(grt::units::Quantity::Pressure);
+    dialog.setFromUnit(u"bar"_s);
+    dialog.setInput(u"1000"_s);
+    QCOMPARE(dialog.rowCount(), 4);
+    QCOMPARE(value(u"bar"_s), 1000.0);
+    QVERIFY(std::abs(value(u"psi"_s) - 14503.77) < 0.01);
+    QCOMPARE(value(u"MPa"_s), 100.0);
+    // an offset unit: Celsius to Fahrenheit
+    dialog.setQuantity(grt::units::Quantity::Temperature);
+    dialog.setFromUnit(u"cel"_s);
+    dialog.setInput(u"100"_s);
+    QVERIFY(std::abs(value(u"°F"_s) - 212.0) < 1e-6);
+    // text that is no number clears the values
+    dialog.setInput(u"abc"_s);
+    QVERIFY(dialog.valueAt(0).isEmpty());
 }
 
 void GuiTest::burnRateTableSortsAndFilters()

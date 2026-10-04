@@ -134,6 +134,8 @@ add_library(grtui STATIC
     src/app/solverprefs.cpp
     src/app/burnratedialog.h
     src/app/burnratedialog.cpp
+    src/app/unitconverterdialog.h
+    src/app/unitconverterdialog.cpp
     src/app/selectrecorddialog.h
     src/app/selectrecorddialog.cpp
     src/app/newloaddialog.h

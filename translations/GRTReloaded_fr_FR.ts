@@ -657,12 +657,12 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+328"/>
+        <location filename="../src/app/mainwindow.cpp" line="+335"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-272"/>
+        <location filename="../src/app/mainwindow.cpp" line="-278"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -718,7 +718,7 @@
     </message>
     <message>
         <location line="+18"/>
-        <location line="+296"/>
+        <location line="+302"/>
         <location line="+165"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -726,7 +726,7 @@
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-462"/>
+        <location line="-468"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -742,12 +742,12 @@
     </message>
     <message>
         <location line="+3"/>
-        <location line="+225"/>
+        <location line="+231"/>
         <source>Open load</source>
         <translation>Ouvrir un chargement</translation>
     </message>
     <message>
-        <location line="-225"/>
+        <location line="-231"/>
         <source>GRT loads (*.grtload);;All files (*)</source>
         <translation>Chargements GRT (*.grtload);;Tous les fichiers (*)</translation>
     </message>
@@ -794,12 +794,12 @@
     </message>
     <message>
         <location line="+9"/>
-        <location line="+425"/>
+        <location line="+431"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-421"/>
+        <location line="-427"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -880,7 +880,12 @@
         <translation>&amp;Tableau des vitesses de combustion…</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+7"/>
+        <source>&amp;Unit converter…</source>
+        <translation>Convertisseur d&apos;&amp;unités…</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
@@ -2224,6 +2229,100 @@ pression Δ</translation>
     </message>
 </context>
 <context>
+    <name>UnitConverterDialog</name>
+    <message>
+        <location filename="../src/app/unitconverterdialog.cpp" line="+25"/>
+        <source>Length</source>
+        <translation>Longueur</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Bullet and charge mass</source>
+        <translation>Masse de la balle et de la charge</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Gun mass</source>
+        <translation>Masse de l&apos;arme</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pressure</source>
+        <translation>Pression</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Velocity</source>
+        <translation>Vitesse</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Energy</source>
+        <translation>Énergie</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Force</source>
+        <translation>Force</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Impulse</source>
+        <translation>Impulsion</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Area</source>
+        <translation>Surface</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Volume</source>
+        <translation>Volume</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Density</source>
+        <translation>Masse volumique</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Temperature</source>
+        <translation>Température</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Time</source>
+        <translation>Temps</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Unit converter</source>
+        <translation>Convertisseur d&apos;unités</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+1"/>
+        <source>Value</source>
+        <translation>Valeur</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Unit</source>
+        <translation>Unité</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Quantity</source>
+        <translation>Grandeur</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Convert</source>
+        <translation>Convertir</translation>
+    </message>
+</context>
+<context>
     <name>VivacityChart</name>
     <message>
         <location filename="../src/app/vivacitychart.cpp" line="+22"/>
@@ -2239,7 +2338,7 @@ pression Δ</translation>
 <context>
     <name>about</name>
     <message numerus="yes">
-        <location filename="../src/app/about.cpp" line="+29"/>
+        <location filename="../src/app/about.cpp" line="+30"/>
         <source>%Ln caliber(s)</source>
         <translation>
             <numerusform>%Ln calibre</numerusform>
@@ -2263,7 +2362,7 @@ pression Δ</translation>
         </translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+19"/>
         <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Balistique intérieure pour le rechargement&lt;/p&gt;&lt;p&gt;Choisissez une cartouche, une balle et une poudre, saisissez la charge et voyez la pression, l&apos;énergie de la balle et la vitesse le long du canon.&lt;/p&gt;&lt;p&gt;Une recréation en Qt&amp;nbsp;6 du déroulement de travail de Gordon&apos;s Reloading Tool. C&apos;est un projet indépendant, sans lien avec le programme d&apos;origine ou son auteur et non soutenu par eux.&lt;/p&gt;</translation>
     </message>
@@ -2293,7 +2392,12 @@ pression Δ</translation>
         <translation>&lt;hr&gt;&lt;p&gt;&lt;small&gt;Qt %1 (compilé avec %2) · %3 · langue %4&lt;/small&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+3"/>
+        <source>&lt;p&gt;&lt;small&gt;Build date: %1&lt;/small&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Original program&apos;s database: none chosen</source>
         <translation>Base de données du programme d’origine : aucune choisie</translation>
     </message>

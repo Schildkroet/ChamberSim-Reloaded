@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "burnratedialog.h"
+#include "unitconverterdialog.h"
 #include "./ui_mainwindow.h"
 
 #include "about.h"
@@ -283,6 +284,12 @@ void MainWindow::createActions()
                                             BurnRateDialog dialog(m_db, this);
                                             dialog.exec();
                                         });
+    tools->addAction(tr("&Unit converter…"), this,
+                     [this]
+                     {
+                         UnitConverterDialog dialog(this);
+                         dialog.exec();
+                     });
 
     // Help
     QMenu *help = m_menuBar->addMenu(tr("&Help"));
