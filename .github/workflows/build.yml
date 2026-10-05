@@ -176,10 +176,36 @@ jobs:
           archive: false
           if-no-files-found: error
 
+  manual:
+    name: User manual (PDF)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: System packages
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+          version: ubuntu-24.04-manual-v1
+
+      # docs/manual/build.sh takes the program version from CMakeLists.txt
+      - name: Build the manual
+        run: |
+          docs/manual/build.sh
+          version=$(sed -n 's/^set(GRT_VERSION "\(.*\)")/\1/p' CMakeLists.txt)
+          cp docs/manual/manual.pdf "GRTReloaded-${version}-manual.pdf"
+
+      # the PDF as it is (not wrapped in a zip)
+      - uses: actions/upload-artifact@v7
+        with:
+          path: "*.pdf"
+          archive: false
+          if-no-files-found: error
+
   release:
     name: Release (tags only)
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [tests, linux, windows]
+    needs: [tests, linux, windows, manual]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
