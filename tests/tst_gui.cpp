@@ -950,12 +950,11 @@ void GuiTest::noteWithoutPhysicalBurnValues()
     // the table of the physical burn values is a resource of the program only: the file of the source tree for this test
     grt::setPhysicalBurnFile(QStringLiteral(GRT_SOURCE_DIR "/data/physical/propellants.json"));
     const auto restore = qScopeGuard([] { grt::setPhysicalBurnFile(QStringLiteral(":/data/physical/propellants.json")); });
+    // the orange banner (hidden: no text)
     const auto statusOf = [](LoadView &v)
     {
-        QString all;
-        for (const auto *l : v.findChildren<QLabel *>())
-            if (l->text().startsWith(u"Model: "_s)) all = l->text();
-        return all;
+        const auto *banner = v.findChild<QWidget *>(u"burnValuesNotice"_s);
+        return banner && !banner->isHidden() ? v.findChild<QLabel *>(u"burnValuesNoticeText"_s)->text() : QString();
     };
     // the sample's N150 has the original's values: those of the project's record are different, so it has no physical ones
     LoadView original;
@@ -974,12 +973,7 @@ void GuiTest::noteWithoutPhysicalBurnValues()
                                box->button(b)->click();
                            });
     };
-    const auto statusLabel = [](LoadView &v)
-    {
-        for (auto *l : v.findChildren<QLabel *>())
-            if (l->text().startsWith(u"Model: "_s)) return l;
-        return static_cast<QLabel *>(nullptr);
-    };
+    const auto statusLabel = [](LoadView &v) { return v.findChild<QLabel *>(u"burnValuesNoticeText"_s); };
     QVERIFY(!original.isModified());
     answerBox(QMessageBox::No);
     emit statusLabel(original)->linkActivated(u"physical"_s);

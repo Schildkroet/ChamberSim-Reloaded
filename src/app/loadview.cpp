@@ -137,6 +137,8 @@ LoadView::LoadView(QWidget *parent)
     , m_status(new QLabel)
     , m_overpressure(new QWidget)
     , m_overpressureText(new QLabel)
+    , m_burnNotice(new QWidget)
+    , m_burnNoticeText(new QLabel)
     , m_leftResults(new QFormLayout)
     , m_rightResults(new QFormLayout)
     , m_comparison(new QLabel)
@@ -149,8 +151,6 @@ LoadView::LoadView(QWidget *parent)
     m_heading->setTextFormat(Qt::RichText);
     m_heading->setWordWrap(true);
     m_status->setWordWrap(true);
-    m_status->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
-    connect(m_status, &QLabel::linkActivated, this, [this] { offerPhysicalBurn(); });
     m_comparison->setTextFormat(Qt::RichText);
 
     for (const QString &label : {tr("Maximum pressure"), tr("Muzzle pressure"), tr("Projectile energy"), tr("Muzzle velocity"),
@@ -196,7 +196,31 @@ LoadView::LoadView(QWidget *parent)
         row->addWidget(m_overpressureText, 1);
         m_overpressure->hide();
     }
+    {
+        // dark on orange in every theme; hidden unless the Physical Model runs without the powder's physical burn values
+        m_burnNotice->setObjectName(u"burnValuesNotice"_s);
+        m_burnNotice->setAutoFillBackground(true);
+        QPalette pal = m_burnNotice->palette();
+        pal.setColor(QPalette::Window, QColor(0xff, 0xb3, 0x47));
+        pal.setColor(QPalette::WindowText, QColor(0x2b, 0x1a, 0x00));
+        m_burnNotice->setPalette(pal);
+        auto *icon = new QLabel;
+        const int size = style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+        icon->setPixmap(style()->standardIcon(QStyle::SP_MessageBoxInformation).pixmap(size, size));
+        icon->setAlignment(Qt::AlignTop);
+        m_burnNoticeText->setObjectName(u"burnValuesNoticeText"_s);
+        m_burnNoticeText->setTextFormat(Qt::RichText);
+        m_burnNoticeText->setWordWrap(true);
+        m_burnNoticeText->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
+        connect(m_burnNoticeText, &QLabel::linkActivated, this, [this] { offerPhysicalBurn(); });
+        auto *row = new QHBoxLayout(m_burnNotice);
+        row->setContentsMargins(8, 6, 8, 6);
+        row->addWidget(icon);
+        row->addWidget(m_burnNoticeText, 1);
+        m_burnNotice->hide();
+    }
     infoCol->addWidget(m_overpressure);
+    infoCol->addWidget(m_burnNotice);
     infoCol->addWidget(m_status);
     infoCol->addLayout(results);
     m_ladderTable->setHorizontalHeaderLabels({tr("Charge"), tr("Max. pressure"), tr("Velocity"), tr("Energy"), tr("Load ratio")});
@@ -877,6 +901,7 @@ void LoadView::showResult()
     m_heading->setText(headingHtml());
     m_comparison->clear();
     m_overpressure->hide();
+    m_burnNotice->hide();
     if (auto *item = m_leftResults->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet({});
     const auto clearAll = [&]
     {
@@ -902,18 +927,18 @@ void LoadView::showResult()
     if (profile == grt::CalibrationProfile::Physical && !m_input.shotshell && !m_input.physicalBurn)
     {
         const QString powder = (m_file.propellant.text(u"mname") + u' ' + m_file.propellant.text(u"pname")).trimmed();
-        if (grt::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname")))
-            status +=
-                u"<br>"_s +
-                tr("<b>No physical burn values in this load.</b> The Physical Model has values for %1, but this load's burn values are "
-                   "not those of the project's record (the original program's, or edited), so its burn rate is scaled and the results "
-                   "are less accurate. <a href=\"physical\">Use the physical values…</a>")
-                    .arg(powder.toHtmlEscaped());
-        else
-            status +=
-                u"<br>"_s +
-                tr("<b>No physical burn values</b> for this propellant (or its burn values were changed): the load's burn rate is scaled, "
-                   "the results are less accurate than for the powders of the Physical Model.");
+        QString text =
+            grt::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname"))
+                ? tr("<b>No physical burn values in this load.</b> The Physical Model has values for %1, but this load's burn values are "
+                     "not those of the project's record (the original program's, or edited), so its burn rate is scaled and the results "
+                     "are less accurate. <a href=\"physical\">Use the physical values…</a>")
+                      .arg(powder.toHtmlEscaped())
+                : tr("<b>No physical burn values</b> for this propellant (or its burn values were changed): the load's burn rate is "
+                     "scaled, "
+                     "the results are less accurate than for the powders of the Physical Model.");
+        text.replace(u"<a href=\"physical\">"_s, u"<a href=\"physical\" style=\"color:#2b1a00\">"_s);  // dark on the orange in every theme
+        m_burnNoticeText->setText(text);
+        m_burnNotice->show();
     }
     // shotshells: an own model, fitted to published shotgun loads (not to the original program)
     if (m_input.shotshell)

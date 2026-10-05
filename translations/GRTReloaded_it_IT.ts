@@ -301,29 +301,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+156"/>
-        <location line="+814"/>
+        <location line="+839"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-814"/>
-        <location line="+815"/>
+        <location line="-839"/>
+        <location line="+840"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-815"/>
+        <location line="-840"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+816"/>
+        <location line="+841"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-815"/>
+        <location line="-840"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -354,12 +354,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+43"/>
+        <location line="+67"/>
         <source>Load ratio</source>
         <translation>Grado di riempimento</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-66"/>
         <source>Burnt propellant</source>
         <translation>Polvere bruciata</translation>
     </message>
@@ -374,7 +374,7 @@
         <translation>Perdite calore / attrito</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+66"/>
         <source>Charge</source>
         <translation>Carica</translation>
     </message>
@@ -587,7 +587,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Proiettile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Polvere:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/LB:&lt;/b&gt; %6, &lt;b&gt;L6/LT:&lt;/b&gt; %7, &lt;b&gt;Profondità di inserimento:&lt;/b&gt; %8, &lt;b&gt;Lunghezza del proiettile:&lt;/b&gt; %9, &lt;b&gt;Volume del bossolo:&lt;/b&gt; %10</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+31"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Carica troppo alta:&lt;/b&gt; la carica di polvere non entra nel bossolo dietro la palla.</translation>
     </message>
@@ -607,17 +607,17 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Modello: %1</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>&lt;b&gt;No physical burn values in this load.&lt;/b&gt; The Physical Model has values for %1, but this load&apos;s burn values are not those of the project&apos;s record (the original program&apos;s, or edited), so its burn rate is scaled and the results are less accurate. &lt;a href=&quot;physical&quot;&gt;Use the physical values…&lt;/a&gt;</source>
         <translation>&lt;b&gt;Nessun valore di combustione fisico in questo caricamento.&lt;/b&gt; Il modello fisico ha valori per %1, ma i valori di combustione di questo caricamento non sono quelli della scheda del progetto (quelli del programma originale, o modificati); la vivacità viene quindi scalata e i risultati sono meno precisi. &lt;a href=&quot;physical&quot;&gt;Usa i valori fisici…&lt;/a&gt;</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+4"/>
         <source>&lt;b&gt;No physical burn values&lt;/b&gt; for this propellant (or its burn values were changed): the load&apos;s burn rate is scaled, the results are less accurate than for the powders of the Physical Model.</source>
         <translation>&lt;b&gt;Nessun valore di combustione fisico&lt;/b&gt; per questa polvere (o i suoi valori di combustione sono stati modificati): la vivacità del caricamento viene scalata, i risultati sono meno precisi che per le polveri del modello fisico.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation>&lt;b&gt;Cartuccia a pallini:&lt;/b&gt; borra e colonna di pallini come proiettile (massa pallini + borra, lunghezza della colonna, inserita nel bossolo, pressione iniziale = apertura della bordatura circa 20 bar). Adattato a cariche per fucile pubblicate: velocità tipicamente 5-7 % troppo bassa; pressione corretta in media ma fino al 30 % di scarto a seconda della polvere - confrontare con i dati del produttore della polvere.</translation>
     </message>

@@ -148,6 +148,8 @@ private:
     QLabel *m_status;
     QWidget *m_overpressure;  // warning banner: the maximum pressure is above the permitted one
     QLabel *m_overpressureText;
+    QWidget *m_burnNotice;  // orange banner: the Physical Model has no burn values for this load (less accurate)
+    QLabel *m_burnNoticeText;
     QFormLayout *m_leftResults;
     QFormLayout *m_rightResults;
     QLabel *m_comparison;

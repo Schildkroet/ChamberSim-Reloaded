@@ -301,29 +301,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+156"/>
-        <location line="+814"/>
+        <location line="+839"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-814"/>
-        <location line="+815"/>
+        <location line="-839"/>
+        <location line="+840"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-815"/>
+        <location line="-840"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+816"/>
+        <location line="+841"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-815"/>
+        <location line="-840"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -354,12 +354,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+43"/>
+        <location line="+67"/>
         <source>Load ratio</source>
         <translation>Füllgrad</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-66"/>
         <source>Burnt propellant</source>
         <translation>Verbranntes Pulver</translation>
     </message>
@@ -374,7 +374,7 @@
         <translation>Wärme-/Reibungsverlust</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+66"/>
         <source>Charge</source>
         <translation>Ladung</translation>
     </message>
@@ -587,7 +587,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Geschoss:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Pulver:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/HL:&lt;/b&gt; %6, &lt;b&gt;L6/GL:&lt;/b&gt; %7, &lt;b&gt;Setztiefe:&lt;/b&gt; %8, &lt;b&gt;Geschosslänge:&lt;/b&gt; %9, &lt;b&gt;Hülsenvolumen:&lt;/b&gt; %10</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+31"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Ladung zu hoch:&lt;/b&gt; die Pulverladung passt nicht hinter dem Geschoss in die Hülse.</translation>
     </message>
@@ -607,17 +607,17 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Modell: %1</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>&lt;b&gt;No physical burn values in this load.&lt;/b&gt; The Physical Model has values for %1, but this load&apos;s burn values are not those of the project&apos;s record (the original program&apos;s, or edited), so its burn rate is scaled and the results are less accurate. &lt;a href=&quot;physical&quot;&gt;Use the physical values…&lt;/a&gt;</source>
         <translation>&lt;b&gt;Keine physikalischen Abbrandwerte in dieser Ladung.&lt;/b&gt; Das Physikalische Modell hat Werte für %1, aber die Abbrandwerte dieser Ladung sind nicht die des Projektdatensatzes (die des Originalprogramms oder geändert); daher wird die Abbrandrate skaliert und die Ergebnisse sind ungenauer. &lt;a href=&quot;physical&quot;&gt;Physikalische Werte verwenden…&lt;/a&gt;</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+4"/>
         <source>&lt;b&gt;No physical burn values&lt;/b&gt; for this propellant (or its burn values were changed): the load&apos;s burn rate is scaled, the results are less accurate than for the powders of the Physical Model.</source>
         <translation>&lt;b&gt;Keine physikalischen Abbrandwerte&lt;/b&gt; für dieses Pulver (oder seine Abbrandwerte wurden geändert): die Abbrandrate der Ladung wird skaliert, die Ergebnisse sind ungenauer als bei den Pulvern des Physikalischen Modells.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation>&lt;b&gt;Schrotpatrone:&lt;/b&gt; Pfropfen und Schrotsäule als Geschoss (Masse Schrot + Pfropfen, Säulenlänge, in der Hülse sitzend, Anfangsdruck = Öffnen der Bördelung etwa 20 bar). An veröffentlichte Schrotladungen angepasst: Geschwindigkeit typisch 5-7 % zu niedrig; Druck im Mittel richtig, je nach Pulver aber bis zu 30 % daneben - mit den Daten des Pulverherstellers vergleichen.</translation>
     </message>

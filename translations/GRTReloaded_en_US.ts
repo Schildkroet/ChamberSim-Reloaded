@@ -300,7 +300,7 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+416"/>
+        <location filename="../src/app/loadview.cpp" line="+440"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -343,30 +343,30 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-737"/>
-        <location line="+814"/>
+        <location line="-762"/>
+        <location line="+839"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-814"/>
-        <location line="+815"/>
+        <location line="-839"/>
+        <location line="+840"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-815"/>
-        <location line="+816"/>
+        <location line="-840"/>
+        <location line="+841"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-816"/>
+        <location line="-841"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -402,12 +402,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+43"/>
+        <location line="+67"/>
         <source>Load ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-66"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -422,7 +422,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+66"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,7 +590,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+85"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -605,17 +605,17 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>&lt;b&gt;No physical burn values in this load.&lt;/b&gt; The Physical Model has values for %1, but this load&apos;s burn values are not those of the project&apos;s record (the original program&apos;s, or edited), so its burn rate is scaled and the results are less accurate. &lt;a href=&quot;physical&quot;&gt;Use the physical values…&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+4"/>
         <source>&lt;b&gt;No physical burn values&lt;/b&gt; for this propellant (or its burn values were changed): the load&apos;s burn rate is scaled, the results are less accurate than for the powders of the Physical Model.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>&lt;b&gt;Shotshell:&lt;/b&gt; wad and shot column as the projectile (shot + wad mass, column length, seated inside the hull, start pressure = crimp release about 20 bar). Fitted to published shotgun loads: velocity typically 5-7 % low; pressure right on average but up to 30 % off depending on the powder - check against the powder maker&apos;s data.</source>
         <translation type="unfinished"></translation>
     </message>
