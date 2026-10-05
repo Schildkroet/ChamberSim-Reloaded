@@ -37,6 +37,7 @@ your own responsibility.
   your own propellant records
 - 🖨️ Reports with a template editor, print preview and PDF export, adjustable scale
 - 📏 Metric / imperial / original units, also per field; themes (light, dark); global font size; own title bar on Linux
+- ↩️ Undo / redo of the edits of a load (Edit menu, Ctrl+Z / Ctrl+Shift+Z); a two-step New load dialog (components, then the load data)
 - 🗂️ Optionally reopens the loads of the last session at start (Settings > Start-up)
 - 📝 Logging (level, console, log file) that you can set in the settings
 - 🌍 Translations: English, German, French, Italian

@@ -146,6 +146,7 @@ gets a tab of its own. On Linux the program draws its own title bar with the men
   \item[\menu{File}] \ui{New load\dots} (Ctrl+N), \ui{Open load\dots} (Ctrl+O), \ui{Open recent}, \ui{Save} (Ctrl+S),
     \ui{Save as\dots}, \ui{Print preview\dots}, \ui{Print\dots} (Ctrl+P), \ui{Export report as PDF\dots},
     \ui{Overlay reference result\dots} (Ctrl+R), \ui{Clear reference overlay}, \ui{Settings\dots} (Ctrl+,) and \ui{Quit}.
+  \item[\menu{Edit}] \ui{Undo} (Ctrl+Z) and \ui{Redo} (Ctrl+Shift+Z or Ctrl+Y) for the load that is shown; see Section~\ref{sec:undo}.
   \item[\menu{View}] \ui{Theme} (system default, light, dark) and \ui{Language}. A language change takes effect after a restart.
   \item[\menu{Tools}] \ui{Burn rate table\dots} and \ui{Unit converter\dots}.
   \item[\menu{Help}] \ui{About GRT Reloaded\dots}
@@ -233,8 +234,20 @@ For propellants you can attach an overview photo and a detail photo (\ui{Choose 
 \section{Making, opening and saving loads}\label{sec:files}
 
 \subsection{New load}
-\menu{File}\sep\ui{New load\dots} (Ctrl+N) asks for a caliber, a projectile and a propellant. Where possible the dialog fills in
-defaults: barrel length, seating depth and the charge (70\,\% of the case capacity). Options of the dialog let you keep or reset these values.
+\menu{File}\sep\ui{New load\dots} (Ctrl+N) opens a dialog with two steps.
+
+\paragraph{Step 1: choose the components.} The tabs \ui{1.\ Caliber}, \ui{2.\ Projectile} and \ui{3.\ Propellant} list the records of the database. Select one record in each
+tab; below the lists the dialog shows what you have chosen so far. The projectile list can be restricted to bullets that fit the caliber
+(\ui{Show only bullets that fit the caliber}). \ui{Next >} becomes available when all three components are chosen.
+
+\paragraph{Step 2: check the load data.} The dialog shows the chosen components and the \ui{Load data}: propellant charge, barrel length, bullet seating depth,
+twist length and propellant temperature. They are filled with defaults for your selection (barrel length of the caliber, the cartridge at its maximum length, a charge of
+70\,\% of the case capacity) and you can change them freely. The charge is also shown in the other mass unit (grams or grains).
+\ui{Reset to defaults} restores the defaults.
+
+\ui{< Back} returns to step 1. If you come back to step 2 with the \emph{same} three components, your changes are kept; if you change any component, the load data are filled in again
+with the defaults of the new selection.
+
 \ui{Create load} opens the new load in its own tab. It is called ``Untitled'' until you save it.
 
 \subsection{Opening loads}
@@ -280,6 +293,19 @@ database. Consequently:
   \item to apply changes of a record to an existing load, select it again in the load (\ui{Select Propellant\dots} and so on).
 \end{itemize}
 Measurement series, notes and pictures are part of the file as well. Parts of an original file that the program does not interpret are kept unchanged when you save.
+
+\subsection{Undo and redo}\label{sec:undo}
+Every load remembers its last 100 edits. \menu{Edit}\sep\ui{Undo} (Ctrl+Z) takes back the last edit and \menu{Edit}\sep\ui{Redo} (Ctrl+Shift+Z or Ctrl+Y) restores it again.
+The menu entries name the edit, for example \ui{Undo Select Propellant}. The following edits are recorded:
+\begin{itemize}
+  \item changing a value in the property tables;
+  \item choosing another caliber, projectile or propellant;
+  \item applying the result of \ui{Fit to measurements} and accepting the physical burn values of a powder;
+  \item changes in the \ui{Measurements} tab.
+\end{itemize}
+The history belongs to one load and is not saved in the file. It starts empty when a load is opened and is kept while the load is saved. If you undo back to the
+state that was saved, the load no longer counts as modified. A new edit after an undo discards the steps that could have been redone.
+Switching the selected ladder curve is not an edit that can be undone.
 
 \subsection{Sessions}
 The program remembers the loads that were open when you quit (only those that have a file). With \menu{File}\sep\ui{Settings}\sep\ui{Start-up}\sep
