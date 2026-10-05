@@ -397,6 +397,7 @@ bool LoadView::load(const QString &path, QString *error)
     rebuildPanels();
     loadMeasurement();
     recompute();
+    clearUndo();
     setModified(false);
     return true;
 }
@@ -409,6 +410,7 @@ void LoadView::setNewLoad(grt::LoadFile file)
     rebuildPanels();
     loadMeasurement();
     recompute();
+    clearUndo();
     setModified(true);
 }
 
@@ -421,6 +423,7 @@ bool LoadView::save(const QString &path, QString *error)
     }
     LOG_Info() << "Load saved:" << path;
     m_path = path;
+    m_cleanDepth = static_cast<int>(m_undo.size());
     setModified(false);
     return true;
 }
@@ -520,6 +523,8 @@ bool LoadView::applyRecord(Component component, int id, bool resetDependent)
     const auto rec = m_db->record(tables[static_cast<std::size_t>(component)], id);
     if (!rec) return false;
     const QVariantMap cal = caliberRecord();
+    const QString names[] = {tr("Select Caliber"), tr("Select Projectile"), tr("Select Propellant")};
+    pushUndo(names[static_cast<std::size_t>(component)]);
     switch (component)
     {
     case Component::Caliber:
@@ -565,6 +570,7 @@ void LoadView::chooseRecord(Component component)
 
 void LoadView::onValueEdited(int sectionId, const QString &key, const QString &text)
 {
+    pushUndo(tr("Edit value"));
     const double previousDiameter = m_file.projectile.number(u"Dbul");
     const double previousCaseLength = m_file.caliber.number(u"caselen");
     section(sectionId).set(key, text);
@@ -654,6 +660,7 @@ void LoadView::fitPowder()
     dlg.runFit();
     if (dlg.exec() != QDialog::Accepted || !dlg.improved()) return;
     LOG_Info() << "Powder fit applied to" << title();
+    pushUndo(tr("Fit to measurements"));
     grt::powderfit::apply(m_file.propellant, dlg.results());  // both models: Ba ... and the physical values
     rebuildPanels();
     recompute();
@@ -674,6 +681,7 @@ void LoadView::offerPhysicalBurn()
                  num(burn->z1, 4), num(burn->z2, 4)));
     if (answer != QMessageBox::Yes) return;
     LOG_Info() << "Physical burn values applied to" << title();
+    pushUndo(tr("Physical burn values"));
     grt::writePhysicalBurn(m_file.propellant, burn);
     rebuildPanels();
     recompute();
@@ -694,6 +702,7 @@ void LoadView::storeMeasurement()
     const auto &series = m_measurements->allMeasurements();
     const bool empty = std::ranges::all_of(series, [](const grt::Measurement &m) { return m.charges.empty(); });
     if (!m_hasMeasurement && empty) return;
+    pushUndo(tr("Edit measurements"));
     m_file.appendixXml = grt::writeMeasurements(m_file.appendixXml, series);
     m_hasMeasurement = true;
     setModified(true);
@@ -866,6 +875,64 @@ void LoadView::applyChartUnits()
     const UnitPreferences &u = UnitPreferences::instance();
     m_chart->setUnits(u.unitFor(Quantity::Pressure), u.unitFor(Quantity::Energy), u.unitFor(Quantity::Velocity),
                       u.unitFor(Quantity::Length));
+}
+
+void LoadView::pushUndo(const QString &text)
+{
+    m_undo.push_back({m_file, text});
+    if (m_undo.size() > kMaxUndoSteps)
+    {
+        m_undo.erase(m_undo.begin());
+        if (m_cleanDepth >= 0) --m_cleanDepth;  // below 0: the saved state fell off the stack
+    }
+    if (!m_redo.empty())
+    {  // a new edit ends the redo branch; a saved state in it is gone
+        if (m_cleanDepth > static_cast<int>(m_undo.size()) - 1) m_cleanDepth = -1;
+        m_redo.clear();
+    }
+    emit undoStateChanged();
+}
+
+void LoadView::clearUndo()
+{
+    m_undo.clear();
+    m_redo.clear();
+    m_cleanDepth = 0;
+    emit undoStateChanged();
+}
+
+// Puts a remembered file back and shows it; the modified flag follows the position in the history.
+void LoadView::restore(const grt::LoadFile &file)
+{
+    m_file = file;
+    rebuildPanels();
+    const int series = m_measurements->currentSeries();
+    auto measurements = grt::readMeasurements(m_file.appendixXml);
+    m_hasMeasurement = !measurements.empty();
+    m_measurements->setMeasurements(std::move(measurements), series);
+    recompute();
+    setModified(m_cleanDepth != static_cast<int>(m_undo.size()));
+    emit undoStateChanged();
+}
+
+void LoadView::undo()
+{
+    if (m_undo.empty()) return;
+    UndoStep step = std::move(m_undo.back());
+    m_undo.pop_back();
+    m_redo.push_back({m_file, step.text});
+    LOG_Debug() << "Undo:" << step.text;
+    restore(step.file);
+}
+
+void LoadView::redo()
+{
+    if (m_redo.empty()) return;
+    UndoStep step = std::move(m_redo.back());
+    m_redo.pop_back();
+    m_undo.push_back({m_file, step.text});
+    LOG_Debug() << "Redo:" << step.text;
+    restore(step.file);
 }
 
 void LoadView::setModified(bool m)

@@ -63,7 +63,10 @@ void loadLocked(Store &s)
                               .capacityScale = o.value(u"capacity"_s).toDouble(1.0),
                               .energyScale = o.value(u"energy"_s).toDouble(1.0),
                               .loads = o.value(u"loads"_s).toInt(),
-                              .groupId = o.value(u"group"_s).toString()};
+                              .groupId = o.value(u"group"_s).toString(),
+                              .group = false,
+                              .rank = {},
+                              .members = {}};
             if (!info.id.isEmpty()) list.push_back(std::move(info));
         }
         std::ranges::sort(list, [](const ShotPartInfo &a, const ShotPartInfo &b)
@@ -74,11 +77,15 @@ void loadLocked(Store &s)
         {
             const QJsonObject o = item.toObject();
             ShotPartInfo info{.id = o.value(u"id"_s).toString(),
+                              .name = {},
+                              .gauge = 0,
                               .capacityScale = o.value(u"capacity"_s).toDouble(1.0),
                               .energyScale = o.value(u"energy"_s).toDouble(1.0),
                               .loads = o.value(u"loads"_s).toInt(),
+                              .groupId = {},
                               .group = true,
-                              .rank = o.value(u"rank"_s).toString()};
+                              .rank = o.value(u"rank"_s).toString(),
+                              .members = {}};
             for (const auto &m : o.value(u"members"_s).toArray()) info.members << m.toString();
             info.name = info.rank;
             if (!info.id.isEmpty()) s.groups[index(part)].push_back(std::move(info));

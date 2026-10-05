@@ -11,6 +11,7 @@
 #include <array>
 #include <functional>
 #include <optional>
+#include <vector>
 
 class CartridgeView;
 class ChamberView;
@@ -86,8 +87,18 @@ public:
     void setReference(std::optional<grt::ReferenceRun> ref);
     [[nodiscard]] bool hasReference() const noexcept { return m_reference.has_value(); }
 
+    // Undo / redo of the edits of this load (values, replaced components, fit, measurements). Every step keeps a copy of the
+    // file as it was before the edit; the texts name the edit for the menu ("Undo Charge").
+    [[nodiscard]] bool canUndo() const noexcept { return !m_undo.empty(); }
+    [[nodiscard]] bool canRedo() const noexcept { return !m_redo.empty(); }
+    [[nodiscard]] QString undoText() const { return m_undo.empty() ? QString() : m_undo.back().text; }
+    [[nodiscard]] QString redoText() const { return m_redo.empty() ? QString() : m_redo.back().text; }
+    void undo();
+    void redo();
+
 signals:
     void modifiedChanged(bool modified);
+    void undoStateChanged();
 
 private:
     enum SectionId
@@ -104,6 +115,10 @@ private:
     void onValueEdited(int sectionId, const QString &key, const QString &text);
     void recompute();
     void setModified(bool m);
+    // Remembers the file as it is now, to be called before an edit changes it.
+    void pushUndo(const QString &text);
+    void clearUndo();
+    void restore(const grt::LoadFile &file);
     void applyChartUnits();
     void updateLadderUi();
     void setFocus(int index);
@@ -126,6 +141,15 @@ private:
     std::optional<grt::ReferenceRun> m_reference;
     QString m_path;
     bool m_modified{false};
+
+    struct UndoStep
+    {
+        grt::LoadFile file;  // the state to return to
+        QString text;        // what the step undoes
+    };
+    static constexpr std::size_t kMaxUndoSteps = 100;
+    std::vector<UndoStep> m_undo, m_redo;
+    int m_cleanDepth{0};  // m_undo.size() of the saved state; -1: the saved state is no longer reachable
 
     const grt::Database *m_db{nullptr};
     QTabWidget *m_inputTabs;

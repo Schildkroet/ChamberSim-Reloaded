@@ -107,6 +107,8 @@ private:
     int m_untitled{0};
     QAction *m_newLoadAction{nullptr};
     QAction *m_saveAction{nullptr};
+    QAction *m_undoAction{nullptr};
+    QAction *m_redoAction{nullptr};
     QAction *m_clearReferenceAction{nullptr};
     QAction *m_burnRateAction{nullptr};
     std::vector<QAction *> m_loadActions;    // enabled while a load is shown

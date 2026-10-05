@@ -227,6 +227,21 @@ void MainWindow::createActions()
     file->addSeparator();
     add(tr("&Quit"), QKeySequence::Quit, [this] { close(); });
 
+    // Edit: undo / redo of the load that is shown
+    QMenu *edit = m_menuBar->addMenu(tr("&Edit"));
+    m_undoAction = edit->addAction(tr("&Undo"), this,
+                                   [this]
+                                   {
+                                       if (auto *v = currentLoad()) v->undo();
+                                   });
+    m_undoAction->setShortcut(QKeySequence::Undo);
+    m_redoAction = edit->addAction(tr("&Redo"), this,
+                                   [this]
+                                   {
+                                       if (auto *v = currentLoad()) v->redo();
+                                   });
+    m_redoAction->setShortcuts({QKeySequence::Redo, QKeySequence(Qt::CTRL | Qt::Key_Y)});
+
     // View > Theme
     QMenu *view = m_menuBar->addMenu(tr("&View"));
     QMenu *themeMenu = view->addMenu(tr("&Theme"));
@@ -340,6 +355,17 @@ void MainWindow::updateActions()
     for (QAction *a : m_loadActions) a->setEnabled(view != nullptr);
     if (m_saveAction) m_saveAction->setEnabled(view && (view->isModified() || view->path().isEmpty()));
     if (m_clearReferenceAction) m_clearReferenceAction->setEnabled(view && view->hasReference());
+    // "Undo Select Caliber": the menu names the edit
+    if (m_undoAction)
+    {
+        m_undoAction->setEnabled(view && view->canUndo());
+        m_undoAction->setText(view && view->canUndo() ? tr("&Undo %1").arg(view->undoText()) : tr("&Undo"));
+    }
+    if (m_redoAction)
+    {
+        m_redoAction->setEnabled(view && view->canRedo());
+        m_redoAction->setText(view && view->canRedo() ? tr("&Redo %1").arg(view->redoText()) : tr("&Redo"));
+    }
 }
 
 void MainWindow::updateRecentActions()
@@ -706,6 +732,7 @@ void MainWindow::setupLoadView(LoadView *view)
             if (id >= 0) statusBar()->showMessage(tr("Saved as your own record: %1").arg(grt::dbfields::recordTitle(table, values)));
             return id;
         });
+    connect(view, &LoadView::undoStateChanged, this, &MainWindow::updateActions);
     connect(view, &LoadView::modifiedChanged, this,
             [this, view]
             {

@@ -149,6 +149,7 @@ private slots:
     void dialogsHaveAVisibleBorder();
     void scrollBarsVisibleInDarkMode();
     void chartCursorShowsTheValues();
+    void editsCanBeUndoneAndRedone();
     void overpressureIsWarnedAbout();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
@@ -480,6 +481,61 @@ void GuiTest::codedFieldsShowReadableText()
 }
 
 // The solver uses the seating depth; the cartridge overall length is derived from it, so editing the length must change the depth.
+void GuiTest::editsCanBeUndoneAndRedone()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm
+    LoadView view;
+    QString error;
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY(!view.canUndo());
+    QVERIFY(!view.canRedo());
+    const auto edit = [&](const QString &key, const QString &text)
+    {
+        for (PropertyPanel *panel : view.findChildren<PropertyPanel *>())
+        {
+            QTableWidget *t = tableOf(*panel);
+            if (const int row = rowOf(t, key); row > 0) return t->item(row, 1)->setText(text);
+        }
+        QFAIL("field not found");
+    };
+    const double v0 = view.result().muzzleVelocity_ms;
+
+    edit(u"ps"_s, u"300"_s);
+    edit(u"oal"_s, u"78.5"_s);
+    QVERIFY(view.canUndo());
+    QVERIFY(view.isModified());
+    const double v2 = view.result().muzzleVelocity_ms;
+
+    view.undo();  // the cartridge length
+    QVERIFY(view.canRedo());
+    QVERIFY(view.isModified());
+    view.undo();  // the start pressure: the loaded state again
+    QVERIFY(!view.canUndo());
+    QVERIFY(!view.isModified());
+    QCOMPARE(view.result().muzzleVelocity_ms, v0);
+
+    view.redo();
+    view.redo();
+    QVERIFY(!view.canRedo());
+    QVERIFY(view.isModified());
+    QCOMPARE(view.result().muzzleVelocity_ms, v2);
+
+    // a saved state is the clean one; a new edit after an undo drops the redo steps
+    QTemporaryDir dir;
+    QVERIFY(view.save(dir.filePath(u"x.grtreload"_s), &error));
+    QVERIFY(!view.isModified());
+    view.undo();
+    QVERIFY(view.isModified());
+    view.redo();
+    QVERIFY(!view.isModified());
+    view.undo();
+    edit(u"ps"_s, u"350"_s);
+    QVERIFY(!view.canRedo());
+    view.undo();
+    view.undo();
+    QVERIFY(view.isModified());  // the saved state was on the dropped branch
+}
+
 void GuiTest::overallLengthAndSeatingDepthStayInStep()
 {
     UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm
@@ -2276,7 +2332,7 @@ void GuiTest::ownTitleBarCanBeSwitched()
     QVERIFY(!bar->isDecorated());
     QCOMPARE(w.contentsMargins().left(), 0);
     QVERIFY(!bar->findChild<QAbstractButton *>(u"closeButton"_s)->isVisible());
-    QCOMPARE(w.mainMenu()->actions().size(), 4);  // File, View, Tools, Help still there
+    QCOMPARE(w.mainMenu()->actions().size(), 5);  // File, Edit, View, Tools, Help still there
     w.setCustomTitleBar(true);
     QVERIFY(bar->isDecorated());
     recentfiles::store({});

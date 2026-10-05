@@ -301,29 +301,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+156"/>
-        <location line="+839"/>
+        <location line="+906"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-839"/>
-        <location line="+840"/>
+        <location line="-906"/>
+        <location line="+907"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-840"/>
+        <location line="-907"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+841"/>
+        <location line="+908"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-840"/>
+        <location line="-907"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -415,18 +415,18 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+167"/>
+        <location line="+170"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-167"/>
-        <location line="+168"/>
+        <location line="-170"/>
+        <location line="+171"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-167"/>
+        <location line="-170"/>
         <source>Select Caliber…</source>
         <translation>Choisir le calibre…</translation>
     </message>
@@ -442,12 +442,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+184"/>
+        <location line="+187"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
     </message>
     <message>
-        <location line="-168"/>
+        <location line="-171"/>
         <source>Cartridge</source>
         <translation>Cartouche</translation>
     </message>
@@ -468,17 +468,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+538"/>
+        <location line="+547"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-537"/>
+        <location line="-546"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+122"/>
         <source>Caliber / cartridge</source>
         <translation>Calibre / cartouche</translation>
     </message>
@@ -493,17 +493,20 @@
         <translation>Remplacer ce composant par un autre enregistrement de la base de données</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+50"/>
+        <location line="+23"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-23"/>
+        <location line="+23"/>
         <source>Select Projectile</source>
         <translation>Choisir le projectile</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-23"/>
+        <location line="+23"/>
         <source>Select Propellant</source>
         <translation>Choisir la poudre</translation>
     </message>
@@ -538,12 +541,18 @@
         <translation>L&apos;enregistrement n&apos;a pas pu être lu dans la base de données.</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+5"/>
+        <source>Edit value</source>
+        <translation>Modifier la valeur</translation>
+    </message>
+    <message>
+        <location line="+72"/>
+        <location line="+18"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-18"/>
         <source>Enter the measured velocity of the shots first.</source>
         <translation>Saisissez d&apos;abord la vitesse mesurée des tirs.</translation>
     </message>
@@ -553,12 +562,13 @@
         <translation> (ajustée)</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
+        <location line="+9"/>
         <source>Physical burn values</source>
         <translation>Valeurs de combustion physiques</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-8"/>
         <source>Use the Physical Model&apos;s burn values of %1 for this load?
 
 Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn rate of the Physical Model. The burn values of the load itself (Ba, a0, z1, z2 of the original&apos;s model) stay as they are; the physical ones apply while those are unchanged.</source>
@@ -567,7 +577,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
 Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacité mise à l&apos;échelle du modèle physique. Les valeurs de combustion du chargement lui-même (Ba, a0, z1, z2 du modèle original) restent inchangées ; les valeurs physiques s&apos;appliquent tant que celles-ci ne sont pas modifiées.</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+29"/>
+        <source>Edit measurements</source>
+        <translation>Modifier les mesures</translation>
+    </message>
+    <message>
+        <location line="+59"/>
         <source>Above the permitted maximum pressure %1</source>
         <translation>Au-dessus de la pression maximale admissible %1</translation>
     </message>
@@ -582,7 +597,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>^ Charge ^ Nom ^ Tirs ^ Vitesse ^ Écart type ^ Dispersion ^ Simulé ^ Δ ^ Pression ^ Simulé ^ Δ ^</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+112"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile :&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Poudre :&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/LE :&lt;/b&gt; %6, &lt;b&gt;L6/LT :&lt;/b&gt; %7, &lt;b&gt;Profondeur d&apos;enfoncement :&lt;/b&gt; %8, &lt;b&gt;Longueur du projectile :&lt;/b&gt; %9, &lt;b&gt;Volume de l&apos;étui :&lt;/b&gt; %10</translation>
     </message>
@@ -681,12 +696,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+338"/>
+        <location filename="../src/app/mainwindow.cpp" line="+353"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-279"/>
+        <location filename="../src/app/mainwindow.cpp" line="-294"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -742,7 +757,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+18"/>
-        <location line="+304"/>
+        <location line="+330"/>
         <location line="+178"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -750,7 +765,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-483"/>
+        <location line="-509"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -766,12 +781,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+4"/>
-        <location line="+232"/>
+        <location line="+258"/>
         <source>Open load</source>
         <translation>Ouvrir un chargement</translation>
     </message>
     <message>
-        <location line="-231"/>
+        <location line="-257"/>
         <source>Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation>Chargements (*.grtreload *.grtload);;Chargements GRT Reloaded (*.grtreload);;Chargements GRT originaux (*.grtload);;Tous les fichiers (*)</translation>
     </message>
@@ -818,12 +833,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+9"/>
-        <location line="+444"/>
+        <location line="+470"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-440"/>
+        <location line="-466"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -854,6 +869,23 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+3"/>
+        <source>&amp;Edit</source>
+        <translation>&amp;Édition</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+130"/>
+        <source>&amp;Undo</source>
+        <translation>&amp;Annuler</translation>
+    </message>
+    <message>
+        <location line="-124"/>
+        <location line="+129"/>
+        <source>&amp;Redo</source>
+        <translation>&amp;Rétablir</translation>
+    </message>
+    <message>
+        <location line="-121"/>
         <source>&amp;View</source>
         <translation>&amp;Affichage</translation>
     </message>
@@ -919,7 +951,17 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>À &amp;propos de GRT Reloaded…</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+48"/>
+        <source>&amp;Undo %1</source>
+        <translation>&amp;Annuler : %1</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>&amp;Redo %1</source>
+        <translation>&amp;Rétablir : %1</translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <location line="+307"/>
         <source>Cannot read %1:
 %2</source>
@@ -1065,7 +1107,7 @@ L&apos;exporter quand même ?</translation>
         <translation>Enregistré comme votre propre enregistrement : %1</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>New load</source>
         <translation>Nouveau chargement</translation>
     </message>
