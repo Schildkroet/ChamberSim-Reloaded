@@ -3,7 +3,7 @@
 
     calibrate_shotshell.py <grt_eval> <data dir with propellants/*.json of the shotgun powders> shot_samples.csv [more.csv ...]
 
-The CSVs come from tools/loaddata/hodgdon_shot_extract.py (columns powder, gauge, hull_mm, shot_g, charge_g, velocity_ms, pressure_bar, primer).
+The CSVs come from scripts/data/loaddata/hodgdon_shot_extract.py (columns powder, gauge, hull_mm, shot_g, charge_g, velocity_ms, pressure_bar, primer).
 The shot column and 2.5 g of wad are the projectile (README: shotgun loads), the barrel is 28" (711 mm). The velocities are measured about 3 ft
 (0.91 m) in front of the muzzle: they are converted to the muzzle with the air drag of 2.4 mm lead pellets.
 Training: all loads except those with the held-out primer (Win. 209); the held-out ones test the fit on other primers.

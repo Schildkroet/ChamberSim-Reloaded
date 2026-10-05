@@ -16,7 +16,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 20 start and maximum loads of the manufacturer's published load data (6 cartridges), velocity error 7.1 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records: use with more caution."
   },
   {
@@ -36,7 +36,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 68 start and maximum loads of the manufacturer's published load data (9 cartridges), velocity error 3.9 % rms, pressure error 12 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -56,7 +56,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 68 start and maximum loads of the manufacturer's published load data (9 cartridges), velocity error 4.0 % rms, pressure error 11 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -76,7 +76,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 146 start and maximum loads of the manufacturer's published load data (15 cartridges), velocity error 3.7 % rms, pressure error 12 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -96,7 +96,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 9 start and maximum loads of the manufacturer's published load data (3 cartridges), velocity error 2.6 % rms, pressure error 14 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records: use with more caution."
   },
   {
@@ -116,7 +116,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 14 start and maximum loads of the manufacturer's published load data (4 cartridges), velocity error 4.0 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records: use with more caution."
   },
   {
@@ -136,7 +136,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 162 start and maximum loads of the manufacturer's published load data (21 cartridges), velocity error 3.2 % rms, pressure error 10 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -156,7 +156,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 198 start and maximum loads of the manufacturer's published load data (25 cartridges), velocity error 4.5 % rms, pressure error 16 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -176,7 +176,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 194 start and maximum loads of the manufacturer's published load data (24 cartridges), velocity error 3.8 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -196,7 +196,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 122 start and maximum loads of the manufacturer's published load data (20 cartridges), velocity error 5.4 % rms, pressure error 17 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -216,7 +216,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; tools/loaddata)",
+    "origin": "Explosia's LOVEX Reloading Guide 2019 (rifle tables: loads, V5 velocities, pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 44 start and maximum loads of the manufacturer's published load data (5 cartridges), velocity error 4.6 % rms, pressure error 16 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type follows the name (S = single base, D = double base)), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   }
 ]

@@ -4,7 +4,7 @@
     fit_physical_powders.py <grt_eval> samples.csv [samples2.csv ...] [--out FILE] [--split train|all] [--min-samples 40]
                             [--pressure-weight 1.0] [--start FILE] [--fit form|ba] [--form a0,z1,z2]
 
-For every powder of data/propellants with at least --min-samples rows in the sample files (tools/loaddata): Ba, a0, z1 and z2 are fitted
+For every powder of data/propellants with at least --min-samples rows in the sample files (scripts/data/loaddata): Ba, a0, z1 and z2 are fitted
 to the velocities and, where published, the measured pressures (relative errors, robust loss) with the physical model's constants
 (grt_eval --profile physical). Without pressures only Ba is fitted (the velocities hardly determine the form function) and a0, z1, z2
 are the medians of the powders fitted with pressures. --fit ba fits only Ba for every powder, with the form function --form. --split train uses only the training cartridges (every cartridge but each 4th of the
@@ -30,7 +30,7 @@ DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 
 # ---- samples (identical rows and misread pressures dropped, like calibrate_published.py) and the project's powder records
 records = {}
-sys.path.insert(0, os.path.join(DATA, "..", "tools"))
+sys.path.insert(0, os.path.join(DATA, "..", "scripts", "data"))
 import recordfiles  # noqa: E402  data/propellants/<manufacturer>.json
 for _, r in recordfiles.read(os.path.join(DATA, "propellants")):
     records[(r["mname"] + " " + r["pname"]).lower()] = r

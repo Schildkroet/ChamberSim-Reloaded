@@ -1,4 +1,4 @@
-// Fits a propellant model to published load data (samples from tools/loaddata/vv_extract.py) instead of own measurements.
+// Fits a propellant model to published load data (samples from scripts/data/loaddata/vv_extract.py) instead of own measurements.
 //
 //   grt_fitdata [options] samples.csv
 //     --data DIR              project data (calibers), default: the repository's data/
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     QCommandLineParser cli;
     cli.setApplicationDescription(u"Fits a propellant model to published load data (CSV)."_s);
     cli.addHelpOption();
-    cli.addPositionalArgument(u"samples"_s, u"CSV file from tools/loaddata/vv_extract.py"_s);
+    cli.addPositionalArgument(u"samples"_s, u"CSV file from scripts/data/loaddata/vv_extract.py"_s);
     cli.addOptions({{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/data")},
                     {u"params"_s, u"values to fit"_s, u"list"_s, u"Ba,a0,z1,z2"_s},
                     {u"start"_s, u"start values, e.g. Ba=0.6,a0=1.2"_s, u"list"_s},

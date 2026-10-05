@@ -1,7 +1,0 @@
-{
-    // IntelliSense reads the include paths and defines (Qt headers, generated ui_*.h / moc files) from CMake's database
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/debug/compile_commands.json",
-    "C_Cpp.default.cppStandard": "c++20",
-    "cmake.useCMakePresets": "always",
-    "cmake.configureOnOpen": false
-}

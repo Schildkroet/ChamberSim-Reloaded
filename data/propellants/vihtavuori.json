@@ -16,7 +16,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.0 x 0.8 mm. Burn rate Ba fitted to 306 start and maximum loads of Vihtavuori's published reloading data (18 cartridges), velocity error 3.2 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -36,7 +36,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.0 x 0.8 mm. Burn rate Ba fitted to 394 start and maximum loads of Vihtavuori's published reloading data (19 cartridges), velocity error 3.2 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -56,7 +56,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.0 x 0.8 mm. Burn rate Ba fitted to 552 start and maximum loads of Vihtavuori's published reloading data (27 cartridges), velocity error 3.7 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -76,7 +76,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.0 x 0.9 mm. Burn rate Ba fitted to 850 start and maximum loads of Vihtavuori's published reloading data (29 cartridges), velocity error 3.8 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -96,7 +96,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.3 x 1.0 mm. Burn rate Ba fitted to 920 start and maximum loads of Vihtavuori's published reloading data (32 cartridges), velocity error 3.7 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -116,7 +116,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.3 x 1.0 mm. Burn rate Ba fitted to 792 start and maximum loads of Vihtavuori's published reloading data (31 cartridges), velocity error 4.3 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -136,7 +136,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.3 x 1.0 mm. Burn rate Ba fitted to 440 start and maximum loads of Vihtavuori's published reloading data (27 cartridges), velocity error 4.6 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -156,7 +156,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.7 x 1.1 mm. Burn rate Ba fitted to 190 start and maximum loads of Vihtavuori's published reloading data (14 cartridges), velocity error 4.3 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -176,7 +176,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 0.8 x 0.8 mm, 12 % nitroglycerine. Burn rate Ba fitted to 120 start and maximum loads of Vihtavuori's published reloading data (9 cartridges), velocity error 4.6 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -196,7 +196,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.0 x 1.0 mm, 12 % nitroglycerine. Burn rate Ba fitted to 950 start and maximum loads of Vihtavuori's published reloading data (27 cartridges), velocity error 3.7 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -216,7 +216,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.0 x 1.0 mm, 12 % nitroglycerine. Burn rate Ba fitted to 964 start and maximum loads of Vihtavuori's published reloading data (30 cartridges), velocity error 3.5 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -236,7 +236,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.2 x 1.1 mm, 4 % nitroglycerine. Burn rate Ba fitted to 512 start and maximum loads of Vihtavuori's published reloading data (16 cartridges), velocity error 3.4 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -256,7 +256,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.4 x 1.2 mm, 12 % nitroglycerine. Burn rate Ba fitted to 682 start and maximum loads of Vihtavuori's published reloading data (29 cartridges), velocity error 4.2 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -276,7 +276,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.4 x 1.2 mm, 12 % nitroglycerine. Burn rate Ba fitted to 316 start and maximum loads of Vihtavuori's published reloading data (16 cartridges), velocity error 3.8 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -296,7 +296,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 1.5 x 1.4 mm, 6 % nitroglycerine. Burn rate Ba fitted to 82 start and maximum loads of Vihtavuori's published reloading data (8 cartridges), velocity error 4.1 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
@@ -316,7 +316,7 @@
     "tcc": 0.0,
     "tch": 0.0,
     "cdate": "2026-10-03",
-    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (tools/loaddata)",
+    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
     "descr": "Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain 2.3 x 1.3 mm, 15 % nitroglycerine. Burn rate Ba fitted to 164 start and maximum loads of Vihtavuori's published reloading data (9 cartridges), velocity error 4.5 % rms. Not published and therefore only typical or chosen values: k, material density pc, and the form function (a0, z1, z2: the combination that reproduces the velocities best, the data hardly determine it). Check every load against the manufacturer's current load data."
   }
 ]

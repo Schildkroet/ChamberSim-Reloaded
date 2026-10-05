@@ -1,0 +1,72 @@
+# application: GUI library (testable); the executable is defined in the top-level CMakeLists.txt
+add_library(grtui STATIC
+    disclaimer.cpp
+    disclaimer.h
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+    curvechart.h
+    curvechart.cpp
+    tablebrowser.h
+    tablebrowser.cpp
+    loadview.h
+    loadview.cpp
+    reportview.h
+    reportview.cpp
+    reporttemplatedialog.h
+    reporttemplatedialog.cpp
+    chamberview.h
+    chamberview.cpp
+    cartridgeview.h
+    cartridgeview.cpp
+    propertypanel.h
+    propertypanel.cpp
+    vivacitychart.h
+    vivacitychart.cpp
+    measurementchart.h
+    measurementchart.cpp
+    measurementview.h
+    measurementview.cpp
+    photoview.h
+    photoview.cpp
+    chronographimportdialog.h
+    chronographimportdialog.cpp
+    recorddialog.h
+    recorddialog.cpp
+    recordfields.h
+    recordfields.cpp
+    recordviewdialog.h
+    recordviewdialog.cpp
+    powderfitdialog.h
+    powderfitdialog.cpp
+    solverprefs.h
+    solverprefs.cpp
+    burnratedialog.h
+    burnratedialog.cpp
+    unitconverterdialog.h
+    unitconverterdialog.cpp
+    selectrecorddialog.h
+    selectrecorddialog.cpp
+    newloaddialog.h
+    newloaddialog.cpp
+    translation.h
+    translation.cpp
+    unitprefs.h
+    unitprefs.cpp
+    about.h
+    about.cpp
+    appfont.h
+    appfont.cpp
+    settingsdialog.h
+    settingsdialog.cpp
+    theme.h
+    titlebar.h
+    titlebar.cpp
+    flags.h
+    flags.cpp
+    theme.cpp
+)
+
+target_include_directories(grtui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(grtui PUBLIC GRT_VERSION="${GRT_VERSION}")
+target_link_libraries(grtui PUBLIC grtcore Qt6::Widgets Qt6::Charts Qt6::PrintSupport)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Recalibrates solver constants on published load data (tools/loaddata CSVs) and compares them with the current calibration.
+"""Recalibrates solver constants on published load data (scripts/data/loaddata CSVs) and compares them with the current calibration.
 
     calibrate_published.py <grt_eval> <grt_compare> samples.csv [samples2.csv ...] [--powders "Accurate 4350,..."] [--free name,name,...]
                            [--profile original|published|physical] [--start constants.json] [--evaluate-only]
@@ -113,7 +113,7 @@ if args.start: current.update(json.load(open(args.start))["calibration"])
 free = args.free.split(",")
 ba0 = {p.lower(): 0.6 for p in train_p}
 records = {}
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tools"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scripts", "data"))
 import recordfiles  # noqa: E402  data/propellants/<manufacturer>.json
 for _, r in recordfiles.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "propellants")):
     records[(r["mname"] + " " + r["pname"]).lower()] = r["Ba"]

@@ -69,7 +69,7 @@ now +1.3 % and -0.9 %; the pressure bias of start and maximum loads fell from +4
 error with the bullet mass (heavy bullets too fast) is gone. The remaining scatter (3-4 % in velocity) is that of the published tables
 (lots, barrels, components) and cannot be removed by the model.
 
-Single loads can deviate much more. Details of the method: `tools/loaddata/README.md`.
+Single loads can deviate much more. Details of the method: `scripts/data/loaddata/README.md`.
 
 ### Against the original program's runs
 
@@ -168,7 +168,7 @@ cmake --preset release && cmake --build --preset release --parallel
 ctest --preset release
 ```
 
-All other commands (tests, screenshots, data tools, powder fits, calibration, release): [CHEATSHEET.md](CHEATSHEET.md).
+All other commands (tests, screenshots, data tools, powder fits, calibration, release): [CHEATSHEET.md](docs/CHEATSHEET.md).
 
 ## 🗃️ Data
 
@@ -176,7 +176,7 @@ The program shows one database made of three parts:
 
 - the **project database**: calibers, projectiles and propellants contributed to this repository (`data/`, JSON
   files: one per caliber, one per manufacturer for projectiles and propellants; CC BY-SA 4.0). It is built into the program, so every user has all of it; see
-  [data/README.md](data/README.md) and [CONTRIBUTING.md](CONTRIBUTING.md) to add records;
+  [data/README.md](data/README.md) and [CONTRIBUTING.md](docs/CONTRIBUTING.md) to add records;
 - your **own records** (`GRTReloaded.db` in the application data folder): everything you create or copy in the
   *Database* tab; *Export…* turns one into a project file;
 - optionally the records of Gordon's Reloading Tool: choose a **plain (unencrypted) copy** of its database in
@@ -190,15 +190,15 @@ Reloading Tool. The scripts, the collected tables (CSV) and the notes on quality
 rebuilt and checked. Records made from estimates say so in their `descr` field.
 
 - **Calibers (467)**: the C.I.P. TDCC data sheets (public PDFs of bobp.cip-bobp.org, tables I-V) are read with
-  `tools/cipdata/cip_extract.py`: dimensions of cartridge and chamber, pressures, angles. The sheets give no case capacity;
+  `scripts/data/cipdata/cip_extract.py`: dimensions of cartridge and chamber, pressures, angles. The sheets give no case capacity;
   `cip_estimate_v.py` estimates it from the outline (about 6 % rms against known capacities, 10 % for rimfire). 25 more
   cartridges that have no sheet (SAAMI, wildcats, newer than the sheets: .224 Valkyrie, 6.8 Western, .22-.33 Nosler, ...) come
   from Wikipedia's cartridge infoboxes (`wiki_calibers.py`); they lack body and shoulder lengths and tolerances. `cipname` is the
   C.I.P. name, `altname` other names. Shotshells are not included. `Pmax` is the C.I.P. maximum pressure; `PmaxSAAMI` (a column the
   project added, shown next to it) the SAAMI maximum average pressure of 97 cartridges, from Wikipedia's infoboxes
-  (`tools/cipdata/saami_pressures.py`). Load data makers use the lower of the two.
+  (`scripts/data/cipdata/saami_pressures.py`). Load data makers use the lower of the two.
 - **Projectiles (1761)**: the product pages of 16 manufacturers (Berger, Nosler, Speer, Hornady, Sierra, Barnes, Sellier & Bellot,
-  Lapua, Norma, RWS, PPU, Federal, Winchester, Remington, H&N, Sako), read with `tools/bulletdata/*_fetch.py`: weight,
+  Lapua, Norma, RWS, PPU, Federal, Winchester, Remington, H&N, Sako), read with `scripts/data/bulletdata/*_fetch.py`: weight,
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.
@@ -222,11 +222,11 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   base by name; the others: the type that fits the velocities better), pcd is 900 kg/m3.
   k and the material density are typical values everywhere; the form function (a0, z1, z2) is not published, it is the combination
   that reproduces the velocities best and the data hardly determine it. Pistol and shotgun powders fitted too poorly and are not
-  included, nor are powders with too few samples. `tools/grt_fitdata` and `tools/loaddata` do the work, see
-  `tools/loaddata/README.md` for the method and the results.
+  included, nor are powders with too few samples. `tools/grt_fitdata` and `scripts/data/loaddata` do the work, see
+  `scripts/data/loaddata/README.md` for the method and the results.
 
-The details, the commands to repeat each step and the limits of the data are in `tools/cipdata/README.md` and
-`tools/loaddata/README.md`. Please check every load against the manufacturer's current load data.
+The details, the commands to repeat each step and the limits of the data are in `scripts/data/cipdata/README.md` and
+`scripts/data/loaddata/README.md`. Please check every load against the manufacturer's current load data.
 
 ### 🔗 Using the records of Gordon's Reloading Tool
 
@@ -325,7 +325,7 @@ projectiles and propellants. Use a pull request on GitHub to send the data.
 8. Select the record in the tab *Database*.
 9. Click *Export…*. The program writes a `.json` file.
 10. Put the file into `data/calibers/` or `data/projectiles/`. For a projectile run
-    `python3 tools/recordfiles.py data/projectiles`: it moves the record into the file of its manufacturer.
+    `python3 scripts/data/recordfiles.py data/projectiles`: it moves the record into the file of its manufacturer.
 11. Do procedure 3.
 
 ### 🔥 Procedure 2: Make a propellant model from measurements
@@ -367,7 +367,7 @@ Use a good chronograph (for example MagnetoSpeed or LabRadar). Measurements of t
 
     | File | Copy to |
     |---|---|
-    | the `.json` file from step 8 (one file), then run `python3 tools/recordfiles.py data/propellants` (moves the record into the file of its manufacturer) | `data/propellants/` |
+    | the `.json` file from step 8 (one file), then run `python3 scripts/data/recordfiles.py data/propellants` (moves the record into the file of its manufacturer) | `data/propellants/` |
     | your load files from step 7 (not the `-fitted` files) | `data/measurements/<manufacturer>-<name>-<lot>/` |
 
     Other users can then do step 8 again with your load files and get the same model.
@@ -427,7 +427,7 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
   use the load's burn rate with a scale (`burnRateScale`) and are less accurate.
   Shotshells always keep the original's constants.
 
-Method and numbers: `tools/loaddata/README.md`, `analysis/calibrate_published.py`, `analysis/fit_physical_powders.py`.
+Method and numbers: `scripts/data/loaddata/README.md`, `analysis/calibrate_published.py`, `analysis/fit_physical_powders.py`.
 
 Changing the setting recalculates every open load.
 

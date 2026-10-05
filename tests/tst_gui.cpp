@@ -272,7 +272,7 @@ void GuiTest::solverCalibrationIsChosenInTheSettings()
     // an open load is recalculated with the other constants (the shown result comes from the ladder simulation)
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const double original = view.result().maxPressure_bar;
     QVERIFY(original > 0.0);
     prefs.setProfile(grt::CalibrationProfile::Published);
@@ -482,7 +482,7 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
     UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const auto edit = [&](const QString &key, const QString &text)
     {
         for (PropertyPanel *panel : view.findChildren<PropertyPanel *>())
@@ -622,7 +622,7 @@ void GuiTest::resultsFollowTheUnitSystem()
     using grt::units::System;
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const auto allText = [&]
     {
         QStringList s;
@@ -644,7 +644,7 @@ void GuiTest::resultsFollowTheUnitSystem()
 void GuiTest::ladderCurvesAndFocus()
 {
     QTemporaryDir dir;
-    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const double mc = lf->propellant.number(u"mc");
     lf->propellant.set(u"laddercnt", 4.0);
@@ -706,7 +706,7 @@ void GuiTest::ladderCurvesAndFocus()
 
     // switching the ladder off removes the controls
     LoadView plain;
-    QVERIFY(plain.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error));
+    QVERIFY(plain.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error));
     plain.show();
     QCOMPARE(plain.ladderSize(), 1);
     // without a ladder the tab strip and the comparison table are hidden
@@ -760,7 +760,7 @@ void GuiTest::fontSizeAppliesToTheWholeApplication()
     // charts have their own fonts and follow: the axis labels grow with the application font
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.show();
     const auto axisLabelSize = [&]
     {
@@ -802,7 +802,7 @@ void GuiTest::lastLoadsAreReopened()
     // two loads (copies of a sample, so that the files can be removed) and the one that was shown
     static QTemporaryDir dir;
     const QString a = dir.filePath(u"first.grtload"_s), b = dir.filePath(u"second.grtload"_s);
-    for (const QString &f : {a, b}) QVERIFY(QFile::copy(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), f));
+    for (const QString &f : {a, b}) QVERIFY(QFile::copy(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), f));
     {
         MainWindow w;
         QVERIFY(w.openLoad(a));
@@ -919,7 +919,7 @@ void GuiTest::hoveringATableRowShowsItsMeasureInTheDrawing()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.resize(1400, 900);
     view.show();
     QVERIFY(QTest::qWaitForWindowExposed(&view));
@@ -981,7 +981,7 @@ void GuiTest::recentFilesAreListedInTheFileMenu()
         return items;
     };
     QVERIFY(visibleRecent().isEmpty());
-    QVERIFY(w.openLoad(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(w.openLoad(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     QCOMPARE(visibleRecent(), QStringList{u"&1 8x57is.grtload"_s});
     QVERIFY(recent->isEnabled());
     QCOMPARE(recentfiles::load().size(), 1);
@@ -1095,7 +1095,7 @@ void GuiTest::reportTabRendersTheLoad()
     UnitPreferences::instance().setSystem(grt::units::System::Metric);
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.resize(1500, 950);
     view.show();
     ReportView *report = view.report();
@@ -1137,7 +1137,7 @@ void GuiTest::reportTemplateIsCustomisable()
     QVERIFY(!ReportView::hasCustomTemplate());
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     ReportView *report = view.report();
     ReportView::storeTemplate(
         u"====== My report ======\nCaliber: ~~work.CaliberName~~, Pmax ~~result.MaxPressure(\"0\")~~ bar.\n~~work.nothing~~"_s);
@@ -1159,7 +1159,7 @@ void GuiTest::actionButtonsAreEasyToSee()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.setDatabase(&m_db);
     view.resize(1500, 950);
     view.show();
@@ -1221,7 +1221,7 @@ void GuiTest::reportScaleChangesTheLayout()
     ReportView::storeScale(100);
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     ReportView *report = view.report();
     const QSizeF a4(595.0, 842.0);  // points, margins ignored here
 
@@ -1303,7 +1303,7 @@ void GuiTest::propertyNamesStartWithACapital()
     // every label of a real load starts with a capital letter
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     int labels = 0;
     for (PropertyPanel *p : view.findChildren<PropertyPanel *>())
         for (int r = 0; r < tableOf(*p)->rowCount(); ++r)
@@ -1325,7 +1325,7 @@ void GuiTest::reportExportsAPdf()
     ReportView::storeTemplate({});
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     QTemporaryDir dir;
     const QString pdf = dir.filePath(u"report.pdf"_s);
     QVERIFY(view.report()->exportPdf(pdf));
@@ -1342,7 +1342,7 @@ void GuiTest::inputsAreGroupedInThreeTabs()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const auto tabs = view.findChildren<QTabWidget *>();
     QTabWidget *inputs = nullptr;
     for (QTabWidget *t : tabs)
@@ -1370,7 +1370,7 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.setDatabase(&m_db);
     QSignalSpy modified(&view, &LoadView::modifiedChanged);
     const auto allText = [&]
@@ -1416,7 +1416,7 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
 
 void GuiTest::chamberGeometryFollowsTheDimensions()
 {
-    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     QMap<QString, double> d;
     for (const grt::Entry &e : lf->caliberFile.entries()) d.insert(e.name, e.value.toDouble());
@@ -1452,7 +1452,7 @@ void GuiTest::drawingPanelHasCartridgeAndChamberTabs()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.resize(1500, 950);
     view.show();
     QTabWidget *drawings = nullptr;
@@ -1472,7 +1472,7 @@ void GuiTest::drawingPanelHasCartridgeAndChamberTabs()
 // The drawn interior is calibrated to the case capacity, so the powder fill level is consistent.
 void GuiTest::cartridgeGeometryMatchesTheCaseCapacity()
 {
-    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     QMap<QString, double> dims;
     for (const grt::Entry &e : lf->caliberFile.entries()) dims.insert(e.name, e.value.toDouble());
@@ -1497,7 +1497,7 @@ void GuiTest::cartridgeViewDrawsAndHandlesStraightCases()
     CartridgeView view;
     view.resize(420, 520);
     // a bottleneck case from the sample load
-    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     view.setLoad(*lf, grt::SimInput::fromLoad(*lf));
     QVERIFY(view.geometry().valid);
@@ -1526,7 +1526,7 @@ void GuiTest::measurementTabShowsTheFilesResults()
 {
     UnitPreferences::instance().setSystem(grt::units::System::Metric);
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload")));
+    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/measurements.grtload")));
     view.showResultTab(1);
     view.resize(1400, 900);
     view.show();
@@ -1648,7 +1648,7 @@ void GuiTest::recordDialogDatesAndWidth()
 // The notes under the results: the bullet jump is part of the model; a shotshell gets a note how to enter it.
 void GuiTest::ignoredInputsAreNamed()
 {
-    QFile f(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    QFile f(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(f.open(QIODevice::ReadOnly));
     QString xml = QString::fromUtf8(f.readAll());
     const auto set = [&](const QString &name, const QString &value)
@@ -1672,7 +1672,7 @@ void GuiTest::ignoredInputsAreNamed()
         out.write(xml.toUtf8());
     };
     LoadView plain;
-    QVERIFY(plain.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(plain.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     QVERIFY(!statusText(plain).contains(u"Not taken into account"_s));
     // the jump distance is an input; its lock is not shown (the original uses the distance either way)
     QStringList labels;
@@ -1723,7 +1723,7 @@ void GuiTest::propellantPhotoIsShown()
 
     // a load with a propellant record of the original database shows its photos
     LoadView lv;
-    QVERIFY(lv.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(lv.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     grt::Database db;
     QVERIFY(db.open(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
     lv.setDatabase(&db);
@@ -1780,7 +1780,7 @@ void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
 
     // a load that uses the record shows the photo (Powder tab) from the own database alone
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     view.setDatabase(&own);
     QVERIFY(view.applyRecord(LoadView::Component::Propellant, *id));
     const auto *photo = view.findChild<PhotoView *>();
@@ -1797,7 +1797,7 @@ void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
 void GuiTest::chronographImportAddsCharges()
 {
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     MeasurementView *m = view.measurements();
     const auto file = grt::readChronograph(
         QByteArray("Series, 1, Shots:,2\r\n 1, 1, 800.0, m/s\r\n 1, 2, 810.0, m/s\r\nSeries, 2, Shots:,1\r\n 2, 1, 820.0, m/s\r\n"));
@@ -1816,7 +1816,7 @@ void GuiTest::chronographImportAddsCharges()
 void GuiTest::measurementSeriesAreEditedAndSaved()
 {
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     MeasurementView *m = view.measurements();
     m->addCharge();
     m->addSeries();  // a second, empty series is shown
@@ -1851,7 +1851,7 @@ void GuiTest::measurementsAreEditedAndSaved()
 {
     UnitPreferences::instance().setSystem(grt::units::System::Metric);
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     MeasurementView *m = view.measurements();
     QVERIFY(m->measurement().charges.empty());
     QVERIFY(!view.isModified());
@@ -2159,7 +2159,7 @@ void GuiTest::loadMenuEntriesNeedALoad()
         theme::apply(app, theme::Mode::System);
     }
 
-    QVERIFY(w.openLoad(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(w.openLoad(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     for (const QString &name : needLoad) QVERIFY2(action(name)->isEnabled(), qPrintable(name));
     QVERIFY(!action(u"Save"_s)->isEnabled());             // nothing changed yet
     QVERIFY(!action(u"Clear reference"_s)->isEnabled());  // no overlay
@@ -2200,7 +2200,7 @@ void GuiTest::ownTitleBarCanBeSwitched()
         QVERIFY(b->width() >= 40);
     }
     // the title follows the window (and names the shown load)
-    QVERIFY(w.openLoad(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload")));
+    QVERIFY(w.openLoad(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
     QVERIFY(w.windowTitle().startsWith(u"8x57is"_s));
     bool titled = false;
     for (QLabel *l : bar->findChildren<QLabel *>()) titled = titled || l->text() == w.windowTitle();
@@ -2338,7 +2338,7 @@ void GuiTest::scrollBarsVisibleInDarkMode()
 // The mouse over the pressure chart: a cursor with the interpolated values of the curves; gone when the mouse leaves.
 void GuiTest::chartCursorShowsTheValues()
 {
-    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(*lf));
     QVERIFY(r.ok());
@@ -2371,11 +2371,11 @@ void GuiTest::overpressureIsWarnedAbout()
 {
     QString error;
     LoadView normal;
-    QVERIFY2(normal.load(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(normal.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     QVERIFY(normal.result().maxPressure_bar < 3900.0);
     QVERIFY(!normal.overpressureShown());
 
-    auto lf = grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/8x57is.grtload"));
+    auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     lf->caliber.set(u"pMaxZul", 2000.0);  // below the load's maximum pressure
     QTemporaryDir dir;
@@ -2402,7 +2402,7 @@ void GuiTest::fitToMeasurementsChangesThePowder()
 {
     UnitPreferences::instance().setSystem(grt::units::System::Metric);
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload")));
+    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/measurements.grtload")));
     auto *button = [&]
     {
         for (QPushButton *b : view.measurements()->findChildren<QPushButton *>())
@@ -2414,7 +2414,7 @@ void GuiTest::fitToMeasurementsChangesThePowder()
 
     // the dialog: fits right away, Save hands over the result
     QStringList warnings;
-    grt::LoadFile file = *grt::LoadFile::read(QStringLiteral(GRT_TEST_DATA_DIR "/POWDER-MEASURE-TEMPLATE.grtload"));
+    grt::LoadFile file = *grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/measurements.grtload"));
     const auto samples = grt::powderfit::samples(file, u"template"_s, &warnings);
     QCOMPARE(samples.size(), std::size_t{2});
     PowderFitDialog dlg(samples, warnings);

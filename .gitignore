@@ -4,6 +4,7 @@
 CMakeLists.txt.user*
 *.autosave
 .cache/
+.vscode/
 compile_commands.json
 __pycache__/
 *.pyc
@@ -35,6 +36,7 @@ tools/grt_*report*.txt
 # sample loads and screenshots taken from the original program
 *.grtload
 !data/measurements/*.grtload
+!tests/fixtures/*.grtload
 tests/data/
 
 # reverse-engineering notes and the project instructions that describe them
@@ -48,6 +50,6 @@ results/
 # manufacturer catalogues used as data sources (not ours to redistribute)
 /Vectan-Reloading-catalogue*.pdf
 
-# downloaded manufacturer data (manuals, web pages, sample files): local only, see tools/loaddata/README.md
-/tools/loaddata/sources/
+# downloaded manufacturer data (manuals, web pages, sample files): local only, see scripts/data/loaddata/README.md
+/scripts/data/loaddata/sources/
 /*.pdf

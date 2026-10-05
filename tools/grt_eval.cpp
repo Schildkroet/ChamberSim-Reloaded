@@ -1,4 +1,4 @@
-// Simulates published load data (CSV of tools/loaddata) with the project's propellant records and an adjustable solver calibration;
+// Simulates published load data (CSV of scripts/data/loaddata) with the project's propellant records and an adjustable solver calibration;
 // the solver calibration experiments (analysis/calibrate_published.py) call it.
 //
 //   grt_eval samples.csv [--profile original|published|physical] [--data DIR] [--set name=value]... [--ba "Maker Name=value"]... [--steps n]
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     QCommandLineParser cli;
     cli.addHelpOption();
-    cli.addPositionalArgument(u"samples"_s, u"CSV file (tools/loaddata)"_s);
+    cli.addPositionalArgument(u"samples"_s, u"CSV file (scripts/data/loaddata)"_s);
     cli.addOptions(
         {{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/data")},
          {u"set"_s, u"calibration value name=value (repeatable)"_s, u"nv"_s},

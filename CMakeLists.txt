@@ -40,133 +40,9 @@ endif()
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets Sql Xml Charts PrintSupport Test LinguistTools)
 
-# ---- core library (no GUI): file formats, database access, ballistics solver ----
-add_library(grtcore STATIC
-    src/core/loadfile.h
-    src/core/numeric.h
-    src/core/loadfile.cpp
-    src/core/solver.h
-    src/core/solver.cpp
-    src/core/simconfig.h
-    src/core/simconfig.cpp
-    src/core/loadspec.h
-    src/core/loadbuilder.h
-    src/core/loadbuilder.cpp
-    src/core/report.h
-    src/core/report.cpp
-    src/core/wiki.h
-    src/core/wiki.cpp
-    src/core/reportformat.h
-    src/core/reportformat.cpp
-    src/core/units.h
-    src/core/units.cpp
-    src/core/language.h
-    src/core/language.cpp
-    src/core/reference.h
-    src/core/reference.cpp
-    src/core/database.h
-    src/core/database.cpp
-    src/core/measurement.h
-    src/core/measurement.cpp
-    src/core/dates.h
-    src/core/dates.cpp
-    src/core/chronograph.h
-    src/core/chronograph.cpp
-    src/core/log.h
-    src/core/log.cpp
-    src/core/dbfields.h
-    src/core/dbfields.cpp
-    src/core/projectdata.h
-    src/core/projectdata.cpp
-    src/core/burnfactors.h
-    src/core/burnfactors.cpp
-    src/core/powderfit.h
-    src/core/powderfit.cpp
-    src/core/fieldnames.h
-    src/core/fieldnames.cpp
-    src/core/physicalpowders.h
-    src/core/physicalpowders.cpp
-    src/core/shotparts.h
-    src/core/shotparts.cpp
-)
-
-target_include_directories(grtcore PUBLIC src/core)
-target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
-target_compile_options(grtcore PRIVATE
-    $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall -Wextra -Wpedantic>)
-
-# ---- application: GUI library (testable) + thin executable ----
-add_library(grtui STATIC
-    src/app/disclaimer.cpp
-    src/app/disclaimer.h
-    src/app/mainwindow.cpp
-    src/app/mainwindow.h
-    src/app/mainwindow.ui
-    src/app/curvechart.h
-    src/app/curvechart.cpp
-    src/app/tablebrowser.h
-    src/app/tablebrowser.cpp
-    src/app/loadview.h
-    src/app/loadview.cpp
-    src/app/reportview.h
-    src/app/reportview.cpp
-    src/app/reporttemplatedialog.h
-    src/app/reporttemplatedialog.cpp
-    src/app/chamberview.h
-    src/app/chamberview.cpp
-    src/app/cartridgeview.h
-    src/app/cartridgeview.cpp
-    src/app/propertypanel.h
-    src/app/propertypanel.cpp
-    src/app/vivacitychart.h
-    src/app/vivacitychart.cpp
-    src/app/measurementchart.h
-    src/app/measurementchart.cpp
-    src/app/measurementview.h
-    src/app/measurementview.cpp
-    src/app/photoview.h
-    src/app/photoview.cpp
-    src/app/chronographimportdialog.h
-    src/app/chronographimportdialog.cpp
-    src/app/recorddialog.h
-    src/app/recorddialog.cpp
-    src/app/recordfields.h
-    src/app/recordfields.cpp
-    src/app/recordviewdialog.h
-    src/app/recordviewdialog.cpp
-    src/app/powderfitdialog.h
-    src/app/powderfitdialog.cpp
-    src/app/solverprefs.h
-    src/app/solverprefs.cpp
-    src/app/burnratedialog.h
-    src/app/burnratedialog.cpp
-    src/app/unitconverterdialog.h
-    src/app/unitconverterdialog.cpp
-    src/app/selectrecorddialog.h
-    src/app/selectrecorddialog.cpp
-    src/app/newloaddialog.h
-    src/app/newloaddialog.cpp
-    src/app/translation.h
-    src/app/translation.cpp
-    src/app/unitprefs.h
-    src/app/unitprefs.cpp
-    src/app/about.h
-    src/app/about.cpp
-    src/app/appfont.h
-    src/app/appfont.cpp
-    src/app/settingsdialog.h
-    src/app/settingsdialog.cpp
-    src/app/theme.h
-    src/app/titlebar.h
-    src/app/titlebar.cpp
-    src/app/flags.h
-    src/app/flags.cpp
-    src/app/theme.cpp
-)
-
-target_include_directories(grtui PUBLIC src/app)
-target_compile_definitions(grtui PUBLIC GRT_VERSION="${GRT_VERSION}")
-target_link_libraries(grtui PUBLIC grtcore Qt6::Widgets Qt6::Charts Qt6::PrintSupport)
+# ---- core library (src/core) and GUI library (src/app) ----
+add_subdirectory(src/core)
+add_subdirectory(src/app)
 
 # flags for the language menu (PNG renderings of resources/flags/*.svg)
 file(GLOB GRT_FLAG_ICONS RELATIVE "${CMAKE_SOURCE_DIR}" CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/resources/flags/*.png")
@@ -213,9 +89,12 @@ set(GRT_TS_FILES "")
 foreach(lang IN LISTS GRT_LANGUAGES)
     list(APPEND GRT_TS_FILES ${CMAKE_SOURCE_DIR}/translations/GRTReloaded_${lang}.ts)
 endforeach()
+# the sources of the libraries are listed relative to their own directories
 get_target_property(GRT_APP_SOURCES grtui SOURCES)
+list(TRANSFORM GRT_APP_SOURCES PREPEND "${CMAKE_SOURCE_DIR}/src/app/")
 list(APPEND GRT_APP_SOURCES src/app/main.cpp)
 get_target_property(GRT_CORE_SOURCES grtcore SOURCES)
+list(TRANSFORM GRT_CORE_SOURCES PREPEND "${CMAKE_SOURCE_DIR}/src/core/")
 qt_add_translations(GRTReloaded
     TS_FILES ${GRT_TS_FILES}
     SOURCES ${GRT_APP_SOURCES} ${GRT_CORE_SOURCES}
@@ -237,7 +116,7 @@ add_executable(grt_fitpowder tools/grt_fitpowder.cpp)
 target_link_libraries(grt_fitpowder PRIVATE grtcore)
 install(TARGETS grt_fitpowder RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-# fits a propellant model to published load data (CSV from tools/loaddata): grt_fitdata --help
+# fits a propellant model to published load data (CSV from scripts/data/loaddata): grt_fitdata --help
 add_executable(grt_fitdata tools/grt_fitdata.cpp)
 target_link_libraries(grt_fitdata PRIVATE grtcore)
 target_compile_definitions(grt_fitdata PRIVATE GRT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
