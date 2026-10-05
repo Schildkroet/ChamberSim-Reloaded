@@ -150,6 +150,7 @@ private slots:
     void scrollBarsVisibleInDarkMode();
     void chartCursorShowsTheValues();
     void editsCanBeUndoneAndRedone();
+    void newLoadDialogKeepsEditsOfTheSecondStep();
     void overpressureIsWarnedAbout();
     void fitToMeasurementsChangesThePowder();
     void originalDatabaseIsChosenInTheSettings();
@@ -335,6 +336,48 @@ void GuiTest::newLoadDialogBuildsARunnableLoad()
     QVERIFY(r.ok());
     QVERIFY(r.maxPressure_bar > 1000.0 && r.maxPressure_bar < 5000.0);
     dlg.grab().save(QDir::temp().filePath(u"grt_newload_dialog.png"_s));
+}
+
+void GuiTest::newLoadDialogKeepsEditsOfTheSecondStep()
+{
+    UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm, g
+    NewLoadDialog dlg(m_db);
+    const int cal = idOf(m_db, grt::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
+    const int prj = idOf(m_db, grt::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
+    const int pro = idOf(m_db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
+    QVERIFY(dlg.select(cal, prj, pro));  // second step, with the defaults
+
+    const auto button = [&](const QString &text)
+    {
+        for (QPushButton *b : dlg.findChildren<QPushButton *>())
+            if (b->text() == text) return b;
+        return static_cast<QPushButton *>(nullptr);
+    };
+    QPushButton *create = button(u"Create load"_s);
+    QVERIFY(create);
+    const auto barrel = [&]
+    {
+        for (QDoubleSpinBox *s : dlg.findChildren<QDoubleSpinBox *>())
+            if (s->suffix().contains(u"mm"_s) && s->value() > 300.0 && s->value() < 1000.0) return s;
+        return static_cast<QDoubleSpinBox *>(nullptr);
+    };
+    QDoubleSpinBox *b = barrel();
+    QVERIFY(b);
+    const double standard = b->value();
+    b->setValue(standard - 100.0);
+    QCOMPARE(dlg.result().gun.number(u"xe"_s), standard - 100.0);  // the edited value goes into the load
+
+    button(u"< Back"_s)->click();  // the same selection: the edit stays
+    button(u"Next >"_s)->click();
+    QCOMPARE(barrel()->value(), standard - 100.0);
+
+    button(u"< Back"_s)->click();  // another powder: the data are filled in again
+    const int other = idOf(m_db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N140' AND lotid = '2021-11-13'"_s);
+    if (other > 0)
+    {
+        QVERIFY(dlg.select(cal, prj, other));
+        QCOMPARE(barrel()->value(), standard);
+    }
 }
 
 void GuiTest::newLoadDialogNeedsAllThreeRecords()
@@ -1305,9 +1348,16 @@ void GuiTest::actionButtonsAreEasyToSee()
             QVERIFY(b->styleSheet().contains(u"palette(highlight)"_s));
         }
     QCOMPARE(output, 3);
-    // the "Create load" button of the new-load dialog
+    // the "Next" / "Create load" button of the new-load dialog
     NewLoadDialog dlg(m_db);
-    QVERIFY(dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Ok)->styleSheet().contains(u"palette(highlight)"_s));
+    int primary = 0;
+    for (QPushButton *b : dlg.findChildren<QPushButton *>())
+        if (b->text().contains(u"Next"_s))
+        {
+            ++primary;
+            QVERIFY(b->styleSheet().contains(u"palette(highlight)"_s));
+        }
+    QCOMPARE(primary, 1);
     // both themes render them (palette references): grab once in the dark palette to check nothing breaks
     QPalette dark;
     dark.setColor(QPalette::Window, QColor(0x2b, 0x31, 0x3b));

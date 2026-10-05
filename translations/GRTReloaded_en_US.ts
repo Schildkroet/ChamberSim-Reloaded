@@ -1443,12 +1443,12 @@ Export it anyway?</source>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+64"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+67"/>
         <source>Show only bullets that fit the caliber</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+9"/>
         <source>New load</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1513,18 +1513,39 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
-        <source>Create load</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+54"/>
-        <source>&lt;i&gt;not selected&lt;/i&gt;</source>
+        <location line="+24"/>
+        <source>&lt; Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>&lt;b&gt;Caliber:&lt;/b&gt; %1&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; %2&lt;br&gt;&lt;b&gt;Propellant:&lt;/b&gt; %3</source>
+        <location line="+65"/>
+        <source>Next &gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <source>Create load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Caliber:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Projectile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Propellant:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>&lt;i&gt;not selected&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

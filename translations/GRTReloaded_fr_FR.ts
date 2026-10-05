@@ -1459,12 +1459,12 @@ L&apos;exporter quand même ?</translation>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+64"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+67"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Afficher uniquement les balles adaptées au calibre</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+9"/>
         <source>New load</source>
         <translation>Nouveau chargement</translation>
     </message>
@@ -1529,19 +1529,40 @@ L&apos;exporter quand même ?</translation>
         <translation>= %1 grains</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+24"/>
+        <source>&lt; Back</source>
+        <translation>&lt; Précédent</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+65"/>
+        <source>Next &gt;</source>
+        <translation>Suivant &gt;</translation>
+    </message>
+    <message>
+        <location line="-7"/>
         <source>Create load</source>
         <translation>Créer le chargement</translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>&lt;i&gt;not selected&lt;/i&gt;</source>
-        <translation>&lt;i&gt;non choisi&lt;/i&gt;</translation>
+        <location line="+34"/>
+        <source>Caliber:</source>
+        <translation>Calibre :</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>&lt;b&gt;Caliber:&lt;/b&gt; %1&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; %2&lt;br&gt;&lt;b&gt;Propellant:&lt;/b&gt; %3</source>
-        <translation>&lt;b&gt;Calibre :&lt;/b&gt; %1&lt;br&gt;&lt;b&gt;Projectile :&lt;/b&gt; %2&lt;br&gt;&lt;b&gt;Poudre :&lt;/b&gt; %3</translation>
+        <location line="+0"/>
+        <source>Projectile:</source>
+        <translation>Projectile :</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Propellant:</source>
+        <translation>Poudre :</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>&lt;i&gt;not selected&lt;/i&gt;</source>
+        <translation>&lt;i&gt;non choisi&lt;/i&gt;</translation>
     </message>
 </context>
 <context>

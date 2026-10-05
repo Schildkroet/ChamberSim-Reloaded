@@ -7,10 +7,12 @@
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QFormLayout>
+#include <QGridLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QStackedWidget>
 #include <QTabWidget>
 #include <QVBoxLayout>
 
@@ -60,6 +62,7 @@ QString describe(const std::optional<QVariantMap> &r, const QString &a, const QS
 NewLoadDialog::NewLoadDialog(const grt::Database &db, QWidget *parent)
     : QDialog(parent)
     , m_db(db)
+    , m_pages(new QStackedWidget)
     , m_tabs(new QTabWidget)
     , m_matchDiameter(new QCheckBox(tr("Show only bullets that fit the caliber")))
     , m_charge(spin(Quantity::BulletMass, 0.0, 100.0, this))
@@ -67,9 +70,8 @@ NewLoadDialog::NewLoadDialog(const grt::Database &db, QWidget *parent)
     , m_depth(spin(Quantity::Length, 0.0, 100.0, this))
     , m_twist(spin(Quantity::Length, 0.0, 2000.0, this))
     , m_temperature(spin(Quantity::Temperature, -40.0, 80.0, this))
-    , m_summary(new QLabel)
     , m_chargeGrains(new QLabel)
-    , m_buttons(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel))
+    , m_buttons(new QDialogButtonBox(QDialogButtonBox::Cancel))
 {
     setWindowTitle(tr("New load"));
     resize(1100, 640);
@@ -118,29 +120,36 @@ NewLoadDialog::NewLoadDialog(const grt::Database &db, QWidget *parent)
                                                 : tr("= %1 grains").arg(base(m_charge) / grt::kGrainToGram, 0, 'f', 1));
             });
 
-    m_summary->setWordWrap(true);
-    m_summary->setTextFormat(Qt::RichText);
-    auto *right = new QVBoxLayout;
-    right->addWidget(m_summary);
-    right->addWidget(params);
-    right->addStretch(1);
-    auto *rightWidget = new QWidget;
-    rightWidget->setLayout(right);
-    // 320 px, but wide enough for the labels and fields in the user's font (a fixed width cut the labels off with larger fonts)
-    rightWidget->setFixedWidth(
-        std::max(320, params->sizeHint().width() + right->contentsMargins().left() + right->contentsMargins().right()));
+    params->setMinimumWidth(std::max(360, params->sizeHint().width()));
+    auto *dataPage = new QWidget;
+    auto *dataRow = new QHBoxLayout(dataPage);
+    auto *dataCol = new QVBoxLayout;
+    dataCol->addWidget(makeSummary(m_summary));
+    dataCol->addWidget(params);
+    dataCol->addStretch(1);
+    dataRow->addLayout(dataCol);
+    dataRow->addStretch(1);
+
+    auto *selectPage = new QWidget;
+    auto *selectCol = new QVBoxLayout(selectPage);
+    selectCol->setContentsMargins(0, 0, 0, 0);
+    selectCol->addWidget(m_tabs, 1);
+    selectCol->addWidget(makeSummary(m_selection));
+    m_pages->addWidget(selectPage);
+    m_pages->addWidget(dataPage);
 
     auto *main = new QVBoxLayout(this);
-    auto *row = new QHBoxLayout;
-    row->addWidget(m_tabs, 1);
-    row->addWidget(rightWidget);
-    main->addLayout(row, 1);
+    main->addWidget(m_pages, 1);
     main->addWidget(m_buttons);
-    connect(m_buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    m_back = m_buttons->addButton(tr("< Back"), QDialogButtonBox::ActionRole);
+    m_next = m_buttons->addButton(tr("Next >"), QDialogButtonBox::ActionRole);
+    connect(m_back, &QPushButton::clicked, this, &NewLoadDialog::goBack);
+    connect(m_next, &QPushButton::clicked, this, &NewLoadDialog::goNext);
     connect(m_buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
-    m_buttons->button(QDialogButtonBox::Ok)->setText(tr("Create load"));
-    markPrimary(m_buttons->button(QDialogButtonBox::Ok));
-    m_buttons->button(QDialogButtonBox::Ok)->setEnabled(false);
+    m_next->setDefault(true);
+    markPrimary(m_next);
+    m_back->hide();
+    m_next->setEnabled(false);
     m_charge->valueChanged(0.0);
     updateSummary();
 }
@@ -169,9 +178,37 @@ void NewLoadDialog::onSelectionChanged()
     }
     if (m_caliber != oldCaliber) m_projectile = fetch(grt::Table::Projectile, 1);
 
-    applyDefaults();
     updateSummary();
-    m_buttons->button(QDialogButtonBox::Ok)->setEnabled(m_caliber && m_projectile && m_propellant);
+    m_next->setEnabled(m_pages->currentIndex() == 1 || (m_caliber && m_projectile && m_propellant));
+}
+
+// Step 2 (or "Create load" there): the data fields get the defaults of the selection unless they were filled for this very selection,
+// so going back and forth without changing it keeps the edits.
+void NewLoadDialog::goNext()
+{
+    if (m_pages->currentIndex() == 1)
+    {
+        accept();
+        return;
+    }
+    if (!(m_caliber && m_projectile && m_propellant)) return;
+    const std::array<int, 3> ids{m_browsers[0]->currentId(), m_browsers[1]->currentId(), m_browsers[2]->currentId()};
+    if (ids != m_defaultsFor)
+    {
+        applyDefaults();
+        m_defaultsFor = ids;
+    }
+    m_pages->setCurrentIndex(1);
+    m_back->show();
+    m_next->setText(tr("Create load"));
+}
+
+void NewLoadDialog::goBack()
+{
+    m_pages->setCurrentIndex(0);
+    m_back->hide();
+    m_next->setText(tr("Next >"));
+    m_next->setEnabled(m_caliber && m_projectile && m_propellant);
 }
 
 void NewLoadDialog::applyDefaults()
@@ -190,13 +227,38 @@ void NewLoadDialog::applyDefaults()
     }
 }
 
+// The selected components below their labels, all starting at the same x position.
+QWidget *NewLoadDialog::makeSummary(std::array<QLabel *, 3> &values)
+{
+    auto *w = new QWidget;
+    auto *grid = new QGridLayout(w);
+    grid->setContentsMargins(0, 0, 0, 0);
+    grid->setHorizontalSpacing(16);
+    const std::array titles{tr("Caliber:"), tr("Projectile:"), tr("Propellant:")};
+    for (std::size_t i = 0; i < values.size(); ++i)
+    {
+        auto *title = new QLabel(QStringLiteral("<b>%1</b>").arg(titles[i]));
+        title->setTextFormat(Qt::RichText);
+        values[i] = new QLabel;
+        values[i]->setWordWrap(true);
+        grid->addWidget(title, static_cast<int>(i), 0, Qt::AlignTop);
+        grid->addWidget(values[i], static_cast<int>(i), 1);
+    }
+    grid->setColumnStretch(1, 1);
+    return w;
+}
+
 void NewLoadDialog::updateSummary()
 {
     const QString none = tr("<i>not selected</i>");
-    m_summary->setText(tr("<b>Caliber:</b> %1<br><b>Projectile:</b> %2<br><b>Propellant:</b> %3")
-                           .arg(describe(m_caliber, QStringLiteral("cipname"), QStringLiteral("altname"), none),
-                                describe(m_projectile, QStringLiteral("mname"), QStringLiteral("pname"), none),
-                                describe(m_propellant, QStringLiteral("mname"), QStringLiteral("pname"), none)));
+    const std::array<QString, 3> text{describe(m_caliber, QStringLiteral("cipname"), QStringLiteral("altname"), none),
+                                      describe(m_projectile, QStringLiteral("mname"), QStringLiteral("pname"), none),
+                                      describe(m_propellant, QStringLiteral("mname"), QStringLiteral("pname"), none)};
+    for (std::size_t i = 0; i < text.size(); ++i)
+    {
+        m_summary[i]->setText(text[i]);
+        m_selection[i]->setText(text[i]);
+    }
 }
 
 bool NewLoadDialog::select(int caliberId, int projectileId, int propellantId)
@@ -204,6 +266,7 @@ bool NewLoadDialog::select(int caliberId, int projectileId, int propellantId)
     bool ok = m_browsers[0]->selectId(caliberId);  // narrows the bullet list
     ok = m_browsers[1]->selectId(projectileId) && ok;
     ok = m_browsers[2]->selectId(propellantId) && ok;
+    goNext();
     return ok;
 }
 
