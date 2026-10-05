@@ -28,7 +28,7 @@ class QFormLayout;
 class QLabel;
 class VivacityChart;
 
-// One opened *.grtload laid out like the original program's main screen: input panels for
+// One opened *.grtreload (or the original's *.grtload) laid out like the original program's main screen: input panels for
 // cartridge/gun, projectile and propellant, the key results, and the pressure/energy/velocity chart.
 class LoadView : public QWidget
 {
@@ -100,6 +100,7 @@ private:
 
     [[nodiscard]] grt::EntryList &section(int id);
     void rebuildPanels();
+    void offerPhysicalBurn();  // asks whether the load takes the Physical Model's burn values of its powder
     void onValueEdited(int sectionId, const QString &key, const QString &text);
     void recompute();
     void setModified(bool m);

@@ -79,6 +79,10 @@ install(TARGETS GRTReloaded
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+if(UNIX AND NOT APPLE)
+    install(FILES packaging/linux/grtreloaded-mime.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages)
+endif()
+
 # ---- translations ----
 # American English (en_US) is the source language and the default. To add a language, append its
 # code here (e.g. de_DE), run the `update_translations` target to create/refresh

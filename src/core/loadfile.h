@@ -45,10 +45,27 @@ private:
     std::vector<Entry> m_entries;
 };
 
-// In-memory form of a *.grtload file (<InnerBallistikInput>).
+// The two file formats of a load. *.grtreload is this program's own (<GRTReloaded format="1"><load>), *.grtload is the
+// original program's (<GordonsReloadingTool><InnerBallistikInput>): both are read, the original's is only written as an export.
+// This program's data that the original does not know (physical burn values, shotshell parts) has its own sections
+// (<physical>, <shotshell>) in *.grtreload; the export leaves it out. In memory it is in the propellant / caliber entries.
+enum class FileFormat
+{
+    Reload,
+    Original,
+};
+
+inline constexpr auto kReloadSuffix = "grtreload";
+inline constexpr auto kOriginalSuffix = "grtload";
+
+// The format a file name stands for: *.grtload is the original's, everything else this program's.
+[[nodiscard]] FileFormat formatForPath(const QString &path);
+
+// In-memory form of a load file (*.grtreload, or the original's *.grtload).
 struct LoadFile
 {
     QString appVersion;
+    FileFormat source = FileFormat::Reload;  // the format it was read from (a new load is in this program's)
     QString title;
     EntryList config;
     EntryList caliber;
@@ -61,8 +78,9 @@ struct LoadFile
     [[nodiscard]] static std::optional<LoadFile> read(const QString &path, QString *error = nullptr);
     [[nodiscard]] static std::optional<LoadFile> parse(const QByteArray &xml, QString *error = nullptr);
 
+    // Writes the format the file name stands for (see formatForPath).
     [[nodiscard]] bool write(const QString &path, QString *error = nullptr) const;
-    [[nodiscard]] QByteArray toXml() const;
+    [[nodiscard]] QByteArray toXml(FileFormat format = FileFormat::Reload) const;
 };
 
 }  // namespace grt

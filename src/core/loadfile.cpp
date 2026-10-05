@@ -4,12 +4,14 @@
 
 #include <QCoreApplication>
 #include <QFile>
+#include <QFileInfo>
 #include <QSaveFile>
 #include <QUrl>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
 #include <algorithm>
+#include <functional>
 
 using namespace Qt::StringLiterals;
 
@@ -91,11 +93,33 @@ void readList(QXmlStreamReader &r, EntryList &list, QStringView childTag)
     }
 }
 
+// The data this program adds to the original's sections: the physical model's burn values of the propellant (physBa, physA0, ...) and
+// the parts of a shotshell (shothull, shotwad, shotprimer). In a *.grtreload they have sections of their own, the original's
+// export leaves them out.
+bool isPhysical(const Entry &e)
+{
+    return e.name.startsWith(u"phys");
+}
+
+bool isShotPart(const Entry &e)
+{
+    return e.name == u"shothull" || e.name == u"shotwad" || e.name == u"shotprimer";
+}
+
+// The entries of `list` for which `wanted` is true, as <tag> with <childTag> children; no element when there are none and `optional`.
+template <class Pred>
+void writeList(QXmlStreamWriter &w, const QString &tag, const EntryList &list, const QString &childTag, Pred wanted, bool optional = false)
+{
+    if (optional && std::ranges::none_of(list.entries(), wanted)) return;
+    w.writeStartElement(tag);
+    for (const Entry &e : list.entries())
+        if (wanted(e)) writeEntry(w, childTag, e);
+    w.writeEndElement();
+}
+
 void writeList(QXmlStreamWriter &w, const QString &tag, const EntryList &list, const QString &childTag)
 {
-    w.writeStartElement(tag);
-    for (const Entry &e : list.entries()) writeEntry(w, childTag, e);
-    w.writeEndElement();
+    writeList(w, tag, list, childTag, [](const Entry &) { return true; });
 }
 
 }  // namespace
@@ -164,16 +188,18 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
     LoadFile lf;
     bool found = false;
 
-    if (!r.readNextStartElement() || r.name() != u"GordonsReloadingTool")
+    if (!r.readNextStartElement() || (r.name() != u"GRTReloaded" && r.name() != u"GordonsReloadingTool"))
     {
-        if (error) *error = QCoreApplication::translate("grt::LoadFile", "Not a GordonsReloadingTool file");
+        if (error) *error = QCoreApplication::translate("grt::LoadFile", "Not a GRT Reloaded or GRT load file");
         return std::nullopt;
     }
+    lf.source = r.name() == u"GRTReloaded" ? FileFormat::Reload : FileFormat::Original;
+    const QStringView loadTag = lf.source == FileFormat::Reload ? u"load" : u"InnerBallistikInput";
     lf.appVersion = r.attributes().value(u"version"_s).toString();
 
     while (r.readNextStartElement())
     {
-        if (r.name() != u"InnerBallistikInput")
+        if (r.name() != loadTag)
         {
             r.skipCurrentElement();
             continue;
@@ -211,6 +237,14 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
             {
                 readList(r, lf.propellant, u"input");
             }
+            else if (tag == u"shotshell")
+            {
+                readList(r, lf.caliber, u"input");
+            }
+            else if (tag == u"physical")
+            {
+                readList(r, lf.propellant, u"input");
+            }
             else if (tag == u"appendix")
             {
                 QByteArray inner;
@@ -234,30 +268,50 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
     }
     if (!found)
     {
-        if (error)
-            *error = QCoreApplication::translate("grt::LoadFile", "The file contains no load data (<InnerBallistikInput> is missing)");
+        if (error) *error = QCoreApplication::translate("grt::LoadFile", "The file contains no load data (<%1> is missing)").arg(loadTag);
         return std::nullopt;
     }
     return lf;
 }
 
-QByteArray LoadFile::toXml() const
+FileFormat formatForPath(const QString &path)
 {
+    return QFileInfo(path).suffix().compare(QLatin1String(kOriginalSuffix), Qt::CaseInsensitive) == 0 ? FileFormat::Original
+                                                                                                      : FileFormat::Reload;
+}
+
+QByteArray LoadFile::toXml(FileFormat format) const
+{
+    const bool original = format == FileFormat::Original;
     QByteArray out;
     QXmlStreamWriter w(&out);
     w.setAutoFormatting(true);
     w.setAutoFormattingIndent(2);
     w.writeStartDocument(u"1.0"_s, true);
-    w.writeStartElement(u"GordonsReloadingTool"_s);
-    if (!appVersion.isEmpty()) w.writeAttribute(u"version"_s, appVersion);
-    w.writeStartElement(u"InnerBallistikInput"_s);
+    if (original)
+    {
+        w.writeStartElement(u"GordonsReloadingTool"_s);
+        if (!appVersion.isEmpty()) w.writeAttribute(u"version"_s, appVersion);
+    }
+    else
+    {
+        w.writeStartElement(u"GRTReloaded"_s);
+        w.writeAttribute(u"format"_s, u"1"_s);
+        if (const QString v = QCoreApplication::applicationVersion(); !v.isEmpty()) w.writeAttribute(u"version"_s, v);
+    }
+    w.writeStartElement(original ? u"InnerBallistikInput"_s : u"load"_s);
     w.writeTextElement(u"title"_s, percentEncode(title));
     for (const Entry &e : config.entries()) writeEntry(w, u"config"_s, e);
-    writeList(w, u"caliber"_s, caliber, u"input"_s);
+    writeList(w, u"caliber"_s, caliber, u"input"_s, std::not_fn(isShotPart));
     writeList(w, u"caliberfile"_s, caliberFile, u"var"_s);
     writeList(w, u"gun"_s, gun, u"input"_s);
     writeList(w, u"projectile"_s, projectile, u"input"_s);
-    writeList(w, u"propellant"_s, propellant, u"input"_s);
+    writeList(w, u"propellant"_s, propellant, u"input"_s, std::not_fn(isPhysical));
+    if (!original)
+    {
+        writeList(w, u"shotshell"_s, caliber, u"input"_s, isShotPart, true);
+        writeList(w, u"physical"_s, propellant, u"input"_s, isPhysical, true);
+    }
     w.writeStartElement(u"appendix"_s);
     if (!appendixXml.isEmpty())
     {
@@ -267,8 +321,8 @@ QByteArray LoadFile::toXml() const
         copyChildren(ar, w);
     }
     w.writeEndElement();  // appendix
-    w.writeEndElement();  // InnerBallistikInput
-    w.writeEndElement();  // GordonsReloadingTool
+    w.writeEndElement();  // load
+    w.writeEndElement();  // root
     w.writeEndDocument();
     return out;
 }
@@ -276,7 +330,7 @@ QByteArray LoadFile::toXml() const
 bool LoadFile::write(const QString &path, QString *error) const
 {
     QSaveFile f(path);
-    if (!f.open(QIODevice::WriteOnly) || f.write(toXml()) < 0 || !f.commit())
+    if (!f.open(QIODevice::WriteOnly) || f.write(toXml(formatForPath(path))) < 0 || !f.commit())
     {
         if (error) *error = f.errorString();
         return false;

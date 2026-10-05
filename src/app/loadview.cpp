@@ -149,6 +149,8 @@ LoadView::LoadView(QWidget *parent)
     m_heading->setTextFormat(Qt::RichText);
     m_heading->setWordWrap(true);
     m_status->setWordWrap(true);
+    m_status->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
+    connect(m_status, &QLabel::linkActivated, this, [this] { offerPhysicalBurn(); });
     m_comparison->setTextFormat(Qt::RichText);
 
     for (const QString &label : {tr("Maximum pressure"), tr("Muzzle pressure"), tr("Projectile energy"), tr("Muzzle velocity"),
@@ -634,6 +636,26 @@ void LoadView::fitPowder()
     setModified(true);
 }
 
+void LoadView::offerPhysicalBurn()
+{
+    const auto burn = grt::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname"));
+    if (!burn) return;
+    const auto answer = QMessageBox::question(
+        this, tr("Physical burn values"),
+        tr("Use the Physical Model's burn values of %1 for this load?\n\n"
+           "Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn rate of the Physical Model. The burn values "
+           "of the load itself (Ba, a0, z1, z2 of the original's model) stay as they are; the physical ones apply while those are "
+           "unchanged.")
+            .arg((m_file.propellant.text(u"mname") + u' ' + m_file.propellant.text(u"pname")).trimmed(), num(burn->Ba, 4), num(burn->a0, 4),
+                 num(burn->z1, 4), num(burn->z2, 4)));
+    if (answer != QMessageBox::Yes) return;
+    LOG_Info() << "Physical burn values applied to" << title();
+    grt::writePhysicalBurn(m_file.propellant, burn);
+    rebuildPanels();
+    recompute();
+    setModified(true);
+}
+
 void LoadView::loadMeasurement()
 {
     auto series = grt::readMeasurements(m_file.appendixXml);
@@ -873,7 +895,26 @@ void LoadView::showResult()
         return;
     }
     // the model the results come from (Settings > Solver)
-    QString status = tr("Model: %1").arg(SolverPreferences::name(SolverPreferences::instance().profile()));
+    const auto profile = SolverPreferences::instance().profile();
+    QString status = tr("Model: %1").arg(SolverPreferences::name(profile));
+    // the Physical Model without the powder's physical burn values (a powder it has none for, or edited burn values): the load's own
+    // values with a scaled burn rate
+    if (profile == grt::CalibrationProfile::Physical && !m_input.shotshell && !m_input.physicalBurn)
+    {
+        const QString powder = (m_file.propellant.text(u"mname") + u' ' + m_file.propellant.text(u"pname")).trimmed();
+        if (grt::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname")))
+            status +=
+                u"<br>"_s +
+                tr("<b>No physical burn values in this load.</b> The Physical Model has values for %1, but this load's burn values are "
+                   "not those of the project's record (the original program's, or edited), so its burn rate is scaled and the results "
+                   "are less accurate. <a href=\"physical\">Use the physical values…</a>")
+                    .arg(powder.toHtmlEscaped());
+        else
+            status +=
+                u"<br>"_s +
+                tr("<b>No physical burn values</b> for this propellant (or its burn values were changed): the load's burn rate is scaled, "
+                   "the results are less accurate than for the powders of the Physical Model.");
+    }
     // shotshells: an own model, fitted to published shotgun loads (not to the original program)
     if (m_input.shotshell)
         status += u"<br>"_s +

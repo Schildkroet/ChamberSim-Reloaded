@@ -144,7 +144,9 @@ void MainWindow::createActions()
     add(tr("&Open load…"), QKeySequence::Open,
         [this]
         {
-            const QStringList files = QFileDialog::getOpenFileNames(this, tr("Open load"), {}, tr("GRT loads (*.grtload);;All files (*)"));
+            const QStringList files = QFileDialog::getOpenFileNames(
+                this, tr("Open load"), {},
+                tr("Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)"));
             for (const QString &f : files) openLoad(f);
         });
     m_saveAction = add(tr("&Save"), QKeySequence::Save,
@@ -760,10 +762,18 @@ void MainWindow::updateTabTitle(LoadView *view)
 bool MainWindow::saveLoad(LoadView *view, bool saveAs)
 {
     QString path = view->path();
+    // a load opened from the original's *.grtload is saved in this program's format (Save as ... *.grtload exports it)
+    if (!path.isEmpty() && grt::formatForPath(path) == grt::FileFormat::Original && !saveAs) saveAs = true;
     if (saveAs || path.isEmpty())
     {
-        path = QFileDialog::getSaveFileName(this, tr("Save load"), path, tr("GRT loads (*.grtload)"));
+        if (!path.isEmpty() && grt::formatForPath(path) == grt::FileFormat::Original)
+            path = QFileInfo(path).absolutePath() + QLatin1Char('/') + QFileInfo(path).completeBaseName() + QStringLiteral(".grtreload");
+        QString selected;
+        path = QFileDialog::getSaveFileName(
+            this, tr("Save load"), path,
+            tr("GRT Reloaded loads (*.grtreload);;Original GRT loads, without the data of GRT Reloaded (*.grtload)"), &selected);
         if (path.isEmpty()) return false;
+        if (QFileInfo(path).suffix().isEmpty() && selected.contains(QStringLiteral("*.grtload"))) path += QStringLiteral(".grtload");
         path = withLoadExtension(path);
     }
     QString error;

@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
     QCommandLineParser cli;
     cli.setApplicationDescription(QStringLiteral("Interior ballistics for reloaders"));
     cli.addHelpOption();
-    cli.addPositionalArgument(QStringLiteral("load"), QStringLiteral("*.grtload files to open"), QStringLiteral("[load...]"));
+    cli.addPositionalArgument(QStringLiteral("load"), QStringLiteral("*.grtreload (or the original's *.grtload) files to open"),
+                              QStringLiteral("[load...]"));
     const QCommandLineOption dbOpt({QStringLiteral("d"), QStringLiteral("database")}, QStringLiteral("SQLite database to use"),
                                    QStringLiteral("file"));
     const QCommandLineOption refOpt({QStringLiteral("r"), QStringLiteral("reference")},

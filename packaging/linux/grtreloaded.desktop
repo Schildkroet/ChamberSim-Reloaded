@@ -6,4 +6,5 @@ Comment=Interior ballistics for handloaders
 Exec=GRTReloaded %f
 Icon=grtreloaded
 Terminal=false
+MimeType=application/x-grtreload;
 Categories=Qt;Science;Utility;

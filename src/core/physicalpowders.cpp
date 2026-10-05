@@ -109,6 +109,16 @@ std::optional<PhysicalBurn> physicalBurnOf(const QVariantMap &propellant)
     return it->second.burn;
 }
 
+std::optional<PhysicalBurn> findPhysicalBurn(const QString &maker, const QString &name)
+{
+    Store &s = store();
+    const std::scoped_lock lock(s.mutex);
+    if (!s.loaded) loadLocked(s);
+    const auto it = s.entries.find(keyOf(maker, name));
+    if (it == s.entries.end()) return std::nullopt;
+    return it->second.burn;
+}
+
 void writePhysicalBurn(EntryList &propellant, const std::optional<PhysicalBurn> &burn)
 {
     if (!burn)

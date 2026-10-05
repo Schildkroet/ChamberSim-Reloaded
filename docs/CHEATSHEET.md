@@ -33,12 +33,12 @@ linguist translations/GRTReloaded_de_DE.ts                    # translate (de_DE
 ## ▶️ Run the app
 
 ```bash
-build/debug/GRTReloaded [load.grtload ...]
+build/debug/GRTReloaded [load.grtreload ...]
 build/debug/GRTReloaded --help
 build/debug/GRTReloaded -d tools/GordonsReloadingTool.plain.db         # with the original's (plain) database
 build/debug/GRTReloaded --calibration original|published|physical      # solver model for this run
 build/debug/GRTReloaded --language de_DE --theme dark --units imperial --log-level debug
-build/debug/GRTReloaded -r reference/results/exp_base.json load.grtload  # overlay a reference run
+build/debug/GRTReloaded -r reference/results/exp_base.json load.grtreload  # overlay a reference run
 
 # headless screenshot, without touching your settings
 XDG_CONFIG_HOME=/tmp/grtcfg QT_QPA_PLATFORM=offscreen build/debug/GRTReloaded \
@@ -85,7 +85,7 @@ python3 vectan_extract.py catalogue.pdf -o vectan_samples.csv --ocr-cache ocr.js
 
 ```bash
 # own measurements (Measurements tab of the loads) -> a record file
-build/release/grt_fitpowder [--model original|physical] [--out maker-name-lot.json] [--save] a.grtload b.grtload ...
+build/release/grt_fitpowder [--model original|physical] [--out maker-name-lot.json] [--save] a.grtreload b.grtreload ...
 
 # published data -> burn rate of one powder
 build/release/grt_fitdata vv_N150.csv --params Ba [--use-pressure] [--holdout "308 Win."] [--out record.json]

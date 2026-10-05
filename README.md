@@ -3,8 +3,10 @@
 
 A Qt 6 / C++20 desktop application for **interior ballistics of handloads**: choose a cartridge, bullet and
 powder, enter the charge, and see pressure, bullet energy and velocity along the barrel, with a load development
-ladder, reports and printouts. It follows the workflow of *Gordon's Reloading Tool* and reads and writes its
-`*.grtload` files.
+ladder, reports and printouts. It follows the workflow of *Gordon's Reloading Tool*. It saves its loads in its own
+`*.grtreload` format (XML, with the data the original does not know, such as the physical model's powder values and
+the measurements). The original's `*.grtload` files can be opened (and are saved as `*.grtreload`); *File ▸ Save as…*
+with the `*.grtload` filter exports a load for the original, without the data of this program.
 
 > **Not affiliated.** This is an independent project. It is not affiliated with, endorsed or supported by
 > Gordon's Reloading Tool or its author.
@@ -271,7 +273,7 @@ per charge), the better the model fits other loads. One load with few charges on
    material density `pc`, bulk density `pcd` and the reference temperature `pt`. These do not come from the fit.
    Optionally add an overview photo and a detail photo (*Choose file…*, with the scale in px/mm if you know it).
    Click *Save*.
-2. **Make a load with the new powder.** Create a load with *File ▸ New load…* (or open a `.grtload` file). On the
+2. **Make a load with the new powder.** Create a load with *File ▸ New load…* (or open a `.grtreload` or `.grtload` file). On the
    tab *Propellant* click *Select Propellant…* and choose your new powder.
 3. **Measure the case and the cartridge.** Measure the volume of a fired case with water and type it into *Case
    Volume*. Measure the length of the bullets and the cartridges and type the mean values into *Projectile Overall
@@ -341,7 +343,7 @@ A new propellant model needs these measurements:
 
 Use a good chronograph (for example MagnetoSpeed or LabRadar). Measurements of the pressure help.
 
-1. Make one load file (`.grtload`) for each caliber and bullet weight.
+1. Make one load file (`.grtreload`) for each caliber and bullet weight.
 2. Measure the volume of a fired case with water. Write the value into the field *Case Volume*.
 3. Measure the length of the bullets. Write the mean value into the field *Projectile Overall Length*.
 4. Measure the length of the cartridges. Write the mean value into the field *Cartridge Overall Length*.
@@ -374,7 +376,7 @@ Use a good chronograph (for example MagnetoSpeed or LabRadar). Measurements of t
 13. Do procedure 3.
 
 Use the option `--save` only for your own loads. Add it to the command of step 8. The tool then also writes a
-copy of each load file with the new values (`<name>-fitted.grtload`, in the folder of the load file). Open these
+copy of each load file with the new values (`<name>-fitted.grtreload`, in the folder of the load file). Open these
 files to continue your load development with the new model. You do not have to wait until the record is in the
 program. Do not copy the `-fitted` files into `data/`.
 
@@ -417,7 +419,7 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
   Its constants and the **physical burn values** of 106 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
   pressures: Hodgdon, Western, Lovex, Reload Swiss, ADI; Vihtavuori and Vectan publish no pressures, their 20 powders have a fitted Ba and the median
   form function of the others) come from `analysis/calibrate_published.py --profile physical` and
-  `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A load stores them in its propellant section (`physBa`,
+  `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A `.grtreload` stores them in its `<physical>` section (`physBa`,
   `physA0`, `physZ1`, `physZ2`, `physRef` = the record values they belong to); they apply only while Ba, a0, z1, z2 of the load are
   unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger. A load saved
   before these values existed gets them when it is opened. The curves and the barrel time begin when the bullet moves (it waits at

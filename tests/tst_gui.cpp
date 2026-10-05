@@ -29,6 +29,7 @@
 #include <QStandardPaths>
 #include <QTableView>
 #include <QTableWidget>
+#include <QScopeGuard>
 #include <QTemporaryDir>
 #include <QProxyStyle>
 #include <QStyleOptionComboBox>
@@ -56,6 +57,7 @@
 #include "database.h"
 #include "loadbuilder.h"
 #include "loadview.h"
+#include "physicalpowders.h"
 #include "recorddialog.h"
 #include "measurement.h"
 #include "projectdata.h"
@@ -117,6 +119,7 @@ private slots:
     void unitsLiveInSettingsNotInViewMenu();
     void layoutIsRemembered();
     void recentFilesAreListedInTheFileMenu();
+    void noteWithoutPhysicalBurnValues();
     void hoveringATableRowShowsItsMeasureInTheDrawing();
     void reportTabRendersTheLoad();
     void reportTemplateIsCustomisable();
@@ -286,9 +289,9 @@ void GuiTest::solverCalibrationIsChosenInTheSettings()
             if (l->text().startsWith(u"Model: "_s)) return l->text();
         return QString();
     };
-    QCOMPARE(modelLine(), u"Model: GRT Original"_s);             // above the results: only the model used
-    prefs.setProfile(grt::CalibrationProfile::Physical, false);  // the default again, for the other tests
-    QCOMPARE(modelLine(), u"Model: Physical Model"_s);
+    QCOMPARE(modelLine(), u"Model: GRT Original"_s);              // above the results: only the model used
+    prefs.setProfile(grt::CalibrationProfile::Physical, false);   // the default again, for the other tests
+    QVERIFY(modelLine().startsWith(u"Model: Physical Model"_s));  // (the sample's N150 has the original's lot values: with the note)
 }
 
 void GuiTest::tableBrowserFiltersAndSelects()
@@ -942,6 +945,73 @@ void GuiTest::hoveringATableRowShowsItsMeasureInTheDrawing()
     }
 }
 
+void GuiTest::noteWithoutPhysicalBurnValues()
+{
+    // the table of the physical burn values is a resource of the program only: the file of the source tree for this test
+    grt::setPhysicalBurnFile(QStringLiteral(GRT_SOURCE_DIR "/data/physical/propellants.json"));
+    const auto restore = qScopeGuard([] { grt::setPhysicalBurnFile(QStringLiteral(":/data/physical/propellants.json")); });
+    const auto statusOf = [](LoadView &v)
+    {
+        QString all;
+        for (const auto *l : v.findChildren<QLabel *>())
+            if (l->text().startsWith(u"Model: "_s)) all = l->text();
+        return all;
+    };
+    // the sample's N150 has the original's values: those of the project's record are different, so it has no physical ones
+    LoadView original;
+    QVERIFY(original.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(statusOf(original).contains(u"No physical burn values"_s));
+    QVERIFY(statusOf(original).contains(u"Use the physical values"_s));  // the table has N150: the user can take them
+
+    // the user is asked; "No" changes nothing, "Yes" attaches the values (the load is modified, the note is gone)
+    const auto answerBox = [](QMessageBox::StandardButton b)
+    {
+        QTimer::singleShot(0,
+                           [b]
+                           {
+                               auto *box = qobject_cast<QMessageBox *>(QApplication::activeModalWidget());
+                               QVERIFY(box);
+                               box->button(b)->click();
+                           });
+    };
+    const auto statusLabel = [](LoadView &v)
+    {
+        for (auto *l : v.findChildren<QLabel *>())
+            if (l->text().startsWith(u"Model: "_s)) return l;
+        return static_cast<QLabel *>(nullptr);
+    };
+    QVERIFY(!original.isModified());
+    answerBox(QMessageBox::No);
+    emit statusLabel(original)->linkActivated(u"physical"_s);
+    QVERIFY(!original.isModified());
+    QVERIFY(statusOf(original).contains(u"No physical burn values"_s));
+    answerBox(QMessageBox::Yes);
+    emit statusLabel(original)->linkActivated(u"physical"_s);
+    QVERIFY(original.isModified());
+    QVERIFY(!statusOf(original).contains(u"No physical burn values"_s));
+    QTemporaryDir saveDir;
+    QVERIFY(original.save(saveDir.filePath(u"taken.grtreload"_s)));  // saved with the load
+    QVERIFY(grt::readPhysicalBurn(grt::LoadFile::read(saveDir.filePath(u"taken.grtreload"_s))->propellant));
+
+    // with the values of the project's record (N150: Ba 0.7878, a0 0, z1 0.3, z2 0.6) the powder's physical values are attached
+    auto lf = *grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    for (const auto &[name, value] : {std::pair{u"Ba"_s, 0.7878}, {u"a0"_s, 0.0}, {u"z1"_s, 0.3}, {u"z2"_s, 0.6}})
+        lf.propellant.set(name, value);
+    QTemporaryDir dir;
+    const QString path = dir.filePath(u"record.grtreload"_s);
+    QVERIFY(lf.write(path));
+    LoadView known;
+    QVERIFY(known.load(path));
+    QVERIFY(!statusOf(known).contains(u"No physical burn values"_s));
+
+    // edited burn values: the physical ones no longer belong to them
+    lf.propellant.set(u"Ba", 0.8);
+    QVERIFY(lf.write(path));
+    LoadView edited;
+    QVERIFY(edited.load(path));
+    QVERIFY(statusOf(edited).contains(u"No physical burn values"_s));
+}
+
 void GuiTest::recentFilesAreListedInTheFileMenu()
 {
     // the list logic: newest first, no duplicates, at most 12
@@ -954,10 +1024,10 @@ void GuiTest::recentFilesAreListedInTheFileMenu()
     QCOMPARE(list.first(), u"/tmp/load8.grtload"_s);
     QCOMPARE(list.count(u"/tmp/load8.grtload"_s), 1);
 
-    QCOMPARE(withLoadExtension(u"/tmp/mine"_s), u"/tmp/mine.grtload"_s);
-    QCOMPARE(withLoadExtension(u"/tmp/mine.grtload"_s), u"/tmp/mine.grtload"_s);
+    QCOMPARE(withLoadExtension(u"/tmp/mine"_s), u"/tmp/mine.grtreload"_s);
+    QCOMPARE(withLoadExtension(u"/tmp/mine.grtreload"_s), u"/tmp/mine.grtreload"_s);
     QCOMPARE(withLoadExtension(u"/tmp/mine.xml"_s), u"/tmp/mine.xml"_s);
-    QCOMPARE(withLoadExtension(u"/tmp.d/mine"_s), u"/tmp.d/mine.grtload"_s);  // a dot in a folder name is no extension
+    QCOMPARE(withLoadExtension(u"/tmp.d/mine"_s), u"/tmp.d/mine.grtreload"_s);  // a dot in a folder name is no extension
     QVERIFY(withLoadExtension({}).isEmpty());
 
     // opening a load puts it into the File menu
@@ -2474,8 +2544,8 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QFile::remove(QDir::temp().filePath(u"grt-fit-test.grtload"_s));
     grt::LoadFile after;
     QTemporaryDir dir;
-    QVERIFY(view.save(dir.filePath(u"fitted.grtload"_s)));
-    after = *grt::LoadFile::read(dir.filePath(u"fitted.grtload"_s));
+    QVERIFY(view.save(dir.filePath(u"fitted.grtreload"_s)));
+    after = *grt::LoadFile::read(dir.filePath(u"fitted.grtreload"_s));
     QVERIFY2(after.propellant.number(u"Ba") > before * 1.02, qPrintable(u"Ba %1 -> %2"_s.arg(before).arg(after.propellant.number(u"Ba"))));
     QVERIFY(grt::readPhysicalBurn(after.propellant));  // and the physical model's values
 

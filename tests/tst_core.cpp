@@ -54,6 +54,7 @@ private slots:
     void loadFileReadsSections();
     void loadFileRoundTrip();
     void loadFileKeepsAppendix();
+    void loadFileFormats();
     void measurementReadsTheOriginalsBlock();
     void measurementWritesBackWithoutLosingData();
     void measurementSeveralBlocks();
@@ -233,6 +234,71 @@ void CoreTest::loadFileRoundTrip()
             QCOMPARE(eb[i].unit, ea[i].unit);
         }
     }
+}
+
+void CoreTest::loadFileFormats()
+{
+    auto original = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/measurements.grtload"));
+    QVERIFY(original);
+    QCOMPARE(original->source, grt::FileFormat::Original);
+    QCOMPARE(grt::formatForPath(u"/x/a.grtload"_s), grt::FileFormat::Original);
+    QCOMPARE(grt::formatForPath(u"/x/a.GRTLOAD"_s), grt::FileFormat::Original);
+    QCOMPARE(grt::formatForPath(u"/x/a.grtreload"_s), grt::FileFormat::Reload);
+    QCOMPARE(grt::formatForPath(u"/x/a"_s), grt::FileFormat::Reload);
+
+    // this program's format: its own root element (the original does not open it), the same content
+    const QByteArray own = original->toXml();
+    QVERIFY(own.contains("<GRTReloaded format=\"1\""));
+    QVERIFY(own.contains("<load>"));
+    QVERIFY(!own.contains("GordonsReloadingTool"));
+    QVERIFY(!own.contains("InnerBallistikInput"));
+    const auto back = grt::LoadFile::parse(own);
+    QVERIFY(back);
+    QCOMPARE(back->source, grt::FileFormat::Reload);
+    QCOMPARE(back->title, original->title);
+    QCOMPARE(back->projectile.number(u"mp"), original->projectile.number(u"mp"));
+    QCOMPARE(back->appendixXml.count(u"<shot "_s), original->appendixXml.count(u"<shot "_s));
+
+    // the data the original does not know has its own sections; the export for the original leaves it out
+    auto extra = *original;
+    extra.propellant.set(u"physBa", u"0.55"_s);
+    extra.propellant.set(u"physRef", u"1 2 3 4"_s);
+    extra.caliber.set(u"shothull", u"low pressure shells"_s);
+    const QByteArray withExtra = extra.toXml();
+    QVERIFY(withExtra.contains("<physical>"));
+    QVERIFY(withExtra.contains("<shotshell>"));
+    QVERIFY(withExtra.indexOf("<physical>") > withExtra.indexOf("</propellant>"));
+    QVERIFY(withExtra.indexOf("physBa") > withExtra.indexOf("<physical>"));
+    QVERIFY(withExtra.indexOf("shothull") > withExtra.indexOf("<shotshell>"));
+    const auto extraBack = grt::LoadFile::parse(withExtra);
+    QVERIFY(extraBack);
+    QCOMPARE(extraBack->propellant.number(u"physBa"), 0.55);
+    QCOMPARE(extraBack->propellant.text(u"physRef"), u"1 2 3 4"_s);
+    QCOMPARE(extraBack->caliber.text(u"shothull"), u"low pressure shells"_s);
+    QVERIFY(!own.contains("<physical>"));  // none when there is nothing
+    const QByteArray forOriginal = extra.toXml(grt::FileFormat::Original);
+    QVERIFY(!forOriginal.contains("physBa"));
+    QVERIFY(!forOriginal.contains("shothull"));
+    QVERIFY(!forOriginal.contains("<physical>"));
+    // an older file with the entries inside the original's sections still reads
+    QByteArray inlineXml = forOriginal;
+    inlineXml.replace("</propellant>", "<input name=\"physBa\" value=\"0.7\" unit=\"\" type=\"decimal\" descr=\"\" /></propellant>");
+    const auto older = grt::LoadFile::parse(inlineXml);
+    QVERIFY(older);
+    QCOMPARE(older->propellant.number(u"physBa"), 0.7);
+
+    // the export for the original is written by the file name
+    QTemporaryDir dir;
+    QVERIFY(dir.isValid());
+    const QString exported = dir.filePath(u"x.grtload"_s);
+    QVERIFY(back->write(exported));
+    QFile f(exported);
+    QVERIFY(f.open(QIODevice::ReadOnly));
+    QVERIFY(f.readAll().contains("<GordonsReloadingTool"));
+    QCOMPARE(grt::LoadFile::read(exported)->source, grt::FileFormat::Original);
+    QString err;
+    QVERIFY(!grt::LoadFile::parse("<other/>", &err));
+    QVERIFY(!err.isEmpty());
 }
 
 void CoreTest::loadFileKeepsAppendix()

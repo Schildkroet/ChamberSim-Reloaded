@@ -30,6 +30,10 @@ void setPhysicalBurnFile(const QString &path);
 // values are the ones the physical values were fitted for (a changed or other record of the same powder gets none).
 [[nodiscard]] std::optional<PhysicalBurn> physicalBurnOf(const QVariantMap &propellant);
 
+// The physical values of a powder by its name, whatever the burn values of the record or load are (they may be the original's, or
+// edited): what a user can be offered for a load that has none that apply.
+[[nodiscard]] std::optional<PhysicalBurn> findPhysicalBurn(const QString &maker, const QString &name);
+
 // In a load file the values are the propellant entries physBa, physA0, physZ1, physZ2 and physRef (the record's "Ba a0 z1 z2" they
 // belong to). write() sets them, or removes them for std::nullopt; read() returns them only while the load's Ba, a0, z1 and z2 still
 // equal physRef (after an edit of those values the physical ones no longer apply).

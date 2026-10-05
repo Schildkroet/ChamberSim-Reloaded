@@ -33,9 +33,9 @@ inline void store(const QStringList &files)
 
 }  // namespace recentfiles
 
-// A file name typed without any extension gets ".grtload" (names with another extension are left alone).
+// A file name typed without any extension gets ".grtreload" (names with another extension are left alone).
 [[nodiscard]] inline QString withLoadExtension(const QString &path)
 {
     if (path.isEmpty() || !QFileInfo(path).suffix().isEmpty()) return path;
-    return path + QStringLiteral(".grtload");
+    return path + QStringLiteral(".grtreload");
 }
