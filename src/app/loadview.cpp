@@ -109,6 +109,34 @@ QImage renderOffscreen(QWidget &w, QSize size)
     return img;
 }
 
+// A notice above the results in fixed colours (the same in every theme): an icon and a rich-text label; hidden until shown.
+void setupBanner(QWidget *banner, QLabel *text, const QColor &background, const QColor &foreground, QStyle::StandardPixmap icon)
+{
+    banner->setAutoFillBackground(true);
+    QPalette pal = banner->palette();
+    pal.setColor(QPalette::Window, background);
+    pal.setColor(QPalette::WindowText, foreground);
+    banner->setPalette(pal);
+    auto *iconLabel = new QLabel;
+    const int size = banner->style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
+    iconLabel->setPixmap(banner->style()->standardIcon(icon).pixmap(size, size));
+    iconLabel->setAlignment(Qt::AlignTop);
+    text->setTextFormat(Qt::RichText);
+    text->setWordWrap(true);
+    auto *row = new QHBoxLayout(banner);
+    row->setContentsMargins(8, 6, 8, 6);
+    row->addWidget(iconLabel);
+    row->addWidget(text, 1);
+    banner->hide();
+}
+
+// The title of the dialog that replaces a component (also the name of the undo step).
+QString selectTitle(LoadView::Component component)
+{
+    const QString titles[] = {LoadView::tr("Select Caliber"), LoadView::tr("Select Projectile"), LoadView::tr("Select Propellant")};
+    return titles[static_cast<std::size_t>(component)];
+}
+
 QByteArray pngBytes(const QImage &img)
 {
     QByteArray bytes;
@@ -176,49 +204,15 @@ LoadView::LoadView(QWidget *parent)
     separator->setFrameShadow(QFrame::Plain);
     separator->setForegroundRole(QPalette::PlaceholderText);  // visible in the light and the dark theme
     infoCol->addWidget(separator);
-    {
-        // white on red in every theme; hidden unless the maximum pressure is above the permitted one
-        m_overpressure->setObjectName(u"overpressureWarning"_s);
-        m_overpressure->setAutoFillBackground(true);
-        QPalette pal = m_overpressure->palette();
-        pal.setColor(QPalette::Window, QColor(0xc4, 0x2b, 0x1c));
-        pal.setColor(QPalette::WindowText, Qt::white);
-        m_overpressure->setPalette(pal);
-        auto *icon = new QLabel;
-        const int size = style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
-        icon->setPixmap(style()->standardIcon(QStyle::SP_MessageBoxWarning).pixmap(size, size));
-        icon->setAlignment(Qt::AlignTop);
-        m_overpressureText->setTextFormat(Qt::RichText);
-        m_overpressureText->setWordWrap(true);
-        auto *row = new QHBoxLayout(m_overpressure);
-        row->setContentsMargins(8, 6, 8, 6);
-        row->addWidget(icon);
-        row->addWidget(m_overpressureText, 1);
-        m_overpressure->hide();
-    }
-    {
-        // dark on orange in every theme; hidden unless the Physical Model runs without the powder's physical burn values
-        m_burnNotice->setObjectName(u"burnValuesNotice"_s);
-        m_burnNotice->setAutoFillBackground(true);
-        QPalette pal = m_burnNotice->palette();
-        pal.setColor(QPalette::Window, QColor(0xff, 0xb3, 0x47));
-        pal.setColor(QPalette::WindowText, QColor(0x2b, 0x1a, 0x00));
-        m_burnNotice->setPalette(pal);
-        auto *icon = new QLabel;
-        const int size = style()->pixelMetric(QStyle::PM_MessageBoxIconSize);
-        icon->setPixmap(style()->standardIcon(QStyle::SP_MessageBoxInformation).pixmap(size, size));
-        icon->setAlignment(Qt::AlignTop);
-        m_burnNoticeText->setObjectName(u"burnValuesNoticeText"_s);
-        m_burnNoticeText->setTextFormat(Qt::RichText);
-        m_burnNoticeText->setWordWrap(true);
-        m_burnNoticeText->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
-        connect(m_burnNoticeText, &QLabel::linkActivated, this, [this] { offerPhysicalBurn(); });
-        auto *row = new QHBoxLayout(m_burnNotice);
-        row->setContentsMargins(8, 6, 8, 6);
-        row->addWidget(icon);
-        row->addWidget(m_burnNoticeText, 1);
-        m_burnNotice->hide();
-    }
+    // white on red: the maximum pressure is above the permitted one
+    m_overpressure->setObjectName(u"overpressureWarning"_s);
+    setupBanner(m_overpressure, m_overpressureText, QColor(0xc4, 0x2b, 0x1c), Qt::white, QStyle::SP_MessageBoxWarning);
+    // dark on orange: the Physical Model runs without the powder's physical burn values
+    m_burnNotice->setObjectName(u"burnValuesNotice"_s);
+    m_burnNoticeText->setObjectName(u"burnValuesNoticeText"_s);
+    setupBanner(m_burnNotice, m_burnNoticeText, QColor(0xff, 0xb3, 0x47), QColor(0x2b, 0x1a, 0x00), QStyle::SP_MessageBoxInformation);
+    m_burnNoticeText->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
+    connect(m_burnNoticeText, &QLabel::linkActivated, this, [this] { offerPhysicalBurn(); });
     infoCol->addWidget(m_overpressure);
     infoCol->addWidget(m_burnNotice);
     infoCol->addWidget(m_status);
@@ -519,12 +513,10 @@ void LoadView::updatePhoto()
 bool LoadView::applyRecord(Component component, int id, bool resetDependent)
 {
     if (!m_db || !m_db->isOpen()) return false;
-    constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
-    const auto rec = m_db->record(tables[static_cast<std::size_t>(component)], id);
+    const auto rec = m_db->record(grt::kRecordTables[static_cast<std::size_t>(component)], id);
     if (!rec) return false;
     const QVariantMap cal = caliberRecord();
-    const QString names[] = {tr("Select Caliber"), tr("Select Projectile"), tr("Select Propellant")};
-    pushUndo(names[static_cast<std::size_t>(component)]);
+    pushUndo(selectTitle(component));
     switch (component)
     {
     case Component::Caliber:
@@ -545,10 +537,7 @@ bool LoadView::applyRecord(Component component, int id, bool resetDependent)
 void LoadView::chooseRecord(Component component)
 {
     if (!m_db || !m_db->isOpen()) return;
-    constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
-    const QString titles[] = {tr("Select Caliber"), tr("Select Projectile"), tr("Select Propellant")};
-    const auto idx = static_cast<std::size_t>(component);
-    SelectRecordDialog dlg(*m_db, tables[idx], titles[idx], this);
+    SelectRecordDialog dlg(*m_db, grt::kRecordTables[static_cast<std::size_t>(component)], selectTitle(component), this);
     switch (component)
     {
     case Component::Caliber:
@@ -611,10 +600,7 @@ void LoadView::recompute()
     m_focusInput.charge_g = m_ladder[static_cast<std::size_t>(m_focus)].charge_g;
 
     m_chart->setResult(m_result, m_input.maxPressure_bar);
-    std::vector<grt::SimResult> others;
-    for (std::size_t i = 0; i < m_ladder.size(); ++i)
-        if (static_cast<int>(i) != m_focus) others.push_back(m_ladder[i].result);
-    m_chart->setLadder(std::move(others));
+    m_chart->setLadder(otherLadderResults());
     m_cartridge->setLoad(m_file, m_focusInput);
     m_chamber->setLoad(m_file, m_focusInput);
     if (m_input.vivacityBa > 0.0) m_vivacity->setCurve(grt::vivacityCurve(m_input), m_input.z1, m_input.z2);
@@ -633,6 +619,19 @@ void LoadView::recompute()
     updateLadderUi();
     showResult();
     m_report->invalidate();
+}
+
+std::vector<grt::SimResult> LoadView::otherLadderResults() const
+{
+    std::vector<grt::SimResult> others;
+    for (std::size_t i = 0; i < m_ladder.size(); ++i)
+        if (static_cast<int>(i) != m_focus) others.push_back(m_ladder[i].result);
+    return others;
+}
+
+QString LoadView::propellantName() const
+{
+    return (m_file.propellant.text(u"mname") + u' ' + m_file.propellant.text(u"pname")).trimmed();
 }
 
 void LoadView::fitPowder()
@@ -677,8 +676,7 @@ void LoadView::offerPhysicalBurn()
            "Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn rate of the Physical Model. The burn values "
            "of the load itself (Ba, a0, z1, z2 of the original's model) stay as they are; the physical ones apply while those are "
            "unchanged.")
-            .arg((m_file.propellant.text(u"mname") + u' ' + m_file.propellant.text(u"pname")).trimmed(), num(burn->Ba, 4), num(burn->a0, 4),
-                 num(burn->z1, 4), num(burn->z2, 4)));
+            .arg(propellantName(), num(burn->Ba, 4), num(burn->a0, 4), num(burn->z1, 4), num(burn->z2, 4)));
     if (answer != QMessageBox::Yes) return;
     LOG_Info() << "Physical burn values applied to" << title();
     pushUndo(tr("Physical burn values"));
@@ -688,11 +686,11 @@ void LoadView::offerPhysicalBurn()
     setModified(true);
 }
 
-void LoadView::loadMeasurement()
+void LoadView::loadMeasurement(int series)
 {
-    auto series = grt::readMeasurements(m_file.appendixXml);
-    m_hasMeasurement = !series.empty();
-    m_measurements->setMeasurements(std::move(series));
+    auto measurements = grt::readMeasurements(m_file.appendixXml);
+    m_hasMeasurement = !measurements.empty();
+    m_measurements->setMeasurements(std::move(measurements), series);
 }
 
 // The measurement tab edits the appendix of the file; a load without measurements gets a block only once there is
@@ -713,16 +711,11 @@ void LoadView::storeMeasurement()
 void LoadView::setFocus(int index)
 {
     if (index < 0 || index >= static_cast<int>(m_ladder.size()) || index == m_focus) return;
-    m_file.config.set(u"CurveFocusIdx", static_cast<double>(index));
-    if (m_file.config.find(u"CurveFocusIdx") && m_file.config.find(u"CurveFocusIdx")->type.isEmpty())
-    {
-        for (grt::Entry &e : m_file.config.entries())
-            if (e.name == u"CurveFocusIdx")
-            {
-                e.type = u"integer"_s;
-                e.descr = u"selected ladder curve for display"_s;
-                e.value = QString::number(index);
-            }
+    m_file.config.set(u"CurveFocusIdx", QString::number(index));
+    if (grt::Entry *e = m_file.config.find(u"CurveFocusIdx"); e && e->type.isEmpty())
+    {  // a file without the entry: typed like the original writes it
+        e->type = u"integer"_s;
+        e->descr = u"selected ladder curve for display"_s;
     }
     setModified(true);
     recompute();
@@ -789,10 +782,7 @@ grt::report::Data LoadView::reportData() const
     CurveChart curves;
     curves.setUnits(u.unitFor(Quantity::Pressure), u.unitFor(Quantity::Energy), u.unitFor(Quantity::Velocity), u.unitFor(Quantity::Length));
     curves.setResult(m_result, m_input.maxPressure_bar);
-    std::vector<grt::SimResult> others;
-    for (std::size_t i = 0; i < m_ladder.size(); ++i)
-        if (static_cast<int>(i) != m_focus) others.push_back(m_ladder[i].result);
-    curves.setLadder(std::move(others));
+    curves.setLadder(otherLadderResults());
     const QImage curvesImage = renderOffscreen(curves, {1100, 560});
 
     VivacityChart burn;
@@ -906,10 +896,7 @@ void LoadView::restore(const grt::LoadFile &file)
 {
     m_file = file;
     rebuildPanels();
-    const int series = m_measurements->currentSeries();
-    auto measurements = grt::readMeasurements(m_file.appendixXml);
-    m_hasMeasurement = !measurements.empty();
-    m_measurements->setMeasurements(std::move(measurements), series);
+    loadMeasurement(m_measurements->currentSeries());
     recompute();
     setModified(m_cleanDepth != static_cast<int>(m_undo.size()));
     emit undoStateChanged();
@@ -993,13 +980,12 @@ void LoadView::showResult()
     // values with a scaled burn rate
     if (profile == grt::CalibrationProfile::Physical && !m_input.shotshell && !m_input.physicalBurn)
     {
-        const QString powder = (m_file.propellant.text(u"mname") + u' ' + m_file.propellant.text(u"pname")).trimmed();
         QString text =
             grt::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname"))
                 ? tr("<b>No physical burn values in this load.</b> The Physical Model has values for %1, but this load's burn values are "
                      "not those of the project's record (the original program's, or edited), so its burn rate is scaled and the results "
                      "are less accurate. <a href=\"physical\">Use the physical values…</a>")
-                      .arg(powder.toHtmlEscaped())
+                      .arg(propellantName().toHtmlEscaped())
                 : tr("<b>No physical burn values</b> for this propellant (or its burn values were changed): the load's burn rate is "
                      "scaled, "
                      "the results are less accurate than for the powders of the Physical Model.");

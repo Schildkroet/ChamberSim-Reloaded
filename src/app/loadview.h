@@ -127,8 +127,13 @@ private:
     void updatePhoto();
     [[nodiscard]] QVariantMap caliberRecord() const;
     void showResult();
+    // The results of the ladder steps other than the focused one (drawn faintly in the chart).
+    [[nodiscard]] std::vector<grt::SimResult> otherLadderResults() const;
+    // "Maker Name" of the propellant.
+    [[nodiscard]] QString propellantName() const;
     [[nodiscard]] QString headingHtml() const;
-    void loadMeasurement();
+    // Shows the measurement series of the file's appendix (`series`: the one to select).
+    void loadMeasurement(int series = 0);
     void storeMeasurement();
     void addMeasurementReport(grt::report::Data &d) const;
 
@@ -159,8 +164,8 @@ private:
     QTabWidget *m_resultTabs;
     ReportView *m_report;
     MeasurementView *m_measurements;
-    bool m_hasMeasurement{false};
-    RecordSaver m_saveRecord;  // the file has a <Measurement> block
+    bool m_hasMeasurement{false};  // the file has a <Measurement> block
+    RecordSaver m_saveRecord;
     QTabWidget *m_drawings;
     CartridgeView *m_cartridge;
     ChamberView *m_chamber;

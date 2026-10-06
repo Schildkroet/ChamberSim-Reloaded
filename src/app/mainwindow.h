@@ -87,6 +87,9 @@ private:
     void updateRecentActions();
     void updateActions();
     void setupLoadView(LoadView *view);
+    // Shows a load in a new tab (the tab widget owns it) and makes it the current one.
+    void addLoadTab(LoadView *view);
+    [[nodiscard]] static QString loadName(const LoadView *view, bool withSuffix);
     void updateFrame();
     [[nodiscard]] Qt::Edges edgesAt(const QPoint &pos) const;
     bool saveLoad(LoadView *view, bool saveAs);

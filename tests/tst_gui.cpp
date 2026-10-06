@@ -1756,7 +1756,7 @@ void GuiTest::recordViewerShowsAllData()
             QVERIFY2(edit->alignment() & Qt::AlignRight, qPrintable(column));
         }
     }
-    for (const grt::Table t : {grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant})
+    for (const grt::Table t : grt::kRecordTables)
     {
         const int id = idOf(m_db, t, u"1=1"_s);
         QVERIFY(id >= 0);
@@ -1796,7 +1796,7 @@ void GuiTest::recordDialogDatesAndWidth()
     QCOMPARE(cal.values().value(u"cdate"_s).toString(), QDate::currentDate().toString(Qt::ISODate));  // a copy: today
 
     // the creation date can be entered for every kind of record (a picker, today for a new record)
-    for (const grt::Table t : {grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant})
+    for (const grt::Table t : grt::kRecordTables)
     {
         RecordDialog dlg(m_db, t, RecordDialog::Mode::New);
         auto *created = dlg.findChild<QDateEdit *>(u"cdate"_s);

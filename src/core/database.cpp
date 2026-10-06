@@ -177,6 +177,13 @@ bool normalizeDateColumn(const QString &column, const QString &type, QVariant &v
     return true;
 }
 
+// The single number a "SELECT count(*) ..." returns (0 if it fails).
+int countOf(const QSqlDatabase &db, const QString &sql)
+{
+    QSqlQuery q(db);
+    return q.exec(sql) && q.next() ? q.value(0).toInt() : 0;
+}
+
 QString &projectLocation()
 {
     static QString location = u":/data"_s;
@@ -355,7 +362,7 @@ bool Database::loadProjectData(QString *error)
         if (error) *error = m_db.lastError().text();
         return false;
     }
-    for (const Table t : {Table::Caliber, Table::Projectile, Table::Propellant})
+    for (const Table t : kRecordTables)
     {
         const projectdata::Loaded loaded = projectdata::load(projectLocation(), t, schema(t));
         m_projectErrors << loaded.errors;
@@ -417,25 +424,17 @@ void Database::close()
 
 int Database::count(Table t) const
 {
-    QSqlQuery q(m_db);
-    if (q.exec(QStringLiteral("SELECT count(*) FROM %1 WHERE geloescht = 0").arg(QLatin1String(tableName(t)))) && q.next())
-        return q.value(0).toInt();
-    return 0;
+    return countOf(m_db, u"SELECT count(*) FROM %1 WHERE geloescht = 0"_s.arg(QLatin1String(tableName(t))));
 }
 
 int Database::projectCount(Table t) const
 {
-    QSqlQuery q(m_db);
-    if (q.exec(QStringLiteral("SELECT count(*) FROM proj.%1").arg(QLatin1String(tableName(t)))) && q.next()) return q.value(0).toInt();
-    return 0;
+    return countOf(m_db, u"SELECT count(*) FROM proj.%1"_s.arg(QLatin1String(tableName(t))));
 }
 
 int Database::ownCount(Table t) const
 {
-    QSqlQuery q(m_db);
-    if (q.exec(QStringLiteral("SELECT count(*) FROM main.%1 WHERE geloescht = 0").arg(QLatin1String(tableName(t)))) && q.next())
-        return q.value(0).toInt();
-    return 0;
+    return countOf(m_db, u"SELECT count(*) FROM main.%1 WHERE geloescht = 0"_s.arg(QLatin1String(tableName(t))));
 }
 
 QStringList Database::columns(Table t) const

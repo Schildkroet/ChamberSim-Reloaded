@@ -29,6 +29,7 @@ class EntryList
 {
 public:
     [[nodiscard]] const Entry *find(QStringView name) const noexcept;
+    [[nodiscard]] Entry *find(QStringView name) noexcept;
     [[nodiscard]] QString text(QStringView name, const QString &fallback = {}) const;
     // The value as a finite number; `fallback` if missing, not a number, NaN or infinite.
     [[nodiscard]] double number(QStringView name, double fallback = 0.0) const;

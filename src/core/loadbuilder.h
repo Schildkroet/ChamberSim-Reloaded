@@ -1,14 +1,13 @@
 #pragma once
 
 #include "loadfile.h"
+#include "numeric.h"
 
 #include <QStringList>
 #include <QVariantMap>
 
 namespace grt
 {
-
-inline constexpr double kGrainToGram = 0.06479890999975;  // the exact factor of the original program
 
 // What the user chooses besides the three database records. A value of 0 means "use the default".
 struct LoadParams

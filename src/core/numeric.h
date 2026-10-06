@@ -9,6 +9,9 @@
 namespace grt
 {
 
+// Grams per grain, the exact factor of the original program (also cm3 of water per grain H2O, the unit of case capacities).
+inline constexpr double kGrainToGram = 0.06479890999975;
+
 // A finite number from text, or nullopt. QString::toDouble also accepts "nan" and "inf": those are rejected,
 // they would pass every "> 0" check of the model and end up in the results.
 [[nodiscard]] inline std::optional<double> parseFinite(const QString &text)

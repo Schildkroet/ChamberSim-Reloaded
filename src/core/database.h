@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QVariantMap>
 
+#include <array>
 #include <optional>
 #include <utility>
 #include <vector>
@@ -30,6 +31,9 @@ enum class Table
     }
     return "";
 }
+
+// The record tables in their usual order (the Database tab, the new load dialog, the input tabs of a load).
+inline constexpr std::array kRecordTables{Table::Caliber, Table::Projectile, Table::Propellant};
 
 // The records the program works with, seen as ONE database made of three parts:
 //  * the original program's database (a decrypted, plain copy of GordonsReloadingTool.db), attached read-only;

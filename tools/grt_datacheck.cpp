@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     }
 
     QStringList problems = db.projectErrors();
-    for (const grt::Table t : {grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant})
+    for (const grt::Table t : grt::kRecordTables)
     {
         const grt::projectdata::Loaded loaded = grt::projectdata::load(dataDir, t, db.schema(t));
         QSet<QString> names;

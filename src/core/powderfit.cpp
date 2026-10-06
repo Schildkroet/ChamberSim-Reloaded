@@ -2,6 +2,7 @@
 #include "log.h"
 
 #include "measurement.h"
+#include "numeric.h"
 #include "physicalpowders.h"
 #include "solver.h"
 
@@ -21,8 +22,6 @@ namespace grt::powderfit
 
 namespace
 {
-
-constexpr double kGrainToGram = 0.06479891;  // also cm3 of water per grain H2O
 
 // The model of a fit is in its (prepared) samples: with physical burn values the physical model and those values, without them the
 // original's model with Ba, a0, z1, z2 (see prepared()).

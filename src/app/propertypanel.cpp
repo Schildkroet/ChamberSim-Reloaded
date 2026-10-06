@@ -5,17 +5,18 @@
 #include "shotparts.h"
 #include "unitprefs.h"
 
-using namespace Qt::StringLiterals;
-
-#include <algorithm>
-#include <array>
 #include <QComboBox>
-#include <QLineEdit>
 #include <QHeaderView>
+#include <QLineEdit>
 #include <QSettings>
 #include <QStyledItemDelegate>
 #include <QTableWidget>
 #include <QVBoxLayout>
+
+#include <algorithm>
+#include <array>
+
+using namespace Qt::StringLiterals;
 
 namespace
 {

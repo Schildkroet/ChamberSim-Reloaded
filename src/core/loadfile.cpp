@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <utility>
 
 using namespace Qt::StringLiterals;
 
@@ -132,6 +133,11 @@ const Entry *EntryList::find(QStringView name) const noexcept
     return it == m_entries.end() ? nullptr : &*it;
 }
 
+Entry *EntryList::find(QStringView name) noexcept
+{
+    return const_cast<Entry *>(std::as_const(*this).find(name));
+}
+
 QString EntryList::text(QStringView name, const QString &fallback) const
 {
     const Entry *e = find(name);
@@ -154,14 +160,8 @@ bool EntryList::flag(QStringView name, bool fallback) const
 
 void EntryList::set(QStringView name, const QString &value)
 {
-    if (auto it = std::ranges::find_if(m_entries, [&](const Entry &e) { return e.name == name; }); it != m_entries.end())
-    {
-        it->value = value;
-    }
-    else
-    {
-        m_entries.push_back({.name = name.toString(), .value = value, .unit = {}, .type = {}, .descr = {}});
-    }
+    if (Entry *e = find(name)) e->value = value;
+    else m_entries.push_back({.name = name.toString(), .value = value, .unit = {}, .type = {}, .descr = {}});
 }
 
 void EntryList::set(QStringView name, double value)

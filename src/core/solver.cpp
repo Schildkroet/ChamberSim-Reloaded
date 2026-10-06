@@ -33,6 +33,8 @@
 
 #include "solver.h"
 
+#include "numeric.h"
+
 #include <algorithm>
 #include <cmath>
 #include <numbers>
@@ -45,6 +47,12 @@ namespace
 
 constexpr double kBar = 1.0e5;              // Pa per bar
 constexpr double kReferenceSteps = 2000.0;  // position steps of the original program
+
+// The pressure part of the burn law for a pressure in bar: p * (p / 1000 bar)^exponent.
+[[nodiscard]] double burnPressureTerm(double pBar, double exponent) noexcept
+{
+    return pBar * (exponent == 0.0 ? 1.0 : std::pow(std::max(pBar, 1.0) / 1000.0, exponent));
+}
 
 // Three-phase form function phi(z) of the burn law dz/dt = Ba * p[bar] * phi(z): progressive up to z1 (a straight
 // line whose slope follows the powder's a0), primary degressive from z1 to z2, secondary degressive from z2 to 1. The
@@ -111,11 +119,7 @@ struct Model
         return vg > 0.0 ? std::max(e, 0.0) / vg : 0.0;
     }
 
-    // The pressure part of the burn law for a pressure in bar: p * (p / 1000 bar)^burnExponent.
-    [[nodiscard]] double pressureTerm(double pBar) const noexcept
-    {
-        return pBar * (burnExponent == 0.0 ? 1.0 : std::pow(std::max(pBar, 1.0) / 1000.0, burnExponent));
-    }
+    [[nodiscard]] double pressureTerm(double pBar) const noexcept { return burnPressureTerm(pBar, burnExponent); }
 
     // dz/dt at the burnt fraction z for the given pressure term; 0 once everything has burnt.
     [[nodiscard]] double burnRateAt(double z, double pressureTermValue) const noexcept
@@ -158,6 +162,19 @@ struct Model
     return Ba * (1.0 + (dT > 0.0 ? cal.explicitHotScale * in.hotCoeff * dT : cal.explicitColdScale * in.coldCoeff * -dT));
 }
 
+// The form function and the vivacity a simulation burns with: the powder's physical burn values when `pb` is set, else the load's
+// own values (Ba scaled with burnRateScale).
+[[nodiscard]] FormFunction formFunction(const SimInput &in, const Calibration &cal, const std::optional<PhysicalBurn> &pb) noexcept
+{
+    return pb ? FormFunction{.cal = &cal, .a0 = pb->a0, .z1 = pb->z1, .z2 = pb->z2}
+              : FormFunction{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+}
+
+[[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal, const std::optional<PhysicalBurn> &pb) noexcept
+{
+    return pb ? burnCoefficient(in, cal, pb->Ba) : burnCoefficient(in, cal);
+}
+
 }  // namespace
 
 double bulletIntrusion_m3(const SimInput &in)
@@ -182,12 +199,10 @@ double bulletIntrusion_m3(const SimInput &in)
 
 namespace
 {
+
 CalibrationProfile g_profile = CalibrationProfile::Original;
 Calibration g_active;  // the constants of g_profile
-}  // namespace
 
-namespace
-{
 // The shotshell model was fitted with the original's constants (published shotgun loads, not rifle loads): it keeps them whatever
 // the profile is, also with the physical model's constants given explicitly (they belong to other equations). Other explicit
 // calibrations (tools) are used as given.
@@ -196,10 +211,7 @@ const Calibration &effectiveCalibration(const SimInput &in, const Calibration &c
     static const Calibration original;
     return in.shotshell && (&cal == &g_active || cal.model == SolverModel::Physical) ? original : cal;
 }
-}  // namespace
 
-namespace
-{
 // Summary values and derived quantities of a finished curve (both models); sets the status to Ok.
 void summarize(SimResult &res, const SimInput &in, const Calibration &cal, double freeVolume_cm3)
 {
@@ -239,7 +251,7 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
     res.propellantEnergy_J = in.heatQex_kJkg * 1e3 * mc * last.z;
     res.frictionForce_N = cal.frictionStress_MPa * std::numbers::pi * in.bulletDiameter_mm * in.bulletLength_mm;
     res.muzzleFrictionEnergy_J = res.frictionForce_N * (last.x_mm - pts.front().x_mm) * 1e-3;
-    res.ipscFactor = in.bulletMass_g / 0.06479890999975 * last.v_ms * kFtPerM / 1000.0;
+    res.ipscFactor = in.bulletMass_g / kGrainToGram * last.v_ms * kFtPerM / 1000.0;
     res.mipFactor = cal.mipFactor * res.ipscFactor;
     res.projectileImpulse_Ns = mp * last.v_ms;
     res.propellantImpulse_Ns = in.sebert * mc * last.v_ms;
@@ -326,7 +338,7 @@ struct PhysicalModel
     {
         const double p = gasPressure(y);
         const double pBar = p / kBar;
-        const double term = pBar * (burnExponent == 0.0 ? 1.0 : std::pow(std::max(pBar, 1.0) / 1000.0, burnExponent));
+        const double term = burnPressureTerm(pBar, burnExponent);
         const double lit = ignitionTime > 0.0 ? 1.0 - std::exp(-y[5] / ignitionTime) : 1.0;
         const double dz = y[2] >= 1.0 ? 0.0 : burnBa * term * phi(y[2]) * lit;
         double a = 0.0, force = 0.0;
@@ -381,6 +393,21 @@ double dopriStep(const PhysicalModel &m, bool released, const PhysState &y, doub
     return std::isfinite(err) ? err : 1e10;
 }
 
+// The step size in (0, h] at which `reached` starts to hold for the state after the step (bisection); `out` is that state.
+template <class Pred>
+double stepUntil(const PhysicalModel &m, bool released, const PhysState &y, double h, double tol, PhysState &out, Pred reached)
+{
+    double lo = 0.0, hi = h;
+    for (int k = 0; k < 60; ++k)
+    {
+        const double mid = 0.5 * (lo + hi);
+        (void)dopriStep(m, released, y, mid, tol, out);
+        (reached(out) ? hi : lo) = mid;
+    }
+    (void)dopriStep(m, released, y, hi, tol, out);
+    return hi;
+}
+
 SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps, double freeVolume_cm3)
 {
     namespace n = std::numbers;
@@ -423,12 +450,11 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.chamberSurface = 2.0 * n::pi * rc * m.x0 + 2.0 * n::pi * rc * rc;
     // the powder's physical burn values when the load has them, else the load's (original model's) values with the scaled burn rate
     const auto &pb = in.physicalBurn;
-    m.burnBa = pb ? burnCoefficient(in, cal, pb->Ba) : burnCoefficient(in, cal);
+    m.burnBa = burnCoefficient(in, cal, pb);
     m.burnExponent = cal.burnExponent;
     m.ignitionTime = cal.ignitionTime_ms * 1e-3;
     m.heatVelocity = cal.heatVelocity_ms;
-    m.phi = pb ? FormFunction{.cal = &cal, .a0 = pb->a0, .z1 = pb->z1, .z2 = pb->z2}
-               : FormFunction{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+    m.phi = formFunction(in, cal, pb);
 
     const double xe = in.barrelLength_mm * 1e-3;
     const double tol = cal.integrationTolerance > 0.0 ? cal.integrationTolerance : 1e-7;
@@ -455,14 +481,8 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
         }
         if (m.gasPressure(yn) >= m.startP)
         {
-            double lo = 0.0, hi = h;  // the moment the pressure reaches ps
-            for (int k = 0; k < 60; ++k)
-            {
-                const double mid = 0.5 * (lo + hi);
-                (void)dopriStep(m, false, y, mid, tol, yn);
-                (m.gasPressure(yn) >= m.startP ? hi : lo) = mid;
-            }
-            (void)dopriStep(m, false, y, hi, tol, yn);
+            // the moment the pressure reaches ps
+            (void)stepUntil(m, false, y, h, tol, yn, [&](const PhysState &s) { return m.gasPressure(s) >= m.startP; });
             y = yn;
             released = true;
             break;
@@ -496,15 +516,8 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
         }
         if (yn[0] >= xe)
         {
-            double lo = 0.0, hi = h;  // the step that ends at the muzzle
-            for (int k = 0; k < 60; ++k)
-            {
-                const double mid = 0.5 * (lo + hi);
-                (void)dopriStep(m, true, y, mid, tol, yn);
-                (yn[0] >= xe ? hi : lo) = mid;
-            }
-            (void)dopriStep(m, true, y, hi, tol, yn);
-            t += hi;
+            // the step that ends at the muzzle
+            t += stepUntil(m, true, y, h, tol, yn, [xe](const PhysState &s) { return s[0] >= xe; });
             y = yn;
             sample(t, y);
             break;
@@ -640,10 +653,9 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
     m.burnBa = burnCoefficient(in, cal);
     m.burnExponent = cal.burnExponent;
     m.burnZ0Factor = cal.burnZ0Factor;
-    m.phi = {.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+    m.phi = formFunction(in, cal, std::nullopt);
     if (m.V0_m3 <= 0.0) return res;
 
-    // "gfriction" of the original (only when unlocked): a share of the pressure force that is lost to friction
     // shares of the pressure force lost to friction: "gfriction" of the original (only when unlocked), and for a
     // shotshell the wad and shot sliding in the bore
     const double gfrictionShare = in.extraFrictionUnlocked ? std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9) : 0.0;
@@ -782,11 +794,10 @@ std::vector<double> vivacityCurve(const SimInput &in, const Calibration &calibra
     std::vector<double> out;
     if (n < 2) return out;
     out.reserve(static_cast<std::size_t>(n));
-    // the physical model with the powder's physical burn values: those
+    // the physical model with the powder's physical burn values: those, else the load's
     const auto &pb = cal.model == SolverModel::Physical && !in.shotshell ? in.physicalBurn : std::nullopt;
-    const FormFunction phi = pb ? FormFunction{.cal = &cal, .a0 = pb->a0, .z1 = pb->z1, .z2 = pb->z2}
-                                : FormFunction{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
-    const double ba = pb ? burnCoefficient(in, cal, pb->Ba) : burnCoefficient(in, cal);
+    const FormFunction phi = formFunction(in, cal, pb);
+    const double ba = burnCoefficient(in, cal, pb);
     for (int i = 0; i < n; ++i) out.push_back(ba * phi(static_cast<double>(i) / (n - 1)));
     return out;
 }

@@ -13,7 +13,7 @@ namespace grt::units
 namespace
 {
 
-constexpr double kGrain = 0.06479890999975;  // g, the exact factor of the original program
+constexpr double kGrain = kGrainToGram;
 constexpr double kInch = 25.4;
 constexpr double kLbf = 4.4482216152605;
 constexpr double kFtLbf = 1.3558179483314004;

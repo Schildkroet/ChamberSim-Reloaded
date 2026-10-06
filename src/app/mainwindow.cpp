@@ -55,11 +55,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_titleBar = new TitleBar(m_menuBar, this);
     setMenuWidget(m_titleBar);
 
-    constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
     const std::array titles{tr("Calibers"), tr("Projectiles"), tr("Propellants")};
-    for (std::size_t i = 0; i < tables.size(); ++i)
+    for (std::size_t i = 0; i < grt::kRecordTables.size(); ++i)
     {
-        m_browsers[i] = new TableBrowser(tables[i]);
+        m_browsers[i] = new TableBrowser(grt::kRecordTables[i]);
         m_dbTabs->addTab(m_browsers[i], titles[i]);
         connect(m_browsers[i], &TableBrowser::currentIdChanged, this, &MainWindow::updateRecordButtons);
         connect(m_browsers[i], &TableBrowser::idActivated, this, [this](int id) { viewRecord(id); });
@@ -406,11 +405,7 @@ bool MainWindow::openLoad(const QString &path)
         QMessageBox::warning(this, tr("Open load"), tr("Cannot read %1:\n%2").arg(path, error));
         return false;
     }
-    LoadView *view = owned.get();
-    setupLoadView(view);
-    const int idx = m_tabs->addTab(owned.release(), QString());  // the tab widget owns it now
-    m_tabs->setCurrentIndex(idx);
-    updateTabTitle(view);
+    addLoadTab(owned.release());  // the tab widget owns it now
     addRecentFile(path);
     return true;
 }
@@ -544,8 +539,7 @@ TableBrowser *MainWindow::currentBrowser() const
 
 grt::Table MainWindow::currentTable() const
 {
-    constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
-    return tables[static_cast<std::size_t>(std::clamp(m_dbTabs->currentIndex(), 0, 2))];
+    return grt::kRecordTables[static_cast<std::size_t>(std::clamp(m_dbTabs->currentIndex(), 0, 2))];
 }
 
 void MainWindow::updateRecordButtons()
@@ -754,10 +748,22 @@ void MainWindow::newLoad()
     view->setNewLoad(dlg.result());
     LOG_Info() << "New load created:" << view->title();
     view->setProperty("untitledName", tr("Untitled %1").arg(++m_untitled));
+    addLoadTab(view);
+}
+
+void MainWindow::addLoadTab(LoadView *view)
+{
     setupLoadView(view);
-    const int idx = m_tabs->addTab(view, QString());
-    m_tabs->setCurrentIndex(idx);
+    m_tabs->setCurrentIndex(m_tabs->addTab(view, QString()));
     updateTabTitle(view);
+}
+
+// The file name of the load ("Untitled 2" for a new load that has none yet).
+QString MainWindow::loadName(const LoadView *view, bool withSuffix)
+{
+    if (view->path().isEmpty()) return view->property("untitledName").toString();
+    const QFileInfo info(view->path());
+    return withSuffix ? info.fileName() : info.completeBaseName();
 }
 
 void MainWindow::showTab(int index)
@@ -780,7 +786,7 @@ void MainWindow::updateTabTitle(LoadView *view)
     const auto refreshTitle = qScopeGuard([this] { updateActions(); });
     const int i = m_tabs->indexOf(view);
     if (i < 0) return;
-    QString name = view->path().isEmpty() ? view->property("untitledName").toString() : QFileInfo(view->path()).completeBaseName();
+    QString name = loadName(view, false);
     if (view->isModified()) name += QStringLiteral(" *");
     m_tabs->setTabText(i, name);
     m_tabs->setTabToolTip(i, view->title());
@@ -817,11 +823,8 @@ bool MainWindow::saveLoad(LoadView *view, bool saveAs)
 bool MainWindow::maybeSave(LoadView *view)
 {
     if (!view->isModified()) return true;
-    const auto answer = QMessageBox::question(
-        this, tr("Unsaved changes"),
-        tr("Save changes to %1?")
-            .arg(view->path().isEmpty() ? view->property("untitledName").toString() : QFileInfo(view->path()).fileName()),
-        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    const auto answer = QMessageBox::question(this, tr("Unsaved changes"), tr("Save changes to %1?").arg(loadName(view, true)),
+                                              QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     if (answer == QMessageBox::Cancel) return false;
     return answer == QMessageBox::Discard || saveLoad(view, false);
 }

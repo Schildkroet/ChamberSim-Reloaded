@@ -100,8 +100,8 @@ CurveChart::CurveChart(QWidget *parent)
     m_redHi = new QLineSeries;
     m_blueLo = new QLineSeries;
     m_blueHi = new QLineSeries;
-    m_bandRed = makeBand(QColor(0xa0, 0x30, 0x30));
-    m_bandBlue = makeBand(QColor(0x40, 0x70, 0xb0));
+    m_bandRed = makeBand(QColor(0xa0, 0x30, 0x30), m_redLo, m_redHi);
+    m_bandBlue = makeBand(QColor(0x40, 0x70, 0xb0), m_blueLo, m_blueHi);
     for (QAreaSeries *b : {m_bandRed, m_bandBlue})
     {
         chart->addSeries(b);
@@ -155,10 +155,8 @@ CurveChart::CurveChart(QWidget *parent)
     rebuild();
 }
 
-QAreaSeries *CurveChart::makeBand(const QColor &color)
+QAreaSeries *CurveChart::makeBand(const QColor &color, QLineSeries *lo, QLineSeries *hi)
 {
-    QLineSeries *lo = (color.red() > color.blue()) ? m_redLo : m_blueLo;
-    QLineSeries *hi = (color.red() > color.blue()) ? m_redHi : m_blueHi;
     auto *area = new QAreaSeries(hi, lo);
     QColor fill = color;
     fill.setAlpha(120);

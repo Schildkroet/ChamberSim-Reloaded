@@ -20,6 +20,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QRegularExpression>
+#include <QScopedValueRollback>
 #include <QSettings>
 #include <QShortcut>
 #include <QSplitter>
@@ -81,6 +82,17 @@ QTableWidgetItem *editable(const QString &text, bool right = true)
     auto *item = new QTableWidgetItem(text);
     if (right) item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     return item;
+}
+
+// The name a new charge gets: "12.5 g" in the user's unit.
+QString chargeName(double charge_g)
+{
+    return QStringLiteral("%1 %2").arg(shownValue(charge_g, Quantity::BulletMass), symbol(Quantity::BulletMass));
+}
+
+bool isListed(const grt::Measurement &m, double charge_g)
+{
+    return std::ranges::any_of(m.charges, [&](const grt::MeasuredCharge &c) { return std::abs(c.charge_g() - charge_g) < 1e-6; });
 }
 
 QString percent(double value, double reference)
@@ -269,15 +281,13 @@ grt::Measurement MeasurementView::emptySeries(int number)
 
 void MeasurementView::refreshSeriesBox()
 {
-    const bool was = m_updating;
-    m_updating = true;
+    const QScopedValueRollback updating(m_updating, true);
     m_seriesBox->clear();
     for (std::size_t i = 0; i < m_series.size(); ++i)
         m_seriesBox->addItem(m_series[i].title.isEmpty() ? tr("Series %1").arg(i + 1) : m_series[i].title);
     m_seriesBox->setCurrentIndex(m_index);
     m_seriesBox->setEnabled(m_series.size() > 1);
     m_removeSeries->setEnabled(m_series.size() > 1 || !data().charges.empty());
-    m_updating = was;
 }
 
 void MeasurementView::selectSeries(int index)
@@ -501,19 +511,10 @@ void MeasurementView::addCharge()
 {
     // the selected charge first; if it is already listed, the next ladder charge that is not
     double charge = m_suggested.empty() ? 0.0 : m_suggested.front();
-    for (double g : m_suggested)
-    {
-        const bool listed =
-            std::ranges::any_of(data().charges, [&](const grt::MeasuredCharge &c) { return std::abs(c.charge_g() - g) < 1e-6; });
-        if (!listed)
-        {
-            charge = g;
-            break;
-        }
-    }
+    if (const auto it = std::ranges::find_if(m_suggested, [&](double g) { return !isListed(data(), g); }); it != m_suggested.end())
+        charge = *it;
     if (charge <= 0.0 && !data().charges.empty()) charge = data().charges.back().charge_g();
-    const QString name = QStringLiteral("%1 %2").arg(shownValue(charge, Quantity::BulletMass), symbol(Quantity::BulletMass));
-    data().charges.push_back(grt::MeasuredCharge::create(name, charge));
+    data().charges.push_back(grt::MeasuredCharge::create(chargeName(charge), charge));
     refreshCharges();
     selectCharge(static_cast<int>(data().charges.size()) - 1);
     changed();
@@ -526,9 +527,8 @@ void MeasurementView::addLadderCharges()
     std::ranges::sort(sorted);
     for (double g : sorted)
     {
-        if (std::ranges::any_of(data().charges, [&](const grt::MeasuredCharge &c) { return std::abs(c.charge_g() - g) < 1e-6; })) continue;
-        data().charges.push_back(
-            grt::MeasuredCharge::create(QStringLiteral("%1 %2").arg(shownValue(g, Quantity::BulletMass), symbol(Quantity::BulletMass)), g));
+        if (isListed(data(), g)) continue;
+        data().charges.push_back(grt::MeasuredCharge::create(chargeName(g), g));
         added = true;
     }
     if (!added) return;

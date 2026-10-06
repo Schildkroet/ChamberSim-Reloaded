@@ -76,11 +76,10 @@ NewLoadDialog::NewLoadDialog(const grt::Database &db, QWidget *parent)
     setWindowTitle(tr("New load"));
     resize(1100, 640);
 
-    constexpr std::array tables{grt::Table::Caliber, grt::Table::Projectile, grt::Table::Propellant};
     const std::array titles{tr("1. Caliber"), tr("2. Projectile"), tr("3. Propellant")};
-    for (std::size_t i = 0; i < tables.size(); ++i)
+    for (std::size_t i = 0; i < grt::kRecordTables.size(); ++i)
     {
-        m_browsers[i] = new TableBrowser(tables[i]);
+        m_browsers[i] = new TableBrowser(grt::kRecordTables[i]);
         m_browsers[i]->setDatabase(&m_db);
         if (i == 1)
         {

@@ -67,7 +67,8 @@ private:
     void applyTheme();
     void applyFonts();
     void placeMarker(Marker &m, bool visible, double x, double yTop, const QString &text);
-    QAreaSeries *makeBand(const QColor &color);
+    // A filled band between the lines `lo` and `hi` (it takes them over).
+    static QAreaSeries *makeBand(const QColor &color, QLineSeries *lo, QLineSeries *hi);
 
     XAxis m_xAxis{XAxis::Time};
     const grt::units::Unit *m_pressureUnit;

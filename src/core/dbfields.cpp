@@ -1,5 +1,7 @@
 #include "dbfields.h"
 
+#include "numeric.h"
+
 #include <QCoreApplication>
 #include <QLocale>
 
@@ -15,7 +17,7 @@ namespace
 {
 
 using units::Quantity;
-constexpr double kGrain = 0.06479891;  // g per grain (also cm3 of water per grain H2O)
+constexpr double kGrain = kGrainToGram;  // g per grain (also cm3 of water per grain H2O)
 
 struct Spec
 {
