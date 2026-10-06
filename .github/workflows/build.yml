@@ -182,11 +182,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # a plain install, not cache-apt-pkgs-action: a cache restore only copies the files and skips the TeX Live triggers
+      # (formats, file database, font maps), pdflatex then fails
       - name: System packages
-        uses: awalsh128/cache-apt-pkgs-action@v1
-        with:
-          packages: texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-          version: ubuntu-24.04-manual-v1
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
       # docs/manual/build.sh takes the program version from CMakeLists.txt
       - name: Build the manual
