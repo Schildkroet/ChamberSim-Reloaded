@@ -41,6 +41,7 @@ private:
     QComboBox *m_unitSystem;
     QComboBox *m_calibration;
     QLabel *m_calibrationInfo;
+    QCheckBox *m_originalForGrtFiles;
     QComboBox *m_logLevel;
     QCheckBox *m_logConsole;
     QCheckBox *m_logFile;

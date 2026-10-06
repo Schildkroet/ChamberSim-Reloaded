@@ -416,9 +416,12 @@ bool LoadView::save(const QString &path, QString *error)
         return false;
     }
     LOG_Info() << "Load saved:" << path;
+    const bool wasGrtFile = isGrtFile();
     m_path = path;
     m_cleanDepth = static_cast<int>(m_undo.size());
     setModified(false);
+    if (isGrtFile() != wasGrtFile && SolverPreferences::instance().originalForGrtFiles())
+        recompute();  // the model may change with the format
     return true;
 }
 
@@ -590,7 +593,7 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
 void LoadView::recompute()
 {
     m_input = grt::SimInput::fromLoad(m_file);
-    m_ladder = grt::simulateLadder(m_input);
+    m_ladder = grt::simulateLadder(m_input, calibration());
     m_focus = grt::toIntClamped(m_file.config.number(u"CurveFocusIdx", 0.0), 0, static_cast<int>(m_ladder.size()) - 1);
     m_result = m_ladder[static_cast<std::size_t>(m_focus)].result;
     LOG_Debug() << "Simulated" << title() << ":" << m_ladder.size() << "ladder step(s), focus" << m_focus << ", pmax"
@@ -603,14 +606,14 @@ void LoadView::recompute()
     m_chart->setLadder(otherLadderResults());
     m_cartridge->setLoad(m_file, m_focusInput);
     m_chamber->setLoad(m_file, m_focusInput);
-    if (m_input.vivacityBa > 0.0) m_vivacity->setCurve(grt::vivacityCurve(m_input), m_input.z1, m_input.z2);
+    if (m_input.vivacityBa > 0.0) m_vivacity->setCurve(grt::vivacityCurve(m_input, calibration()), m_input.z1, m_input.z2);
     else m_vivacity->clear();
     m_measurements->setPredictor(
-        [in = m_input](double charge_g)
+        [in = m_input, cal = &calibration()](double charge_g)
         {
             grt::SimInput i = in;
             i.charge_g = charge_g;
-            return grt::simulate(i);
+            return grt::simulate(i, *cal);
         });
     std::vector<double> charges{m_focusInput.charge_g};
     for (const grt::LadderStep &step : m_ladder)
@@ -619,6 +622,16 @@ void LoadView::recompute()
     updateLadderUi();
     showResult();
     m_report->invalidate();
+}
+
+bool LoadView::isGrtFile() const
+{
+    return !m_path.isEmpty() && grt::formatForPath(m_path) == grt::FileFormat::Original;
+}
+
+const grt::Calibration &LoadView::calibration() const
+{
+    return SolverPreferences::instance().calibrationFor(isGrtFile());
 }
 
 std::vector<grt::SimResult> LoadView::otherLadderResults() const
@@ -786,7 +799,7 @@ grt::report::Data LoadView::reportData() const
     const QImage curvesImage = renderOffscreen(curves, {1100, 560});
 
     VivacityChart burn;
-    if (m_input.vivacityBa > 0.0) burn.setCurve(grt::vivacityCurve(m_input), m_input.z1, m_input.z2);
+    if (m_input.vivacityBa > 0.0) burn.setCurve(grt::vivacityCurve(m_input, calibration()), m_input.z1, m_input.z2);
     const QImage burnImage = renderOffscreen(burn, {1100, 600});
 
     QImage stacked(1100, curvesImage.height() + burnImage.height(), QImage::Format_ARGB32);
@@ -830,7 +843,7 @@ void LoadView::addMeasurementReport(grt::report::Data &d) const
     {
         grt::SimInput in = m_input;
         in.charge_g = c.charge_g();
-        const grt::SimResult r = grt::simulate(in);
+        const grt::SimResult r = grt::simulate(in, calibration());
         if (r.ok()) curve.push_back({.charge_g = c.charge_g(), .velocity_ms = r.muzzleVelocity_ms, .pressure_bar = r.maxPressure_bar});
         const grt::ShotStatistics v = grt::velocityStatistics(c);
         const grt::ShotStatistics p = grt::pressureStatistics(c);
@@ -974,8 +987,9 @@ void LoadView::showResult()
         return;
     }
     // the model the results come from (Settings > Solver)
-    const auto profile = SolverPreferences::instance().profile();
+    const auto profile = SolverPreferences::instance().profileFor(isGrtFile());
     QString status = tr("Model: %1").arg(SolverPreferences::name(profile));
+    if (profile != SolverPreferences::instance().profile()) status += tr(" (original GRT file, see Settings > Solver)");
     // the Physical Model without the powder's physical burn values (a powder it has none for, or edited burn values): the load's own
     // values with a scaled burn rate
     if (profile == grt::CalibrationProfile::Physical && !m_input.shotshell && !m_input.physicalBurn)

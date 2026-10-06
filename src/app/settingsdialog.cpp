@@ -36,6 +36,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     , m_unitSystem(new QComboBox)
     , m_calibration(new QComboBox)
     , m_calibrationInfo(new QLabel)
+    , m_originalForGrtFiles(new QCheckBox(tr("Always use GRT Original for original GRT files (*.grtload)")))
     , m_logLevel(new QComboBox)
     , m_logConsole(new QCheckBox(tr("Write to the console (stderr)")))
     , m_logFile(new QCheckBox(tr("Write to the log file")))
@@ -123,6 +124,17 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     solverGrid->addWidget(calibrationLabel, 0, 0);
     solverGrid->addWidget(m_calibration, 0, 1, 1, 2);
     solverGrid->addWidget(m_calibrationInfo, 1, 1, 1, 2);
+    // loads of the original program: its model and the file's own values, so the results match what GRT shows for the file
+    m_originalForGrtFiles->setObjectName(QStringLiteral("originalForGrtFiles"));
+    m_originalForGrtFiles->setChecked(SolverPreferences::instance().originalForGrtFiles());
+    m_originalForGrtFiles->setToolTip(
+        tr("A load whose file is a *.grtload of Gordon's Reloading Tool is simulated with GRT Original and the "
+           "burn values in the file, whatever model is chosen above: the results are close to those of the "
+           "original program. Loads saved as *.grtreload use the chosen model."));
+    auto *grtFilesLabel = new QLabel(tr("GRT files:"));
+    grtFilesLabel->setBuddy(m_originalForGrtFiles);
+    solverGrid->addWidget(grtFilesLabel, 2, 0);
+    solverGrid->addWidget(m_originalForGrtFiles, 2, 1, 1, 2);
 
     auto *database = new QGroupBox(tr("Database"));
     auto *databaseGrid = makeForm(database);
@@ -277,6 +289,7 @@ void SettingsDialog::apply()
     session::setReopen(m_reopen->isChecked());
     UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_unitSystem->currentData().toInt()));
     SolverPreferences::instance().setProfile(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt()));
+    SolverPreferences::instance().setOriginalForGrtFiles(m_originalForGrtFiles->isChecked());
     if (m_titleBar->isChecked() != TitleBar::stored())
     {
         TitleBar::store(m_titleBar->isChecked());

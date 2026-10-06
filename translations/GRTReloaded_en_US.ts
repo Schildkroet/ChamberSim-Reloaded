@@ -224,7 +224,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+191"/>
         <source>Time: %1 ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -300,24 +300,24 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+443"/>
+        <location filename="../src/app/loadview.cpp" line="+440"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-169"/>
-        <location line="+170"/>
+        <location line="-172"/>
+        <location line="+173"/>
         <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-170"/>
-        <location line="+171"/>
+        <location line="-173"/>
+        <location line="+174"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-170"/>
+        <location line="-173"/>
         <source>Select Caliber…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,12 +333,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+187"/>
+        <location line="+190"/>
         <source>No database available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+474"/>
+        <location line="+477"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -348,25 +348,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-829"/>
-        <location line="+906"/>
+        <location line="-801"/>
+        <location line="+878"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-906"/>
-        <location line="+907"/>
+        <location line="-878"/>
+        <location line="+879"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-907"/>
-        <location line="+908"/>
+        <location line="-879"/>
+        <location line="+880"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-908"/>
+        <location line="-880"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -402,12 +402,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+67"/>
+        <location line="+33"/>
         <source>Load ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-66"/>
+        <location line="-32"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -422,7 +422,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+32"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -483,17 +483,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+547"/>
+        <location line="+556"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-546"/>
+        <location line="-555"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+125"/>
         <source>Caliber / cartridge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -503,25 +503,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+23"/>
+        <location line="-337"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-23"/>
-        <location line="+23"/>
+        <location line="+0"/>
         <source>Select Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-23"/>
-        <location line="+23"/>
+        <location line="+0"/>
         <source>Select Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+411"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -556,7 +553,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+92"/>
         <location line="+18"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
@@ -573,24 +570,24 @@
     </message>
     <message>
         <location line="+19"/>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>Physical burn values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="-7"/>
         <source>Use the Physical Model&apos;s burn values of %1 for this load?
 
 Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn rate of the Physical Model. The burn values of the load itself (Ba, a0, z1, z2 of the original&apos;s model) stay as they are; the physical ones apply while those are unchanged.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Edit measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+54"/>
         <source>Above the permitted maximum pressure %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -600,12 +597,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+63"/>
         <source>^ Charge ^ Name ^ Shots ^ Velocity ^ SD ^ ES ^ Simulated ^ Δ ^ Pressure ^ Simulated ^ Δ ^</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+140"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -620,7 +617,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+1"/>
+        <source> (original GRT file, see Settings &gt; Solver)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>&lt;b&gt;No physical burn values in this load.&lt;/b&gt; The Physical Model has values for %1, but this load&apos;s burn values are not those of the project&apos;s record (the original program&apos;s, or edited), so its burn rate is scaled and the results are less accurate. &lt;a href=&quot;physical&quot;&gt;Use the physical values…&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -694,7 +696,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+353"/>
+        <location filename="../src/app/mainwindow.cpp" line="+352"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -750,15 +752,15 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+19"/>
-        <location line="+330"/>
-        <location line="+178"/>
+        <location line="+326"/>
+        <location line="+177"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-509"/>
+        <location line="-504"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -821,12 +823,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+9"/>
-        <location line="+470"/>
+        <location line="+465"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-447"/>
+        <location line="-442"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -868,7 +870,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+56"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -902,7 +904,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+108"/>
         <source>Change the selected record</source>
         <translation type="unfinished"></translation>
     </message>
@@ -952,12 +954,12 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+65"/>
         <source>GRT Reloaded loads (*.grtreload);;Original GRT loads, without the data of GRT Reloaded (*.grtload)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-589"/>
+        <location line="-596"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1049,7 +1051,7 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+92"/>
-        <location line="+307"/>
+        <location line="+302"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -1112,7 +1114,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+56"/>
         <location line="+9"/>
         <source>Save load</source>
         <translation type="unfinished"></translation>
@@ -1124,12 +1126,12 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
         <source>Unsaved changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Save changes to %1?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1180,7 +1182,7 @@ Export it anyway?</source>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+97"/>
+        <location filename="../src/app/measurementview.cpp" line="+109"/>
         <source>New series</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1315,12 +1317,12 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>Series %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+94"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1424,7 +1426,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+163"/>
+        <location line="+153"/>
         <location line="+11"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
@@ -1453,7 +1455,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>1. Caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1750,7 +1752,7 @@ pressure Δ</source>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+51"/>
+        <location filename="../src/app/propertypanel.cpp" line="+52"/>
         <source>not specified (average)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2125,7 +2127,12 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
+        <source>Always use GRT Original for original GRT files (*.grtload)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Write to the console (stderr)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2210,7 +2217,17 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+9"/>
+        <source>A load whose file is a *.grtload of Gordon&apos;s Reloading Tool is simulated with GRT Original and the burn values in the file, whatever model is chosen above: the results are close to those of the original program. Loads saved as *.grtreload use the chosen model.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>GRT files:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2283,7 +2300,7 @@ pressure Δ</source>
 <context>
     <name>SolverPreferences</name>
     <message>
-        <location filename="../src/app/solverprefs.cpp" line="+36"/>
+        <location filename="../src/app/solverprefs.cpp" line="+57"/>
         <source>GRT Original</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2629,7 +2646,7 @@ pressure Δ</source>
 <context>
     <name>grt::dbfields</name>
     <message>
-        <location filename="../src/core/dbfields.cpp" line="+32"/>
+        <location filename="../src/core/dbfields.cpp" line="+34"/>
         <location line="+50"/>
         <location line="+20"/>
         <source>Name</source>

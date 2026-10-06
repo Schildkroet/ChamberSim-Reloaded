@@ -399,6 +399,11 @@ In \menu{File}\sep\ui{Settings}\sep\ui{Solver} you select the model:
 \end{description}
 The model in use is shown in the results. The three models give different numbers; they are not exchangeable.
 
+\paragraph{Original GRT files.} With \ui{Always use GRT Original for original GRT files (*.grtload)} a load whose file is a \file{.grtload} is
+always calculated with GRT Original and the burn values in the file, whatever model is selected. Its results are then close to those Gordon's
+Reloading Tool shows for the same file (the results line says \ui{GRT Original (original GRT file, \dots)}). Once the load is saved as a
+\file{.grtreload}, it uses the selected model again.
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{propellant.png}
@@ -495,7 +500,7 @@ These factors are derived from the powder's $B_a$, explosion heat, $k$ and the f
 \begin{description}
   \item[Database] The location of the original's \emph{plain} database (see Section~\ref{sec:dump}).
   \item[Units] The unit system (Metric, Imperial or Original) and \ui{Reset per-field units}.
-  \item[Solver] The calculation model (Section~\ref{sec:solver}).
+  \item[Solver] The calculation model, and GRT Original for original GRT files (Section~\ref{sec:solver}).
   \item[Appearance] The theme, the font size and \ui{Custom Title Bar} (Linux).
   \item[Start-up] \ui{Open the loads of the last session at start}, and the safety notice.
   \item[Logging] The log level (Debug, Info, Warning, Error), output to the console and/or a log file, with \ui{Open log file} and \ui{Clear log file}.

@@ -224,7 +224,7 @@
         <translation>Pmax admissible</translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+191"/>
         <source>Time: %1 ms</source>
         <translation>Temps : %1 ms</translation>
     </message>
@@ -300,30 +300,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+156"/>
-        <location line="+906"/>
+        <location filename="../src/app/loadview.cpp" line="+184"/>
+        <location line="+878"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-906"/>
-        <location line="+907"/>
+        <location line="-878"/>
+        <location line="+879"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-907"/>
+        <location line="-879"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+908"/>
+        <location line="+880"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-907"/>
+        <location line="-879"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -354,12 +354,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+67"/>
+        <location line="+33"/>
         <source>Load ratio</source>
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-66"/>
+        <location line="-32"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
@@ -374,7 +374,7 @@
         <translation>Pertes chaleur / frottement</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+32"/>
         <source>Charge</source>
         <translation>Charge</translation>
     </message>
@@ -415,18 +415,18 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+170"/>
+        <location line="+173"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-170"/>
-        <location line="+171"/>
+        <location line="-173"/>
+        <location line="+174"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-170"/>
+        <location line="-173"/>
         <source>Select Caliber…</source>
         <translation>Choisir le calibre…</translation>
     </message>
@@ -442,12 +442,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+187"/>
+        <location line="+190"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
     </message>
     <message>
-        <location line="-171"/>
+        <location line="-174"/>
         <source>Cartridge</source>
         <translation>Cartouche</translation>
     </message>
@@ -468,17 +468,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+547"/>
+        <location line="+556"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-546"/>
+        <location line="-555"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+125"/>
         <source>Caliber / cartridge</source>
         <translation>Calibre / cartouche</translation>
     </message>
@@ -493,25 +493,22 @@
         <translation>Remplacer ce composant par un autre enregistrement de la base de données</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+23"/>
+        <location line="-337"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
     <message>
-        <location line="-23"/>
-        <location line="+23"/>
+        <location line="+0"/>
         <source>Select Projectile</source>
         <translation>Choisir le projectile</translation>
     </message>
     <message>
-        <location line="-23"/>
-        <location line="+23"/>
+        <location line="+0"/>
         <source>Select Propellant</source>
         <translation>Choisir la poudre</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+411"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
@@ -546,7 +543,7 @@
         <translation>Modifier la valeur</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+92"/>
         <location line="+18"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
@@ -563,12 +560,12 @@
     </message>
     <message>
         <location line="+19"/>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>Physical burn values</source>
         <translation>Valeurs de combustion physiques</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="-7"/>
         <source>Use the Physical Model&apos;s burn values of %1 for this load?
 
 Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn rate of the Physical Model. The burn values of the load itself (Ba, a0, z1, z2 of the original&apos;s model) stay as they are; the physical ones apply while those are unchanged.</source>
@@ -577,12 +574,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
 Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacité mise à l&apos;échelle du modèle physique. Les valeurs de combustion du chargement lui-même (Ba, a0, z1, z2 du modèle original) restent inchangées ; les valeurs physiques s&apos;appliquent tant que celles-ci ne sont pas modifiées.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+28"/>
         <source>Edit measurements</source>
         <translation>Modifier les mesures</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+54"/>
         <source>Above the permitted maximum pressure %1</source>
         <translation>Au-dessus de la pression maximale admissible %1</translation>
     </message>
@@ -592,12 +589,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>charge trop élevée</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+63"/>
         <source>^ Charge ^ Name ^ Shots ^ Velocity ^ SD ^ ES ^ Simulated ^ Δ ^ Pressure ^ Simulated ^ Δ ^</source>
         <translation>^ Charge ^ Nom ^ Tirs ^ Vitesse ^ Écart type ^ Dispersion ^ Simulé ^ Δ ^ Pression ^ Simulé ^ Δ ^</translation>
     </message>
     <message>
-        <location line="+112"/>
+        <location line="+109"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile :&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Poudre :&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/LE :&lt;/b&gt; %6, &lt;b&gt;L6/LT :&lt;/b&gt; %7, &lt;b&gt;Profondeur d&apos;enfoncement :&lt;/b&gt; %8, &lt;b&gt;Longueur du projectile :&lt;/b&gt; %9, &lt;b&gt;Volume de l&apos;étui :&lt;/b&gt; %10</translation>
     </message>
@@ -622,7 +619,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Modèle : %1</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+1"/>
+        <source> (original GRT file, see Settings &gt; Solver)</source>
+        <translation> (fichier GRT original, voir Paramètres &gt; Solveur)</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>&lt;b&gt;No physical burn values in this load.&lt;/b&gt; The Physical Model has values for %1, but this load&apos;s burn values are not those of the project&apos;s record (the original program&apos;s, or edited), so its burn rate is scaled and the results are less accurate. &lt;a href=&quot;physical&quot;&gt;Use the physical values…&lt;/a&gt;</source>
         <translation>&lt;b&gt;Pas de valeurs de combustion physiques dans ce chargement.&lt;/b&gt; Le modèle physique a des valeurs pour %1, mais les valeurs de combustion de ce chargement ne sont pas celles de la fiche du projet (celles du programme original, ou modifiées) ; la vivacité est donc mise à l&apos;échelle et les résultats sont moins précis. &lt;a href=&quot;physical&quot;&gt;Utiliser les valeurs physiques…&lt;/a&gt;</translation>
     </message>
@@ -696,7 +698,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+353"/>
+        <location filename="../src/app/mainwindow.cpp" line="+352"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
@@ -757,15 +759,15 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+18"/>
-        <location line="+330"/>
-        <location line="+178"/>
+        <location line="+326"/>
+        <location line="+177"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-509"/>
+        <location line="-504"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -833,12 +835,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+9"/>
-        <location line="+470"/>
+        <location line="+465"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-466"/>
+        <location line="-461"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -962,14 +964,14 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+39"/>
-        <location line="+307"/>
+        <location line="+302"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossible de lire %1 :
 %2</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-285"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossible d&apos;ouvrir la base de données %1 :
@@ -1007,7 +1009,7 @@ La base GordonsReloadingTool.db d&apos;origine est chiffrée ; choisissez une co
         <translation>Aucune base de données d&apos;origine (à choisir dans Fichier ▸ Paramètres…) : %1</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+107"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Seuls vos propres enregistrements peuvent être modifiés : faites une copie</translation>
     </message>
@@ -1122,7 +1124,7 @@ L&apos;exporter quand même ?</translation>
         <translation>Sans titre %1</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+56"/>
         <location line="+9"/>
         <source>Save load</source>
         <translation>Enregistrer le chargement</translation>
@@ -1140,12 +1142,12 @@ L&apos;exporter quand même ?</translation>
 %2</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
         <source>Unsaved changes</source>
         <translation>Modifications non enregistrées</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Save changes to %1?</source>
         <translation>Enregistrer les modifications de %1 ?</translation>
     </message>
@@ -1196,7 +1198,7 @@ L&apos;exporter quand même ?</translation>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+97"/>
+        <location filename="../src/app/measurementview.cpp" line="+109"/>
         <source>New series</source>
         <translation>Nouvelle série</translation>
     </message>
@@ -1331,12 +1333,12 @@ L&apos;exporter quand même ?</translation>
         <translation>MESURES %1</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>Series %1</source>
         <translation>Série %1</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+94"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
@@ -1440,7 +1442,7 @@ L&apos;exporter quand même ?</translation>
         <translation>&lt;b&gt;Tirs&lt;/b&gt; – choisissez une charge</translation>
     </message>
     <message>
-        <location line="+163"/>
+        <location line="+153"/>
         <location line="+11"/>
         <source>Import chronograph file</source>
         <translation>Importer un fichier de chronographe</translation>
@@ -1469,7 +1471,7 @@ L&apos;exporter quand même ?</translation>
         <translation>Nouveau chargement</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>1. Caliber</source>
         <translation>1. Calibre</translation>
     </message>
@@ -1772,7 +1774,7 @@ pression Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+51"/>
+        <location filename="../src/app/propertypanel.cpp" line="+52"/>
         <source>not specified (average)</source>
         <translation>non précisé (moyenne)</translation>
     </message>
@@ -2147,7 +2149,12 @@ pression Δ</translation>
         <translation>Ouvrir au démarrage les chargements de la dernière session</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
+        <source>Always use GRT Original for original GRT files (*.grtload)</source>
+        <translation>Toujours utiliser GRT Original pour les fichiers GRT originaux (*.grtload)</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Write to the console (stderr)</source>
         <translation>Écrire dans la console (stderr)</translation>
     </message>
@@ -2232,7 +2239,17 @@ pression Δ</translation>
         <translation>Modèle :</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+9"/>
+        <source>A load whose file is a *.grtload of Gordon&apos;s Reloading Tool is simulated with GRT Original and the burn values in the file, whatever model is chosen above: the results are close to those of the original program. Loads saved as *.grtreload use the chosen model.</source>
+        <translation>Un chargement dont le fichier est un *.grtload de Gordon&apos;s Reloading Tool est calculé avec GRT Original et les valeurs de combustion du fichier, quel que soit le modèle choisi ci-dessus : les résultats sont proches de ceux du programme original. Les chargements enregistrés en *.grtreload utilisent le modèle choisi.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>GRT files:</source>
+        <translation>Fichiers GRT :</translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
@@ -2305,7 +2322,7 @@ pression Δ</translation>
 <context>
     <name>SolverPreferences</name>
     <message>
-        <location filename="../src/app/solverprefs.cpp" line="+36"/>
+        <location filename="../src/app/solverprefs.cpp" line="+57"/>
         <source>GRT Original</source>
         <translation>GRT Original</translation>
     </message>
@@ -2651,7 +2668,7 @@ pression Δ</translation>
 <context>
     <name>grt::dbfields</name>
     <message>
-        <location filename="../src/core/dbfields.cpp" line="+32"/>
+        <location filename="../src/core/dbfields.cpp" line="+34"/>
         <location line="+50"/>
         <location line="+20"/>
         <source>Name</source>

@@ -45,6 +45,8 @@ public:
     [[nodiscard]] const QString &path() const noexcept { return m_path; }
     [[nodiscard]] QString title() const;
     [[nodiscard]] bool isModified() const noexcept { return m_modified; }
+    // The load's file is the original program's *.grtload (Settings > Solver can simulate those with GRT Original).
+    [[nodiscard]] bool isGrtFile() const;
 
     // Load development ladder: number of curves, the selected (focus) one, and its charge.
     [[nodiscard]] int ladderSize() const noexcept { return static_cast<int>(m_ladder.size()); }
@@ -127,6 +129,8 @@ private:
     void updatePhoto();
     [[nodiscard]] QVariantMap caliberRecord() const;
     void showResult();
+    // The constants every simulation of this load uses (the chosen model, or GRT Original for a *.grtload, see SolverPreferences).
+    [[nodiscard]] const grt::Calibration &calibration() const;
     // The results of the ladder steps other than the focused one (drawn faintly in the chart).
     [[nodiscard]] std::vector<grt::SimResult> otherLadderResults() const;
     // "Maker Name" of the propellant.

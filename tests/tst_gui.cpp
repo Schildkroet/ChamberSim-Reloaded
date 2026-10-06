@@ -157,6 +157,7 @@ private slots:
     void burnRateTableSortsAndFilters();
     void unitConverterConvertsAllUnits();
     void solverCalibrationIsChosenInTheSettings();
+    void grtFilesCanUseGrtOriginal();
     void overallLengthAndSeatingDepthStayInStep();
     void recordDialogShowsReadableFieldsInUserUnits();
     void recordsAreAddedCopiedEditedAndDeleted();
@@ -294,6 +295,51 @@ void GuiTest::solverCalibrationIsChosenInTheSettings()
     QCOMPARE(modelLine(), u"Model: GRT Original"_s);              // above the results: only the model used
     prefs.setProfile(grt::CalibrationProfile::Physical, false);   // the default again, for the other tests
     QVERIFY(modelLine().startsWith(u"Model: Physical Model"_s));  // (the sample's N150 has the original's lot values: with the note)
+}
+
+void GuiTest::grtFilesCanUseGrtOriginal()
+{
+    auto &prefs = SolverPreferences::instance();
+    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Physical);
+    QVERIFY(!prefs.originalForGrtFiles());  // off by default: every load uses the chosen model
+    LoadView view;
+    QString error;
+    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY(view.isGrtFile());
+    const double physical = view.result().maxPressure_bar;
+    prefs.setProfile(grt::CalibrationProfile::Original, false);
+    const double original = view.result().maxPressure_bar;
+    const double originalVelocity = view.result().muzzleVelocity_ms;
+    prefs.setProfile(grt::CalibrationProfile::Physical, false);
+    QCOMPARE(view.result().maxPressure_bar, physical);
+    QVERIFY(std::abs(physical / original - 1.0) > 0.01);
+
+    // Settings > Solver: the option, applied to the open load
+    SettingsDialog dlg;
+    auto *box = dlg.findChild<QCheckBox *>(u"originalForGrtFiles"_s);
+    QVERIFY(box && !box->isChecked());
+    box->setChecked(true);
+    dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
+    QVERIFY(prefs.originalForGrtFiles());
+    QCOMPARE(QSettings().value(u"solver/originalForGrtFiles"_s).toBool(), true);
+    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Physical);  // the chosen model stays
+    QCOMPARE(view.result().maxPressure_bar, original);             // exactly what GRT Original gives
+    QCOMPARE(view.result().muzzleVelocity_ms, originalVelocity);
+    QVERIFY(view.findChild<QWidget *>(u"burnValuesNotice"_s)->isHidden());  // no note about the Physical Model's values
+    bool named = false;
+    for (QLabel *l : view.findChildren<QLabel *>()) named |= l->text().startsWith(u"Model: GRT Original (original GRT file"_s);
+    QVERIFY(named);
+
+    // the model follows the format of the file: a *.grtreload uses the chosen one, an export to *.grtload GRT Original again
+    QTemporaryDir dir;
+    QVERIFY(view.save(dir.filePath(u"load.grtreload"_s)));
+    QVERIFY(!view.isGrtFile());
+    QCOMPARE(view.result().maxPressure_bar, physical);
+    QVERIFY(view.save(dir.filePath(u"load.grtload"_s)));
+    QCOMPARE(view.result().maxPressure_bar, original);
+
+    prefs.setOriginalForGrtFiles(false);  // the default again, for the other tests
+    QCOMPARE(view.result().maxPressure_bar, physical);
 }
 
 void GuiTest::tableBrowserFiltersAndSelects()

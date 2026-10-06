@@ -5,7 +5,8 @@
 namespace
 {
 constexpr auto kSettingsKey = "solver/calibration";
-}
+constexpr auto kOriginalForGrtFilesKey = "solver/originalForGrtFiles";
+}  // namespace
 
 SolverPreferences &SolverPreferences::instance()
 {
@@ -18,6 +19,7 @@ SolverPreferences::SolverPreferences()
     const auto stored = fromKey(QSettings().value(QLatin1String(kSettingsKey)).toString());
     m_profile = stored.value_or(grt::CalibrationProfile::Physical);  // the default: the project's own physical model
     grt::setCalibrationProfile(m_profile);
+    m_originalForGrtFiles = QSettings().value(QLatin1String(kOriginalForGrtFilesKey), false).toBool();
 }
 
 void SolverPreferences::setProfile(grt::CalibrationProfile profile, bool remember)
@@ -27,6 +29,25 @@ void SolverPreferences::setProfile(grt::CalibrationProfile profile, bool remembe
     m_profile = profile;
     grt::setCalibrationProfile(profile);
     emit changed();
+}
+
+void SolverPreferences::setOriginalForGrtFiles(bool on)
+{
+    QSettings().setValue(QLatin1String(kOriginalForGrtFilesKey), on);
+    if (on == m_originalForGrtFiles) return;
+    m_originalForGrtFiles = on;
+    emit changed();
+}
+
+grt::CalibrationProfile SolverPreferences::profileFor(bool grtFile) const noexcept
+{
+    return grtFile && m_originalForGrtFiles ? grt::CalibrationProfile::Original : m_profile;
+}
+
+const grt::Calibration &SolverPreferences::calibrationFor(bool grtFile) const noexcept
+{
+    static const grt::Calibration original = grt::calibrationFor(grt::CalibrationProfile::Original);
+    return profileFor(grtFile) == m_profile ? grt::activeCalibration() : original;
 }
 
 QString SolverPreferences::name(grt::CalibrationProfile profile)
