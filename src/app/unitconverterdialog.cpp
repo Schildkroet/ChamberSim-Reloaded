@@ -1,5 +1,6 @@
 #include "unitconverterdialog.h"
 
+#include "screenfit.h"
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QFormLayout>
@@ -48,7 +49,7 @@ UnitConverterDialog::UnitConverterDialog(QWidget *parent)
 {
     setObjectName(QStringLiteral("unitConverterDialog"));
     setWindowTitle(tr("Unit converter"));
-    resize(420, 420);
+    resizeWithinScreen(this, {420, 420});
 
     for (const auto &q : kQuantities) m_quantity->addItem(tr(q.name), static_cast<int>(q.quantity));
     m_input->setClearButtonEnabled(true);

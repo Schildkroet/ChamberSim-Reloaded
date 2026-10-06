@@ -1,18 +1,27 @@
 #include "recordviewdialog.h"
 
 #include "dates.h"
+#include "qualitydelegate.h"
 #include "recordfields.h"
+#include "screenfit.h"
 
 #include <QCoreApplication>
 #include <QDialogButtonBox>
 #include <QGridLayout>
+#include <QHBoxLayout>
 #include <QGroupBox>
+#include <QColor>
 #include <QLabel>
+#include <QGuiApplication>
 #include <QLocale>
+#include <QProgressBar>
+#include <QScreen>
+#include <QScrollBar>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QVBoxLayout>
 
+#include <algorithm>
 #include <map>
 
 using namespace Qt::StringLiterals;
@@ -101,7 +110,19 @@ RecordViewDialog::RecordViewDialog(const grt::Database &db, grt::Table table, in
             const bool wide = f.kind == Kind::Text && stored.toString().size() > 24;  // long texts (origin, description) use the full row
             const int row = wide ? (i + pairs - 1) / pairs : i / pairs, col = wide ? 0 : 2 * (i % pairs);
             grid->addWidget(new QLabel(label + u':'), row, col);
-            grid->addWidget(value, row, col + 1, 1, wide ? 2 * pairs - 1 : 1);
+            if (f.column == u"Qlty"_s)  // the fit quality 0..1 of a powder: a bar next to the number (0: unknown)
+            {
+                auto *bar = makeQualityBar(stored.toDouble());
+                bar->setToolTip(tr("Quality of the fit of the powder model: 1 = very good, 0 = unknown"));
+                value->setWordWrap(false);
+                auto *cell = new QWidget;
+                auto *cellLayout = new QHBoxLayout(cell);
+                cellLayout->setContentsMargins(0, 0, 0, 0);
+                cellLayout->addWidget(value);
+                cellLayout->addWidget(bar, 1);
+                grid->addWidget(cell, row, col + 1, 1, 1);
+            }
+            else grid->addWidget(value, row, col + 1, 1, wide ? 2 * pairs - 1 : 1);
             i = wide ? ((i + pairs - 1) / pairs + 1) * pairs : i + 1;
             ++m_fieldCount;
         }
@@ -124,7 +145,12 @@ RecordViewDialog::RecordViewDialog(const grt::Database &db, grt::Table table, in
     auto *layout = new QVBoxLayout(this);
     layout->addWidget(scroll, 1);
     layout->addWidget(buttons);
-    resize(table == grt::Table::Caliber ? 760 : 620, 700);
+    // fit the dialog to its content (the fields of the table), within the screen
+    const QMargins m = layout->contentsMargins();
+    const QSize want =
+        content->sizeHint() + QSize(scroll->verticalScrollBar()->sizeHint().width() + 2 * scroll->frameWidth() + m.left() + m.right(),
+                                    buttons->sizeHint().height() + layout->spacing() + 2 * scroll->frameWidth() + m.top() + m.bottom());
+    resizeWithinScreen(this, want.expandedTo({table == grt::Table::Caliber ? 760 : 620, 400}));
 }
 
 QString RecordViewDialog::valueText(const QString &column) const

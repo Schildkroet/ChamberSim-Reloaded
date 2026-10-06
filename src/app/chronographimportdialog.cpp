@@ -1,5 +1,6 @@
 #include "chronographimportdialog.h"
 
+#include "screenfit.h"
 #include "measurement.h"
 #include "unitprefs.h"
 
@@ -87,7 +88,7 @@ ChronographImportDialog::ChronographImportDialog(grt::ChronographFile file, doub
     layout->addWidget(intro);
     layout->addWidget(m_table, 1);
     layout->addWidget(buttons);
-    resize(640, 360);
+    resizeWithinScreen(this, {640, 360});
 }
 
 std::vector<ImportedCharge> ChronographImportDialog::selected() const

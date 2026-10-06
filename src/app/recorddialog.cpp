@@ -1,5 +1,6 @@
 #include "recorddialog.h"
 
+#include "screenfit.h"
 #include "dates.h"
 #include "barrel.h"
 #include "numeric.h"
@@ -232,7 +233,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     layout->addWidget(scroll, 1);
     layout->addWidget(hint);
     layout->addWidget(buttons);
-    resize(table == grt::Table::Caliber ? 900 : 860, 760);
+    resizeWithinScreen(this, {table == grt::Table::Caliber ? 900 : 860, 760});
 }
 
 void RecordDialog::calculateBoreCrossSection()

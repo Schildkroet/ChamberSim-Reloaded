@@ -13,6 +13,7 @@ class QDoubleSpinBox;
 class QLabel;
 class QPushButton;
 class QStackedWidget;
+class QualityRow;
 class QTabWidget;
 
 // Two steps: first pick a caliber, a bullet and a powder from the database; "Next" then shows the charge and gun data with the
@@ -42,6 +43,7 @@ private:
     QStackedWidget *m_pages;
     QTabWidget *m_tabs;
     QCheckBox *m_matchDiameter;
+    QualityRow *m_quality{nullptr};  // third list: the fit quality of the selected powder
     QDoubleSpinBox *m_charge;
     QDoubleSpinBox *m_barrel;
     QDoubleSpinBox *m_depth;

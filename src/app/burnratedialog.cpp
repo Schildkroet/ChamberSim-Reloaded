@@ -1,6 +1,8 @@
 #include "burnratedialog.h"
 
+#include "screenfit.h"
 #include "burnfactors.h"
+#include "qualitydelegate.h"
 
 #include <QButtonGroup>
 #include <QCheckBox>
@@ -33,6 +35,7 @@ enum Column
     Br,
     Bp,
     Brp,
+    Quality,
     Search,
     ColumnCount
 };
@@ -77,10 +80,10 @@ BurnRateDialog::BurnRateDialog(const grt::Database &db, QWidget *parent)
     , m_db(db)
 {
     setWindowTitle(tr("Burn rate table"));
-    resize(QSettings().value(QStringLiteral("burnrate/size"), QSize(940, 640)).toSize());
+    resizeWithinScreen(this, QSettings().value(QStringLiteral("burnrate/size"), QSize(940, 640)).toSize());
 
     m_model->setHorizontalHeaderLabels({tr("Manufacturer"), tr("Name"), tr("Lot"), tr("Burn rate (Ba)"), tr("Brisance (Br)"),
-                                        tr("Progressivity (Bp)"), tr("Combined (Brp)"), QString()});
+                                        tr("Progressivity (Bp)"), tr("Combined (Brp)"), tr("Quality"), QString()});
     m_proxy->setSourceModel(m_model);
     m_proxy->setSortRole(kValueRole);
     m_proxy->setSortCaseSensitivity(Qt::CaseInsensitive);
@@ -99,6 +102,7 @@ BurnRateDialog::BurnRateDialog(const grt::Database &db, QWidget *parent)
     m_view->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     auto *bars = new BarDelegate(m_view);
     for (const int c : {Ba, Br, Bp, Brp}) m_view->setItemDelegateForColumn(c, bars);
+    m_view->setItemDelegateForColumn(Quality, new QualityDelegate(m_view, kValueRole));
 
     // the three sorts of the original: progressivity, brisance, both combined
     auto *top = new QHBoxLayout;
@@ -169,6 +173,7 @@ BurnRateDialog::BurnRateDialog(const grt::Database &db, QWidget *parent)
     m_view->setColumnWidth(Name, 140);
     m_view->setColumnWidth(Lot, 90);
     for (const int c : {Ba, Br, Bp, Brp}) m_view->setColumnWidth(c, 115);
+    m_view->setColumnWidth(Quality, 100);
     setFactor(static_cast<Factor>(settings.value(QStringLiteral("burnrate/factor"), Progressivity).toInt()));
 }
 
@@ -182,16 +187,16 @@ void BurnRateDialog::load(const grt::Database &db)
     struct Row
     {
         QString maker, name, lot;
-        double ba, br, bp, brp;
+        double ba, br, bp, brp, quality;
     };
     std::vector<Row> rows;
     QSqlQuery q(db.handle());
     if (q.exec(QStringLiteral(
-            "SELECT mname, pname, lotid, Ba, Br, Bp, Brp, Qex, k, a0, z1, z2 FROM propellant WHERE geloescht = 0 AND Ba > 0")))
+            "SELECT mname, pname, lotid, Ba, Br, Bp, Brp, Qex, k, a0, z1, z2, Qlty FROM propellant WHERE geloescht = 0 AND Ba > 0")))
         while (q.next())
         {
             Row r{q.value(0).toString(), q.value(1).toString(), q.value(2).toString(), number(q, 3),
-                  number(q, 4),          number(q, 5),          number(q, 6)};
+                  number(q, 4),          number(q, 5),          number(q, 6),          number(q, 12)};
             if (r.br <= 0.0)  // records without stored factors: derived from the model values
             {
                 const grt::BurnFactors f = grt::burnFactors(r.ba, number(q, 7), number(q, 8), number(q, 9), number(q, 10), number(q, 11));
@@ -235,6 +240,13 @@ void BurnRateDialog::load(const grt::Database &db)
             item->setData(t.toLower(), kValueRole);
             return item;
         };
+        const auto quality = [](double v)  // the model quality 0..1 of the record (0: unknown)
+        {
+            auto *item = new QStandardItem(v > 0.0 ? QLocale().toString(v, 'f', 2) : QStringLiteral("-"));
+            item->setData(v, kValueRole);
+            item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            return item;
+        };
         const auto value = [&](double v, int column)
         {
             auto *item = new QStandardItem(QLocale().toString(v, 'f', 4));
@@ -244,7 +256,7 @@ void BurnRateDialog::load(const grt::Database &db)
             return item;
         };
         items << text(r.maker) << text(r.name) << text(r.lot) << value(r.ba, Ba) << value(r.br, Br) << value(r.bp, Bp) << value(r.brp, Brp)
-              << text(r.maker + u' ' + r.name);
+              << quality(r.quality) << text(r.maker + u' ' + r.name);
         m_model->appendRow(items);
     }
     m_view->setSortingEnabled(sorted);

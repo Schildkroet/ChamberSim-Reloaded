@@ -35,6 +35,7 @@ tools/grt_*report*.txt
 
 # sample loads and screenshots taken from the original program
 *.grtload
+*.grtreload
 !data/measurements/*.grtload
 !tests/fixtures/*.grtload
 tests/data/

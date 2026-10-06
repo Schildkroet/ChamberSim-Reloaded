@@ -1,5 +1,6 @@
 #include "tablebrowser.h"
 #include "log.h"
+#include "qualitydelegate.h"
 
 #include <QHeaderView>
 #include <QLabel>
@@ -114,6 +115,16 @@ void TableBrowser::setDatabase(const grt::Database *db)
     const int idColumn = m_model->fieldIndex(QStringLiteral("id"));
     m_view->sortByColumn(idColumn, Qt::AscendingOrder);  // the view would sort by its first column (the source)
     for (const char *hidden : {"geloescht"}) m_view->setColumnHidden(m_model->fieldIndex(QLatin1String(hidden)), true);
+    if (const int quality = m_model->fieldIndex(QStringLiteral("Qlty")); quality >= 0)  // propellants: the fit quality as a bar
+        if (!dynamic_cast<QualityDelegate *>(m_view->itemDelegateForColumn(quality)))   // (a new database keeps the delegate)
+            m_view->setItemDelegateForColumn(quality, new QualityDelegate(m_view));
+    if (const int quality = m_model->fieldIndex(QStringLiteral("Qlty")), name = m_model->fieldIndex(QStringLiteral("pname"));
+        quality >= 0 && name >= 0)  // propellants: the quality right behind the name, where it is seen without scrolling
+    {
+        auto *header = m_view->horizontalHeader();
+        header->moveSection(header->visualIndex(quality),
+                            header->visualIndex(name) + (header->visualIndex(quality) < header->visualIndex(name) ? 0 : 1));
+    }
     m_view->resizeColumnsToContents();
     for (int c = 0; c < m_model->columnCount(); ++c) m_view->setColumnWidth(c, std::min(m_view->columnWidth(c), 220));
     // own records have 8-digit ids (only the visible rows were measured)
@@ -179,6 +190,15 @@ int TableBrowser::currentId() const
     if (!idx.isValid()) return -1;
     const QModelIndex src = m_proxy->mapToSource(idx);
     return m_model->data(m_model->index(src.row(), m_model->fieldIndex(QStringLiteral("id")))).toInt();
+}
+
+double TableBrowser::currentNumber(const QString &column) const
+{
+    if (!m_model) return 0.0;
+    const int col = m_model->fieldIndex(column);
+    const QModelIndex idx = m_view->currentIndex();
+    if (col < 0 || !idx.isValid()) return 0.0;
+    return m_model->data(m_model->index(m_proxy->mapToSource(idx).row(), col)).toDouble();
 }
 
 void TableBrowser::updateCount()

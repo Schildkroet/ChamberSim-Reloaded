@@ -1,5 +1,6 @@
 #include "reporttemplatedialog.h"
 
+#include "screenfit.h"
 #include "unitprefs.h"
 
 #include <QDialogButtonBox>
@@ -25,7 +26,7 @@ ReportTemplateDialog::ReportTemplateDialog(grt::report::Data data, const QString
     , m_timer(new QTimer(this))
 {
     setWindowTitle(tr("Edit report template"));
-    resize(1200, 760);
+    resizeWithinScreen(this, {1200, 760});
     m_editor->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_editor->setLineWrapMode(QPlainTextEdit::NoWrap);
     m_editor->setPlainText(templateText);

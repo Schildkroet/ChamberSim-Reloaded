@@ -98,6 +98,7 @@ python3 scripts/data/loaddata/vv_to_json.py vv_fits.csv --work vv_work
 # physical burn values of all project powders -> data/physical/propellants.json
 .venv/bin/python analysis/fit_physical_powders.py build/release/grt_eval \
     hod_samples.csv west_samples.csv lovex_samples.csv rs_samples.csv vv_*.csv [--split train] [--fit form|ba]
+# only new records (Ba only, the other powders of the file stay): add --fit ba --form a0,z1,z2 --only N110,N120 --merge
 ```
 
 ## 🧮 Solver calibration

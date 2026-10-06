@@ -15,6 +15,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.45,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 188 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 4.2 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -35,6 +36,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.4,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 305 start and maximum loads of the manufacturer's published load data (27 cartridges), velocity error 4.2 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -55,6 +57,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.2,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 82 start and maximum loads of the manufacturer's published load data (12 cartridges), velocity error 5.1 % rms, pressure error 24 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -75,6 +78,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.5,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 320 start and maximum loads of the manufacturer's published load data (22 cartridges), velocity error 3.6 % rms, pressure error 12 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -95,6 +99,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.5,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 270 start and maximum loads of the manufacturer's published load data (20 cartridges), velocity error 3.9 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -115,6 +120,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.45,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 297 start and maximum loads of the manufacturer's published load data (25 cartridges), velocity error 4.3 % rms, pressure error 14 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -135,6 +141,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.35,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 72 start and maximum loads of the manufacturer's published load data (12 cartridges), velocity error 3.5 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -155,6 +162,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.45,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 192 start and maximum loads of the manufacturer's published load data (18 cartridges), velocity error 4.2 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
@@ -175,6 +183,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.45,
     "cdate": "2026-10-03",
     "origin": "Hodgdon Reloading Manual 2024 and Western Powders Handloading Guide 8.0 (loads, velocities, PSI pressures; scripts/data/loaddata)",
     "descr": "Burn rate Ba fitted to 260 start and maximum loads of the manufacturer's published load data (21 cartridges), velocity error 3.7 % rms, pressure error 14 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."

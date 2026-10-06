@@ -1,5 +1,6 @@
 #include "powderfitdialog.h"
 
+#include "screenfit.h"
 #include "unitprefs.h"
 
 #include <QApplication>
@@ -117,7 +118,7 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
     layout->addWidget(m_table, 1);
     layout->addWidget(m_summary);
     layout->addWidget(buttons);
-    resize(900, 480);
+    resizeWithinScreen(this, {900, 480});
     showResult();
 }
 

@@ -45,6 +45,8 @@ add_library(grtui STATIC
     burnratedialog.cpp
     unitconverterdialog.h
     unitconverterdialog.cpp
+    qualityrow.h
+    qualityrow.cpp
     selectrecorddialog.h
     selectrecorddialog.cpp
     newloaddialog.h

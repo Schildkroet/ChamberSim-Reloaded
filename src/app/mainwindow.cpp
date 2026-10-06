@@ -73,7 +73,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_exportRecord = new QPushButton(tr("Export…"));
     m_exportRecord->setToolTip(tr("Save the selected record as a file to contribute it to the project's database "
                                   "(see CONTRIBUTING.md)"));
-    markPrimary(m_newRecord);
     m_newRecord->setToolTip(tr("Add a new record to the database"));
     m_copyRecord->setToolTip(tr("Add a changed copy of the selected record (a double click shows a record and offers this)"));
     connect(m_newRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::New); });
@@ -85,9 +84,30 @@ MainWindow::MainWindow(QWidget *parent)
     for (QPushButton *b : {m_newRecord, m_copyRecord, m_editRecord, m_deleteRecord}) recordBar->addWidget(b);
     recordBar->addStretch(1);
     recordBar->addWidget(m_exportRecord);
+    // the first thing to do at the start: a new load (also in the File menu) or an existing one
+    m_newLoad = new QPushButton(style()->standardIcon(QStyle::SP_FileIcon), tr("New load…"));
+    m_newLoad->setObjectName(QStringLiteral("newLoadButton"));
+    m_newLoad->setToolTip(tr("Create a load from a caliber, a projectile and a propellant (%1)")
+                              .arg(QKeySequence(QKeySequence::New).toString(QKeySequence::NativeText)));
+    markPrimary(m_newLoad);
+    auto *openLoadButton = new QPushButton(style()->standardIcon(QStyle::SP_DialogOpenButton), tr("Open load…"));
+    openLoadButton->setObjectName(QStringLiteral("openLoadButton"));
+    for (QPushButton *b : {m_newLoad, openLoadButton})  // the first steps: larger than the record buttons
+    {
+        b->setMinimumHeight(46);
+        b->setIconSize(QSize(24, 24));
+    }
+    openLoadButton->setToolTip(tr("Open a load file (%1)").arg(QKeySequence(QKeySequence::Open).toString(QKeySequence::NativeText)));
+    connect(m_newLoad, &QPushButton::clicked, this, [this] { newLoad(); });
+    connect(openLoadButton, &QPushButton::clicked, this, [this] { openLoadDialog(); });
+    auto *loadBar = new QHBoxLayout;
+    loadBar->addWidget(m_newLoad);
+    loadBar->addWidget(openLoadButton);
+    loadBar->addStretch(1);
     auto *dbPage = new QWidget;
     auto *dbLayout = new QVBoxLayout(dbPage);
     dbLayout->setContentsMargins(4, 4, 4, 0);
+    dbLayout->addLayout(loadBar);
     dbLayout->addLayout(recordBar);
     dbLayout->addWidget(m_dbTabs, 1);
 
@@ -140,14 +160,7 @@ void MainWindow::createActions()
         return a;
     };
     m_newLoadAction = add(tr("&New load…"), QKeySequence::New, [this] { newLoad(); });
-    add(tr("&Open load…"), QKeySequence::Open,
-        [this]
-        {
-            const QStringList files = QFileDialog::getOpenFileNames(
-                this, tr("Open load"), {},
-                tr("Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)"));
-            for (const QString &f : files) openLoad(f);
-        });
+    add(tr("&Open load…"), QKeySequence::Open, [this] { openLoadDialog(); });
     m_saveAction = add(tr("&Save"), QKeySequence::Save,
                        [this]
                        {
@@ -548,6 +561,7 @@ void MainWindow::updateRecordButtons()
     const int id = currentBrowser()->currentId();
     const bool own = grt::Database::isOwnId(id);
     m_newRecord->setEnabled(m_db.isOpen());
+    m_newLoad->setEnabled(m_db.isOpen());
     m_copyRecord->setEnabled(id >= 0);
     m_editRecord->setEnabled(own);
     m_deleteRecord->setEnabled(own);
@@ -733,6 +747,14 @@ void MainWindow::setupLoadView(LoadView *view)
                 updateTabTitle(view);
                 updateActions();
             });
+}
+
+void MainWindow::openLoadDialog()
+{
+    const QStringList files = QFileDialog::getOpenFileNames(
+        this, tr("Open load"), {},
+        tr("Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)"));
+    for (const QString &f : files) openLoad(f);
 }
 
 void MainWindow::newLoad()

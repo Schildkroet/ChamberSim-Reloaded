@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+74"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+77"/>
         <source>All lots</source>
         <translation>Tutti i lotti</translation>
     </message>
@@ -49,7 +49,12 @@
         <translation>Combinato (Brp)</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+0"/>
+        <source>Quality</source>
+        <translation>Qualità</translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Sort by:</source>
         <translation>Ordina per:</translation>
     </message>
@@ -79,7 +84,7 @@
         <translation>La tabella offre solo una panoramica approssimativa del confronto tra le polveri di produttori diversi. Non dice nulla sul comportamento di una polvere nella curva di pressione di una carica specifica: polveri allo stesso livello non sono sostituti 1:1.</translation>
     </message>
     <message numerus="yes">
-        <location line="+144"/>
+        <location line="+152"/>
         <source>%n propellants</source>
         <translation>
             <numerusform>%n polvere</numerusform>
@@ -137,7 +142,7 @@
 <context>
     <name>ChronographImportDialog</name>
     <message>
-        <location filename="../src/app/chronographimportdialog.cpp" line="+50"/>
+        <location filename="../src/app/chronographimportdialog.cpp" line="+51"/>
         <source>Import chronograph file</source>
         <translation>Importa file del cronografo</translation>
     </message>
@@ -698,12 +703,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+352"/>
+        <location filename="../src/app/mainwindow.cpp" line="+361"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-294"/>
+        <location filename="../src/app/mainwindow.cpp" line="-303"/>
         <source>Calibers</source>
         <translation>Calibri</translation>
     </message>
@@ -748,7 +753,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Salva il record scelto come file per contribuirlo alla banca dati del progetto (vedi CONTRIBUTING.md)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Add a new record to the database</source>
         <translation>Aggiungi un nuovo record alla banca dati</translation>
     </message>
@@ -758,16 +763,16 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Aggiungi una copia modificata del record selezionato (un doppio clic mostra un record e lo propone)</translation>
     </message>
     <message>
-        <location line="+18"/>
-        <location line="+326"/>
-        <location line="+177"/>
+        <location line="+35"/>
+        <location line="+319"/>
+        <location line="+178"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Banca dati</translation>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-498"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
@@ -782,23 +787,43 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>&amp;Apri caricamento…</translation>
     </message>
     <message>
-        <location line="+4"/>
-        <location line="+258"/>
+        <location line="+255"/>
+        <location line="+337"/>
         <source>Open load</source>
         <translation>Apri caricamento</translation>
     </message>
     <message>
-        <location line="-257"/>
+        <location line="+1"/>
         <source>Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation>Caricamenti (*.grtreload *.grtload);;Caricamenti GRT Reloaded (*.grtreload);;Caricamenti GRT originali (*.grtload);;Tutti i file (*)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-592"/>
         <source>&amp;Save</source>
         <translation>&amp;Salva</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-72"/>
+        <source>New load…</source>
+        <translation>Nuovo caricamento…</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
+        <translation>Crea un caricamento da un calibro, un proiettile e una polvere (%1)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open load…</source>
+        <translation>Apri caricamento…</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open a load file (%1)</source>
+        <translation>Apri un file di caricamento (%1)</translation>
+    </message>
+    <message>
+        <location line="+69"/>
         <source>Save &amp;as…</source>
         <translation>Salva &amp;con nome…</translation>
     </message>
@@ -835,12 +860,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+9"/>
-        <location line="+465"/>
+        <location line="+466"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
     <message>
-        <location line="-461"/>
+        <location line="-462"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Sovrapponi un &amp;risultato di riferimento…</translation>
     </message>
@@ -964,14 +989,14 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+39"/>
-        <location line="+302"/>
+        <location line="+303"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossibile leggere %1:
 %2</translation>
     </message>
     <message>
-        <location line="-285"/>
+        <location line="-286"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossibile aprire la banca dati %1:
@@ -1009,7 +1034,7 @@ Il file originale GordonsReloadingTool.db è cifrato; scegli una copia decifrata
         <translation>Nessuna banca dati originale (da scegliere in File ▸ Impostazioni…): %1</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+108"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Si possono modificare solo i propri record: crea una copia</translation>
     </message>
@@ -1109,7 +1134,7 @@ Esportarlo comunque?</translation>
         <translation>Salvato come proprio record: %1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+24"/>
         <source>New load</source>
         <translation>Nuovo caricamento</translation>
     </message>
@@ -1461,7 +1486,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+67"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+69"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Mostra solo le palle adatte al calibro</translation>
     </message>
@@ -1486,7 +1511,7 @@ Esportarlo comunque?</translation>
         <translation>3. Polvere</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Load data</source>
         <translation>Dati di caricamento</translation>
     </message>
@@ -1537,7 +1562,7 @@ Esportarlo comunque?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+65"/>
+        <location line="+66"/>
         <source>Next &gt;</source>
         <translation>Avanti &gt;</translation>
     </message>
@@ -1608,7 +1633,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>PowderFitDialog</name>
     <message>
-        <location filename="../src/app/powderfitdialog.cpp" line="+49"/>
+        <location filename="../src/app/powderfitdialog.cpp" line="+50"/>
         <source>Fit</source>
         <translation>Adatta</translation>
     </message>
@@ -1861,9 +1886,28 @@ pressione Δ</translation>
     </message>
 </context>
 <context>
+    <name>QualityRow</name>
+    <message>
+        <location filename="../src/app/qualityrow.cpp" line="+18"/>
+        <source>Model quality:</source>
+        <translation>Qualità del modello:</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+10"/>
+        <source>unknown</source>
+        <translation>sconosciuta</translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
+        <translation>Qualità dell&apos;adattamento del modello della polvere: 1 = molto buona, 0 = sconosciuta</translation>
+    </message>
+</context>
+<context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+81"/>
+        <location filename="../src/app/recorddialog.cpp" line="+82"/>
         <source>caliber</source>
         <translation>calibro</translation>
     </message>
@@ -1894,7 +1938,7 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../src/app/recordviewdialog.cpp" line="+41"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+50"/>
         <source>flat base</source>
         <translation>fondello piatto</translation>
     </message>
@@ -2049,7 +2093,12 @@ pressione Δ</translation>
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+39"/>
+        <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
+        <translation>Qualità dell&apos;adattamento del modello della polvere: 1 = molto buona, 0 = sconosciuta</translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Edit…</source>
         <translation>Modifica…</translation>
     </message>
@@ -2072,7 +2121,7 @@ pressione Δ</translation>
 <context>
     <name>ReportTemplateDialog</name>
     <message>
-        <location filename="../src/app/reporttemplatedialog.cpp" line="+27"/>
+        <location filename="../src/app/reporttemplatedialog.cpp" line="+28"/>
         <source>Edit report template</source>
         <translation>Modifica il modello del rapporto</translation>
     </message>
@@ -2355,7 +2404,7 @@ pressione Δ</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+29"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+30"/>
         <source>Your own record (can be changed)</source>
         <translation>Record proprio (modificabile)</translation>
     </message>
@@ -2395,7 +2444,7 @@ pressione Δ</translation>
         <translation>Filtro (tutte le colonne)…</translation>
     </message>
     <message numerus="yes">
-        <location line="+127"/>
+        <location line="+146"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n voce</numerusform>
@@ -2437,7 +2486,7 @@ pressione Δ</translation>
 <context>
     <name>UnitConverterDialog</name>
     <message>
-        <location filename="../src/app/unitconverterdialog.cpp" line="+25"/>
+        <location filename="../src/app/unitconverterdialog.cpp" line="+26"/>
         <source>Length</source>
         <translation>Lunghezza</translation>
     </message>

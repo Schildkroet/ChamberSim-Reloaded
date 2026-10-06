@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Writes the project's propellant records (data/propellants/<manufacturer>.json, see scripts/data/recordfiles.py) from the fits of vv_fit_all.py.
 
-    vv_to_json.py vv_fits.csv --work vv_work [-o data/propellants] [--max-rms 5.2] [--min-samples 80] [--overwrite]
+    vv_to_json.py vv_fits.csv --work vv_work [-o data/propellants] [--max-rms 12] [--min-samples 40] [--overwrite]
 
 Only powders whose fit is good enough are written: velocity error (rms) at most --max-rms percent from at least --min-samples
 samples. The record holds the fitted burn rate Ba and, from Vihtavuori's published table (vv_powder_data.csv): the energy
@@ -16,9 +16,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import recordfiles  # noqa: E402
+from fit_quality import quality  # noqa: E402
 
 TYPICAL = {"a1": 0.0, "k": 1.23, "pc": 1580.0, "pt": 21.0, "tcc": 0.0, "tch": 0.0}  # typical values of nitrocellulose powders
-ORDER = ["mname", "pname", "lotid", "Ba", "Qex", "k", "a0", "a1", "z1", "z2", "pc", "pcd", "pt", "tcc", "tch", "cdate", "origin", "descr"]
+ORDER = ["mname", "pname", "lotid", "Ba", "Qex", "k", "a0", "a1", "z1", "z2", "pc", "pcd", "pt", "tcc", "tch", "Qlty", "cdate", "origin", "descr"]
 
 
 def main() -> int:
@@ -28,8 +29,8 @@ def main() -> int:
     ap.add_argument("--table", type=Path, default=Path(__file__).resolve().parent / "vv_powder_data.csv")
     ap.add_argument("--form", default="0,0.3,0.6", help="form function a0,z1,z2 the fits were made with (vv_fit_all.py --form)")
     ap.add_argument("-o", "--output", type=Path, default=Path("data/propellants"))
-    ap.add_argument("--max-rms", type=float, default=5.2)
-    ap.add_argument("--min-samples", type=int, default=80)
+    ap.add_argument("--max-rms", type=float, default=12.0)
+    ap.add_argument("--min-samples", type=int, default=40)
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args()
     existing = {recordfiles.key(r): r for _, r in recordfiles.read(args.output)}
@@ -50,7 +51,8 @@ def main() -> int:
             t = table[powder]
             rec = {"mname": "Vihtavuori", "pname": powder, "lotid": "", "Ba": round(float(row["Ba"]), 4), "Qex": float(t["energy_J_g"]),
                    "k": TYPICAL["k"], "a0": a0, "a1": TYPICAL["a1"], "z1": z1, "z2": z2, "pc": TYPICAL["pc"], "pcd": float(t["bulk_density_g_l"]),
-                   "pt": TYPICAL["pt"], "tcc": TYPICAL["tcc"], "tch": TYPICAL["tch"], "cdate": date.today().isoformat(),
+                   "pt": TYPICAL["pt"], "tcc": TYPICAL["tcc"], "tch": TYPICAL["tch"],
+                   "Qlty": quality(float(row["rms_fit_%"]), int(row["samples"])), "cdate": date.today().isoformat(),
                    "origin": "Vihtavuori's published powder data (energy content, bulk density) and load tables (scripts/data/loaddata)",
                    "descr": (f"Qex (energy content) and pcd (bulk density) as published by Vihtavuori; grain {t['grain_length_mm']} x "
                              f"{t['grain_diameter_mm']} mm" + (f", {t['nitroglycerine_%']} % nitroglycerine" if t["nitroglycerine_%"] else "") +

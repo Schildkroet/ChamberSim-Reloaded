@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+74"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+77"/>
         <source>All lots</source>
         <translation type="unfinished"></translation>
     </message>
@@ -49,7 +49,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+0"/>
+        <source>Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Sort by:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -79,7 +84,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+144"/>
+        <location line="+152"/>
         <source>%n propellants</source>
         <translation>
             <numerusform>%n propellant</numerusform>
@@ -137,7 +142,7 @@
 <context>
     <name>ChronographImportDialog</name>
     <message>
-        <location filename="../src/app/chronographimportdialog.cpp" line="+50"/>
+        <location filename="../src/app/chronographimportdialog.cpp" line="+51"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -696,12 +701,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+352"/>
+        <location filename="../src/app/mainwindow.cpp" line="+361"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-294"/>
+        <location filename="../src/app/mainwindow.cpp" line="-303"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -746,21 +751,21 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Add a new record to the database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
-        <location line="+326"/>
-        <location line="+177"/>
+        <location line="+36"/>
+        <location line="+319"/>
+        <location line="+178"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-498"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -775,18 +780,38 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
-        <location line="+258"/>
+        <location line="+255"/>
+        <location line="+337"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-254"/>
+        <location line="-591"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-72"/>
+        <source>New load…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open load…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open a load file (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+69"/>
         <source>Save &amp;as…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -823,12 +848,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+9"/>
-        <location line="+465"/>
+        <location line="+466"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-442"/>
+        <location line="-443"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -904,7 +929,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+109"/>
         <source>Change the selected record</source>
         <translation type="unfinished"></translation>
     </message>
@@ -949,7 +974,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+24"/>
         <source>The database cannot be opened.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -959,7 +984,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-596"/>
+        <location line="-605"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1030,17 +1055,17 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-214"/>
+        <location line="-224"/>
         <source>Add a changed copy of the selected record (a double click shows a record and offers this)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+675"/>
         <source>Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="-431"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1051,7 +1076,7 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+92"/>
-        <location line="+302"/>
+        <location line="+303"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -1104,7 +1129,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+39"/>
         <source>New load</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1445,7 +1470,7 @@ Export it anyway?</source>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+67"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+69"/>
         <source>Show only bullets that fit the caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1470,7 +1495,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Load data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1521,7 +1546,7 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+65"/>
+        <location line="+66"/>
         <source>Next &gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1592,7 +1617,7 @@ Export it anyway?</source>
 <context>
     <name>PowderFitDialog</name>
     <message>
-        <location filename="../src/app/powderfitdialog.cpp" line="+49"/>
+        <location filename="../src/app/powderfitdialog.cpp" line="+50"/>
         <source>Fit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1839,9 +1864,28 @@ pressure Δ</source>
     </message>
 </context>
 <context>
+    <name>QualityRow</name>
+    <message>
+        <location filename="../src/app/qualityrow.cpp" line="+18"/>
+        <source>Model quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+10"/>
+        <source>unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+81"/>
+        <location filename="../src/app/recorddialog.cpp" line="+82"/>
         <source>caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1872,7 +1916,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../src/app/recordviewdialog.cpp" line="+41"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+50"/>
         <source>flat base</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2027,7 +2071,12 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+39"/>
+        <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Edit…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2050,7 +2099,7 @@ pressure Δ</source>
 <context>
     <name>ReportTemplateDialog</name>
     <message>
-        <location filename="../src/app/reporttemplatedialog.cpp" line="+27"/>
+        <location filename="../src/app/reporttemplatedialog.cpp" line="+28"/>
         <source>Edit report template</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2333,7 +2382,7 @@ pressure Δ</source>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+29"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+30"/>
         <source>Your own record (can be changed)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2373,7 +2422,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+127"/>
+        <location line="+146"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n entry</numerusform>
@@ -2415,7 +2464,7 @@ pressure Δ</source>
 <context>
     <name>UnitConverterDialog</name>
     <message>
-        <location filename="../src/app/unitconverterdialog.cpp" line="+25"/>
+        <location filename="../src/app/unitconverterdialog.cpp" line="+26"/>
         <source>Length</source>
         <translation type="unfinished"></translation>
     </message>

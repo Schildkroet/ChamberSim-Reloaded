@@ -22,12 +22,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "scripts" / "data"))
 import recordfiles  # noqa: E402
+from fit_quality import quality  # noqa: E402
 
 FORM = {"a0": 0.0, "z1": 0.3, "z2": 0.6}
 BASES = {"single-base": {"Qex": 3800.0, "k": 1.23, "pc": 1580.0}, "double-base": {"Qex": 4300.0, "k": 1.24, "pc": 1620.0}}
 PCD = 900.0
 NAME_FIX = {"HODGDON SUPRFORM": "Hodgdon Superformance"}  # the manual's own abbreviation
-ORDER = ["mname", "pname", "lotid", "Ba", "Qex", "k", "a0", "a1", "z1", "z2", "pc", "pcd", "pt", "tcc", "tch", "cdate", "origin", "descr"]
+ORDER = ["mname", "pname", "lotid", "Ba", "Qex", "k", "a0", "a1", "z1", "z2", "pc", "pcd", "pt", "tcc", "tch", "Qlty", "cdate", "origin", "descr"]
 
 
 def slug(*parts: str) -> str:
@@ -58,7 +59,7 @@ def main() -> int:
     ap.add_argument("--note", default="", help="added to the description of the records (assumptions about the data)")
     ap.add_argument("--no-pressure", action="store_true", help="fit the velocities only")
     ap.add_argument("--min-samples", type=int, default=40)
-    ap.add_argument("--max-rms", type=float, default=6.0)
+    ap.add_argument("--max-rms", type=float, default=12.0)
     ap.add_argument("--fits", type=Path, help="write all fits to this CSV")
     ap.add_argument("-o", "--output", type=Path, default=ROOT / "data" / "propellants")
     ap.add_argument("--only", help="comma separated powders")
@@ -118,14 +119,16 @@ def main() -> int:
                else f"the type (single/double base) is not published, {best['base']} assumed because it fits the velocities better")
         maker, pname = (args.maker, powder) if args.maker else powder.split(" ", 1)
         rec = {"mname": maker, "pname": pname, "lotid": "", "Ba": round(best["Ba"], 4), "Qex": base["Qex"], "k": base["k"], **FORM, "a1": 0.0,
-               "pc": base["pc"], "pcd": PCD, "pt": 21.0, "tcc": 0.0, "tch": 0.0, "cdate": date.today().isoformat(), "origin": args.source,
+               "pc": base["pc"], "pcd": PCD, "pt": 21.0, "tcc": 0.0, "tch": 0.0,
+               "Qlty": quality(best["v_rms"], best["samples"], None if args.no_pressure else best["p_rms"]),
+               "cdate": date.today().isoformat(), "origin": args.source,
                "descr": (f"Burn rate Ba fitted to {best['samples']} start and maximum loads of the manufacturer's published load data "
                          f"({len(cartridges)} cartridges), velocity error {best['v_rms']:.1f} % rms"
                          + ("" if args.no_pressure else f", pressure error {best['p_rms']:.0f} % rms (published pressures)")
                          + f". Not published and therefore only typical or chosen values: Qex ({how}), k, material density pc, bulk density pcd, "
                            "and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
                          + (f" {args.note}" if args.note else "")
-                         + (" Fewer data or a poorer fit than most other records: use with more caution."
+                         + (" Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
                             if best["samples"] < 40 or best["v_rms"] > 5.5 else ""))}
         if recordfiles.key(rec) in existing and not args.overwrite:
             continue

@@ -1,9 +1,18 @@
 #include "selectrecorddialog.h"
 
+#include "qualityrow.h"
+#include "screenfit.h"
+
 #include <QCheckBox>
 #include <QDialogButtonBox>
+#include <QHBoxLayout>
+#include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+#include <algorithm>
+
+using namespace Qt::StringLiterals;
 
 SelectRecordDialog::SelectRecordDialog(const grt::Database &db, grt::Table table, const QString &title, QWidget *parent)
     : QDialog(parent)
@@ -11,10 +20,13 @@ SelectRecordDialog::SelectRecordDialog(const grt::Database &db, grt::Table table
     , m_buttons(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel))
 {
     setWindowTitle(title);
-    resize(980, 600);
+    resizeWithinScreen(this, {980, 600});
     m_browser->setDatabase(&db);
     auto *layout = new QVBoxLayout(this);
     layout->addWidget(m_browser, 1);
+    if (table ==
+        grt::Table::Propellant)  // the quality of the selected powder's model, always visible (the table's column may be scrolled away)
+        layout->addWidget(m_qualityRow = new QualityRow);
     layout->addWidget(m_buttons);
     connect(m_buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(m_buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
@@ -59,5 +71,6 @@ bool SelectRecordDialog::select(int id)
 
 void SelectRecordDialog::updateOk()
 {
+    if (m_qualityRow) m_qualityRow->setQuality(m_browser->currentNumber(u"Qlty"_s), m_browser->currentId() >= 0);
     m_buttons->button(QDialogButtonBox::Ok)->setEnabled(m_browser->currentId() >= 0);
 }

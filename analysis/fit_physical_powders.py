@@ -2,7 +2,7 @@
 """Fits the physical burn values (Ba, a0, z1, z2) of the project's powders for the physical model and writes data/physical/propellants.json.
 
     fit_physical_powders.py <grt_eval> samples.csv [samples2.csv ...] [--out FILE] [--split train|all] [--min-samples 40]
-                            [--pressure-weight 1.0] [--start FILE] [--fit form|ba] [--form a0,z1,z2]
+                            [--pressure-weight 1.0] [--only N110,N120 --merge] [--start FILE] [--fit form|ba] [--form a0,z1,z2]
 
 For every powder of data/propellants with at least --min-samples rows in the sample files (scripts/data/loaddata): Ba, a0, z1 and z2 are fitted
 to the velocities and, where published, the measured pressures (relative errors, robust loss) with the physical model's constants
@@ -24,6 +24,8 @@ ap.add_argument("--pressure-weight", type=float, default=1.0)
 ap.add_argument("--start", default="", help="earlier output: start values per powder")
 ap.add_argument("--fit", choices=["form", "ba"], default="form", help="form: Ba, a0, z1, z2 (powders with pressures); ba: only Ba")
 ap.add_argument("--form", default="0.45,0.27,0.62", help="a0,z1,z2 for --fit ba")
+ap.add_argument("--only", help="comma separated powders (product name or \"maker name\"): fit only these")
+ap.add_argument("--merge", action="store_true", help="keep the other powders of the existing --out file (with --only: refit some, e.g. new records)")
 ap.add_argument("--eval-arg", action="append", default=[], help="extra option for grt_eval (repeatable), e.g. --eval-arg=--ps-handgun=150")
 args = ap.parse_args()
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
@@ -111,7 +113,8 @@ def run(powder, with_form, form=(0.0, 0.3, 0.6)):
     burn = fit(powder, train, x0 if with_form else x0[:1], form)
     return powder, burn, stats(powder, burn, train), stats(powder, burn, test)
 
-candidates = [p for p, rs in by_powder.items() if len(rs) >= args.min_samples]
+only = {o.strip().lower() for o in args.only.split(",")} if args.only else None
+candidates = [p for p, rs in by_powder.items() if len(rs) >= args.min_samples and (only is None or p in only or records[p]["pname"].lower() in only)]
 with_p = [p for p in candidates if sum(1 for r in by_powder[p] if r["pressure_bar"]) >= 20] if args.fit == "form" else []
 without_p = [p for p in candidates if p not in with_p]
 print(f"{len(candidates)} powders ({len(with_p)} with pressures), held-out cartridges: {len(held_out)}", flush=True)
@@ -146,6 +149,10 @@ for powder in sorted(results):
                                "record": {k: rec[k] for k in ("Ba", "a0", "z1", "z2")},
                                "Ba": round(burn[0], 6), "a0": round(burn[1], 6), "z1": round(burn[2], 6), "z2": round(burn[3], 6),
                                "form": "fitted" if powder in with_p else "median", "fit": tr, **({"heldOut": te} if te else {})})
+if args.merge and os.path.exists(args.out):
+    kept = {(p["mname"] + " " + p["pname"]).lower(): p for p in json.load(open(args.out))["propellants"]}
+    kept.update({(p["mname"] + " " + p["pname"]).lower(): p for p in out["propellants"]})
+    out["propellants"] = [kept[k] for k in sorted(kept)]
 os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
 json.dump(out, open(args.out, "w"), indent=1)
 print("written", args.out)

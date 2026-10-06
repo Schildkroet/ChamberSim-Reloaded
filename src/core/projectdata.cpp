@@ -91,6 +91,8 @@ QStringList check(Table t, const QVariantMap &record, const Schema &schema)
     {
         const double z1 = record.value(u"z1"_s).toDouble(), z2 = record.value(u"z2"_s).toDouble();
         if (!(z1 > 0.0 && z1 < z2 && z2 < 1.0)) problems << u"the transition limits need 0 < z1 < z2 < 1"_s;
+        if (const double q = record.value(u"Qlty"_s).toDouble(); q < 0.0 || q > 1.0)
+            problems << u"\"Qlty\" (quality) must be between 0 and 1"_s;
     }
     return problems;
 }

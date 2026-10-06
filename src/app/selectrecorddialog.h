@@ -7,6 +7,7 @@
 
 class QCheckBox;
 class QDialogButtonBox;
+class QualityRow;
 
 // Pick one record of a database table (caliber, projectile or propellant).
 class SelectRecordDialog : public QDialog
@@ -32,4 +33,5 @@ private:
     QCheckBox *m_reset{nullptr};
     QDialogButtonBox *m_buttons;
     QString m_condition;
+    QualityRow *m_qualityRow{nullptr};  // propellants: the fit quality of the selected record
 };

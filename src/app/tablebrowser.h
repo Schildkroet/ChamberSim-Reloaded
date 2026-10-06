@@ -32,6 +32,8 @@ public:
     // Row id (primary key) of the selected row, or -1.
     [[nodiscard]] int currentId() const;
 
+    // A numeric column of the selected row (0 when nothing is selected or the table has no such column).
+    [[nodiscard]] double currentNumber(const QString &column) const;
     // Reads the table again (after records were added or changed), keeping the selection if possible.
     void refresh();
 

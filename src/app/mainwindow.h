@@ -52,6 +52,8 @@ public:
     void showInputTab(int index);
     // Opens the "New load" dialog (needs an open database).
     void newLoad();
+    // The "Open load" file dialog; opens every chosen file.
+    void openLoadDialog();
 
     // Database tab: the table shown and its selected record.
     [[nodiscard]] grt::Table currentTable() const;
@@ -101,6 +103,7 @@ private:
     QTabWidget *m_tabs;
     QTabWidget *m_dbTabs;
     QPushButton *m_newRecord{nullptr};
+    QPushButton *m_newLoad{nullptr};  // Database tab: New load (the first step at the start)
     QPushButton *m_copyRecord{nullptr};
     QPushButton *m_editRecord{nullptr};
     QPushButton *m_deleteRecord{nullptr};

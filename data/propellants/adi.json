@@ -15,6 +15,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.2,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 207 start and maximum loads of the manufacturer's published load data (25 cartridges), velocity error 6.4 % rms, pressure error 27 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Fewer data or a poorer fit than most other records: use with more caution."
@@ -35,6 +36,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.25,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 1035 start and maximum loads of the manufacturer's published load data (86 cartridges), velocity error 5.4 % rms, pressure error 23 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -55,6 +57,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.25,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 356 start and maximum loads of the manufacturer's published load data (38 cartridges), velocity error 4.9 % rms, pressure error 23 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -75,6 +78,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.25,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 965 start and maximum loads of the manufacturer's published load data (74 cartridges), velocity error 5.3 % rms, pressure error 22 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -95,6 +99,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.45,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 953 start and maximum loads of the manufacturer's published load data (72 cartridges), velocity error 4.5 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -115,6 +120,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.45,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 790 start and maximum loads of the manufacturer's published load data (66 cartridges), velocity error 4.2 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -135,6 +141,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.4,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 543 start and maximum loads of the manufacturer's published load data (44 cartridges), velocity error 4.5 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -155,6 +162,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.4,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 94 start and maximum loads of the manufacturer's published load data (9 cartridges), velocity error 4.3 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -175,6 +183,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.3,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 435 start and maximum loads of the manufacturer's published load data (41 cartridges), velocity error 4.5 % rms, pressure error 18 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -195,6 +204,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.35,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 285 start and maximum loads of the manufacturer's published load data (22 cartridges), velocity error 4.8 % rms, pressure error 16 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -215,6 +225,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.05,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 28 start and maximum loads of the manufacturer's published load data (5 cartridges), velocity error 5.2 % rms, pressure error 19 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Fewer data or a poorer fit than most other records: use with more caution."
@@ -235,6 +246,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.3,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 546 start and maximum loads of the manufacturer's published load data (46 cartridges), velocity error 4.9 % rms, pressure error 18 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
@@ -255,6 +267,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
+    "Qlty": 0.3,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
     "descr": "Burn rate Ba fitted to 672 start and maximum loads of the manufacturer's published load data (54 cartridges), velocity error 4.6 % rms, pressure error 19 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."

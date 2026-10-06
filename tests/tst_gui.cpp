@@ -21,12 +21,16 @@
 #include <QChartView>
 #include <QChart>
 #include <QAbstractAxis>
+#include <QProgressBar>
+#include <QGuiApplication>
+#include <QScreen>
 #include <QPushButton>
 #include <QTabBar>
 #include <QTabWidget>
 #include <QSettings>
 #include <QSqlQuery>
 #include <QStandardPaths>
+#include <QHeaderView>
 #include <QTableView>
 #include <QTableWidget>
 #include <QScopeGuard>
@@ -66,6 +70,8 @@
 #include "propertypanel.h"
 #include "recentfiles.h"
 #include "reportview.h"
+#include "qualityrow.h"
+#include "screenfit.h"
 #include "selectrecorddialog.h"
 #include "session.h"
 #include "settingsdialog.h"
@@ -142,6 +148,10 @@ private slots:
     void ignoredInputsAreNamed();
     void recordDialogDatesAndWidth();
     void recordViewerShowsAllData();
+    void selectPropellantShowsTheQuality();
+    void dialogsFitTheScreen();
+    void startPageHasLoadButtons();
+    void newLoadAndDatabaseShowTheQuality();
     void recordDialogCalculatesTheBoreCrossSection();
     void ownPropellantWithPhotoWorksWithoutTheOriginal();
     void disclaimerAtStartup();
@@ -1022,6 +1032,32 @@ void GuiTest::settingsDialogChangesAndRevertsTheFont()
     appfont::apply(app, system);
 }
 
+void GuiTest::startPageHasLoadButtons()
+{
+    MainWindow w;
+    w.show();
+    auto *create = w.findChild<QPushButton *>(u"newLoadButton"_s);
+    QVERIFY(create);
+    QVERIFY(w.findChild<QPushButton *>(u"openLoadButton"_s));
+    QVERIFY(create->isVisible());
+    // the button opens the New load dialog (the database is open: the own one is always there)
+    QVERIFY(create->isEnabled());
+    bool opened = false;
+    QTimer::singleShot(0,
+                       [&]
+                       {
+                           for (QWidget *top : QApplication::topLevelWidgets())
+                               if (auto *d = qobject_cast<NewLoadDialog *>(top))
+                               {
+                                   opened = true;
+                                   d->reject();
+                               }
+                       });
+    create->click();
+    QVERIFY(opened);
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) w.grab().save(u"%1/startpage.png"_s.arg(shots));
+}
+
 void GuiTest::fileMenuHasSettingsAndPrinting()
 {
     MainWindow w;
@@ -1816,12 +1852,84 @@ void GuiTest::recordViewerShowsAllData()
         // the original's records cannot be changed: the viewer offers a copy
         const bool own = grt::Database::isOwnId(id);
         QVERIFY(view.findChild<QPushButton *>(own ? u"editRecordButton"_s : u"copyRecordButton"_s));
+        if (t == grt::Table::Propellant)  // the fit quality has a bar next to the number
+        {
+            QVERIFY(!view.valueText(u"Qlty"_s).isEmpty());
+            QVERIFY(view.findChild<QProgressBar *>());
+        }
         if (t == grt::Table::Caliber)
         {
             QCOMPARE(view.valueText(u"cipname"_s), record->value(u"cipname"_s).toString());
             QVERIFY(view.valueText(u"L3"_s).contains(QLocale().decimalPoint()));  // the length in mm
         }
     }
+}
+
+void GuiTest::selectPropellantShowsTheQuality()
+{
+    SelectRecordDialog select(m_db, grt::Table::Propellant, u"Select propellant"_s);
+    auto *bar = select.findChild<QProgressBar *>();
+    QVERIFY(bar);
+    auto *browser = select.findChild<TableBrowser *>();
+    const int id = idOf(m_db, grt::Table::Propellant, u"Qlty > 0.5"_s);
+    QVERIFY(id >= 0);
+    QVERIFY(browser->selectId(id));
+    const double quality = m_db.record(grt::Table::Propellant, id)->value(u"Qlty"_s).toDouble();
+    QCOMPARE(bar->value(), qRound(100 * quality));
+    QVERIFY(bar->isVisibleTo(&select));
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+        select.grab().save(u"%1/selectpropellant.png"_s.arg(shots));
+}
+
+void GuiTest::newLoadAndDatabaseShowTheQuality()
+{
+    NewLoadDialog dlg(m_db);
+    auto *row = dlg.findChild<QualityRow *>();
+    QVERIFY(row);
+    auto *bar = row->findChild<QProgressBar *>();
+    QVERIFY(bar);
+    const int cal = idOf(m_db, grt::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
+    const int prj = idOf(m_db, grt::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
+    const int pro = idOf(m_db, grt::Table::Propellant, u"Qlty > 0.5"_s);
+    QVERIFY(dlg.select(cal, prj, pro));
+    QCOMPARE(bar->value(), qRound(100 * m_db.record(grt::Table::Propellant, pro)->value(u"Qlty"_s).toDouble()));
+
+    // in the database list the quality column follows the powder's name
+    TableBrowser browser(grt::Table::Propellant);
+    browser.setDatabase(&m_db);
+    auto *view = browser.findChild<QTableView *>();
+    auto *header = view->horizontalHeader();
+    const auto *model = view->model();
+    const auto visualOf = [&](const QString &column)
+    {
+        for (int c = 0; c < model->columnCount(); ++c)
+            if (model->headerData(c, Qt::Horizontal).toString() == column) return header->visualIndex(c);
+        return -1;
+    };
+    QVERIFY(visualOf(u"pname"_s) >= 0);
+    QCOMPARE(visualOf(u"Qlty"_s), visualOf(u"pname"_s) + 1);
+}
+
+void GuiTest::dialogsFitTheScreen()
+{
+    const QRect area = QGuiApplication::primaryScreen()->availableGeometry();
+    const auto check = [&](QDialog &d, const char *name) { QVERIFY2(d.width() <= area.width() && d.height() <= area.height(), name); };
+    SelectRecordDialog select(m_db, grt::Table::Propellant, u"x"_s);
+    check(select, "select");
+    BurnRateDialog burn(m_db);
+    check(burn, "burn rate");
+    for (const grt::Table t : grt::kRecordTables)
+    {
+        const int id = idOf(m_db, t, u"1=1"_s);
+        RecordViewDialog view(m_db, t, id, *m_db.record(t, id));
+        check(view, "record view");
+        RecordDialog edit(m_db, t, RecordDialog::Mode::Copy, *m_db.record(t, id));
+        check(edit, "record edit");
+    }
+    // a small screen: the sizes are capped, whatever the dialog asks for
+    QDialog big;
+    resizeWithinScreen(&big, {area.width() * 3, area.height() * 3});
+    check(big, "capped");
 }
 
 void GuiTest::recordDialogDatesAndWidth()
@@ -1857,7 +1965,7 @@ void GuiTest::recordDialogDatesAndWidth()
     for (const grt::Table t : {grt::Table::Projectile, grt::Table::Propellant})
     {
         RecordDialog dlg(m_db, t, RecordDialog::Mode::New);
-        QCOMPARE_GE(dlg.width(), 800);
+        QCOMPARE_GE(dlg.width(), std::min(800, static_cast<int>(QGuiApplication::primaryScreen()->availableGeometry().width() * 0.95)));
     }
 }
 

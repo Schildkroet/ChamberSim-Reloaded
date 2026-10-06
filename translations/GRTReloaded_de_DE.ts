@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+74"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+77"/>
         <source>All lots</source>
         <translation>Alle Chargen</translation>
     </message>
@@ -49,7 +49,12 @@
         <translation>Kombiniert (Brp)</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+0"/>
+        <source>Quality</source>
+        <translation>Qualität</translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Sort by:</source>
         <translation>Sortieren nach:</translation>
     </message>
@@ -79,7 +84,7 @@
         <translation>Die Tabelle gibt nur einen groben Überblick, wie sich die Pulver verschiedener Hersteller vergleichen. Sie sagt nichts darüber aus, wie sich ein Pulver im Druckverlauf einer bestimmten Ladung verhält: Pulver auf gleicher Höhe sind kein 1:1-Ersatz.</translation>
     </message>
     <message numerus="yes">
-        <location line="+144"/>
+        <location line="+152"/>
         <source>%n propellants</source>
         <translation>
             <numerusform>%n Pulver</numerusform>
@@ -137,7 +142,7 @@
 <context>
     <name>ChronographImportDialog</name>
     <message>
-        <location filename="../src/app/chronographimportdialog.cpp" line="+50"/>
+        <location filename="../src/app/chronographimportdialog.cpp" line="+51"/>
         <source>Import chronograph file</source>
         <translation>Chronograph-Datei importieren</translation>
     </message>
@@ -698,12 +703,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+352"/>
+        <location filename="../src/app/mainwindow.cpp" line="+361"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-294"/>
+        <location filename="../src/app/mainwindow.cpp" line="-303"/>
         <source>Calibers</source>
         <translation>Kaliber</translation>
     </message>
@@ -748,7 +753,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Den gewählten Datensatz als Datei speichern, um ihn zur Projektdatenbank beizutragen (siehe CONTRIBUTING.md)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Add a new record to the database</source>
         <translation>Einen neuen Datensatz zur Datenbank hinzufügen</translation>
     </message>
@@ -758,16 +763,16 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Eine geänderte Kopie des gewählten Datensatzes anlegen (ein Doppelklick zeigt einen Datensatz und bietet dies an)</translation>
     </message>
     <message>
-        <location line="+18"/>
-        <location line="+326"/>
-        <location line="+177"/>
+        <location line="+35"/>
+        <location line="+319"/>
+        <location line="+178"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-498"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -782,23 +787,43 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Ladung ö&amp;ffnen…</translation>
     </message>
     <message>
-        <location line="+4"/>
-        <location line="+258"/>
+        <location line="+255"/>
+        <location line="+337"/>
         <source>Open load</source>
         <translation>Ladung öffnen</translation>
     </message>
     <message>
-        <location line="-257"/>
+        <location line="+1"/>
         <source>Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation>Ladungen (*.grtreload *.grtload);;GRT-Reloaded-Ladungen (*.grtreload);;Original-GRT-Ladungen (*.grtload);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-592"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-72"/>
+        <source>New load…</source>
+        <translation>Neue Ladung…</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
+        <translation>Eine Ladung aus Kaliber, Geschoss und Pulver erstellen (%1)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open load…</source>
+        <translation>Ladung öffnen…</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Open a load file (%1)</source>
+        <translation>Eine Ladungsdatei öffnen (%1)</translation>
+    </message>
+    <message>
+        <location line="+69"/>
         <source>Save &amp;as…</source>
         <translation>Speichern &amp;unter…</translation>
     </message>
@@ -835,12 +860,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+9"/>
-        <location line="+465"/>
+        <location line="+466"/>
         <source>Cannot write %1</source>
         <translation>%1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location line="-461"/>
+        <location line="-462"/>
         <source>Overlay &amp;reference result…</source>
         <translation>&amp;Referenzergebnis überlagern…</translation>
     </message>
@@ -964,14 +989,14 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+39"/>
-        <location line="+302"/>
+        <location line="+303"/>
         <source>Cannot read %1:
 %2</source>
         <translation>%1 kann nicht gelesen werden:
 %2</translation>
     </message>
     <message>
-        <location line="-285"/>
+        <location line="-286"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Die Datenbank %1 kann nicht geöffnet werden:
@@ -1009,7 +1034,7 @@ Die originale GordonsReloadingTool.db ist verschlüsselt; wählen Sie eine entsc
         <translation>Keine Originaldatenbank (wählen unter Datei ▸ Einstellungen…): %1</translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+108"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Nur eigene Datensätze können geändert werden: eine Kopie erstellen</translation>
     </message>
@@ -1109,7 +1134,7 @@ Trotzdem exportieren?</translation>
         <translation>Als eigener Datensatz gespeichert: %1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+24"/>
         <source>New load</source>
         <translation>Neue Ladung</translation>
     </message>
@@ -1461,7 +1486,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+67"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+69"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Nur Geschosse anzeigen, die zum Kaliber passen</translation>
     </message>
@@ -1486,7 +1511,7 @@ Trotzdem exportieren?</translation>
         <translation>3. Pulver</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+32"/>
         <source>Load data</source>
         <translation>Ladedaten</translation>
     </message>
@@ -1537,7 +1562,7 @@ Trotzdem exportieren?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+65"/>
+        <location line="+66"/>
         <source>Next &gt;</source>
         <translation>Weiter &gt;</translation>
     </message>
@@ -1608,7 +1633,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>PowderFitDialog</name>
     <message>
-        <location filename="../src/app/powderfitdialog.cpp" line="+49"/>
+        <location filename="../src/app/powderfitdialog.cpp" line="+50"/>
         <source>Fit</source>
         <translation>Anpassen</translation>
     </message>
@@ -1861,9 +1886,28 @@ Druck Δ</translation>
     </message>
 </context>
 <context>
+    <name>QualityRow</name>
+    <message>
+        <location filename="../src/app/qualityrow.cpp" line="+18"/>
+        <source>Model quality:</source>
+        <translation>Modellqualität:</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+10"/>
+        <source>unknown</source>
+        <translation>unbekannt</translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
+        <translation>Qualität der Anpassung des Pulvermodells: 1 = sehr gut, 0 = unbekannt</translation>
+    </message>
+</context>
+<context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+81"/>
+        <location filename="../src/app/recorddialog.cpp" line="+82"/>
         <source>caliber</source>
         <translation>Kaliber</translation>
     </message>
@@ -1894,7 +1938,7 @@ Druck Δ</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../src/app/recordviewdialog.cpp" line="+41"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+50"/>
         <source>flat base</source>
         <translation>Flachboden</translation>
     </message>
@@ -2049,7 +2093,12 @@ Druck Δ</translation>
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+39"/>
+        <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
+        <translation>Qualität der Anpassung des Pulvermodells: 1 = sehr gut, 0 = unbekannt</translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Edit…</source>
         <translation>Bearbeiten…</translation>
     </message>
@@ -2072,7 +2121,7 @@ Druck Δ</translation>
 <context>
     <name>ReportTemplateDialog</name>
     <message>
-        <location filename="../src/app/reporttemplatedialog.cpp" line="+27"/>
+        <location filename="../src/app/reporttemplatedialog.cpp" line="+28"/>
         <source>Edit report template</source>
         <translation>Berichtsvorlage bearbeiten</translation>
     </message>
@@ -2355,7 +2404,7 @@ Druck Δ</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+29"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+30"/>
         <source>Your own record (can be changed)</source>
         <translation>Eigener Datensatz (änderbar)</translation>
     </message>
@@ -2395,7 +2444,7 @@ Druck Δ</translation>
         <translation>Filter (alle Spalten)…</translation>
     </message>
     <message numerus="yes">
-        <location line="+127"/>
+        <location line="+146"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n Eintrag</numerusform>
@@ -2437,7 +2486,7 @@ Druck Δ</translation>
 <context>
     <name>UnitConverterDialog</name>
     <message>
-        <location filename="../src/app/unitconverterdialog.cpp" line="+25"/>
+        <location filename="../src/app/unitconverterdialog.cpp" line="+26"/>
         <source>Length</source>
         <translation>Länge</translation>
     </message>

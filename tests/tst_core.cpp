@@ -1395,7 +1395,7 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
         f.write(text);
     };
     write(u"propellants/acme-p1.json"_s, R"({"mname": "Acme", "pname": "P1", "Ba": 0.6, "Qex": 3900, "k": 1.22, "a0": 1.1,
-        "z1": 0.45, "z2": 0.8, "pc": 1600, "pcd": 900, "pt": 21})");
+        "z1": 0.45, "z2": 0.8, "pc": 1600, "pcd": 900, "pt": 21, "Qlty": 0.65})");
     write(u"propellants/broken.json"_s, R"({"mname": "Acme", "pname": "P2", "Ba": "fast", "Qex": 3900})");
     write(u"propellants/not-json.json"_s, "this is not json");
     write(u"calibers/unknown-column.json"_s, R"({"cipname": "X", "L3": 50, "V": 60, "colour": "red"})");
@@ -1449,11 +1449,18 @@ void CoreTest::projectRecordsArePartOfTheDatabase()
     QVERIFY(exported != again.records.end());
     QCOMPARE(exported->value(u"Ba"_s).toDouble(), 0.6);
     QCOMPARE(exported->value(u"pname"_s).toString(), u"P1"_s);
+    QCOMPARE(exported->value(u"Qlty"_s).toDouble(), 0.65);  // the fit quality
 
     // the model needs plausible values
     QVariantMap bad = *exported;
     bad.insert(u"z1"_s, 0.9);
     QVERIFY(grt::projectdata::check(grt::Table::Propellant, bad, schema).join(u' ').contains(u"z1 < z2"_s));
+    QVariantMap badQuality = *exported;
+    for (const double q : {-0.1, 1.5})
+    {
+        badQuality.insert(u"Qlty"_s, q);
+        QVERIFY(grt::projectdata::check(grt::Table::Propellant, badQuality, schema).join(u' ').contains(u"Qlty"_s));
+    }
     grt::Database::setProjectDataLocation(u":/data"_s);
 }
 
@@ -1510,6 +1517,21 @@ void CoreTest::powderFitFindsTheBurnRate()
     QCOMPARE_LT(std::abs(res.after[0] / trueBa - 1.0), 0.002);
     QCOMPARE_LT(res.velocityRmsAfter, 0.001);
     QCOMPARE_GT(res.velocityRmsBefore, 0.01);
+
+    // the quality of the fit: a good fit of few charges is not top quality, a bad fit is low, none is unknown
+    QCOMPARE(grt::powderfit::fitQuality(res), 0.05);  // ~0 % error, but 3 of 100 charges
+    grt::powderfit::Result r;
+    QCOMPARE(grt::powderfit::fitQuality(r), 0.0);
+    r.samples.resize(200);
+    r.velocityRmsAfter = 0.0;
+    QCOMPARE(grt::powderfit::fitQuality(r), 1.0);
+    r.velocityRmsAfter = 0.04;
+    QCOMPARE(grt::powderfit::fitQuality(r), 0.6);
+    r.velocityRmsAfter = 0.2;  // beyond 10 %: the lowest grade, not "unknown"
+    QCOMPARE(grt::powderfit::fitQuality(r), 0.05);
+    r.velocityRmsAfter = 0.0;
+    r.pressureRmsAfter = 0.1;  // mean of 1.0 and 0.5
+    QCOMPARE(grt::powderfit::fitQuality(r), 0.75);
 
     // the fitted value goes into the load
     grt::powderfit::apply(lf->propellant, res);

@@ -41,8 +41,9 @@ use the best, a0 = 0, z1 = 0.3, z2 = 0.6. Pressure data would be needed to deter
 Plausibility check: Ba divided by the published relative burn rate is nearly constant for the N130-N170 series (0.0137-0.0155).
 
 `vv_fit_all.py --table vv_powder_data.csv --form 0,0.3,0.6` fits all 29 powders (`vv_fits.csv`); `vv_to_json.py` writes the records of the
-powders with at most 5.2 % error from at least 80 samples (the 16 rifle powders). The pistol and double-base powders fit worse
-(8-22 % for N310 - N350 and 3N37) because of the model at low pressure and are not included.
+powders with at most 12 % error from at least 40 samples (`--max-rms`, `--min-samples`; 26 powders). The pistol and double-base powders fit worse
+(8-12 % for N320 - N350 and 3N37) because of the model at low pressure: their `Qlty` is low (0.05-0.15). Not written: N310 (36 samples, 22 %),
+N32C (10) and 20N29 (18).
 
 ## Lovex and Reload Swiss (with pressures)
 
@@ -243,3 +244,10 @@ Records for Alliant Red Dot, Green Dot, Blue Dot, Unique, Herco, Promo, American
 limit of the fit), 410, 2400 and Power Pro 300-MP (1-16 loads, and the .410 and the 2 3/4" 20 gauge hull data do not constrain them). The model's powder space and
 friction constants are the same for every gauge; the gauge-dependent pressure bias of the 20 and 16 gauge loads suggests they would need their own factor, but 13-79
 loads are too few to fit one.
+
+## Quality of a fit
+
+Every record written by `vv_to_json.py`, `published_fit.py` and `grt_fitpowder --out` gets the propellant column `Qlty` (the original's
+"Model quality", 0..1 in steps of 0.05, 0 = unknown): `(1 - velocity rms / 10 %)`, with pressures averaged with `(1 - pressure rms / 20 %)`,
+times `min(1, loads / 100)`. `scripts/data/fit_quality.py` and `powderfit::fitQuality` (`src/core/powderfit.cpp`) are the two implementations.
+The existing records were graded from the numbers in their descriptions (N150: 0.55-0.7, the Lovex powders with 20 loads and 7 % error: 0.05-0.2).

@@ -95,6 +95,11 @@ struct Result
 void apply(EntryList &propellant, const Result &result);
 void apply(EntryList &propellant, const std::vector<Result> &results);
 
+// Quality of a fit (the propellant column Qlty, 0..1 in steps of 0.05, like the original's): falls with the velocity error (0 at
+// 10 %) and the pressure error (0 at 20 %, only with pressure measurements) and with fewer than 100 charges, at least 0.05. 0 (unknown) without charges.
+// Python twin: scripts/data/fit_quality.py.
+[[nodiscard]] double fitQuality(const Result &result);
+
 // A propellant record (database columns of `schema`) from a load's propellant section with the fitted values:
 // reference temperature 21 degC (the fitted Ba refers to it), the photos of the powder (Database::insert copies them
 // into the own database), the description `descr` and the date.

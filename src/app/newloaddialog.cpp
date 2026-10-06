@@ -1,5 +1,7 @@
 #include "newloaddialog.h"
 
+#include "qualityrow.h"
+#include "screenfit.h"
 #include "buttonstyle.h"
 #include "unitprefs.h"
 
@@ -74,7 +76,7 @@ NewLoadDialog::NewLoadDialog(const grt::Database &db, QWidget *parent)
     , m_buttons(new QDialogButtonBox(QDialogButtonBox::Cancel))
 {
     setWindowTitle(tr("New load"));
-    resize(1100, 640);
+    resizeWithinScreen(this, {1100, 640});
 
     const std::array titles{tr("1. Caliber"), tr("2. Projectile"), tr("3. Propellant")};
     for (std::size_t i = 0; i < grt::kRecordTables.size(); ++i)
@@ -89,6 +91,15 @@ NewLoadDialog::NewLoadDialog(const grt::Database &db, QWidget *parent)
             m_matchDiameter->setChecked(true);
             l->addWidget(m_matchDiameter);
             l->addWidget(m_browsers[i], 1);
+            m_tabs->addTab(page, titles[i]);
+        }
+        else if (i == 2)  // the quality of the selected powder below the list
+        {
+            auto *page = new QWidget;
+            auto *l = new QVBoxLayout(page);
+            l->setContentsMargins(0, 0, 0, 0);
+            l->addWidget(m_browsers[i], 1);
+            l->addWidget(m_quality = new QualityRow);
             m_tabs->addTab(page, titles[i]);
         }
         else
@@ -177,6 +188,7 @@ void NewLoadDialog::onSelectionChanged()
     }
     if (m_caliber != oldCaliber) m_projectile = fetch(grt::Table::Projectile, 1);
 
+    if (m_quality) m_quality->setQuality(m_browsers[2]->currentNumber(QStringLiteral("Qlty")), m_propellant.has_value());
     updateSummary();
     m_next->setEnabled(m_pages->currentIndex() == 1 || (m_caliber && m_projectile && m_propellant));
 }
