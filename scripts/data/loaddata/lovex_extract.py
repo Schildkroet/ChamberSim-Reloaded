@@ -23,9 +23,24 @@ POWDER = re.compile(r"^\s*([SD]\d{3}(?:\.\d)?)\s+((?:[\d.]+\s+){9}[\d.]+)(?:\s+(
 COL_ONLY = re.compile(r"\s([\d.]+)\s*mm\s*$")
 
 
+def normalize(text: str) -> str:
+    """The Czech edition of the 2020 guide (EXPLOSIA_reloading2020_cz.pdf) has the same tables as the English one, with Czech headings
+    and decimal commas: translated to the English layout that parse() reads. Other text is returned unchanged."""
+    if "DATA PRO KULOVNICE" not in text:
+        return text
+    text = re.sub(r"(\d),(\d)", r"\1.\2", text)
+    text = text.replace("DATA PRO KULOVNICE", "RIFLE DATA", 1)  # the first one starts the rifle section (pistol data come first)
+    text = re.sub(r"D[ée]lka hlavn[ěe]:", "Barrel Length:", text)
+    text = re.sub(r"Max\. d[ée]lka n[áa]boje:", "Max. Cartridge Length:", text)
+    text = re.sub(r"\bStřela\s+Doporučené navážky", "Bullet      Recommended Loads", text)
+    text = re.sub(r"\s{2,}Navážka\b", "   Powder Charge", text, count=0)
+    text = re.sub(r"\(pokračování\)", "(continued)", text)
+    return re.sub(r"(\d)\s*gr\s*$", r"\1 grs", text, flags=re.M)
+
+
 def parse(text: str):
     """Yields dicts: cartridge, barrel, maxcol, maker, btype, mass_g, grains, col, powder, numbers."""
-    lines = text.splitlines()
+    lines = normalize(text).splitlines()
     start = next(i for i, l in enumerate(lines) if l.strip() == "RIFLE DATA")
     cart = barrel = maxcol = None
     blk = None
@@ -56,7 +71,7 @@ def parse(text: str):
         if m:
             blk["mass_g"] = float(m[1])
             continue
-        m = re.match(r"\s*(\d+)\s*grs\b", line)
+        m = re.match(r"\s*(\d+)\s*grs?\b", line)
         if m:
             blk["grains"] = float(m[1])
             continue

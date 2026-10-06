@@ -64,8 +64,11 @@ Both publish measured pressures with every load, so `grt_fitdata --use-pressure`
 
 | Powder | Samples | Ba | Velocity rms | Pressure rms |
 |---|---|---|---|---|
-| Lovex S060 / S062 / S065 / S070 / S071 | 162 / 198 / 194 / 122 / 44 | 0.855 / 0.695 / 0.637 / 0.553 / 0.540 | 3.2 / 4.5 / 3.8 / 5.4 / 4.6 % | 10-17 % |
-| Lovex D073.4 / .5 / .6 | 68 / 68 / 146 | 0.657 / 0.646 / 0.599 | 3.9 / 4.0 / 3.7 % | 11.5 % |
+| Lovex S060 / S062 / S065 / S070 / S071 | 153 / 190 / 187 / 127 / 41 | 0.859 / 0.698 / 0.641 / 0.554 / 0.545 | 3.3 / 4.5 / 3.9 / 5.3 / 4.8 % | 11-17 % |
+| Lovex D073.4 / .5 / .6 | 62 / 61 / 139 | 0.659 / 0.646 / 0.601 | 3.8 / 3.8 / 3.6 % | 11.5-11.8 % |
+
+The Lovex rows were refitted (2026-10-06) to the 2016 and the 2020 guide together (identical loads count once; the samples are the fitted ones, loads whose charge is too
+high for the case are left out), with the physical values of the eight Lovex powders (`fit_physical_powders.py --only ... --merge`). D063 (7.4 % velocity error) keeps its record.
 | Reload Swiss RS50 / 52 / 60 / 62 / 70 / 76 | 184 / 206 / 294 / 246 / 228 / 88 | 0.536 / 0.553 / 0.501 / 0.454 / 0.437 / 0.368 | 4.9 / 5.6 / 5.2 / 6.2 / 4.7 / 5.4 % | 14-21 % |
 
 The burn rates order as the manufacturers describe their powders (D073.4 faster than .5 faster than .6; S060 > S062 > S065 > S070).
@@ -137,6 +140,7 @@ extractors above (re-made 2026-10-04, ready for `fit_physical_powders.py`, `cali
 | Hodgdon Reloading Manual 2024 | `pdf/Hodgdon_Reloading_Manual_2024.pdf` | hodgdonpowderco.com/wp-content/uploads/2025/10/Hodgdon_Reloading_Manual_2024.pdf |
 | Western Powders Handloading Guide 8.0 | `pdf/WesternPowdersHandloadingGuide8.0_WEB-1.pdf` | provided by the user |
 | Lovex rifle data (Explosia, reloading_Lovex_EN_37) | `pdf/Lovex_reloading_EN_37_rifle.pdf` | www.reloading.co.uk/trade/lovex.pdf (explosia.cz refuses automated requests) |
+| Lovex rifle data 2020 (Explosia, Czech edition; `lovex_extract.py` translates its headings) | `pdf/Lovex_EXPLOSIA_reloading2020_cz.pdf` | provided by the user (explosia.cz); 1,102 samples, 79 loads more than the 2016 guide (D063 +6, S071 +4, S040 / S053 unchanged) |
 | Reload Swiss loading data | `pdf/rs_loading_data_page.html` | www.reload-swiss.com/en/loading-data/rs-loading-data |
 | Vihtavuori reloading database | `vv_cache/vv_data.json` | vihtavuori.com/reloading-data/reloading-data-tool/ |
 | ADI Powders rifle and pistol data | `adi_rifle_pages/`, `adi_pistol_pages/` | adiworldclass.com.au/data-rifle/, /data-pistol/ |
