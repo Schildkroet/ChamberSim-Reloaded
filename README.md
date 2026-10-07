@@ -417,8 +417,9 @@ Stored with `QSettings` (organization and application name `GRTReloaded`): on Li
   number of curve points); the primer lights the powder, the burning spreads over the grains (flame spread, about 0.3 ms) and the bullet
   starts at the start pressure; covolume of the gas (x eta) and volume of the unburnt powder (1 / pc); engraving, friction of the bearing
   surface (bullet length), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
-  and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show heat and friction
-  loss; a bullet that cannot leave the barrel is reported.
+  and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show the heat loss and
+  the work of the sliding friction (the engraving and the air act on the bullet but are not part of that value); a bullet that cannot leave
+  the barrel is reported.
   Its constants and the **physical burn values** of 106 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
   pressures: Hodgdon, Western, Lovex, Reload Swiss, ADI; Vihtavuori and Vectan publish no pressures, their 20 powders have a fitted Ba and the median
   form function of the others) come from `analysis/calibrate_published.py --profile physical` and

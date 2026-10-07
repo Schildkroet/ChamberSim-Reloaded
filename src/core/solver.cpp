@@ -286,6 +286,8 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 // Heat transfer: Dittus-Boelter for turbulent pipe flow, h = factor * 0.023 * lambda * Pr^0.4 * mu^-0.8 * D^-0.2 * (rho u)^0.8 with
 // the gas velocity u = v / 2 + heatVelocity_ms (the turbulence of the burning charge, also before the bullet moves), the gas temperature T = p Vgas / (m_gas R), the wetted surface = powder space (a cylinder as long
 // as the case behind the bullet) + the bore behind the bullet. The reported pressure is the breech pressure of the Lagrange gradient.
+// The friction outputs are the sliding friction (bearing surface + gfriction) and its work over the bore; the engraving and the air are
+// part of the energy balance but not of the friction outputs.
 
 using PhysState = std::array<double, 6>;  // x [m], v [m/s], z, heat loss Q [J], resistance work W [J], time since ignition [s]
 
@@ -563,7 +565,9 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     if (used.sebert <= 0.0) used.sebert = 0.5;
     summarize(res, used, cal, freeVolume_cm3);
     res.frictionForce_N = m.slideForce + m.extraForce;
-    res.muzzleFrictionEnergy_J = y[4];
+    // The work of that force alone: y[4] also holds the work against the engraving and the air, and the sliding friction only acts once
+    // the bullet has crossed the free run, which the reported travel still includes.
+    res.muzzleFrictionEnergy_J = res.frictionForce_N * std::max(0.0, y[0] - (m.x0 + m.jump));
     res.heatLoss_J = y[3];
     return res;
 }
@@ -598,6 +602,7 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
                           in.barrelLength_mm,
                           in.twistLength_mm,
                           in.gunWeight_kg,
+                          in.bulletJump_mm,
                           in.bulletDiameter_mm,
                           in.bulletMass_g,
                           in.bulletLength_mm,
@@ -613,15 +618,21 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
                           in.a1,
                           in.z1,
                           in.z2,
+                          in.covolumeEta,
                           in.density_kgm3,
                           in.bulkDensity_kgm3,
                           in.temperature_C,
                           in.coldCoeff,
                           in.hotCoeff,
+                          in.shotCapacityScale,
+                          in.shotEnergyScale,
                           in.charge_g};
-    const bool inputOk = std::ranges::all_of(all, [](double v) { return std::isfinite(v); }) && steps > 1 && in.boreArea_mm2 > 0.0 &&
-                         in.bulletMass_g > 0.0 && in.charge_g > 0.0 && in.density_kgm3 > 0.0 && in.vivacityBa > 0.0 &&
-                         in.heatQex_kJkg > 0.0 && in.kappa > 1.0 && in.caseVolume_cm3 > 0.0 && xe > x0;
+    // the burn values of the physical model are separate inputs (they replace the load's Ba, a0, z1, z2 in that model)
+    const bool burnOk = !in.physicalBurn || (std::isfinite(in.physicalBurn->Ba) && std::isfinite(in.physicalBurn->a0) &&
+                                             std::isfinite(in.physicalBurn->z1) && std::isfinite(in.physicalBurn->z2));
+    const bool inputOk = std::ranges::all_of(all, [](double v) { return std::isfinite(v); }) && burnOk && steps > 1 &&
+                         in.boreArea_mm2 > 0.0 && in.bulletMass_g > 0.0 && in.charge_g > 0.0 && in.density_kgm3 > 0.0 &&
+                         in.vivacityBa > 0.0 && in.heatQex_kJkg > 0.0 && in.kappa > 1.0 && in.caseVolume_cm3 > 0.0 && xe > x0;
     if (!inputOk) return res;
 
     // The original rejects charges that do not fit: measured on its accepted/rejected loads, the limit is

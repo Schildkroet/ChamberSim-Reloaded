@@ -56,7 +56,7 @@ struct SimResult
     // derived quantities (formulas identified from the original's results)
     double propellantEnergy_J{};      // chemical energy released up to the muzzle: Qex * mc * z
     double frictionForce_N{};         // built-in bullet friction, constant along the barrel
-    double muzzleFrictionEnergy_J{};  // friction work over the whole travel
+    double muzzleFrictionEnergy_J{};  // work of that force over the bore (the physical model's engraving and air work is not part of it)
     double ipscFactor{};              // bullet grains * velocity [ft/s] / 1000
     double mipFactor{};
     double projectileImpulse_Ns{};

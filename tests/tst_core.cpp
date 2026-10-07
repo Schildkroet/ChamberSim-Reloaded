@@ -638,6 +638,9 @@ void CoreTest::physicalModel()
     QVERIFY(r.muzzleEnergy_J + r.heatLoss_J + r.muzzleFrictionEnergy_J < r.propellantEnergy_J);
 
     const auto rel = [](double a, double b) { return qAbs(a / b - 1.0); };
+    // the friction energy is the work of the reported friction force over the bore, without the engraving and the air work
+    QVERIFY(rel(r.muzzleFrictionEnergy_J, r.frictionForce_N * (r.points.back().x_mm - r.points.front().x_mm - in.bulletJump_mm) * 1e-3) <
+            1e-9);
     const grt::SimResult coarse = grt::simulate(in, cal, 200);
     QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-6);
     QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 0.005);  // only the sampling of the peak
@@ -1183,6 +1186,13 @@ void CoreTest::nonFiniteInputIsRejected()
     bad.a0 = 0.5;
     bad.caseVolume_cm3 = std::numeric_limits<double>::infinity();
     QVERIFY(!grt::simulate(bad).ok());
+    bad.caseVolume_cm3 = 4.0;
+    bad.bulletJump_mm = std::numeric_limits<double>::quiet_NaN();  // the jump goes into the chamber volume of both models
+    QVERIFY(!grt::simulate(bad).ok());
+    QVERIFY(!grt::simulate(bad, grt::calibrationFor(grt::CalibrationProfile::Physical)).ok());
+    bad.bulletJump_mm = 0.0;
+    bad.physicalBurn = grt::PhysicalBurn{.Ba = std::numeric_limits<double>::quiet_NaN(), .a0 = 0.5, .z1 = 0.3, .z2 = 0.7};
+    QVERIFY(!grt::simulate(bad, grt::calibrationFor(grt::CalibrationProfile::Physical)).ok());
 }
 
 // Every load the original rejected as "charge too high" is rejected here, and no accepted load is.
