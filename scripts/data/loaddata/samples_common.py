@@ -20,7 +20,8 @@ ALIASES = {"7.5 x 55 Swiss": "7.5 x 55 Suisse", "45 ACP (Auto)": "45 Auto", "300
            "8 X 57MM JS MAUSER": "8 x 57 IS", "7.65 X 53MM MAUSER": "7.65 x 53 Arg.", "6.5 X 284 NORMA": "6.5 - 284 Norma",
            "6.5 X 284 WINCHESTER": "284 Win.", "6MM REMINGTON": "6 mm Rem.", "30 BR REMINGTON": "30 BR", "6MM BR REMINGTON": "6 mm BR Rem.",
            "280 REMINGTON (7MM EXPRESS)": "280 Rem.", "7MM STW (SHOOTING TIMES WESTERNER)": "7 mm STW", "300 RUGER COMPACT MAGNUM (300 RCM)": "300 RCM",
-           "6.5 X 50MM ARISAKA": "6.5 x 50 R", "7.7 X 58MM ARISAKA": "7.7 x 58", "8MM-06": "8 mm-06", "6MM CREEDMOOR": "6 mm Creedmoor"}
+           "6.5 X 50MM ARISAKA": "6.5 x 50 R", "7.7 X 58MM ARISAKA": "7.7 x 58", "8MM-06": "8 mm-06", "6MM CREEDMOOR": "6 mm Creedmoor",
+           ".30-06 Sprg.": "30-06 Spring.", ".300 WSM": "300 Win. Short Mag.", "7,5 x 55": "7.5 x 55 Suisse", "9,3 x 64": "9.3 x 64 Brenneke"}
 
 
 class Records:
