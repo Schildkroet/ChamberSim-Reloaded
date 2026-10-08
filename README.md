@@ -121,7 +121,7 @@ Single loads can deviate much more. Details of the method: `scripts/data/loaddat
 | Other | 1 | 37.5 % | 37.5 % | 2.2 % | 2.2 % | 35.7 % |
 | **All runs** | 349 | 30.2 % | 150.6 % | 4.5 % | 19.6 % | 21.3 % |
 
-_Absolute deviations against 349 runs of the original program; updated 2026-10-05 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute deviations against 349 runs of the original program; updated 2026-10-08 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is
@@ -210,7 +210,10 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   Hornady CX/GMX, lead-free ...) 350 bar. Checked with the physical model against published pressures: copper loads median peak
   pressure error 7.6 -> 6.3 % (no longer 5 % too low), lead loads bias +4 -> -2 %; the original's 150 bar for jacketed handgun bullets
   made those results worse and is not used.
-- **Propellants (144)**: Vihtavuori N130-N170, N530-N570 and, with a low `Qlty`, the pistol and double-base powders N105-N120, N320-N350, 3N37, 3N38 and 24N41 (26), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), ADI AR2205-AR2225 and Bench Mark (13: ADI Powders' rifle data with test barrel, velocities and pressures), Vectan Tubal 3000-8000 (4: from the Nobel Sport catalogue, which publishes no test barrel and no pressures, so a 600 mm barrel is assumed; its handgun powders fit too poorly and are not included), and
+  The physical model starts pistol and revolver cartridges (C.I.P. table IV) with at least 0.3 x the permitted pressure when the barrel is shorter than 400 mm
+  (`handgunStartFraction`, `handgunMaxBarrel_mm`): the published loads of the 9 mm Luger, .40 S&W and .357 Magnum need about 600 bar. The handgun powders'
+  pressure bias went from -17 % to +6 % (rms 30 -> 24 %), rifle cartridges are unchanged.
+- **Propellants (211)**: Vihtavuori N130-N170, N530-N570 and, with a low `Qlty`, the pistol and double-base powders N105-N120, N320-N350, 3N37, 3N38 and 24N41 (26), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), ADI AR2205-AR2225 and Bench Mark (13: ADI Powders' rifle data with test barrel, velocities and pressures), Vectan Tubal 3000-8000 (4: from the Nobel Sport catalogue, which publishes no test barrel and no pressures, so a 600 mm barrel is assumed; its handgun powders fit too poorly and are not included), and
   55 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals; Accurate 4100, Enforcer, H110 and W296 fit
   less well, 6-7 % in velocity, and the Lovex S040, S053 and D063 rest on 9-20 loads: their descriptions say so), and 29 shotgun powders
   (Vectan A24, AS, A1, A0, 206V, GM3, D20, Prima SV and Prima V; Hodgdon Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Winchester Super Handicap and WST, Ramshot Competition; Alliant Red Dot,
@@ -226,8 +229,9 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   density: Qex is a typical value of a single-base (3800 kJ/kg) or double-base (4300 kJ/kg) powder (Lovex: S = single, D = double
   base by name; the others: the type that fits the velocities better), pcd is 900 kg/m3.
   k and the material density are typical values everywhere; the form function (a0, z1, z2) is not published, it is the combination
-  that reproduces the velocities best and the data hardly determine it. Pistol and shotgun powders fitted too poorly and are not
-  included, nor are powders with too few samples. `tools/grt_fitdata` and `scripts/data/loaddata` do the work, see
+  that reproduces the velocities best and the data hardly determine it. Pistol and shotgun powders are included as well (Lovex S011-D037.2, Reload Swiss RS12-RS80,
+  ADI AP/APS, Hodgdon Titegroup, Universal, Clays, HS-6, W231, ..., Vectan A1, AS, Ba6-Ba10; velocity error 7-19 %, pressure error 20-35 %, a low `Qlty`:
+  their descriptions say "use with more caution"), only powders with fewer than 9 samples are not. `tools/grt_fitdata` and `scripts/data/loaddata` do the work, see
   `scripts/data/loaddata/README.md` for the method and the results.
 
 The details, the commands to repeat each step and the limits of the data are in `scripts/data/cipdata/README.md` and

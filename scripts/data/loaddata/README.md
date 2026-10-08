@@ -75,7 +75,7 @@ high for the case are left out), with the physical values of the eight Lovex pow
 The burn rates order as the manufacturers describe their powders (D073.4 faster than .5 faster than .6; S060 > S062 > S065 > S070).
 Fitting a0, z1, z2 as well with the pressures does not help (pressure error 15 % -> 15 %, the parameters run to the limits), so the
 form function stays the chosen one. Handgun powders are written as well, whatever their error (user's decision, 2026-10-08: the 2020 guide's
-handgun tables are read by `lovex_extract.py`; their descriptions say "use with more caution"). Not included: Reload Swiss RS12-RS36 (7-22 % velocity error), Lovex S040, S053,
+handgun tables are read by `lovex_extract.py`; their descriptions say "use with more caution"). Reload Swiss RS12-RS40 and RS80 (7-22 % velocity error) were added 2026-10-08. Not included: Lovex S040, S053,
 D060, D063 (fewer than 40 samples) and RS40 / RS80 (7 / 11 %).
 
 ## RWS (Rottweil powders)
@@ -100,7 +100,8 @@ powder numbers. R906 (1 load) is not written.
 - `published_fit.py a.csv b.csv --source "..." --fits fits.csv --write` merges the files (identical samples count once), fits Ba per
   powder as above and writes the records with at most 6 % velocity error from at least 40 samples (`hodgdon_western_fits.csv` has all).
   The rifle powders fit with 3-5.5 % velocity and 11-25 % pressure error, the pistol and shotgun powders (Titegroup, Universal, Clays, W231,
-  Unique, ...) with 7-20 %: the model is made for rifle pressures, they are not included.
+  Unique, ...) with 7-20 %: the model is made for rifle pressures; they are written as well (decision 2026-10-08), with a low `Qlty` and the
+  "use with more caution" note.
 - The burn rates order as Hodgdon's own burn rate chart (H4198 > H322 > H335 > H4895 > Varget > H4350 > H4831 > H1000 > Retumbo, ...).
 
 Not used: Norma (norma-ammunition.com, one page per cartridge with minimum and maximum charge and velocity): no test barrel and no
@@ -122,7 +123,7 @@ assumed (600 mm rifle, 120 mm handgun) and only velocities are fitted.
   (as the catalogue orders them, 3000 the fastest), velocity error 6.5 / 6.0 / 4.9 / 4.4 %. A rifle barrel 100 mm shorter changes Ba by about
   10 %. Physical model: Ba 1.44 / 1.27 / 1.10 / 0.93 with the median form function, velocity 5.5 / 3.7 / 2.7 / 2.9 %.
 - Handgun powders (Ba6 1/2 ... Ba10, A1, AS): velocity error 10-16 % and Ba that depends strongly on the assumed barrel (Ba9: 2.2 with
-  200 mm, 3.3 with 80 mm): not included, as the other pistol powders.
+  200 mm, 3.3 with 80 mm): included since 2026-10-08 (A1, AS, Ba6 1/2, Ba7 1/2, Ba9, Ba9 1/2, Ba10; the barrel of 120 mm is assumed).
 - Not read: the shotshell tables (pages 27-44, with pressures; A24, AS, A1, A0, 206 SV, 206 V, D20, Prima SV, Prima V, GM3).
 
 ## ADI Powders (Australia)
@@ -135,8 +136,8 @@ samples (3,251 with pressure) of 21 powders on 133 cartridges (the others are no
 
 Fitted with `published_fit.py --min-samples 20 --max-rms 6.5 --min-cartridges 3`: 13 powders (AR2205, AR2206H, AR2207, AR2208, AR2209,
 AR2213SC, AR2217, AR2218, AR2219, AR2225, Bench Mark 1, 2, 8208), velocity error 4.2-6.4 %, pressure error 13-27 %. Physical model
-(`fit_physical_powders.py`, form function fitted from the pressures): velocity 4.6 %, pressure 11 % rms over all 13. Not included: the pistol and
-shotgun powders (AP, AS, Trail Boss, AR2206: 7-13 % velocity error or too few cartridges).
+(`fit_physical_powders.py`, form function fitted from the pressures): velocity 4.6 %, pressure 11 % rms over all 13. The pistol and
+shotgun powders (AP100, AP50N, AP70N, APS350-APS950, AS30N, Trail Boss, AR2206: 8-16 % velocity error) were added 2026-10-08.
 
 `adi_extract.py --weapon pistol` reads the pistol and revolver data of the same site (`/data-pistol/`, 83 cartridges, 2,340 samples of 52 cartridges, 918 with pressure).
 On these loads the powders fitted on rifle data (physical model) come out 0.8 % low in velocity (7.6 % rms) and 13 % low in pressure (18 % rms).
@@ -222,7 +223,7 @@ profile is empirical. `calibrationFor(CalibrationProfile::Published)` in `src/co
 
 `published_fit.py --skip-existing --min-samples 9 --min-cartridges 3 --max-rms 7` looks at the powders that have no record yet. Written: Lovex S040 (9 loads),
 S053 (14), D063 (20; 7.1 %), Accurate 4100, Ramshot Enforcer, Hodgdon H110 and Winchester W296 (125-190 loads, but 6.2-6.9 % velocity error and 25 %
-pressure error; H110 / W296 are magnum handgun powders). Their descriptions say "use with more caution". Not written: the pistol and shotgun powders
+pressure error; H110 / W296 are magnum handgun powders). Their descriptions say "use with more caution". Written 2026-10-08 (the rule is: pistol powders are always included): the pistol and shotgun powders
 (Accurate Nitro 100, No. 2 / 5 / 7 / 9, Hodgdon Titegroup, Universal, Clays, Longshot, HS-6, W231, W244, Trail Boss, ... 8-19 %), Reload Swiss RS12-RS40 and
 RS80 (7-22 %), Hodgdon LVR (11 loads, 2 cartridges), CFE BLK (10.6 %), H4227 / IMR 4227 (8.7 / 8.9 %). `more_*_fits.csv` have the numbers.
 
@@ -268,3 +269,22 @@ Every record written by `vv_to_json.py`, `published_fit.py` and `grt_fitpowder -
 "Model quality", 0..1 in steps of 0.05, 0 = unknown): `(1 - velocity rms / 10 %)`, with pressures averaged with `(1 - pressure rms / 20 %)`,
 times `min(1, loads / 100)`. `scripts/data/fit_quality.py` and `powderfit::fitQuality` (`src/core/powderfit.cpp`) are the two implementations.
 The existing records were graded from the numbers in their descriptions (N150: 0.55-0.7, the Lovex powders with 20 loads and 7 % error: 0.05-0.2).
+
+### Handgun start pressure (2026-10-08)
+
+The Lovex handgun tables (2020 guide) showed that the physical model under-predicts the pressure of high-pressure pistol cartridges and over-predicts
+that of low-pressure ones whatever the burn rate: the start pressure that removes the pressure bias is about 580-620 bar for the 9 mm Luger, 9x21, .40 S&W, 10 mm,
+.357 Magnum / SIG and .44 Magnum and 80-330 bar for the cartridges below 1,600 bar. One burn rate per powder cannot do this (Qex, k and the form function
+trade off against Ba; the pressure error stays at 31 %). `Calibration::handgunStartFraction` (0.3, physical profile) sets the start pressure of C.I.P. table IV
+cartridges to at least 0.3 x the permitted pressure when the barrel is shorter than `handgunMaxBarrel_mm` (400 mm; in rifle barrels the higher value made the
+pressure worse: 44 Rem. Mag. and .357 Magnum from rifle barrels). Physical burn values of the 69 powders with handgun loads refitted. Over all sample rows (rms,
+mean error):
+
+| Group | Loads | Before | After |
+|---|---|---|---|
+| Handgun cartridges, barrel < 400 mm | 5,966 | v 12.2 (-3.8) %, p 30.4 (-17.1) % | v 11.0 (-0.8) %, p 23.6 (+6.5) % |
+| Handgun cartridges, rifle barrel | 167 | v 6.1 %, p 37.6 % | v 6.6 %, p 37.2 % |
+| Rifle cartridges | 33,878 | v 3.9 %, p 14.0 % | v 3.9 %, p 13.9 % |
+
+Open: heavy, large-bore bullets (.45 Auto / Colt / GAP, 10 mm, 38 Special) still come out 9-25 % too fast; .44 Rem. Mag. (-40 % velocity) and 9 mm Makarov
+(-20 %) look like record problems.

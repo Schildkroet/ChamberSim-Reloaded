@@ -589,6 +589,13 @@ double chamberVolume_m3(const SimInput &in, const Calibration &calibration)
 SimResult simulate(const SimInput &in, const Calibration &calibration, int steps)
 {
     const Calibration &cal = effectiveCalibration(in, calibration);
+    if (in.handgun && !in.shotshell && in.barrelLength_mm < cal.handgunMaxBarrel_mm &&
+        cal.handgunStartFraction * in.maxPressure_bar > in.startPressure_bar)
+    {
+        SimInput adjusted = in;
+        adjusted.startPressure_bar = cal.handgunStartFraction * in.maxPressure_bar;
+        return simulate(adjusted, calibration, steps);
+    }
     SimResult res;
     const double x0 = in.startPosition_mm() * 1e-3;
     const double xe = in.barrelLength_mm * 1e-3;
@@ -845,6 +852,8 @@ Calibration calibrationFor(CalibrationProfile profile)
         // 2026-10-04: gasInertiaFactor 0.2, burnExponent -0.15 and ignitionTime 0.3 ms (analysis/scan_physical.py on the loads of all
         // makers, the trends of the error over loading density and bullet mass are gone or small), all powders refitted.
         cal.model = SolverModel::Physical;
+        cal.handgunStartFraction =
+            0.3;  // 2026-10-08: pistol and revolver cartridges start at 0.3 x the permitted pressure (>= the load's own value)
         cal.burnRateScale = 0.84;
         cal.burnSlopeOffset = 1.31191;
         cal.impetusFactor = 1.01833;
@@ -904,6 +913,8 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"burnExponent", &cal.burnExponent},
             {"burnZ0Factor", &cal.burnZ0Factor},
             {"initialGasFactor", &cal.initialGasFactor},
+            {"handgunStartFraction", &cal.handgunStartFraction},
+            {"handgunMaxBarrel_mm", &cal.handgunMaxBarrel_mm},
             {"shotCapacityFactor", &cal.shotCapacityFactor},
             {"shotFrictionShare", &cal.shotFrictionShare},
             {"shotEnergyFactor", &cal.shotEnergyFactor},

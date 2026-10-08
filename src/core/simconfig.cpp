@@ -22,6 +22,7 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.sebert = c.number(u"sebert", in.sebert);
     in.startPressure_bar = c.number(u"ps", in.startPressure_bar);
     in.maxPressure_bar = c.number(u"pMaxZul");
+    in.handgun = lf.caliberFile.text(u"cippdf").contains(u"/tab-iv/") || lf.caliberFile.text(u"ciptype").contains(u"pistol");
     in.shotshell = c.flag(u"shotshell");
     if (in.shotshell)
     {

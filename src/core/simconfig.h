@@ -22,6 +22,7 @@ struct SimInput
     double shotCapacityScale{
         1.0};  // factors of the shell, wad and primer named in the caliber on the shotshell model (shotparts.h; 1: none chosen)
     double shotEnergyScale{1.0};
+    bool handgun{};    // pistol or revolver cartridge (C.I.P. table IV)
     bool shotshell{};  // shotgun cartridge (caliber flag): wad and shot column instead of a bullet
 
     // gun

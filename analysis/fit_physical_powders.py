@@ -57,7 +57,7 @@ header = list(dict.fromkeys(k for r in rows for k in r))
 
 def simulate(name, powder, burn, subset):
     """(velocity, pressure) arrays of the rows of `subset` with the burn values `burn` (Ba, a0, z1, z2); nan where not simulated."""
-    path = os.path.join(tmp, f"{name}.csv")
+    path = os.path.join(tmp, f"{name.replace('/', '_')}.csv")
     with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(subset)
     cmd = [args.eval_exe, path, "--profile", "physical", "--physical", os.path.join(tmp, "none.json"),
