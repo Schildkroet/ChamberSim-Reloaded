@@ -29,7 +29,7 @@
 //
 // Where it comes from: the structure follows the original program's documentation and what its results show; the
 // numbers in Calibration are least-squares fits against reference runs of the original (analysis/calibrate.py,
-// tools/grt_compare.cpp). It is NOT the original's algorithm. Known gaps are listed in the README ("Accuracy").
+// tools/grt_compare.cpp). It is NOT the original's algorithm. Known gaps are listed in docs/ACCURACY.md.
 
 #include "solver.h"
 
@@ -854,6 +854,8 @@ Calibration calibrationFor(CalibrationProfile profile)
         // primerEnergy_J (lower).
         // 2026-10-04: gasInertiaFactor 0.2, burnExponent -0.15 and ignitionTime 0.3 ms (analysis/scan_physical.py on the loads of all
         // makers, the trends of the error over loading density and bullet mass are gone or small), all powders refitted.
+        // 2026-10-08: ignitionTime 0.1 ms, burnExponent -0.05, engravingShare 0.6 (scan_physical.py): published velocity rises with the charge
+        // (start to maximum load) with an elasticity of 0.91, the model had 0.66; start/max velocity bias +1.7 / -0.8 % -> +0.7 / -0.15 %.
         cal.model = SolverModel::Physical;
         cal.handgunStartFraction =
             0.3;  // 2026-10-08: pistol and revolver cartridges start at 0.3 x the permitted pressure (>= the load's own value)
@@ -863,12 +865,12 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.capacityFactor = 1.15;
         cal.gasCovolume_cm3g = 0.8;
         cal.primerEnergy_J = 10.0009;
-        cal.ignitionTime_ms = 0.3;
-        cal.engravingShare = 0.998677;
+        cal.ignitionTime_ms = 0.1;
+        cal.engravingShare = 0.6;
         cal.slideStress_MPa = 0.700469;
         cal.heatTransferFactor = 0.0618079;
         cal.heatVelocity_ms = 169.199;
-        cal.burnExponent = -0.15;
+        cal.burnExponent = -0.05;
         cal.gasInertiaFactor = 0.2;
     }
     return cal;

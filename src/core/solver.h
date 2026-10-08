@@ -97,7 +97,7 @@ enum class SolverModel
 // Tunable constants of the model (see the overview at the top of solver.cpp). The structure of the model (uniform
 // position steps, implicit momentum balance, Sebert mass, initial gas energy, ignition ramp) was identified from
 // reference runs of the original program; the values are least-squares calibrations against those runs
-// (analysis/calibrate.py) and change when the model or the reference data change. The README's accuracy table shows
+// (analysis/calibrate.py) and change when the model or the reference data change. The accuracy table in docs/ACCURACY.md shows
 // how well the current values fit. Names with a unit suffix are in that unit; the others are factors.
 struct Calibration
 {
@@ -135,7 +135,7 @@ struct Calibration
     // to the muzzle with the air drag of the pellets. Muzzle velocity mean -4.4 %, mean |error| 6.7 %; pressure of the
     // 14 measured loads about right on average but -11 ... +64 % per powder (the powders' models, made for rifles and
     // handguns, differ most). The gas energy stays at 1 (fitted free it is 1.03 once measured pressures are included).
-    // The fit assumes the input convention of the README (shot + wad as the projectile, column inside the hull).
+    // The fit assumes the input convention of docs/ACCURACY.md (shot + wad as the projectile, column inside the hull).
     // NOT matched to the original: its shotshell mode follows no physical mechanism we could identify.
     double shotCapacityFactor{1.863};  // powder space x factor: the wad cushion compresses, the plastic hull expands
     double shotFrictionShare{0.0317};  // share of the pressure force lost to the wad and shot sliding in the bore
@@ -194,7 +194,7 @@ struct Calibration
 };
 
 // Which constants (and model) the solver uses.
-//   Original:  fitted to runs of the original program (analysis/calibrate.py); reproduces its results (README accuracy table).
+//   Original:  fitted to runs of the original program (analysis/calibrate.py); reproduces its results (accuracy table in docs/ACCURACY.md).
 //   Published: the Original model's equations, constants fitted to the manufacturers' published load data (analysis/calibrate_published.py:
 //              velocities and measured pressures of the loads of Hodgdon, Western Powders, ...); closer to measured pressures, but no
 //              longer to the original program. Empirical: some constants have no physical meaning.

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Rewrites the accuracy table in README.md from the current solver.
+"""Rewrites the accuracy table in docs/ACCURACY.md from the current solver.
 
 usage: tools/update_accuracy.py [path/to/grt_compare]      (a Release build of the grt_compare target)
 
 grt_compare runs the solver on every reference run of the original program (tools/GRTRef/jobs_all and
 reference/results, both local only, not in the repository) and prints the signed errors per run. The table sits
-between the markers <!-- accuracy:start --> and <!-- accuracy:end --> in README.md."""
+between the markers <!-- accuracy:start --> and <!-- accuracy:end --> in docs/ACCURACY.md."""
 import re, subprocess, sys, os, datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 exe = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "build", "release", "grt_compare")
@@ -66,9 +66,9 @@ text = (f"<!-- accuracy:start -->\n**GRT Original** (the model that reproduces t
         f"_Absolute deviations against {len(orig)} runs of the original program; updated {today} "
         f"with `tools/update_accuracy.py`. \"Curve shape\" is the rms relative pressure error along the barrel (where the "
         f"pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._\n<!-- accuracy:end -->")
-p = os.path.join(ROOT, "README.md")
+p = os.path.join(ROOT, "docs", "ACCURACY.md")
 s = open(p, encoding="utf-8").read()
 new, n = re.subn(r"<!-- accuracy:start -->.*?<!-- accuracy:end -->", lambda m: text, s, flags=re.S)
-if n != 1: sys.exit("markers not found in README.md")
+if n != 1: sys.exit("markers not found in docs/ACCURACY.md")
 open(p, "w", encoding="utf-8").write(new)
 print(text)
