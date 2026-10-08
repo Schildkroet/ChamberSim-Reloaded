@@ -65,6 +65,7 @@ Both publish measured pressures with every load, so `grt_fitdata --use-pressure`
 | Powder | Samples | Ba | Velocity rms | Pressure rms |
 |---|---|---|---|---|
 | Lovex S060 / S062 / S065 / S070 / S071 | 153 / 190 / 187 / 127 / 41 | 0.859 / 0.698 / 0.641 / 0.554 / 0.545 | 3.3 / 4.5 / 3.9 / 5.3 / 4.8 % | 11-17 % |
+| Lovex S011 / D032 / S020 / D036 / D037.1 / D037.2 (handgun) | 78 / 79 / 80 / 69 / 46 / 16 | 4.18 / 3.22 / 3.22 / 2.00 / 1.45 / 1.07 | 8.1 / 6.7 / 8.3 / 9.1 / 8.4 / 11.5 % | 24-32 % |
 | Lovex D073.4 / .5 / .6 | 62 / 61 / 139 | 0.659 / 0.646 / 0.601 | 3.8 / 3.8 / 3.6 % | 11.5-11.8 % |
 
 The Lovex rows were refitted (2026-10-06) to the 2016 and the 2020 guide together (identical loads count once; the samples are the fitted ones, loads whose charge is too
@@ -73,7 +74,8 @@ high for the case are left out), with the physical values of the eight Lovex pow
 
 The burn rates order as the manufacturers describe their powders (D073.4 faster than .5 faster than .6; S060 > S062 > S065 > S070).
 Fitting a0, z1, z2 as well with the pressures does not help (pressure error 15 % -> 15 %, the parameters run to the limits), so the
-form function stays the chosen one. Not included: pistol powders (Reload Swiss RS12-RS36: 7-22 % velocity error), Lovex S040, S053,
+form function stays the chosen one. Handgun powders are written as well, whatever their error (user's decision, 2026-10-08: the 2020 guide's
+handgun tables are read by `lovex_extract.py`; their descriptions say "use with more caution"). Not included: Reload Swiss RS12-RS36 (7-22 % velocity error), Lovex S040, S053,
 D060, D063 (fewer than 40 samples) and RS40 / RS80 (7 / 11 %).
 
 ## RWS (Rottweil powders)

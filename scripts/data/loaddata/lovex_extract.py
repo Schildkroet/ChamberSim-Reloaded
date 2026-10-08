@@ -29,7 +29,8 @@ def normalize(text: str) -> str:
     if "DATA PRO KULOVNICE" not in text:
         return text
     text = re.sub(r"(\d),(\d)", r"\1.\2", text)
-    text = text.replace("DATA PRO KULOVNICE", "RIFLE DATA", 1)  # the first one starts the rifle section (pistol data come first)
+    text = text.replace("DATA PRO PISTOLE", "HANDGUN DATA", 1)  # the first ones start the handgun and the rifle section
+    text = text.replace("DATA PRO KULOVNICE", "RIFLE DATA", 1)
     text = re.sub(r"D[ée]lka hlavn[ěe]:", "Barrel Length:", text)
     text = re.sub(r"Max\. d[ée]lka n[áa]boje:", "Max. Cartridge Length:", text)
     text = re.sub(r"\bStřela\s+Doporučené navážky", "Bullet      Recommended Loads", text)
@@ -41,7 +42,7 @@ def normalize(text: str) -> str:
 def parse(text: str):
     """Yields dicts: cartridge, barrel, maxcol, maker, btype, mass_g, grains, col, powder, numbers."""
     lines = normalize(text).splitlines()
-    start = next(i for i, l in enumerate(lines) if l.strip() == "RIFLE DATA")
+    start = next(i for i, l in enumerate(lines) if l.strip() in ("HANDGUN DATA", "RIFLE DATA"))  # the English guide has rifle data only
     cart = barrel = maxcol = None
     blk = None
     for i in range(start, len(lines)):
@@ -66,6 +67,14 @@ def parse(text: str):
             blk["btype"] = m[1].strip()
             if not blk["maker"]:
                 blk["maker"] = next((mk for mk in MAKERS if mk.lower() in line.lower()), "")
+            continue
+        m = re.match(r"\s*(Sellier & Bellot|Hornady|Lapua|Norma|Nosler|Sierra|Barnes|Winchester|Ares)\s*$", line)
+        if m and not blk["maker"]:  # handgun tables: the maker stands on a line of its own
+            blk["maker"] = m[1]
+            continue
+        m = re.match(r"\s*([\d.]+)\s*mm\s*$", line)
+        if m:  # handgun tables: the cartridge length stands on a line of its own
+            blk["col"] = float(m[1])
             continue
         m = re.match(r"\s*([\d.]+)\s*g\s*$", line)
         if m:
@@ -102,7 +111,7 @@ def main() -> int:
     for b in blocks.values():
         first = b["r"]
         blk = first["blk"]
-        col = next((r["col"] for r in b["rows"] if r["col"]), None) or first["maxcol"]
+        col = blk["col"] or next((r["col"] for r in b["rows"] if r["col"]), None) or first["maxcol"]
         cal = records.caliber(first["cartridge"])
         if not cal:
             miss[first["cartridge"]] = miss.get(first["cartridge"], 0) + 1

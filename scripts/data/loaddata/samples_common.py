@@ -12,7 +12,7 @@ from vv_extract import norm  # noqa: E402
 
 IN = 25.4
 # names of the manufacturers' tables that differ from the C.I.P. names of the records
-ALIASES = {"7.5 x 55 Swiss": "7.5 x 55 Suisse", "45 ACP (Auto)": "45 Auto", "300 WSM": "300 Win Short Mag", "270 WSM": "270 Win Short Mag",
+ALIASES = {".32 Smith & Wesson Long": "32 S.&W. Long", ".40 Smith & Wesson": "40 S.& W.", "7.5 x 55 Swiss": "7.5 x 55 Suisse", "45 ACP (Auto)": "45 Auto", "300 WSM": "300 Win Short Mag", "270 WSM": "270 Win Short Mag",
            "300 AAC BLK": "300 AAC Blackout", "300 Holland & Holland mag.": "300 H&H Mag.", "6,5x55 Swedish Mauser": "6.5 x 55 SE",
            "8x57 JS": "8 x 57 IS", "8x57 JRS": "8 x 57 IRS", "7,5x55 Swiss": "7.5 x 55 Suisse", "7 mm RUM": "7 mm Rem. Ultra Mag.",
            "7,62x54 R (Russian)": "7.62 x 54 R", "6,5x54 MS": "6.5 x 54 Mannl. Sch.",
