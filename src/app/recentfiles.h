@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+
 #include <QDir>
 #include <QFileInfo>
 #include <QSettings>
@@ -33,9 +35,12 @@ inline void store(const QStringList &files)
 
 }  // namespace recentfiles
 
-// A file name typed without any extension gets ".grtreload" (names with another extension are left alone).
+// A file name typed without any extension gets ".grtreload" (names with another extension are left alone). Only letters make an extension:
+// the ".5x55SE" of a cartridge name like "6.5x55SE" is part of the name.
 [[nodiscard]] inline QString withLoadExtension(const QString &path)
 {
-    if (path.isEmpty() || !QFileInfo(path).suffix().isEmpty()) return path;
+    if (path.isEmpty()) return path;
+    const QString suffix = QFileInfo(path).suffix();
+    if (!suffix.isEmpty() && std::ranges::all_of(suffix, [](QChar c) { return c.isLetter(); })) return path;
     return path + QStringLiteral(".grtreload");
 }

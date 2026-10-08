@@ -1202,7 +1202,9 @@ void GuiTest::recentFilesAreListedInTheFileMenu()
     QCOMPARE(withLoadExtension(u"/tmp/mine"_s), u"/tmp/mine.grtreload"_s);
     QCOMPARE(withLoadExtension(u"/tmp/mine.grtreload"_s), u"/tmp/mine.grtreload"_s);
     QCOMPARE(withLoadExtension(u"/tmp/mine.xml"_s), u"/tmp/mine.xml"_s);
-    QCOMPARE(withLoadExtension(u"/tmp.d/mine"_s), u"/tmp.d/mine.grtreload"_s);  // a dot in a folder name is no extension
+    QCOMPARE(withLoadExtension(u"/tmp.d/mine"_s), u"/tmp.d/mine.grtreload"_s);      // a dot in a folder name is no extension
+    QCOMPARE(withLoadExtension(u"/tmp/6.5x55SE"_s), u"/tmp/6.5x55SE.grtreload"_s);  // the "extension" has digits: part of the name
+    QCOMPARE(withLoadExtension(u"/tmp/.223 Rem 55gr"_s), u"/tmp/.223 Rem 55gr.grtreload"_s);
     QVERIFY(withLoadExtension({}).isEmpty());
 
     // opening a load puts it into the File menu
