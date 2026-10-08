@@ -1,5 +1,6 @@
 #include "theme.h"
 #include "log.h"
+#include "dialogframe.h"
 
 #include <QApplication>
 #include <QDialog>
@@ -45,47 +46,11 @@ QPalette darkPalette()
     p.setColor(QPalette::Disabled, QPalette::Highlight, alt);
     return p;
 }
-// A 1 px frame around a dialog, on top of its children: Fusion draws none, and the window manager's frame or shadow is hardly
-// visible (in the dark theme not at all) on a dark window.
-class DialogBorder : public QWidget
-{
-public:
-    explicit DialogBorder(QWidget *dialog)
-        : QWidget(dialog)
-    {
-        setObjectName(QLatin1String(kName));
-        setAttribute(Qt::WA_TransparentForMouseEvents);
-        setAttribute(Qt::WA_NoSystemBackground);
-        setFocusPolicy(Qt::NoFocus);
-        setGeometry(dialog->rect());
-        dialog->installEventFilter(this);
-        raise();
-    }
-    static constexpr auto kName = "dialogBorder";
-
-protected:
-    bool eventFilter(QObject *watched, QEvent *event) override
-    {
-        if (watched == parent())
-        {
-            if (event->type() == QEvent::Resize) setGeometry(parentWidget()->rect());
-            else if (event->type() == QEvent::ChildAdded || event->type() == QEvent::Show) raise();  // stay above later children
-        }
-        return QWidget::eventFilter(watched, event);
-    }
-    void paintEvent(QPaintEvent *) override
-    {
-        QPainter p(this);
-        p.setPen(palette().color(QPalette::PlaceholderText));
-        p.drawRect(rect().adjusted(0, 0, -1, -1));
-    }
-};
-
 // Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the
 // Fusion/GTK popup that covers the field and tries to show every item. A long list (e.g. the countries) does not
 // fit on the screen and gets moved; on Wayland the mouse release then lands outside and closes it at once.
 //
-// Dialogs: a visible frame (DialogBorder). Scroll bars: with a dark palette a lighter handle.
+// Dialogs: a visible frame and, with the custom title bar, their own title bar (DialogFrame). Scroll bars: with a dark palette a lighter handle.
 //
 // Check boxes and radio buttons: Fusion draws their frame a little darker than the window, on a dark window an unchecked box is
 // then nearly invisible. With a dark palette the frame is drawn again in a light grey.
@@ -96,9 +61,7 @@ public:
     void polish(QWidget *widget) override
     {
         QProxyStyle::polish(widget);
-        if (qobject_cast<QDialog *>(widget) && widget->isWindow() &&
-            !widget->findChild<DialogBorder *>(QLatin1String(DialogBorder::kName), Qt::FindDirectChildrenOnly))
-            new DialogBorder(widget);
+        if (auto *dialog = qobject_cast<QDialog *>(widget)) DialogFrame::install(dialog);
     }
     using QProxyStyle::polish;
     int styleHint(StyleHint hint, const QStyleOption *option, const QWidget *widget, QStyleHintReturn *ret) const override

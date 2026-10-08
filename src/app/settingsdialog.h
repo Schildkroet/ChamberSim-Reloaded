@@ -29,7 +29,13 @@ signals:
     // OK, Apply or Cancel changed the choice of the program's own title bar.
     void customTitleBarChanged(bool on);
 
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+
 private:
+    // The wrapped labels (model description, database info) get the height their text needs at the current width; the layout
+    // would give them less than that and cut the text off.
+    void fitWrappedLabels();
     void apply();
     [[nodiscard]] grt::log::Config logConfig() const;
 
@@ -38,6 +44,8 @@ private:
     QCheckBox *m_reopen;
     bool m_originalReopen;
     bool m_originalTitleBar;
+    QCheckBox *m_rounded;
+    bool m_originalRounded;
     QComboBox *m_unitSystem;
     QComboBox *m_calibration;
     QLabel *m_calibrationInfo;

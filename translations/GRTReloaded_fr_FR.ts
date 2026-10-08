@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+77"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+78"/>
         <source>All lots</source>
         <translation>Tous les lots</translation>
     </message>
@@ -267,6 +267,14 @@
         <location line="+0"/>
         <source>Bullet base position [%1]</source>
         <translation>Position du culot de la balle [%1]</translation>
+    </message>
+</context>
+<context>
+    <name>DialogTitleBar</name>
+    <message>
+        <location filename="../src/app/dialogframe.cpp" line="+88"/>
+        <source>Close</source>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -703,12 +711,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+361"/>
+        <location filename="../src/app/mainwindow.cpp" line="+366"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-303"/>
+        <location filename="../src/app/mainwindow.cpp" line="-307"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -763,16 +771,16 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Ajouter une copie modifiée de l&apos;enregistrement sélectionné (un double-clic affiche un enregistrement et le propose)</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+39"/>
         <location line="+319"/>
-        <location line="+178"/>
+        <location line="+177"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-497"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -788,7 +796,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+255"/>
-        <location line="+337"/>
+        <location line="+336"/>
         <source>Open load</source>
         <translation>Ouvrir un chargement</translation>
     </message>
@@ -798,12 +806,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Chargements (*.grtreload *.grtload);;Chargements GRT Reloaded (*.grtreload);;Chargements GRT originaux (*.grtload);;Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location line="-592"/>
+        <location line="-591"/>
         <source>&amp;Save</source>
         <translation>&amp;Enregistrer</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-76"/>
         <source>New load…</source>
         <translation>Nouveau chargement…</translation>
     </message>
@@ -818,7 +826,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Ouvrir un chargement…</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open a load file (%1)</source>
         <translation>Ouvrir un fichier de chargement (%1)</translation>
     </message>
@@ -860,12 +868,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+9"/>
-        <location line="+466"/>
+        <location line="+465"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-462"/>
+        <location line="-461"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -989,14 +997,14 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+39"/>
-        <location line="+303"/>
+        <location line="+302"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossible de lire %1 :
 %2</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-285"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossible d&apos;ouvrir la base de données %1 :
@@ -1034,7 +1042,7 @@ La base GordonsReloadingTool.db d&apos;origine est chiffrée ; choisissez une co
         <translation>Aucune base de données d&apos;origine (à choisir dans Fichier ▸ Paramètres…) : %1</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+107"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Seuls vos propres enregistrements peuvent être modifiés : faites une copie</translation>
     </message>
@@ -2193,7 +2201,7 @@ pression Δ</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
         <source>Open the loads of the last session at start</source>
         <translation>Ouvrir au démarrage les chargements de la dernière session</translation>
     </message>
@@ -2244,6 +2252,21 @@ pression Δ</translation>
     </message>
     <message>
         <location line="+8"/>
+        <source>Dialogs have rounded corners (with the custom title bar). Applies to dialogs opened afterwards.</source>
+        <translation>Les boîtes de dialogue ont des coins arrondis (avec la barre de titre personnalisée). S'applique aux boîtes ouvertes ensuite.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Rounded corners need a compositing window manager, which is not running: the corners stay square.</source>
+        <translation>Les coins arrondis nécessitent un gestionnaire de fenêtres avec composition, qui n'est pas actif : les coins restent carrés.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Rounded Dialog Corners:</source>
+        <translation>Coins arrondis des dialogues :</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>The files of the open loads are remembered when the program is closed and opened again at the next start (not when load files are given on the command line)</source>
         <translation>Les fichiers des chargements ouverts sont mémorisés à la fermeture du programme et rouverts au prochain démarrage (pas lorsque des fichiers de chargement sont donnés sur la ligne de commande)</translation>
     </message>
@@ -2278,7 +2301,7 @@ pression Δ</translation>
         <translation>Oublier les unités choisies pour des champs isolés ; chaque champ suit à nouveau le système d&apos;unités</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+26"/>
         <source>Solver</source>
         <translation>Solveur</translation>
     </message>
@@ -2363,7 +2386,7 @@ pression Δ</translation>
         <translation>Vider le fichier journal</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+90"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation>&lt;small&gt;%1&lt;br&gt;Les nouveaux enregistrements sont stockés dans la base propre du programme :&lt;br&gt;%2&lt;/small&gt;</translation>
     </message>
@@ -2404,7 +2427,7 @@ pression Δ</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+30"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+31"/>
         <source>Your own record (can be changed)</source>
         <translation>Votre propre enregistrement (modifiable)</translation>
     </message>

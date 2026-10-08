@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+77"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+78"/>
         <source>All lots</source>
         <translation type="unfinished"></translation>
     </message>
@@ -266,6 +266,14 @@
     <message>
         <location line="+0"/>
         <source>ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DialogTitleBar</name>
+    <message>
+        <location filename="../src/app/dialogframe.cpp" line="+88"/>
+        <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -701,12 +709,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+361"/>
+        <location filename="../src/app/mainwindow.cpp" line="+366"/>
         <source>GRT Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-303"/>
+        <location filename="../src/app/mainwindow.cpp" line="-307"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -756,16 +764,16 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+40"/>
         <location line="+319"/>
-        <location line="+178"/>
+        <location line="+177"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-497"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -781,17 +789,17 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+255"/>
-        <location line="+337"/>
+        <location line="+336"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-591"/>
+        <location line="-590"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-76"/>
         <source>New load…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -806,7 +814,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open a load file (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -848,12 +856,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+9"/>
-        <location line="+466"/>
+        <location line="+465"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-443"/>
+        <location line="-442"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -929,7 +937,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+108"/>
         <source>Change the selected record</source>
         <translation type="unfinished"></translation>
     </message>
@@ -984,7 +992,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-605"/>
+        <location line="-604"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1055,17 +1063,17 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-224"/>
+        <location line="-228"/>
         <source>Add a changed copy of the selected record (a double click shows a record and offers this)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+675"/>
+        <location line="+678"/>
         <source>Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-431"/>
+        <location line="-430"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1076,7 +1084,7 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+92"/>
-        <location line="+303"/>
+        <location line="+302"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -2171,7 +2179,7 @@ pressure Δ</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
         <source>Open the loads of the last session at start</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2222,6 +2230,21 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+8"/>
+        <source>Dialogs have rounded corners (with the custom title bar). Applies to dialogs opened afterwards.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Rounded corners need a compositing window manager, which is not running: the corners stay square.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Rounded Dialog Corners:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>The files of the open loads are remembered when the program is closed and opened again at the next start (not when load files are given on the command line)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2256,7 +2279,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+26"/>
         <source>Solver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2341,7 +2364,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+90"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2382,7 +2405,7 @@ pressure Δ</source>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+30"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+31"/>
         <source>Your own record (can be changed)</source>
         <translation type="unfinished"></translation>
     </message>

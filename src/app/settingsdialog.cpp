@@ -4,6 +4,7 @@
 #include "appfont.h"
 #include "session.h"
 #include "database.h"
+#include "dialogframe.h"
 #include "titlebar.h"
 #include "unitprefs.h"
 #include "units.h"
@@ -31,6 +32,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     , m_fontSize(new QSpinBox)
     , m_titleBar(new QCheckBox)
     , m_originalTitleBar(TitleBar::stored())
+    , m_rounded(new QCheckBox)
+    , m_originalRounded(DialogFrame::roundedStored())
     , m_reopen(new QCheckBox(tr("Open the loads of the last session at start")))
     , m_originalReopen(session::reopen())
     , m_unitSystem(new QComboBox)
@@ -75,6 +78,17 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     titleBarLabel->setBuddy(m_titleBar);
     appearanceGrid->addWidget(titleBarLabel, 1, 0);
     appearanceGrid->addWidget(m_titleBar, 1, 1, 1, 2);
+    // rounded corners of the dialogs (they have their own frame with the custom title bar); square without a compositing window manager
+    m_rounded->setObjectName(QStringLiteral("roundedDialogs"));
+    m_rounded->setChecked(m_originalRounded);
+    m_rounded->setToolTip(DialogFrame::roundedCornersPossible()
+                              ? tr("Dialogs have rounded corners (with the custom title bar). Applies to dialogs opened afterwards.")
+                              : tr("Rounded corners need a compositing window manager, which is not running: the corners stay square."));
+    m_rounded->setEnabled(DialogFrame::roundedCornersPossible());
+    auto *roundedLabel = new QLabel(tr("Rounded Dialog Corners:"));
+    roundedLabel->setBuddy(m_rounded);
+    appearanceGrid->addWidget(roundedLabel, 2, 0);
+    appearanceGrid->addWidget(m_rounded, 2, 1, 1, 2);
 
     // start-up: the loads that were open when the program was closed
     m_reopen->setObjectName(QStringLiteral("reopenLastLoads"));
@@ -115,7 +129,12 @@ SettingsDialog::SettingsDialog(QWidget *parent)
         m_calibrationInfo->setText(
             SolverPreferences::description(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt())));
     };
-    connect(m_calibration, &QComboBox::currentIndexChanged, this, showCalibrationInfo);
+    connect(m_calibration, &QComboBox::currentIndexChanged, this,
+            [=, this]
+            {
+                showCalibrationInfo();
+                fitWrappedLabels();
+            });
     showCalibrationInfo();
     auto *solver = new QGroupBox(tr("Solver"));
     auto *solverGrid = makeForm(solver);
@@ -199,11 +218,11 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_unitSystem->setMinimumWidth(110);
     m_fontSize->setAlignment(Qt::AlignRight);
     const int labelWidth = std::max({fontLabel->sizeHint().width(), systemLabel->sizeHint().width(), databaseLabel->sizeHint().width(),
-                                     titleBarLabel->sizeHint().width(), logLabel->sizeHint().width(), calibrationLabel->sizeHint().width(),
-                                     startupLabel->sizeHint().width()}) +
+                                     titleBarLabel->sizeHint().width(), roundedLabel->sizeHint().width(), logLabel->sizeHint().width(),
+                                     calibrationLabel->sizeHint().width(), startupLabel->sizeHint().width()}) +
                            36;
     // 48 px from the labels to the fields (the grid's 12 px plus this margin)
-    for (QLabel *l : {fontLabel, titleBarLabel, startupLabel, systemLabel, calibrationLabel, databaseLabel, logLabel})
+    for (QLabel *l : {fontLabel, titleBarLabel, roundedLabel, startupLabel, systemLabel, calibrationLabel, databaseLabel, logLabel})
         l->setContentsMargins(0, 0, 36, 0);
     fontLabel->setMinimumWidth(labelWidth);
     startupLabel->setMinimumWidth(labelWidth);
@@ -230,6 +249,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
                 grt::log::setConfig(m_originalLog);
                 grt::log::storeConfig(m_originalLog);
                 session::setReopen(m_originalReopen);
+                DialogFrame::storeRounded(m_originalRounded);
                 if (TitleBar::stored() != m_originalTitleBar)
                 {
                     TitleBar::store(m_originalTitleBar);
@@ -248,6 +268,18 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     layout->addStretch(1);
     layout->addWidget(buttons);
     setMinimumWidth(620);
+}
+
+void SettingsDialog::fitWrappedLabels()
+{
+    for (QLabel *label : findChildren<QLabel *>())
+        if (label->wordWrap() && label->width() > 0) label->setMinimumHeight(label->heightForWidth(label->width()));
+}
+
+void SettingsDialog::resizeEvent(QResizeEvent *event)
+{
+    QDialog::resizeEvent(event);
+    fitWrappedLabels();
 }
 
 void SettingsDialog::setOriginalDatabase(const QString &path, const QString &summary)
@@ -290,6 +322,7 @@ void SettingsDialog::apply()
     UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_unitSystem->currentData().toInt()));
     SolverPreferences::instance().setProfile(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt()));
     SolverPreferences::instance().setOriginalForGrtFiles(m_originalForGrtFiles->isChecked());
+    if (m_rounded->isEnabled()) DialogFrame::storeRounded(m_rounded->isChecked());
     if (m_titleBar->isChecked() != TitleBar::stored())
     {
         TitleBar::store(m_titleBar->isChecked());

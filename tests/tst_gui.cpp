@@ -52,6 +52,8 @@
 #include "theme.h"
 #include "flags.h"
 #include "titlebar.h"
+#include "dialogframe.h"
+#include "windowborder.h"
 #include "appfont.h"
 #include "cartridgeview.h"
 #include "chamberview.h"
@@ -159,6 +161,9 @@ private slots:
     void disclaimerAtStartup();
     void checkBoxesVisibleInDarkMode();
     void dialogsHaveAVisibleBorder();
+    void settingsInfoTextIsNotCutOff();
+    void squareCornersWithoutCompositing();
+    void roundedCornersCanBeSwitchedOffInTheSettings();
     void scrollBarsVisibleInDarkMode();
     void chartCursorShowsTheValues();
     void editsCanBeUndoneAndRedone();
@@ -2655,12 +2660,30 @@ void GuiTest::dialogsHaveAVisibleBorder()
     layout->addWidget(later);
     dialog.resize(240, 140);
     QApplication::processEvents();
-    const QWidget *border = dialog.findChild<QWidget *>(u"dialogBorder"_s);
+    const QWidget *border = dialog.findChild<QWidget *>(u"dialogFrame"_s);
     QVERIFY(border);
     QCOMPARE(border->geometry(), dialog.rect());
     QCOMPARE(dialog.children().last(), border);  // on top
+    // with the custom title bar the dialog draws its own, taller one inside the border
+    const QWidget *bar = dialog.findChild<QWidget *>(u"dialogTitleBar"_s);
+    QCOMPARE(bar != nullptr, TitleBar::stored());
+    if (bar)
+    {
+        QVERIFY(dialog.windowFlags() & Qt::FramelessWindowHint);
+        QVERIFY(bar->height() >= 40);
+        QCOMPARE(bar->y(), dialog.contentsMargins().left());
+        QVERIFY(dialog.contentsMargins().top() > bar->height());
+        QVERIFY(bar->geometry().intersected(dialog.rect().adjusted(kWindowBorderWidth, kWindowBorderWidth, -kWindowBorderWidth,
+                                                                   -kWindowBorderWidth)) == bar->geometry());
+    }
     const QImage img = dialog.grab().toImage();
     if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/dialogborder.png"_s);
+    if (bar)  // rounded corners: the corner pixel is transparent, the middle of the window is not
+    {
+        QCOMPARE(img.pixelColor(0, 0).alpha(), 0);
+        QCOMPARE(img.pixelColor(img.width() - 1, img.height() - 1).alpha(), 0);
+        QCOMPARE(img.pixelColor(img.width() / 2, img.height() / 2).alpha(), 255);
+    }
     const int window = dialog.palette().color(QPalette::Window).lightness();
     const QColor edge = img.pixelColor(img.width() / 2, img.height() - 1), side = img.pixelColor(0, img.height() / 2);
     theme::apply(*qApp, theme::Mode::System);
@@ -2669,7 +2692,82 @@ void GuiTest::dialogsHaveAVisibleBorder()
     QMessageBox box;
     box.show();
     QApplication::processEvents();
-    QVERIFY(box.findChild<QWidget *>(u"dialogBorder"_s));
+    QVERIFY(box.findChild<QWidget *>(u"dialogFrame"_s));
+}
+
+// Without a compositing window manager (X11) the dialogs keep their frame but not the transparent, rounded corners.
+void GuiTest::squareCornersWithoutCompositing()
+{
+    if (!TitleBar::stored()) QSKIP("the dialogs have no own frame");
+    theme::apply(*qApp, theme::Mode::Dark);
+    DialogFrame::forceRoundedCorners(false);
+    const auto restore = qScopeGuard([] { DialogFrame::forceRoundedCorners(std::nullopt); });
+    QDialog dialog;
+    new QVBoxLayout(&dialog);
+    dialog.resize(240, 140);
+    dialog.show();
+    for (int i = 0; i < 3; ++i) QApplication::processEvents();
+    QVERIFY(dialog.findChild<QWidget *>(u"dialogTitleBar"_s));
+    QVERIFY(!dialog.testAttribute(Qt::WA_TranslucentBackground));
+    const QImage img = dialog.grab().toImage();
+    QCOMPARE(img.pixelColor(0, 0).alpha(), 255);  // square: the border reaches the corner
+    QCOMPARE(img.pixelColor(0, 0), dialog.palette().color(QPalette::Highlight));
+    theme::apply(*qApp, theme::Mode::System);
+}
+
+// File > Settings > Rounded Dialog Corners: off keeps the dialogs' frame but with square corners; the choice is stored.
+void GuiTest::roundedCornersCanBeSwitchedOffInTheSettings()
+{
+    if (!TitleBar::stored()) QSKIP("the dialogs have no own frame");
+    theme::apply(*qApp, theme::Mode::Dark);
+    const auto restore = qScopeGuard(
+        []
+        {
+            DialogFrame::storeRounded(true);
+            theme::apply(*qApp, theme::Mode::System);
+        });
+    SettingsDialog settings;
+    auto *rounded = settings.findChild<QCheckBox *>(u"roundedDialogs"_s);
+    QVERIFY(rounded);
+    QVERIFY(rounded->isChecked());  // the default
+    rounded->setChecked(false);
+    settings.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
+    QVERIFY(!DialogFrame::roundedStored());
+    QVERIFY(!DialogFrame::roundedCorners());
+    QDialog dialog;
+    new QVBoxLayout(&dialog);
+    dialog.resize(240, 140);
+    dialog.show();
+    for (int i = 0; i < 3; ++i) QApplication::processEvents();
+    QVERIFY(dialog.findChild<QWidget *>(u"dialogTitleBar"_s));
+    QVERIFY(!dialog.testAttribute(Qt::WA_TranslucentBackground));
+    // Cancel undoes what Apply did
+    settings.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Cancel)->click();
+    QVERIFY(DialogFrame::roundedStored());
+}
+
+// A wrapped label (the model description in the Settings) gets the height of all its lines.
+void GuiTest::settingsInfoTextIsNotCutOff()
+{
+    if (qEnvironmentVariableIsSet("GRT_NOBAR")) TitleBar::store(false);
+    SettingsDialog dlg;
+    dlg.show();
+    for (int i = 0; i < 5; ++i) QApplication::processEvents();  // the labels grow, the layout and the dialog follow
+    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) dlg.grab().save(shots + u"/settings.png"_s);
+    // nothing overlaps its neighbour: the check box row under the model description starts below it
+    const QCheckBox *grtFiles = dlg.findChild<QCheckBox *>(u"originalForGrtFiles"_s);
+    QVERIFY(grtFiles);
+    for (auto *label : dlg.findChildren<QLabel *>())
+        if (label->wordWrap() && label->isVisible() && label->text().startsWith(u"Recommended"_s))
+            QVERIFY2(label->mapTo(&dlg, QPoint(0, label->height())).y() <= grtFiles->mapTo(&dlg, QPoint(0, 0)).y(),
+                     "the description overlaps the next row");
+    for (auto *label : dlg.findChildren<QLabel *>())
+    {
+        if (!label->wordWrap() || !label->isVisible() || label->text().isEmpty()) continue;
+        const int needed = label->heightForWidth(label->width());
+        QVERIFY2(label->height() >= needed,
+                 qPrintable(u"%1: height %2 < %3"_s.arg(label->text().left(30)).arg(label->height()).arg(needed)));
+    }
 }
 
 // Dark theme: the scroll bar handle stands out from the window (Fusion fills it with the window color).

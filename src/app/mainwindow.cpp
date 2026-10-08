@@ -3,6 +3,7 @@
 #include "recordviewdialog.h"
 #include "session.h"
 #include "unitconverterdialog.h"
+#include "windowborder.h"
 #include "./ui_mainwindow.h"
 
 #include "about.h"
@@ -497,8 +498,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QMainWindow::paintEvent(event);
     if (!m_customTitleBar || contentsMargins().left() == 0) return;
     QPainter p(this);
-    p.setPen(palette().color(QPalette::Mid));
-    p.drawRect(rect().adjusted(0, 0, -1, -1));
+    paintWindowBorder(p, rect(), palette());
 }
 
 Qt::Edges MainWindow::edgesAt(const QPoint &pos) const

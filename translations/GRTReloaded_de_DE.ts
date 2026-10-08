@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+77"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+78"/>
         <source>All lots</source>
         <translation>Alle Chargen</translation>
     </message>
@@ -267,6 +267,14 @@
         <location line="+0"/>
         <source>Bullet base position [%1]</source>
         <translation>Position des Geschossbodens [%1]</translation>
+    </message>
+</context>
+<context>
+    <name>DialogTitleBar</name>
+    <message>
+        <location filename="../src/app/dialogframe.cpp" line="+88"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -703,12 +711,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+361"/>
+        <location filename="../src/app/mainwindow.cpp" line="+366"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-303"/>
+        <location filename="../src/app/mainwindow.cpp" line="-307"/>
         <source>Calibers</source>
         <translation>Kaliber</translation>
     </message>
@@ -763,16 +771,16 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Eine geänderte Kopie des gewählten Datensatzes anlegen (ein Doppelklick zeigt einen Datensatz und bietet dies an)</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+39"/>
         <location line="+319"/>
-        <location line="+178"/>
+        <location line="+177"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-497"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -788,7 +796,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+255"/>
-        <location line="+337"/>
+        <location line="+336"/>
         <source>Open load</source>
         <translation>Ladung öffnen</translation>
     </message>
@@ -798,12 +806,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Ladungen (*.grtreload *.grtload);;GRT-Reloaded-Ladungen (*.grtreload);;Original-GRT-Ladungen (*.grtload);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location line="-592"/>
+        <location line="-591"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-76"/>
         <source>New load…</source>
         <translation>Neue Ladung…</translation>
     </message>
@@ -818,7 +826,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Ladung öffnen…</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open a load file (%1)</source>
         <translation>Eine Ladungsdatei öffnen (%1)</translation>
     </message>
@@ -860,12 +868,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+9"/>
-        <location line="+466"/>
+        <location line="+465"/>
         <source>Cannot write %1</source>
         <translation>%1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location line="-462"/>
+        <location line="-461"/>
         <source>Overlay &amp;reference result…</source>
         <translation>&amp;Referenzergebnis überlagern…</translation>
     </message>
@@ -989,14 +997,14 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+39"/>
-        <location line="+303"/>
+        <location line="+302"/>
         <source>Cannot read %1:
 %2</source>
         <translation>%1 kann nicht gelesen werden:
 %2</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-285"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Die Datenbank %1 kann nicht geöffnet werden:
@@ -1034,7 +1042,7 @@ Die originale GordonsReloadingTool.db ist verschlüsselt; wählen Sie eine entsc
         <translation>Keine Originaldatenbank (wählen unter Datei ▸ Einstellungen…): %1</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+107"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Nur eigene Datensätze können geändert werden: eine Kopie erstellen</translation>
     </message>
@@ -2193,7 +2201,7 @@ Druck Δ</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
         <source>Open the loads of the last session at start</source>
         <translation>Die Ladungen der letzten Sitzung beim Start öffnen</translation>
     </message>
@@ -2244,6 +2252,21 @@ Druck Δ</translation>
     </message>
     <message>
         <location line="+8"/>
+        <source>Dialogs have rounded corners (with the custom title bar). Applies to dialogs opened afterwards.</source>
+        <translation>Dialoge haben abgerundete Ecken (mit der eigenen Titelleiste). Gilt für Dialoge, die danach geöffnet werden.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Rounded corners need a compositing window manager, which is not running: the corners stay square.</source>
+        <translation>Abgerundete Ecken brauchen einen Compositing-Fenstermanager, der nicht läuft: die Ecken bleiben eckig.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Rounded Dialog Corners:</source>
+        <translation>Abgerundete Dialogecken:</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>The files of the open loads are remembered when the program is closed and opened again at the next start (not when load files are given on the command line)</source>
         <translation>Die Dateien der offenen Ladungen werden beim Beenden des Programms gemerkt und beim nächsten Start wieder geöffnet (nicht, wenn Ladungsdateien auf der Kommandozeile angegeben werden)</translation>
     </message>
@@ -2278,7 +2301,7 @@ Druck Δ</translation>
         <translation>Die für einzelne Felder gewählten Einheiten vergessen; alle Felder folgen wieder dem Einheitensystem</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+26"/>
         <source>Solver</source>
         <translation>Löser</translation>
     </message>
@@ -2363,7 +2386,7 @@ Druck Δ</translation>
         <translation>Protokolldatei leeren</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+90"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation>&lt;small&gt;%1&lt;br&gt;Neue Datensätze werden in der eigenen Datenbank des Programms gespeichert:&lt;br&gt;%2&lt;/small&gt;</translation>
     </message>
@@ -2404,7 +2427,7 @@ Druck Δ</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+30"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+31"/>
         <source>Your own record (can be changed)</source>
         <translation>Eigener Datensatz (änderbar)</translation>
     </message>

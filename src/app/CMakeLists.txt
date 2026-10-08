@@ -63,6 +63,9 @@ add_library(grtui STATIC
     settingsdialog.cpp
     theme.h
     titlebar.h
+    windowborder.h
+    dialogframe.h
+    dialogframe.cpp
     titlebar.cpp
     flags.h
     flags.cpp

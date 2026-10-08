@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+77"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+78"/>
         <source>All lots</source>
         <translation>Tutti i lotti</translation>
     </message>
@@ -267,6 +267,14 @@
         <location line="+0"/>
         <source>Bullet base position [%1]</source>
         <translation>Posizione del fondello della palla [%1]</translation>
+    </message>
+</context>
+<context>
+    <name>DialogTitleBar</name>
+    <message>
+        <location filename="../src/app/dialogframe.cpp" line="+88"/>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>
@@ -703,12 +711,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+361"/>
+        <location filename="../src/app/mainwindow.cpp" line="+366"/>
         <source>GRT Reloaded</source>
         <translation>GRT Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-303"/>
+        <location filename="../src/app/mainwindow.cpp" line="-307"/>
         <source>Calibers</source>
         <translation>Calibri</translation>
     </message>
@@ -763,16 +771,16 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Aggiungi una copia modificata del record selezionato (un doppio clic mostra un record e lo propone)</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+39"/>
         <location line="+319"/>
-        <location line="+178"/>
+        <location line="+177"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation>Banca dati</translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-497"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
@@ -788,7 +796,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+255"/>
-        <location line="+337"/>
+        <location line="+336"/>
         <source>Open load</source>
         <translation>Apri caricamento</translation>
     </message>
@@ -798,12 +806,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Caricamenti (*.grtreload *.grtload);;Caricamenti GRT Reloaded (*.grtreload);;Caricamenti GRT originali (*.grtload);;Tutti i file (*)</translation>
     </message>
     <message>
-        <location line="-592"/>
+        <location line="-591"/>
         <source>&amp;Save</source>
         <translation>&amp;Salva</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-76"/>
         <source>New load…</source>
         <translation>Nuovo caricamento…</translation>
     </message>
@@ -818,7 +826,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Apri caricamento…</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>Open a load file (%1)</source>
         <translation>Apri un file di caricamento (%1)</translation>
     </message>
@@ -860,12 +868,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+9"/>
-        <location line="+466"/>
+        <location line="+465"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
     <message>
-        <location line="-462"/>
+        <location line="-461"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Sovrapponi un &amp;risultato di riferimento…</translation>
     </message>
@@ -989,14 +997,14 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+39"/>
-        <location line="+303"/>
+        <location line="+302"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossibile leggere %1:
 %2</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-285"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossibile aprire la banca dati %1:
@@ -1034,7 +1042,7 @@ Il file originale GordonsReloadingTool.db è cifrato; scegli una copia decifrata
         <translation>Nessuna banca dati originale (da scegliere in File ▸ Impostazioni…): %1</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+107"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation>Si possono modificare solo i propri record: crea una copia</translation>
     </message>
@@ -2193,7 +2201,7 @@ pressione Δ</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+34"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
         <source>Open the loads of the last session at start</source>
         <translation>Apri all&apos;avvio i caricamenti dell&apos;ultima sessione</translation>
     </message>
@@ -2244,6 +2252,21 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+8"/>
+        <source>Dialogs have rounded corners (with the custom title bar). Applies to dialogs opened afterwards.</source>
+        <translation>Le finestre di dialogo hanno gli angoli arrotondati (con la barra del titolo personalizzata). Vale per le finestre aperte dopo.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Rounded corners need a compositing window manager, which is not running: the corners stay square.</source>
+        <translation>Gli angoli arrotondati richiedono un gestore di finestre con composizione, che non è in esecuzione: gli angoli restano quadrati.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Rounded Dialog Corners:</source>
+        <translation>Angoli arrotondati dei dialoghi:</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>The files of the open loads are remembered when the program is closed and opened again at the next start (not when load files are given on the command line)</source>
         <translation>I file dei caricamenti aperti vengono memorizzati alla chiusura del programma e riaperti al prossimo avvio (non quando i file di caricamento sono indicati sulla riga di comando)</translation>
     </message>
@@ -2278,7 +2301,7 @@ pressione Δ</translation>
         <translation>Dimentica le unità scelte per i singoli campi; ogni campo segue di nuovo il sistema di unità</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+26"/>
         <source>Solver</source>
         <translation>Solutore</translation>
     </message>
@@ -2363,7 +2386,7 @@ pressione Δ</translation>
         <translation>Svuota file di registro</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+90"/>
         <source>&lt;small&gt;%1&lt;br&gt;New records are stored in the program&apos;s own database:&lt;br&gt;%2&lt;/small&gt;</source>
         <translation>&lt;small&gt;%1&lt;br&gt;I nuovi record sono salvati nella banca dati propria del programma:&lt;br&gt;%2&lt;/small&gt;</translation>
     </message>
@@ -2404,7 +2427,7 @@ pressione Δ</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+30"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+31"/>
         <source>Your own record (can be changed)</source>
         <translation>Record proprio (modificabile)</translation>
     </message>
