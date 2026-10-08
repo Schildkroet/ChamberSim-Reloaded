@@ -1204,8 +1204,8 @@ void GuiTest::noteWithoutPhysicalBurnValues()
 void GuiTest::searchToleratesSpellings()
 {
     const QStringList irs{u"8 x 57 IRS"_s, u"Sellier & Bellot"_s};
-    for (const QString &q :
-         {u"8x57"_s, u"8 x 57"_s, u"8X57"_s, u"8×57"_s, u"8*57"_s, u" 8x57 "_s, u"857"_s, u"8x57 irs"_s, u"bellot 8x57"_s})
+    for (const QString &q : {u"8x57"_s, u"8 x 57"_s, u"8X57"_s, u"8×57"_s, u"8*57"_s, u" 8x57 "_s, u"857"_s, u"8x57 irs"_s,
+                             u"bellot 8x57"_s, u"8x"_s, u"8 x"_s, u"x57"_s, u"8x5"_s})
         QVERIFY2(searchfilter::matches(q, irs), qPrintable(q));
     QVERIFY(searchfilter::matches(u"6.5x284"_s, {u"6.5 - 284 Norma"_s}));
     QVERIFY(searchfilter::matches(u"30 06"_s, {u"30-06 Springfield"_s}));

@@ -12,7 +12,8 @@
 namespace searchfilter
 {
 
-[[nodiscard]] inline QString normalized(const QString &text)
+// `dropX`: also remove an "x" between digits ("8 x 57" -> "857"); the plain form keeps it, so that a partial entry like "8x" still matches.
+[[nodiscard]] inline QString normalized(const QString &text, bool dropX = true)
 {
     QString out;
     for (const QChar c : text.normalized(QString::NormalizationForm_D))
@@ -23,7 +24,7 @@ namespace searchfilter
     }
     out.replace(QChar(0x00D7), QLatin1Char('x'));  // multiplication sign
     // an "x" between digits is a separator ("8 x 57", "6.5x55"), the table may spell it without ("6.5 - 284")
-    for (qsizetype i = out.size() - 2; i >= 1; --i)
+    for (qsizetype i = out.size() - 2; dropX && i >= 1; --i)
         if (out[i] == QLatin1Char('x') && out[i - 1].isDigit() && out[i + 1].isDigit()) out.remove(i, 1);
     return out;
 }
@@ -31,25 +32,29 @@ namespace searchfilter
 // All words of the query (or the whole query) are found in the cells of one row.
 [[nodiscard]] inline bool matches(const QString &query, const QStringList &cells)
 {
-    const QString whole = normalized(query);
-    if (whole.isEmpty()) return true;
-    QStringList norm;
-    for (const QString &c : cells) norm += normalized(c);
-    const auto found = [&](const QString &needle)
-    { return std::ranges::any_of(norm, [&](const QString &c) { return c.contains(needle); }); };
-    if (found(whole)) return true;
+    if (normalized(query).isEmpty()) return true;
+    QStringList dropped, kept;
+    for (const QString &c : cells)
+    {
+        dropped += normalized(c);
+        kept += normalized(c, false);
+    }
+    // the text in either spelling of the "x" ("8x" is found in "8x57is", "857" in "857is")
+    const auto found = [&](const QString &text)
+    {
+        const QString d = normalized(text), k = normalized(text, false);
+        return std::ranges::any_of(dropped, [&](const QString &c) { return c.contains(d); }) ||
+               std::ranges::any_of(kept, [&](const QString &c) { return c.contains(k); });
+    };
+    if (found(query)) return true;
     // several words: every word in some cell ("lovex s020", "hornady 115")
     const QStringList words = query.split(QRegularExpression(QStringLiteral("\\s+")), Qt::SkipEmptyParts);
     // not for numbers only ("8 x 57" is one cartridge name, "8" and "57" would match anywhere)
     const auto isName = [](const QString &w)
     { return std::ranges::any_of(w, [](QChar c) { return c.isLetter() && c.toLower() != QLatin1Char('x'); }); };
     if (words.size() < 2 || !std::ranges::any_of(words, isName)) return false;
-    return std::ranges::all_of(words,
-                               [&](const QString &w)
-                               {
-                                   const QString n = normalized(w);
-                                   return n.isEmpty() || n == QLatin1String("x") || found(n);
-                               });
+    return std::ranges::all_of(words, [&](const QString &w)
+                               { return normalized(w).isEmpty() || normalized(w) == QLatin1String("x") || found(w); });
 }
 
 }  // namespace searchfilter
