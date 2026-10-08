@@ -318,7 +318,10 @@ struct PhysicalModel
     {
         double f = extraForce + airPressure(v) * A;
         const double s = x - x0 - jump;  // travel in the rifling
+        // in the free run the case neck still holds the bullet: the release force of the start pressure, which the engraving continues at s = 0
+        // (without it the bullet would run free at the start pressure: -15 % peak pressure for a jump of 0.25 mm in a 9 mm Luger)
         if (s >= 0.0) f += slideForce + engraveForce * std::exp(-s / bearing);
+        else f += engraveForce;
         return std::max(f, 0.0);
     }
     [[nodiscard]] double heatRate(const PhysState &y, double p) const noexcept

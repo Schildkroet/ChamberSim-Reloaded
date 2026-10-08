@@ -115,11 +115,11 @@ Single loads can deviate much more. Details of the method: `scripts/data/loaddat
 | Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 28.1 % | 122.3 % | 5.5 % | 12.6 % | 14.2 % |
 | Pistol and revolver loads with fast powders | 28 | 24.7 % | 48.4 % | 5.8 % | 11.1 % | 15.6 % |
 | Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 34 | 66.9 % | 123.5 % | 1.7 % | 13.2 % | 38.7 % |
-| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 22.5 % | 36.8 % | 5.2 % | 10.6 % | 13.2 % |
+| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 24.7 % | 39.1 % | 5.5 % | 8.9 % | 15.8 % |
 | Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 33.5 % | 75.9 % | 4.0 % | 9.8 % | 23.6 % |
 | Loading density (charge, case volume, powder density, Qex) | 22 | 37.1 % | 150.6 % | 4.8 % | 13.3 % | 24.2 % |
 | Other | 1 | 37.5 % | 37.5 % | 2.2 % | 2.2 % | 35.7 % |
-| **All runs** | 349 | 30.2 % | 150.6 % | 4.5 % | 19.6 % | 21.3 % |
+| **All runs** | 349 | 30.3 % | 150.6 % | 4.6 % | 19.6 % | 21.5 % |
 
 _Absolute deviations against 349 runs of the original program; updated 2026-10-08 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->

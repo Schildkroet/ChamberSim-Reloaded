@@ -120,6 +120,12 @@ int main(int argc, char *argv[])
             phys.insert(nv.section(u'=', 0, 0).toLower(),
                         {.Ba = v[0].toDouble(), .a0 = v[1].toDouble(), .z1 = v[2].toDouble(), .z2 = v[3].toDouble()});
     }
+    // optional column jump_mm: bullet jump of the gun
+    const auto withJump = [](grt::LoadFile lf, const QMap<QString, QString> &row)
+    {
+        if (!row.value(u"jump_mm"_s).isEmpty()) lf.gun.set(u"gjump", row.value(u"jump_mm"_s).toDouble());
+        return lf;
+    };
     // the load of a row: the physical burn values of --phys replace the file's
     const auto withPhys = [&](grt::LoadFile lf, const QString &key)
     {
@@ -230,7 +236,8 @@ int main(int argc, char *argv[])
         p.seatingDepth_mm = cal0->value(u"L3"_s).toDouble() + bullet.value(u"glen"_s).toDouble() - row.value(u"col_mm"_s).toDouble();
         if (!row.value(u"twist_mm"_s).isEmpty()) p.twistLength_mm = row.value(u"twist_mm"_s).toDouble();
         if (p.seatingDepth_mm <= 1.0 || p.barrelLength_mm <= 0.0) continue;
-        const grt::SimResult r = grt::simulate(withPhys(grt::buildLoad(*cal0, bullet, powder, p, calColumns), key), cal, steps);
+        const grt::SimResult r =
+            grt::simulate(withPhys(withJump(grt::buildLoad(*cal0, bullet, powder, p, calColumns), row), key), cal, steps);
         if (r.status != grt::SimStatus::Ok) continue;
         out << n << ',' << QString::asprintf("%.3f,%.1f", r.muzzleVelocity_ms, r.maxPressure_bar) << '\n';
     }
