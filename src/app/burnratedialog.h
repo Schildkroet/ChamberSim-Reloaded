@@ -8,7 +8,7 @@ class QButtonGroup;
 class QCheckBox;
 class QLabel;
 class QLineEdit;
-class QSortFilterProxyModel;
+class SearchFilterProxy;
 class QStandardItemModel;
 class QTableView;
 
@@ -42,7 +42,7 @@ private:
     void applyFilter();
 
     QStandardItemModel *m_model;
-    QSortFilterProxyModel *m_proxy;
+    SearchFilterProxy *m_proxy;
     QTableView *m_view;
     QLineEdit *m_search;
     QCheckBox *m_allLots;

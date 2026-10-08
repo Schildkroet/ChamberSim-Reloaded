@@ -8,7 +8,7 @@
 
 class QLabel;
 class QLineEdit;
-class QSortFilterProxyModel;
+class SearchFilterProxy;
 class QSqlTableModel;
 class QTableView;
 
@@ -53,5 +53,5 @@ private:
     QLineEdit *m_filter;
     QLabel *m_count;
     QSqlTableModel *m_model{nullptr};
-    QSortFilterProxyModel *m_proxy;
+    SearchFilterProxy *m_proxy;
 };

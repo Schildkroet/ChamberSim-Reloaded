@@ -1,4 +1,5 @@
 #include "burnratedialog.h"
+#include "searchfilter.h"
 
 #include "screenfit.h"
 #include "burnfactors.h"
@@ -71,7 +72,7 @@ public:
 BurnRateDialog::BurnRateDialog(const grt::Database &db, QWidget *parent)
     : QDialog(parent)
     , m_model(new QStandardItemModel(0, ColumnCount, this))
-    , m_proxy(new QSortFilterProxyModel(this))
+    , m_proxy(new SearchFilterProxy(this))
     , m_view(new QTableView)
     , m_search(new QLineEdit)
     , m_allLots(new QCheckBox(tr("All lots")))
@@ -275,7 +276,7 @@ void BurnRateDialog::setFactor(Factor factor)
 
 void BurnRateDialog::applyFilter()
 {
-    m_proxy->setFilterFixedString(m_search->text().trimmed());
+    m_proxy->setQuery(m_search->text());
     m_count->setText(tr("%n propellants", nullptr, m_proxy->rowCount()));
 }
 

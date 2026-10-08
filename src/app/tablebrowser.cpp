@@ -1,6 +1,7 @@
 #include "tablebrowser.h"
 #include "log.h"
 #include "qualitydelegate.h"
+#include "searchfilter.h"
 
 #include <QHeaderView>
 #include <QLabel>
@@ -57,7 +58,7 @@ TableBrowser::TableBrowser(grt::Table table, QWidget *parent)
     , m_view(new QTableView)
     , m_filter(new QLineEdit)
     , m_count(new QLabel)
-    , m_proxy(new QSortFilterProxyModel(this))
+    , m_proxy(new SearchFilterProxy(this))
 {
     m_filter->setPlaceholderText(tr("Filter (all columns)…"));
     m_filter->setClearButtonEnabled(true);
@@ -84,7 +85,7 @@ TableBrowser::TableBrowser(grt::Table table, QWidget *parent)
     connect(m_filter, &QLineEdit::textChanged, this,
             [this](const QString &t)
             {
-                m_proxy->setFilterFixedString(t);
+                m_proxy->setQuery(t);
                 updateCount();
             });
     connect(m_view->selectionModel(), &QItemSelectionModel::currentRowChanged, this, [this] { emit currentIdChanged(currentId()); });

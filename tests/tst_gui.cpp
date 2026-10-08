@@ -69,6 +69,7 @@
 #include "powderfitdialog.h"
 #include "propertypanel.h"
 #include "recentfiles.h"
+#include "searchfilter.h"
 #include "reportview.h"
 #include "qualityrow.h"
 #include "screenfit.h"
@@ -125,6 +126,7 @@ private slots:
     void unitsLiveInSettingsNotInViewMenu();
     void layoutIsRemembered();
     void recentFilesAreListedInTheFileMenu();
+    void searchToleratesSpellings();
     void noteWithoutPhysicalBurnValues();
     void hoveringATableRowShowsItsMeasureInTheDrawing();
     void reportTabRendersTheLoad();
@@ -361,6 +363,18 @@ void GuiTest::tableBrowserFiltersAndSelects()
     QVERIFY(!b.selectId(-1));
     b.setDatabase(nullptr);
     QCOMPARE(b.currentId(), -1);
+
+    // the filter finds "8 x 57 IS" whatever the spelling
+    TableBrowser calibers(grt::Table::Caliber);
+    calibers.setDatabase(&m_db);
+    auto *edit = calibers.findChild<QLineEdit *>();
+    auto *view = calibers.findChild<QTableView *>();
+    QVERIFY(edit && view);
+    edit->setText(u"8 x 57"_s);
+    const int spaced = view->model()->rowCount();
+    QVERIFY(spaced > 0);
+    edit->setText(u"8x57"_s);
+    QCOMPARE(view->model()->rowCount(), spaced);
 }
 
 void GuiTest::rowFilterRestrictsTheTable()
@@ -1185,6 +1199,22 @@ void GuiTest::noteWithoutPhysicalBurnValues()
     LoadView edited;
     QVERIFY(edited.load(path));
     QVERIFY(statusOf(edited).contains(u"No physical burn values"_s));
+}
+
+void GuiTest::searchToleratesSpellings()
+{
+    const QStringList irs{u"8 x 57 IRS"_s, u"Sellier & Bellot"_s};
+    for (const QString &q :
+         {u"8x57"_s, u"8 x 57"_s, u"8X57"_s, u"8×57"_s, u"8*57"_s, u" 8x57 "_s, u"857"_s, u"8x57 irs"_s, u"bellot 8x57"_s})
+        QVERIFY2(searchfilter::matches(q, irs), qPrintable(q));
+    QVERIFY(searchfilter::matches(u"6.5x284"_s, {u"6.5 - 284 Norma"_s}));
+    QVERIFY(searchfilter::matches(u"30 06"_s, {u"30-06 Springfield"_s}));
+    QVERIFY(searchfilter::matches(u"9mm"_s, {u"9 mm Luger"_s}));
+    QVERIFY(searchfilter::matches(u"nobel"_s, {u"Nöbel Sport"_s}));
+    QVERIFY(searchfilter::matches({}, irs));
+    QVERIFY(!searchfilter::matches(u"8x58"_s, irs));
+    QVERIFY(!searchfilter::matches(u"7x57"_s, irs));
+    QVERIFY(!searchfilter::matches(u"lapua 8x57"_s, irs));
 }
 
 void GuiTest::recentFilesAreListedInTheFileMenu()
