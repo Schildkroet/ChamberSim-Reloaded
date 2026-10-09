@@ -48,6 +48,10 @@ void applyCaliber(LoadFile &load, const QVariantMap &caliber, const QStringList 
 void applyProjectile(LoadFile &load, const QVariantMap &projectile, bool resetDependent = false, const QVariantMap *caliber = nullptr);
 void applyPropellant(LoadFile &load, const QVariantMap &propellant, bool resetDependent = false, const QVariantMap *caliber = nullptr);
 
+// The burn and material values (Ba, Qex, k, a0, a1, z1, z2, eta, pc, pcd, tcc, tch) of the load's propellant that differ from `record`
+// (an older state of the database record, or edited in the load); empty when they all agree.
+[[nodiscard]] QStringList propellantDifferences(const EntryList &propellant, const QVariantMap &record);
+
 // Builds a complete load from one record of each table. `caliberColumns` (schema order) keeps the
 // <caliberfile> block in the order of the original; without it the keys are sorted.
 [[nodiscard]] LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, const QVariantMap &propellant,

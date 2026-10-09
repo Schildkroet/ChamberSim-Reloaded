@@ -313,30 +313,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+184"/>
-        <location line="+878"/>
+        <location filename="../src/app/loadview.cpp" line="+187"/>
+        <location line="+942"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-878"/>
-        <location line="+879"/>
+        <location line="-942"/>
+        <location line="+943"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-879"/>
+        <location line="-943"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+880"/>
+        <location line="+944"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-879"/>
+        <location line="-943"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -367,12 +367,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+33"/>
+        <location line="+40"/>
         <source>Load ratio</source>
         <translation>Füllgrad</translation>
     </message>
     <message>
-        <location line="-32"/>
+        <location line="-39"/>
         <source>Burnt propellant</source>
         <translation>Verbranntes Pulver</translation>
     </message>
@@ -387,7 +387,7 @@
         <translation>Wärme-/Reibungsverlust</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+39"/>
         <source>Charge</source>
         <translation>Ladung</translation>
     </message>
@@ -455,12 +455,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+190"/>
+        <location line="+191"/>
         <source>No database available</source>
         <translation>Keine Datenbank verfügbar</translation>
     </message>
     <message>
-        <location line="-174"/>
+        <location line="-175"/>
         <source>Cartridge</source>
         <translation>Patrone</translation>
     </message>
@@ -481,12 +481,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+556"/>
+        <location line="+612"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-555"/>
+        <location line="-611"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
@@ -501,12 +501,12 @@
         <translation>Waffe</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+34"/>
         <source>Replace this component by another record of the database</source>
         <translation>Diese Komponente durch einen anderen Datensatz der Datenbank ersetzen</translation>
     </message>
     <message>
-        <location line="-337"/>
+        <location line="-347"/>
         <source>Select Caliber</source>
         <translation>Kaliber wählen</translation>
     </message>
@@ -521,7 +521,7 @@
         <translation>Pulver wählen</translation>
     </message>
     <message>
-        <location line="+411"/>
+        <location line="+421"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Auch Lauflänge, Setztiefe und Ladung auf die Vorgaben des neuen Kalibers setzen</translation>
     </message>
@@ -572,7 +572,25 @@
         <translation> (angepasst)</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+43"/>
+        <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location line="+6"/>
+        <source>Powder values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Replace the powder values of this load by the current ones of %1 in the database?
+
+The charge and all other settings stay as they are.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <location line="+8"/>
         <source>Physical burn values</source>
         <translation>Physikalische Abbrandwerte</translation>
@@ -612,7 +630,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Geschoss:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Pulver:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/HL:&lt;/b&gt; %6, &lt;b&gt;L6/GL:&lt;/b&gt; %7, &lt;b&gt;Setztiefe:&lt;/b&gt; %8, &lt;b&gt;Geschosslänge:&lt;/b&gt; %9, &lt;b&gt;Hülsenvolumen:&lt;/b&gt; %10</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+32"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Ladung zu hoch:&lt;/b&gt; die Pulverladung passt nicht hinter dem Geschoss in die Hülse.</translation>
     </message>

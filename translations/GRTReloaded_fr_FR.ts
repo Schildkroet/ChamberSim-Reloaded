@@ -313,30 +313,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+184"/>
-        <location line="+878"/>
+        <location filename="../src/app/loadview.cpp" line="+187"/>
+        <location line="+942"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-878"/>
-        <location line="+879"/>
+        <location line="-942"/>
+        <location line="+943"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-879"/>
+        <location line="-943"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+880"/>
+        <location line="+944"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-879"/>
+        <location line="-943"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -367,12 +367,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+33"/>
+        <location line="+40"/>
         <source>Load ratio</source>
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-32"/>
+        <location line="-39"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
@@ -387,7 +387,7 @@
         <translation>Pertes chaleur / frottement</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+39"/>
         <source>Charge</source>
         <translation>Charge</translation>
     </message>
@@ -455,12 +455,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+190"/>
+        <location line="+191"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
     </message>
     <message>
-        <location line="-174"/>
+        <location line="-175"/>
         <source>Cartridge</source>
         <translation>Cartouche</translation>
     </message>
@@ -481,12 +481,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+556"/>
+        <location line="+612"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-555"/>
+        <location line="-611"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
@@ -501,12 +501,12 @@
         <translation>Arme</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+34"/>
         <source>Replace this component by another record of the database</source>
         <translation>Remplacer ce composant par un autre enregistrement de la base de données</translation>
     </message>
     <message>
-        <location line="-337"/>
+        <location line="-347"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
@@ -521,7 +521,7 @@
         <translation>Choisir la poudre</translation>
     </message>
     <message>
-        <location line="+411"/>
+        <location line="+421"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
@@ -572,7 +572,25 @@
         <translation> (ajustée)</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+43"/>
+        <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location line="+6"/>
+        <source>Powder values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Replace the powder values of this load by the current ones of %1 in the database?
+
+The charge and all other settings stay as they are.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <location line="+8"/>
         <source>Physical burn values</source>
         <translation>Valeurs de combustion physiques</translation>
@@ -612,7 +630,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile :&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Poudre :&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/LE :&lt;/b&gt; %6, &lt;b&gt;L6/LT :&lt;/b&gt; %7, &lt;b&gt;Profondeur d&apos;enfoncement :&lt;/b&gt; %8, &lt;b&gt;Longueur du projectile :&lt;/b&gt; %9, &lt;b&gt;Volume de l&apos;étui :&lt;/b&gt; %10</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+32"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Charge trop élevée :&lt;/b&gt; la charge de poudre ne tient pas dans l&apos;étui derrière la balle.</translation>
     </message>
@@ -2253,12 +2271,12 @@ pression Δ</translation>
     <message>
         <location line="+8"/>
         <source>Dialogs have rounded corners (with the custom title bar). Applies to dialogs opened afterwards.</source>
-        <translation>Les boîtes de dialogue ont des coins arrondis (avec la barre de titre personnalisée). S'applique aux boîtes ouvertes ensuite.</translation>
+        <translation>Les boîtes de dialogue ont des coins arrondis (avec la barre de titre personnalisée). S&apos;applique aux boîtes ouvertes ensuite.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Rounded corners need a compositing window manager, which is not running: the corners stay square.</source>
-        <translation>Les coins arrondis nécessitent un gestionnaire de fenêtres avec composition, qui n'est pas actif : les coins restent carrés.</translation>
+        <translation>Les coins arrondis nécessitent un gestionnaire de fenêtres avec composition, qui n&apos;est pas actif : les coins restent carrés.</translation>
     </message>
     <message>
         <location line="+2"/>

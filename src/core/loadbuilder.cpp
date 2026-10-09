@@ -275,6 +275,20 @@ void applyProjectile(LoadFile &lf, const QVariantMap &projectile, bool resetDepe
     refreshTitleAndLength(lf);
 }
 
+QStringList propellantDifferences(const EntryList &propellant, const QVariantMap &record)
+{
+    QStringList differing;
+    for (const QString &key :
+         {u"Ba"_s, u"Qex"_s, u"k"_s, u"a0"_s, u"a1"_s, u"z1"_s, u"z2"_s, u"eta"_s, u"pc"_s, u"pcd"_s, u"tcc"_s, u"tch"_s})
+    {
+        const double fallback = key == u"eta" ? 1.0 : 0.0;
+        const double a = propellant.number(key, fallback);
+        const double b = num(record, key.toLatin1().constData(), fallback);
+        if (std::abs(a - b) > 1e-6 * std::max({1.0, std::abs(a), std::abs(b)})) differing << key;
+    }
+    return differing;
+}
+
 void applyPropellant(LoadFile &lf, const QVariantMap &propellant, bool resetDependent, const QVariantMap *caliber)
 {
     LOG_Debug() << "Load: propellant replaced, reset dependent values" << resetDependent;

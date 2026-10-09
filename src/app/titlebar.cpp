@@ -151,7 +151,7 @@ void TitleBar::setDecorated(bool on)
 void TitleBar::updateSizes()
 {
     // a comfortable height that follows the font size (the menu entries sit in it)
-    const int h = std::max(34, static_cast<int>(fontMetrics().height() * 2.3));
+    const int h = std::max(34, static_cast<int>(fontMetrics().height() * 2.0));
     setFixedHeight(m_decorated ? h : QWIDGETSIZE_MAX);
     if (!m_decorated) setMinimumHeight(0);
     for (QAbstractButton *b : {m_minimize, m_maximize, m_close}) b->setFixedSize(static_cast<int>(h * 1.35), h);

@@ -2,13 +2,19 @@
 """Fits the physical burn values (Ba, a0, z1, z2) of the project's powders for the physical model and writes data/physical/propellants.json.
 
     fit_physical_powders.py <grt_eval> samples.csv [samples2.csv ...] [--out FILE] [--split train|all] [--min-samples 40]
-                            [--pressure-weight 1.0] [--only N110,N120 --merge] [--start FILE] [--fit form|ba] [--form a0,z1,z2]
+                            [--pressure-weight 1.0] [--slope-weight 1.0] [--only N110,N120 --merge] [--start FILE]
+                            [--fit form|ba] [--form a0,z1,z2]
 
 For every powder of data/propellants with at least --min-samples rows in the sample files (scripts/data/loaddata): Ba, a0, z1 and z2 are fitted
 to the velocities and, where published, the measured pressures (relative errors, robust loss) with the physical model's constants
 (grt_eval --profile physical). Without pressures only Ba is fitted (the velocities hardly determine the form function) and a0, z1, z2
 are the medians of the powders fitted with pressures. --fit ba fits only Ba for every powder, with the form function --form. --split train uses only the training cartridges (every cartridge but each 4th of the
 sorted list, the split of calibrate_published.py) and reports the error on the held-out ones; --split all (default) fits on everything.
+Besides the errors of the single loads, the fit minimises the error of the velocity gain from the start to the maximum load of every pair of
+loads (same cartridge, bullet, length and barrel; ln(v_max / v_start) simulated minus published), weighted with --slope-weight: the model must
+follow how the velocity rises with the charge, not only its level. (2026-10-09: with Ba fitted per powder the model already follows
+the published gain at 0.92; weights of 1-10 change nothing. A per-powder burn-law exponent and a loading-density dependent flame spread were
+tried and dropped: they trade velocity against pressure and leave the elasticity of own ladders, 1.1 against the model's 0.84, as it is.)
 The file keeps the record values the burn values belong to: they apply only to the unchanged record (physicalpowders.h)."""
 import argparse, csv, json, os, subprocess, sys, tempfile
 import numpy as np
@@ -25,6 +31,7 @@ ap.add_argument("--start", default="", help="earlier output: start values per po
 ap.add_argument("--fit", choices=["form", "ba"], default="form", help="form: Ba, a0, z1, z2 (powders with pressures); ba: only Ba")
 ap.add_argument("--form", default="0.45,0.27,0.62", help="a0,z1,z2 for --fit ba")
 ap.add_argument("--only", help="comma separated powders (product name or \"maker name\"): fit only these")
+ap.add_argument("--slope-weight", type=float, default=1.0, help="weight of the start-to-maximum velocity gain of the load pairs (0: off)")
 ap.add_argument("--merge", action="store_true", help="keep the other powders of the existing --out file (with --only: refit some, e.g. new records)")
 ap.add_argument("--eval-arg", action="append", default=[], help="extra option for grt_eval (repeatable), e.g. --eval-arg=--ps-handgun=150")
 args = ap.parse_args()
@@ -68,6 +75,15 @@ def simulate(name, powder, burn, subset):
         i, vv, pp = line.split(","); v[int(i)], p[int(i)] = float(vv), float(pp)
     return v, p
 
+def pairs_of(subset):
+    """Index pairs (start load, maximum load) of the subset: the same cartridge, bullet, length and barrel."""
+    groups = {}
+    for i, r in enumerate(subset):
+        groups.setdefault((r["caliber"], r["bullet"], r["bullet_gr"], r["col_mm"], r["barrel_mm"]), {})[r["kind"]] = i
+    return [(g["start"], g["max"]) for g in groups.values() if "start" in g and "max" in g
+            and float(subset[g["max"]]["charge_g"]) > float(subset[g["start"]]["charge_g"]) * 1.02
+            and float(subset[g["max"]]["velocity_ms"]) > float(subset[g["start"]]["velocity_ms"])]
+
 def residuals(name, powder, burn, subset):
     v, p = simulate(name, powder, burn, subset)
     mv = np.array([float(r["velocity_ms"]) for r in subset])
@@ -75,7 +91,12 @@ def residuals(name, powder, burn, subset):
     ok = ~np.isnan(v)
     rv = np.where(ok, v / mv - 1, 0.0)
     rp = np.where(ok & ~np.isnan(mp), p / mp - 1, 0.0)
-    return rv, rp, ok, ~np.isnan(mp) & ok
+    return rv, rp, ok, ~np.isnan(mp) & ok, v, mv
+
+def gains(subset, v, mv):
+    """(simulated, published) ln(v_max / v_start) of the pairs of the subset where both loads were simulated."""
+    pr = [(a, b) for a, b in pairs_of(subset) if not (np.isnan(v[a]) or np.isnan(v[b]))]
+    return (np.array([np.log(v[b] / v[a]) for a, b in pr]), np.array([np.log(mv[b] / mv[a]) for a, b in pr]))
 
 def unpack(x, form):
     """x = Ba [, a0, z1, d] with z2 = z1 + d (1 - z1); `form` = the fixed a0, z1, z2 when only Ba is fitted."""
@@ -86,8 +107,12 @@ def unpack(x, form):
 def fit(powder, subset, x0, form):
     name = powder.replace(" ", "_").replace("/", "_")
     def fun(x):
-        rv, rp, _, _ = residuals(name, powder, unpack(x, form), subset)
-        return np.concatenate([rv, args.pressure_weight * rp])
+        rv, rp, _, _, v, mv = residuals(name, powder, unpack(x, form), subset)
+        parts = [rv, args.pressure_weight * rp]
+        if args.slope_weight > 0:
+            sg, pg = gains(subset, v, mv)
+            parts.append(args.slope_weight * (sg - pg))
+        return np.concatenate(parts)
     lo, hi = ([0.05, -3.0, 0.05, 0.05], [20.0, 10.0, 0.8, 0.95]) if len(x0) == 4 else ([0.05], [20.0])
     sol = least_squares(fun, np.clip(x0, np.array(lo) + 1e-6, np.array(hi) - 1e-6), bounds=(lo, hi), loss="soft_l1", f_scale=0.1,
                         diff_step=1e-3, x_scale=np.maximum(np.abs(x0), 0.1), max_nfev=60)
@@ -95,9 +120,12 @@ def fit(powder, subset, x0, form):
 
 def stats(powder, burn, subset):
     if not subset: return {}
-    rv, rp, ok, hasp = residuals(powder.replace(" ", "_") + "_eval", powder, burn, subset)
+    rv, rp, ok, hasp, v, mv = residuals(powder.replace(" ", "_") + "_eval", powder, burn, subset)
     s = {"n": int(ok.sum()), "v_rms": round(100 * float(np.sqrt(np.mean(rv[ok] ** 2))), 2) if ok.any() else None}
     if hasp.any(): s.update(p_n=int(hasp.sum()), p_rms=round(100 * float(np.sqrt(np.mean(rp[hasp] ** 2))), 2))
+    sg, pg = gains(subset, v, mv)
+    big = pg > 0.03
+    if big.any(): s.update(gain_n=int(big.sum()), gain=round(float(np.median(sg[big] / pg[big])), 3))  # 1: the model follows the data
     return s
 
 def start_of(powder):
@@ -134,7 +162,10 @@ def summary(key):
         v = np.sqrt(sum(results[p][key]["n"] * results[p][key]["v_rms"] ** 2 for p in ps if results[p][key].get("n")) / n)
         pn = sum(results[p][key].get("p_n", 0) for p in ps)
         pr = np.sqrt(sum(results[p][key]["p_n"] * results[p][key]["p_rms"] ** 2 for p in ps if results[p][key].get("p_n")) / pn) if pn else float("nan")
-        print(f"   {title:16s}: {len(ps)} powders, velocity {v:.2f} % rms ({n} loads), pressure {pr:.2f} % rms ({pn} loads)")
+        gn = sum(results[p][key].get("gain_n", 0) for p in ps)
+        gr = sum(results[p][key]["gain_n"] * results[p][key]["gain"] for p in ps if results[p][key].get("gain_n")) / gn if gn else float("nan")
+        print(f"   {title:16s}: {len(ps)} powders, velocity {v:.2f} % rms ({n} loads), pressure {pr:.2f} % rms ({pn} loads), "
+              f"velocity gain start -> max {gr:.3f} of the published ({gn} pairs)")
 print("\nfitted rows:"); summary(1)
 if args.split == "train": print("held-out cartridges:"); summary(2)
 

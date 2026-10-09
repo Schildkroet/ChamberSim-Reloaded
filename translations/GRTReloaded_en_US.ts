@@ -313,7 +313,7 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+440"/>
+        <location filename="../src/app/loadview.cpp" line="+450"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -346,40 +346,40 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+190"/>
+        <location line="+191"/>
         <source>No database available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+477"/>
+        <location line="+532"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-801"/>
-        <location line="+878"/>
+        <location line="-865"/>
+        <location line="+942"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-878"/>
-        <location line="+879"/>
+        <location line="-942"/>
+        <location line="+943"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-879"/>
-        <location line="+880"/>
+        <location line="-943"/>
+        <location line="+944"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-880"/>
+        <location line="-944"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -415,12 +415,12 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+33"/>
+        <location line="+40"/>
         <source>Load ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-32"/>
+        <location line="-39"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -435,7 +435,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+39"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -496,12 +496,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+556"/>
+        <location line="+612"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-555"/>
+        <location line="-611"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -511,12 +511,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+34"/>
         <source>Replace this component by another record of the database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-337"/>
+        <location line="-347"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -531,7 +531,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+411"/>
+        <location line="+421"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -582,7 +582,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+43"/>
+        <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location line="+6"/>
+        <source>Powder values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Replace the powder values of this load by the current ones of %1 in the database?
+
+The charge and all other settings stay as they are.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <location line="+8"/>
         <source>Physical burn values</source>
         <translation type="unfinished"></translation>
@@ -615,7 +633,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+141"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation type="unfinished"></translation>
     </message>

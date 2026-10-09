@@ -113,7 +113,9 @@ private:
 
     [[nodiscard]] grt::EntryList &section(int id);
     void rebuildPanels();
-    void offerPhysicalBurn();  // asks whether the load takes the Physical Model's burn values of its powder
+    void updateOutdatedNotice();  // shows or hides the banner for powder values that differ from the database record
+    void offerPowderUpdate();     // asks whether the load takes the current values of the database record
+    void offerPhysicalBurn();     // asks whether the load takes the Physical Model's burn values of its powder
     void onValueEdited(int sectionId, const QString &key, const QString &text);
     void recompute();
     void setModified(bool m);
@@ -183,6 +185,9 @@ private:
     QLabel *m_overpressureText;
     QWidget *m_burnNotice;  // orange banner: the Physical Model has no burn values for this load (less accurate)
     QLabel *m_burnNoticeText;
+    QWidget *m_outdatedNotice;  // orange banner: the powder values of the load differ from the database record of that powder
+    QLabel *m_outdatedNoticeText;
+    int m_outdatedRecordId{0};
     QFormLayout *m_leftResults;
     QFormLayout *m_rightResults;
     QLabel *m_comparison;

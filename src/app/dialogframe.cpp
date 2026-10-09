@@ -164,11 +164,11 @@ DialogFrame::DialogFrame(QDialog *dialog)
         dialog->setWindowFlag(Qt::FramelessWindowHint, true);
         m_radius = roundedCorners() ? kDialogCornerRadius : 0;
         if (m_radius > 0) dialog->setAttribute(Qt::WA_TranslucentBackground);  // the corners outside the rounded window stay transparent
-        m_titleHeight = std::max(40, static_cast<int>(dialog->fontMetrics().height() * 2.0));
+        m_titleHeight = std::max(40, static_cast<int>(dialog->fontMetrics().height() * 1.8));
         m_title = new QLabel(dialog->windowTitle());
         QFont f = dialog->font();
         f.setBold(true);
-        if (f.pointSizeF() > 0.0) f.setPointSizeF(f.pointSizeF() * 1.2);
+        if (f.pointSizeF() > 0.0) f.setPointSizeF(f.pointSizeF() * 1.1);
         m_title->setFont(f);
         m_titleBar = new DialogTitleBar(dialog, m_title, m_titleHeight);
         dialog->setMouseTracking(true);

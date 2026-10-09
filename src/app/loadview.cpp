@@ -34,6 +34,7 @@
 #include <QTabWidget>
 #include <QScrollArea>
 #include <QSettings>
+#include <QSqlQuery>
 #include "layoutstate.h"
 #include <QSplitter>
 #include <QTimer>
@@ -167,6 +168,8 @@ LoadView::LoadView(QWidget *parent)
     , m_overpressureText(new QLabel)
     , m_burnNotice(new QWidget)
     , m_burnNoticeText(new QLabel)
+    , m_outdatedNotice(new QWidget)
+    , m_outdatedNoticeText(new QLabel)
     , m_leftResults(new QFormLayout)
     , m_rightResults(new QFormLayout)
     , m_comparison(new QLabel)
@@ -213,8 +216,15 @@ LoadView::LoadView(QWidget *parent)
     setupBanner(m_burnNotice, m_burnNoticeText, QColor(0xff, 0xb3, 0x47), QColor(0x2b, 0x1a, 0x00), QStyle::SP_MessageBoxInformation);
     m_burnNoticeText->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
     connect(m_burnNoticeText, &QLabel::linkActivated, this, [this] { offerPhysicalBurn(); });
+    m_outdatedNotice->setObjectName(u"outdatedPowderNotice"_s);
+    m_outdatedNoticeText->setObjectName(u"outdatedPowderNoticeText"_s);
+    setupBanner(m_outdatedNotice, m_outdatedNoticeText, QColor(0xff, 0xb3, 0x47), QColor(0x2b, 0x1a, 0x00),
+                QStyle::SP_MessageBoxInformation);
+    m_outdatedNoticeText->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
+    connect(m_outdatedNoticeText, &QLabel::linkActivated, this, [this] { offerPowderUpdate(); });
     infoCol->addWidget(m_overpressure);
     infoCol->addWidget(m_burnNotice);
+    infoCol->addWidget(m_outdatedNotice);
     infoCol->addWidget(m_status);
     infoCol->addLayout(results);
     m_ladderTable->setHorizontalHeaderLabels({tr("Charge"), tr("Max. pressure"), tr("Velocity"), tr("Energy"), tr("Load ratio")});
@@ -466,6 +476,7 @@ void LoadView::setDatabase(const grt::Database *db)
     m_db = db;
     m_photo->clear();  // the pictures come from the database
     updatePhoto();
+    updateOutdatedNotice();  // the load may have been shown before the database was attached
     const bool on = db && db->isOpen();
     for (QPushButton *b : m_selectButtons)
     {
@@ -674,6 +685,63 @@ void LoadView::fitPowder()
     LOG_Info() << "Powder fit applied to" << title();
     pushUndo(tr("Fit to measurements"));
     grt::powderfit::apply(m_file.propellant, dlg.results());  // both models: Ba ... and the physical values
+    rebuildPanels();
+    recompute();
+    setModified(true);
+}
+
+// The database record of the load's powder (same maker and name; with the Physical Model only the project's records) closest to the
+// load's values; none when the database has no such powder or one of its records equals the load's values.
+void LoadView::updateOutdatedNotice()
+{
+    m_outdatedNotice->hide();
+    m_outdatedRecordId = 0;
+    if (!m_db || !m_db->isOpen() || m_input.shotshell) return;
+    QSqlQuery q(m_db->handle());
+    q.prepare(u"SELECT id FROM propellant WHERE geloescht = 0 AND mname = ? AND pname = ? ORDER BY id DESC"_s);
+    q.addBindValue(m_file.propellant.text(u"mname"));
+    q.addBindValue(m_file.propellant.text(u"pname"));
+    if (!q.exec()) return;
+    // the Physical Model's powder values come from the project's records: the original's and the own ones do not count for it
+    const bool projectOnly = SolverPreferences::instance().profileFor(isGrtFile()) == grt::CalibrationProfile::Physical;
+    qsizetype fewest = 0;
+    int recordId = 0;
+    while (q.next())
+    {
+        const int id = q.value(0).toInt();
+        const auto rec = m_db->record(grt::Table::Propellant, id);
+        if (!rec || (projectOnly && rec->value(u"source"_s).toString() != QLatin1String(grt::Database::kSourceProject))) continue;
+        const QStringList d = grt::propellantDifferences(m_file.propellant, *rec);
+        if (d.isEmpty()) return;             // the load has the values of a current record
+        if (!recordId || d.size() < fewest)  // the record closest to the load
+        {
+            recordId = id;
+            fewest = d.size();
+        }
+    }
+    if (!recordId) return;
+    m_outdatedRecordId = recordId;
+    QString text = tr("<b>Powder values differ from the database.</b> The load uses its own values of %1. "
+                      "<a href=\"powder\">Use the database values…</a>")
+                       .arg(propellantName().toHtmlEscaped());
+    text.replace(u"<a href=\"powder\">"_s, u"<a href=\"powder\" style=\"color:#2b1a00\">"_s);
+    m_outdatedNoticeText->setText(text);
+    m_outdatedNotice->show();
+}
+
+void LoadView::offerPowderUpdate()
+{
+    if (!m_db || !m_outdatedRecordId) return;
+    const auto rec = m_db->record(grt::Table::Propellant, m_outdatedRecordId);
+    if (!rec) return;
+    const auto answer = QMessageBox::question(this, tr("Powder values"),
+                                              tr("Replace the powder values of this load by the current ones of %1 in the database?\n\n"
+                                                 "The charge and all other settings stay as they are.")
+                                                  .arg(propellantName()));
+    if (answer != QMessageBox::Yes) return;
+    LOG_Info() << "Powder values updated from the database in" << title();
+    pushUndo(tr("Powder values"));
+    grt::applyPropellant(m_file, *rec);
     rebuildPanels();
     recompute();
     setModified(true);
@@ -969,6 +1037,7 @@ void LoadView::showResult()
     m_comparison->clear();
     m_overpressure->hide();
     m_burnNotice->hide();
+    updateOutdatedNotice();
     if (auto *item = m_leftResults->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet({});
     const auto clearAll = [&]
     {
