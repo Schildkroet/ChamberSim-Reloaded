@@ -25,7 +25,7 @@ per charge), the better the model fits other loads. One load with few charges on
 4. **Type the measurements.** Open the tab *Measurements*. Click *Add charge* for each charge (or *Add ladder
    charges*). Select a charge and type the velocity of each shot in the shot list (and the pressure, if you
    measured it). You can also use *Paste shots* (one shot per line, velocity and optionally pressure), or click
-   *Import chronograph file…* and choose a MagnetoSpeed `.csv` or a Labradar `Report.csv`. The files do not contain
+   *Import chronograph file…* and choose a Garmin Xero `.fit` (or the CSV of the Xero app), a MagnetoSpeed `.csv` or a Labradar `Report.csv`. The files do not contain
    the powder charge: type it for each series in the import dialog. The table shows the mean velocity, SD and ES
    and the difference to the simulation.
    Use *New series* if you have several measurement series for the load (for example one for each range day).

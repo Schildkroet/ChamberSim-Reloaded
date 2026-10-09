@@ -55,16 +55,17 @@ QString html(const std::optional<DatabaseInfo> &database)
                                          "<p>A Qt&nbsp;6 re-creation of the workflow of Gordon's Reloading Tool. It is an independent "
                                          "project and is not affiliated with or supported by the original program or its author.</p>")
             .arg(version.toHtmlEscaped());
-    text += QApplication::translate("about", "<h3>Features</h3>"
-                                             "<ul>"
-                                             "<li>Load development ladder; reports with print preview and PDF export</li>"
-                                             "<li>Measurements: chronograph data (import of MagnetoSpeed and Labradar files) compared "
-                                             "with the simulation; the powder's model values can be fitted to your measurements</li>"
-                                             "<li>Built-in database of calibers, projectiles and propellants, your own records, and "
-                                             "optionally the database of the original program</li>"
-                                             "<li>Cartridge and chamber drawings with the C.I.P. dimensions</li>"
-                                             "<li>Metric, imperial or the original's units; light and dark theme; several languages</li>"
-                                             "</ul>");
+    text += QApplication::translate("about",
+                                    "<h3>Features</h3>"
+                                    "<ul>"
+                                    "<li>Load development ladder; reports with print preview and PDF export</li>"
+                                    "<li>Measurements: chronograph data (import of Garmin Xero, MagnetoSpeed and Labradar files) compared "
+                                    "with the simulation; the powder's model values can be fitted to your measurements</li>"
+                                    "<li>Built-in database of calibers, projectiles and propellants, your own records, and "
+                                    "optionally the database of the original program</li>"
+                                    "<li>Cartridge and chamber drawings with the C.I.P. dimensions</li>"
+                                    "<li>Metric, imperial or the original's units; light and dark theme; several languages</li>"
+                                    "</ul>");
     text += QApplication::translate("about", "<h3>Accuracy</h3>"
                                              "<p>The default <b>Physical Model</b> was fitted to the published load data of powder "
                                              "manufacturers. On cartridges not used for the fit it typically deviates about 2&nbsp;% in "

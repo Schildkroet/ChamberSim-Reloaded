@@ -137,7 +137,8 @@ MeasurementView::MeasurementView(QWidget *parent)
     m_fitButton->setToolTip(tr("Change the propellant's model values until the simulation agrees with the measured charges"));
     m_paste->setToolTip(tr("Add shots from the clipboard: one shot per line, velocity and optionally the peak "
                            "pressure in the shown units (e.g. copied from a chronograph export or a spreadsheet)"));
-    m_import->setToolTip(tr("Read the shots of a MagnetoSpeed or Labradar file (Labradar: the \"Report.csv\" of a series)"));
+    m_import->setToolTip(
+        tr("Read the shots of a Garmin Xero (FIT or CSV), MagnetoSpeed or Labradar file (Labradar: the \"Report.csv\" of a series)"));
     markPrimary(m_addCharge);
 
     m_charges->setObjectName(u"charges"_s);
@@ -599,8 +600,8 @@ void MeasurementView::importChronograph()
 {
     QSettings settings;
     const QString dir = settings.value(u"files/importDir"_s).toString();
-    const QString path =
-        QFileDialog::getOpenFileName(this, tr("Import chronograph file"), dir, tr("Chronograph files (*.csv *.CSV);;All files (*)"));
+    const QString path = QFileDialog::getOpenFileName(this, tr("Import chronograph file"), dir,
+                                                      tr("Chronograph files (*.fit *.FIT *.csv *.CSV);;All files (*)"));
     if (path.isEmpty()) return;
     settings.setValue(u"files/importDir"_s, QFileInfo(path).absolutePath());
     QFile f(path);

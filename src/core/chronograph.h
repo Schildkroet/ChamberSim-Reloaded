@@ -13,7 +13,8 @@ enum class ChronographFormat
 {
     Unknown,
     MagnetoSpeed,
-    Labradar
+    Labradar,
+    GarminXero
 };
 
 // One series of a chronograph file: the velocities in m/s in shot order (missed shots are left out).
@@ -31,7 +32,8 @@ struct ChronographFile
 
 [[nodiscard]] QString formatName(ChronographFormat f);
 
-// Reads a chronograph export. Recognised: MagnetoSpeed CSV ("Series, n, Shots:, count" blocks with one
+// Reads a chronograph export. Recognised: the Garmin Xero C1 Pro's FIT shot session file (binary; chrono shot data messages) and the
+// CSV the Garmin Xero app exports ("#,SPEED (MPS),..." table), MagnetoSpeed CSV ("Series, n, Shots:, count" blocks with one
 // "series, shot, speed, unit" line per shot; one file can hold several series) and the Labradar "Report.csv"
 // ("Series No", "Units velocity" and a "Shot ID;V0;..." table, V0 = muzzle velocity). nullopt with `error` set if
 // the text is none of them or has no shots.

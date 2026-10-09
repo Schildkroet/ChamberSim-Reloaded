@@ -448,6 +448,33 @@ void CoreTest::chronographFiles()
     QCOMPARE(l->series[0].velocities_ms.size(), std::size_t{2});
     QCOMPARE_LT(std::abs(l->series[0].velocities_ms[1] - 2754 * 0.3048), 1e-9);
 
+    // the Garmin Xero: the app's CSV (unit from the header, notes may contain commas) and the device's FIT file
+    QFile xeroCsv(QStringLiteral(GRT_FIXTURE_DIR "/garmin-xero.csv"));
+    QVERIFY(xeroCsv.open(QIODevice::ReadOnly));
+    const auto xc = grt::readChronograph(xeroCsv.readAll(), &error);
+    QVERIFY2(xc, qPrintable(error));
+    QCOMPARE(xc->format, grt::ChronographFormat::GarminXero);
+    QCOMPARE(xc->series.size(), std::size_t{1});
+    QCOMPARE(xc->series[0].name, u"Rifle Cartridge"_s);
+    QCOMPARE(xc->series[0].velocities_ms.size(), std::size_t{3});
+    QCOMPARE_LT(std::abs(xc->series[0].velocities_ms[1] - 2670.3 * 0.3048), 1e-9);
+
+    QFile xeroFit(QStringLiteral(GRT_FIXTURE_DIR "/garmin-xero.fit"));
+    QVERIFY(xeroFit.open(QIODevice::ReadOnly));
+    const QByteArray fit = xeroFit.readAll();
+    const auto xf = grt::readChronograph(fit, &error);
+    QVERIFY2(xf, qPrintable(error));
+    QCOMPARE(xf->format, grt::ChronographFormat::GarminXero);
+    QCOMPARE(xf->series.size(), std::size_t{1});
+    QVERIFY(xf->series[0].name.startsWith(u"Xero "_s));
+    QCOMPARE(xf->series[0].velocities_ms, (std::vector<double>{812.345, 815.2, 809.8, 811.0, 813.6}));  // the 0 is a missed shot
+    // a cut-off or foreign FIT file is refused, not misread
+    QVERIFY(!grt::readChronograph(fit.left(fit.size() - 20), &error));
+    QVERIFY(!error.isEmpty());
+    QByteArray activity = fit;
+    activity[14 + 21 + 1] = 4;  // file id type (after the 14-byte header, the 21-byte definition and the record header): activity
+    QVERIFY(!grt::readChronograph(activity, &error));
+
     QVERIFY(!grt::readChronograph("a,b,c\n1,2,3\n", &error));
     QVERIFY(!error.isEmpty());
     QVERIFY(!grt::readChronograph("Series,1, Shots:,0\r\n", &error));

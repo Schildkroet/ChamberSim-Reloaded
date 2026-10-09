@@ -29,8 +29,8 @@ your own responsibility.
 - 📈 Pressure, energy and velocity curves with markers and pressure bands, burn-rate chart, load ladder
 - 📐 Cartridge and chamber drawings with CIP dimensions (hover a table row to see the dimension in the drawing)
 - ⏱️ Measurements tab: chronograph velocity and pressure per charge with statistics (mean, SD, ES), compared with the
-  simulation in a table and a chart over the charge; several measurement series per load; import of MagnetoSpeed
-  and Labradar files; stored in the load file like the original does
+  simulation in a table and a chart over the charge; several measurement series per load; import of Garmin Xero,
+  MagnetoSpeed and Labradar files; stored in the load file like the original does
 - 🎛️ **Fit to measurements**: changes the powder's model values (Ba, a0, z1, z2) until the simulation agrees with
   your chronograph (and pressure) data, and saves the result as your own propellant
 - 📷 Photos of the powder (overview and detail, with a scale bar) from the database; you can add your own photos to

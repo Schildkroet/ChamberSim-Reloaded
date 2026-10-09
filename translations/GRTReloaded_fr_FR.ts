@@ -229,7 +229,7 @@
         <translation>Pmax admissible</translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+194"/>
         <source>Time: %1 ms</source>
         <translation>Temps : %1 ms</translation>
     </message>
@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+187"/>
-        <location line="+942"/>
+        <location line="+944"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-942"/>
-        <location line="+943"/>
+        <location line="-944"/>
+        <location line="+945"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-943"/>
+        <location line="-945"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+944"/>
+        <location line="+946"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-943"/>
+        <location line="-945"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -481,12 +481,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+612"/>
+        <location line="+614"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-611"/>
+        <location line="-613"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
@@ -572,22 +572,24 @@
         <translation> (ajustée)</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+45"/>
         <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Les valeurs de la poudre diffèrent de la base de données.&lt;/b&gt; Le chargement utilise ses propres valeurs pour %1. &lt;a href=&quot;powder&quot;&gt;Utiliser les valeurs de la base de données…&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
         <location line="+6"/>
         <source>Powder values</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeurs de la poudre</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Replace the powder values of this load by the current ones of %1 in the database?
 
 The charge and all other settings stay as they are.</source>
-        <translation type="unfinished"></translation>
+        <translation>Remplacer les valeurs de la poudre de ce chargement par les valeurs actuelles de %1 dans la base de données ?
+
+La charge et tous les autres réglages restent inchangés.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1354,9 +1356,9 @@ L&apos;exporter quand même ?</translation>
         <translation>Ajouter des tirs depuis le presse-papiers : un tir par ligne, la vitesse et éventuellement la pression maximale dans les unités affichées (par ex. copiés d&apos;un export de chronographe ou d&apos;un tableur)</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Read the shots of a MagnetoSpeed or Labradar file (Labradar: the &quot;Report.csv&quot; of a series)</source>
-        <translation>Lire les tirs d&apos;un fichier MagnetoSpeed ou Labradar (Labradar : le « Report.csv » d&apos;une série)</translation>
+        <location line="+3"/>
+        <source>Read the shots of a Garmin Xero (FIT or CSV), MagnetoSpeed or Labradar file (Labradar: the &quot;Report.csv&quot; of a series)</source>
+        <translation>Lire les tirs d’un fichier Garmin Xero (FIT ou CSV), MagnetoSpeed ou Labradar (Labradar : le « Report.csv » d’une série)</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -1493,15 +1495,15 @@ L&apos;exporter quand même ?</translation>
         <translation>&lt;b&gt;Tirs&lt;/b&gt; – choisissez une charge</translation>
     </message>
     <message>
-        <location line="+153"/>
-        <location line="+11"/>
+        <location line="+152"/>
+        <location line="+12"/>
         <source>Import chronograph file</source>
         <translation>Importer un fichier de chronographe</translation>
     </message>
     <message>
         <location line="-11"/>
-        <source>Chronograph files (*.csv *.CSV);;All files (*)</source>
-        <translation>Fichiers de chronographe (*.csv *.CSV);;Tous les fichiers (*)</translation>
+        <source>Chronograph files (*.fit *.FIT *.csv *.CSV);;All files (*)</source>
+        <translation>Fichiers de chronographe (*.fit *.FIT *.csv *.CSV);;Tous les fichiers (*)</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -2664,11 +2666,11 @@ pression Δ</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Load development ladder; reports with print preview and PDF export&lt;/li&gt;&lt;li&gt;Measurements: chronograph data (import of MagnetoSpeed and Labradar files) compared with the simulation; the powder&apos;s model values can be fitted to your measurements&lt;/li&gt;&lt;li&gt;Built-in database of calibers, projectiles and propellants, your own records, and optionally the database of the original program&lt;/li&gt;&lt;li&gt;Cartridge and chamber drawings with the C.I.P. dimensions&lt;/li&gt;&lt;li&gt;Metric, imperial or the original&apos;s units; light and dark theme; several languages&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>&lt;h3&gt;Fonctions&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Échelle de chargement ; rapports avec aperçu avant impression et export PDF&lt;/li&gt;&lt;li&gt;Mesures : données du chronographe (import de fichiers MagnetoSpeed et Labradar) comparées à la simulation ; les valeurs du modèle de la poudre peuvent être ajustées à vos mesures&lt;/li&gt;&lt;li&gt;Base de données intégrée de calibres, projectiles et poudres, vos propres enregistrements et, au choix, la base de données du programme d’origine&lt;/li&gt;&lt;li&gt;Dessins de la cartouche et de la chambre avec les cotes C.I.P.&lt;/li&gt;&lt;li&gt;Unités métriques, impériales ou celles de l’original ; thème clair et sombre ; plusieurs langues&lt;/li&gt;&lt;/ul&gt;</translation>
+        <source>&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Load development ladder; reports with print preview and PDF export&lt;/li&gt;&lt;li&gt;Measurements: chronograph data (import of Garmin Xero, MagnetoSpeed and Labradar files) compared with the simulation; the powder&apos;s model values can be fitted to your measurements&lt;/li&gt;&lt;li&gt;Built-in database of calibers, projectiles and propellants, your own records, and optionally the database of the original program&lt;/li&gt;&lt;li&gt;Cartridge and chamber drawings with the C.I.P. dimensions&lt;/li&gt;&lt;li&gt;Metric, imperial or the original&apos;s units; light and dark theme; several languages&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>&lt;h3&gt;Fonctions&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Échelle de chargement ; rapports avec aperçu avant impression et export PDF&lt;/li&gt;&lt;li&gt;Mesures : données du chronographe (import de fichiers Garmin Xero, MagnetoSpeed et Labradar) comparées à la simulation ; les valeurs du modèle de la poudre peuvent être ajustées à vos mesures&lt;/li&gt;&lt;li&gt;Base de données intégrée de calibres, projectiles et poudres, vos propres enregistrements et, au choix, la base de données du programme d’origine&lt;/li&gt;&lt;li&gt;Dessins de la cartouche et de la chambre avec les cotes C.I.P.&lt;/li&gt;&lt;li&gt;Unités métriques, impériales ou celles de l’original ; thème clair et sombre ; plusieurs langues&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The default &lt;b&gt;Physical Model&lt;/b&gt; was fitted to the published load data of powder manufacturers. On cartridges not used for the fit it typically deviates about 2&amp;nbsp;% in muzzle velocity and 7.5&amp;nbsp;% in peak pressure from the published values (median); single loads, and pistol and shotgun powders, can deviate much more.&lt;/p&gt;&lt;p&gt;The &lt;b&gt;GRT Original&lt;/b&gt; model (File &amp;gt; Settings &amp;gt; Solver) reproduces the original program: on average 0.8&amp;nbsp;% in muzzle velocity and 2.8&amp;nbsp;% in peak pressure over 349 reference runs.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Précision&lt;/h3&gt;&lt;p&gt;Le &lt;b&gt;modèle physique&lt;/b&gt; par défaut a été ajusté aux données de rechargement publiées par les fabricants de poudre. Sur des cartouches non utilisées pour l’ajustement, il s’écarte typiquement d’environ 2&amp;nbsp;% en vitesse initiale et de 7,5&amp;nbsp;% en pression maximale des valeurs publiées (médiane) ; des charges isolées ainsi que les poudres pour pistolet et fusil de chasse peuvent s’écarter bien davantage.&lt;/p&gt;&lt;p&gt;Le modèle &lt;b&gt;GRT Original&lt;/b&gt; (Fichier &amp;gt; Paramètres &amp;gt; Solveur) reproduit le programme d’origine : en moyenne 0,8&amp;nbsp;% en vitesse initiale et 2,8&amp;nbsp;% en pression maximale sur 349 calculs de référence.&lt;/p&gt;</translation>
     </message>
@@ -2716,30 +2718,55 @@ pression Δ</translation>
 <context>
     <name>grt</name>
     <message>
-        <location filename="../src/core/chronograph.cpp" line="+58"/>
+        <location filename="../src/core/chronograph.cpp" line="+64"/>
         <source>Series %1</source>
         <translation>Série %1</translation>
     </message>
     <message>
         <location line="+15"/>
         <location line="+35"/>
+        <location line="+120"/>
+        <location line="+54"/>
         <source>The file contains no shots.</source>
         <translation>Le fichier ne contient aucun tir.</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-179"/>
+        <location line="+174"/>
         <source>The velocity unit of the file is unknown.</source>
         <translation>L&apos;unité de vitesse du fichier est inconnue.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-166"/>
+        <location line="+124"/>
+        <location line="+50"/>
         <source>Series</source>
         <translation>Série</translation>
     </message>
     <message>
-        <location line="+28"/>
-        <source>Not a MagnetoSpeed or Labradar file.</source>
-        <translation>Pas un fichier MagnetoSpeed ou Labradar.</translation>
+        <location line="-121"/>
+        <source>The FIT file is truncated.</source>
+        <translation>Le fichier FIT est tronqué.</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <location line="+6"/>
+        <location line="+4"/>
+        <location line="+2"/>
+        <location line="+7"/>
+        <location line="+3"/>
+        <source>The FIT file is damaged.</source>
+        <translation>Le fichier FIT est endommagé.</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>This FIT file is not a shot session of a chronograph.</source>
+        <translation>Ce fichier FIT n’est pas une session de tir d’un chronographe.</translation>
+    </message>
+    <message>
+        <location line="+90"/>
+        <source>Not a Garmin Xero, MagnetoSpeed or Labradar file.</source>
+        <translation>Ce n’est pas un fichier Garmin Xero, MagnetoSpeed ou Labradar.</translation>
     </message>
 </context>
 <context>

@@ -229,7 +229,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+194"/>
         <source>Time: %1 ms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -351,7 +351,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+532"/>
+        <location line="+534"/>
         <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
         <translation type="unfinished"></translation>
     </message>
@@ -361,25 +361,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-865"/>
-        <location line="+942"/>
+        <location line="-867"/>
+        <location line="+944"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-942"/>
-        <location line="+943"/>
+        <location line="-944"/>
+        <location line="+945"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-943"/>
-        <location line="+944"/>
+        <location line="-945"/>
+        <location line="+946"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-944"/>
+        <location line="-946"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -496,12 +496,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+612"/>
+        <location line="+614"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-611"/>
+        <location line="-613"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -582,7 +582,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+45"/>
         <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1338,8 +1338,8 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Read the shots of a MagnetoSpeed or Labradar file (Labradar: the &quot;Report.csv&quot; of a series)</source>
+        <location line="+3"/>
+        <source>Read the shots of a Garmin Xero (FIT or CSV), MagnetoSpeed or Labradar file (Labradar: the &quot;Report.csv&quot; of a series)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1477,14 +1477,14 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+153"/>
-        <location line="+11"/>
+        <location line="+152"/>
+        <location line="+12"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-11"/>
-        <source>Chronograph files (*.csv *.CSV);;All files (*)</source>
+        <source>Chronograph files (*.fit *.FIT *.csv *.CSV);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2642,11 +2642,11 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+7"/>
-        <source>&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Load development ladder; reports with print preview and PDF export&lt;/li&gt;&lt;li&gt;Measurements: chronograph data (import of MagnetoSpeed and Labradar files) compared with the simulation; the powder&apos;s model values can be fitted to your measurements&lt;/li&gt;&lt;li&gt;Built-in database of calibers, projectiles and propellants, your own records, and optionally the database of the original program&lt;/li&gt;&lt;li&gt;Cartridge and chamber drawings with the C.I.P. dimensions&lt;/li&gt;&lt;li&gt;Metric, imperial or the original&apos;s units; light and dark theme; several languages&lt;/li&gt;&lt;/ul&gt;</source>
+        <source>&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Load development ladder; reports with print preview and PDF export&lt;/li&gt;&lt;li&gt;Measurements: chronograph data (import of Garmin Xero, MagnetoSpeed and Labradar files) compared with the simulation; the powder&apos;s model values can be fitted to your measurements&lt;/li&gt;&lt;li&gt;Built-in database of calibers, projectiles and propellants, your own records, and optionally the database of the original program&lt;/li&gt;&lt;li&gt;Cartridge and chamber drawings with the C.I.P. dimensions&lt;/li&gt;&lt;li&gt;Metric, imperial or the original&apos;s units; light and dark theme; several languages&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>&lt;h3&gt;Accuracy&lt;/h3&gt;&lt;p&gt;The default &lt;b&gt;Physical Model&lt;/b&gt; was fitted to the published load data of powder manufacturers. On cartridges not used for the fit it typically deviates about 2&amp;nbsp;% in muzzle velocity and 7.5&amp;nbsp;% in peak pressure from the published values (median); single loads, and pistol and shotgun powders, can deviate much more.&lt;/p&gt;&lt;p&gt;The &lt;b&gt;GRT Original&lt;/b&gt; model (File &amp;gt; Settings &amp;gt; Solver) reproduces the original program: on average 0.8&amp;nbsp;% in muzzle velocity and 2.8&amp;nbsp;% in peak pressure over 349 reference runs.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2694,29 +2694,54 @@ pressure Δ</source>
 <context>
     <name>grt</name>
     <message>
-        <location filename="../src/core/chronograph.cpp" line="+58"/>
+        <location filename="../src/core/chronograph.cpp" line="+64"/>
         <source>Series %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+15"/>
         <location line="+35"/>
+        <location line="+120"/>
+        <location line="+54"/>
         <source>The file contains no shots.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-179"/>
+        <location line="+174"/>
         <source>The velocity unit of the file is unknown.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-166"/>
+        <location line="+124"/>
+        <location line="+50"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
-        <source>Not a MagnetoSpeed or Labradar file.</source>
+        <location line="-121"/>
+        <source>The FIT file is truncated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <location line="+6"/>
+        <location line="+4"/>
+        <location line="+2"/>
+        <location line="+7"/>
+        <location line="+3"/>
+        <source>The FIT file is damaged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>This FIT file is not a shot session of a chronograph.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+90"/>
+        <source>Not a Garmin Xero, MagnetoSpeed or Labradar file.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

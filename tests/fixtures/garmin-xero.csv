@@ -1,0 +1,15 @@
+"Rifle Cartridge, 150,0 gr"
+#,SPEED (FPS),Δ AVG (FPS),KE (FT⋅LBF),POWER FACTOR (LBF⋅S),TIME,CLEAN BORE,COLD BORE,SHOT NOTES
+1, 2665.1, -1.6, 2365.0, 2.5, 10.01.02, , , "" 
+2, 2670.3, 3.6, 2374.2, 2.5, 10.01.40, , , "first, warm" 
+3, 2662.9, -3.8, 2361.1, 2.5, 10.02.05, , , "" 
+-,,,,,,
+AVERAGE SPEED,2666.1,,,,,,,
+STD DEV,3.8,,,,,,,
+SPREAD,7.4,,,,,,,
+AVERAGE POWER FACTOR,2.5,,,,,,,
+PROJECTILE WEIGHT(GRAINS),150.0,,,,,,,
+SESSION NOTE,"",,,,,,,
+-,,,,,,
+DATE, "12. May 2024 at 10.01",,,,,
+All shots included in the calculations,,,,,,,

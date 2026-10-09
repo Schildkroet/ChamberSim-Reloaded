@@ -112,7 +112,8 @@ build/release/GRTReloaded
 \end{verbatim}
 
 \subsection{Safety notice}
-At every start (unless you switch it off in \menu{File}\sep\ui{Settings}) a safety notice is shown. Read it.
+At every start a safety notice is shown. Read it, then choose \ui{I understand}; \ui{Quit} closes the program. With \ui{Do not show this again}
+ticked, \ui{I understand} also switches the notice off for later starts. There is no entry in the settings to bring it back.
 
 \subsection{Command-line options}
 \begin{verbatim}
@@ -290,7 +291,8 @@ database. Consequently:
 \begin{itemize}
   \item the load opens and calculates the same on another computer, without the original database;
   \item deleting or changing a record in the database does not change loads that were made with it (the program tells you so when you delete a record);
-  \item to apply changes of a record to an existing load, select it again in the load (\ui{Select Propellant\dots} and so on).
+  \item to apply changes of a record to an existing load, select it again in the load (\ui{Select Propellant\dots} and so on); for a powder
+        a banner points out that the load differs from the database, see section~\ref{sec:propellant}.
 \end{itemize}
 Measurement series, notes and pictures are part of the file as well. Parts of an original file that the program does not interpret are kept unchanged when you save.
 
@@ -337,12 +339,17 @@ of the new caliber (tick the corresponding option in the selection dialog).
 Mass, diameter, length and the other bullet data. \ui{Select Projectile\dots} replaces the bullet; tick \ui{Show only bullets that fit the caliber}
 to narrow the list. The \ui{Initial Gas Pressure} is the pressure at which the bullet starts to move and engraves.
 
-\subsection{Propellant}
+\subsection{Propellant}\label{sec:propellant}
 Powder charge, explosion heat, burn rate and the form-function values. \ui{Select Propellant\dots} replaces the powder.
-The selection dialog searches by manufacturer or name, can show all lots and can be sorted.
 
 With the Physical Model, project powders also have \emph{physical burn values}. They are kept in the load file. If they are missing, an
-orange banner tells you so.
+orange banner tells you so and offers \ui{Use the physical values\dots}.
+
+A load keeps its own copy of the powder values. If a database record of that powder was corrected after the load was made, or you edited the
+values in the load, a second orange banner says \emph{Powder values differ from the database}. The load is still calculated with its own
+values. \ui{Use the database values\dots} replaces them with those of the closest record (the charge and all other settings stay; \ui{Undo}
+takes it back). A powder can have several records, so the banner appears only if no record has exactly the values of the load. With the
+Physical Model only the project's records are compared, because the original database is not updated; with the other models all records count.
 
 \subsection{Editing values}
 Click a value in a property table to edit it. Values with a unit have a drop-down menu for the unit; the choice applies to this field only.
@@ -374,7 +381,8 @@ velocity, barrel time, burnout pressure, gas outflow velocity, projectile speed 
 powder, the effective efficiency and the heat and friction loss. The model in use is named above the values.
 
 Warnings appear in colored banners: \emph{Above the permitted maximum pressure}, \emph{Charge too high} (the charge does not fit into the case behind
-the bullet) and \emph{Invalid input} (the simulation cannot run with these values).
+the bullet) and \emph{Invalid input} (the simulation cannot run with these values). Two orange notices concern the powder: \emph{No physical burn
+values} and \emph{Powder values differ from the database} (see section~\ref{sec:propellant}).
 
 \subsection{Chart}
 The big chart shows pressure, energy and velocity as curves. A drop-down menu switches the horizontal axis between time and position. Vertical
@@ -437,7 +445,8 @@ Select a charge and enter the velocity (and pressure, if measured) of each shot.
 (one shot per line, velocity and optionally pressure) help. A note field per charge holds rifle, chronograph and conditions.
 
 \subsection{Importing chronograph files}
-\ui{Import chronograph file\dots} reads \textbf{MagnetoSpeed} CSV files and \textbf{Labradar} \file{Report.csv} files. These files do not contain the powder charge;
+\ui{Import chronograph file\dots} reads \textbf{Garmin Xero} files (the \file{.fit} file of the C1 Pro, or the CSV exported by the Garmin Xero app), \textbf{MagnetoSpeed} CSV files
+and \textbf{Labradar} \file{Report.csv} files. Missed shots (speed 0) are left out. These files do not contain the powder charge;
 type it for each series in the import dialog.
 
 \subsection{Statistics and chart}
@@ -501,11 +510,13 @@ These factors are derived from the powder's $B_a$, explosion heat, $k$ and the f
   \item[Database] The location of the original's \emph{plain} database (see Section~\ref{sec:dump}).
   \item[Units] The unit system (Metric, Imperial or Original) and \ui{Reset per-field units}.
   \item[Solver] The calculation model, and GRT Original for original GRT files (Section~\ref{sec:solver}).
-  \item[Appearance] The theme, the font size and \ui{Custom Title Bar} (Linux).
-  \item[Start-up] \ui{Open the loads of the last session at start}, and the safety notice.
-  \item[Logging] The log level (Debug, Info, Warning, Error), output to the console and/or a log file, with \ui{Open log file} and \ui{Clear log file}.
+  \item[Appearance] The \ui{Font size} (with a button for the system default), \ui{Custom Title Bar} (Linux: the program's own title bar with the menu
+        in the title row) and \ui{Rounded Dialog Corners} (dialogs have their own frame with the custom title bar; this needs a compositing window
+        manager and applies to dialogs opened afterwards). The theme is chosen in \menu{View}\sep\ui{Theme}, not here.
+  \item[Start-up] \ui{Open the loads of the last session at start}. Not used when load files are given on the command line.
+  \item[Logging] The log level (Debug, Info, Warning, Error or Off), output to the console and/or a log file, with \ui{Open log file} and \ui{Clear log file}.
 \end{description}
-\ui{Reset to defaults} restores the defaults.
+\ui{Apply} puts the changes into effect and keeps the dialog open, \ui{OK} applies and closes it, and \ui{Cancel} also takes back what \ui{Apply} did.
 
 %=====================================================================
 \section{Tips and troubleshooting}
