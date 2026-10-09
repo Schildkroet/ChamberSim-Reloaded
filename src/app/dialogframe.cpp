@@ -26,6 +26,7 @@ std::optional<bool> g_forcedRounded;
 
 // Whether a compositing window manager runs on X11: somebody owns the selection _NET_WM_CM_S<screen>. Asked through libxcb, loaded at
 // run time (the program does not link it): the few structures of the protocol that are needed are declared here.
+#if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN) && !defined(Q_OS_ANDROID)
 bool x11Compositing()
 {
     struct Cookie
@@ -69,6 +70,12 @@ bool x11Compositing()
     std::free(reply);
     return active;
 }
+#else
+bool x11Compositing()
+{
+    return true;  // no X11 on this platform
+}
+#endif
 
 class DialogTitleBar : public QWidget
 {
