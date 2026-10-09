@@ -15,7 +15,7 @@
 // projectiles have one file per manufacturer), the values in the units of the database columns (as in the
 // original program's database: bullet mass and case capacity in grains, lengths in mm, pressures in bar, ...).
 // The files are built into the program and loaded into a read-only part of the database at startup.
-namespace grt::projectdata
+namespace csr::projectdata
 {
 
 // Column name -> SQL type of a table, in schema order (Database::schema).
@@ -44,4 +44,4 @@ struct Loaded
 // "vihtavuori-n150-2021-08-29.json": a file name for a record (lower case, ASCII, from its names).
 [[nodiscard]] QString fileName(Table t, const QVariantMap &record);
 
-}  // namespace grt::projectdata
+}  // namespace csr::projectdata

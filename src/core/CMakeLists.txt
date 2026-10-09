@@ -1,5 +1,5 @@
 # core library (no GUI): file formats, database access, ballistics solver
-add_library(grtcore STATIC
+add_library(csrcore STATIC
     loadfile.h
     numeric.h
     loadfile.cpp
@@ -48,7 +48,7 @@ add_library(grtcore STATIC
     shotparts.cpp
 )
 
-target_include_directories(grtcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(grtcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
-target_compile_options(grtcore PRIVATE
+target_include_directories(csrcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(csrcore PUBLIC Qt6::Core Qt6::Xml Qt6::Sql)
+target_compile_options(csrcore PRIVATE
     $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall -Wextra -Wpedantic>)

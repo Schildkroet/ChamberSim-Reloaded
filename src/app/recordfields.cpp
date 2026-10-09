@@ -10,17 +10,17 @@
 namespace recordfields
 {
 
-const grt::units::Unit *unitOf(const grt::dbfields::Field &f)
+const csr::units::Unit *unitOf(const csr::dbfields::Field &f)
 {
-    return f.quantity == grt::units::Quantity::None ? nullptr : &UnitPreferences::instance().unitFor(f.quantity);
+    return f.quantity == csr::units::Quantity::None ? nullptr : &UnitPreferences::instance().unitFor(f.quantity);
 }
 
-QString shownNumber(const grt::dbfields::Field &f, double stored)
+QString shownNumber(const csr::dbfields::Field &f, double stored)
 {
     QLocale locale;
     locale.setNumberOptions(QLocale::OmitGroupSeparator);
     const auto *u = unitOf(f);
-    const double v = u ? grt::units::toDisplay(stored * f.toBase, *u) : stored;
+    const double v = u ? csr::units::toDisplay(stored * f.toBase, *u) : stored;
     for (int d = u ? u->decimals : 0; d < 8; ++d)
     {
         const double scale = std::pow(10.0, d);

@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-namespace grt
+namespace csr
 {
 
 SimInput SimInput::fromLoad(const LoadFile &lf)
@@ -67,4 +67,4 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     return in;
 }
 
-}  // namespace grt
+}  // namespace csr

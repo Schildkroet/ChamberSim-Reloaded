@@ -7,7 +7,7 @@
 
 #include <array>
 
-namespace grt::units
+namespace csr::units
 {
 
 namespace
@@ -154,11 +154,11 @@ QString systemName(System s)
 {
     switch (s)
     {
-    case System::Metric: return QCoreApplication::translate("grt::units", "Metric (mm, g, bar, m/s)");
-    case System::Imperial: return QCoreApplication::translate("grt::units", "Imperial (in, grain, psi, ft/s)");
-    case System::Original: return QCoreApplication::translate("grt::units", "Original (mm, grain, bar, m/s)");
+    case System::Metric: return QCoreApplication::translate("csr::units", "Metric (mm, g, bar, m/s)");
+    case System::Imperial: return QCoreApplication::translate("csr::units", "Imperial (in, grain, psi, ft/s)");
+    case System::Original: return QCoreApplication::translate("csr::units", "Original (mm, grain, bar, m/s)");
     }
     return {};
 }
 
-}  // namespace grt::units
+}  // namespace csr::units

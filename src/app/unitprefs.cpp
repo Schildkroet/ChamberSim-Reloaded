@@ -3,7 +3,7 @@
 
 #include <QSettings>
 
-using namespace grt::units;
+using namespace csr::units;
 
 UnitPreferences &UnitPreferences::instance()
 {

@@ -6,7 +6,7 @@
 #include <QStringList>
 #include <QVariantMap>
 
-namespace grt
+namespace csr
 {
 
 // What the user chooses besides the three database records. A value of 0 means "use the default".
@@ -57,4 +57,4 @@ void applyPropellant(LoadFile &load, const QVariantMap &propellant, bool resetDe
 [[nodiscard]] LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, const QVariantMap &propellant,
                                  LoadParams params = {}, const QStringList &caliberColumns = {});
 
-}  // namespace grt
+}  // namespace csr

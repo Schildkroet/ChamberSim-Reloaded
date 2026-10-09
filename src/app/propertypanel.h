@@ -22,7 +22,7 @@ public:
         int id;
         QString key;  // "caliber", "gun", ... (settings key of the field units)
         QString title;
-        const grt::EntryList *entries;
+        const csr::EntryList *entries;
     };
 
     explicit PropertyPanel(QWidget *parent = nullptr);

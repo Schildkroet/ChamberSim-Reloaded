@@ -11,7 +11,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::report
+namespace csr::report
 {
 
 Value Value::ofNumber(double base, units::Quantity q)
@@ -258,4 +258,4 @@ loading tables of the component manufacturers. Use at your own risk.</size>
 )"_s;
 }
 
-}  // namespace grt::report
+}  // namespace csr::report

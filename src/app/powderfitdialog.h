@@ -20,24 +20,24 @@ class PowderFitDialog : public QDialog
 {
     Q_OBJECT
 public:
-    PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QStringList warnings, QWidget *parent = nullptr);
+    PowderFitDialog(std::vector<csr::powderfit::Sample> samples, QStringList warnings, QWidget *parent = nullptr);
 
     // Called by "Save as own propellant…" with the original model's result (the dialog stays open); none: the button is hidden.
-    void setSaveHandler(std::function<bool(const grt::powderfit::Result &)> handler);
+    void setSaveHandler(std::function<bool(const csr::powderfit::Result &)> handler);
 
-    void setParams(const std::vector<grt::powderfit::Param> &params);
+    void setParams(const std::vector<csr::powderfit::Param> &params);
     void runFit();
     // one result per model (the original's first), empty before the fit
-    [[nodiscard]] const std::vector<grt::powderfit::Result> &results() const noexcept { return m_results; }
+    [[nodiscard]] const std::vector<csr::powderfit::Result> &results() const noexcept { return m_results; }
     [[nodiscard]] bool improved() const;
 
 private:
     void showResult();
 
-    std::vector<grt::powderfit::Sample> m_samples;
-    std::vector<grt::powderfit::Result> m_results;
-    std::function<bool(const grt::powderfit::Result &)> m_save;
-    std::map<grt::powderfit::Param, QCheckBox *> m_params;
+    std::vector<csr::powderfit::Sample> m_samples;
+    std::vector<csr::powderfit::Result> m_results;
+    std::function<bool(const csr::powderfit::Result &)> m_save;
+    std::map<csr::powderfit::Param, QCheckBox *> m_params;
     QTableWidget *m_table;
     QLabel *m_summary;
     QPushButton *m_fit;

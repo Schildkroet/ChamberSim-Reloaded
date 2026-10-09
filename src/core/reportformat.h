@@ -2,7 +2,7 @@
 
 #include <QString>
 
-namespace grt::report
+namespace csr::report
 {
 
 // Formats a number with a format string of the report language (see the original's "Format string" page):
@@ -13,4 +13,4 @@ namespace grt::report
 // point and ',' as the thousands separator, independent of the user's language (ISO style).
 [[nodiscard]] QString formatNumber(double value, const QString &format);
 
-}  // namespace grt::report
+}  // namespace csr::report

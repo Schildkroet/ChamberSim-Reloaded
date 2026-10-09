@@ -2,7 +2,7 @@
 // valid JSON, known columns, numbers where numbers belong, a name, plausible model values, and no two records with
 // the same name. Prints every problem and exits with 1 if there is one (used by CI).
 //
-//   grt_datacheck [data directory]      (default: data/ of the source tree)
+//   csr_datacheck [data directory]      (default: data/ of the source tree)
 
 #include "database.h"
 #include "dbfields.h"
@@ -19,13 +19,13 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
     const QStringList args = app.arguments();
-    const QString dataDir = args.size() > 1 ? args.at(1) : QStringLiteral(GRT_SOURCE_DIR "/data");
+    const QString dataDir = args.size() > 1 ? args.at(1) : QStringLiteral(CSR_SOURCE_DIR "/data");
     QTextStream out(stdout);
 
     // a throw-away own database provides the schema
     QTemporaryDir tmp;
-    grt::Database::setProjectDataLocation(dataDir);
-    grt::Database db;
+    csr::Database::setProjectDataLocation(dataDir);
+    csr::Database db;
     QString error;
     if (!db.open({}, tmp.filePath(u"own.db"_s), &error))
     {
@@ -34,18 +34,18 @@ int main(int argc, char *argv[])
     }
 
     QStringList problems = db.projectErrors();
-    for (const grt::Table t : grt::kRecordTables)
+    for (const csr::Table t : csr::kRecordTables)
     {
-        const grt::projectdata::Loaded loaded = grt::projectdata::load(dataDir, t, db.schema(t));
+        const csr::projectdata::Loaded loaded = csr::projectdata::load(dataDir, t, db.schema(t));
         QSet<QString> names;
         for (const QVariantMap &r : loaded.records)
         {
-            const QString name = grt::dbfields::recordTitle(t, r).toLower();
+            const QString name = csr::dbfields::recordTitle(t, r).toLower();
             if (names.contains(name))
-                problems << grt::projectdata::folderName(t) + u": two records named \""_s + grt::dbfields::recordTitle(t, r) + u'"';
+                problems << csr::projectdata::folderName(t) + u": two records named \""_s + csr::dbfields::recordTitle(t, r) + u'"';
             names.insert(name);
         }
-        out << grt::projectdata::folderName(t) << ": " << db.projectCount(t) << " records\n";
+        out << csr::projectdata::folderName(t) << ": " << db.projectCount(t) << " records\n";
     }
     for (const QString &p : problems) out << "ERROR " << p << '\n';
     out << (problems.isEmpty() ? "OK\n" : QStringLiteral("%1 problem(s)\n").arg(problems.size()));

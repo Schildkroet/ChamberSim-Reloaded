@@ -6,7 +6,7 @@
 #include <cmath>
 #include <optional>
 
-namespace grt
+namespace csr
 {
 
 // Grams per grain, the exact factor of the original program (also cm3 of water per grain H2O, the unit of case capacities).
@@ -39,4 +39,4 @@ inline constexpr double kGrainToGram = 0.06479890999975;
     return static_cast<int>(v);
 }
 
-}  // namespace grt
+}  // namespace csr

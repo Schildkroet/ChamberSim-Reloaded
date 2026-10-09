@@ -28,13 +28,13 @@ public:
             const QString code = QSqlTableModel::data(index, Qt::DisplayRole).toString();
             if (role == Qt::ToolTipRole)
             {
-                if (code == QLatin1String(grt::Database::kSourceOwn)) return TableBrowser::tr("Your own record (can be changed)");
-                if (code == QLatin1String(grt::Database::kSourceProject))
+                if (code == QLatin1String(csr::Database::kSourceOwn)) return TableBrowser::tr("Your own record (can be changed)");
+                if (code == QLatin1String(csr::Database::kSourceProject))
                     return TableBrowser::tr("Record of the project's database (read-only)");
                 return TableBrowser::tr("Record of Gordon's Reloading Tool's database (read-only)");
             }
-            if (code == QLatin1String(grt::Database::kSourceOwn)) return TableBrowser::tr("Personal");
-            if (code == QLatin1String(grt::Database::kSourceProject)) return TableBrowser::tr("Project");
+            if (code == QLatin1String(csr::Database::kSourceOwn)) return TableBrowser::tr("Personal");
+            if (code == QLatin1String(csr::Database::kSourceProject)) return TableBrowser::tr("Project");
             return TableBrowser::tr("Original GRT");
         }
         return QSqlTableModel::data(index, role);
@@ -52,7 +52,7 @@ private:
 
 }  // namespace
 
-TableBrowser::TableBrowser(grt::Table table, QWidget *parent)
+TableBrowser::TableBrowser(csr::Table table, QWidget *parent)
     : QWidget(parent)
     , m_table(table)
     , m_view(new QTableView)
@@ -98,7 +98,7 @@ TableBrowser::TableBrowser(grt::Table table, QWidget *parent)
 
 TableBrowser::~TableBrowser() = default;
 
-void TableBrowser::setDatabase(const grt::Database *db)
+void TableBrowser::setDatabase(const csr::Database *db)
 {
     m_proxy->setSourceModel(nullptr);
     delete std::exchange(m_model, nullptr);
@@ -108,7 +108,7 @@ void TableBrowser::setDatabase(const grt::Database *db)
         return;
     }
     m_model = new RecordModel(this, db->handle());
-    m_model->setTable(QLatin1String(grt::tableName(m_table)));
+    m_model->setTable(QLatin1String(csr::tableName(m_table)));
     m_model->setFilter(baseFilter());
     m_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     selectAll();
@@ -138,7 +138,7 @@ void TableBrowser::selectAll()
 {
     if (!m_model->select())
     {
-        LOG_Warn() << grt::tableName(m_table) << ":" << m_model->lastError().text();
+        LOG_Warn() << csr::tableName(m_table) << ":" << m_model->lastError().text();
         return;
     }
     while (m_model->canFetchMore()) m_model->fetchMore();

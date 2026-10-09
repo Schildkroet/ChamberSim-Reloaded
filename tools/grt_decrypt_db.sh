@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Makes a plain (unencrypted) SQLite copy of Gordon's Reloading Tool's database, for GRT Reloaded
+# Makes a plain (unencrypted) SQLite copy of Gordon's Reloading Tool's database, for ChamberSim Reloaded
 # (File > Settings > Database > Original database).
 #
 # How: the Linux version of GRT is started under gdb on a scratch COPY of its folder. Right after it has unlocked
@@ -311,7 +311,7 @@ print("    %(caliber)d calibers, %(projectile)d projectiles, %(propellant)d prop
 PYEOF
     fi
     info "Done: $OUT"
-    say "Choose this file in GRT Reloaded: File > Settings > Database > Original database."
+    say "Choose this file in ChamberSim Reloaded: File > Settings > Database > Original database."
 else
     REPORT="$APP/grt_decrypt_report.txt"
     { echo "=== grt_decrypt_db.sh $(date -Is) ==="; uname -a; echo "distribution: ${DISTRO_NAME:-?} ($FAMILY)";

@@ -16,7 +16,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -123,14 +123,14 @@ void writePhysicalBurn(EntryList &propellant, const std::optional<PhysicalBurn> 
 {
     if (!burn)
     {
-        std::erase_if(propellant.entries(), [](const grt::Entry &e) { return e.name.startsWith(u"phys"); });
+        std::erase_if(propellant.entries(), [](const csr::Entry &e) { return e.name.startsWith(u"phys"); });
         return;
     }
     // like the original's entries: a type and an English description (the property panel's label)
     const auto put = [&](QStringView name, const QString &value, const QString &type, const QString &descr)
     {
         propellant.set(name, value);
-        for (grt::Entry &e : propellant.entries())
+        for (csr::Entry &e : propellant.entries())
             if (e.name == name)
             {
                 e.type = type;
@@ -173,4 +173,4 @@ bool attachPhysicalBurn(EntryList &propellant)
     return true;
 }
 
-}  // namespace grt
+}  // namespace csr

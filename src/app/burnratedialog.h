@@ -18,7 +18,7 @@ class BurnRateDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit BurnRateDialog(const grt::Database &db, QWidget *parent = nullptr);
+    explicit BurnRateDialog(const csr::Database &db, QWidget *parent = nullptr);
     ~BurnRateDialog() override;
 
     // Column of the factor the table is sorted by: Br, Bp or Brp.
@@ -38,7 +38,7 @@ public:
     void setSearch(const QString &text);
 
 private:
-    void load(const grt::Database &db);
+    void load(const csr::Database &db);
     void applyFilter();
 
     QStandardItemModel *m_model;
@@ -48,6 +48,6 @@ private:
     QCheckBox *m_allLots;
     QButtonGroup *m_buttons;
     QLabel *m_count;
-    const grt::Database &m_db;
+    const csr::Database &m_db;
     Factor m_factor{Progressivity};
 };

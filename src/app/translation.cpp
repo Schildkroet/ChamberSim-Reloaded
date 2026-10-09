@@ -17,19 +17,19 @@ namespace
 {
 
 constexpr auto kResourceDir = ":/i18n";
-constexpr auto kBaseName = "GRTReloaded_";
+constexpr auto kBaseName = "ChamberSimReloaded_";
 constexpr auto kSettingKey = "ui/language";
 
 }  // namespace
 
 QStringList availableLanguages()
 {
-    QStringList out{grt::kDefaultLanguage};
+    QStringList out{csr::kDefaultLanguage};
     const QStringList files =
         QDir(QString::fromLatin1(kResourceDir)).entryList({QStringLiteral("%1*.qm").arg(QLatin1String(kBaseName))}, QDir::Files);
     for (const QString &f : files)
     {
-        const QString lang = grt::normalizeLanguage(f.mid(int(qstrlen(kBaseName))).chopped(3));
+        const QString lang = csr::normalizeLanguage(f.mid(int(qstrlen(kBaseName))).chopped(3));
         if (!lang.isEmpty() && !out.contains(lang)) out.append(lang);
     }
     out.sort();
@@ -55,7 +55,7 @@ QString install(QCoreApplication &app, const QString &overrideLanguage)
     else if (const QString stored = storedLanguage(); !stored.isEmpty()) requested << stored;
     else requested = QLocale::system().uiLanguages();
 
-    const QString language = grt::resolveLanguage(requested, availableLanguages());
+    const QString language = csr::resolveLanguage(requested, availableLanguages());
     LOG_Info() << "Language:" << language << "(requested" << requested << ")";
     QLocale::setDefault(QLocale(language));  // number formats follow the UI language ('.' for en_US)
 

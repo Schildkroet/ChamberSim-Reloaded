@@ -1,4 +1,4 @@
-% GRT Reloaded - user manual.   Build: docs/manual/build.sh   (program version from CMakeLists.txt; raise \manualversion when the manual changes)
+% ChamberSim Reloaded - user manual.   Build: docs/manual/build.sh   (program version from CMakeLists.txt; raise \manualversion when the manual changes)
 \documentclass[11pt,a4paper]{article}
 
 \usepackage[utf8]{inputenc}
@@ -28,7 +28,7 @@
 \setlength{\headheight}{14pt}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{GRT Reloaded -- User Manual}
+\fancyhead[L]{ChamberSim Reloaded -- User Manual}
 \fancyhead[R]{\leftmark}
 \fancyfoot[C]{\thepage}
 
@@ -41,9 +41,9 @@
 \newtcolorbox{warning}{colback=red!6,colframe=red!60!black,title=Safety,fonttitle=\bfseries,boxrule=0.6pt}
 \newtcolorbox{note}{colback=accent!6,colframe=accent,title=Note,fonttitle=\bfseries,boxrule=0.6pt}
 
-\title{\includegraphics[width=3.5cm]{logo.png}\\[0.8cm]\Huge\textbf{GRT Reloaded}\\[4pt]\Large Interior ballistics for handloaders\\[1.2cm]\huge User Manual}
+\title{\includegraphics[width=3.5cm]{logo.png}\\[0.8cm]\Huge\textbf{ChamberSim Reloaded}\\[4pt]\Large Interior ballistics for handloaders\\[1.2cm]\huge User Manual}
 \author{}
-\date{Manual version \manualversion\\[2pt]for GRT Reloaded version \programversion}
+\date{Manual version \manualversion\\[2pt]for ChamberSim Reloaded version \programversion}
 
 \begin{document}
 \maketitle
@@ -58,7 +58,7 @@ responsibility or liability for any damage, injury or death or any other consequ
 including damage to firearms or property. Reloading ammunition is dangerous and is done entirely at your own responsibility.
 \end{warning}
 
-\textit{GRT Reloaded is an independent project. It is not affiliated with, endorsed or supported by Gordon's Reloading Tool
+\textit{ChamberSim Reloaded is an independent project. It is not affiliated with, endorsed or supported by Gordon's Reloading Tool
 or its author.}
 
 \newpage
@@ -68,13 +68,13 @@ or its author.}
 %=====================================================================
 \section{Introduction}
 
-GRT Reloaded calculates the \emph{interior ballistics} of a handload: you choose a cartridge, a bullet and a powder, enter
+ChamberSim Reloaded calculates the \emph{interior ballistics} of a handload: you choose a cartridge, a bullet and a powder, enter
 the powder charge, and the program simulates how the pressure, the bullet velocity and the bullet energy develop while the
 bullet travels through the barrel. From that it reports the maximum pressure, the muzzle velocity, the barrel time and many
 related values. A load development ladder, charts, reports and printouts help to plan a series of test loads.
 
 It follows the workflow of \emph{Gordon's Reloading Tool} (GRT). It can open the original's \file{.grtload} files and can use
-the original's database, but stores its own loads in the \file{.grtreload} format.
+the original's database, but stores its own loads in the \file{.csrload} format.
 
 \subsection{What the program can do}
 \begin{itemize}
@@ -108,7 +108,7 @@ make the AppImage executable and start it; no installation is needed.
 To build the program yourself you need Qt 6.4 or newer, CMake 3.16 or newer and a C++20 compiler:
 \begin{verbatim}
 tools/build.sh release
-build/release/GRTReloaded
+build/release/ChamberSimReloaded
 \end{verbatim}
 
 \subsection{Safety notice}
@@ -117,7 +117,7 @@ ticked, \ui{I understand} also switches the notice off for later starts. There i
 
 \subsection{Command-line options}
 \begin{verbatim}
-GRTReloaded [options] [load.grtreload ...]
+ChamberSimReloaded [options] [load.csrload ...]
   -d <file>             the original's (plain) database
   --calibration <m>     solver model: original|published|physical
   --language <code>     de_DE, en_US, fr_FR, it_IT
@@ -150,7 +150,7 @@ gets a tab of its own. On Linux the program draws its own title bar with the men
   \item[\menu{Edit}] \ui{Undo} (Ctrl+Z) and \ui{Redo} (Ctrl+Shift+Z or Ctrl+Y) for the load that is shown; see Section~\ref{sec:undo}.
   \item[\menu{View}] \ui{Theme} (system default, light, dark) and \ui{Language}. A language change takes effect after a restart.
   \item[\menu{Tools}] \ui{Burn rate table\dots} and \ui{Unit converter\dots}.
-  \item[\menu{Help}] \ui{About GRT Reloaded\dots}
+  \item[\menu{Help}] \ui{About ChamberSim Reloaded\dots}
 \end{description}
 
 \subsection{Layout}
@@ -174,13 +174,13 @@ for loads. The filter field searches all columns; click a column header to sort.
 The list is one view made of up to three sources, shown in the \ui{Source} column:
 \begin{enumerate}
   \item The \textbf{project database}: calibers, projectiles and propellants that are built into the program.
-  \item Your \textbf{own records}, stored in the file \file{GRTReloaded.db} in the application data folder. Everything you create or copy
+  \item Your \textbf{own records}, stored in the file \file{ChamberSimReloaded.db} in the application data folder. Everything you create or copy
         is stored here.
   \item Optionally the records of \textbf{Gordon's Reloading Tool} (\ui{Original GRT}). The original's database is encrypted and must first be converted to a plain copy (Section~\ref{sec:dump}); choose that copy in \menu{File}\sep\ui{Settings}\sep\ui{Database}. It is only read, never changed.
 \end{enumerate}
 
 \subsection{Using the original's database}\label{sec:dump}
-Gordon's Reloading Tool keeps its calibers, projectiles and propellants in an encrypted SQLite database (\file{GordonsReloadingTool.db}). GRT Reloaded does not
+Gordon's Reloading Tool keeps its calibers, projectiles and propellants in an encrypted SQLite database (\file{GordonsReloadingTool.db}). ChamberSim Reloaded does not
 decrypt it by itself and does not ship one. A helper script makes a \emph{plain} (unencrypted) \emph{copy} that you then choose in the settings. The program
 and its database stay unchanged; only the copy is converted. You need your own installation of Gordon's Reloading Tool.
 
@@ -190,7 +190,7 @@ remove the encryption from that copy. Nothing is compiled and no key is typed in
 \paragraph{Linux.}
 \begin{enumerate}
   \item Unpack the \emph{Linux} version of Gordon's Reloading Tool. Its folder contains \file{GordonsReloadingTool}, \file{libs/} and \file{GordonsReloadingTool.db}.
-  \item Copy \file{tools/grt\_decrypt\_db.sh} from the GRT Reloaded sources into that folder.
+  \item Copy \file{tools/grt\_decrypt\_db.sh} from the ChamberSim Reloaded sources into that folder.
   \item Open a terminal in that folder and run
 \begin{verbatim}
 ./grt_decrypt_db.sh
@@ -206,7 +206,7 @@ Options: \texttt{-o FILE} (name of the output file), \texttt{-y} (install withou
 \begin{enumerate}
   \item Copy \file{tools/grt\_decrypt\_db.cmd} and \file{tools/grt\_decrypt\_db.ps1} into the folder of Gordon's Reloading Tool (next to \file{GordonsReloadingTool.exe}).
   \item Double-click \file{grt\_decrypt\_db.cmd}. After asking, it installs Python (with \texttt{winget}) and the Python package \texttt{frida} into a private environment
-        under \texttt{\%LOCALAPPDATA\%$\backslash$GRTReloaded}.
+        under \texttt{\%LOCALAPPDATA\%$\backslash$ChamberSimReloaded}.
   \item When it has finished, \file{GordonsReloadingTool.plain.db} is in the same folder.
 \end{enumerate}
 In PowerShell the options are \texttt{-Out FILE}, \texttt{-Yes}, \texttt{-Check} (report only) and \texttt{-Timeout SECONDS}.
@@ -253,7 +253,7 @@ with the defaults of the new selection.
 
 \subsection{Opening loads}
 \menu{File}\sep\ui{Open load\dots} (Ctrl+O) opens one or several files at once; you can also give files on the command line. Each load gets its own tab,
-named after the file. The file dialog offers three filters: all loads, \file{.grtreload} only, and the original's \file{.grtload} only.
+named after the file. The file dialog offers three filters: all loads, \file{.csrload} only, and the original's \file{.grtload} only.
 \begin{itemize}
   \item A load that is already open is not opened twice; its tab is shown instead.
   \item \menu{File}\sep\ui{Open recent} lists the last 12 loads. An entry whose file has disappeared or cannot be read is removed from the list.
@@ -262,14 +262,14 @@ named after the file. The file dialog offers three filters: all loads, \file{.gr
 
 \subsection{Saving loads}
 A tab with unsaved changes shows an asterisk after its name. \menu{File}\sep\ui{Save} (Ctrl+S) writes the load to its file; a new load (``Untitled'') and
-\ui{Save as\dots} (Ctrl+Shift+S) ask for a file name. If you leave out the extension, \file{.grtreload} is added.
+\ui{Save as\dots} (Ctrl+Shift+S) ask for a file name. If you leave out the extension, \file{.csrload} is added.
 When you close a tab or quit with unsaved changes the program asks whether to \ui{Save}, \ui{Discard} or \ui{Cancel}.
 
 \subsection{The two file formats}
 \begin{center}
 \begin{tabular}{@{}lp{10cm}@{}}
   \toprule
-  \file{.grtreload} & The program's own format (XML). It contains everything: all input values, the caliber, projectile and propellant records
+  \file{.csrload} & The program's own format (XML). It contains everything: all input values, the caliber, projectile and propellant records
   with their values, the physical burn values of the Physical Model, the shotshell parts and your measurements and notes. \\
   \file{.grtload} & The format of Gordon's Reloading Tool. It can be opened and, as an export, written. \\
   \bottomrule
@@ -278,12 +278,12 @@ When you close a tab or quit with unsaved changes the program asks whether to \u
 The format is chosen by the file name's extension.
 
 \paragraph{Opening an original file.} A \file{.grtload} file is read completely, including the measurements, notes and pictures of its appendix. Because the program
-saves only in its own format, \ui{Save} on such a load works like \ui{Save as\dots}: it suggests the same name with the extension \file{.grtreload}. The original file
+saves only in its own format, \ui{Save} on such a load works like \ui{Save as\dots}: it suggests the same name with the extension \file{.csrload}. The original file
 is never changed.
 
-\paragraph{Exporting for the original program.} In \ui{Save as\dots} choose the filter \emph{Original GRT loads, without the data of GRT Reloaded}
+\paragraph{Exporting for the original program.} In \ui{Save as\dots} choose the filter \emph{Original GRT loads, without the data of ChamberSim Reloaded}
 (or type a name ending in \file{.grtload}). The exported file can be opened in Gordon's Reloading Tool. It leaves out what that program does not know:
-the physical burn values and the shotshell part choices. Keep a \file{.grtreload} copy if you do not want to lose these.
+the physical burn values and the shotshell part choices. Keep a \file{.csrload} copy if you do not want to lose these.
 
 \subsection{What a load file contains}
 A load file is self-contained. The records of the caliber, projectile and propellant are stored in the file with their values, not as references to the
@@ -410,7 +410,7 @@ The model in use is shown in the results. The three models give different number
 \paragraph{Original GRT files.} With \ui{Always use GRT Original for original GRT files (*.grtload)} a load whose file is a \file{.grtload} is
 always calculated with GRT Original and the burn values in the file, whatever model is selected. Its results are then close to those Gordon's
 Reloading Tool shows for the same file (the results line says \ui{GRT Original (original GRT file, \dots)}). Once the load is saved as a
-\file{.grtreload}, it uses the selected model again.
+\file{.csrload}, it uses the selected model again.
 
 \begin{figure}[ht]
   \centering

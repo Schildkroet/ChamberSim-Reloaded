@@ -38,7 +38,7 @@ def residuals(x, weight_p=1.0):
     return np.array(r)
 
 # the gas energy cannot exceed what the powder delivers: factor <= 1 (above it the fit trades it against the volume)
-sol = least_squares(residuals, np.array([1.5, 0.1, 0.9]), bounds=([0.5, 0.0, 0.5], [4.0, 0.8, float(os.environ.get("GRT_ENERGY_MAX", "1.0"))]), diff_step=1e-3)
+sol = least_squares(residuals, np.array([1.5, 0.1, 0.9]), bounds=([0.5, 0.0, 0.5], [4.0, 0.8, float(os.environ.get("CSR_ENERGY_MAX", "1.0"))]), diff_step=1e-3)
 sim = run(sol.x)
 print("fitted:", " ".join(f"{n}={v:.4g}" for n, v in zip(names, sol.x)))
 ev = [100 * (sim[k][2] / muzzle_velocity(m) - 1) for k, m in meta.items() if sim[k][0]]

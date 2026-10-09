@@ -43,10 +43,10 @@ QPen pen(QColor c, qreal w, Qt::PenStyle s = Qt::SolidLine, int alpha = 255)
 
 CurveChart::CurveChart(QWidget *parent)
     : QChartView(parent)
-    , m_pressureUnit(&grt::units::unitsOf(grt::units::Quantity::Pressure).front())
-    , m_energyUnit(&grt::units::unitsOf(grt::units::Quantity::Energy).front())
-    , m_velocityUnit(&grt::units::unitsOf(grt::units::Quantity::Velocity).front())
-    , m_lengthUnit(&grt::units::unitsOf(grt::units::Quantity::Length).front())
+    , m_pressureUnit(&csr::units::unitsOf(csr::units::Quantity::Pressure).front())
+    , m_energyUnit(&csr::units::unitsOf(csr::units::Quantity::Energy).front())
+    , m_velocityUnit(&csr::units::unitsOf(csr::units::Quantity::Velocity).front())
+    , m_lengthUnit(&csr::units::unitsOf(csr::units::Quantity::Length).front())
     , m_pressure(new QLineSeries)
     , m_velocity(new QLineSeries)
     , m_energy(new QLineSeries)
@@ -218,17 +218,17 @@ void CurveChart::leaveEvent(QEvent *event)
     viewport()->update();
 }
 
-std::optional<grt::SimPoint> CurveChart::pointAt(double x) const
+std::optional<csr::SimPoint> CurveChart::pointAt(double x) const
 {
     const auto &pts = m_result.points;
     if (!m_result.ok() || pts.empty() || x < xOf(pts.front()) || x > xOf(pts.back())) return std::nullopt;
     // x grows along the curve (time and bullet position)
-    const auto it = std::ranges::lower_bound(pts, x, {}, [&](const grt::SimPoint &p) { return xOf(p); });
+    const auto it = std::ranges::lower_bound(pts, x, {}, [&](const csr::SimPoint &p) { return xOf(p); });
     if (it == pts.begin()) return pts.front();
-    const grt::SimPoint &a = *std::prev(it), &b = *it;
+    const csr::SimPoint &a = *std::prev(it), &b = *it;
     const double span = xOf(b) - xOf(a), f = span > 0.0 ? (x - xOf(a)) / span : 0.0;
     const auto lerp = [f](double u, double v) { return u + f * (v - u); };
-    return grt::SimPoint{.x_mm = lerp(a.x_mm, b.x_mm),
+    return csr::SimPoint{.x_mm = lerp(a.x_mm, b.x_mm),
                          .z = lerp(a.z, b.z),
                          .p_bar = lerp(a.p_bar, b.p_bar),
                          .v_ms = lerp(a.v_ms, b.v_ms),
@@ -241,9 +241,9 @@ void CurveChart::drawForeground(QPainter *painter, const QRectF &rect)
 {
     QChartView::drawForeground(painter, rect);
     if (!m_cursorX) return;
-    const std::optional<grt::SimPoint> pt = pointAt(*m_cursorX);
+    const std::optional<csr::SimPoint> pt = pointAt(*m_cursorX);
     if (!pt) return;
-    using grt::units::format;
+    using csr::units::format;
     const QRectF plot = chart()->mapRectToScene(chart()->plotArea());
     const auto scene = [&](double y, QLineSeries *s) { return chart()->mapToScene(chart()->mapToPosition({*m_cursorX, y}, s)); };
     const double x = scene(0.0, m_pressure).x();
@@ -258,9 +258,9 @@ void CurveChart::drawForeground(QPainter *painter, const QRectF &rect)
         QLineSeries *series;
         double value;
         QColor color;
-    } dots[] = {{m_pressure, grt::units::toDisplay(pt->p_bar, *m_pressureUnit), kPressure},
-                {m_energy, grt::units::toDisplay(pt->e_J, *m_energyUnit), kEnergy},
-                {m_velocity, grt::units::toDisplay(pt->v_ms, *m_velocityUnit), kVelocity}};
+    } dots[] = {{m_pressure, csr::units::toDisplay(pt->p_bar, *m_pressureUnit), kPressure},
+                {m_energy, csr::units::toDisplay(pt->e_J, *m_energyUnit), kEnergy},
+                {m_velocity, csr::units::toDisplay(pt->v_ms, *m_velocityUnit), kVelocity}};
     for (const auto &d : dots)
     {
         painter->setPen(QPen(palette().color(QPalette::Base), 1.5));
@@ -268,7 +268,7 @@ void CurveChart::drawForeground(QPainter *painter, const QRectF &rect)
         painter->drawEllipse(scene(d.value, d.series), 4.0, 4.0);
     }
 
-    const auto unit = [](const grt::units::Unit &u) { return QString::fromUtf8(u.symbol); };
+    const auto unit = [](const csr::units::Unit &u) { return QString::fromUtf8(u.symbol); };
     const QString lines[] = {
         tr("Time: %1 ms").arg(QLocale().toString(pt->t_ms, 'f', 3)),
         tr("Bullet base: %1 %2").arg(format(pt->x_mm, *m_lengthUnit), unit(*m_lengthUnit)),
@@ -332,13 +332,13 @@ void CurveChart::applyTheme()
     }
 }
 
-double CurveChart::xOf(const grt::SimPoint &p) const noexcept
+double CurveChart::xOf(const csr::SimPoint &p) const noexcept
 {
-    return m_xAxis == XAxis::Time ? p.t_ms : grt::units::toDisplay(p.x_mm, *m_lengthUnit);
+    return m_xAxis == XAxis::Time ? p.t_ms : csr::units::toDisplay(p.x_mm, *m_lengthUnit);
 }
 
-void CurveChart::setUnits(const grt::units::Unit &pressure, const grt::units::Unit &energy, const grt::units::Unit &velocity,
-                          const grt::units::Unit &length)
+void CurveChart::setUnits(const csr::units::Unit &pressure, const csr::units::Unit &energy, const csr::units::Unit &velocity,
+                          const csr::units::Unit &length)
 {
     m_pressureUnit = &pressure;
     m_energyUnit = &energy;
@@ -347,7 +347,7 @@ void CurveChart::setUnits(const grt::units::Unit &pressure, const grt::units::Un
     rebuild();
 }
 
-void CurveChart::setResult(const grt::SimResult &result, double permittedPressure_bar)
+void CurveChart::setResult(const csr::SimResult &result, double permittedPressure_bar)
 {
     m_result = result;
     m_permitted = permittedPressure_bar;
@@ -360,13 +360,13 @@ void CurveChart::clearResult()
     rebuild();
 }
 
-void CurveChart::setReference(std::span<const grt::SimPoint> points)
+void CurveChart::setReference(std::span<const csr::SimPoint> points)
 {
     m_reference.assign(points.begin(), points.end());
     rebuild();
 }
 
-void CurveChart::setLadder(std::vector<grt::SimResult> others)
+void CurveChart::setLadder(std::vector<csr::SimResult> others)
 {
     m_ladder = std::move(others);
     rebuild();
@@ -415,23 +415,23 @@ void CurveChart::rebuild()
 {
     viewport()->update();  // the cursor shows the new values
     const auto &pts = m_result.points;
-    const grt::units::Unit &pu = *m_pressureUnit, &eu = *m_energyUnit, &vu = *m_velocityUnit;
-    const auto P = [&](double bar) { return grt::units::toDisplay(bar, pu); };
-    const auto E = [&](double joule) { return grt::units::toDisplay(joule, eu); };
-    const auto V = [&](double ms) { return grt::units::toDisplay(ms, vu); };
-    const auto fillWith = [&](QLineSeries *s, std::span<const grt::SimPoint> p, auto value)
+    const csr::units::Unit &pu = *m_pressureUnit, &eu = *m_energyUnit, &vu = *m_velocityUnit;
+    const auto P = [&](double bar) { return csr::units::toDisplay(bar, pu); };
+    const auto E = [&](double joule) { return csr::units::toDisplay(joule, eu); };
+    const auto V = [&](double ms) { return csr::units::toDisplay(ms, vu); };
+    const auto fillWith = [&](QLineSeries *s, std::span<const csr::SimPoint> p, auto value)
     {
         QList<QPointF> out;
         out.reserve(static_cast<qsizetype>(p.size()));
-        for (const grt::SimPoint &q : p) out.append({xOf(q), value(q)});
+        for (const csr::SimPoint &q : p) out.append({xOf(q), value(q)});
         s->replace(out);
     };
-    fillWith(m_pressure, pts, [&](const grt::SimPoint &p) { return P(p.p_bar); });
-    fillWith(m_velocity, pts, [&](const grt::SimPoint &p) { return V(p.v_ms); });
-    fillWith(m_energy, pts, [&](const grt::SimPoint &p) { return E(p.e_J); });
-    fillWith(m_refPressure, m_reference, [&](const grt::SimPoint &p) { return P(p.p_bar); });
-    fillWith(m_refVelocity, m_reference, [&](const grt::SimPoint &p) { return V(p.v_ms); });
-    fillWith(m_refEnergy, m_reference, [&](const grt::SimPoint &p) { return E(p.e_J); });
+    fillWith(m_pressure, pts, [&](const csr::SimPoint &p) { return P(p.p_bar); });
+    fillWith(m_velocity, pts, [&](const csr::SimPoint &p) { return V(p.v_ms); });
+    fillWith(m_energy, pts, [&](const csr::SimPoint &p) { return E(p.e_J); });
+    fillWith(m_refPressure, m_reference, [&](const csr::SimPoint &p) { return P(p.p_bar); });
+    fillWith(m_refVelocity, m_reference, [&](const csr::SimPoint &p) { return V(p.v_ms); });
+    fillWith(m_refEnergy, m_reference, [&](const csr::SimPoint &p) { return E(p.e_J); });
     // ladder: the other charges as faded curves
     for (QLineSeries *s : m_ladderSeries)
     {
@@ -439,7 +439,7 @@ void CurveChart::rebuild()
         delete s;
     }
     m_ladderSeries.clear();
-    for (const grt::SimResult &step : m_ladder)
+    for (const csr::SimResult &step : m_ladder)
     {
         if (!step.ok()) continue;
         const struct
@@ -452,7 +452,7 @@ void CurveChart::rebuild()
         {
             auto *s = new QLineSeries;
             s->setPen(pen(k.color, 1.2, Qt::SolidLine, 85));
-            fillWith(s, step.points, [&](const grt::SimPoint &p) { return k.what == 0 ? P(p.p_bar) : k.what == 1 ? E(p.e_J) : V(p.v_ms); });
+            fillWith(s, step.points, [&](const csr::SimPoint &p) { return k.what == 0 ? P(p.p_bar) : k.what == 1 ? E(p.e_J) : V(p.v_ms); });
             chart()->addSeries(s);
             s->attachAxis(m_axisX);
             s->attachAxis(k.axis);
@@ -467,9 +467,9 @@ void CurveChart::rebuild()
     // ranges
     double xMax = 0.0, pMax = 0.0, eMax = 0.0, vMax = 0.0, xMin = 0.0;
     bool first = true;
-    const auto scan = [&](std::span<const grt::SimPoint> p)
+    const auto scan = [&](std::span<const csr::SimPoint> p)
     {
-        for (const grt::SimPoint &q : p)
+        for (const csr::SimPoint &q : p)
         {
             if (first)
             {
@@ -485,7 +485,7 @@ void CurveChart::rebuild()
     };
     scan(pts);
     scan(m_reference);
-    for (const grt::SimResult &step : m_ladder) scan(step.points);
+    for (const csr::SimResult &step : m_ladder) scan(step.points);
     if (m_xAxis == XAxis::Time) xMin = 0.0;
     const double permitted = P(m_permitted);
     pMax = std::max(pMax, m_permitted > 0.0 ? permitted * 1.02 : 0.0);

@@ -30,7 +30,7 @@ public:
     };
 
     // `record` is the record to copy or edit (empty for a new one).
-    RecordDialog(const grt::Database &db, grt::Table table, Mode mode, const QVariantMap &record = {}, QWidget *parent = nullptr);
+    RecordDialog(const csr::Database &db, csr::Table table, Mode mode, const QVariantMap &record = {}, QWidget *parent = nullptr);
 
     // The values in database units, without the id (also sets the creation/change date).
     [[nodiscard]] QVariantMap values() const;
@@ -44,7 +44,7 @@ public:
     void setPhoto(int slot, const QImage &image, double pxPerMm, const QString &name);
     void removePhoto(int slot);
     // The new pictures (with their uuids, which values() refers to); empty without a change.
-    [[nodiscard]] std::vector<grt::Database::Image> pendingImages() const;
+    [[nodiscard]] std::vector<csr::Database::Image> pendingImages() const;
 
     // Checks the input; returns the label of the first wrong field (empty: all fine).
     [[nodiscard]] QString firstError() const;
@@ -54,7 +54,7 @@ public:
 private:
     struct Editor
     {
-        grt::dbfields::Field field;
+        csr::dbfields::Field field;
         QWidget *widget;
     };
 
@@ -66,7 +66,7 @@ private:
     {
         QString column;  // imageUuid / imageDetailUuid
         QString uuid;    // the picture the record refers to ("": none)
-        std::optional<grt::Database::Image> pending;
+        std::optional<csr::Database::Image> pending;
         QLabel *preview{};
         QLabel *info{};
         QLineEdit *scale{};
@@ -74,9 +74,9 @@ private:
     void addPhotoGroup(QVBoxLayout *layout);
     void showPhoto(int slot);
 
-    const grt::Database *m_db;
+    const csr::Database *m_db;
     std::array<PhotoSlot, 2> m_photos;
-    grt::Table m_table;
+    csr::Table m_table;
     Mode m_mode;
     QVariantMap m_record;
     std::vector<Editor> m_editors;

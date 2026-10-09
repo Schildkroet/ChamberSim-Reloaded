@@ -13,7 +13,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::projectdata
+namespace csr::projectdata
 {
 
 namespace
@@ -176,4 +176,4 @@ QString fileName(Table t, const QVariantMap &record)
     return (slug.isEmpty() ? u"record"_s : slug) + u".json"_s;
 }
 
-}  // namespace grt::projectdata
+}  // namespace csr::projectdata

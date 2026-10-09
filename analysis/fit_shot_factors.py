@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """Which properties of a shotshell load explain the error of the shotshell model, and how much? Fits their factors (fast, linearised).
 
-    fit_shot_factors.py <grt_eval> samples.csv [samples2.csv ...] [--ridge 3] [--holdout 0.25] [--repeats 3] [--out FILE]
+    fit_shot_factors.py <csr_eval> samples.csv [samples2.csv ...] [--ridge 3] [--holdout 0.25] [--repeats 3] [--out FILE]
 
 The published shotshell loads name the shell (hull), the wad and the primer of every load; the pressure (and a little the velocity) depends on
 them. Every property class (a shell, a wad, a primer) gets two factors on the shotshell model: the powder space (capacity) and the gas energy;
 the factors of a load multiply (shell x wad x primer). Instead of simulating thousands of loads for every trial, the sensitivities of every load
 to the two factors are measured once (three simulations of all loads: base, capacity +5 %, energy -5 %), the log-factors then follow from a
-ridge-regularised linear least squares (a class with few loads stays near 1). The result is checked with true simulations (grt_eval columns
+ridge-regularised linear least squares (a class with few loads stays near 1). The result is checked with true simulations (csr_eval columns
 shot_cap and shot_energy).
 Cross-validation: random 25 % of the series (powder, shot, wad, primer, shell) are left out; the held-out error is reported for every
-combination of properties. Runs on at most 14 cores (GRT_JOBS).
+combination of properties. Runs on at most 14 cores (CSR_JOBS).
 """
 import argparse, collections, csv, itertools, json, math, os, re, subprocess, sys, tempfile
 import numpy as np
@@ -25,7 +25,7 @@ ap.add_argument("--min-loads", type=int, default=30, help="classes with fewer lo
 ap.add_argument("--out", default="")
 ap.add_argument("--data", default="")
 args = ap.parse_args()
-JOBS = int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1)))
+JOBS = int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1)))
 CORR = math.exp(1.2 * 0.47 * 3.0 / (8 * 11340.0 * 0.0012) * 0.914)  # the published velocities are 3 ft in front of the muzzle
 
 # ---- property classes (the sources spell the same thing differently)

@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-namespace grt::dbfields
+namespace csr::dbfields
 {
 
 enum class Kind
@@ -56,4 +56,4 @@ struct Field
 // "Manufacturer Name (lot)", "cipname" ... : how a record is named in messages.
 [[nodiscard]] QString recordTitle(Table t, const QVariantMap &record);
 
-}  // namespace grt::dbfields
+}  // namespace csr::dbfields

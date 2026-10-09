@@ -1,11 +1,11 @@
-# <img src="packaging/linux/grtreloaded.svg" width="48" height="48"> GRT Reloaded
+# <img src="packaging/linux/chambersimreloaded.svg" width="48" height="48"> ChamberSim Reloaded
 **Interior ballistics for handloaders — Linux 🐧 / Windows 🪟**
 
 A Qt 6 / C++20 desktop application for **interior ballistics of handloads**: choose a cartridge, bullet and
 powder, enter the charge, and see pressure, bullet energy and velocity along the barrel, with a load development
 ladder, reports and printouts. It follows the workflow of *Gordon's Reloading Tool*. It saves its loads in its own
-`*.grtreload` format (XML, with the data the original does not know, such as the physical model's powder values and
-the measurements). The original's `*.grtload` files can be opened (and are saved as `*.grtreload`); *File ▸ Save as…*
+`*.csrload` format (XML, with the data the original does not know, such as the physical model's powder values and
+the measurements). The original's `*.grtload` files can be opened (and are saved as `*.csrload`); *File ▸ Save as…*
 with the `*.grtload` filter exports a load for the original, without the data of this program.
 
 > **Not affiliated.** This is an independent project. It is not affiliated with, endorsed or supported by
@@ -72,7 +72,7 @@ All other commands (tests, screenshots, data tools, powder fits, calibration, re
 
 The build runs `clang-format -i` (see `.clang-format`: Allman braces, 140 columns) on the sources before it
 compiles. It only changes files that are not yet formatted, and it is skipped when `clang-format` is not installed.
-Turn it off with `-DGRT_FORMAT_ON_BUILD=OFF`. Release builds use `-O2`. For code completion in VS Code or clangd,
+Turn it off with `-DCSR_FORMAT_ON_BUILD=OFF`. Release builds use `-O2`. For code completion in VS Code or clangd,
 configure once with `cmake --preset debug` (it writes `build/debug/compile_commands.json`; `.vscode/settings.json`
 and `.clangd` point to it).
 
@@ -85,7 +85,7 @@ The program shows one database made of three parts:
 - the **project database**: calibers, projectiles and propellants contributed to this repository (`data/`, JSON
   files: one per caliber, one per manufacturer for projectiles and propellants; CC BY-SA 4.0). It is built into the program, so every user has all of it; see
   [data/README.md](data/README.md) and [CONTRIBUTING.md](docs/CONTRIBUTING.md) to add records;
-- your **own records** (`GRTReloaded.db` in the application data folder): everything you create or copy in the
+- your **own records** (`ChamberSimReloaded.db` in the application data folder): everything you create or copy in the
   *Database* tab; *Export…* turns one into a project file;
 - optionally the records of Gordon's Reloading Tool: choose a **plain (unencrypted) copy** of its database in
   *File ▸ Settings ▸ Database*. It is only read; no database of the original is included in this repository, and
@@ -129,9 +129,9 @@ CC BY-SA 4.0.
 
 ## ⚙️ Settings
 
-Stored with `QSettings` (organization and application name `GRTReloaded`): on Linux in
-`~/.config/GRTReloaded/GRTReloaded.conf`, on Windows in the registry under
-`HKEY_CURRENT_USER\Software\GRTReloaded\GRTReloaded`.
+Stored with `QSettings` (organization and application name `ChamberSimReloaded`): on Linux in
+`~/.config/ChamberSimReloaded/ChamberSimReloaded.conf`, on Windows in the registry under
+`HKEY_CURRENT_USER\Software\ChamberSimReloaded\ChamberSimReloaded`.
 
 ### 🧮 Solver model
 
@@ -148,7 +148,7 @@ Shotshells always keep the original's constants. Details: [docs/SOLVER.md](docs/
 ### 📝 Logging
 
 *File ▸ Settings ▸ Logging* sets the log level (Debug, Info, Warning, Error or Off), whether the messages go to
-the console (stderr) and whether they go to a log file (`GRTReloaded.log` in the application data folder; it is
+the console (stderr) and whether they go to a log file (`ChamberSimReloaded.log` in the application data folder; it is
 renamed to `.log.1` at 1 MB). The default is Warning, to the console only. For one run, `--log-level debug` (or
 `info`, `warning`, `error`, `off`) overrides the saved level. In the code use `LOG_Debug()`, `LOG_Info()`,
 `LOG_Warn()` and `LOG_Error()` (header `log.h`) like a stream: `LOG_Info() << "Load opened:" << path;`.

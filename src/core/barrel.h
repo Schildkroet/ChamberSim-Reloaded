@@ -2,7 +2,7 @@
 
 #include <numbers>
 
-namespace grt
+namespace csr
 {
 
 // Effective cross-section of a rifled barrel: the bore (lands diameter F) plus the grooves (N grooves of width b, cut down to the
@@ -15,4 +15,4 @@ namespace grt
     return lands + (grooveCount > 0.0 ? grooveCount : 0.0) * (grooveWidth_mm > 0.0 ? grooveWidth_mm : 0.0) * depth;
 }
 
-}  // namespace grt
+}  // namespace csr

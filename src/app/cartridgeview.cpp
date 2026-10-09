@@ -194,12 +194,12 @@ CartridgeView::Geometry CartridgeView::buildGeometry(const QMap<QString, double>
     return g;
 }
 
-CartridgeView::RoundShape CartridgeView::makeRound(const grt::LoadFile &file, const grt::SimInput &input)
+CartridgeView::RoundShape CartridgeView::makeRound(const csr::LoadFile &file, const csr::SimInput &input)
 {
     RoundShape r;
-    for (const grt::Entry &e : file.caliberFile.entries())
+    for (const csr::Entry &e : file.caliberFile.entries())
     {
-        if (const auto v = grt::parseFinite(e.value)) r.dims.insert(e.name, *v);
+        if (const auto v = csr::parseFinite(e.value)) r.dims.insert(e.name, *v);
     }
     // the load's own values win where the caliber record has none
     if (r.dims.value(QStringLiteral("L3")) <= 0.0) r.dims.insert(QStringLiteral("L3"), input.caseLength_mm);
@@ -229,7 +229,7 @@ CartridgeView::RoundShape CartridgeView::makeRound(const grt::LoadFile &file, co
     return r;
 }
 
-void CartridgeView::setLoad(const grt::LoadFile &file, const grt::SimInput &input)
+void CartridgeView::setLoad(const csr::LoadFile &file, const csr::SimInput &input)
 {
     m_input = input;
     m_round = makeRound(file, input);
@@ -500,8 +500,8 @@ void CartridgeView::paintEvent(QPaintEvent *)
     const QFontMetricsF dfm(small);
     const auto lengthText = [&](double mm)
     {
-        const grt::units::Unit &u = UnitPreferences::instance().unitFor(grt::units::Quantity::Length);
-        return grt::units::format(mm, u) + u' ' + QString::fromUtf8(u.symbol);
+        const csr::units::Unit &u = UnitPreferences::instance().unitFor(csr::units::Quantity::Length);
+        return csr::units::format(mm, u) + u' ' + QString::fromUtf8(u.symbol);
     };
     // A dimension line with a vertical label "A 79.50 mm" beside it, centred on the line. The label has a soft
     // background so it stays readable where it crosses the drawing.
@@ -541,14 +541,14 @@ void CartridgeView::paintEvent(QPaintEvent *)
 
 double CartridgeView::drawMeasures(QPainter &p, const QRectF &area, const QFont &f) const
 {
-    using grt::units::Quantity;
+    using csr::units::Quantity;
     const QFontMetricsF fm(f);
     const double lineH = fm.height() + 1.0;
     double y = area.top();
     const auto lengthText = [&](double mm)
     {
-        const grt::units::Unit &u = UnitPreferences::instance().unitFor(Quantity::Length);
-        return grt::units::format(mm, u) + u' ' + QString::fromUtf8(u.symbol);
+        const csr::units::Unit &u = UnitPreferences::instance().unitFor(Quantity::Length);
+        return csr::units::format(mm, u) + u' ' + QString::fromUtf8(u.symbol);
     };
     const struct
     {
@@ -577,7 +577,7 @@ double CartridgeView::drawMeasures(QPainter &p, const QRectF &area, const QFont 
 
 void CartridgeView::drawTable(QPainter &p, const QRectF &area) const
 {
-    using grt::units::Quantity;
+    using csr::units::Quantity;
     struct Row
     {
         const char *key;
@@ -624,9 +624,9 @@ void CartridgeView::drawTable(QPainter &p, const QRectF &area) const
         else
         {
             // the database stores the case capacity in grains of water
-            const double base = r.quantity == Quantity::Volume ? v * grt::kGrainToGram : v;
-            const grt::units::Unit &u = UnitPreferences::instance().unitFor(r.quantity);
-            value = grt::units::format(base, u) + u' ' + QString::fromUtf8(u.symbol);
+            const double base = r.quantity == Quantity::Volume ? v * csr::kGrainToGram : v;
+            const csr::units::Unit &u = UnitPreferences::instance().unitFor(r.quantity);
+            value = csr::units::format(base, u) + u' ' + QString::fromUtf8(u.symbol);
         }
         const QRectF rowRect(area.left(), y, area.width(), lineH);
         m_rowHits.push_back({rowRect, QString::fromLatin1(r.key), QString::fromUtf8(r.label), value});

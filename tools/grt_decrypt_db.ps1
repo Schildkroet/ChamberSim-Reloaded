@@ -1,5 +1,5 @@
 <#
-Makes a plain (unencrypted) SQLite copy of Gordon's Reloading Tool's database, for GRT Reloaded
+Makes a plain (unencrypted) SQLite copy of Gordon's Reloading Tool's database, for ChamberSim Reloaded
 (File > Settings > Database > Original database). Windows counterpart of grt_decrypt_db.sh.
 
 How: a scratch COPY of GRT is started with Frida (a tool to hook functions of a running program). When GRT has
@@ -12,7 +12,7 @@ GordonsReloadingTool.db) and double-click grt_decrypt_db.cmd, or run in PowerShe
     powershell -ExecutionPolicy Bypass -File .\grt_decrypt_db.ps1 [-Out FILE] [-Yes] [-Check] [-Timeout SECONDS]
 
 Needs Python 3 and the Python package "frida"; both are installed after asking (Python with winget, frida with pip
-into a private environment in %LOCALAPPDATA%\GRTReloaded\decrypt-venv).
+into a private environment in %LOCALAPPDATA%\ChamberSimReloaded\decrypt-venv).
 #>
 param(
     [string]$Out = "",
@@ -64,7 +64,7 @@ function Find-Python {
 }
 
 $Py = Find-Python
-$Venv = Join-Path $env:LOCALAPPDATA "GRTReloaded\decrypt-venv"
+$Venv = Join-Path $env:LOCALAPPDATA "ChamberSimReloaded\decrypt-venv"
 $VenvPy = Join-Path $Venv "Scripts\python.exe"
 # an environment made by an earlier run with a free-threaded Python cannot get frida: start again
 if ((Test-Path $VenvPy) -and ((& $VenvPy -c $UsablePython 2>$null) -ne "3")) {
@@ -249,7 +249,7 @@ print("    %(caliber)d calibers, %(projectile)d projectiles, %(propellant)d prop
 '@ | Set-Content -Encoding UTF8 (Join-Path $Work "count.py")
     & $VenvPy (Join-Path $Work "count.py") $Out
     Info "Done: $Out"
-    Write-Host "Choose this file in GRT Reloaded: File > Settings > Database > Original database."
+    Write-Host "Choose this file in ChamberSim Reloaded: File > Settings > Database > Original database."
 } finally {
     Get-Process GordonsReloadingTool -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "$Work*" } | Stop-Process -Force
     Remove-Item $Work -Recurse -Force -ErrorAction SilentlyContinue

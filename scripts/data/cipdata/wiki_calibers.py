@@ -23,7 +23,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-UA = {"User-Agent": "GRTReloaded-data/1.0 (personal project; contact via GitHub)"}
+UA = {"User-Agent": "ChamberSimReloaded-data/1.0 (personal project; contact via GitHub)"}
 IN, PSI = 25.4, 0.0689476
 CIPPDF = re.compile(r"https?://bobp\.cip-bobp\.org/uploads/tdcc/[\w./%+-]+?\.pdf", re.I)
 

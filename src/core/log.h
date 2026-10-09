@@ -5,7 +5,7 @@
 
 #include <optional>
 
-namespace grt::log
+namespace csr::log
 {
 
 enum class Level
@@ -27,7 +27,7 @@ struct Config
 
 [[nodiscard]] QString levelName(Level level);
 [[nodiscard]] std::optional<Level> levelFromName(const QString &name);
-[[nodiscard]] QString defaultPath();  // GRTReloaded.log in the application data folder
+[[nodiscard]] QString defaultPath();  // ChamberSimReloaded.log in the application data folder
 
 // The active configuration; setConfig() applies it at once (it does not save it).
 [[nodiscard]] Config config();
@@ -80,9 +80,9 @@ private:
     QDebug m_stream;
 };
 
-}  // namespace grt::log
+}  // namespace csr::log
 
-#define LOG_Debug() ::grt::log::Line(::grt::log::Level::Debug, __FILE__, __LINE__)
-#define LOG_Info() ::grt::log::Line(::grt::log::Level::Info, __FILE__, __LINE__)
-#define LOG_Warn() ::grt::log::Line(::grt::log::Level::Warn, __FILE__, __LINE__)
-#define LOG_Error() ::grt::log::Line(::grt::log::Level::Error, __FILE__, __LINE__)
+#define LOG_Debug() ::csr::log::Line(::csr::log::Level::Debug, __FILE__, __LINE__)
+#define LOG_Info() ::csr::log::Line(::csr::log::Level::Info, __FILE__, __LINE__)
+#define LOG_Warn() ::csr::log::Line(::csr::log::Level::Warn, __FILE__, __LINE__)
+#define LOG_Error() ::csr::log::Line(::csr::log::Level::Error, __FILE__, __LINE__)

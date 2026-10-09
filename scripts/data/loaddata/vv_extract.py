@@ -7,7 +7,7 @@ Vihtavuori publishes its whole reloading database as one JSON file (the data of 
 cartridges with test barrel, bullets and, per powder, the start and maximum charge with their velocities.
 For every load line the script finds the caliber record of the project (data/calibers) and the bullet (data/projectiles, else
 a length estimated from mass, diameter and type) and writes two samples (start load, maximum load) with the data that
-tools/grt_fitdata needs. Cartridges and bullets that cannot be matched are listed on stderr and skipped.
+tools/csr_fitdata needs. Cartridges and bullets that cannot be matched are listed on stderr and skipped.
 """
 import argparse
 import csv
@@ -48,7 +48,7 @@ def load_json(path: Path | None, cache: Path | None) -> dict:
     cached = cache / "vv_data.json" if cache else None
     if cached and cached.exists():
         return json.loads(cached.read_text(encoding="utf-8"))
-    req = urllib.request.Request(PAGE, headers={"User-Agent": "Mozilla/5.0 (GRTReloaded data collection)"})
+    req = urllib.request.Request(PAGE, headers={"User-Agent": "Mozilla/5.0 (ChamberSimReloaded data collection)"})
     url = re.search(r'dataUrl":"([^"]+)"', urllib.request.urlopen(req, timeout=60).read().decode()) [1].replace("\\/", "/")
     text = urllib.request.urlopen(urllib.request.Request(url, headers=req.headers), timeout=120).read().decode("utf-8")
     if cached:

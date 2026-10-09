@@ -17,7 +17,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::powderfit
+namespace csr::powderfit
 {
 
 namespace
@@ -458,7 +458,8 @@ QString describe(const Result &result, const std::vector<Sample> &samples)
         shots += s.shots;
         if (!files.contains(s.source)) files << s.source;
     }
-    return u"Fitted with GRT Reloaded (%1) to %2 charges / %3 shots in %4 load(s): %5. Velocity error %6 %."_s.arg(names.join(u", "_s))
+    return u"Fitted with ChamberSim Reloaded (%1) to %2 charges / %3 shots in %4 load(s): %5. Velocity error %6 %."_s
+        .arg(names.join(u", "_s))
         .arg(samples.size())
         .arg(shots)
         .arg(files.size())
@@ -466,4 +467,4 @@ QString describe(const Result &result, const std::vector<Sample> &samples)
         .arg(100 * result.velocityRmsAfter, 0, 'f', 2);
 }
 
-}  // namespace grt::powderfit
+}  // namespace csr::powderfit

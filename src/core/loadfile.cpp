@@ -16,7 +16,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 QString percentDecode(const QString &s)
@@ -95,7 +95,7 @@ void readList(QXmlStreamReader &r, EntryList &list, QStringView childTag)
 }
 
 // The data this program adds to the original's sections: the physical model's burn values of the propellant (physBa, physA0, ...) and
-// the parts of a shotshell (shothull, shotwad, shotprimer). In a *.grtreload they have sections of their own, the original's
+// the parts of a shotshell (shothull, shotwad, shotprimer). In a *.csrload they have sections of their own, the original's
 // export leaves them out.
 bool isPhysical(const Entry &e)
 {
@@ -188,12 +188,12 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
     LoadFile lf;
     bool found = false;
 
-    if (!r.readNextStartElement() || (r.name() != u"GRTReloaded" && r.name() != u"GordonsReloadingTool"))
+    if (!r.readNextStartElement() || (r.name() != u"ChamberSimReloaded" && r.name() != u"GordonsReloadingTool"))
     {
-        if (error) *error = QCoreApplication::translate("grt::LoadFile", "Not a GRT Reloaded or GRT load file");
+        if (error) *error = QCoreApplication::translate("csr::LoadFile", "Not a ChamberSim Reloaded or GRT load file");
         return std::nullopt;
     }
-    lf.source = r.name() == u"GRTReloaded" ? FileFormat::Reload : FileFormat::Original;
+    lf.source = r.name() == u"ChamberSimReloaded" ? FileFormat::Reload : FileFormat::Original;
     const QStringView loadTag = lf.source == FileFormat::Reload ? u"load" : u"InnerBallistikInput";
     lf.appVersion = r.attributes().value(u"version"_s).toString();
 
@@ -268,7 +268,7 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
     }
     if (!found)
     {
-        if (error) *error = QCoreApplication::translate("grt::LoadFile", "The file contains no load data (<%1> is missing)").arg(loadTag);
+        if (error) *error = QCoreApplication::translate("csr::LoadFile", "The file contains no load data (<%1> is missing)").arg(loadTag);
         return std::nullopt;
     }
     return lf;
@@ -295,7 +295,7 @@ QByteArray LoadFile::toXml(FileFormat format) const
     }
     else
     {
-        w.writeStartElement(u"GRTReloaded"_s);
+        w.writeStartElement(u"ChamberSimReloaded"_s);
         w.writeAttribute(u"format"_s, u"1"_s);
         if (const QString v = QCoreApplication::applicationVersion(); !v.isEmpty()) w.writeAttribute(u"version"_s, v);
     }
@@ -338,4 +338,4 @@ bool LoadFile::write(const QString &path, QString *error) const
     return true;
 }
 
-}  // namespace grt
+}  // namespace csr

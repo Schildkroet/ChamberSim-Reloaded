@@ -17,11 +17,11 @@ class TableBrowser : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TableBrowser(grt::Table table, QWidget *parent = nullptr);
+    explicit TableBrowser(csr::Table table, QWidget *parent = nullptr);
     ~TableBrowser() override;
 
     // Binds the view to an open database (or detaches it when `db` is null).
-    void setDatabase(const grt::Database *db);
+    void setDatabase(const csr::Database *db);
 
     // Restricts the rows with an extra SQL condition (e.g. "gdia BETWEEN 8 AND 8.5"); empty = no restriction.
     void setRowFilter(const QString &sqlCondition);
@@ -47,7 +47,7 @@ private:
     void selectAll();
     [[nodiscard]] QString baseFilter() const;
 
-    grt::Table m_table;
+    csr::Table m_table;
     QString m_rowFilter;
     QTableView *m_view;
     QLineEdit *m_filter;

@@ -33,9 +33,9 @@ struct Range
 
 MeasurementChart::MeasurementChart(QWidget *parent)
     : QChartView(parent)
-    , m_chargeUnit(&grt::units::systemUnit(grt::units::Quantity::BulletMass, grt::units::System::Metric))
-    , m_velocityUnit(&grt::units::systemUnit(grt::units::Quantity::Velocity, grt::units::System::Metric))
-    , m_pressureUnit(&grt::units::systemUnit(grt::units::Quantity::Pressure, grt::units::System::Metric))
+    , m_chargeUnit(&csr::units::systemUnit(csr::units::Quantity::BulletMass, csr::units::System::Metric))
+    , m_velocityUnit(&csr::units::systemUnit(csr::units::Quantity::Velocity, csr::units::System::Metric))
+    , m_pressureUnit(&csr::units::systemUnit(csr::units::Quantity::Pressure, csr::units::System::Metric))
     , m_simVelocity(new QLineSeries)
     , m_simPressure(new QLineSeries)
     , m_shotVelocity(new QScatterSeries)
@@ -87,14 +87,14 @@ MeasurementChart::MeasurementChart(QWidget *parent)
     rebuild();
 }
 
-void MeasurementChart::setData(const grt::Measurement &m, std::span<const Prediction> simulated)
+void MeasurementChart::setData(const csr::Measurement &m, std::span<const Prediction> simulated)
 {
     m_data = m;
     m_simulated.assign(simulated.begin(), simulated.end());
     rebuild();
 }
 
-void MeasurementChart::setUnits(const grt::units::Unit &charge, const grt::units::Unit &velocity, const grt::units::Unit &pressure)
+void MeasurementChart::setUnits(const csr::units::Unit &charge, const csr::units::Unit &velocity, const csr::units::Unit &pressure)
 {
     m_chargeUnit = &charge;
     m_velocityUnit = &velocity;
@@ -104,7 +104,7 @@ void MeasurementChart::setUnits(const grt::units::Unit &charge, const grt::units
 
 void MeasurementChart::rebuild()
 {
-    using grt::units::toDisplay;
+    using csr::units::toDisplay;
     const auto cx = [&](double g) { return toDisplay(g, *m_chargeUnit); };
     const auto cv = [&](double v) { return toDisplay(v, *m_velocityUnit); };
     const auto cp = [&](double p) { return toDisplay(p, *m_pressureUnit); };
@@ -126,11 +126,11 @@ void MeasurementChart::rebuild()
         rv.add(cv(p.velocity_ms));
         rp.add(cp(p.pressure_bar));
     }
-    for (const grt::MeasuredCharge &c : m_data.charges)
+    for (const csr::MeasuredCharge &c : m_data.charges)
     {
         const double x = cx(c.charge_g());
         bool any = false;
-        for (const grt::Shot &s : c.shots)
+        for (const csr::Shot &s : c.shots)
         {
             if (s.velocity_ms > 0.0)
             {
@@ -146,7 +146,7 @@ void MeasurementChart::rebuild()
             }
         }
         if (any) rx.add(x);
-        const grt::ShotStatistics st = grt::velocityStatistics(c);
+        const csr::ShotStatistics st = csr::velocityStatistics(c);
         if (st.count == 0) continue;
         meanV.append({x, cv(st.mean)});
         if (st.count > 1)

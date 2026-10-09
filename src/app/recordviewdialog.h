@@ -18,7 +18,7 @@ public:
         CopyRequested = 3
     };
 
-    RecordViewDialog(const grt::Database &db, grt::Table table, int id, const QVariantMap &record, QWidget *parent = nullptr);
+    RecordViewDialog(const csr::Database &db, csr::Table table, int id, const QVariantMap &record, QWidget *parent = nullptr);
 
     // Number of fields shown, and the text shown for a column ("" without it).
     [[nodiscard]] int fieldCount() const noexcept { return m_fieldCount; }

@@ -25,16 +25,16 @@ class MeasurementView : public QWidget
     Q_OBJECT
 public:
     // Simulates the load with another charge [g].
-    using Predictor = std::function<grt::SimResult(double charge_g)>;
+    using Predictor = std::function<csr::SimResult(double charge_g)>;
 
     explicit MeasurementView(QWidget *parent = nullptr);
 
     // All measurement series of the load (the original has one <Measurement> block per series); `current` is shown.
-    void setMeasurements(std::vector<grt::Measurement> series, int current = 0);
-    void setMeasurement(const grt::Measurement &m);  // a single series
-    [[nodiscard]] const std::vector<grt::Measurement> &allMeasurements() const noexcept { return m_series; }
+    void setMeasurements(std::vector<csr::Measurement> series, int current = 0);
+    void setMeasurement(const csr::Measurement &m);  // a single series
+    [[nodiscard]] const std::vector<csr::Measurement> &allMeasurements() const noexcept { return m_series; }
     // The shown series.
-    [[nodiscard]] const grt::Measurement &measurement() const noexcept { return m_series[static_cast<std::size_t>(m_index)]; }
+    [[nodiscard]] const csr::Measurement &measurement() const noexcept { return m_series[static_cast<std::size_t>(m_index)]; }
     [[nodiscard]] int currentSeries() const noexcept { return m_index; }
     void selectSeries(int index);
     void addSeries();
@@ -78,8 +78,8 @@ private:
     };
 
     [[nodiscard]] Simulated simulated(double charge_g);
-    [[nodiscard]] grt::Measurement &data() noexcept { return m_series[static_cast<std::size_t>(m_index)]; }
-    [[nodiscard]] static grt::Measurement emptySeries(int number);
+    [[nodiscard]] csr::Measurement &data() noexcept { return m_series[static_cast<std::size_t>(m_index)]; }
+    [[nodiscard]] static csr::Measurement emptySeries(int number);
     void refreshSeriesBox();
     void refreshAll();
     void refreshCharges();
@@ -90,7 +90,7 @@ private:
     void onShotChanged(int row, int column);
     void changed();
 
-    std::vector<grt::Measurement> m_series{emptySeries(1)};  // never empty
+    std::vector<csr::Measurement> m_series{emptySeries(1)};  // never empty
     int m_index{0};
     Predictor m_predictor;
     std::vector<double> m_suggested;

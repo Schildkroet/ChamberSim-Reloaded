@@ -2,7 +2,7 @@
 
 ## Records for the project database
 
-The project database (`data/`) is shared by every user of GRT Reloaded, so new calibers, projectiles and
+The project database (`data/`) is shared by every user of ChamberSim Reloaded, so new calibers, projectiles and
 propellants are very welcome. The procedures are below; the file format is described in
 [data/README.md](../data/README.md).
 
@@ -15,7 +15,7 @@ Please make sure that:
   derived from such data cannot be accepted, because that data is not ours to license.
 - propellant models come with a short description of how they were made (which loads, barrel, chronograph,
   pressure measurement) in `descr`.
-- one pull request may add several records; `grt_datacheck` (run by CI) must pass.
+- one pull request may add several records; `csr_datacheck` (run by CI) must pass.
 
 By opening a pull request you agree that your records are published under
 [CC BY-SA 4.0](../data/LICENSE.md).
@@ -40,7 +40,7 @@ projectiles and propellants. Use a pull request on GitHub to send the data.
 
 ### Procedure 1: Add a caliber or a projectile
 
-1. Start GRT Reloaded.
+1. Start ChamberSim Reloaded.
 2. Open the tab *Database*.
 3. Select the tab *Calibers* or *Projectiles*.
 4. Click *New…*. Or select a similar record and click *Copy…*.
@@ -66,18 +66,18 @@ A new propellant model needs these measurements:
 
 Use a good chronograph (for example MagnetoSpeed or LabRadar). Measurements of the pressure help.
 
-1. Make one load file (`.grtreload`) for each caliber and bullet weight.
+1. Make one load file (`.csrload`) for each caliber and bullet weight.
 2. Measure the volume of a fired case with water. Write the value into the field *Case Volume*.
 3. Measure the length of the bullets. Write the mean value into the field *Projectile Overall Length*.
 4. Measure the length of the cartridges. Write the mean value into the field *Cartridge Overall Length*.
 5. Open the tab *Measurements*.
 6. Add each charge. Type the velocity of each shot. If you have pressure values, type them too.
 7. Save the load files.
-8. Run the tool `grt_fitpowder` with all load files of the propellant. Give the name of the record file with
+8. Run the tool `csr_fitpowder` with all load files of the propellant. Give the name of the record file with
    `--out`. Use the name `<manufacturer>-<name>-<lot>.json`:
 
    ```
-   grt_fitpowder --out vihtavuori-n150-lot123.json 8x57-196gr.grtload 8x57-170gr.grtload 308-150gr.grtload 308-168gr.grtload
+   csr_fitpowder --out vihtavuori-n150-lot123.json 8x57-196gr.grtload 8x57-170gr.grtload 308-150gr.grtload 308-168gr.grtload
    ```
 
    The tool changes the values Ba, a0, z1 and z2 of the propellant. The simulation then agrees with your
@@ -99,7 +99,7 @@ Use a good chronograph (for example MagnetoSpeed or LabRadar). Measurements of t
 13. Do procedure 3.
 
 Use the option `--save` only for your own loads. Add it to the command of step 8. The tool then also writes a
-copy of each load file with the new values (`<name>-fitted.grtreload`, in the folder of the load file). Open these
+copy of each load file with the new values (`<name>-fitted.csrload`, in the folder of the load file). Open these
 files to continue your load development with the new model. You do not have to wait until the record is in the
 program. Do not copy the `-fitted` files into `data/`.
 

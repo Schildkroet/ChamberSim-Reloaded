@@ -291,7 +291,7 @@
     </message>
     <message>
         <location line="+2"/>
-        <source>GRT Reloaded simulates interior ballistics. Its results are estimates and can be far from reality: use the program only if you know what you are doing.&lt;br&gt;&lt;br&gt;Never use a simulated load as a recipe. Always start from the current load data of the powder and bullet maker, start low, work up carefully and watch for pressure signs.&lt;br&gt;&lt;br&gt;The program is provided as it is, without any warranty. The authors are not responsible for any damage, injury or loss that results from its use.</source>
+        <source>ChamberSim Reloaded simulates interior ballistics. Its results are estimates and can be far from reality: use the program only if you know what you are doing.&lt;br&gt;&lt;br&gt;Never use a simulated load as a recipe. Always start from the current load data of the powder and bullet maker, start low, work up carefully and watch for pressure signs.&lt;br&gt;&lt;br&gt;The program is provided as it is, without any warranty. The authors are not responsible for any damage, injury or loss that results from its use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -728,7 +728,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
         <location filename="../src/app/mainwindow.cpp" line="+366"/>
-        <source>GRT Reloaded</source>
+        <source>ChamberSim Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1006,7 +1006,7 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+65"/>
-        <source>GRT Reloaded loads (*.grtreload);;Original GRT loads, without the data of GRT Reloaded (*.grtload)</source>
+        <source>ChamberSim Reloaded loads (*.csrload);;Original GRT loads, without the data of ChamberSim Reloaded (*.grtload)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1087,7 +1087,7 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+678"/>
-        <source>Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)</source>
+        <source>Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1097,7 +1097,7 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>&amp;About GRT Reloaded…</source>
+        <source>&amp;About ChamberSim Reloaded…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1166,7 +1166,7 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+56"/>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Save load</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2308,7 +2308,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+9"/>
-        <source>A load whose file is a *.grtload of Gordon&apos;s Reloading Tool is simulated with GRT Original and the burn values in the file, whatever model is chosen above: the results are close to those of the original program. Loads saved as *.grtreload use the chosen model.</source>
+        <source>A load whose file is a *.grtload of Gordon&apos;s Reloading Tool is simulated with GRT Original and the burn values in the file, whatever model is chosen above: the results are close to those of the original program. Loads saved as *.csrload use the chosen model.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2637,7 +2637,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+19"/>
-        <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
+        <source>&lt;h2&gt;ChamberSim Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2687,12 +2687,12 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+10"/>
-        <source>About GRT Reloaded</source>
+        <source>About ChamberSim Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>grt</name>
+    <name>csr</name>
     <message>
         <location filename="../src/core/chronograph.cpp" line="+64"/>
         <source>Series %1</source>
@@ -2702,25 +2702,25 @@ pressure Δ</source>
         <location line="+15"/>
         <location line="+35"/>
         <location line="+120"/>
-        <location line="+54"/>
+        <location line="+73"/>
         <source>The file contains no shots.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+174"/>
+        <location line="-198"/>
+        <location line="+193"/>
         <source>The velocity unit of the file is unknown.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-166"/>
+        <location line="-185"/>
         <location line="+124"/>
-        <location line="+50"/>
+        <location line="+69"/>
         <source>Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-121"/>
+        <location line="-140"/>
         <source>The FIT file is truncated.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2740,16 +2740,16 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+108"/>
         <source>Not a Garmin Xero, MagnetoSpeed or Labradar file.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>grt::LoadFile</name>
+    <name>csr::LoadFile</name>
     <message>
         <location filename="../src/core/loadfile.cpp" line="+193"/>
-        <source>Not a GRT Reloaded or GRT load file</source>
+        <source>Not a ChamberSim Reloaded or GRT load file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2759,7 +2759,7 @@ pressure Δ</source>
     </message>
 </context>
 <context>
-    <name>grt::dbfields</name>
+    <name>csr::dbfields</name>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+34"/>
         <location line="+50"/>
@@ -3116,7 +3116,7 @@ pressure Δ</source>
     </message>
 </context>
 <context>
-    <name>grt::fields</name>
+    <name>csr::fields</name>
     <message>
         <location filename="../src/core/fieldnames.cpp" line="+13"/>
         <source>G1 ballistic coefficient</source>
@@ -3439,7 +3439,7 @@ pressure Δ</source>
     </message>
 </context>
 <context>
-    <name>grt::units</name>
+    <name>csr::units</name>
     <message>
         <location filename="../src/core/units.cpp" line="+157"/>
         <source>Metric (mm, g, bar, m/s)</source>

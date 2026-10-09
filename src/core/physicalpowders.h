@@ -7,7 +7,7 @@
 
 #include <optional>
 
-namespace grt
+namespace csr
 {
 
 // Burn values of a powder for the physical model (CalibrationProfile::Physical): the burn rate Ba and the form function (a0, z1, z2)
@@ -44,4 +44,4 @@ void writePhysicalBurn(EntryList &propellant, const std::optional<PhysicalBurn> 
 // unchanged values. Returns whether it added them.
 bool attachPhysicalBurn(EntryList &propellant);
 
-}  // namespace grt
+}  // namespace csr

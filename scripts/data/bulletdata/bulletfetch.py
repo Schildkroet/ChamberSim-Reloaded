@@ -8,7 +8,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-UA = {"User-Agent": "Mozilla/5.0 (GRTReloaded data collection)"}
+UA = {"User-Agent": "Mozilla/5.0 (ChamberSimReloaded data collection)"}
 COLUMNS = ["manufacturer", "line", "part", "caliber_name", "weight_gr", "diameter_in", "length_in", "g1bc", "g7bc", "base_style",
            "ogive_style", "boat_tail_length_in", "discontinued", "valid", "note", "url"]
 

@@ -5,7 +5,7 @@
 
 #include <optional>
 
-namespace grt
+namespace csr
 {
 
 // The database stores dates as text "yyyy-MM-dd" (like the original program). This brings a date into that form.
@@ -14,4 +14,4 @@ namespace grt
 // anything else that is not a valid date gives nullopt.
 [[nodiscard]] std::optional<QString> normalizedDate(const QVariant &value);
 
-}  // namespace grt
+}  // namespace csr

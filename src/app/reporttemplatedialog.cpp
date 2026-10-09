@@ -18,7 +18,7 @@
 
 #include <algorithm>
 
-ReportTemplateDialog::ReportTemplateDialog(grt::report::Data data, const QString &templateText, QWidget *parent)
+ReportTemplateDialog::ReportTemplateDialog(csr::report::Data data, const QString &templateText, QWidget *parent)
     : QDialog(parent)
     , m_data(std::move(data))
     , m_editor(new QPlainTextEdit)
@@ -44,7 +44,7 @@ ReportTemplateDialog::ReportTemplateDialog(grt::report::Data data, const QString
     {
         const QString source = key.section(u'.', 0, 0);
         if (!groups.contains(source)) groups.insert(source, menu->addMenu(source));
-        const bool image = m_data.find(key)->kind == grt::report::Value::Kind::Image;
+        const bool image = m_data.find(key)->kind == csr::report::Value::Kind::Image;
         QAction *a = groups[source]->addAction(key.section(u'.', 1));
         connect(a, &QAction::triggered, this,
                 [this, key, image] { insertAtCursor(image ? QStringLiteral("~~%1~~").arg(key) : QStringLiteral("~~%1~~").arg(key)); });
@@ -52,7 +52,7 @@ ReportTemplateDialog::ReportTemplateDialog(grt::report::Data data, const QString
     insert->setMenu(menu);
 
     auto *reset = new QPushButton(tr("Reset to default"));
-    connect(reset, &QPushButton::clicked, this, [this] { setTemplateText(grt::report::defaultTemplate()); });
+    connect(reset, &QPushButton::clicked, this, [this] { setTemplateText(csr::report::defaultTemplate()); });
     auto *help = new QLabel(tr("Placeholders: <tt>~~source.property~~</tt> or <tt>~~source.property(\"#.00\")~~</tt> "
                                "(a format string uses the file's units: mm, g, bar, m/s). Sources: file, work, result, caliber."));
     help->setWordWrap(true);
@@ -100,7 +100,7 @@ void ReportTemplateDialog::insertAtCursor(const QString &text)
 
 void ReportTemplateDialog::updatePreview()
 {
-    grt::report::RenderOptions options;
-    options.unitFor = [](grt::units::Quantity q) -> const grt::units::Unit & { return UnitPreferences::instance().unitFor(q); };
-    m_preview->setHtml(grt::report::renderReport(m_editor->toPlainText(), m_data, options));
+    csr::report::RenderOptions options;
+    options.unitFor = [](csr::units::Quantity q) -> const csr::units::Unit & { return UnitPreferences::instance().unitFor(q); };
+    m_preview->setHtml(csr::report::renderReport(m_editor->toPlainText(), m_data, options));
 }

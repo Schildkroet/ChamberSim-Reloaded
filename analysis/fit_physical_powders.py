@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Fits the physical burn values (Ba, a0, z1, z2) of the project's powders for the physical model and writes data/physical/propellants.json.
 
-    fit_physical_powders.py <grt_eval> samples.csv [samples2.csv ...] [--out FILE] [--split train|all] [--min-samples 40]
+    fit_physical_powders.py <csr_eval> samples.csv [samples2.csv ...] [--out FILE] [--split train|all] [--min-samples 40]
                             [--pressure-weight 1.0] [--slope-weight 1.0] [--only N110,N120 --merge] [--start FILE]
                             [--fit form|ba] [--form a0,z1,z2]
 
 For every powder of data/propellants with at least --min-samples rows in the sample files (scripts/data/loaddata): Ba, a0, z1 and z2 are fitted
 to the velocities and, where published, the measured pressures (relative errors, robust loss) with the physical model's constants
-(grt_eval --profile physical). Without pressures only Ba is fitted (the velocities hardly determine the form function) and a0, z1, z2
+(csr_eval --profile physical). Without pressures only Ba is fitted (the velocities hardly determine the form function) and a0, z1, z2
 are the medians of the powders fitted with pressures. --fit ba fits only Ba for every powder, with the form function --form. --split train uses only the training cartridges (every cartridge but each 4th of the
 sorted list, the split of calibrate_published.py) and reports the error on the held-out ones; --split all (default) fits on everything.
 Besides the errors of the single loads, the fit minimises the error of the velocity gain from the start to the maximum load of every pair of
@@ -33,7 +33,7 @@ ap.add_argument("--form", default="0.45,0.27,0.62", help="a0,z1,z2 for --fit ba"
 ap.add_argument("--only", help="comma separated powders (product name or \"maker name\"): fit only these")
 ap.add_argument("--slope-weight", type=float, default=1.0, help="weight of the start-to-maximum velocity gain of the load pairs (0: off)")
 ap.add_argument("--merge", action="store_true", help="keep the other powders of the existing --out file (with --only: refit some, e.g. new records)")
-ap.add_argument("--eval-arg", action="append", default=[], help="extra option for grt_eval (repeatable), e.g. --eval-arg=--ps-handgun=150")
+ap.add_argument("--eval-arg", action="append", default=[], help="extra option for csr_eval (repeatable), e.g. --eval-arg=--ps-handgun=150")
 args = ap.parse_args()
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 
@@ -147,7 +147,7 @@ with_p = [p for p in candidates if sum(1 for r in by_powder[p] if r["pressure_ba
 without_p = [p for p in candidates if p not in with_p]
 print(f"{len(candidates)} powders ({len(with_p)} with pressures), held-out cartridges: {len(held_out)}", flush=True)
 results = {}
-with ThreadPoolExecutor(int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1)))) as pool:
+with ThreadPoolExecutor(int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1)))) as pool:
     for powder, burn, tr, te in pool.map(lambda p: run(p, True), with_p):
         results[powder] = (burn, tr, te); print(powder, [round(b, 4) for b in burn], tr, te, flush=True)
     form = tuple(float(np.median([results[p][0][i] for p in with_p])) for i in (1, 2, 3)) if with_p else tuple(map(float, args.form.split(",")))

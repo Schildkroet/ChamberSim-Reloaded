@@ -8,7 +8,7 @@
 #include <optional>
 #include <vector>
 
-namespace grt
+namespace csr
 {
 
 // One result file written by the reference runner (tools/GRTRef): the full
@@ -26,4 +26,4 @@ struct ReferenceRun
 
 [[nodiscard]] std::optional<ReferenceRun> readReferenceRun(const QString &jsonPath, QString *error = nullptr);
 
-}  // namespace grt
+}  // namespace csr

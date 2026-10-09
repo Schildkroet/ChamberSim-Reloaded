@@ -22,7 +22,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -209,7 +209,7 @@ Database::~Database()
 
 QString Database::defaultOwnPath()
 {
-    return QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath(u"GRTReloaded.db"_s);
+    return QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath(u"ChamberSimReloaded.db"_s);
 }
 
 bool Database::open(const QString &originalPath, const QString &ownPath, QString *error)
@@ -217,7 +217,7 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
     close();
     const QString own = ownPath.isEmpty() ? defaultOwnPath() : ownPath;
     QDir().mkpath(QFileInfo(own).absolutePath());
-    m_connection = u"grt-"_s + QUuid::createUuid().toString(QUuid::WithoutBraces);
+    m_connection = u"csr-"_s + QUuid::createUuid().toString(QUuid::WithoutBraces);
     m_db = QSqlDatabase::addDatabase(u"QSQLITE"_s, m_connection);
     m_db.setDatabaseName(own);
     // URIs for attaching the original read-only; wait for a lock (a second instance, a backup) instead of failing
@@ -248,7 +248,7 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
     if (!originalPath.isEmpty())
     {
         QSqlQuery q(m_db);
-        q.prepare(u"ATTACH DATABASE ? AS grt"_s);
+        q.prepare(u"ATTACH DATABASE ? AS csr"_s);
         q.addBindValue(QUrl::fromLocalFile(QFileInfo(originalPath).absoluteFilePath()).toString(QUrl::FullyEncoded) + u"?mode=ro"_s);
         if (!QFileInfo::exists(originalPath))
         {
@@ -264,10 +264,10 @@ bool Database::open(const QString &originalPath, const QString &ownPath, QString
         {
             // an encrypted original database fails here with "file is not a database"
             QSqlQuery check(m_db);
-            if (!check.exec(u"SELECT count(*) FROM grt.caliber"_s) || !check.next())
+            if (!check.exec(u"SELECT count(*) FROM csr.caliber"_s) || !check.next())
             {
                 if (error) *error = lastError(check);
-                QSqlQuery(m_db).exec(u"DETACH DATABASE grt"_s);
+                QSqlQuery(m_db).exec(u"DETACH DATABASE csr"_s);
                 ok = false;
             }
             else
@@ -392,7 +392,7 @@ bool Database::createViews(QString *error)
         const QString name = QLatin1String(t.name);
         const auto own = orderedColumns(m_db, name);
         QStringList cols, originalCols;
-        const auto original = hasOriginal() ? tableColumns(m_db, u"grt"_s, name) : decltype(own){};
+        const auto original = hasOriginal() ? tableColumns(m_db, u"csr"_s, name) : decltype(own){};
         for (const auto &[col, type] : own)
         {
             cols << col;
@@ -404,7 +404,7 @@ bool Database::createViews(QString *error)
         QString sql = u"CREATE TEMP VIEW %1 AS SELECT '%3' AS source, %2 FROM main.%1 UNION ALL SELECT '%4', %2 FROM proj.%1"_s.arg(
             name, list, QLatin1String(kSourceOwn), QLatin1String(kSourceProject));
         if (!original.empty())
-            sql += u" UNION ALL SELECT '%1', %2 FROM grt.%3"_s.arg(QLatin1String(kSourceOriginal), originalCols.join(u", "_s), name);
+            sql += u" UNION ALL SELECT '%1', %2 FROM csr.%3"_s.arg(QLatin1String(kSourceOriginal), originalCols.join(u", "_s), name);
         if (!exec(m_db, u"DROP VIEW IF EXISTS temp.%1"_s.arg(name), error) || !exec(m_db, sql, error)) return false;
     }
     return true;
@@ -629,4 +629,4 @@ bool Database::remove(Table t, int id, QString *error)
     return update(t, id, {{u"geloescht"_s, 1}}, error);
 }
 
-}  // namespace grt
+}  // namespace csr

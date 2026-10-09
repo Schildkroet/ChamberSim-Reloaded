@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Tests physical-model constants on published load data, powder by powder (fast: the powders are independent).
 
-    scan_physical.py <grt_eval> samples.csv [samples2.csv ...] [--set name=value ...] [--min-samples 60] [--powders "ADI AR2208,..."]
+    scan_physical.py <csr_eval> samples.csv [samples2.csv ...] [--set name=value ...] [--min-samples 60] [--powders "ADI AR2208,..."]
 
 For every powder with physical burn values (data/physical/propellants.json) the burn rate Ba is fitted on the training cartridges (all but
 every 4th cartridge of the sorted list) under the given constants, the form function stays. Reported: velocity / pressure error on the
 training and held-out cartridges and the trends of the error with loading density and bullet mass (slope of ln(simulated / published) over
-ln(charge / case volume) and ln(bullet mass): zero for a model that follows the data). The powders run in parallel (one grt_eval per
+ln(charge / case volume) and ln(bullet mass): zero for a model that follows the data). The powders run in parallel (one csr_eval per
 powder and evaluation, `--jobs` threads).
 """
 import argparse, csv, glob, json, os, subprocess, sys, tempfile
@@ -19,7 +19,7 @@ ap.add_argument("eval_exe"); ap.add_argument("samples", nargs="+")
 ap.add_argument("--set", action="append", default=[], help="calibration constant name=value (repeatable)")
 ap.add_argument("--min-samples", type=int, default=60)
 ap.add_argument("--powders", default="")
-ap.add_argument("--jobs", type=int, default=int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1))), help="threads (default: at most 14 cores, or GRT_JOBS)")
+ap.add_argument("--jobs", type=int, default=int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1))), help="threads (default: at most 14 cores, or CSR_JOBS)")
 ap.add_argument("--pressure-weight", type=float, default=1.0)
 ap.add_argument("--quiet", action="store_true")
 ap.add_argument("--fit-form", action="store_true", help="fit the form function (a0, z1, z2) as well as Ba, with the pressures (slower)")

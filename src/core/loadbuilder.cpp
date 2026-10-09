@@ -12,7 +12,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -342,4 +342,4 @@ LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, co
     return lf;
 }
 
-}  // namespace grt
+}  // namespace csr

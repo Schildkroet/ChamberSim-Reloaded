@@ -28,7 +28,7 @@ IN = 25.4
 GR = 0.06479891
 FPS = 0.3048
 PSI = 0.0689476
-UA = "Mozilla/5.0 (GRT Reloaded data extraction)"
+UA = "Mozilla/5.0 (ChamberSim Reloaded data extraction)"
 # names of the cartridge filter that differ from the C.I.P. names of the records
 ALIASES = {"308 Winchester": "308 Win.", "30-06 Springfield": "30-06 Spring.", "223 Remington": "223 Rem.", "243 Winchester": "243 Win.",
            "6.5 x 55mm Swedish Mauser": "6.5 x 55 SE", "7 x 57mm Mauser": "7 x 57", "8 x 57mm Mauser": "8 x 57 IS",

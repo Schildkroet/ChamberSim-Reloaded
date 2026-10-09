@@ -1,5 +1,5 @@
 # Allman braces, 4 spaces, 140 columns. The build runs clang-format -i on the sources (CMake option
-# GRT_FORMAT_ON_BUILD); do not fight it, change this file instead.
+# CSR_FORMAT_ON_BUILD); do not fight it, change this file instead.
 Language: Cpp
 BasedOnStyle: LLVM
 Standard: c++20

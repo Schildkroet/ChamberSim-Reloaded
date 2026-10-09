@@ -25,19 +25,19 @@
 #include <map>
 
 using namespace Qt::StringLiterals;
-using grt::dbfields::Kind;
+using csr::dbfields::Kind;
 
 namespace
 {
 
-QString choiceText(grt::Table table, const grt::dbfields::Field &f, const QString &value)
+QString choiceText(csr::Table table, const csr::dbfields::Field &f, const QString &value)
 {
-    for (const auto &[v, text] : grt::dbfields::choices(table, f.column))
+    for (const auto &[v, text] : csr::dbfields::choices(table, f.column))
         if (v.compare(value, Qt::CaseInsensitive) == 0) return text;
     return value;
 }
 
-QString shownValue(grt::Table table, const grt::dbfields::Field &f, const QVariant &stored)
+QString shownValue(csr::Table table, const csr::dbfields::Field &f, const QVariant &stored)
 {
     switch (f.kind)
     {
@@ -52,7 +52,7 @@ QString shownValue(grt::Table table, const grt::dbfields::Field &f, const QVaria
     case Kind::Choice: return choiceText(table, f, stored.toString());
     case Kind::Date:
     {
-        const auto date = grt::normalizedDate(stored);
+        const auto date = csr::normalizedDate(stored);
         return date ? *date : stored.toString();
     }
     default:
@@ -68,25 +68,25 @@ QString shownValue(grt::Table table, const grt::dbfields::Field &f, const QVaria
 
 }  // namespace
 
-RecordViewDialog::RecordViewDialog(const grt::Database &db, grt::Table table, int id, const QVariantMap &record, QWidget *parent)
+RecordViewDialog::RecordViewDialog(const csr::Database &db, csr::Table table, int id, const QVariantMap &record, QWidget *parent)
     : QDialog(parent)
 {
     setObjectName(u"recordViewDialog"_s);
-    const QString kind = table == grt::Table::Caliber      ? tr("Caliber")
-                         : table == grt::Table::Projectile ? tr("Projectile")
+    const QString kind = table == csr::Table::Caliber      ? tr("Caliber")
+                         : table == csr::Table::Projectile ? tr("Projectile")
                                                            : tr("Propellant");
-    setWindowTitle(u"%1 – %2"_s.arg(kind, grt::dbfields::recordTitle(table, record)));
+    setWindowTitle(u"%1 – %2"_s.arg(kind, csr::dbfields::recordTitle(table, record)));
 
-    std::map<QString, std::vector<std::pair<grt::dbfields::Field, QVariant>>> byGroup;
+    std::map<QString, std::vector<std::pair<csr::dbfields::Field, QVariant>>> byGroup;
     for (const auto &[column, type] : db.schema(table))
     {
-        const grt::dbfields::Field f = grt::dbfields::describe(table, column, type);
+        const csr::dbfields::Field f = csr::dbfields::describe(table, column, type);
         if (f.kind == Kind::Hidden) continue;
         byGroup[f.group].push_back({f, record.value(column)});
     }
     auto *content = new QWidget;
     auto *contentLayout = new QVBoxLayout(content);
-    for (const QString &group : grt::dbfields::groups(table))
+    for (const QString &group : csr::dbfields::groups(table))
     {
         const auto it = byGroup.find(group);
         if (it == byGroup.end()) continue;
@@ -135,7 +135,7 @@ RecordViewDialog::RecordViewDialog(const grt::Database &db, grt::Table table, in
     scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll->setWidget(content);
     auto *buttons = new QDialogButtonBox;
-    const bool own = grt::Database::isOwnId(id);
+    const bool own = csr::Database::isOwnId(id);
     auto *edit = buttons->addButton(own ? tr("Edit…") : tr("Copy…"), QDialogButtonBox::ActionRole);
     edit->setObjectName(own ? u"editRecordButton"_s : u"copyRecordButton"_s);
     edit->setToolTip(own ? tr("Change this record") : tr("Only your own records can be changed: add a changed copy"));
@@ -150,7 +150,7 @@ RecordViewDialog::RecordViewDialog(const grt::Database &db, grt::Table table, in
     const QSize want =
         content->sizeHint() + QSize(scroll->verticalScrollBar()->sizeHint().width() + 2 * scroll->frameWidth() + m.left() + m.right(),
                                     buttons->sizeHint().height() + layout->spacing() + 2 * scroll->frameWidth() + m.top() + m.bottom());
-    resizeWithinScreen(this, want.expandedTo({table == grt::Table::Caliber ? 760 : 620, 400}));
+    resizeWithinScreen(this, want.expandedTo({table == csr::Table::Caliber ? 760 : 620, 400}));
 }
 
 QString RecordViewDialog::valueText(const QString &column) const

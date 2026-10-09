@@ -17,7 +17,7 @@
   Its constants and the **physical burn values** of 106 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
   pressures: Hodgdon, Western, Lovex, Reload Swiss, ADI; Vihtavuori and Vectan publish no pressures, their 20 powders have a fitted Ba and the median
   form function of the others) come from `analysis/calibrate_published.py --profile physical` and
-  `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A `.grtreload` stores them in its `<physical>` section (`physBa`,
+  `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A `.csrload` stores them in its `<physical>` section (`physBa`,
   `physA0`, `physZ1`, `physZ2`, `physRef` = the record values they belong to); they apply only while Ba, a0, z1, z2 of the load are
   unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger. A load saved
   before these values existed gets them when it is opened. The curves and the barrel time begin when the bullet moves (it waits at

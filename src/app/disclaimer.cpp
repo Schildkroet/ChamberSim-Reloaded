@@ -36,7 +36,7 @@ std::unique_ptr<QMessageBox> create(QWidget *parent)
     box->setText(Disclaimer::tr("<b>Handloading ammunition is dangerous.</b> A wrong load can destroy a firearm and cause severe injury or "
                                 "death."));
     box->setInformativeText(Disclaimer::tr(
-        "GRT Reloaded simulates interior ballistics. Its results are estimates and can be far from reality: use the program only "
+        "ChamberSim Reloaded simulates interior ballistics. Its results are estimates and can be far from reality: use the program only "
         "if you know what you are doing.<br><br>Never use a simulated load as a recipe. Always start from the current load data "
         "of the powder and bullet maker, start low, work up carefully and watch for pressure signs.<br><br>The program is "
         "provided as it is, without any warranty. The authors are not responsible for any damage, injury or loss that results "

@@ -11,7 +11,7 @@
 #include <QTableWidget>
 #include <QVBoxLayout>
 
-using grt::units::Quantity;
+using csr::units::Quantity;
 
 namespace
 {
@@ -27,7 +27,7 @@ enum Column
     ColumnCount
 };
 
-const grt::units::Unit &unitOf(Quantity q)
+const csr::units::Unit &unitOf(Quantity q)
 {
     return UnitPreferences::instance().unitFor(q);
 }
@@ -42,7 +42,7 @@ QTableWidgetItem *readOnly(const QString &text)
 
 }  // namespace
 
-ChronographImportDialog::ChronographImportDialog(grt::ChronographFile file, double defaultCharge_g, QWidget *parent)
+ChronographImportDialog::ChronographImportDialog(csr::ChronographFile file, double defaultCharge_g, QWidget *parent)
     : QDialog(parent)
     , m_file(std::move(file))
     , m_default(defaultCharge_g)
@@ -60,7 +60,7 @@ ChronographImportDialog::ChronographImportDialog(grt::ChronographFile file, doub
     for (int row = 0; row < m_table->rowCount(); ++row)
     {
         const auto &s = m_file.series[static_cast<std::size_t>(row)];
-        const grt::ShotStatistics st = grt::statistics(s.velocities_ms);
+        const csr::ShotStatistics st = csr::statistics(s.velocities_ms);
         auto *use = new QTableWidgetItem;
         use->setFlags((use->flags() | Qt::ItemIsUserCheckable) & ~Qt::ItemIsEditable);
         use->setCheckState(Qt::Checked);
@@ -68,16 +68,16 @@ ChronographImportDialog::ChronographImportDialog(grt::ChronographFile file, doub
         m_table->setItem(row, Name, readOnly(s.name));
         m_table->item(row, Name)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         m_table->setItem(row, Shots, readOnly(QString::number(s.velocities_ms.size())));
-        m_table->setItem(row, Mean, readOnly(grt::units::format(st.mean, unitOf(Quantity::Velocity), 1)));
-        m_table->setItem(row, Sd, readOnly(st.count > 1 ? grt::units::format(st.sd, unitOf(Quantity::Velocity), 1) : QStringLiteral("–")));
-        auto *charge = new QTableWidgetItem(grt::units::format(m_default, unitOf(Quantity::BulletMass)));
+        m_table->setItem(row, Mean, readOnly(csr::units::format(st.mean, unitOf(Quantity::Velocity), 1)));
+        m_table->setItem(row, Sd, readOnly(st.count > 1 ? csr::units::format(st.sd, unitOf(Quantity::Velocity), 1) : QStringLiteral("–")));
+        auto *charge = new QTableWidgetItem(csr::units::format(m_default, unitOf(Quantity::BulletMass)));
         charge->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         m_table->setItem(row, Charge, charge);
     }
 
     auto *intro = new QLabel(
         tr("%1 file with %n series. Every ticked series becomes a charge with its shots.", nullptr, static_cast<int>(m_file.series.size()))
-            .arg(grt::formatName(m_file.format)));
+            .arg(csr::formatName(m_file.format)));
     intro->setWordWrap(true);
     auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     buttons->button(QDialogButtonBox::Ok)->setText(tr("Import"));
@@ -99,9 +99,9 @@ std::vector<ImportedCharge> ChronographImportDialog::selected() const
         if (m_table->item(row, Use)->checkState() != Qt::Checked) continue;
         // the shown text is rounded: an untouched charge keeps its exact value
         const QString text = m_table->item(row, Charge)->text();
-        const auto g = text == grt::units::format(m_default, unitOf(Quantity::BulletMass))
+        const auto g = text == csr::units::format(m_default, unitOf(Quantity::BulletMass))
                            ? std::nullopt
-                           : grt::units::parseToBase(text, unitOf(Quantity::BulletMass));
+                           : csr::units::parseToBase(text, unitOf(Quantity::BulletMass));
         out.push_back({.series = m_file.series[static_cast<std::size_t>(row)], .charge_g = g && *g > 0.0 ? *g : m_default});
     }
     return out;

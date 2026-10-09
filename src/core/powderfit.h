@@ -13,7 +13,7 @@
 // Fitting a propellant model to measurements: the measured charges of one or more loads (Measurements tab:
 // chronograph velocity, optionally peak pressure) with the same powder; the powder's model values are changed until
 // the simulation matches them as well as possible (least squares, Levenberg-Marquardt).
-namespace grt::powderfit
+namespace csr::powderfit
 {
 
 enum class Param
@@ -109,4 +109,4 @@ void apply(EntryList &propellant, const std::vector<Result> &results);
 // "Fitted with ... to N charges / M shots ...": a description of the fit for a record.
 [[nodiscard]] QString describe(const Result &result, const std::vector<Sample> &samples);
 
-}  // namespace grt::powderfit
+}  // namespace csr::powderfit

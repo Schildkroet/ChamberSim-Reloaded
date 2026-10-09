@@ -34,55 +34,55 @@
 #include <map>
 
 using namespace Qt::StringLiterals;
-using grt::dbfields::Kind;
+using csr::dbfields::Kind;
 
 namespace
 {
 
 const QDate kNoDate(1800, 1, 1);  // the date editor's "– not set –"
 
-const grt::units::Unit *unitOf(const grt::dbfields::Field &f)
+const csr::units::Unit *unitOf(const csr::dbfields::Field &f)
 {
     return recordfields::unitOf(f);
 }
 
-QString labelText(const grt::dbfields::Field &f)
+QString labelText(const csr::dbfields::Field &f)
 {
     QString unit = f.unitText;
     if (const auto *u = unitOf(f)) unit = QString::fromUtf8(u->symbol);
     return (unit.isEmpty() ? f.label : QStringLiteral("%1 [%2]").arg(f.label, unit)) + (f.required ? u" *"_s : u""_s) + u':';
 }
 
-QString shownNumber(const grt::dbfields::Field &f, double stored)
+QString shownNumber(const csr::dbfields::Field &f, double stored)
 {
     return recordfields::shownNumber(f, stored);
 }
 
-std::optional<double> parseNumber(const grt::dbfields::Field &f, const QString &text)
+std::optional<double> parseNumber(const csr::dbfields::Field &f, const QString &text)
 {
     const QString t = text.trimmed();
     if (t.isEmpty()) return 0.0;
     if (const auto *u = unitOf(f))
     {
-        const auto base = grt::units::parseToBase(t, *u);
+        const auto base = csr::units::parseToBase(t, *u);
         return base ? std::optional(*base / f.toBase) : std::nullopt;
     }
-    return grt::parseFiniteLocale(t);
+    return csr::parseFiniteLocale(t);
 }
 
 }  // namespace
 
-RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode, const QVariantMap &record, QWidget *parent)
+RecordDialog::RecordDialog(const csr::Database &db, csr::Table table, Mode mode, const QVariantMap &record, QWidget *parent)
     : QDialog(parent)
     , m_db(&db)
     , m_table(table)
     , m_mode(mode)
     , m_record(record)
 {
-    const QString kind = table == grt::Table::Caliber      ? tr("caliber")
-                         : table == grt::Table::Projectile ? tr("projectile")
+    const QString kind = table == csr::Table::Caliber      ? tr("caliber")
+                         : table == csr::Table::Projectile ? tr("projectile")
                                                            : tr("propellant");
-    const QString name = grt::dbfields::recordTitle(table, record);
+    const QString name = csr::dbfields::recordTitle(table, record);
     setWindowTitle(mode == Mode::New    ? tr("New %1").arg(kind)
                    : mode == Mode::Copy ? tr("Copy %1 – %2").arg(kind, name)
                                         : tr("Edit %1 – %2").arg(kind, name));
@@ -90,14 +90,14 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     // one group box per group; groups with many fields get two label/field pairs per row
     auto *content = new QWidget;
     auto *cl = new QVBoxLayout(content);
-    std::map<QString, std::vector<grt::dbfields::Field>> byGroup;
+    std::map<QString, std::vector<csr::dbfields::Field>> byGroup;
     for (const auto &[column, type] : db.schema(table))
     {
-        const grt::dbfields::Field f = grt::dbfields::describe(table, column, type);
-        if (table == grt::Table::Propellant && column.startsWith(u"image"_s)) continue;  // the photo editor below
+        const csr::dbfields::Field f = csr::dbfields::describe(table, column, type);
+        if (table == csr::Table::Propellant && column.startsWith(u"image"_s)) continue;  // the photo editor below
         if (f.kind != Kind::Hidden) byGroup[f.group].push_back(f);
     }
-    for (const QString &group : grt::dbfields::groups(table))
+    for (const QString &group : csr::dbfields::groups(table))
     {
         const auto it = byGroup.find(group);
         if (it == byGroup.end()) continue;
@@ -107,7 +107,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
         const int pairs = it->second.size() > 10 ? 2 : 1;
         for (int c = 0; c < pairs; ++c) grid->setColumnStretch(2 * c + 1, 1);
         int i = 0;
-        for (const grt::dbfields::Field &f : it->second)
+        for (const csr::dbfields::Field &f : it->second)
         {
             const QVariant stored = record.value(f.column);
             QWidget *w = nullptr;
@@ -125,7 +125,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 // a fixed list: no free text, so the values stay consistent (the program reads some of them)
                 auto *combo = new QComboBox;
                 combo->addItem(tr("– not specified –"), QString());
-                for (const auto &[value, text] : grt::dbfields::choices(table, f.column)) combo->addItem(text, value);
+                for (const auto &[value, text] : csr::dbfields::choices(table, f.column)) combo->addItem(text, value);
                 const QString value = stored.toString();
                 int index = combo->findData(value);
                 for (int k = 0; index < 0 && k < combo->count(); ++k)  // "Wildcat" is "WildCat"
@@ -147,7 +147,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 edit->setDisplayFormat(u"yyyy-MM-dd"_s);
                 edit->setMinimumDate(kNoDate);
                 edit->setSpecialValueText(tr("– not set –"));
-                const auto date = grt::normalizedDate(stored);
+                const auto date = csr::normalizedDate(stored);
                 edit->setDate(date && !date->isEmpty() ? QDate::fromString(*date, Qt::ISODate) : kNoDate);
                 w = edit;
             }
@@ -162,7 +162,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
                 auto *edit = new QLineEdit;
                 if (f.kind == Kind::Date)  // set by the program: shown as yyyy-MM-dd
                 {
-                    const auto date = grt::normalizedDate(stored);
+                    const auto date = csr::normalizedDate(stored);
                     edit->setText(date ? *date : stored.toString());
                 }
                 else if (f.kind == Kind::Number)
@@ -185,7 +185,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
             const int span = f.kind == Kind::LongText ? 2 * pairs - 1 : 1;
             const int row = i / pairs, col = 2 * (i % pairs);
             grid->addWidget(label, row, col);
-            if (table == grt::Table::Caliber && f.column == u"c_Q")
+            if (table == csr::Table::Caliber && f.column == u"c_Q")
             {
                 // the bore cross-section can be calculated from the bore and groove diameters, the number and the width of the grooves
                 auto *calculate = new QPushButton(tr("Calculate"));
@@ -209,7 +209,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
         }
         cl->addWidget(box);
     }
-    if (table == grt::Table::Propellant) addPhotoGroup(cl);
+    if (table == csr::Table::Propellant) addPhotoGroup(cl);
     cl->addStretch(1);
 
     // a new record or a copy is created today (the date can be changed)
@@ -217,7 +217,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     // a copy is a new record: name it so that it can be told apart
     if (mode == Mode::Copy)
     {
-        const QString nameColumn = table == grt::Table::Caliber ? u"cipname"_s : u"pname"_s;
+        const QString nameColumn = table == csr::Table::Caliber ? u"cipname"_s : u"pname"_s;
         setText(nameColumn, text(nameColumn) + tr(" (copy)"));
     }
 
@@ -233,7 +233,7 @@ RecordDialog::RecordDialog(const grt::Database &db, grt::Table table, Mode mode,
     layout->addWidget(scroll, 1);
     layout->addWidget(hint);
     layout->addWidget(buttons);
-    resizeWithinScreen(this, {table == grt::Table::Caliber ? 900 : 860, 760});
+    resizeWithinScreen(this, {table == csr::Table::Caliber ? 900 : 860, 760});
 }
 
 void RecordDialog::calculateBoreCrossSection()
@@ -253,7 +253,7 @@ void RecordDialog::calculateBoreCrossSection()
     }
     // the fields hold the stored (base) unit values of their columns: mm for the lengths, mm² for Q
     if (const Editor *q = editor(u"c_Q"_s))
-        setText(u"c_Q"_s, shownNumber(q->field, grt::boreCrossSection_mm2(*bore, *groove, *count, *width)));
+        setText(u"c_Q"_s, shownNumber(q->field, csr::boreCrossSection_mm2(*bore, *groove, *count, *width)));
 }
 
 const RecordDialog::Editor *RecordDialog::editor(const QString &column) const
@@ -282,7 +282,7 @@ void RecordDialog::setText(const QString &column, const QString &text)
     if (auto *l = qobject_cast<QLineEdit *>(e->widget)) l->setText(text);
     else if (auto *d = qobject_cast<QDateEdit *>(e->widget))
     {
-        const auto date = grt::normalizedDate(text);
+        const auto date = csr::normalizedDate(text);
         d->setDate(date && !date->isEmpty() ? QDate::fromString(*date, Qt::ISODate) : kNoDate);
     }
     else if (auto *p = qobject_cast<QPlainTextEdit *>(e->widget)) p->setPlainText(text);
@@ -359,7 +359,7 @@ void RecordDialog::addPhotoGroup(QVBoxLayout *layout)
                                              tr("%1 is not a picture this program can read.").arg(QDir::toNativeSeparators(path)));
                         return;
                     }
-                    const auto scale = grt::parseFiniteLocale(m_photos[static_cast<std::size_t>(i)].scale->text());
+                    const auto scale = csr::parseFiniteLocale(m_photos[static_cast<std::size_t>(i)].scale->text());
                     setPhoto(i, img, scale && *scale > 0.0 ? *scale : 0.0, QFileInfo(path).fileName());
                 });
         connect(remove, &QPushButton::clicked, this, [this, i] { removePhoto(i); });
@@ -382,7 +382,7 @@ void RecordDialog::addPhotoGroup(QVBoxLayout *layout)
 void RecordDialog::showPhoto(int slotIndex)
 {
     PhotoSlot &slot = m_photos[static_cast<std::size_t>(slotIndex)];
-    std::optional<grt::Database::Image> img = slot.pending;
+    std::optional<csr::Database::Image> img = slot.pending;
     if (!img && !slot.uuid.isEmpty()) img = m_db->image(slot.uuid);
     if (!img)
     {
@@ -410,7 +410,7 @@ void RecordDialog::setPhoto(int slotIndex, const QImage &image, double pxPerMm, 
     buffer.open(QIODevice::WriteOnly);
     if (!img.convertToFormat(QImage::Format_RGB32).save(&buffer, "JPG", 88)) return;
     PhotoSlot &slot = m_photos[static_cast<std::size_t>(slotIndex)];
-    grt::Database::Image stored;
+    csr::Database::Image stored;
     stored.uuid = QUuid::createUuid().toString(QUuid::Id128);
     stored.name = name;
     stored.scale = pxPerMm;
@@ -430,9 +430,9 @@ void RecordDialog::removePhoto(int slotIndex)
     showPhoto(slotIndex);
 }
 
-std::vector<grt::Database::Image> RecordDialog::pendingImages() const
+std::vector<csr::Database::Image> RecordDialog::pendingImages() const
 {
-    std::vector<grt::Database::Image> out;
+    std::vector<csr::Database::Image> out;
     for (const PhotoSlot &slot : m_photos)
         if (slot.pending) out.push_back(*slot.pending);
     return out;
@@ -453,7 +453,7 @@ QVariantMap RecordDialog::values() const
     QVariantMap out;
     for (const Editor &e : m_editors)
         if (const auto v = valueOf(e)) out.insert(e.field.column, *v);
-    if (m_table == grt::Table::Propellant)
+    if (m_table == csr::Table::Propellant)
         for (const PhotoSlot &slot : m_photos) out.insert(slot.column, slot.uuid);
     // the creation date comes from its date picker (today for a new record or a copy); the change date is the program's
     out.insert(u"mdate"_s, m_mode == Mode::Edit ? QDate::currentDate().toString(Qt::ISODate) : QString());

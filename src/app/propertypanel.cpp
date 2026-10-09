@@ -41,16 +41,16 @@ struct Choice
 
 // The choices of a part of a shotshell: "not specified" (the model's average) and the groups of similar parts (low, medium and high pressure);
 // the tooltip of a group lists the brands (the individual parts) it stands for.
-const QList<Choice> &shotPartChoices(grt::ShotPart part)
+const QList<Choice> &shotPartChoices(csr::ShotPart part)
 {
     static const std::array<QList<Choice>, 3> lists = []
     {
         std::array<QList<Choice>, 3> all;
-        for (const grt::ShotPart p : grt::kShotParts)
+        for (const csr::ShotPart p : csr::kShotParts)
         {
             auto &list = all[static_cast<std::size_t>(p)];
             list.push_back({QString(), PropertyPanel::tr("not specified (average)"), {}});
-            for (const grt::ShotPartInfo &info : grt::shotPartGroups(p))
+            for (const csr::ShotPartInfo &info : csr::shotPartGroups(p))
             {
                 const QString text = info.rank == u"low"    ? PropertyPanel::tr("Low pressure")
                                      : info.rank == u"high" ? PropertyPanel::tr("High pressure")
@@ -81,8 +81,8 @@ const QList<Choice> *choicesFor(const QString &key)
     if (key == u"gfrictionUnlock") return &lock;
     if (key == u"shotshell") return &yesNo;
     // the shell, wad and primer of a shotshell load: the parts of the data file (their factors correct the model), or none
-    for (const grt::ShotPart part : grt::kShotParts)
-        if (key == grt::shotPartKey(part)) return &shotPartChoices(part);
+    for (const csr::ShotPart part : csr::kShotParts)
+        if (key == csr::shotPartKey(part)) return &shotPartChoices(part);
     return nullptr;
 }
 
@@ -167,11 +167,11 @@ public:
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &index) const override
     {
-        const auto q = static_cast<grt::units::Quantity>(index.data(PropertyPanel::QuantityRole).toInt());
-        const auto list = grt::units::unitsOf(q);
+        const auto q = static_cast<csr::units::Quantity>(index.data(PropertyPanel::QuantityRole).toInt());
+        const auto list = csr::units::unitsOf(q);
         if (list.empty()) return nullptr;
         auto *box = new QComboBox(parent);
-        for (const grt::units::Unit &u : list) box->addItem(QString::fromUtf8(u.symbol), QString::fromLatin1(u.id));
+        for (const csr::units::Unit &u : list) box->addItem(QString::fromUtf8(u.symbol), QString::fromLatin1(u.id));
         connect(box, &QComboBox::activated, box, [box] { box->clearFocus(); });
         return box;
     }
@@ -185,7 +185,7 @@ public:
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override
     {
         auto *box = static_cast<QComboBox *>(editor);
-        const auto q = static_cast<grt::units::Quantity>(index.data(PropertyPanel::QuantityRole).toInt());
+        const auto q = static_cast<csr::units::Quantity>(index.data(PropertyPanel::QuantityRole).toInt());
         const QString id = box->currentData().toString();
         const QString field = index.data(PropertyPanel::FieldRole).toString();
         // the system's own unit is stored as "no override" so that switching the system still works
@@ -273,13 +273,13 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
         m_table->setItem(head, 0, h);
         m_table->setSpan(head, 0, 1, 3);
 
-        for (const grt::Entry &e : s.entries->entries())
+        for (const csr::Entry &e : s.entries->entries())
         {
             if (hiddenField(e.name)) continue;  // kept in the file, written back unchanged
             const int r = m_table->rowCount();
             m_table->insertRow(r);
             // a translated description is the finished label; the English one is tidied up here
-            const QString translated = grt::translatedDescription(e.descr);
+            const QString translated = csr::translatedDescription(e.descr);
             const bool english = translated == e.descr;
             QString label = e.descr.isEmpty() ? e.name : translated;
             if (english && label.startsWith(u"true if "_s, Qt::CaseInsensitive)) label.remove(0, 8);  // "true if shotshell" -> "Shotshell"
@@ -300,10 +300,10 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
             val->setData(BaseRole, e.value);
             val->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
             auto *unit = new QTableWidgetItem;
-            const auto q = grt::units::quantityOfFileUnit(e.unit);
+            const auto q = csr::units::quantityOfFileUnit(e.unit);
             unit->setData(QuantityRole, static_cast<int>(q));
             unit->setData(FieldRole, s.key + u'/' + e.name);
-            if (q == grt::units::Quantity::None)
+            if (q == csr::units::Quantity::None)
             {
                 unit->setText(e.unit);
                 unit->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
@@ -335,7 +335,7 @@ void PropertyPanel::syncValues()
         const QString key = val->data(KeyRole).toString();
         for (const Section &s : m_sections)
             if (s.id == id)
-                for (const grt::Entry &e : s.entries->entries())
+                for (const csr::Entry &e : s.entries->entries())
                     if (e.name == key) val->setData(BaseRole, e.value);
     }
     m_rebuilding = false;
@@ -351,27 +351,27 @@ void PropertyPanel::refreshValues()
         QTableWidgetItem *val = m_table->item(r, 1);
         QTableWidgetItem *unit = m_table->item(r, 2);
         if (!val || !unit || !val->data(SectionRole).isValid()) continue;
-        const auto q = static_cast<grt::units::Quantity>(val->data(QuantityRole).toInt());
+        const auto q = static_cast<csr::units::Quantity>(val->data(QuantityRole).toInt());
         const QString base = val->data(BaseRole).toString();
         if (const auto *choices = val->data(ChoiceRole).toBool() ? choicesFor(val->data(KeyRole).toString()) : nullptr)
         {
             val->setText(labelFor(*choices, base));
             const QString tip = tipFor(*choices, base);
             const bool isPart =
-                std::ranges::any_of(grt::kShotParts, [&](grt::ShotPart p) { return val->data(KeyRole).toString() == grt::shotPartKey(p); });
+                std::ranges::any_of(csr::kShotParts, [&](csr::ShotPart p) { return val->data(KeyRole).toString() == csr::shotPartKey(p); });
             val->setToolTip(tip.isEmpty() && !isPart ? tr("stored value: %1").arg(base) : tip);  // the parts: only the brands
             continue;
         }
-        if (q == grt::units::Quantity::None)
+        if (q == csr::units::Quantity::None)
         {
             val->setText(base);
             continue;
         }
         bool ok = false;
         const double b = base.toDouble(&ok);
-        const grt::units::Unit &u = UnitPreferences::instance().unitForField(unit->data(FieldRole).toString(), q);
+        const csr::units::Unit &u = UnitPreferences::instance().unitForField(unit->data(FieldRole).toString(), q);
         unit->setText(QString::fromUtf8(u.symbol));
-        val->setText(ok && !base.isEmpty() ? grt::units::format(b, u) : base);
+        val->setText(ok && !base.isEmpty() ? csr::units::format(b, u) : base);
         val->setToolTip(ok && !base.isEmpty() ? tr("stored value: %1").arg(base) : QString());
     }
     m_rebuilding = false;
@@ -395,12 +395,12 @@ void PropertyPanel::onItemChanged(QTableWidgetItem *item)
         }
         base = it->code;
     }
-    const auto q = static_cast<grt::units::Quantity>(item->data(QuantityRole).toInt());
-    if (q != grt::units::Quantity::None)
+    const auto q = static_cast<csr::units::Quantity>(item->data(QuantityRole).toInt());
+    if (q != csr::units::Quantity::None)
     {
         const QString field = m_table->item(item->row(), 2)->data(FieldRole).toString();
-        const grt::units::Unit &u = UnitPreferences::instance().unitForField(field, q);
-        const auto parsed = grt::units::parseToBase(base, u);
+        const csr::units::Unit &u = UnitPreferences::instance().unitForField(field, q);
+        const auto parsed = csr::units::parseToBase(base, u);
         if (!parsed)
         {  // not a number: put the old value back
             refreshValues();

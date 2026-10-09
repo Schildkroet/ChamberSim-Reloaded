@@ -39,7 +39,7 @@
 #include <cmath>
 #include <numbers>
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -945,4 +945,4 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"integrationTolerance", &cal.integrationTolerance}};
 }
 
-}  // namespace grt
+}  // namespace csr

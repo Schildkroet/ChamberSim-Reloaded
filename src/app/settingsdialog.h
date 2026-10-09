@@ -37,7 +37,7 @@ private:
     // would give them less than that and cut the text off.
     void fitWrappedLabels();
     void apply();
-    [[nodiscard]] grt::log::Config logConfig() const;
+    [[nodiscard]] csr::log::Config logConfig() const;
 
     QSpinBox *m_fontSize;
     QCheckBox *m_titleBar;
@@ -53,7 +53,7 @@ private:
     QComboBox *m_logLevel;
     QCheckBox *m_logConsole;
     QCheckBox *m_logFile;
-    grt::log::Config m_originalLog;
+    csr::log::Config m_originalLog;
     QLineEdit *m_database;
     QLabel *m_databaseInfo;
     QString m_databasePath;

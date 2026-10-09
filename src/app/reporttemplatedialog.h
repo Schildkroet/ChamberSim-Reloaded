@@ -14,7 +14,7 @@ class ReportTemplateDialog : public QDialog
 {
     Q_OBJECT
 public:
-    ReportTemplateDialog(grt::report::Data data, const QString &templateText, QWidget *parent = nullptr);
+    ReportTemplateDialog(csr::report::Data data, const QString &templateText, QWidget *parent = nullptr);
 
     [[nodiscard]] QString templateText() const;
     void setTemplateText(const QString &text);
@@ -23,7 +23,7 @@ private:
     void updatePreview();
     void insertAtCursor(const QString &text);
 
-    grt::report::Data m_data;
+    csr::report::Data m_data;
     QPlainTextEdit *m_editor;
     QTextBrowser *m_preview;
     QTimer *m_timer;

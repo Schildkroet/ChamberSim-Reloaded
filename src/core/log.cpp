@@ -16,7 +16,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::log
+namespace csr::log
 {
 
 namespace
@@ -85,7 +85,7 @@ std::optional<Level> levelFromName(const QString &name)
 
 QString defaultPath()
 {
-    return QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath(u"GRTReloaded.log"_s);
+    return QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath(u"ChamberSimReloaded.log"_s);
 }
 
 Config config()
@@ -174,4 +174,4 @@ void write(Level level, const char *file, int line, const QString &message)
     }
 }
 
-}  // namespace grt::log
+}  // namespace csr::log

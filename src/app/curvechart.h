@@ -31,19 +31,19 @@ public:
     explicit CurveChart(QWidget *parent = nullptr);
 
     // `permittedPressure_bar` draws the bands "Pmax", "Pmax-15 %" and "Pmax-25 %" (0 = none).
-    void setResult(const grt::SimResult &result, double permittedPressure_bar);
+    void setResult(const csr::SimResult &result, double permittedPressure_bar);
     void clearResult();
-    void setReference(std::span<const grt::SimPoint> points);  // empty span clears the overlay
+    void setReference(std::span<const csr::SimPoint> points);  // empty span clears the overlay
     // The other curves of a load development ladder, drawn faded behind the selected one.
-    void setLadder(std::vector<grt::SimResult> others);
+    void setLadder(std::vector<csr::SimResult> others);
     // Units shown on the axes (the data stays in bar, J, m/s, mm).
-    void setUnits(const grt::units::Unit &pressure, const grt::units::Unit &energy, const grt::units::Unit &velocity,
-                  const grt::units::Unit &length);
+    void setUnits(const csr::units::Unit &pressure, const csr::units::Unit &energy, const csr::units::Unit &velocity,
+                  const csr::units::Unit &length);
     void setXAxis(XAxis axis);
     [[nodiscard]] XAxis xAxis() const noexcept { return m_xAxis; }
 
     // The curves' values at `x` (time or position, as on the x axis), interpolated; none outside the curves.
-    [[nodiscard]] std::optional<grt::SimPoint> pointAt(double x) const;
+    [[nodiscard]] std::optional<csr::SimPoint> pointAt(double x) const;
     [[nodiscard]] std::optional<double> cursorX() const noexcept { return m_cursorX; }
 
 protected:
@@ -61,7 +61,7 @@ private:
         bool visible{false};
     };
 
-    [[nodiscard]] double xOf(const grt::SimPoint &p) const noexcept;
+    [[nodiscard]] double xOf(const csr::SimPoint &p) const noexcept;
     void rebuild();
     void updateMarkerLabels();
     void applyTheme();
@@ -71,14 +71,14 @@ private:
     static QAreaSeries *makeBand(const QColor &color, QLineSeries *lo, QLineSeries *hi);
 
     XAxis m_xAxis{XAxis::Time};
-    const grt::units::Unit *m_pressureUnit;
-    const grt::units::Unit *m_energyUnit;
-    const grt::units::Unit *m_velocityUnit;
-    const grt::units::Unit *m_lengthUnit;
-    grt::SimResult m_result;
+    const csr::units::Unit *m_pressureUnit;
+    const csr::units::Unit *m_energyUnit;
+    const csr::units::Unit *m_velocityUnit;
+    const csr::units::Unit *m_lengthUnit;
+    csr::SimResult m_result;
     double m_permitted{0.0};
-    std::vector<grt::SimPoint> m_reference;
-    std::vector<grt::SimResult> m_ladder;
+    std::vector<csr::SimPoint> m_reference;
+    std::vector<csr::SimResult> m_ladder;
     std::vector<QLineSeries *> m_ladderSeries;
 
     QLineSeries *m_pressure;

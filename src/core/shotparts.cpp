@@ -12,7 +12,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -178,4 +178,4 @@ bool ensureShotParts(EntryList &caliber)
     return changed;
 }
 
-}  // namespace grt
+}  // namespace csr

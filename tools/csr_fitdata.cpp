@@ -1,6 +1,6 @@
 // Fits a propellant model to published load data (samples from scripts/data/loaddata/vv_extract.py) instead of own measurements.
 //
-//   grt_fitdata [options] samples.csv
+//   csr_fitdata [options] samples.csv
 //     --data DIR              project data (calibers), default: the repository's data/
 //     --params Ba,a0,z1,z2    values to fit (default: Ba,a0,z1,z2)
 //     --start Ba=0.6,a0=1.2,... start values (default: generic single-base powder)
@@ -82,7 +82,7 @@ std::vector<QMap<QString, QString>> readCsv(const QString &path)
 struct Item
 {
     QString caliber, kind, bullet;
-    grt::powderfit::Sample sample;
+    csr::powderfit::Sample sample;
 };
 
 QString pct(double value, double reference)
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
     cli.setApplicationDescription(u"Fits a propellant model to published load data (CSV)."_s);
     cli.addHelpOption();
     cli.addPositionalArgument(u"samples"_s, u"CSV file from scripts/data/loaddata/vv_extract.py"_s);
-    cli.addOptions({{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/data")},
+    cli.addOptions({{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(CSR_SOURCE_DIR "/data")},
                     {u"params"_s, u"values to fit"_s, u"list"_s, u"Ba,a0,z1,z2"_s},
                     {u"start"_s, u"start values, e.g. Ba=0.6,a0=1.2"_s, u"list"_s},
                     {u"pressure-fraction"_s, u"maximum loads as a fraction of the caliber's maximum pressure"_s, u"f"_s, u"0"_s},
@@ -130,15 +130,15 @@ int main(int argc, char *argv[])
     }
 
     QTemporaryDir tmp;
-    grt::Database db;
-    grt::Database::setProjectDataLocation(tmp.path());
+    csr::Database db;
+    csr::Database::setProjectDataLocation(tmp.path());
     if (!db.open({}, tmp.filePath(u"own.db"_s)))
     {
         err << "Cannot open a database for the schema\n";
         return 2;
     }
-    const auto calSchema = db.schema(grt::Table::Caliber);
-    const auto loaded = grt::projectdata::load(cli.value(u"data"_s), grt::Table::Caliber, calSchema);
+    const auto calSchema = db.schema(csr::Table::Caliber);
+    const auto loaded = csr::projectdata::load(cli.value(u"data"_s), csr::Table::Caliber, calSchema);
     QMap<QString, QVariantMap> calibers;
     for (const QVariantMap &r : loaded.records) calibers.insert(r.value(u"cipname"_s).toString(), r);
     QStringList calColumns;
@@ -180,7 +180,7 @@ int main(int argc, char *argv[])
             bullet.insert(u"gtaildiaB"_s, 0.88 * row.value(u"bullet_dia_mm"_s).toDouble());
             bullet.insert(u"gtailh"_s, 0.45 * row.value(u"bullet_dia_mm"_s).toDouble());
         }
-        grt::LoadParams p;
+        csr::LoadParams p;
         p.charge_g = row.value(u"charge_g"_s).toDouble();
         p.barrelLength_mm = row.value(u"barrel_mm"_s).toDouble();
         p.seatingDepth_mm = cal->value(u"L3"_s).toDouble() + bullet.value(u"glen"_s).toDouble() - row.value(u"col_mm"_s).toDouble();
@@ -190,10 +190,10 @@ int main(int argc, char *argv[])
             ++skipped;
             continue;
         }
-        const grt::LoadFile lf = grt::buildLoad(*cal, bullet, powder, p, calColumns);
+        const csr::LoadFile lf = csr::buildLoad(*cal, bullet, powder, p, calColumns);
         Item item{.caliber = row.value(u"caliber"_s), .kind = row.value(u"kind"_s), .bullet = row.value(u"bullet"_s)};
         item.sample = {.source = item.caliber + u' ' + item.kind,
-                       .input = grt::SimInput::fromLoad(lf),
+                       .input = csr::SimInput::fromLoad(lf),
                        .charge_g = p.charge_g,
                        .shots = 1,
                        .velocity_ms = row.value(u"velocity_ms"_s).toDouble()};
@@ -216,10 +216,10 @@ int main(int argc, char *argv[])
         std::erase_if(*list,
                       [&](const Item &i)
                       {
-                          const auto status = grt::simulate(i.sample.input).status;
-                          rejectedHigh += status == grt::SimStatus::ChargeTooHigh;
-                          rejectedOther += status == grt::SimStatus::InvalidInput;
-                          return status != grt::SimStatus::Ok;
+                          const auto status = csr::simulate(i.sample.input).status;
+                          rejectedHigh += status == csr::SimStatus::ChargeTooHigh;
+                          rejectedOther += status == csr::SimStatus::InvalidInput;
+                          return status != csr::SimStatus::Ok;
                       });
     if (train.empty())
     {
@@ -230,8 +230,8 @@ int main(int argc, char *argv[])
     if (cli.isSet(u"debug"_s))
         for (std::size_t i = 0; i < std::min<std::size_t>(train.size(), 3); ++i)
         {
-            const grt::SimInput &in = train[i].sample.input;
-            const grt::SimResult r = grt::simulate(in);
+            const csr::SimInput &in = train[i].sample.input;
+            const csr::SimResult r = csr::simulate(in);
             out << QString::asprintf(
                 "status %d v %.1f p %.0f | case %.2f mm vol %.3f cm3 bore %.2f mm2 barrel %.0f dia %.2f m %.3f g len %.2f depth %.2f "
                 "charge %.3f Ba %.3f a0 %.3f z1 %.3f z2 %.3f Qex %.0f k %.3f\n",
@@ -241,31 +241,31 @@ int main(int argc, char *argv[])
         }
     if (cli.isSet(u"benchmark"_s))
     {
-        const grt::SimInput &in = train[std::min<std::size_t>(1, train.size() - 1)].sample.input;
+        const csr::SimInput &in = train[std::min<std::size_t>(1, train.size() - 1)].sample.input;
         for (const int steps : {2000, 1000, 500, 250})
         {
             const auto t0 = std::chrono::steady_clock::now();
-            grt::SimResult r;
-            for (int i = 0; i < 100; ++i) r = grt::simulate(in, {}, steps);
+            csr::SimResult r;
+            for (int i = 0; i < 100; ++i) r = csr::simulate(in, {}, steps);
             const double ms = std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - t0).count() / 100.0;
             out << QString::asprintf("steps %4d: %6.2f ms per simulation, v %.2f m/s, p %.1f bar\n", steps, ms, r.muzzleVelocity_ms,
                                      r.maxPressure_bar);
         }
     }
-    grt::powderfit::Options options;
+    csr::powderfit::Options options;
     QString error;
-    options.params = grt::powderfit::parse(cli.value(u"params"_s), &error);
+    options.params = csr::powderfit::parse(cli.value(u"params"_s), &error);
     options.maxIterations = cli.value(u"iterations"_s).toInt();
     options.pressureWeight = cli.value(u"pressure-weight"_s).toDouble();
-    std::vector<grt::powderfit::Sample> samples;
+    std::vector<csr::powderfit::Sample> samples;
     for (const Item &i : train) samples.push_back(i.sample);
-    const grt::powderfit::Result res = grt::powderfit::fit(samples, options);
+    const csr::powderfit::Result res = csr::powderfit::fit(samples, options);
 
     out << "Samples: " << train.size() << " fitted, " << test.size() << " held out, " << skipped << " skipped (data), " << rejectedHigh
         << " charge too high for the case, " << rejectedOther << " not simulable\n";
     out << "Fitting: ";
     for (std::size_t i = 0; i < res.params.size(); ++i)
-        out << QString::asprintf("%s %.4f -> %.4f   ", qPrintable(grt::powderfit::name(res.params[i])), res.before[i], res.after[i]);
+        out << QString::asprintf("%s %.4f -> %.4f   ", qPrintable(csr::powderfit::name(res.params[i])), res.before[i], res.after[i]);
     out << QString::asprintf("\nVelocity error (rms): %.2f %% -> %.2f %%", 100 * res.velocityRmsBefore, 100 * res.velocityRmsAfter);
     if (pressureFraction > 0.0)
         out << QString::asprintf(";  pressure error (rms, max loads vs %.2f x Pmax): %.2f %% -> %.2f %%", pressureFraction,
@@ -311,25 +311,25 @@ int main(int argc, char *argv[])
     // held-out samples: simulate with the fitted values (a "fit" without iterations)
     if (!test.empty())
     {
-        std::vector<grt::powderfit::Sample> held;
+        std::vector<csr::powderfit::Sample> held;
         for (Item &i : test)
         {
             for (std::size_t k = 0; k < res.params.size(); ++k)
             {
                 switch (res.params[k])
                 {
-                case grt::powderfit::Param::Ba: i.sample.input.vivacityBa = res.after[k]; break;
-                case grt::powderfit::Param::A0: i.sample.input.a0 = res.after[k]; break;
-                case grt::powderfit::Param::Z1: i.sample.input.z1 = res.after[k]; break;
-                case grt::powderfit::Param::Z2: i.sample.input.z2 = res.after[k]; break;
+                case csr::powderfit::Param::Ba: i.sample.input.vivacityBa = res.after[k]; break;
+                case csr::powderfit::Param::A0: i.sample.input.a0 = res.after[k]; break;
+                case csr::powderfit::Param::Z1: i.sample.input.z1 = res.after[k]; break;
+                case csr::powderfit::Param::Z2: i.sample.input.z2 = res.after[k]; break;
                 }
             }
             held.push_back(i.sample);
         }
-        grt::powderfit::Options none;
-        none.params = {grt::powderfit::Param::Ba};
+        csr::powderfit::Options none;
+        none.params = {csr::powderfit::Param::Ba};
         none.maxIterations = 0;
-        const auto r = grt::powderfit::fit(held, none);
+        const auto r = csr::powderfit::fit(held, none);
         std::map<QString, std::vector<double>> heldByCaliber;
         std::vector<double> all;
         for (std::size_t i = 0; i < test.size(); ++i)

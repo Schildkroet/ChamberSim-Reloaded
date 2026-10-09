@@ -16,18 +16,18 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QCoreApplication::setOrganizationName(QStringLiteral("GRTReloaded"));
-    QCoreApplication::setApplicationName(QStringLiteral("GRTReloaded"));
-    QCoreApplication::setApplicationVersion(QStringLiteral(GRT_VERSION));
-    QGuiApplication::setDesktopFileName(QStringLiteral("grtreloaded"));  // Wayland: the icon of the .desktop entry
+    QCoreApplication::setOrganizationName(QStringLiteral("ChamberSimReloaded"));
+    QCoreApplication::setApplicationName(QStringLiteral("ChamberSimReloaded"));
+    QCoreApplication::setApplicationVersion(QStringLiteral(CSR_VERSION));
+    QGuiApplication::setDesktopFileName(QStringLiteral("chambersimreloaded"));  // Wayland: the icon of the .desktop entry
     QIcon icon;
-    for (const int size : {32, 64, 256}) icon.addFile(QStringLiteral(":/resources/icons/grtreloaded-%1.png").arg(size));
+    for (const int size : {32, 64, 256}) icon.addFile(QStringLiteral(":/resources/icons/chambersimreloaded-%1.png").arg(size));
     QApplication::setWindowIcon(icon);
 
     QCommandLineParser cli;
     cli.setApplicationDescription(QStringLiteral("Interior ballistics for reloaders"));
     cli.addHelpOption();
-    cli.addPositionalArgument(QStringLiteral("load"), QStringLiteral("*.grtreload (or the original's *.grtload) files to open"),
+    cli.addPositionalArgument(QStringLiteral("load"), QStringLiteral("*.csrload (or the original's *.grtload) files to open"),
                               QStringLiteral("[load...]"));
     const QCommandLineOption dbOpt({QStringLiteral("d"), QStringLiteral("database")}, QStringLiteral("SQLite database to use"),
                                    QStringLiteral("file"));
@@ -57,12 +57,12 @@ int main(int argc, char *argv[])
                                     QStringLiteral("level"));
     cli.addOptions({dbOpt, refOpt, shotOpt, tabOpt, resultTabOpt, inputTabOpt, langOpt, themeOpt, unitsOpt, calibrationOpt, logOpt});
     cli.process(a);
-    grt::log::Config logConfig = grt::log::storedConfig();
+    csr::log::Config logConfig = csr::log::storedConfig();
     if (cli.isSet(logOpt))
-        if (const auto level = grt::log::levelFromName(cli.value(logOpt))) logConfig.level = *level;
-    grt::log::setConfig(logConfig);
-    grt::log::installMessageHandler();
-    LOG_Info() << "GRT Reloaded" << GRT_VERSION << "started";
+        if (const auto level = csr::log::levelFromName(cli.value(logOpt))) logConfig.level = *level;
+    csr::log::setConfig(logConfig);
+    csr::log::installMessageHandler();
+    LOG_Info() << "ChamberSim Reloaded" << CSR_VERSION << "started";
     appfont::apply(a, appfont::storedSize());  // the platform font is remembered before the first change
     translation::install(a, cli.value(langOpt));
     theme::apply(a, cli.isSet(themeOpt) ? (cli.value(themeOpt) == QLatin1String("dark") ? theme::Mode::Dark : theme::Mode::Light)
@@ -71,9 +71,9 @@ int main(int argc, char *argv[])
     if (cli.isSet(unitsOpt))
     {
         const QString u = cli.value(unitsOpt);
-        UnitPreferences::instance().setSystem(u == QLatin1String("metric")     ? grt::units::System::Metric
-                                              : u == QLatin1String("imperial") ? grt::units::System::Imperial
-                                                                               : grt::units::System::Original);
+        UnitPreferences::instance().setSystem(u == QLatin1String("metric")     ? csr::units::System::Metric
+                                              : u == QLatin1String("imperial") ? csr::units::System::Imperial
+                                                                               : csr::units::System::Original);
     }
     if (cli.isSet(calibrationOpt))
         if (const auto profile = SolverPreferences::fromKey(cli.value(calibrationOpt)))

@@ -87,7 +87,7 @@ def main() -> int:
     if args.html:
         html = args.html.read_text(encoding="utf-8")
     else:
-        req = urllib.request.Request(PAGE, headers={"User-Agent": "Mozilla/5.0 (GRTReloaded data collection)"})
+        req = urllib.request.Request(PAGE, headers={"User-Agent": "Mozilla/5.0 (ChamberSimReloaded data collection)"})
         html = urllib.request.urlopen(req, timeout=60).read().decode("utf-8")
     records = Records(args.data)
     rows, miss = [], {}

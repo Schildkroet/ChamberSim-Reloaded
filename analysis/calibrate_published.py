@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Recalibrates solver constants on published load data (scripts/data/loaddata CSVs) and compares them with the current calibration.
 
-    calibrate_published.py <grt_eval> <grt_compare> samples.csv [samples2.csv ...] [--powders "Accurate 4350,..."] [--free name,name,...]
+    calibrate_published.py <csr_eval> <grt_compare> samples.csv [samples2.csv ...] [--powders "Accurate 4350,..."] [--free name,name,...]
                            [--profile original|published|physical] [--start constants.json] [--evaluate-only]
 
 --profile chooses the model and its starting constants (physical = the project's physical model); --start replaces some of them (a
@@ -36,7 +36,7 @@ ap.add_argument("--phys-values", action="store_true", help="physical profile: fi
                 "form function kept) instead of the record's Ba; the loads keep the powders' physical values and the fit is continuous in Ba")
 ap.add_argument("--evaluate-only", action="store_true", help="only report the starting constants")
 args = ap.parse_args()
-POOL = ThreadPoolExecutor(int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1))))
+POOL = ThreadPoolExecutor(int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1))))
 
 # ---- samples: merge, drop identical ones and misread pressures, split by cartridge
 rows, seen = [], set()
@@ -68,12 +68,12 @@ if args.phys_values:
         PHYS[(e["mname"] + " " + e["pname"]).lower()] = e
 
 def ba_args(ba):
-    """The grt_eval options for the burn rates `ba` (key: lower-case "Maker Name")."""
+    """The csr_eval options for the burn rates `ba` (key: lower-case "Maker Name")."""
     if not args.phys_values:
         return [a for k, v in ba.items() for a in ("--ba", f"{k}={v:.8g}")]
     return [a for k, v in ba.items() for a in ("--phys", f"{k}={v:.8g},{PHYS[k]['a0']},{PHYS[k]['z1']},{PHYS[k]['z2']}")]
 
-def simulate(name, cal, ba, chunks=int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1)))):
+def simulate(name, cal, ba, chunks=int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1)))):
     """(velocity, pressure) arrays of a set (nan where it cannot be simulated)."""
     rs = sets[name]; n = len(rs)
     parts = [list(range(i, n, chunks)) for i in range(chunks)]
@@ -98,7 +98,7 @@ def measured(name):
 def residuals(name, cal, ba):
     v, p = simulate(name, cal, ba); mv, mp = measured(name)
     ok = ~np.isnan(v)
-    rv = np.where(ok, v / mv - 1, 0.0)  # loads the solver rejects (charge too high for the case) are left out, like in grt_fitdata
+    rv = np.where(ok, v / mv - 1, 0.0)  # loads the solver rejects (charge too high for the case) are left out, like in csr_fitdata
     rp = np.where(~np.isnan(mp) & ok, p / mp - 1, 0.0) * args.pressure_weight
     return rv, rp, mp
 

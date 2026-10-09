@@ -35,10 +35,11 @@ tools/grt_*report*.txt
 
 # sample loads and screenshots taken from the original program
 *.grtload
-*.grtreload
+*.csrload
 !data/measurements/*.grtload
 !tests/fixtures/*.grtload
 tests/data/
+user/*
 
 # reverse-engineering notes and the project instructions that describe them
 CLAUDE.md

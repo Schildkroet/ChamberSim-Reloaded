@@ -17,7 +17,7 @@ per charge), the better the model fits other loads. One load with few charges on
    material density `pc`, bulk density `pcd` and the reference temperature `pt`. These do not come from the fit.
    Optionally add an overview photo and a detail photo (*Choose file…*, with the scale in px/mm if you know it).
    Click *Save*.
-2. **Make a load with the new powder.** Create a load with *File ▸ New load…* (or open a `.grtreload` or `.grtload` file). On the
+2. **Make a load with the new powder.** Create a load with *File ▸ New load…* (or open a `.csrload` or `.grtload` file). On the
    tab *Propellant* click *Select Propellant…* and choose your new powder.
 3. **Measure the case and the cartridge.** Measure the volume of a fired case with water and type it into *Case
    Volume*. Measure the length of the bullets and the cartridges and type the mean values into *Projectile Overall
@@ -41,7 +41,7 @@ per charge), the better the model fits other loads. One load with few charges on
    "<name> (fitted)" in your own database and keeps the photos of the powder. Select it in other loads with
    *Select Propellant…*. You can also click *Apply to this load* to put the fitted values into this load only.
 8. Fit again later with more loads: the fit uses all measurement series of the load, and the command-line tool
-   `grt_fitpowder` (see Procedure 2) fits one model to several load files.
+   `csr_fitpowder` (see Procedure 2) fits one model to several load files.
 
 The fit is made for one load at a time. A powder that is fitted to one caliber and one bullet only can give wrong
 results in other cartridges. Check every new load with a measurement before you trust the model.

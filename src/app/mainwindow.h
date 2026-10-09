@@ -56,13 +56,13 @@ public:
     void openLoadDialog();
 
     // Database tab: the table shown and its selected record.
-    [[nodiscard]] grt::Table currentTable() const;
+    [[nodiscard]] csr::Table currentTable() const;
     // Opens the record dialog (New: empty, Copy/Edit: the selected record) and stores the result.
     void viewRecord(int id);
     void editRecord(RecordDialog::Mode mode);
     // Stores a new (New, Copy) or changed (Edit, `id`) record in the own database and shows it; returns its id or -1.
-    int storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values,
-                    const std::vector<grt::Database::Image> &images = {});
+    int storeRecord(csr::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values,
+                    const std::vector<csr::Database::Image> &images = {});
     // Deletes the selected own record after asking (`ask` false: without asking).
     bool deleteRecord(bool ask = true);
     // Writes the selected own record as a project data file (to contribute it); empty `path`: asks for one.
@@ -109,7 +109,7 @@ private:
     QPushButton *m_deleteRecord{nullptr};
     QPushButton *m_exportRecord{nullptr};
     std::array<TableBrowser *, 3> m_browsers{};
-    grt::Database m_db;
+    csr::Database m_db;
     int m_untitled{0};
     QAction *m_newLoadAction{nullptr};
     QAction *m_saveAction{nullptr};

@@ -43,7 +43,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     , m_logLevel(new QComboBox)
     , m_logConsole(new QCheckBox(tr("Write to the console (stderr)")))
     , m_logFile(new QCheckBox(tr("Write to the log file")))
-    , m_originalLog(grt::log::config())
+    , m_originalLog(csr::log::config())
     , m_database(new QLineEdit)
     , m_databaseInfo(new QLabel)
     , m_originalSize(appfont::storedSize())
@@ -102,8 +102,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     startupGrid->addWidget(startupLabel, 0, 0);
     startupGrid->addWidget(m_reopen, 0, 1, 1, 2);
 
-    for (const grt::units::System sys : {grt::units::System::Original, grt::units::System::Metric, grt::units::System::Imperial})
-        m_unitSystem->addItem(grt::units::systemName(sys), static_cast<int>(sys));
+    for (const csr::units::System sys : {csr::units::System::Original, csr::units::System::Metric, csr::units::System::Imperial})
+        m_unitSystem->addItem(csr::units::systemName(sys), static_cast<int>(sys));
     m_unitSystem->setCurrentIndex(std::max(0, m_unitSystem->findData(m_originalSystem)));
     auto *units = new QGroupBox(tr("Units"));
     auto *unitGrid = makeForm(units);
@@ -118,8 +118,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
     // the solver: the own physical model (the default), the original's equations with constants fitted to published load data, or the
     // original program's constants
-    for (const grt::CalibrationProfile profile :
-         {grt::CalibrationProfile::Physical, grt::CalibrationProfile::Published, grt::CalibrationProfile::Original})
+    for (const csr::CalibrationProfile profile :
+         {csr::CalibrationProfile::Physical, csr::CalibrationProfile::Published, csr::CalibrationProfile::Original})
         m_calibration->addItem(SolverPreferences::name(profile), static_cast<int>(profile));
     m_calibration->setCurrentIndex(std::max(0, m_calibration->findData(static_cast<int>(SolverPreferences::instance().profile()))));
     m_calibration->setMinimumWidth(110);
@@ -127,7 +127,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_calibrationInfo->setForegroundRole(QPalette::PlaceholderText);
     const auto showCalibrationInfo = [this] {
         m_calibrationInfo->setText(
-            SolverPreferences::description(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt())));
+            SolverPreferences::description(static_cast<csr::CalibrationProfile>(m_calibration->currentData().toInt())));
     };
     connect(m_calibration, &QComboBox::currentIndexChanged, this,
             [=, this]
@@ -149,7 +149,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_originalForGrtFiles->setToolTip(
         tr("A load whose file is a *.grtload of Gordon's Reloading Tool is simulated with GRT Original and the "
            "burn values in the file, whatever model is chosen above: the results are close to those of the "
-           "original program. Loads saved as *.grtreload use the chosen model."));
+           "original program. Loads saved as *.csrload use the chosen model."));
     auto *grtFilesLabel = new QLabel(tr("GRT files:"));
     grtFilesLabel->setBuddy(m_originalForGrtFiles);
     solverGrid->addWidget(grtFilesLabel, 2, 0);
@@ -181,8 +181,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     databaseGrid->addWidget(m_databaseInfo, 1, 1, 1, 2);
 
     for (const auto level :
-         {grt::log::Level::Debug, grt::log::Level::Info, grt::log::Level::Warn, grt::log::Level::Error, grt::log::Level::Off})
-        m_logLevel->addItem(level == grt::log::Level::Off ? tr("Off") : grt::log::levelName(level), static_cast<int>(level));
+         {csr::log::Level::Debug, csr::log::Level::Info, csr::log::Level::Warn, csr::log::Level::Error, csr::log::Level::Off})
+        m_logLevel->addItem(level == csr::log::Level::Off ? tr("Off") : csr::log::levelName(level), static_cast<int>(level));
     m_logLevel->setCurrentIndex(std::max(0, m_logLevel->findData(static_cast<int>(m_originalLog.level))));
     m_logLevel->setToolTip(tr("Messages of this level and above are logged: Debug (everything), Info, Warning, Error"));
     m_logConsole->setChecked(m_originalLog.console);
@@ -191,13 +191,13 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     auto *logGrid = makeForm(logging);
     auto *logLabel = new QLabel(tr("Log level:"));
     logLabel->setBuddy(m_logLevel);
-    auto *logPath = new QLabel(QStringLiteral("<small>%1</small>").arg(grt::log::activePath().toHtmlEscaped()));
+    auto *logPath = new QLabel(QStringLiteral("<small>%1</small>").arg(csr::log::activePath().toHtmlEscaped()));
     logPath->setTextInteractionFlags(Qt::TextSelectableByMouse);
     logPath->setWordWrap(true);
     auto *openLog = new QPushButton(tr("Open log file"));
-    connect(openLog, &QPushButton::clicked, this, [] { QDesktopServices::openUrl(QUrl::fromLocalFile(grt::log::activePath())); });
+    connect(openLog, &QPushButton::clicked, this, [] { QDesktopServices::openUrl(QUrl::fromLocalFile(csr::log::activePath())); });
     auto *clearLog = new QPushButton(tr("Clear log file"));
-    connect(clearLog, &QPushButton::clicked, this, [] { grt::log::clearFile(); });
+    connect(clearLog, &QPushButton::clicked, this, [] { csr::log::clearFile(); });
     logGrid->addWidget(logLabel, 0, 0);
     logGrid->addWidget(m_logLevel, 0, 1);
     logGrid->addWidget(m_logConsole, 1, 1, 1, 2);
@@ -245,9 +245,9 @@ SettingsDialog::SettingsDialog(QWidget *parent)
                 // undo what Apply has done
                 appfont::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), m_originalSize);
                 appfont::storeSize(m_originalSize);
-                UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_originalSystem));
-                grt::log::setConfig(m_originalLog);
-                grt::log::storeConfig(m_originalLog);
+                UnitPreferences::instance().setSystem(static_cast<csr::units::System>(m_originalSystem));
+                csr::log::setConfig(m_originalLog);
+                csr::log::storeConfig(m_originalLog);
                 session::setReopen(m_originalReopen);
                 DialogFrame::storeRounded(m_originalRounded);
                 if (TitleBar::stored() != m_originalTitleBar)
@@ -287,7 +287,7 @@ void SettingsDialog::setOriginalDatabase(const QString &path, const QString &sum
     m_databasePath = path;
     m_database->setText(path);
     m_databaseInfo->setText(tr("<small>%1<br>New records are stored in the program's own database:<br>%2</small>")
-                                .arg(summary.toHtmlEscaped(), grt::Database::defaultOwnPath().toHtmlEscaped()));
+                                .arg(summary.toHtmlEscaped(), csr::Database::defaultOwnPath().toHtmlEscaped()));
 }
 
 QString SettingsDialog::originalDatabase() const
@@ -300,10 +300,10 @@ int SettingsDialog::fontSize() const
     return m_fontSize->value();
 }
 
-grt::log::Config SettingsDialog::logConfig() const
+csr::log::Config SettingsDialog::logConfig() const
 {
-    grt::log::Config c = grt::log::config();  // keeps a custom file path
-    c.level = static_cast<grt::log::Level>(m_logLevel->currentData().toInt());
+    csr::log::Config c = csr::log::config();  // keeps a custom file path
+    c.level = static_cast<csr::log::Level>(m_logLevel->currentData().toInt());
     c.console = m_logConsole->isChecked();
     c.file = m_logFile->isChecked();
     return c;
@@ -311,16 +311,16 @@ grt::log::Config SettingsDialog::logConfig() const
 
 void SettingsDialog::apply()
 {
-    const grt::log::Config log = logConfig();
-    grt::log::setConfig(log);
-    grt::log::storeConfig(log);
-    LOG_Info() << "Logging set to" << grt::log::levelName(log.level) << "console" << log.console << "file" << log.file;
+    const csr::log::Config log = logConfig();
+    csr::log::setConfig(log);
+    csr::log::storeConfig(log);
+    LOG_Info() << "Logging set to" << csr::log::levelName(log.level) << "console" << log.console << "file" << log.file;
     const int applied = appfont::apply(*qobject_cast<QApplication *>(QCoreApplication::instance()), m_fontSize->value());
     appfont::storeSize(applied);
     m_fontSize->setValue(applied);
     session::setReopen(m_reopen->isChecked());
-    UnitPreferences::instance().setSystem(static_cast<grt::units::System>(m_unitSystem->currentData().toInt()));
-    SolverPreferences::instance().setProfile(static_cast<grt::CalibrationProfile>(m_calibration->currentData().toInt()));
+    UnitPreferences::instance().setSystem(static_cast<csr::units::System>(m_unitSystem->currentData().toInt()));
+    SolverPreferences::instance().setProfile(static_cast<csr::CalibrationProfile>(m_calibration->currentData().toInt()));
     SolverPreferences::instance().setOriginalForGrtFiles(m_originalForGrtFiles->isChecked());
     if (m_rounded->isEnabled()) DialogFrame::storeRounded(m_rounded->isChecked());
     if (m_titleBar->isChecked() != TitleBar::stored())

@@ -20,7 +20,7 @@ public:
     static void install(QDialog *dialog);
     // Rounded corners need a translucent window, and on X11 without a compositing window manager that shows black corners: then the
     // corners stay square. Detected once (X11: owner of the _NET_WM_CM_S0 selection; Wayland, Windows, macOS: always available);
-    // the environment variable GRT_SQUARE_CORNERS forces square corners, as does the setting. `forced` (tests) overrides both for dialogs created later.
+    // the environment variable CSR_SQUARE_CORNERS forces square corners, as does the setting. `forced` (tests) overrides both for dialogs created later.
     [[nodiscard]] static bool roundedCorners();
     // The user's choice (File > Settings, default on) and whether the screen can show them at all (compositing; the choice is kept
     // either way). Dialogs that are open keep their corners; the next one follows the choice.

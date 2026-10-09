@@ -14,7 +14,7 @@
 
 using namespace Qt::StringLiterals;
 
-SelectRecordDialog::SelectRecordDialog(const grt::Database &db, grt::Table table, const QString &title, QWidget *parent)
+SelectRecordDialog::SelectRecordDialog(const csr::Database &db, csr::Table table, const QString &title, QWidget *parent)
     : QDialog(parent)
     , m_browser(new TableBrowser(table))
     , m_buttons(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel))
@@ -25,7 +25,7 @@ SelectRecordDialog::SelectRecordDialog(const grt::Database &db, grt::Table table
     auto *layout = new QVBoxLayout(this);
     layout->addWidget(m_browser, 1);
     if (table ==
-        grt::Table::Propellant)  // the quality of the selected powder's model, always visible (the table's column may be scrolled away)
+        csr::Table::Propellant)  // the quality of the selected powder's model, always visible (the table's column may be scrolled away)
         layout->addWidget(m_qualityRow = new QualityRow);
     layout->addWidget(m_buttons);
     connect(m_buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);

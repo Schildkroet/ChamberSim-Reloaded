@@ -3,7 +3,7 @@
 #include <QString>
 #include <QStringList>
 
-namespace grt
+namespace csr
 {
 
 // The source strings of the program are American English; it is the default
@@ -22,4 +22,4 @@ inline const QString kDefaultLanguage = QStringLiteral("en_US");
 // "de-AT" / "de_AT.UTF-8" -> "de_AT"
 [[nodiscard]] QString normalizeLanguage(const QString &tag);
 
-}  // namespace grt
+}  // namespace csr

@@ -6,7 +6,7 @@
 #include <optional>
 #include <span>
 
-namespace grt::units
+namespace csr::units
 {
 
 // The physical quantities of the program. Values in load files and in the database are stored in
@@ -65,4 +65,4 @@ enum class System
 
 [[nodiscard]] QString systemName(System s);
 
-}  // namespace grt::units
+}  // namespace csr::units

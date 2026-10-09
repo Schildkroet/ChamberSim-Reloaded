@@ -291,8 +291,8 @@
     </message>
     <message>
         <location line="+2"/>
-        <source>GRT Reloaded simulates interior ballistics. Its results are estimates and can be far from reality: use the program only if you know what you are doing.&lt;br&gt;&lt;br&gt;Never use a simulated load as a recipe. Always start from the current load data of the powder and bullet maker, start low, work up carefully and watch for pressure signs.&lt;br&gt;&lt;br&gt;The program is provided as it is, without any warranty. The authors are not responsible for any damage, injury or loss that results from its use.</source>
-        <translation>GRT Reloaded simula la balistica interna. I suoi risultati sono stime e possono essere lontani dalla realtà: usate il programma solo se sapete cosa state facendo.&lt;br&gt;&lt;br&gt;Non usate mai un caricamento simulato come ricetta. Partite sempre dai dati di ricarica attuali del produttore della polvere e della palla, iniziate in basso, aumentate con cautela e osservate i segni di sovrappressione.&lt;br&gt;&lt;br&gt;Il programma è fornito così com&apos;è, senza alcuna garanzia. Gli autori non sono responsabili di danni, lesioni o perdite derivanti dal suo uso.</translation>
+        <source>ChamberSim Reloaded simulates interior ballistics. Its results are estimates and can be far from reality: use the program only if you know what you are doing.&lt;br&gt;&lt;br&gt;Never use a simulated load as a recipe. Always start from the current load data of the powder and bullet maker, start low, work up carefully and watch for pressure signs.&lt;br&gt;&lt;br&gt;The program is provided as it is, without any warranty. The authors are not responsible for any damage, injury or loss that results from its use.</source>
+        <translation>ChamberSim Reloaded simula la balistica interna. I suoi risultati sono stime e possono essere lontani dalla realtà: usate il programma solo se sapete cosa state facendo.&lt;br&gt;&lt;br&gt;Non usate mai un caricamento simulato come ricetta. Partite sempre dai dati di ricarica attuali del produttore della polvere e della palla, iniziate in basso, aumentate con cautela e osservate i segni di sovrappressione.&lt;br&gt;&lt;br&gt;Il programma è fornito così com&apos;è, senza alcuna garanzia. Gli autori non sono responsabili di danni, lesioni o perdite derivanti dal suo uso.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -732,8 +732,8 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
         <location filename="../src/app/mainwindow.cpp" line="+366"/>
-        <source>GRT Reloaded</source>
-        <translation>GRT Reloaded</translation>
+        <source>ChamberSim Reloaded</source>
+        <translation>ChamberSim Reloaded</translation>
     </message>
     <message>
         <location filename="../src/app/mainwindow.cpp" line="-307"/>
@@ -822,8 +822,8 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+1"/>
-        <source>Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)</source>
-        <translation>Caricamenti (*.grtreload *.grtload);;Caricamenti GRT Reloaded (*.grtreload);;Caricamenti GRT originali (*.grtload);;Tutti i file (*)</translation>
+        <source>Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)</source>
+        <translation>Caricamenti (*.csrload *.grtload);;Caricamenti ChamberSim Reloaded (*.csrload);;Caricamenti GRT originali (*.grtload);;Tutti i file (*)</translation>
     </message>
     <message>
         <location line="-591"/>
@@ -1002,8 +1002,8 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+1"/>
-        <source>&amp;About GRT Reloaded…</source>
-        <translation>&amp;Informazioni su GRT Reloaded…</translation>
+        <source>&amp;About ChamberSim Reloaded…</source>
+        <translation>&amp;Informazioni su ChamberSim Reloaded…</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -1178,17 +1178,17 @@ Esportarlo comunque?</translation>
     </message>
     <message>
         <location line="+56"/>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Save load</source>
         <translation>Salva caricamento</translation>
     </message>
     <message>
-        <location line="-8"/>
-        <source>GRT Reloaded loads (*.grtreload);;Original GRT loads, without the data of GRT Reloaded (*.grtload)</source>
-        <translation>Caricamenti GRT Reloaded (*.grtreload);;Caricamenti GRT originali, senza i dati di GRT Reloaded (*.grtload)</translation>
+        <location line="-9"/>
+        <source>ChamberSim Reloaded loads (*.csrload);;Original GRT loads, without the data of ChamberSim Reloaded (*.grtload)</source>
+        <translation>Caricamenti ChamberSim Reloaded (*.csrload);;Caricamenti GRT originali, senza i dati di ChamberSim Reloaded (*.grtload)</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Cannot write %1:
 %2</source>
         <translation>Impossibile scrivere %1:
@@ -2332,8 +2332,8 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>A load whose file is a *.grtload of Gordon&apos;s Reloading Tool is simulated with GRT Original and the burn values in the file, whatever model is chosen above: the results are close to those of the original program. Loads saved as *.grtreload use the chosen model.</source>
-        <translation>Un caricamento il cui file è un *.grtload di Gordon&apos;s Reloading Tool viene calcolato con GRT Original e i valori di combustione del file, qualunque sia il modello scelto sopra: i risultati sono vicini a quelli del programma originale. I caricamenti salvati come *.grtreload usano il modello scelto.</translation>
+        <source>A load whose file is a *.grtload of Gordon&apos;s Reloading Tool is simulated with GRT Original and the burn values in the file, whatever model is chosen above: the results are close to those of the original program. Loads saved as *.csrload use the chosen model.</source>
+        <translation>Un caricamento il cui file è un *.grtload di Gordon&apos;s Reloading Tool viene calcolato con GRT Original e i valori di combustione del file, qualunque sia il modello scelto sopra: i risultati sono vicini a quelli del programma originale. I caricamenti salvati come *.csrload usano il modello scelto.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2661,8 +2661,8 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+19"/>
-        <source>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;GRT Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Versione %1&lt;/b&gt;&lt;br&gt;Balistica interna per la ricarica&lt;/p&gt;&lt;p&gt;Scegli cartuccia, palla e polvere, inserisci la carica e osserva pressione, energia della palla e velocità lungo la canna.&lt;/p&gt;&lt;p&gt;Una ricreazione in Qt&amp;nbsp;6 del flusso di lavoro di Gordon&apos;s Reloading Tool. È un progetto indipendente, non collegato al programma originale o al suo autore né da essi supportato.&lt;/p&gt;</translation>
+        <source>&lt;h2&gt;ChamberSim Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
+        <translation>&lt;h2&gt;ChamberSim Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Versione %1&lt;/b&gt;&lt;br&gt;Balistica interna per la ricarica&lt;/p&gt;&lt;p&gt;Scegli cartuccia, palla e polvere, inserisci la carica e osserva pressione, energia della palla e velocità lungo la canna.&lt;/p&gt;&lt;p&gt;Una ricreazione in Qt&amp;nbsp;6 del flusso di lavoro di Gordon&apos;s Reloading Tool. È un progetto indipendente, non collegato al programma originale o al suo autore né da essi supportato.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2711,42 +2711,42 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>About GRT Reloaded</source>
-        <translation>Informazioni su GRT Reloaded</translation>
+        <source>About ChamberSim Reloaded</source>
+        <translation>Informazioni su ChamberSim Reloaded</translation>
     </message>
 </context>
 <context>
-    <name>grt</name>
+    <name>csr</name>
     <message>
         <location filename="../src/core/chronograph.cpp" line="+64"/>
         <source>Series %1</source>
-        <translation>Serie %1</translation>
+        <translation type="unfinished">Serie %1</translation>
     </message>
     <message>
         <location line="+15"/>
         <location line="+35"/>
         <location line="+120"/>
-        <location line="+54"/>
+        <location line="+73"/>
         <source>The file contains no shots.</source>
-        <translation>Il file non contiene colpi.</translation>
+        <translation type="unfinished">Il file non contiene colpi.</translation>
     </message>
     <message>
-        <location line="-179"/>
-        <location line="+174"/>
+        <location line="-198"/>
+        <location line="+193"/>
         <source>The velocity unit of the file is unknown.</source>
-        <translation>L&apos;unità di velocità del file è sconosciuta.</translation>
+        <translation type="unfinished">L&apos;unità di velocità del file è sconosciuta.</translation>
     </message>
     <message>
-        <location line="-166"/>
+        <location line="-185"/>
         <location line="+124"/>
-        <location line="+50"/>
+        <location line="+69"/>
         <source>Series</source>
-        <translation>Serie</translation>
+        <translation type="unfinished">Serie</translation>
     </message>
     <message>
-        <location line="-121"/>
+        <location line="-140"/>
         <source>The FIT file is truncated.</source>
-        <translation>Il file FIT è troncato.</translation>
+        <translation type="unfinished">Il file FIT è troncato.</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -2756,728 +2756,728 @@ pressione Δ</translation>
         <location line="+7"/>
         <location line="+3"/>
         <source>The FIT file is damaged.</source>
-        <translation>Il file FIT è danneggiato.</translation>
+        <translation type="unfinished">Il file FIT è danneggiato.</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>This FIT file is not a shot session of a chronograph.</source>
-        <translation>Questo file FIT non è una sessione di tiro di un cronografo.</translation>
+        <translation type="unfinished">Questo file FIT non è una sessione di tiro di un cronografo.</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+108"/>
         <source>Not a Garmin Xero, MagnetoSpeed or Labradar file.</source>
-        <translation>Non è un file Garmin Xero, MagnetoSpeed o Labradar.</translation>
+        <translation type="unfinished">Non è un file Garmin Xero, MagnetoSpeed o Labradar.</translation>
     </message>
 </context>
 <context>
-    <name>grt::LoadFile</name>
+    <name>csr::LoadFile</name>
     <message>
         <location filename="../src/core/loadfile.cpp" line="+193"/>
-        <source>Not a GRT Reloaded or GRT load file</source>
-        <translation>Non è un file di caricamento GRT Reloaded o GRT</translation>
+        <source>Not a ChamberSim Reloaded or GRT load file</source>
+        <translation type="unfinished">Non è un file di caricamento ChamberSim Reloaded o GRT</translation>
     </message>
     <message>
         <location line="+78"/>
         <source>The file contains no load data (&lt;%1&gt; is missing)</source>
-        <translation>Il file non contiene dati di caricamento (manca &lt;%1&gt;)</translation>
+        <translation type="unfinished">Il file non contiene dati di caricamento (manca &lt;%1&gt;)</translation>
     </message>
 </context>
 <context>
-    <name>grt::dbfields</name>
+    <name>csr::dbfields</name>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+34"/>
         <location line="+50"/>
         <location line="+20"/>
         <source>Name</source>
-        <translation>Nome</translation>
+        <translation type="unfinished">Nome</translation>
     </message>
     <message>
         <location line="-69"/>
         <source>Case dimensions (CIP)</source>
-        <translation>Quote del bossolo (CIP)</translation>
+        <translation type="unfinished">Quote del bossolo (CIP)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pressures</source>
-        <translation>Pressioni</translation>
+        <translation type="unfinished">Pressioni</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Chamber and barrel (CIP)</source>
-        <translation>Camera e canna (CIP)</translation>
+        <translation type="unfinished">Camera e canna (CIP)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Projectile</source>
-        <translation>Proiettile</translation>
+        <translation type="unfinished">Proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Propellant model</source>
-        <translation>Modello della polvere</translation>
+        <translation type="unfinished">Modello della polvere</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Record</source>
-        <translation>Record</translation>
+        <translation type="unfinished">Record</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Description</source>
-        <translation>Descrizione</translation>
+        <translation type="unfinished">Descrizione</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Created</source>
-        <translation>Creato</translation>
+        <translation type="unfinished">Creato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Created by</source>
-        <translation>Creato da</translation>
+        <translation type="unfinished">Creato da</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Changed</source>
-        <translation>Modificato</translation>
+        <translation type="unfinished">Modificato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Changed by</source>
-        <translation>Modificato da</translation>
+        <translation type="unfinished">Modificato da</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Source</source>
-        <translation>Fonte</translation>
+        <translation type="unfinished">Fonte</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Type</source>
-        <translation>Tipo</translation>
+        <translation type="unfinished">Tipo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mode</source>
-        <translation>Modalità</translation>
+        <translation type="unfinished">Modalità</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Status</source>
-        <translation>Stato</translation>
+        <translation type="unfinished">Stato</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Caliber name</source>
-        <translation>Nome del calibro</translation>
+        <translation type="unfinished">Nome del calibro</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Other names</source>
-        <translation>Altri nomi</translation>
+        <translation type="unfinished">Altri nomi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Standard</source>
-        <translation>Norma</translation>
+        <translation type="unfinished">Norma</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Country of origin</source>
-        <translation>Paese di origine</translation>
+        <translation type="unfinished">Paese di origine</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Case type</source>
-        <translation>Tipo di bossolo</translation>
+        <translation type="unfinished">Tipo di bossolo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Standard date</source>
-        <translation>Data della norma</translation>
+        <translation type="unfinished">Data della norma</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Revision date</source>
-        <translation>Data di revisione</translation>
+        <translation type="unfinished">Data di revisione</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Data sheet (link)</source>
-        <translation>Scheda tecnica (link)</translation>
+        <translation type="unfinished">Scheda tecnica (link)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Case length (L3)</source>
-        <translation>Lunghezza del bossolo (L3)</translation>
+        <translation type="unfinished">Lunghezza del bossolo (L3)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Max. cartridge length (L6)</source>
-        <translation>Lunghezza max. della cartuccia (L6)</translation>
+        <translation type="unfinished">Lunghezza max. della cartuccia (L6)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Case capacity (V)</source>
-        <translation>Volume del bossolo (V)</translation>
+        <translation type="unfinished">Volume del bossolo (V)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Max. pressure C.I.P. (Pmax)</source>
-        <translation>Pressione max. C.I.P. (Pmax)</translation>
+        <translation type="unfinished">Pressione max. C.I.P. (Pmax)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Max. pressure SAAMI (MAP)</source>
-        <translation>Pressione max. SAAMI (MAP)</translation>
+        <translation type="unfinished">Pressione max. SAAMI (MAP)</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Measuring method (M)</source>
-        <translation>Metodo di misura (M)</translation>
+        <translation type="unfinished">Metodo di misura (M)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Groove diameter (Z)</source>
-        <translation>Diametro sul fondo delle righe (Z)</translation>
+        <translation type="unfinished">Diametro sul fondo delle righe (Z)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Bore diameter (F)</source>
-        <translation>Diametro dei pieni (F)</translation>
+        <translation type="unfinished">Diametro dei pieni (F)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Bore cross-section (Q)</source>
-        <translation>Sezione della canna (Q)</translation>
+        <translation type="unfinished">Sezione della canna (Q)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Number of grooves (N)</source>
-        <translation>Numero di righe (N)</translation>
+        <translation type="unfinished">Numero di righe (N)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Groove width (b)</source>
-        <translation>Larghezza delle rigature (b)</translation>
+        <translation type="unfinished">Larghezza delle rigature (b)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Twist length (u)</source>
-        <translation>Passo di rigatura (u)</translation>
+        <translation type="unfinished">Passo di rigatura (u)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Chamber length (L3)</source>
-        <translation>Lunghezza della camera (L3)</translation>
+        <translation type="unfinished">Lunghezza della camera (L3)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Sebert factor</source>
-        <translation>Fattore di Sebert</translation>
+        <translation type="unfinished">Fattore di Sebert</translation>
     </message>
     <message>
         <location line="+4"/>
         <location line="+20"/>
         <source>Manufacturer</source>
-        <translation>Produttore</translation>
+        <translation type="unfinished">Produttore</translation>
     </message>
     <message>
         <location line="-18"/>
         <location line="+20"/>
         <source>Lot</source>
-        <translation>Lotto</translation>
+        <translation type="unfinished">Lotto</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>Caliber designation</source>
-        <translation>Designazione del calibro</translation>
+        <translation type="unfinished">Designazione del calibro</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Diameter</source>
-        <translation>Diametro</translation>
+        <translation type="unfinished">Diametro</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Length</source>
-        <translation>Lunghezza</translation>
+        <translation type="unfinished">Lunghezza</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mass</source>
-        <translation>Massa</translation>
+        <translation type="unfinished">Massa</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Base type</source>
-        <translation>Tipo di fondello</translation>
+        <translation type="unfinished">Tipo di fondello</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Base diameter A</source>
-        <translation>Diametro del fondello A</translation>
+        <translation type="unfinished">Diametro del fondello A</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Base diameter B</source>
-        <translation>Diametro del fondello B</translation>
+        <translation type="unfinished">Diametro del fondello B</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Boat-tail / cavity length</source>
-        <translation>Lunghezza boat tail / cavità</translation>
+        <translation type="unfinished">Lunghezza boat tail / cavità</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Max. seating depth</source>
-        <translation>Profondità di inserimento max.</translation>
+        <translation type="unfinished">Profondità di inserimento max.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Start pressure</source>
-        <translation>Pressione iniziale</translation>
+        <translation type="unfinished">Pressione iniziale</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Extra friction</source>
-        <translation>Attrito aggiuntivo</translation>
+        <translation type="unfinished">Attrito aggiuntivo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>G1 ballistic coefficient</source>
-        <translation>Coefficiente balistico G1</translation>
+        <translation type="unfinished">Coefficiente balistico G1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>G7 ballistic coefficient</source>
-        <translation>Coefficiente balistico G7</translation>
+        <translation type="unfinished">Coefficiente balistico G7</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Burn rate coefficient (Ba)</source>
-        <translation>Coefficiente di vivacità (Ba)</translation>
+        <translation type="unfinished">Coefficiente di vivacità (Ba)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Explosion heat (Qex)</source>
-        <translation>Calore di esplosione (Qex)</translation>
+        <translation type="unfinished">Calore di esplosione (Qex)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Ratio of specific heats (k)</source>
-        <translation>Rapporto dei calori specifici (k)</translation>
+        <translation type="unfinished">Rapporto dei calori specifici (k)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Covolume factor (eta)</source>
-        <translation>Fattore di covolume (eta)</translation>
+        <translation type="unfinished">Fattore di covolume (eta)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Form factor a0</source>
-        <translation>Fattore di forma a0</translation>
+        <translation type="unfinished">Fattore di forma a0</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Form factor a1</source>
-        <translation>Fattore di forma a1</translation>
+        <translation type="unfinished">Fattore di forma a1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Transition limit z1</source>
-        <translation>Limite di transizione z1</translation>
+        <translation type="unfinished">Limite di transizione z1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Transition limit z2</source>
-        <translation>Limite di transizione z2</translation>
+        <translation type="unfinished">Limite di transizione z2</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Material density</source>
-        <translation>Densità del materiale</translation>
+        <translation type="unfinished">Densità del materiale</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Bulk density</source>
-        <translation>Densità apparente</translation>
+        <translation type="unfinished">Densità apparente</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reference temperature</source>
-        <translation>Temperatura di riferimento</translation>
+        <translation type="unfinished">Temperatura di riferimento</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Temperature coefficient, cold</source>
-        <translation>Coefficiente di temperatura, freddo</translation>
+        <translation type="unfinished">Coefficiente di temperatura, freddo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Temperature coefficient, hot</source>
-        <translation>Coefficiente di temperatura, caldo</translation>
+        <translation type="unfinished">Coefficiente di temperatura, caldo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Brisance factor (Br)</source>
-        <translation>Fattore di brisanza (Br)</translation>
+        <translation type="unfinished">Fattore di brisanza (Br)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Progressivity factor (Bp)</source>
-        <translation>Fattore di progressività (Bp)</translation>
+        <translation type="unfinished">Fattore di progressività (Bp)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Combined factor (Brp)</source>
-        <translation>Fattore combinato (Brp)</translation>
+        <translation type="unfinished">Fattore combinato (Brp)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Model quality</source>
-        <translation>Qualità del modello</translation>
+        <translation type="unfinished">Qualità del modello</translation>
     </message>
 </context>
 <context>
-    <name>grt::fields</name>
+    <name>csr::fields</name>
     <message>
         <location filename="../src/core/fieldnames.cpp" line="+13"/>
         <source>G1 ballistic coefficient</source>
-        <translation>Coefficiente balistico G1</translation>
+        <translation type="unfinished">Coefficiente balistico G1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>G7 ballistic coefficient</source>
-        <translation>Coefficiente balistico G7</translation>
+        <translation type="unfinished">Coefficiente balistico G7</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Sebert factor</source>
-        <translation>Fattore di Sebert</translation>
+        <translation type="unfinished">Fattore di Sebert</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>UBCS-Code (Universal Bullet Classification Scheme)</source>
-        <translation>Codice UBCS (Universal Bullet Classification Scheme)</translation>
+        <translation type="unfinished">Codice UBCS (Universal Bullet Classification Scheme)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>barrel length</source>
-        <translation>Lunghezza della canna</translation>
+        <translation type="unfinished">Lunghezza della canna</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>bulk density</source>
-        <translation>Densità apparente</translation>
+        <translation type="unfinished">Densità apparente</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>bullet jump distance</source>
-        <translation>Salto della palla</translation>
+        <translation type="unfinished">Salto della palla</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>bullet seating depth</source>
-        <translation>Profondità di inserimento della palla</translation>
+        <translation type="unfinished">Profondità di inserimento della palla</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>burn-up limit z1</source>
-        <translation>Limite di combustione z1</translation>
+        <translation type="unfinished">Limite di combustione z1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>burn-up limit z2</source>
-        <translation>Limite di combustione z2</translation>
+        <translation type="unfinished">Limite di combustione z2</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>caliber name</source>
-        <translation>Nome del calibro</translation>
+        <translation type="unfinished">Nome del calibro</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>cartridge overall length</source>
-        <translation>Lunghezza totale della cartuccia</translation>
+        <translation type="unfinished">Lunghezza totale della cartuccia</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>cartridge test method</source>
-        <translation>Metodo di prova della cartuccia</translation>
+        <translation type="unfinished">Metodo di prova della cartuccia</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>case length</source>
-        <translation>Lunghezza del bossolo</translation>
+        <translation type="unfinished">Lunghezza del bossolo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>case volume</source>
-        <translation>Volume del bossolo</translation>
+        <translation type="unfinished">Volume del bossolo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>cold temperature coefficient</source>
-        <translation>Coefficiente di temperatura freddo</translation>
+        <translation type="unfinished">Coefficiente di temperatura freddo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>covolume of the powder gases</source>
-        <translation>Covolume dei gas della polvere</translation>
+        <translation type="unfinished">Covolume dei gas della polvere</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>effektive area</source>
-        <translation>Superficie effettiva</translation>
+        <translation type="unfinished">Superficie effettiva</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>groove caliber</source>
-        <translation>Calibro sul fondo delle righe</translation>
+        <translation type="unfinished">Calibro sul fondo delle righe</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>gun name</source>
-        <translation>Nome dell&apos;arma</translation>
+        <translation type="unfinished">Nome dell&apos;arma</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>gun weight</source>
-        <translation>Peso dell&apos;arma</translation>
+        <translation type="unfinished">Peso dell&apos;arma</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>hot temperature coefficient</source>
-        <translation>Coefficiente di temperatura caldo</translation>
+        <translation type="unfinished">Coefficiente di temperatura caldo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>initial gas pressure</source>
-        <translation>Pressione iniziale dei gas</translation>
+        <translation type="unfinished">Pressione iniziale dei gas</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>ladder step propellant mass</source>
-        <translation>Massa di polvere per gradino della scala</translation>
+        <translation type="unfinished">Massa di polvere per gradino della scala</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>ladder steps (1 to 10, below 2: disabled)</source>
-        <translation>Gradini della scala (da 1 a 10, sotto 2: disattivata)</translation>
+        <translation type="unfinished">Gradini della scala (da 1 a 10, sotto 2: disattivata)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>material density</source>
-        <translation>Densità del materiale</translation>
+        <translation type="unfinished">Densità del materiale</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>maximum allowed pressure</source>
-        <translation>Pressione massima ammessa</translation>
+        <translation type="unfinished">Pressione massima ammessa</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>prog/deg coefficient</source>
-        <translation>Coefficiente prog./degr.</translation>
+        <translation type="unfinished">Coefficiente prog./degr.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile base type</source>
-        <translation>Tipo di fondello del proiettile</translation>
+        <translation type="unfinished">Tipo di fondello del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile diameter</source>
-        <translation>Diametro del proiettile</translation>
+        <translation type="unfinished">Diametro del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile lot-id</source>
-        <translation>Lotto del proiettile</translation>
+        <translation type="unfinished">Lotto del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile manufacturer</source>
-        <translation>Produttore del proiettile</translation>
+        <translation type="unfinished">Produttore del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile material and gas sealing/losses</source>
-        <translation>Materiale del proiettile e tenuta/perdite di gas</translation>
+        <translation type="unfinished">Materiale del proiettile e tenuta/perdite di gas</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile name</source>
-        <translation>Nome del proiettile</translation>
+        <translation type="unfinished">Nome del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile overall length</source>
-        <translation>Lunghezza totale del proiettile</translation>
+        <translation type="unfinished">Lunghezza totale del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile product name</source>
-        <translation>Nome commerciale del proiettile</translation>
+        <translation type="unfinished">Nome commerciale del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile tail diameter A</source>
-        <translation>Diametro della coda A</translation>
+        <translation type="unfinished">Diametro della coda A</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile tail diameter B</source>
-        <translation>Diametro della coda B</translation>
+        <translation type="unfinished">Diametro della coda B</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile tail length</source>
-        <translation>Lunghezza della coda</translation>
+        <translation type="unfinished">Lunghezza della coda</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>projectile weight</source>
-        <translation>Peso del proiettile</translation>
+        <translation type="unfinished">Peso del proiettile</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>propellant detail picture uuid</source>
-        <translation>Immagine di dettaglio della polvere (UUID)</translation>
+        <translation type="unfinished">Immagine di dettaglio della polvere (UUID)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>propellant lot-id</source>
-        <translation>Lotto della polvere</translation>
+        <translation type="unfinished">Lotto della polvere</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>propellant manufacturer</source>
-        <translation>Produttore della polvere</translation>
+        <translation type="unfinished">Produttore della polvere</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>propellant mass</source>
-        <translation>Massa di polvere</translation>
+        <translation type="unfinished">Massa di polvere</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>propellant picture uuid</source>
-        <translation>Immagine della polvere (UUID)</translation>
+        <translation type="unfinished">Immagine della polvere (UUID)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>propellant product name</source>
-        <translation>Nome commerciale della polvere</translation>
+        <translation type="unfinished">Nome commerciale della polvere</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>ratio of the specific heat of the powder gases</source>
-        <translation>Rapporto dei calori specifici dei gas della polvere</translation>
+        <translation type="unfinished">Rapporto dei calori specifici dei gas della polvere</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>selected ladder curve for display</source>
-        <translation>Curva della scala visualizzata</translation>
+        <translation type="unfinished">Curva della scala visualizzata</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>shotshell hull</source>
-        <translation>bossolo della cartuccia a pallini</translation>
+        <translation type="unfinished">bossolo della cartuccia a pallini</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>shotshell primer</source>
-        <translation>innesco della cartuccia a pallini</translation>
+        <translation type="unfinished">innesco della cartuccia a pallini</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>shotshell wad</source>
-        <translation>borra della cartuccia a pallini</translation>
+        <translation type="unfinished">borra della cartuccia a pallini</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>special bullet resistance inside the barrel</source>
-        <translation>Resistenza particolare della palla nella canna</translation>
+        <translation type="unfinished">Resistenza particolare della palla nella canna</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>specific explosive heat</source>
-        <translation>Calore di esplosione specifico</translation>
+        <translation type="unfinished">Calore di esplosione specifico</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>technical atmosphere pressure</source>
-        <translation>Pressione atmosferica tecnica</translation>
+        <translation type="unfinished">Pressione atmosferica tecnica</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>temperature normal</source>
-        <translation>Temperatura normale</translation>
+        <translation type="unfinished">Temperatura normale</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>true if shotshell</source>
-        <translation>Cartuccia a pallini</translation>
+        <translation type="unfinished">Cartuccia a pallini</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>twist length</source>
-        <translation>Passo di rigatura</translation>
+        <translation type="unfinished">Passo di rigatura</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>unlocked bullet jump</source>
-        <translation>Salto della palla sbloccato</translation>
+        <translation type="unfinished">Salto della palla sbloccato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>unlocked friction</source>
-        <translation>Attrito sbloccato</translation>
+        <translation type="unfinished">Attrito sbloccato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>vivacity coefficient</source>
-        <translation>Coefficiente di vivacità</translation>
+        <translation type="unfinished">Coefficiente di vivacità</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>physical model: vivacity coefficient</source>
-        <translation>Modello fisico: coefficiente di vivacità</translation>
+        <translation type="unfinished">Modello fisico: coefficiente di vivacità</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>physical model: prog/deg coefficient</source>
-        <translation>Modello fisico: coefficiente prog./deg.</translation>
+        <translation type="unfinished">Modello fisico: coefficiente prog./deg.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>physical model: burn-up limit z1</source>
-        <translation>Modello fisico: limite di combustione z1</translation>
+        <translation type="unfinished">Modello fisico: limite di combustione z1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>physical model: burn-up limit z2</source>
-        <translation>Modello fisico: limite di combustione z2</translation>
+        <translation type="unfinished">Modello fisico: limite di combustione z2</translation>
     </message>
 </context>
 <context>
-    <name>grt::units</name>
+    <name>csr::units</name>
     <message>
         <location filename="../src/core/units.cpp" line="+157"/>
         <source>Metric (mm, g, bar, m/s)</source>
-        <translation>Metrico (mm, g, bar, m/s)</translation>
+        <translation type="unfinished">Metrico (mm, g, bar, m/s)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Imperial (in, grain, psi, ft/s)</source>
-        <translation>Imperiale (in, grain, psi, ft/s)</translation>
+        <translation type="unfinished">Imperiale (in, grain, psi, ft/s)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Original (mm, grain, bar, m/s)</source>
-        <translation>Originale (mm, grain, bar, m/s)</translation>
+        <translation type="unfinished">Originale (mm, grain, bar, m/s)</translation>
     </message>
 </context>
 </TS>

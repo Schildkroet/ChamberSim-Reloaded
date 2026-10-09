@@ -4,7 +4,7 @@
 
 #include <functional>
 
-namespace grt::report
+namespace csr::report
 {
 
 // What an image name ({{name}}) resolves to: something an <img src=...> understands (e.g. a data: URI) and,
@@ -36,4 +36,4 @@ using ImageResolver = std::function<ImageSource(const QString &name)>;
 // percentage widths, so sizes like ?50% are turned into pixels of it (keeping the aspect ratio).
 [[nodiscard]] QString wikiToHtml(const QString &text, const ImageResolver &images = {}, int pageWidth = 720);
 
-}  // namespace grt::report
+}  // namespace csr::report

@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <vector>
 
-namespace grt
+namespace csr
 {
 
 // One point of the curves, at the end of a position step.
@@ -240,4 +240,4 @@ struct NamedParameter
 // Chamber volume at the start (case volume minus the part of the bullet inside the case) [m^3].
 [[nodiscard]] double chamberVolume_m3(const SimInput &in, const Calibration &cal = activeCalibration());
 
-}  // namespace grt
+}  // namespace csr

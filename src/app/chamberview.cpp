@@ -144,12 +144,12 @@ ChamberView::Geometry ChamberView::buildGeometry(const QMap<QString, double> &d,
     return g;
 }
 
-void ChamberView::setLoad(const grt::LoadFile &file, const grt::SimInput &input)
+void ChamberView::setLoad(const csr::LoadFile &file, const csr::SimInput &input)
 {
     m_dims.clear();
-    for (const grt::Entry &e : file.caliberFile.entries())
+    for (const csr::Entry &e : file.caliberFile.entries())
     {
-        if (const auto v = grt::parseFinite(e.value)) m_dims.insert(e.name, *v);
+        if (const auto v = csr::parseFinite(e.value)) m_dims.insert(e.name, *v);
     }
     m_round = CartridgeView::makeRound(file, input);
     m_topY = std::max({m_round.bulletTip() + 4.0, dim(m_dims, "c_L3") + 12.0, dim(m_dims, "L6")});
@@ -246,8 +246,8 @@ void ChamberView::paintEvent(QPaintEvent *)
     p.drawLine(QPointF(xDim, Y(0)), QPointF(xDim, Y(L3)));
     for (double yy : {0.0, L3}) p.drawLine(QPointF(xDim - 3, Y(yy)), QPointF(xDim + 3, Y(yy)));
     {
-        const grt::units::Unit &u = UnitPreferences::instance().unitFor(grt::units::Quantity::Length);
-        const QString text = u"A  "_s + grt::units::format(L3, u) + u' ' + QString::fromUtf8(u.symbol);
+        const csr::units::Unit &u = UnitPreferences::instance().unitFor(csr::units::Quantity::Length);
+        const QString text = u"A  "_s + csr::units::format(L3, u) + u' ' + QString::fromUtf8(u.symbol);
         drawVerticalLabel(p, QPointF(xDim + 4.0, (Y(0) + Y(L3)) / 2.0), text, dfm, palette().color(QPalette::Base),
                           palette().color(QPalette::Text));
     }
@@ -265,7 +265,7 @@ void ChamberView::paintEvent(QPaintEvent *)
     }
     else
     {
-        const grt::units::Unit &u = UnitPreferences::instance().unitFor(grt::units::Quantity::Length);
+        const csr::units::Unit &u = UnitPreferences::instance().unitFor(csr::units::Quantity::Length);
         const QFont f = legendFont;
         QFont bold = f;
         bold.setBold(true);
@@ -275,13 +275,13 @@ void ChamberView::paintEvent(QPaintEvent *)
         p.drawText(legend.topLeft() + QPointF(0, QFontMetricsF(bold).ascent()), u"A"_s);
         p.setFont(f);
         p.drawText(QRectF(legend.left() + 14, legend.top(), legend.width() - 14, legend.height()), Qt::AlignLeft | Qt::AlignTop,
-                   tr("Chamber length %1").arg(grt::units::format(m_dims.value(u"c_L3"_s), u) + u' ' + QString::fromUtf8(u.symbol)));
+                   tr("Chamber length %1").arg(csr::units::format(m_dims.value(u"c_L3"_s), u) + u' ' + QString::fromUtf8(u.symbol)));
     }
 }
 
 void ChamberView::drawTable(QPainter &p, const QRectF &area) const
 {
-    using grt::units::Quantity;
+    using csr::units::Quantity;
     struct Row
     {
         const char *key;
@@ -310,7 +310,7 @@ void ChamberView::drawTable(QPainter &p, const QRectF &area) const
     double y = area.top();
     m_rowHits.clear();
     {
-        const grt::units::Unit &u = UnitPreferences::instance().unitFor(Quantity::Length);
+        const csr::units::Unit &u = UnitPreferences::instance().unitFor(Quantity::Length);
         QFont bold = f;
         bold.setBold(true);
         p.setFont(bold);
@@ -318,7 +318,7 @@ void ChamberView::drawTable(QPainter &p, const QRectF &area) const
         p.setFont(f);
         p.drawText(
             QRectF(area.left() + 14, y, area.width() - 14, lineH), Qt::AlignLeft | Qt::AlignVCenter,
-            fm.elidedText(tr("Chamber length %1").arg(grt::units::format(m_dims.value(u"c_L3"_s), u) + u' ' + QString::fromUtf8(u.symbol)),
+            fm.elidedText(tr("Chamber length %1").arg(csr::units::format(m_dims.value(u"c_L3"_s), u) + u' ' + QString::fromUtf8(u.symbol)),
                           Qt::ElideRight, static_cast<int>(area.width() - 14)));
         y += lineH + 4;
         p.setPen(palette().color(QPalette::PlaceholderText));
@@ -340,8 +340,8 @@ void ChamberView::drawTable(QPainter &p, const QRectF &area) const
         }
         else
         {
-            const grt::units::Unit &u = UnitPreferences::instance().unitFor(r.quantity);
-            value = grt::units::format(v, u) + u' ' + QString::fromUtf8(u.symbol);
+            const csr::units::Unit &u = UnitPreferences::instance().unitFor(r.quantity);
+            value = csr::units::format(v, u) + u' ' + QString::fromUtf8(u.symbol);
         }
         const QRectF rowRect(area.left(), y, area.width(), lineH);
         m_rowHits.push_back({rowRect, QString::fromLatin1(r.key), QString::fromUtf8(r.label), value});

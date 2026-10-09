@@ -22,7 +22,7 @@ public:
     explicit ReportView(QWidget *parent = nullptr);
 
     // Where the values (and images) come from. Called whenever the report is rebuilt.
-    void setDataProvider(std::function<grt::report::Data()> provider);
+    void setDataProvider(std::function<csr::report::Data()> provider);
     // The data changed: the report is rebuilt as soon as it is visible.
     void invalidate();
     // Rebuilds now.
@@ -57,7 +57,7 @@ protected:
     void showEvent(QShowEvent *event) override;
 
 private:
-    std::function<grt::report::Data()> m_provider;
+    std::function<csr::report::Data()> m_provider;
     [[nodiscard]] std::unique_ptr<QTextDocument> makePrintDocument(const QSizeF &pagePoints);
     QTextBrowser *m_browser;
     QSpinBox *m_scale;

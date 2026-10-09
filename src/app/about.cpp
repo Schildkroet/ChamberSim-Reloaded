@@ -15,8 +15,8 @@
 #include <algorithm>
 #include <QSysInfo>
 
-#ifndef GRT_VERSION
-#define GRT_VERSION "0.1"
+#ifndef CSR_VERSION
+#define CSR_VERSION "0.1"
 #endif
 
 namespace about
@@ -45,10 +45,10 @@ QString buildDate()
 QString html(const std::optional<DatabaseInfo> &database)
 {
     const QString version =
-        QCoreApplication::applicationVersion().isEmpty() ? QStringLiteral(GRT_VERSION) : QCoreApplication::applicationVersion();
+        QCoreApplication::applicationVersion().isEmpty() ? QStringLiteral(CSR_VERSION) : QCoreApplication::applicationVersion();
     // short blocks with headings; the legal text sits in a framed box, the technical details in small print
     QString text =
-        QApplication::translate("about", "<h2>GRT Reloaded</h2>"
+        QApplication::translate("about", "<h2>ChamberSim Reloaded</h2>"
                                          "<p><b>Version %1</b><br>Interior ballistics for handloaders</p>"
                                          "<p>Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy "
                                          "and velocity along the barrel.</p>"
@@ -111,7 +111,7 @@ void show(QWidget *parent, const std::optional<DatabaseInfo> &database)
 {
     QDialog dialog(parent);
     dialog.setObjectName(QStringLiteral("aboutDialog"));
-    dialog.setWindowTitle(QApplication::translate("about", "About GRT Reloaded"));
+    dialog.setWindowTitle(QApplication::translate("about", "About ChamberSim Reloaded"));
 
     auto *icon = new QLabel;
     icon->setPixmap(QApplication::windowIcon().pixmap(64, 64));

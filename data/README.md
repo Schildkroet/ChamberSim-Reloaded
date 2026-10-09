@@ -1,6 +1,6 @@
 # Project database
 
-Calibers, projectiles and propellants that come with GRT Reloaded. A caliber is one JSON file; the projectiles and the
+Calibers, projectiles and propellants that come with ChamberSim Reloaded. A caliber is one JSON file; the projectiles and the
 propellants have one file per manufacturer with an array of records:
 
 ```
@@ -25,7 +25,7 @@ good they are: see [docs/DATA_SOURCES.md](../docs/DATA_SOURCES.md).
    name and lot is replaced) and removes the single file. The program reads a single-record file as well.
 4. Open a pull request (see [CONTRIBUTING.md](../docs/CONTRIBUTING.md)).
 
-CI checks every file (`grt_datacheck`): valid JSON, known columns, numbers where numbers belong, a name, plausible
+CI checks every file (`csr_datacheck`): valid JSON, known columns, numbers where numbers belong, a name, plausible
 model values, and no two records with the same name.
 
 ## Format

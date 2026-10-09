@@ -43,7 +43,7 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   k and the material density are typical values everywhere; the form function (a0, z1, z2) is not published, it is the combination
   that reproduces the velocities best and the data hardly determine it. Pistol and shotgun powders are included as well (Lovex S011-D037.2, Reload Swiss RS12-RS80,
   ADI AP/APS, Hodgdon Titegroup, Universal, Clays, HS-6, W231, ..., Vectan A1, AS, Ba6-Ba10; velocity error 7-19 %, pressure error 20-35 %, a low `Qlty`:
-  their descriptions say "use with more caution"), only powders with fewer than 9 samples are not. `tools/grt_fitdata` and `scripts/data/loaddata` do the work, see
+  their descriptions say "use with more caution"), only powders with fewer than 9 samples are not. `tools/csr_fitdata` and `scripts/data/loaddata` do the work, see
   `scripts/data/loaddata/README.md` for the method and the results.
 
 The details, the commands to repeat each step and the limits of the data are in `scripts/data/cipdata/README.md` and

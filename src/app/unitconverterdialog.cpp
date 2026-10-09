@@ -14,7 +14,7 @@
 
 namespace
 {
-using grt::units::Quantity;
+using csr::units::Quantity;
 
 struct QuantityName
 {
@@ -137,21 +137,21 @@ void UnitConverterDialog::fillUnits()
 {
     const QSignalBlocker block(m_from);
     m_from->clear();
-    for (const auto &u : grt::units::unitsOf(quantity())) m_from->addItem(QString::fromUtf8(u.symbol), QString::fromLatin1(u.id));
+    for (const auto &u : csr::units::unitsOf(quantity())) m_from->addItem(QString::fromUtf8(u.symbol), QString::fromLatin1(u.id));
 }
 
 void UnitConverterDialog::convert()
 {
-    const auto units = grt::units::unitsOf(quantity());
+    const auto units = csr::units::unitsOf(quantity());
     const int from = m_from->currentIndex();
     m_table->setRowCount(static_cast<int>(units.size()));
-    const auto base = from >= 0 ? grt::units::parseToBase(m_input->text(), units[static_cast<std::size_t>(from)]) : std::nullopt;
+    const auto base = from >= 0 ? csr::units::parseToBase(m_input->text(), units[static_cast<std::size_t>(from)]) : std::nullopt;
     for (int row = 0; row < static_cast<int>(units.size()); ++row)
     {
         const auto &u = units[static_cast<std::size_t>(row)];
         auto *symbol = new QTableWidgetItem(QString::fromUtf8(u.symbol));
         // more digits than the program's fields show: a converter is used for checking numbers
-        auto *value = new QTableWidgetItem(base ? QLocale().toString(grt::units::toDisplay(*base, u), 'g', 7) : QString());
+        auto *value = new QTableWidgetItem(base ? QLocale().toString(csr::units::toDisplay(*base, u), 'g', 7) : QString());
         value->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         m_table->setItem(row, 0, symbol);
         m_table->setItem(row, 1, value);

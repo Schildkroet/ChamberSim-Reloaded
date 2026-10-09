@@ -12,7 +12,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -50,7 +50,7 @@ QStringList splitLine(const QString &line, QChar separator)
 
 QString tr(const char *text)
 {
-    return QCoreApplication::translate("grt::chronograph", text);
+    return QCoreApplication::translate("csr::chronograph", text);
 }
 
 std::optional<ChronographFile> readMagnetoSpeed(const QStringList &lines, QString *error)
@@ -342,4 +342,4 @@ std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *
     return std::nullopt;
 }
 
-}  // namespace grt
+}  // namespace csr

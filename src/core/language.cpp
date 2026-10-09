@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace grt
+namespace csr
 {
 
 QString normalizeLanguage(const QString &tag)
@@ -34,4 +34,4 @@ QString resolveLanguage(const QStringList &requested, const QStringList &availab
     return kDefaultLanguage;
 }
 
-}  // namespace grt
+}  // namespace csr

@@ -10,7 +10,7 @@ class QTableWidget;
 // One series of the file with the charge it was shot with.
 struct ImportedCharge
 {
-    grt::ChronographSeries series;
+    csr::ChronographSeries series;
     double charge_g{};
 };
 
@@ -21,7 +21,7 @@ class ChronographImportDialog : public QDialog
 {
     Q_OBJECT
 public:
-    ChronographImportDialog(grt::ChronographFile file, double defaultCharge_g, QWidget *parent = nullptr);
+    ChronographImportDialog(csr::ChronographFile file, double defaultCharge_g, QWidget *parent = nullptr);
 
     // The ticked series with their charges (an unreadable charge falls back to the default).
     [[nodiscard]] std::vector<ImportedCharge> selected() const;
@@ -31,7 +31,7 @@ public:
     void setChargeText(int row, const QString &text);
 
 private:
-    grt::ChronographFile m_file;
+    csr::ChronographFile m_file;
     double m_default;
     QTableWidget *m_table;
 };

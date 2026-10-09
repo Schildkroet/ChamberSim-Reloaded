@@ -14,7 +14,7 @@
 #include <QTableWidget>
 #include <QVBoxLayout>
 
-using grt::units::Quantity;
+using csr::units::Quantity;
 using namespace Qt::StringLiterals;
 
 namespace
@@ -22,8 +22,8 @@ namespace
 
 QString shown(double base, Quantity q, int decimals)
 {
-    const grt::units::Unit &u = UnitPreferences::instance().unitFor(q);
-    return base > 0.0 ? grt::units::format(base, u, decimals) : QStringLiteral("–");
+    const csr::units::Unit &u = UnitPreferences::instance().unitFor(q);
+    return base > 0.0 ? csr::units::format(base, u, decimals) : QStringLiteral("–");
 }
 
 QString percent(double value, double reference)
@@ -42,7 +42,7 @@ QTableWidgetItem *cell(const QString &text)
 
 }  // namespace
 
-PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QStringList warnings, QWidget *parent)
+PowderFitDialog::PowderFitDialog(std::vector<csr::powderfit::Sample> samples, QStringList warnings, QWidget *parent)
     : QDialog(parent)
     , m_samples(std::move(samples))
     , m_table(new QTableWidget(0, 10))
@@ -61,10 +61,10 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
     // the values to fit, preset for the amount of data
     auto *paramRow = new QHBoxLayout;
     paramRow->addWidget(new QLabel(tr("Values to fit:")));
-    const std::vector<std::pair<grt::powderfit::Param, QString>> params{{grt::powderfit::Param::Ba, tr("Burn rate (Ba)")},
-                                                                        {grt::powderfit::Param::A0, tr("Form factor a0")},
-                                                                        {grt::powderfit::Param::Z1, tr("Transition z1")},
-                                                                        {grt::powderfit::Param::Z2, tr("Transition z2")}};
+    const std::vector<std::pair<csr::powderfit::Param, QString>> params{{csr::powderfit::Param::Ba, tr("Burn rate (Ba)")},
+                                                                        {csr::powderfit::Param::A0, tr("Form factor a0")},
+                                                                        {csr::powderfit::Param::Z1, tr("Transition z1")},
+                                                                        {csr::powderfit::Param::Z2, tr("Transition z2")}};
     for (const auto &[p, label] : params)
     {
         auto *box = new QCheckBox(label);
@@ -73,7 +73,7 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
     }
     paramRow->addStretch(1);
     paramRow->addWidget(m_fit);
-    setParams(grt::powderfit::defaultParams(m_samples));
+    setParams(csr::powderfit::defaultParams(m_samples));
 
     auto *warn = new QLabel;
     warn->setWordWrap(true);
@@ -122,30 +122,30 @@ PowderFitDialog::PowderFitDialog(std::vector<grt::powderfit::Sample> samples, QS
     showResult();
 }
 
-void PowderFitDialog::setSaveHandler(std::function<bool(const grt::powderfit::Result &)> handler)
+void PowderFitDialog::setSaveHandler(std::function<bool(const csr::powderfit::Result &)> handler)
 {
     m_save = std::move(handler);
     m_saveButton->setVisible(static_cast<bool>(m_save));
 }
 
-void PowderFitDialog::setParams(const std::vector<grt::powderfit::Param> &params)
+void PowderFitDialog::setParams(const std::vector<csr::powderfit::Param> &params)
 {
     for (auto &[p, box] : m_params) box->setChecked(std::ranges::find(params, p) != params.end());
 }
 
 bool PowderFitDialog::improved() const
 {
-    return std::ranges::any_of(m_results, [](const grt::powderfit::Result &r) { return r.improved; });
+    return std::ranges::any_of(m_results, [](const csr::powderfit::Result &r) { return r.improved; });
 }
 
 void PowderFitDialog::runFit()
 {
-    grt::powderfit::Options options;
+    csr::powderfit::Options options;
     for (const auto &[p, box] : m_params)
         if (box->isChecked()) options.params.push_back(p);
     if (options.params.empty()) return;
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    m_results = grt::powderfit::fitAll(m_samples, options);
+    m_results = csr::powderfit::fitAll(m_samples, options);
     QApplication::restoreOverrideCursor();
     m_saveButton->setText(tr("Save as own propellant…"));
     showResult();
@@ -153,10 +153,10 @@ void PowderFitDialog::runFit()
 
 void PowderFitDialog::showResult()
 {
-    using grt::powderfit::Model;
-    const auto resultOf = [&](Model m) -> const grt::powderfit::Result *
+    using csr::powderfit::Model;
+    const auto resultOf = [&](Model m) -> const csr::powderfit::Result *
     {
-        const auto it = std::ranges::find_if(m_results, [m](const grt::powderfit::Result &r) { return r.model == m; });
+        const auto it = std::ranges::find_if(m_results, [m](const csr::powderfit::Result &r) { return r.model == m; });
         return it == m_results.end() ? nullptr : &*it;
     };
     const bool anyPressure = std::ranges::any_of(m_samples, [](const auto &s) { return s.pressureShots > 0; });
@@ -165,7 +165,7 @@ void PowderFitDialog::showResult()
     for (int row = 0; row < m_table->rowCount(); ++row)
     {
         const auto i = static_cast<std::size_t>(row);
-        const grt::powderfit::Sample &s = m_samples[i];
+        const csr::powderfit::Sample &s = m_samples[i];
         auto *name = new QTableWidgetItem(s.source);
         name->setFlags(name->flags() & ~Qt::ItemIsEditable);
         m_table->setItem(row, 0, name);
@@ -175,8 +175,8 @@ void PowderFitDialog::showResult()
         int col = 4;
         for (const Model m : {Model::Original, Model::Physical})
         {
-            const grt::powderfit::Result *res = resultOf(m);
-            const grt::powderfit::SampleResult *r = res && i < res->samples.size() ? &res->samples[i] : nullptr;
+            const csr::powderfit::Result *res = resultOf(m);
+            const csr::powderfit::SampleResult *r = res && i < res->samples.size() ? &res->samples[i] : nullptr;
             m_table->setItem(row, col++, cell(r ? percent(r->velocityBefore, s.velocity_ms) : QString()));
             m_table->setItem(row, col++, cell(r ? percent(r->velocityAfter, s.velocity_ms) : QString()));
             m_table->setItem(row, col++, cell(r && s.pressureShots > 0 ? percent(r->pressureAfter, s.pressure_bar) : QString()));
@@ -193,12 +193,12 @@ void PowderFitDialog::showResult()
         return;
     }
     QStringList blocks;
-    for (const grt::powderfit::Result &r : m_results)
+    for (const csr::powderfit::Result &r : m_results)
     {
         QStringList values;
         for (std::size_t i = 0; i < r.params.size(); ++i)
             values << QStringLiteral("%1: %2 → <b>%3</b>")
-                          .arg(grt::powderfit::name(r.params[i]), QLocale().toString(r.before[i], 'f', 4),
+                          .arg(csr::powderfit::name(r.params[i]), QLocale().toString(r.before[i], 'f', 4),
                                QLocale().toString(r.after[i], 'f', 4));
         QString text =
             u"<b>"_s + (r.model == Model::Original ? tr("GRT values") : tr("Physical Model")) + u"</b> &nbsp; "_s +

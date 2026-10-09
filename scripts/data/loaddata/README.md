@@ -7,7 +7,7 @@ the data of the Measurements tab, so a propellant model can be fitted to it with
    tool of vihtavuori.com) and writes one sample per start load and per maximum load of the powder. Cartridges and
    bullets are matched to the project's records (`data/calibers`, `data/projectiles`); a bullet that is not there gets a
    length from `scripts/data/bulletdata/estimate_length.py`. The case capacity is the (estimated) value of the caliber record.
-2. `grt_fitdata vv_N150.csv --params Ba` fits the model values (`--help` lists the options: start values, fitted
+2. `csr_fitdata vv_N150.csv --params Ba` fits the model values (`--help` lists the options: start values, fitted
    values, pressure assumption, `--holdout` calibers that are only evaluated, `--out` for a record file).
 
 Experience with N150 (920 samples, 34 cartridges):
@@ -47,7 +47,7 @@ N32C (10) and 20N29 (18).
 
 ## Lovex and Reload Swiss (with pressures)
 
-Both publish measured pressures with every load, so `grt_fitdata --use-pressure` fits velocities and pressures (the CSV column
+Both publish measured pressures with every load, so `csr_fitdata --use-pressure` fits velocities and pressures (the CSV column
 `pressure_bar`; weight `--pressure-weight`, default 0.5).
 
 - `lovex_extract.py guide.pdf` reads the rifle tables of Explosia's LOVEX Reloading Guide 2019 (`pdftotext -layout`): per cartridge
@@ -186,7 +186,7 @@ The fit runs thousands of simulations. The solver uses a secant method (Illinois
 
 ## Recalibrating the solver on published pressures (experiment, not adopted)
 
-`tools/grt_eval` simulates a samples CSV with the project's propellant records and any solver constants (`--set name=value`, `--ba "Maker Name=value"`);
+`tools/csr_eval` simulates a samples CSV with the project's propellant records and any solver constants (`--set name=value`, `--ba "Maker Name=value"`);
 `analysis/calibrate_published.py` uses it to fit shared solver constants and the burn rates of a few powders jointly (6 powders with the most samples:
 Accurate 4350, Ramshot Hunter, Accurate 2700, Ramshot Magnum, Ramshot Big Game, Hodgdon H4350; 2169 loads, 3/4 of the cartridges) and compares
 them with the current constants (burn rates refitted): on the held-out cartridges (788 loads) and on other powders (IMR 4350, Varget, H4831,
@@ -231,7 +231,7 @@ RS80 (7-22 %), Hodgdon LVR (11 loads, 2 cartridges), CFE BLK (10.6 %), H4227 / I
 
 `hodgdon_shot_extract.py manual.pdf` reads the shotshell tables of the Hodgdon Reloading Manual 2024 (pages 173-194: 12 gauge 2 3/4", 1 and 1 1/8 oz lead
 shot, Federal, Remington, Winchester, Cheddite and Fiocchi hulls, many wads and primers; charge, velocity, pressure in PSI): 3,448 loads of 10 powders
-(Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Super Handicap, WST, Competition). `grt_eval` simulates rows with a `shot_g`
+(Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Super Handicap, WST, Competition). `csr_eval` simulates rows with a `shot_g`
 column in shotshell mode (the CIP dimensions of the hull by gauge and length, shot column + 25 mm wad and 2.5 g wad as the projectile, 28" barrel).
 `analysis/calibrate_shotshell.py` fits the burn rate of each powder (and, in a second step, the three shotshell constants), holding out the loads with the
 Winchester 209 primer:
@@ -265,7 +265,7 @@ loads are too few to fit one.
 
 ## Quality of a fit
 
-Every record written by `vv_to_json.py`, `published_fit.py` and `grt_fitpowder --out` gets the propellant column `Qlty` (the original's
+Every record written by `vv_to_json.py`, `published_fit.py` and `csr_fitpowder --out` gets the propellant column `Qlty` (the original's
 "Model quality", 0..1 in steps of 0.05, 0 = unknown): `(1 - velocity rms / 10 %)`, with pressures averaged with `(1 - pressure rms / 20 %)`,
 times `min(1, loads / 100)`. `scripts/data/fit_quality.py` and `powderfit::fitQuality` (`src/core/powderfit.cpp`) are the two implementations.
 The existing records were graded from the numbers in their descriptions (N150: 0.55-0.7, the Lovex powders with 20 loads and 7 % error: 0.05-0.2).

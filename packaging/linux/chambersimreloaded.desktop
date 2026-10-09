@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=GRT Reloaded
+Name=ChamberSim Reloaded
 GenericName=Interior ballistics
 Comment=Interior ballistics for handloaders
-Exec=GRTReloaded %f
-Icon=grtreloaded
+Exec=ChamberSimReloaded %f
+Icon=chambersimreloaded
 Terminal=false
-MimeType=application/x-grtreload;
+MimeType=application/x-csrload;
 Categories=Qt;Science;Utility;

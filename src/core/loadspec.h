@@ -2,7 +2,7 @@
 // units, types and descriptions, in file order. Used to create new loads in the same format.
 #pragma once
 
-namespace grt::spec
+namespace csr::spec
 {
 
 struct Field
@@ -82,4 +82,4 @@ inline constexpr Field kPropellant[] = {
     {"imageDetailUuid", "", "string", "propellant detail picture uuid"},
 };
 
-}  // namespace grt::spec
+}  // namespace csr::spec

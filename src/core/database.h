@@ -11,7 +11,7 @@
 #include <utility>
 #include <vector>
 
-namespace grt
+namespace csr
 {
 
 enum class Table
@@ -135,4 +135,4 @@ private:
     QStringList m_projectErrors;
 };
 
-}  // namespace grt
+}  // namespace csr

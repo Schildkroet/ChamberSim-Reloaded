@@ -1,8 +1,8 @@
 // Fits a propellant model to chronograph (and pressure) measurements: the charges in the Measurements tab of one or
-// more *.grtreload (or *.grtload) files with the same powder. The powder's model values (burn rate Ba, form function a0, z1, z2) are
-// changed until GRT Reloaded's simulation matches the measured velocities (and pressures) as well as possible.
+// more *.csrload (or *.grtload) files with the same powder. The powder's model values (burn rate Ba, form function a0, z1, z2) are
+// changed until ChamberSim Reloaded's simulation matches the measured velocities (and pressures) as well as possible.
 //
-//   grt_fitpowder [options] load.grtreload [more loads ...]
+//   csr_fitpowder [options] load.csrload [more loads ...]
 //     --params Ba,a0,z1,z2    values to fit (default: chosen from the amount of data)
 //     --pressure-weight W     weight of pressure errors against velocity errors (default 1; 0 = velocities only)
 //     --model original|physical  the original model's values (Ba, a0, z1, z2; default) or the physical model's (physBa ...)
@@ -46,9 +46,9 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
     QCommandLineParser cli;
-    cli.setApplicationDescription(u"Fits a propellant model to the measurements in *.grtreload (or *.grtload) files."_s);
+    cli.setApplicationDescription(u"Fits a propellant model to the measurements in *.csrload (or *.grtload) files."_s);
     cli.addHelpOption();
-    cli.addPositionalArgument(u"loads"_s, u"*.grtreload (or *.grtload) files with a Measurements tab (same powder)"_s, u"load..."_s);
+    cli.addPositionalArgument(u"loads"_s, u"*.csrload (or *.grtload) files with a Measurements tab (same powder)"_s, u"load..."_s);
     cli.addOptions({{u"params"_s, u"values to fit, e.g. Ba,a0,z1,z2 (default: chosen from the data)"_s, u"list"_s},
                     {u"pressure-weight"_s, u"weight of pressure errors (default 1, 0 = velocities only)"_s, u"w"_s, u"1"_s},
                     {u"model"_s, u"original (Ba, a0, z1, z2) or physical (physBa ...)"_s, u"name"_s, u"original"_s},
@@ -65,20 +65,20 @@ int main(int argc, char *argv[])
 
     // ---- read the measurements ----
     QStringList warnings;
-    std::vector<grt::powderfit::Sample> samples;
-    std::vector<std::pair<QString, grt::LoadFile>> loads;
+    std::vector<csr::powderfit::Sample> samples;
+    std::vector<std::pair<QString, csr::LoadFile>> loads;
     std::set<QString> powders;
     for (const QString &path : cli.positionalArguments())
     {
         QString error;
-        auto lf = grt::LoadFile::read(path, &error);
+        auto lf = csr::LoadFile::read(path, &error);
         if (!lf)
         {
             err << "Cannot read " << path << ": " << error << '\n';
             return 2;
         }
         const QString name = QFileInfo(path).fileName();
-        for (auto &s : grt::powderfit::samples(*lf, name, &warnings)) samples.push_back(std::move(s));
+        for (auto &s : csr::powderfit::samples(*lf, name, &warnings)) samples.push_back(std::move(s));
         powders.insert((lf->propellant.text(u"mname") + u' ' + lf->propellant.text(u"pname")).trimmed());
         loads.emplace_back(path, std::move(*lf));
     }
@@ -92,11 +92,11 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    grt::powderfit::Options options;
+    csr::powderfit::Options options;
     if (cli.isSet(u"params"_s))
     {
         QString error;
-        options.params = grt::powderfit::parse(cli.value(u"params"_s), &error);
+        options.params = csr::powderfit::parse(cli.value(u"params"_s), &error);
         if (options.params.empty())
         {
             err << error << '\n';
@@ -105,10 +105,10 @@ int main(int argc, char *argv[])
     }
     else
     {
-        options.params = grt::powderfit::defaultParams(samples);
+        options.params = csr::powderfit::defaultParams(samples);
     }
     options.pressureWeight = cli.value(u"pressure-weight"_s).toDouble();
-    options.model = cli.value(u"model"_s) == u"physical"_s ? grt::powderfit::Model::Physical : grt::powderfit::Model::Original;
+    options.model = cli.value(u"model"_s) == u"physical"_s ? csr::powderfit::Model::Physical : csr::powderfit::Model::Original;
     int shots = 0;
     for (const auto &s : samples) shots += s.shots;
     if (static_cast<std::size_t>(samples.size()) < options.params.size())
@@ -116,14 +116,14 @@ int main(int argc, char *argv[])
             << u"%1 measured charges for %2 values: the result is not determined well"_s.arg(samples.size()).arg(options.params.size());
 
     QStringList names;
-    for (const auto p : options.params) names << grt::powderfit::name(p);
+    for (const auto p : options.params) names << csr::powderfit::name(p);
     out << "Powder:  " << QStringList(powders.begin(), powders.end()).join(u", "_s) << '\n';
     out << "Data:    " << samples.size() << " charges, " << shots << " shots in " << loads.size() << " file(s)\n";
     out << "Fitting: " << names.join(u", "_s) << "\n\n";
     for (const QString &w : warnings) out << "WARNING " << w << '\n';
     if (!warnings.isEmpty()) out << '\n';
 
-    const grt::powderfit::Result res = grt::powderfit::fit(samples, options);
+    const csr::powderfit::Result res = csr::powderfit::fit(samples, options);
 
     // ---- report ----
     out << QString::asprintf("%-34s %9s %5s %9s %9s %7s %9s %7s", "file", "charge g", "shots", "v meas", "v before", "%", "v after", "%")
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
     }
     out << "\nModel values:\n";
     for (std::size_t i = 0; i < res.params.size(); ++i)
-        out << QString::asprintf("  %-3s %10.5f -> %10.5f", qPrintable(grt::powderfit::name(res.params[i])), res.before[i], res.after[i])
+        out << QString::asprintf("  %-3s %10.5f -> %10.5f", qPrintable(csr::powderfit::name(res.params[i])), res.before[i], res.after[i])
             << '\n';
     out << QString::asprintf("\nVelocity error (rms): %.2f %% -> %.2f %%", 100 * res.velocityRmsBefore, 100 * res.velocityRmsAfter);
     if (pressure)
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
     {
         for (auto &[path, lf] : loads)
         {
-            grt::powderfit::apply(lf.propellant, res);
+            csr::powderfit::apply(lf.propellant, res);
             const QFileInfo fi(path);
             const QString target = fi.dir().filePath(fi.completeBaseName() + u"-fitted."_s + fi.suffix());
             QString error;
@@ -185,27 +185,27 @@ int main(int argc, char *argv[])
     {
         // the propellant of the first load, with the fitted values, in the database's columns
         QTemporaryDir tmp;
-        grt::Database db;
-        grt::Database::setProjectDataLocation(tmp.path());
+        csr::Database db;
+        csr::Database::setProjectDataLocation(tmp.path());
         if (!db.open({}, tmp.filePath(u"own.db"_s)))
         {
             err << "Cannot create the record (database)\n";
             return 2;
         }
-        const auto schema = db.schema(grt::Table::Propellant);
+        const auto schema = db.schema(csr::Table::Propellant);
         const QVariantMap record =
-            grt::powderfit::toRecord(loads.front().second.propellant, res, schema, grt::powderfit::describe(res, samples));
+            csr::powderfit::toRecord(loads.front().second.propellant, res, schema, csr::powderfit::describe(res, samples));
         QFile f(cli.value(u"out"_s));
-        if (!f.open(QIODevice::WriteOnly) || f.write(grt::projectdata::toJson(record, schema)) < 0)
+        if (!f.open(QIODevice::WriteOnly) || f.write(csr::projectdata::toJson(record, schema)) < 0)
         {
             err << "Cannot write " << f.fileName() << '\n';
             return 2;
         }
         out << "Saved " << f.fileName() << '\n';
-        for (const QString &p : grt::projectdata::check(grt::Table::Propellant, record, schema)) out << "  note: " << p << '\n';
+        for (const QString &p : csr::projectdata::check(csr::Table::Propellant, record, schema)) out << "  note: " << p << '\n';
         QStringList kept;
         for (const QString &c : {u"Qex"_s, u"k"_s, u"a0"_s, u"a1"_s, u"z1"_s, u"z2"_s, u"pc"_s, u"pcd"_s, u"tcc"_s, u"tch"_s})
-            if (std::ranges::none_of(res.params, [&](auto p) { return grt::powderfit::name(p) == c; })) kept << c;
+            if (std::ranges::none_of(res.params, [&](auto p) { return csr::powderfit::name(p) == c; })) kept << c;
         out << "  note: " << kept.join(u", "_s)
             << " are taken unchanged from the load. Before contributing the record, make sure they come from the\n"
                "        manufacturer or your own measurements, not from another program's database (see CONTRIBUTING.md).\n";

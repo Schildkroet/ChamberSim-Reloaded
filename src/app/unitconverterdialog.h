@@ -15,10 +15,10 @@ class UnitConverterDialog : public QDialog
 public:
     explicit UnitConverterDialog(QWidget *parent = nullptr);
 
-    void setQuantity(grt::units::Quantity quantity);
+    void setQuantity(csr::units::Quantity quantity);
     void setFromUnit(const QString &unitId);
     void setInput(const QString &text);
-    [[nodiscard]] grt::units::Quantity quantity() const;
+    [[nodiscard]] csr::units::Quantity quantity() const;
     // The converted values as shown, one row per unit: "symbol" and "value".
     [[nodiscard]] int rowCount() const;
     [[nodiscard]] QString symbolAt(int row) const;

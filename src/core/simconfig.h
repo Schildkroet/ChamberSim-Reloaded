@@ -5,7 +5,7 @@
 
 #include <optional>
 
-namespace grt
+namespace csr
 {
 
 // All inputs of one interior-ballistics simulation. Units are those of the
@@ -72,4 +72,4 @@ struct SimInput
     [[nodiscard]] double effectiveMass_g() const noexcept { return bulletMass_g + sebert * charge_g; }
 };
 
-}  // namespace grt
+}  // namespace csr

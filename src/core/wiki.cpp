@@ -8,7 +8,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt::report
+namespace csr::report
 {
 
 namespace
@@ -413,4 +413,4 @@ QString wikiToHtml(const QString &source, const ImageResolver &images, int pageW
     return html;
 }
 
-}  // namespace grt::report
+}  // namespace csr::report

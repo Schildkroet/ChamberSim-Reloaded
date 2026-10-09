@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Fits the burn rate Ba of every Vihtavuori powder to the published load data.
 
-    vv_fit_all.py [-o vv_fits.csv] [--fitdata build/release/grt_fitdata] [--json file] [--work dir]
+    vv_fit_all.py [-o vv_fits.csv] [--fitdata build/release/csr_fitdata] [--json file] [--work dir]
 
-For each powder: scripts/data/loaddata/vv_extract.py makes the samples, then grt_fitdata fits Ba twice, with the explosion heat of a
+For each powder: scripts/data/loaddata/vv_extract.py makes the samples, then csr_fitdata fits Ba twice, with the explosion heat of a
 single-base (3800 kJ/kg) and of a double-base powder (4300 kJ/kg): the tables do not say which kind a powder is, and Ba
 depends on the heat. The fit with the smaller velocity error is kept. Samples that the solver rejects (charge too high for the case at the assumed
 bulk density) are left out and counted. Qex, k and the densities are NOT fitted: they stay
@@ -25,7 +25,7 @@ VARIANTS = {"single-base": "Qex=3800,k=1.23,pc=1580,pcd=900", "double-base": "Qe
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("-o", "--output", type=Path, default=Path("vv_fits.csv"))
-    ap.add_argument("--fitdata", type=Path, default=ROOT / "build" / "release" / "grt_fitdata")
+    ap.add_argument("--fitdata", type=Path, default=ROOT / "build" / "release" / "csr_fitdata")
     ap.add_argument("--json", type=Path)
     ap.add_argument("--work", type=Path, default=Path("vv_work"))
     ap.add_argument("--table", type=Path, help="vv_powder_data.csv: the published energy content and bulk density per powder replace the generic values")

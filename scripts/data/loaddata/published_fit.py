@@ -3,7 +3,7 @@
 
     published_fit.py samples.csv --maker Lovex --source "..." [--base-from-name] [-o data/propellants] [--fits fits.csv]
 
-Per powder grt_fitdata fits Ba (velocities of the start and maximum loads and the measured pressures of the table, --use-pressure)
+Per powder csr_fitdata fits Ba (velocities of the start and maximum loads and the measured pressures of the table, --use-pressure)
 with the form function a0 = 0, z1 = 0.3, z2 = 0.6 (see README: the data do not determine it) and the explosion heat of a single-base
 (3800 kJ/kg) or a double-base powder (4300 kJ/kg). With --base-from-name the type follows the name (Lovex: S = single, D = double base),
 else both are tried and the one with the smaller velocity error is kept. Qex, k, pc and pcd are not published: typical values.
@@ -54,7 +54,7 @@ def main() -> int:
     ap.add_argument("--maker", help="maker of all powders (default: the first word of the powder name: \"Accurate 4350\")")
     ap.add_argument("--source", required=True, help="where the data come from, for the record's origin and description")
     ap.add_argument("--base-from-name", action="store_true", help="S... = single base, D... = double base (Lovex)")
-    ap.add_argument("--fitdata", type=Path, default=ROOT / "build" / "release" / "grt_fitdata")
+    ap.add_argument("--fitdata", type=Path, default=ROOT / "build" / "release" / "csr_fitdata")
     ap.add_argument("--base", choices=list(BASES), help="the type of all powders when the maker states it (Vectan: single base)")
     ap.add_argument("--note", default="", help="added to the description of the records (assumptions about the data)")
     ap.add_argument("--no-pressure", action="store_true", help="fit the velocities only")

@@ -57,9 +57,9 @@ MainWindow::MainWindow(QWidget *parent)
     setMenuWidget(m_titleBar);
 
     const std::array titles{tr("Calibers"), tr("Projectiles"), tr("Propellants")};
-    for (std::size_t i = 0; i < grt::kRecordTables.size(); ++i)
+    for (std::size_t i = 0; i < csr::kRecordTables.size(); ++i)
     {
-        m_browsers[i] = new TableBrowser(grt::kRecordTables[i]);
+        m_browsers[i] = new TableBrowser(csr::kRecordTables[i]);
         m_dbTabs->addTab(m_browsers[i], titles[i]);
         connect(m_browsers[i], &TableBrowser::currentIdChanged, this, &MainWindow::updateRecordButtons);
         connect(m_browsers[i], &TableBrowser::idActivated, this, [this](int id) { viewRecord(id); });
@@ -324,7 +324,7 @@ void MainWindow::createActions()
 
     // Help
     QMenu *help = m_menuBar->addMenu(tr("&Help"));
-    help->addAction(tr("&About GRT Reloaded…"), this,
+    help->addAction(tr("&About ChamberSim Reloaded…"), this,
                     [this]
                     {
                         std::optional<about::DatabaseInfo> info;
@@ -333,14 +333,14 @@ void MainWindow::createActions()
                             // the original's records: all minus the project's and the own ones
                             const auto counts = [&](auto count)
                             {
-                                return about::Counts{.calibers = count(grt::Table::Caliber),
-                                                     .projectiles = count(grt::Table::Projectile),
-                                                     .propellants = count(grt::Table::Propellant)};
+                                return about::Counts{.calibers = count(csr::Table::Caliber),
+                                                     .projectiles = count(csr::Table::Projectile),
+                                                     .propellants = count(csr::Table::Propellant)};
                             };
                             info = about::DatabaseInfo{
-                                .project = counts([&](grt::Table t) { return m_db.projectCount(t); }),
-                                .own = counts([&](grt::Table t) { return m_db.ownCount(t); }),
-                                .original = counts([&](grt::Table t) { return m_db.count(t) - m_db.projectCount(t) - m_db.ownCount(t); }),
+                                .project = counts([&](csr::Table t) { return m_db.projectCount(t); }),
+                                .own = counts([&](csr::Table t) { return m_db.ownCount(t); }),
+                                .original = counts([&](csr::Table t) { return m_db.count(t) - m_db.projectCount(t) - m_db.ownCount(t); }),
                                 .originalPath = m_db.path()};
                         }
                         about::show(this, info);
@@ -363,7 +363,7 @@ void MainWindow::updateActions()
 {
     LoadView *view = currentLoad();
     // the title names the load that is shown (it appears in the title bar and the task switcher)
-    const QString app = tr("GRT Reloaded");
+    const QString app = tr("ChamberSim Reloaded");
     setWindowTitle(view ? QStringLiteral("%1 – %2").arg(m_tabs->tabText(m_tabs->currentIndex()), app) : app);
     for (QAction *a : m_loadActions) a->setEnabled(view != nullptr);
     if (m_saveAction) m_saveAction->setEnabled(view && (view->isModified() || view->path().isEmpty()));
@@ -432,8 +432,8 @@ bool MainWindow::openDatabase(const QString &originalPath, bool complain)
     const bool ok = m_db.open(originalPath, {}, &error);
     if (!m_db.isOpen())
     {  // not even the own database: nothing to show
-        LOG_Error() << "Cannot open the program's database" << grt::Database::defaultOwnPath() << ":" << error;
-        QMessageBox::warning(this, tr("Database"), tr("Cannot open the database %1:\n%2").arg(grt::Database::defaultOwnPath(), error));
+        LOG_Error() << "Cannot open the program's database" << csr::Database::defaultOwnPath() << ":" << error;
+        QMessageBox::warning(this, tr("Database"), tr("Cannot open the database %1:\n%2").arg(csr::Database::defaultOwnPath(), error));
         return false;
     }
     for (TableBrowser *b : m_browsers) b->setDatabase(&m_db);
@@ -455,9 +455,9 @@ bool MainWindow::openDatabase(const QString &originalPath, bool complain)
 QString MainWindow::databaseSummary() const
 {
     const QString counts = tr("%1 calibers, %2 projectiles, %3 propellants")
-                               .arg(m_db.count(grt::Table::Caliber))
-                               .arg(m_db.count(grt::Table::Projectile))
-                               .arg(m_db.count(grt::Table::Propellant));
+                               .arg(m_db.count(csr::Table::Caliber))
+                               .arg(m_db.count(csr::Table::Projectile))
+                               .arg(m_db.count(csr::Table::Propellant));
     return m_db.hasOriginal() ? tr("%1: %2").arg(QFileInfo(m_db.path()).fileName(), counts)
                               : tr("No original database (choose it in File ▸ Settings…): %1").arg(counts);
 }
@@ -550,16 +550,16 @@ TableBrowser *MainWindow::currentBrowser() const
     return m_browsers[static_cast<std::size_t>(std::clamp(m_dbTabs->currentIndex(), 0, 2))];
 }
 
-grt::Table MainWindow::currentTable() const
+csr::Table MainWindow::currentTable() const
 {
-    return grt::kRecordTables[static_cast<std::size_t>(std::clamp(m_dbTabs->currentIndex(), 0, 2))];
+    return csr::kRecordTables[static_cast<std::size_t>(std::clamp(m_dbTabs->currentIndex(), 0, 2))];
 }
 
 void MainWindow::updateRecordButtons()
 {
     if (!m_newRecord) return;
     const int id = currentBrowser()->currentId();
-    const bool own = grt::Database::isOwnId(id);
+    const bool own = csr::Database::isOwnId(id);
     m_newRecord->setEnabled(m_db.isOpen());
     m_newLoad->setEnabled(m_db.isOpen());
     m_copyRecord->setEnabled(id >= 0);
@@ -575,7 +575,7 @@ void MainWindow::updateRecordButtons()
 void MainWindow::viewRecord(int id)
 {
     if (!m_db.isOpen()) return;
-    const grt::Table table = currentTable();
+    const csr::Table table = currentTable();
     const auto record = m_db.record(table, id);
     if (!record) return;
     RecordViewDialog dlg(m_db, table, id, *record, this);
@@ -587,7 +587,7 @@ void MainWindow::viewRecord(int id)
 void MainWindow::editRecord(RecordDialog::Mode mode)
 {
     if (!m_db.isOpen()) return;
-    const grt::Table table = currentTable();
+    const csr::Table table = currentTable();
     const int id = currentBrowser()->currentId();
     QVariantMap record;
     if (mode != RecordDialog::Mode::New)
@@ -595,18 +595,18 @@ void MainWindow::editRecord(RecordDialog::Mode mode)
         const auto r = m_db.record(table, id);
         if (!r) return;
         record = *r;
-        if (mode == RecordDialog::Mode::Edit && !grt::Database::isOwnId(id)) mode = RecordDialog::Mode::Copy;
+        if (mode == RecordDialog::Mode::Edit && !csr::Database::isOwnId(id)) mode = RecordDialog::Mode::Copy;
     }
     RecordDialog dlg(m_db, table, mode, record, this);
     if (dlg.exec() == QDialog::Accepted) storeRecord(table, mode, id, dlg.values(), dlg.pendingImages());
 }
 
-int MainWindow::storeRecord(grt::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values,
-                            const std::vector<grt::Database::Image> &images)
+int MainWindow::storeRecord(csr::Table table, RecordDialog::Mode mode, int id, const QVariantMap &values,
+                            const std::vector<csr::Database::Image> &images)
 {
     QString error;
     int stored = -1;
-    for (const grt::Database::Image &image : images)
+    for (const csr::Database::Image &image : images)
     {  // the record refers to them
         if (!m_db.addImage(image, &error))
         {
@@ -637,14 +637,14 @@ int MainWindow::storeRecord(grt::Table table, RecordDialog::Mode mode, int id, c
 
 bool MainWindow::deleteRecord(bool ask)
 {
-    const grt::Table table = currentTable();
+    const csr::Table table = currentTable();
     const int id = currentBrowser()->currentId();
-    if (!grt::Database::isOwnId(id)) return false;
+    if (!csr::Database::isOwnId(id)) return false;
     const auto record = m_db.record(table, id);
     if (!record) return false;
     if (ask && QMessageBox::question(
                    this, tr("Delete record"),
-                   tr("Delete \"%1\"?\n\nLoad files that use it keep their values.").arg(grt::dbfields::recordTitle(table, *record))) !=
+                   tr("Delete \"%1\"?\n\nLoad files that use it keep their values.").arg(csr::dbfields::recordTitle(table, *record))) !=
                    QMessageBox::Yes)
         return false;
     QString error;
@@ -661,13 +661,13 @@ bool MainWindow::deleteRecord(bool ask)
 
 bool MainWindow::exportRecord(const QString &path)
 {
-    const grt::Table table = currentTable();
+    const csr::Table table = currentTable();
     const int id = currentBrowser()->currentId();
-    if (!grt::Database::isOwnId(id)) return false;
+    if (!csr::Database::isOwnId(id)) return false;
     const auto record = m_db.record(table, id);
     if (!record) return false;
     const auto schema = m_db.schema(table);
-    if (const QStringList problems = grt::projectdata::check(table, *record, schema); !problems.isEmpty() && path.isEmpty())
+    if (const QStringList problems = csr::projectdata::check(table, *record, schema); !problems.isEmpty() && path.isEmpty())
     {
         if (QMessageBox::warning(
                 this, tr("Export record"),
@@ -677,17 +677,17 @@ bool MainWindow::exportRecord(const QString &path)
     }
     QString file = path;
     if (file.isEmpty())
-        file = QFileDialog::getSaveFileName(this, tr("Export record"), grt::projectdata::fileName(table, *record),
+        file = QFileDialog::getSaveFileName(this, tr("Export record"), csr::projectdata::fileName(table, *record),
                                             tr("Record files (*.json)"));
     if (file.isEmpty()) return false;
     QFile out(file);
-    if (!out.open(QIODevice::WriteOnly) || out.write(grt::projectdata::toJson(*record, schema)) < 0)
+    if (!out.open(QIODevice::WriteOnly) || out.write(csr::projectdata::toJson(*record, schema)) < 0)
     {
         QMessageBox::warning(this, tr("Export record"), tr("Cannot write %1").arg(file));
         return false;
     }
     statusBar()->showMessage(tr("Saved %1: add it to data/%2/ in the project to contribute it.")
-                                 .arg(QFileInfo(file).fileName(), grt::projectdata::folderName(table)));
+                                 .arg(QFileInfo(file).fileName(), csr::projectdata::folderName(table)));
     return true;
 }
 
@@ -714,7 +714,7 @@ bool MainWindow::overlayReference(const QString &jsonPath)
         return false;
     }
     QString error;
-    auto ref = grt::readReferenceRun(jsonPath, &error);
+    auto ref = csr::readReferenceRun(jsonPath, &error);
     if (!ref)
     {
         LOG_Warn() << "Cannot read reference" << jsonPath << ":" << error;
@@ -734,10 +734,10 @@ void MainWindow::setupLoadView(LoadView *view)
 {
     view->setDatabase(&m_db);
     view->setRecordSaver(
-        [this](grt::Table table, const QVariantMap &values)
+        [this](csr::Table table, const QVariantMap &values)
         {
             const int id = storeRecord(table, RecordDialog::Mode::New, -1, values);
-            if (id >= 0) statusBar()->showMessage(tr("Saved as your own record: %1").arg(grt::dbfields::recordTitle(table, values)));
+            if (id >= 0) statusBar()->showMessage(tr("Saved as your own record: %1").arg(csr::dbfields::recordTitle(table, values)));
             return id;
         });
     connect(view, &LoadView::undoStateChanged, this, &MainWindow::updateActions);
@@ -753,7 +753,7 @@ void MainWindow::openLoadDialog()
 {
     const QStringList files = QFileDialog::getOpenFileNames(
         this, tr("Open load"), {},
-        tr("Loads (*.grtreload *.grtload);;GRT Reloaded loads (*.grtreload);;Original GRT loads (*.grtload);;All files (*)"));
+        tr("Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)"));
     for (const QString &f : files) openLoad(f);
 }
 
@@ -818,15 +818,16 @@ bool MainWindow::saveLoad(LoadView *view, bool saveAs)
 {
     QString path = view->path();
     // a load opened from the original's *.grtload is saved in this program's format (Save as ... *.grtload exports it)
-    if (!path.isEmpty() && grt::formatForPath(path) == grt::FileFormat::Original && !saveAs) saveAs = true;
+    if (!path.isEmpty() && csr::formatForPath(path) == csr::FileFormat::Original && !saveAs) saveAs = true;
     if (saveAs || path.isEmpty())
     {
-        if (!path.isEmpty() && grt::formatForPath(path) == grt::FileFormat::Original)
-            path = QFileInfo(path).absolutePath() + QLatin1Char('/') + QFileInfo(path).completeBaseName() + QStringLiteral(".grtreload");
+        if (!path.isEmpty() && csr::formatForPath(path) == csr::FileFormat::Original)
+            path = QFileInfo(path).absolutePath() + QLatin1Char('/') + QFileInfo(path).completeBaseName() + QStringLiteral(".csrload");
         QString selected;
         path = QFileDialog::getSaveFileName(
             this, tr("Save load"), path,
-            tr("GRT Reloaded loads (*.grtreload);;Original GRT loads, without the data of GRT Reloaded (*.grtload)"), &selected);
+            tr("ChamberSim Reloaded loads (*.csrload);;Original GRT loads, without the data of ChamberSim Reloaded (*.grtload)"),
+            &selected);
         if (path.isEmpty()) return false;
         if (QFileInfo(path).suffix().isEmpty() && selected.contains(QStringLiteral("*.grtload"))) path += QStringLiteral(".grtload");
         path = withLoadExtension(path);
@@ -887,6 +888,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
     QSettings().setValue(QStringLiteral("window/geometry"), saveGeometry());
     saveSession();
-    LOG_Info() << "GRT Reloaded closed";
+    LOG_Info() << "ChamberSim Reloaded closed";
     event->accept();
 }

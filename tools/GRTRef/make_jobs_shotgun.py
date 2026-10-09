@@ -3,7 +3,7 @@
 
 The guide's measured velocities (28" barrel, light gates 2.5 m from the muzzle) are the reference for both programs,
 each load with the caliber's shotshell flag off ("_off") and on ("_on"): does the original's shotshell mode bring it
-closer to reality, and how does GRT Reloaded do?
+closer to reality, and how does ChamberSim Reloaded do?
 
 usage: make_jobs_shotgun.py <shotgun.csv> [out dir]     (CSV: reference/vv2026_shotgun.csv, local only)
 The shot column is the "projectile": shot + 2.5 g of wad, column length = shot volume (packing 0.62) + wad height

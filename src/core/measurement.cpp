@@ -10,7 +10,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -255,4 +255,4 @@ QString writeMeasurement(const QString &appendixXml, const Measurement &m)
     return writeMeasurements(appendixXml, all);
 }
 
-}  // namespace grt
+}  // namespace csr

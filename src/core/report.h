@@ -11,7 +11,7 @@
 
 #include <functional>
 
-namespace grt::report
+namespace csr::report
 {
 
 // A value a report can show: a number (in the file's base unit, with its quantity), text, or a PNG image.
@@ -84,4 +84,4 @@ struct FileInfo
 // The report used when the user has not written one.
 [[nodiscard]] QString defaultTemplate();
 
-}  // namespace grt::report
+}  // namespace csr::report

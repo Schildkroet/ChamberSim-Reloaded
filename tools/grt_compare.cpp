@@ -33,7 +33,7 @@ struct RunError
     double zMuzzle{};  // absolute error of the burnt fraction at the muzzle
 };
 
-RunError compare(const grt::SimResult &sim, const grt::ReferenceRun &ref)
+RunError compare(const csr::SimResult &sim, const csr::ReferenceRun &ref)
 {
     RunError e;
     const double refP = ref.number(u"MaxPressure"_s);
@@ -45,7 +45,7 @@ RunError compare(const grt::SimResult &sim, const grt::ReferenceRun &ref)
     const auto pressureAt = [&](double x_mm)
     {
         const auto &pts = sim.points;
-        const auto it = std::ranges::lower_bound(pts, x_mm, {}, &grt::SimPoint::x_mm);
+        const auto it = std::ranges::lower_bound(pts, x_mm, {}, &csr::SimPoint::x_mm);
         if (it == pts.begin()) return pts.front().p_bar;
         if (it == pts.end()) return pts.back().p_bar;
         const auto &a = *(it - 1);
@@ -77,8 +77,8 @@ int main(int argc, char *argv[])
     cli.addHelpOption();
     const QString root = QDir::cleanPath(QCoreApplication::applicationDirPath() + u"/.."_s);
     cli.addOptions({
-        {u"jobs"_s, u"directory with exp_*.grtload"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/tools/GRTRef/jobs_all")},
-        {u"results"_s, u"directory with exp_*.json"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/reference/results")},
+        {u"jobs"_s, u"directory with exp_*.grtload"_s, u"dir"_s, QStringLiteral(CSR_SOURCE_DIR "/tools/GRTRef/jobs_all")},
+        {u"results"_s, u"directory with exp_*.json"_s, u"dir"_s, QStringLiteral(CSR_SOURCE_DIR "/reference/results")},
         {u"include"_s, u"only runs whose name matches this regex"_s, u"re"_s},
         {u"exclude"_s,
          u"skip runs whose name matches this regex (default: stale runs, and extreme probes of batch 7 whose reference is an artifact of the original's unclamped first step)"_s,
@@ -99,10 +99,10 @@ int main(int argc, char *argv[])
     cli.process(app);
 
     const QString profile = cli.value(u"profile"_s);
-    grt::Calibration cal = grt::calibrationFor(profile == u"published"_s  ? grt::CalibrationProfile::Published
-                                               : profile == u"physical"_s ? grt::CalibrationProfile::Physical
-                                                                          : grt::CalibrationProfile::Original);
-    auto params = grt::parameters(cal);
+    csr::Calibration cal = csr::calibrationFor(profile == u"published"_s  ? csr::CalibrationProfile::Published
+                                               : profile == u"physical"_s ? csr::CalibrationProfile::Physical
+                                                                          : csr::CalibrationProfile::Original);
+    auto params = csr::parameters(cal);
     QTextStream out(stdout);
     if (cli.isSet(u"list-params"_s))
     {
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
     for (const QString &kv : cli.values(u"set"_s))
     {
         const QString key = kv.section(u'=', 0, 0);
-        const auto it = std::ranges::find_if(params, [&](const grt::NamedParameter &p) { return key == QLatin1String(p.name); });
+        const auto it = std::ranges::find_if(params, [&](const csr::NamedParameter &p) { return key == QLatin1String(p.name); });
         if (it == params.end())
         {
             out << "unknown parameter: " << key << "\n";
@@ -126,13 +126,13 @@ int main(int argc, char *argv[])
     {  // a check of generated jobs: does the solver accept them, and what do they look like
         for (const QFileInfo &fi : QDir(cli.value(u"loads"_s)).entryInfoList({u"exp_*.grtload"_s}, QDir::Files, QDir::Name))
         {
-            const auto lf = grt::LoadFile::read(fi.absoluteFilePath());
+            const auto lf = csr::LoadFile::read(fi.absoluteFilePath());
             if (!lf)
             {
                 out << QString::asprintf("%-32s UNREADABLE\n", qPrintable(fi.completeBaseName()));
                 continue;
             }
-            const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(*lf), cal, steps);
+            const csr::SimResult r = csr::simulate(csr::SimInput::fromLoad(*lf), cal, steps);
             out << QString::asprintf("%-32s %s pmax %8.1f  v0 %7.1f  burnt %.2f  ratio %.3f\n", qPrintable(fi.completeBaseName()),
                                      r.ok() ? "ok " : "BAD", r.maxPressure_bar, r.muzzleVelocity_ms, r.burntFraction, r.loadRatio);
         }
@@ -154,15 +154,15 @@ int main(int argc, char *argv[])
         const QString name = fi.completeBaseName().mid(4);
         if (!cli.value(u"include"_s).isEmpty() && !include.match(name).hasMatch()) continue;
         if (!cli.value(u"exclude"_s).isEmpty() && exclude.match(name).hasMatch()) continue;
-        const auto ref = grt::readReferenceRun(fi.absoluteFilePath());
-        const auto lf = grt::LoadFile::read(jobDir.filePath(u"exp_%1.grtload"_s.arg(name)));
+        const auto ref = csr::readReferenceRun(fi.absoluteFilePath());
+        const auto lf = csr::LoadFile::read(jobDir.filePath(u"exp_%1.grtload"_s.arg(name)));
         if (!ref || !lf || ref->stale) continue;
         if (ref->points.empty())
         {  // the original rejected the load: the solver should reject it too
             const bool tooHigh = ref->summary.value(u"PropellantChargeTooHigh"_s).toString() == u"true"_s;
             if (!tooHigh) continue;  // e.g. the first job of a batch, which was read before the app finished
             ++rejectedRefs;
-            if (grt::simulate(grt::SimInput::fromLoad(*lf), cal, steps).ok())
+            if (csr::simulate(csr::SimInput::fromLoad(*lf), cal, steps).ok())
             {
                 ++rejectMismatch;
                 if (!quiet) out << QString::asprintf("%-26s original rejected the charge, solver accepted it\n", qPrintable(name));
@@ -170,7 +170,7 @@ int main(int argc, char *argv[])
             continue;
         }
 
-        const grt::SimResult sim = grt::simulate(grt::SimInput::fromLoad(*lf), cal, steps);
+        const csr::SimResult sim = csr::simulate(csr::SimInput::fromLoad(*lf), cal, steps);
         if (!sim.ok())
         {
             ++failed;

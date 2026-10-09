@@ -78,10 +78,10 @@ QString num(double v, int decimals)
 }
 
 // "value symbol" in the user's unit for the quantity.
-QString shown(double base, grt::units::Quantity q, int decimals = -1)
+QString shown(double base, csr::units::Quantity q, int decimals = -1)
 {
-    const grt::units::Unit &u = UnitPreferences::instance().unitFor(q);
-    return grt::units::format(base, u, decimals) + u' ' + QString::fromUtf8(u.symbol);
+    const csr::units::Unit &u = UnitPreferences::instance().unitFor(q);
+    return csr::units::format(base, u, decimals) + u' ' + QString::fromUtf8(u.symbol);
 }
 
 // A light, paper-like palette: reports and printouts must not depend on the dark theme.
@@ -373,7 +373,7 @@ QString LoadView::title() const
     return QFileInfo(m_path).completeBaseName();
 }
 
-grt::EntryList &LoadView::section(int id)
+csr::EntryList &LoadView::section(int id)
 {
     switch (id)
     {
@@ -386,7 +386,7 @@ grt::EntryList &LoadView::section(int id)
 
 bool LoadView::load(const QString &path, QString *error)
 {
-    auto lf = grt::LoadFile::read(path, error);
+    auto lf = csr::LoadFile::read(path, error);
     if (!lf)
     {
         LOG_Warn() << "Cannot read load" << path << ":" << (error ? *error : QString());
@@ -396,8 +396,8 @@ bool LoadView::load(const QString &path, QString *error)
     m_file = std::move(*lf);
     m_path = path;
     // a load saved before the physical burn values existed gets those of its (unchanged) project powder; they are saved with it next time
-    if (grt::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
-    grt::ensureShotParts(m_file.caliber);  // a shotshell load of an older file: the entries for shell, wad and primer (not chosen)
+    if (csr::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
+    csr::ensureShotParts(m_file.caliber);  // a shotshell load of an older file: the entries for shell, wad and primer (not chosen)
     rebuildPanels();
     loadMeasurement();
     recompute();
@@ -406,10 +406,10 @@ bool LoadView::load(const QString &path, QString *error)
     return true;
 }
 
-void LoadView::setNewLoad(grt::LoadFile file)
+void LoadView::setNewLoad(csr::LoadFile file)
 {
     m_file = std::move(file);
-    grt::ensureShotParts(m_file.caliber);
+    csr::ensureShotParts(m_file.caliber);
     m_path.clear();
     rebuildPanels();
     loadMeasurement();
@@ -435,11 +435,11 @@ bool LoadView::save(const QString &path, QString *error)
     return true;
 }
 
-void LoadView::setReference(std::optional<grt::ReferenceRun> ref)
+void LoadView::setReference(std::optional<csr::ReferenceRun> ref)
 {
     LOG_Debug() << "Reference overlay" << (ref ? "set" : "cleared");
     m_reference = std::move(ref);
-    m_chart->setReference(m_reference ? std::span<const grt::SimPoint>(m_reference->points) : std::span<const grt::SimPoint>{});
+    m_chart->setReference(m_reference ? std::span<const csr::SimPoint>(m_reference->points) : std::span<const csr::SimPoint>{});
     showResult();
 }
 
@@ -457,10 +457,10 @@ namespace
 
 // A record-like map from a section's entries (names match the database columns where it matters:
 // glen, pcd, ...), so defaults can be computed for the load's current components.
-QVariantMap recordOf(const grt::EntryList &list)
+QVariantMap recordOf(const csr::EntryList &list)
 {
     QVariantMap m;
-    for (const grt::Entry &e : list.entries()) m.insert(e.name, e.value);
+    for (const csr::Entry &e : list.entries()) m.insert(e.name, e.value);
     return m;
 }
 
@@ -471,7 +471,7 @@ QVariantMap LoadView::caliberRecord() const
     return recordOf(m_file.caliberFile);
 }
 
-void LoadView::setDatabase(const grt::Database *db)
+void LoadView::setDatabase(const csr::Database *db)
 {
     m_db = db;
     m_photo->clear();  // the pictures come from the database
@@ -527,7 +527,7 @@ void LoadView::updatePhoto()
 bool LoadView::applyRecord(Component component, int id, bool resetDependent)
 {
     if (!m_db || !m_db->isOpen()) return false;
-    const auto rec = m_db->record(grt::kRecordTables[static_cast<std::size_t>(component)], id);
+    const auto rec = m_db->record(csr::kRecordTables[static_cast<std::size_t>(component)], id);
     if (!rec) return false;
     const QVariantMap cal = caliberRecord();
     pushUndo(selectTitle(component));
@@ -536,11 +536,11 @@ bool LoadView::applyRecord(Component component, int id, bool resetDependent)
     case Component::Caliber:
     {
         const QVariantMap prj = recordOf(m_file.projectile), pro = recordOf(m_file.propellant);
-        grt::applyCaliber(m_file, *rec, m_db->columns(grt::Table::Caliber), resetDependent, &prj, &pro);
+        csr::applyCaliber(m_file, *rec, m_db->columns(csr::Table::Caliber), resetDependent, &prj, &pro);
         break;
     }
-    case Component::Projectile: grt::applyProjectile(m_file, *rec, resetDependent, &cal); break;
-    case Component::Propellant: grt::applyPropellant(m_file, *rec, resetDependent, &cal); break;
+    case Component::Projectile: csr::applyProjectile(m_file, *rec, resetDependent, &cal); break;
+    case Component::Propellant: csr::applyPropellant(m_file, *rec, resetDependent, &cal); break;
     }
     rebuildPanels();
     recompute();
@@ -551,7 +551,7 @@ bool LoadView::applyRecord(Component component, int id, bool resetDependent)
 void LoadView::chooseRecord(Component component)
 {
     if (!m_db || !m_db->isOpen()) return;
-    SelectRecordDialog dlg(*m_db, grt::kRecordTables[static_cast<std::size_t>(component)], selectTitle(component), this);
+    SelectRecordDialog dlg(*m_db, csr::kRecordTables[static_cast<std::size_t>(component)], selectTitle(component), this);
     switch (component)
     {
     case Component::Caliber:
@@ -578,23 +578,23 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     const double previousCaseLength = m_file.caliber.number(u"caselen");
     section(sectionId).set(key, text);
     // a cartridge that becomes a shotshell gets the choices of its shell, wad and primer
-    if (sectionId == Caliber && key == u"shotshell" && grt::ensureShotParts(m_file.caliber))
+    if (sectionId == Caliber && key == u"shotshell" && csr::ensureShotParts(m_file.caliber))
         QTimer::singleShot(0, this, &LoadView::rebuildPanels);  // after the edit is finished
     // The cartridge overall length is the case length plus the projectile length minus the seating depth; the solver uses the seating
     // depth. Editing either of them (or the case or projectile length) keeps the other one in step.
-    grt::EntryList &cal = m_file.caliber, &prj = m_file.projectile;
+    csr::EntryList &cal = m_file.caliber, &prj = m_file.projectile;
     if (sectionId == Caliber && key == u"oal") prj.set(u"gdepth", cal.number(u"caselen") + prj.number(u"glen") - cal.number(u"oal"));
     else if (sectionId == Projectile && (key == u"gdepth" || key == u"glen"))
         cal.set(u"oal", cal.number(u"caselen") + prj.number(u"glen") - prj.number(u"gdepth"));
     // a new case length: the bullet stays (overall length kept), seating depth and case volume follow
-    else if (sectionId == Caliber && key == u"caselen") grt::followCaseLength(cal, prj, previousCaseLength);
+    else if (sectionId == Caliber && key == u"caselen") csr::followCaseLength(cal, prj, previousCaseLength);
     // The initial gas pressure is in both sections (the solver reads the caliber's, the projectile window of the original shows the
     // projectile's): editing either one sets both.
     if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
     else if (sectionId == Projectile && key == u"gpressure") cal.set(u"ps", prj.number(u"gpressure"));
     // a boat tail or hollow base without tail dimensions would have no effect: typical ones are filled in (editable)
-    if (sectionId == Projectile && key == u"gTailType") grt::completeTail(prj);
-    else if (sectionId == Projectile && key == u"Dbul") grt::completeTail(prj, previousDiameter);
+    if (sectionId == Projectile && key == u"gTailType") csr::completeTail(prj);
+    else if (sectionId == Projectile && key == u"Dbul") csr::completeTail(prj, previousDiameter);
     m_cartridgePanel->syncValues();
     m_projectilePanel->syncValues();
     setModified(true);
@@ -603,9 +603,9 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
 
 void LoadView::recompute()
 {
-    m_input = grt::SimInput::fromLoad(m_file);
-    m_ladder = grt::simulateLadder(m_input, calibration());
-    m_focus = grt::toIntClamped(m_file.config.number(u"CurveFocusIdx", 0.0), 0, static_cast<int>(m_ladder.size()) - 1);
+    m_input = csr::SimInput::fromLoad(m_file);
+    m_ladder = csr::simulateLadder(m_input, calibration());
+    m_focus = csr::toIntClamped(m_file.config.number(u"CurveFocusIdx", 0.0), 0, static_cast<int>(m_ladder.size()) - 1);
     m_result = m_ladder[static_cast<std::size_t>(m_focus)].result;
     LOG_Debug() << "Simulated" << title() << ":" << m_ladder.size() << "ladder step(s), focus" << m_focus << ", pmax"
                 << m_result.maxPressure_bar << "bar, v0" << m_result.muzzleVelocity_ms << "m/s";
@@ -617,17 +617,17 @@ void LoadView::recompute()
     m_chart->setLadder(otherLadderResults());
     m_cartridge->setLoad(m_file, m_focusInput);
     m_chamber->setLoad(m_file, m_focusInput);
-    if (m_input.vivacityBa > 0.0) m_vivacity->setCurve(grt::vivacityCurve(m_input, calibration()), m_input.z1, m_input.z2);
+    if (m_input.vivacityBa > 0.0) m_vivacity->setCurve(csr::vivacityCurve(m_input, calibration()), m_input.z1, m_input.z2);
     else m_vivacity->clear();
     m_measurements->setPredictor(
         [in = m_input, cal = &calibration()](double charge_g)
         {
-            grt::SimInput i = in;
+            csr::SimInput i = in;
             i.charge_g = charge_g;
-            return grt::simulate(i, *cal);
+            return csr::simulate(i, *cal);
         });
     std::vector<double> charges{m_focusInput.charge_g};
-    for (const grt::LadderStep &step : m_ladder)
+    for (const csr::LadderStep &step : m_ladder)
         if (std::abs(step.charge_g - m_focusInput.charge_g) > 1e-9) charges.push_back(step.charge_g);
     m_measurements->setSuggestedCharges(std::move(charges));
     updateLadderUi();
@@ -637,17 +637,17 @@ void LoadView::recompute()
 
 bool LoadView::isGrtFile() const
 {
-    return !m_path.isEmpty() && grt::formatForPath(m_path) == grt::FileFormat::Original;
+    return !m_path.isEmpty() && csr::formatForPath(m_path) == csr::FileFormat::Original;
 }
 
-const grt::Calibration &LoadView::calibration() const
+const csr::Calibration &LoadView::calibration() const
 {
     return SolverPreferences::instance().calibrationFor(isGrtFile());
 }
 
-std::vector<grt::SimResult> LoadView::otherLadderResults() const
+std::vector<csr::SimResult> LoadView::otherLadderResults() const
 {
-    std::vector<grt::SimResult> others;
+    std::vector<csr::SimResult> others;
     for (std::size_t i = 0; i < m_ladder.size(); ++i)
         if (static_cast<int>(i) != m_focus) others.push_back(m_ladder[i].result);
     return others;
@@ -662,7 +662,7 @@ void LoadView::fitPowder()
 {
     QStringList warnings;
     const QString source = m_path.isEmpty() ? title() : QFileInfo(m_path).fileName();
-    const std::vector<grt::powderfit::Sample> samples = grt::powderfit::samples(m_file, source, &warnings);
+    const std::vector<csr::powderfit::Sample> samples = csr::powderfit::samples(m_file, source, &warnings);
     if (samples.empty())
     {
         QMessageBox::information(this, tr("Fit to measurements"), tr("Enter the measured velocity of the shots first."));
@@ -672,19 +672,19 @@ void LoadView::fitPowder()
     if (m_saveRecord && m_db && m_db->isOpen())
     {
         dlg.setSaveHandler(
-            [this, &samples](const grt::powderfit::Result &r)
+            [this, &samples](const csr::powderfit::Result &r)
             {
-                QVariantMap record = grt::powderfit::toRecord(m_file.propellant, r, m_db->schema(grt::Table::Propellant),
-                                                              grt::powderfit::describe(r, samples));
+                QVariantMap record = csr::powderfit::toRecord(m_file.propellant, r, m_db->schema(csr::Table::Propellant),
+                                                              csr::powderfit::describe(r, samples));
                 record.insert(u"pname"_s, record.value(u"pname"_s).toString() + tr(" (fitted)"));
-                return m_saveRecord(grt::Table::Propellant, record) >= 0;
+                return m_saveRecord(csr::Table::Propellant, record) >= 0;
             });
     }
     dlg.runFit();
     if (dlg.exec() != QDialog::Accepted || !dlg.improved()) return;
     LOG_Info() << "Powder fit applied to" << title();
     pushUndo(tr("Fit to measurements"));
-    grt::powderfit::apply(m_file.propellant, dlg.results());  // both models: Ba ... and the physical values
+    csr::powderfit::apply(m_file.propellant, dlg.results());  // both models: Ba ... and the physical values
     rebuildPanels();
     recompute();
     setModified(true);
@@ -703,15 +703,15 @@ void LoadView::updateOutdatedNotice()
     q.addBindValue(m_file.propellant.text(u"pname"));
     if (!q.exec()) return;
     // the Physical Model's powder values come from the project's records: the original's and the own ones do not count for it
-    const bool projectOnly = SolverPreferences::instance().profileFor(isGrtFile()) == grt::CalibrationProfile::Physical;
+    const bool projectOnly = SolverPreferences::instance().profileFor(isGrtFile()) == csr::CalibrationProfile::Physical;
     qsizetype fewest = 0;
     int recordId = 0;
     while (q.next())
     {
         const int id = q.value(0).toInt();
-        const auto rec = m_db->record(grt::Table::Propellant, id);
-        if (!rec || (projectOnly && rec->value(u"source"_s).toString() != QLatin1String(grt::Database::kSourceProject))) continue;
-        const QStringList d = grt::propellantDifferences(m_file.propellant, *rec);
+        const auto rec = m_db->record(csr::Table::Propellant, id);
+        if (!rec || (projectOnly && rec->value(u"source"_s).toString() != QLatin1String(csr::Database::kSourceProject))) continue;
+        const QStringList d = csr::propellantDifferences(m_file.propellant, *rec);
         if (d.isEmpty()) return;             // the load has the values of a current record
         if (!recordId || d.size() < fewest)  // the record closest to the load
         {
@@ -732,7 +732,7 @@ void LoadView::updateOutdatedNotice()
 void LoadView::offerPowderUpdate()
 {
     if (!m_db || !m_outdatedRecordId) return;
-    const auto rec = m_db->record(grt::Table::Propellant, m_outdatedRecordId);
+    const auto rec = m_db->record(csr::Table::Propellant, m_outdatedRecordId);
     if (!rec) return;
     const auto answer = QMessageBox::question(this, tr("Powder values"),
                                               tr("Replace the powder values of this load by the current ones of %1 in the database?\n\n"
@@ -741,7 +741,7 @@ void LoadView::offerPowderUpdate()
     if (answer != QMessageBox::Yes) return;
     LOG_Info() << "Powder values updated from the database in" << title();
     pushUndo(tr("Powder values"));
-    grt::applyPropellant(m_file, *rec);
+    csr::applyPropellant(m_file, *rec);
     rebuildPanels();
     recompute();
     setModified(true);
@@ -749,7 +749,7 @@ void LoadView::offerPowderUpdate()
 
 void LoadView::offerPhysicalBurn()
 {
-    const auto burn = grt::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname"));
+    const auto burn = csr::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname"));
     if (!burn) return;
     const auto answer = QMessageBox::question(
         this, tr("Physical burn values"),
@@ -761,7 +761,7 @@ void LoadView::offerPhysicalBurn()
     if (answer != QMessageBox::Yes) return;
     LOG_Info() << "Physical burn values applied to" << title();
     pushUndo(tr("Physical burn values"));
-    grt::writePhysicalBurn(m_file.propellant, burn);
+    csr::writePhysicalBurn(m_file.propellant, burn);
     rebuildPanels();
     recompute();
     setModified(true);
@@ -769,7 +769,7 @@ void LoadView::offerPhysicalBurn()
 
 void LoadView::loadMeasurement(int series)
 {
-    auto measurements = grt::readMeasurements(m_file.appendixXml);
+    auto measurements = csr::readMeasurements(m_file.appendixXml);
     m_hasMeasurement = !measurements.empty();
     m_measurements->setMeasurements(std::move(measurements), series);
 }
@@ -779,10 +779,10 @@ void LoadView::loadMeasurement(int series)
 void LoadView::storeMeasurement()
 {
     const auto &series = m_measurements->allMeasurements();
-    const bool empty = std::ranges::all_of(series, [](const grt::Measurement &m) { return m.charges.empty(); });
+    const bool empty = std::ranges::all_of(series, [](const csr::Measurement &m) { return m.charges.empty(); });
     if (!m_hasMeasurement && empty) return;
     pushUndo(tr("Edit measurements"));
-    m_file.appendixXml = grt::writeMeasurements(m_file.appendixXml, series);
+    m_file.appendixXml = csr::writeMeasurements(m_file.appendixXml, series);
     m_hasMeasurement = true;
     setModified(true);
     m_report->invalidate();
@@ -793,7 +793,7 @@ void LoadView::setFocus(int index)
 {
     if (index < 0 || index >= static_cast<int>(m_ladder.size()) || index == m_focus) return;
     m_file.config.set(u"CurveFocusIdx", QString::number(index));
-    if (grt::Entry *e = m_file.config.find(u"CurveFocusIdx"); e && e->type.isEmpty())
+    if (csr::Entry *e = m_file.config.find(u"CurveFocusIdx"); e && e->type.isEmpty())
     {  // a file without the entry: typed like the original writes it
         e->type = u"integer"_s;
         e->descr = u"selected ladder curve for display"_s;
@@ -804,7 +804,7 @@ void LoadView::setFocus(int index)
 
 void LoadView::updateLadderUi()
 {
-    using grt::units::Quantity;
+    using csr::units::Quantity;
     const bool ladder = m_ladder.size() >= 2;
     m_ladderTabs->setVisible(ladder);
     m_ladderTable->setVisible(ladder);
@@ -815,7 +815,7 @@ void LoadView::updateLadderUi()
     m_ladderTable->setRowCount(0);
     for (std::size_t i = 0; i < m_ladder.size(); ++i)
     {
-        const grt::LadderStep &s = m_ladder[i];
+        const csr::LadderStep &s = m_ladder[i];
         m_ladderTabs->addTab(shown(s.charge_g, Quantity::BulletMass));
         const int row = m_ladderTable->rowCount();
         m_ladderTable->insertRow(row);
@@ -851,15 +851,15 @@ void LoadView::updateLadderUi()
     m_ladderTable->selectRow(m_focus);
 }
 
-grt::report::Data LoadView::reportData() const
+csr::report::Data LoadView::reportData() const
 {
-    using grt::report::Value;
-    grt::report::Data d = grt::report::buildData(m_file, m_focusInput, m_result, {m_path});
+    using csr::report::Value;
+    csr::report::Data d = csr::report::buildData(m_file, m_focusInput, m_result, {m_path});
     if (!m_result.ok()) return d;
 
     // diagrams, rendered like the on-screen ones but on white paper
     const UnitPreferences &u = UnitPreferences::instance();
-    using grt::units::Quantity;
+    using csr::units::Quantity;
     CurveChart curves;
     curves.setUnits(u.unitFor(Quantity::Pressure), u.unitFor(Quantity::Energy), u.unitFor(Quantity::Velocity), u.unitFor(Quantity::Length));
     curves.setResult(m_result, m_input.maxPressure_bar);
@@ -867,7 +867,7 @@ grt::report::Data LoadView::reportData() const
     const QImage curvesImage = renderOffscreen(curves, {1100, 560});
 
     VivacityChart burn;
-    if (m_input.vivacityBa > 0.0) burn.setCurve(grt::vivacityCurve(m_input, calibration()), m_input.z1, m_input.z2);
+    if (m_input.vivacityBa > 0.0) burn.setCurve(csr::vivacityCurve(m_input, calibration()), m_input.z1, m_input.z2);
     const QImage burnImage = renderOffscreen(burn, {1100, 600});
 
     QImage stacked(1100, curvesImage.height() + burnImage.height(), QImage::Format_ARGB32);
@@ -894,27 +894,27 @@ grt::report::Data LoadView::reportData() const
 
 // "measurement.section": heading, a table of the measured charges against the simulation and the chart, as report
 // markup in the user's units; "measurement.chart.png" alone for custom templates.
-void LoadView::addMeasurementReport(grt::report::Data &d) const
+void LoadView::addMeasurementReport(csr::report::Data &d) const
 {
-    using grt::report::Value;
-    using grt::units::Quantity;
-    const grt::Measurement &m = m_measurements->measurement();
+    using csr::report::Value;
+    using csr::units::Quantity;
+    const csr::Measurement &m = m_measurements->measurement();
     if (m.charges.empty()) return;
     const UnitPreferences &u = UnitPreferences::instance();
     const auto sym = [&](Quantity q) { return QString::fromUtf8(u.unitFor(q).symbol); };
-    const auto val = [&](double base, Quantity q, int decimals) { return grt::units::format(base, u.unitFor(q), decimals); };
+    const auto val = [&](double base, Quantity q, int decimals) { return csr::units::format(base, u.unitFor(q), decimals); };
     const auto cell = [](QString text) { return text.replace(u'|', u'/').replace(u'^', u' '); };
 
     std::vector<MeasurementChart::Prediction> curve;
     QString table = tr("^ Charge ^ Name ^ Shots ^ Velocity ^ SD ^ ES ^ Simulated ^ Δ ^ Pressure ^ Simulated ^ Δ ^") + u'\n';
-    for (const grt::MeasuredCharge &c : m.charges)
+    for (const csr::MeasuredCharge &c : m.charges)
     {
-        grt::SimInput in = m_input;
+        csr::SimInput in = m_input;
         in.charge_g = c.charge_g();
-        const grt::SimResult r = grt::simulate(in, calibration());
+        const csr::SimResult r = csr::simulate(in, calibration());
         if (r.ok()) curve.push_back({.charge_g = c.charge_g(), .velocity_ms = r.muzzleVelocity_ms, .pressure_bar = r.maxPressure_bar});
-        const grt::ShotStatistics v = grt::velocityStatistics(c);
-        const grt::ShotStatistics p = grt::pressureStatistics(c);
+        const csr::ShotStatistics v = csr::velocityStatistics(c);
+        const csr::ShotStatistics p = csr::pressureStatistics(c);
         const auto delta = [](double sim, double meas) {
             return sim > 0.0 && meas > 0.0 ? QStringLiteral("%1 %").arg(QLocale().toString(100.0 * (sim / meas - 1.0), 'f', 1)) : QString();
         };
@@ -942,7 +942,7 @@ void LoadView::addMeasurementReport(grt::report::Data &d) const
 
 void LoadView::applyChartUnits()
 {
-    using grt::units::Quantity;
+    using csr::units::Quantity;
     const UnitPreferences &u = UnitPreferences::instance();
     m_chart->setUnits(u.unitFor(Quantity::Pressure), u.unitFor(Quantity::Energy), u.unitFor(Quantity::Velocity),
                       u.unitFor(Quantity::Length));
@@ -973,7 +973,7 @@ void LoadView::clearUndo()
 }
 
 // Puts a remembered file back and shows it; the modified flag follows the position in the history.
-void LoadView::restore(const grt::LoadFile &file)
+void LoadView::restore(const csr::LoadFile &file)
 {
     m_file = file;
     rebuildPanels();
@@ -1012,8 +1012,8 @@ void LoadView::setModified(bool m)
 
 QString LoadView::headingHtml() const
 {
-    using grt::units::Quantity;
-    const grt::SimInput &in = m_input;
+    using csr::units::Quantity;
+    const csr::SimInput &in = m_input;
     const auto &p = m_file.propellant;
     return tr("<span style='font-size:large'><b>%1</b></span><br>"
               "<b>Projectile:</b> <i>%2</i>, <b>Propellant:</b> <i>%3 %4</i>, %5<br>"
@@ -1046,9 +1046,9 @@ void LoadView::showResult()
     };
     if (!m_result.ok())
     {
-        m_status->setText(m_result.status == grt::SimStatus::ChargeTooHigh
+        m_status->setText(m_result.status == csr::SimStatus::ChargeTooHigh
                               ? tr("<b>Charge too high:</b> the propellant charge does not fit into the case behind the bullet.")
-                          : m_result.status == grt::SimStatus::BulletStuck
+                          : m_result.status == csr::SimStatus::BulletStuck
                               ? tr("<b>Bullet stuck:</b> the gas cannot push the bullet out of the barrel (too little or too slow "
                                    "powder for this bullet and barrel).")
                               : tr("<b>Invalid input:</b> the simulation cannot run with these values."));
@@ -1061,10 +1061,10 @@ void LoadView::showResult()
     if (profile != SolverPreferences::instance().profile()) status += tr(" (original GRT file, see Settings > Solver)");
     // the Physical Model without the powder's physical burn values (a powder it has none for, or edited burn values): the load's own
     // values with a scaled burn rate
-    if (profile == grt::CalibrationProfile::Physical && !m_input.shotshell && !m_input.physicalBurn)
+    if (profile == csr::CalibrationProfile::Physical && !m_input.shotshell && !m_input.physicalBurn)
     {
         QString text =
-            grt::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname"))
+            csr::findPhysicalBurn(m_file.propellant.text(u"mname"), m_file.propellant.text(u"pname"))
                 ? tr("<b>No physical burn values in this load.</b> The Physical Model has values for %1, but this load's burn values are "
                      "not those of the project's record (the original program's, or edited), so its burn rate is scaled and the results "
                      "are less accurate. <a href=\"physical\">Use the physical values…</a>")
@@ -1085,8 +1085,8 @@ void LoadView::showResult()
                      "check against the powder maker's data.");
     m_status->setText(status);
 
-    const grt::SimResult &r = m_result;
-    using grt::units::Quantity;
+    const csr::SimResult &r = m_result;
+    using csr::units::Quantity;
     setRow(m_leftResults, 0, shown(r.maxPressure_bar, Quantity::Pressure));
     if (const double permitted = m_input.maxPressure_bar; permitted > 0.0 && r.maxPressure_bar > permitted)
     {
@@ -1140,8 +1140,8 @@ void LoadView::showResult()
     for (const Row &row : rows)
     {
         const double ref = m_reference->number(QString::fromLatin1(row.refKey), std::nan(""));
-        const grt::units::Unit *unit = row.quantity == Quantity::None ? nullptr : &UnitPreferences::instance().unitFor(row.quantity);
-        const auto text = [&](double v) { return unit ? grt::units::format(v, *unit, row.decimals) : num(v, row.decimals); };
+        const csr::units::Unit *unit = row.quantity == Quantity::None ? nullptr : &UnitPreferences::instance().unitFor(row.quantity);
+        const auto text = [&](double v) { return unit ? csr::units::format(v, *unit, row.decimals) : num(v, row.decimals); };
         html += QStringLiteral("<tr><td>%1</td><td align='right'><b>%2</b></td>").arg(row.label, text(row.value));
         if (std::isnan(ref) || ref == 0.0) html += QStringLiteral("<td></td><td></td>");
         else

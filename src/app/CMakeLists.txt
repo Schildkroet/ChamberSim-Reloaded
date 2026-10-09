@@ -1,5 +1,5 @@
 # application: GUI library (testable); the executable is defined in the top-level CMakeLists.txt
-add_library(grtui STATIC
+add_library(csrui STATIC
     disclaimer.cpp
     disclaimer.h
     mainwindow.cpp
@@ -72,6 +72,6 @@ add_library(grtui STATIC
     theme.cpp
 )
 
-target_include_directories(grtui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_definitions(grtui PUBLIC GRT_VERSION="${GRT_VERSION}")
-target_link_libraries(grtui PUBLIC grtcore Qt6::Widgets Qt6::Charts Qt6::PrintSupport)
+target_include_directories(csrui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(csrui PUBLIC CSR_VERSION="${CSR_VERSION}")
+target_link_libraries(csrui PUBLIC csrcore Qt6::Widgets Qt6::Charts Qt6::PrintSupport)

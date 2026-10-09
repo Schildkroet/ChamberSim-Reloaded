@@ -8,7 +8,7 @@
 #include <array>
 #include <vector>
 
-namespace grt
+namespace csr
 {
 
 // The pressure of published shotshell loads depends on the shell (hull), the wad and the primer of the load (the shell alone: up to +-20 %
@@ -68,4 +68,4 @@ struct ShotFactors
 // Returns whether it changed something.
 bool ensureShotParts(EntryList &caliber);
 
-}  // namespace grt
+}  // namespace csr

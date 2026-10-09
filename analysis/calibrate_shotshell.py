@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fits the shotshell constants of the solver and the burn rates of shotgun powders to published shotgun loads.
 
-    calibrate_shotshell.py <grt_eval> <data dir with propellants/*.json of the shotgun powders> shot_samples.csv [more.csv ...]
+    calibrate_shotshell.py <csr_eval> <data dir with propellants/*.json of the shotgun powders> shot_samples.csv [more.csv ...]
 
 The CSVs come from scripts/data/loaddata/hodgdon_shot_extract.py (columns powder, gauge, hull_mm, shot_g, charge_g, velocity_ms, pressure_bar, primer).
 The shot column and 2.5 g of wad are the projectile (README: shotgun loads), the barrel is 28" (711 mm). The velocities are measured about 3 ft
@@ -24,11 +24,11 @@ powders = sorted({r["powder"] for r in rows})
 held = [r for r in rows if r["primer"].replace(" ", "") == HELD_OUT_PRIMER.replace(" ", "")]
 train = [r for r in rows if r not in held]
 tmp = tempfile.mkdtemp()
-POOL = ThreadPoolExecutor(int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1))))
+POOL = ThreadPoolExecutor(int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1))))
 K = 1.2 * 0.47 * 3.0 / (8 * 11340.0 * 0.0012)  # air drag of a 2.4 mm lead pellet per metre
 CORR = math.exp(K * 0.914)
 
-def simulate(rs, cal, ba, chunks=int(os.environ.get("GRT_JOBS", min(14, os.cpu_count() or 1)))):
+def simulate(rs, cal, ba, chunks=int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1)))):
     n = len(rs)
     def one(idx):
         if not idx: return []

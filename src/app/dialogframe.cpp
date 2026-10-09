@@ -121,7 +121,7 @@ private:
 bool DialogFrame::roundedCorners()
 {
     if (g_forcedRounded) return *g_forcedRounded;
-    return roundedCornersPossible() && !qEnvironmentVariableIsSet("GRT_SQUARE_CORNERS") && roundedStored();
+    return roundedCornersPossible() && !qEnvironmentVariableIsSet("CSR_SQUARE_CORNERS") && roundedStored();
 }
 
 bool DialogFrame::roundedStored()

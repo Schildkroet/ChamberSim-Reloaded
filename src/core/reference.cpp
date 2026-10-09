@@ -7,7 +7,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 double ReferenceRun::number(const QString &key, double fallback) const
@@ -53,4 +53,4 @@ std::optional<ReferenceRun> readReferenceRun(const QString &jsonPath, QString *e
     return run;
 }
 
-}  // namespace grt
+}  // namespace csr

@@ -29,7 +29,7 @@ class QFormLayout;
 class QLabel;
 class VivacityChart;
 
-// One opened *.grtreload (or the original's *.grtload) laid out like the original program's main screen: input panels for
+// One opened *.csrload (or the original's *.grtload) laid out like the original program's main screen: input panels for
 // cartridge/gun, projectile and propellant, the key results, and the pressure/energy/velocity chart.
 class LoadView : public QWidget
 {
@@ -39,7 +39,7 @@ public:
 
     [[nodiscard]] bool load(const QString &path, QString *error = nullptr);
     // Shows a freshly built load that has no file yet (it counts as modified until saved).
-    void setNewLoad(grt::LoadFile file);
+    void setNewLoad(csr::LoadFile file);
     [[nodiscard]] bool save(const QString &path, QString *error = nullptr);
 
     [[nodiscard]] const QString &path() const noexcept { return m_path; }
@@ -55,10 +55,10 @@ public:
     void selectLadderStep(int index) { setFocus(index); }
     [[nodiscard]] double focusCharge_g() const noexcept { return m_focusInput.charge_g; }
     // The simulation result shown (the focused ladder step).
-    [[nodiscard]] const grt::SimResult &result() const noexcept { return m_result; }
+    [[nodiscard]] const csr::SimResult &result() const noexcept { return m_result; }
 
     // The database that the "Select ..." buttons read from (may be null; then the buttons are disabled).
-    void setDatabase(const grt::Database *db);
+    void setDatabase(const csr::Database *db);
 
     enum class Component
     {
@@ -73,7 +73,7 @@ public:
     [[nodiscard]] ReportView *report() const noexcept { return m_report; }
     [[nodiscard]] MeasurementView *measurements() const noexcept { return m_measurements; }
     // Stores a new record in the (own part of the) database; returns its id or -1. Set by the main window.
-    using RecordSaver = std::function<int(grt::Table, const QVariantMap &)>;
+    using RecordSaver = std::function<int(csr::Table, const QVariantMap &)>;
     void setRecordSaver(RecordSaver saver) { m_saveRecord = std::move(saver); }
     // "Fit to measurements": fits the propellant to the Measurements tab (dialog).
     void fitPowder();
@@ -83,10 +83,10 @@ public:
     // Cartridge && gun, Projectile, Propellant.
     void showInputTab(int index);
     // Values and rendered diagrams for the report templates.
-    [[nodiscard]] grt::report::Data reportData() const;
+    [[nodiscard]] csr::report::Data reportData() const;
 
     // Draws the original program's curves dashed and shows deltas in the summary.
-    void setReference(std::optional<grt::ReferenceRun> ref);
+    void setReference(std::optional<csr::ReferenceRun> ref);
     [[nodiscard]] bool hasReference() const noexcept { return m_reference.has_value(); }
 
     // Undo / redo of the edits of this load (values, replaced components, fit, measurements). Every step keeps a copy of the
@@ -111,7 +111,7 @@ private:
         Propellant
     };
 
-    [[nodiscard]] grt::EntryList &section(int id);
+    [[nodiscard]] csr::EntryList &section(int id);
     void rebuildPanels();
     void updateOutdatedNotice();  // shows or hides the banner for powder values that differ from the database record
     void offerPowderUpdate();     // asks whether the load takes the current values of the database record
@@ -122,7 +122,7 @@ private:
     // Remembers the file as it is now, to be called before an edit changes it.
     void pushUndo(const QString &text);
     void clearUndo();
-    void restore(const grt::LoadFile &file);
+    void restore(const csr::LoadFile &file);
     void applyChartUnits();
     void updateLadderUi();
     void setFocus(int index);
@@ -132,37 +132,37 @@ private:
     [[nodiscard]] QVariantMap caliberRecord() const;
     void showResult();
     // The constants every simulation of this load uses (the chosen model, or GRT Original for a *.grtload, see SolverPreferences).
-    [[nodiscard]] const grt::Calibration &calibration() const;
+    [[nodiscard]] const csr::Calibration &calibration() const;
     // The results of the ladder steps other than the focused one (drawn faintly in the chart).
-    [[nodiscard]] std::vector<grt::SimResult> otherLadderResults() const;
+    [[nodiscard]] std::vector<csr::SimResult> otherLadderResults() const;
     // "Maker Name" of the propellant.
     [[nodiscard]] QString propellantName() const;
     [[nodiscard]] QString headingHtml() const;
     // Shows the measurement series of the file's appendix (`series`: the one to select).
     void loadMeasurement(int series = 0);
     void storeMeasurement();
-    void addMeasurementReport(grt::report::Data &d) const;
+    void addMeasurementReport(csr::report::Data &d) const;
 
-    grt::LoadFile m_file;
-    grt::SimResult m_result;  // the selected (focus) ladder step
-    std::vector<grt::LadderStep> m_ladder;
-    grt::SimInput m_focusInput;  // the input with the focus step's charge
+    csr::LoadFile m_file;
+    csr::SimResult m_result;  // the selected (focus) ladder step
+    std::vector<csr::LadderStep> m_ladder;
+    csr::SimInput m_focusInput;  // the input with the focus step's charge
     int m_focus{0};
-    grt::SimInput m_input;
-    std::optional<grt::ReferenceRun> m_reference;
+    csr::SimInput m_input;
+    std::optional<csr::ReferenceRun> m_reference;
     QString m_path;
     bool m_modified{false};
 
     struct UndoStep
     {
-        grt::LoadFile file;  // the state to return to
+        csr::LoadFile file;  // the state to return to
         QString text;        // what the step undoes
     };
     static constexpr std::size_t kMaxUndoSteps = 100;
     std::vector<UndoStep> m_undo, m_redo;
     int m_cleanDepth{0};  // m_undo.size() of the saved state; -1: the saved state is no longer reachable
 
-    const grt::Database *m_db{nullptr};
+    const csr::Database *m_db{nullptr};
     QTabWidget *m_inputTabs;
     std::array<QLabel *, 3> m_itemLabels{};
     std::array<QPushButton *, 3> m_selectButtons{};

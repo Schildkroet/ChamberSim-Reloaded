@@ -38,7 +38,7 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-          cmake --build build --target tst_core tst_gui grt_datacheck --parallel
+          cmake --build build --target tst_core tst_gui csr_datacheck --parallel
 
       # tst_core, tst_gui (offscreen, see tests/CMakeLists.txt) and the check of the project database (data/)
       - name: Run the tests
@@ -71,12 +71,12 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
-          cmake --build build --target GRTReloaded grt_fitpowder --parallel
+          cmake --build build --target ChamberSimReloaded csr_fitpowder --parallel
 
       - name: Smoke test (starts the app offscreen and takes a screenshot)
         env:
           QT_QPA_PLATFORM: offscreen
-        run: build/GRTReloaded --screenshot "$RUNNER_TEMP/smoke.png" && test -s "$RUNNER_TEMP/smoke.png"
+        run: build/ChamberSimReloaded --screenshot "$RUNNER_TEMP/smoke.png" && test -s "$RUNNER_TEMP/smoke.png"
 
       - name: Install into AppDir
         run: DESTDIR="$PWD/AppDir" cmake --install build
@@ -86,9 +86,9 @@ jobs:
           APPIMAGE_EXTRACT_AND_RUN: "1"     # no FUSE on the runner
           NO_STRIP: "1"
         run: |
-          # named after the program version (set(GRT_VERSION ...) in CMakeLists.txt)
-          version=$(sed -n 's/^set(GRT_VERSION "\(.*\)")/\1/p' CMakeLists.txt)
-          export LDAI_OUTPUT="GRTReloaded-${version}-x86_64.AppImage"
+          # named after the program version (set(CSR_VERSION ...) in CMakeLists.txt)
+          version=$(sed -n 's/^set(CSR_VERSION "\(.*\)")/\1/p' CMakeLists.txt)
+          export LDAI_OUTPUT="ChamberSimReloaded-${version}-x86_64.AppImage"
           # only the SQLite driver is needed; the others would pull in client libraries that are not installed
           find "$QT_ROOT_DIR/plugins/sqldrivers" -name '*.so' ! -name 'libqsqlite.so' -delete
           export QMAKE="$QT_ROOT_DIR/bin/qmake"
@@ -97,8 +97,8 @@ jobs:
           curl -fsSL -o linuxdeploy-plugin-qt https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy linuxdeploy-plugin-qt
           ./linuxdeploy --appdir AppDir --plugin qt \
-            --desktop-file packaging/linux/grtreloaded.desktop \
-            --icon-file packaging/linux/grtreloaded.svg \
+            --desktop-file packaging/linux/chambersimreloaded.desktop \
+            --icon-file packaging/linux/chambersimreloaded.svg \
             --output appimage
           ls -l *.AppImage
 
@@ -142,30 +142,30 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-          cmake --build build --target GRTReloaded grt_fitpowder --parallel
+          cmake --build build --target ChamberSimReloaded csr_fitpowder --parallel
 
       - name: Collect and deploy Qt
         shell: pwsh
         run: |
           cmake --install build --prefix dist
           if ($LASTEXITCODE -ne 0) { throw "cmake --install failed" }
-          windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw dist\bin\GRTReloaded.exe
+          windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw dist\bin\ChamberSimReloaded.exe
           Get-ChildItem dist\bin
 
       - name: Smoke test (starts the app and takes a screenshot)
         shell: pwsh
         run: |
           # a GUI program: start-process waits until it has exited
-          $p = Start-Process -FilePath dist\bin\GRTReloaded.exe -ArgumentList '--screenshot', "$env:RUNNER_TEMP\smoke.png" -Wait -PassThru
+          $p = Start-Process -FilePath dist\bin\ChamberSimReloaded.exe -ArgumentList '--screenshot', "$env:RUNNER_TEMP\smoke.png" -Wait -PassThru
           Write-Host "exit code: $($p.ExitCode)"
           if (-not (Test-Path "$env:RUNNER_TEMP\smoke.png")) { throw "no screenshot written" }
 
       - name: Zip
         shell: pwsh
         run: |
-          # named after the program version (set(GRT_VERSION ...) in CMakeLists.txt)
-          $version = (Select-String -Path CMakeLists.txt -Pattern '^set\(GRT_VERSION "(.*)"\)').Matches[0].Groups[1].Value
-          $name = "GRTReloaded-$version-windows-x64"
+          # named after the program version (set(CSR_VERSION ...) in CMakeLists.txt)
+          $version = (Select-String -Path CMakeLists.txt -Pattern '^set\(CSR_VERSION "(.*)"\)').Matches[0].Groups[1].Value
+          $name = "ChamberSimReloaded-$version-windows-x64"
           Move-Item dist\bin $name
           Compress-Archive -Path $name -DestinationPath "$name.zip"
 
@@ -193,8 +193,8 @@ jobs:
       - name: Build the manual
         run: |
           docs/manual/build.sh
-          version=$(sed -n 's/^set(GRT_VERSION "\(.*\)")/\1/p' CMakeLists.txt)
-          cp docs/manual/manual.pdf "GRTReloaded-${version}-manual.pdf"
+          version=$(sed -n 's/^set(CSR_VERSION "\(.*\)")/\1/p' CMakeLists.txt)
+          cp docs/manual/manual.pdf "ChamberSimReloaded-${version}-manual.pdf"
 
       # the PDF as it is (not wrapped in a zip)
       - uses: actions/upload-artifact@v7

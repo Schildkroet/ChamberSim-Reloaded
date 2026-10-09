@@ -23,9 +23,9 @@ class NewLoadDialog : public QDialog
 {
     Q_OBJECT
 public:
-    NewLoadDialog(const grt::Database &db, QWidget *parent = nullptr);
+    NewLoadDialog(const csr::Database &db, QWidget *parent = nullptr);
 
-    [[nodiscard]] grt::LoadFile result() const;
+    [[nodiscard]] csr::LoadFile result() const;
 
     // Programmatic selection (used by tests); returns false if a record is not listed. Goes on to the second step.
     bool select(int caliberId, int projectileId, int propellantId);
@@ -38,7 +38,7 @@ private:
     void updateSummary();
     [[nodiscard]] QWidget *makeSummary(std::array<QLabel *, 3> &values);
 
-    const grt::Database &m_db;
+    const csr::Database &m_db;
     std::array<TableBrowser *, 3> m_browsers{};
     QStackedWidget *m_pages;
     QTabWidget *m_tabs;

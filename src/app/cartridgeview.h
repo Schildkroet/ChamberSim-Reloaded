@@ -20,7 +20,7 @@ class CartridgeView : public QWidget
 public:
     explicit CartridgeView(QWidget *parent = nullptr);
 
-    void setLoad(const grt::LoadFile &file, const grt::SimInput &input);
+    void setLoad(const csr::LoadFile &file, const csr::SimInput &input);
     void clear();
     // For reports the drawing is rendered without the dimension table; only the measures A, B, C stay.
     void setTableVisible(bool visible);
@@ -51,7 +51,7 @@ public:
         [[nodiscard]] double bulletBase() const { return caseLength() - depth; }
         [[nodiscard]] double bulletTip() const { return bulletBase() + bulletLength; }
     };
-    [[nodiscard]] static RoundShape makeRound(const grt::LoadFile &file, const grt::SimInput &input);
+    [[nodiscard]] static RoundShape makeRound(const csr::LoadFile &file, const csr::SimInput &input);
     // Draws case (brass, hollow), powder fill and bullet. X maps a radius [mm] and Y an axial position [mm]
     // (0 = case head) to widget coordinates; the drawing is symmetric about X(0).
     static void paintRound(QPainter &p, const RoundShape &round, const std::function<double(double)> &X,
@@ -81,7 +81,7 @@ private:
     double drawMeasures(QPainter &p, const QRectF &area, const QFont &font) const;
 
     RoundShape m_round;
-    grt::SimInput m_input;
+    csr::SimInput m_input;
     bool m_hasLoad{false};
     bool m_showTable{true};
     mutable std::vector<RowHit> m_rowHits;  // filled while the table is painted

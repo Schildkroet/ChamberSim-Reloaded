@@ -2,7 +2,7 @@
 
 #include <QVariantMap>
 
-namespace grt
+namespace csr
 {
 
 // The burn-rate factors of the original program (burn rate table, sorting by progressivity / brisance):
@@ -27,4 +27,4 @@ struct BurnFactors
 // Sets Br, Bp and Brp of a propellant record from its model values.
 void fillBurnFactors(QVariantMap &propellant);
 
-}  // namespace grt
+}  // namespace csr

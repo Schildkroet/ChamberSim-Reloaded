@@ -6,7 +6,7 @@
 
 using namespace Qt::StringLiterals;
 
-namespace grt
+namespace csr
 {
 
 std::optional<QString> normalizedDate(const QVariant &value)
@@ -33,4 +33,4 @@ std::optional<QString> normalizedDate(const QVariant &value)
     return d.toString(Qt::ISODate);
 }
 
-}  // namespace grt
+}  // namespace csr

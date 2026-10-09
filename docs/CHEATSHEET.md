@@ -12,36 +12,36 @@ tools/build.sh release               # the same as Release (needed for grt_compa
 tools/build.sh debug --target tst_gui   # extra arguments go to cmake --build
 
 cmake --preset debug && cmake --build --preset debug --parallel $(nproc)
-ctest --preset debug                 # tst_core, tst_gui (offscreen), projectdata (grt_datacheck)
+ctest --preset debug                 # tst_core, tst_gui (offscreen), projectdata (csr_datacheck)
 ctest --preset debug -R gui --output-on-failure
 
 # one test function, with screenshots of the GUI tests into a folder
 QT_QPA_PLATFORM=offscreen build/debug/tests/tst_gui chartCursorShowsTheValues
-GRT_SHOT_DIR=/tmp/shots QT_QPA_PLATFORM=offscreen build/debug/tests/tst_gui
+CSR_SHOT_DIR=/tmp/shots QT_QPA_PLATFORM=offscreen build/debug/tests/tst_gui
 build/debug/tests/tst_core -functions          # list the test functions
 ```
 
-Options: `-DGRT_FORMAT_ON_BUILD=OFF` (no clang-format before the build), `-DGRT_UNITY_BUILD=ON` (faster full builds).
+Options: `-DCSR_FORMAT_ON_BUILD=OFF` (no clang-format before the build), `-DCSR_UNITY_BUILD=ON` (faster full builds).
 
 ## 🌍 Translations
 
 ```bash
 cmake --build --preset debug --target update_translations    # after changing user-visible strings
-linguist translations/GRTReloaded_de_DE.ts                    # translate (de_DE, fr_FR, it_IT; en_US = plural forms only)
+linguist translations/ChamberSimReloaded_de_DE.ts                    # translate (de_DE, fr_FR, it_IT; en_US = plural forms only)
 ```
 
 ## ▶️ Run the app
 
 ```bash
-build/debug/GRTReloaded [load.grtreload ...]
-build/debug/GRTReloaded --help
-build/debug/GRTReloaded -d tools/GordonsReloadingTool.plain.db         # with the original's (plain) database
-build/debug/GRTReloaded --calibration original|published|physical      # solver model for this run
-build/debug/GRTReloaded --language de_DE --theme dark --units imperial --log-level debug
-build/debug/GRTReloaded -r reference/results/exp_base.json load.grtreload  # overlay a reference run
+build/debug/ChamberSimReloaded [load.csrload ...]
+build/debug/ChamberSimReloaded --help
+build/debug/ChamberSimReloaded -d tools/GordonsReloadingTool.plain.db         # with the original's (plain) database
+build/debug/ChamberSimReloaded --calibration original|published|physical      # solver model for this run
+build/debug/ChamberSimReloaded --language de_DE --theme dark --units imperial --log-level debug
+build/debug/ChamberSimReloaded -r reference/results/exp_base.json load.csrload  # overlay a reference run
 
 # headless screenshot, without touching your settings
-XDG_CONFIG_HOME=/tmp/grtcfg QT_QPA_PLATFORM=offscreen build/debug/GRTReloaded \
+XDG_CONFIG_HOME=/tmp/grtcfg QT_QPA_PLATFORM=offscreen build/debug/ChamberSimReloaded \
     -d tools/GordonsReloadingTool.plain.db --screenshot out.png --tab 1 --result-tab 0 --input-tab 2 tests/data/8x57is.grtload
 ```
 
@@ -51,7 +51,7 @@ XDG_CONFIG_HOME=/tmp/grtcfg QT_QPA_PLATFORM=offscreen build/debug/GRTReloaded \
 ## 🗃️ Project data (`data/`)
 
 ```bash
-build/debug/grt_datacheck data                 # check every record file (what CI runs)
+build/debug/csr_datacheck data                 # check every record file (what CI runs)
 python3 scripts/data/recordfiles.py data/projectiles  # merge exported single records into the manufacturers' files
 python3 scripts/data/recordfiles.py data/propellants
 
@@ -85,41 +85,41 @@ python3 vectan_extract.py catalogue.pdf -o vectan_samples.csv --ocr-cache ocr.js
 
 ```bash
 # own measurements (Measurements tab of the loads) -> a record file
-build/release/grt_fitpowder [--model original|physical] [--out maker-name-lot.json] [--save] a.grtreload b.grtreload ...
+build/release/csr_fitpowder [--model original|physical] [--out maker-name-lot.json] [--save] a.csrload b.csrload ...
 
 # published data -> burn rate of one powder
-build/release/grt_fitdata vv_N150.csv --params Ba [--use-pressure] [--holdout "308 Win."] [--out record.json]
+build/release/csr_fitdata vv_N150.csv --params Ba [--use-pressure] [--holdout "308 Win."] [--out record.json]
 
 # published data -> records (Ba per powder, form function 0 / 0.3 / 0.6)
 python3 scripts/data/loaddata/published_fit.py lovex_samples.csv --maker Lovex --base-from-name --source "..." --write
-python3 scripts/data/loaddata/vv_fit_all.py -o vv_fits.csv --fitdata build/release/grt_fitdata
+python3 scripts/data/loaddata/vv_fit_all.py -o vv_fits.csv --fitdata build/release/csr_fitdata
 python3 scripts/data/loaddata/vv_to_json.py vv_fits.csv --work vv_work
 
 # physical burn values of all project powders -> data/physical/propellants.json
-.venv/bin/python analysis/fit_physical_powders.py build/release/grt_eval \
+.venv/bin/python analysis/fit_physical_powders.py build/release/csr_eval \
     hod_samples.csv west_samples.csv lovex_samples.csv rs_samples.csv vv_*.csv [--split train] [--fit form|ba]
 # only new records (Ba only, the other powders of the file stay): add --fit ba --form a0,z1,z2 --only N110,N120 --merge
 ```
 
 ## 🧮 Solver calibration
 
-The analysis scripts use at most 14 cores (`GRT_JOBS=n` changes it), so the rest of the system keeps some.
+The analysis scripts use at most 14 cores (`CSR_JOBS=n` changes it), so the rest of the system keeps some.
 
 ```bash
 # against the original program's reference runs (tools/GRTRef/jobs_all + reference/results, local only)
 build/release/grt_compare [--include RE] [--exclude RE] [--set name=value] [--list-params]
-GRT_STEPS=2000 .venv/bin/python analysis/calibrate.py build/release/grt_compare [param ...]   # -> calibrated.json
+CSR_STEPS=2000 .venv/bin/python analysis/calibrate.py build/release/grt_compare [param ...]   # -> calibrated.json
 
 # against published load data (Original / Published / Physical constants)
-.venv/bin/python analysis/calibrate_published.py build/release/grt_eval build/release/grt_compare \
+.venv/bin/python analysis/calibrate_published.py build/release/csr_eval build/release/grt_compare \
     hod_samples.csv west_samples.csv --profile physical [--free a,b,c] [--start constants.json] [--evaluate-only]
-build/release/grt_eval hod_samples.csv --profile physical [--set name=value] [--phys "Maker Name=Ba,a0,z1,z2"]
+build/release/csr_eval hod_samples.csv --profile physical [--set name=value] [--phys "Maker Name=Ba,a0,z1,z2"]
 # test constants of the physical model powder by powder (parallel, held-out cartridges, trends over loading density and bullet mass)
-.venv/bin/python analysis/scan_physical.py build/release/grt_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--quiet]
+.venv/bin/python analysis/scan_physical.py build/release/csr_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--quiet]
 
-.venv/bin/python analysis/fit_shot_factors.py build/release/grt_eval hodgdon_shot_samples.csv alliant_shot_samples.csv vectan_shot_samples.csv --out data/shotshell/parts.json   # shell, wad and primer factors (seconds)
+.venv/bin/python analysis/fit_shot_factors.py build/release/csr_eval hodgdon_shot_samples.csv alliant_shot_samples.csv vectan_shot_samples.csv --out data/shotshell/parts.json   # shell, wad and primer factors (seconds)
 # shotshells
-.venv/bin/python analysis/calibrate_shotshell.py build/release/grt_eval <data dir> hodgdon_shot_samples.csv
+.venv/bin/python analysis/calibrate_shotshell.py build/release/csr_eval <data dir> hodgdon_shot_samples.csv
 ```
 
 After any solver or calibration change, refresh the accuracy table in the README:
@@ -146,8 +146,8 @@ tools/grt_decrypt_db.sh        # plain copy of the original's database (Linux; .
 ## 🚀 Release
 
 ```bash
-# 1. set(GRT_VERSION "x.y") at the top of CMakeLists.txt, commit
-git tag -a vX.Y -m "GRT Reloaded X.Y"
+# 1. set(CSR_VERSION "x.y") at the top of CMakeLists.txt, commit
+git tag -a vX.Y -m "ChamberSim Reloaded X.Y"
 git push origin main && git push origin vX.Y
 # CI builds the AppImage and the Windows zip and creates a draft release: publish it on GitHub (Releases)
 ```

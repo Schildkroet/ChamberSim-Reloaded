@@ -1,7 +1,7 @@
 # Translations
 
 American English (`en_US`) is the **source language and the default**. Source strings in the code are
-English; no translation file is needed to run in English. `GRTReloaded_en_US.ts` only carries the
+English; no translation file is needed to run in English. `ChamberSimReloaded_en_US.ts` only carries the
 English *plural forms* (`%n entry` / `%n entries`).
 
 Translations: German (`de_DE`), French (`fr_FR`), Italian (`it_IT`).
@@ -13,12 +13,12 @@ description is shown in title case.
 
 ## Adding a language (e.g. German)
 
-1. In `CMakeLists.txt` change `set(GRT_LANGUAGES en_US)` to `set(GRT_LANGUAGES en_US de_DE)`.
-2. Create the file once: copy `GRTReloaded_en_US.ts` to `GRTReloaded_de_DE.ts` and set
+1. In `CMakeLists.txt` change `set(CSR_LANGUAGES en_US)` to `set(CSR_LANGUAGES en_US de_DE)`.
+2. Create the file once: copy `ChamberSimReloaded_en_US.ts` to `ChamberSimReloaded_de_DE.ts` and set
    `language="de_DE"` in its `<TS ...>` header.
 3. Run the CMake target **`update_translations`** (Qt Creator: Build > Run CMake, then build that target;
    or `cmake --build <build-dir> --target update_translations`). This extracts all strings.
-4. Translate with Qt Linguist (`linguist translations/GRTReloaded_de_DE.ts`).
+4. Translate with Qt Linguist (`linguist translations/ChamberSimReloaded_de_DE.ts`).
 5. Build as usual. `.qm` files are generated (target `release_translations`) and embedded under
    `:/i18n`; the language shows up in **View > Language** automatically.
 

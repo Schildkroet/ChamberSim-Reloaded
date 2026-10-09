@@ -1,7 +1,7 @@
 // Simulates published load data (CSV of scripts/data/loaddata) with the project's propellant records and an adjustable solver calibration;
 // the solver calibration experiments (analysis/calibrate_published.py) call it.
 //
-//   grt_eval samples.csv [--profile original|published|physical] [--data DIR] [--set name=value]... [--ba "Maker Name=value"]... [--steps n]
+//   csr_eval samples.csv [--profile original|published|physical] [--data DIR] [--set name=value]... [--ba "Maker Name=value"]... [--steps n]
 //            [--physical FILE] [--phys "Maker Name=Ba,a0,z1,z2"]... [--list-params]
 //
 // --physical is the file of the physical burn values (default: the project data's); --phys sets those of one powder (fits).
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     cli.addHelpOption();
     cli.addPositionalArgument(u"samples"_s, u"CSV file (scripts/data/loaddata)"_s);
     cli.addOptions(
-        {{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(GRT_SOURCE_DIR "/data")},
+        {{u"data"_s, u"project data directory"_s, u"dir"_s, QStringLiteral(CSR_SOURCE_DIR "/data")},
          {u"set"_s, u"calibration value name=value (repeatable)"_s, u"nv"_s},
          {u"ba"_s, u"burn rate of a powder: \"Maker Name=value\" (repeatable)"_s, u"nv"_s},
          {u"steps"_s, u"solver steps"_s, u"n"_s, u"2000"_s},
@@ -91,10 +91,10 @@ int main(int argc, char *argv[])
     cli.process(app);
     QTextStream out(stdout);
     const QString profile = cli.value(u"profile"_s);
-    grt::Calibration cal = grt::calibrationFor(profile == u"published"_s  ? grt::CalibrationProfile::Published
-                                               : profile == u"physical"_s ? grt::CalibrationProfile::Physical
-                                                                          : grt::CalibrationProfile::Original);
-    auto named = grt::parameters(cal);
+    csr::Calibration cal = csr::calibrationFor(profile == u"published"_s  ? csr::CalibrationProfile::Published
+                                               : profile == u"physical"_s ? csr::CalibrationProfile::Physical
+                                                                          : csr::CalibrationProfile::Original);
+    auto named = csr::parameters(cal);
     if (cli.isSet(u"list-params"_s))
     {
         for (const auto &p : named) out << QString::fromLatin1(p.name) << ' ' << *p.value << '\n';
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     for (const QString &nv : cli.values(u"set"_s))
     {
         const QString name = nv.section(u'=', 0, 0);
-        const auto it = std::ranges::find_if(named, [&](const grt::NamedParameter &p) { return name == QLatin1String(p.name); });
+        const auto it = std::ranges::find_if(named, [&](const csr::NamedParameter &p) { return name == QLatin1String(p.name); });
         if (it == named.end())
         {
             qCritical("unknown calibration name %s", qPrintable(name));
@@ -111,8 +111,8 @@ int main(int argc, char *argv[])
         }
         *it->value = nv.section(u'=', 1).toDouble();
     }
-    grt::setPhysicalBurnFile(cli.isSet(u"physical"_s) ? cli.value(u"physical"_s) : cli.value(u"data"_s) + u"/physical/propellants.json"_s);
-    QMap<QString, grt::PhysicalBurn> phys;
+    csr::setPhysicalBurnFile(cli.isSet(u"physical"_s) ? cli.value(u"physical"_s) : cli.value(u"data"_s) + u"/physical/propellants.json"_s);
+    QMap<QString, csr::PhysicalBurn> phys;
     for (const QString &nv : cli.values(u"phys"_s))
     {
         const QStringList v = nv.section(u'=', 1).split(u',');
@@ -121,34 +121,34 @@ int main(int argc, char *argv[])
                         {.Ba = v[0].toDouble(), .a0 = v[1].toDouble(), .z1 = v[2].toDouble(), .z2 = v[3].toDouble()});
     }
     // optional column jump_mm: bullet jump of the gun
-    const auto withJump = [](grt::LoadFile lf, const QMap<QString, QString> &row)
+    const auto withJump = [](csr::LoadFile lf, const QMap<QString, QString> &row)
     {
         if (!row.value(u"jump_mm"_s).isEmpty()) lf.gun.set(u"gjump", row.value(u"jump_mm"_s).toDouble());
         return lf;
     };
     // the load of a row: the physical burn values of --phys replace the file's
-    const auto withPhys = [&](grt::LoadFile lf, const QString &key)
+    const auto withPhys = [&](csr::LoadFile lf, const QString &key)
     {
-        if (phys.contains(key)) grt::writePhysicalBurn(lf.propellant, phys.value(key));
-        return grt::SimInput::fromLoad(lf);
+        if (phys.contains(key)) csr::writePhysicalBurn(lf.propellant, phys.value(key));
+        return csr::SimInput::fromLoad(lf);
     };
     QMap<QString, double> ba;
     for (const QString &nv : cli.values(u"ba"_s)) ba.insert(nv.section(u'=', 0, 0).toLower(), nv.section(u'=', 1).toDouble());
     if (cli.positionalArguments().isEmpty()) return 2;
 
     QTemporaryDir tmp;
-    grt::Database db;
-    grt::Database::setProjectDataLocation(tmp.path());
+    csr::Database db;
+    csr::Database::setProjectDataLocation(tmp.path());
     if (!db.open({}, tmp.filePath(u"own.db"_s))) return 2;
-    const auto calSchema = db.schema(grt::Table::Caliber);
+    const auto calSchema = db.schema(csr::Table::Caliber);
     QMap<QString, QVariantMap> calibers;
-    for (const QVariantMap &r : grt::projectdata::load(cli.value(u"data"_s), grt::Table::Caliber, calSchema).records)
+    for (const QVariantMap &r : csr::projectdata::load(cli.value(u"data"_s), csr::Table::Caliber, calSchema).records)
         calibers.insert(r.value(u"cipname"_s).toString(), r);
     QStringList calColumns;
     for (const auto &[name, type] : calSchema) calColumns << name;
     QMap<QString, QVariantMap> powders;
     for (const QVariantMap &r :
-         grt::projectdata::load(cli.value(u"data"_s), grt::Table::Propellant, db.schema(grt::Table::Propellant)).records)
+         csr::projectdata::load(cli.value(u"data"_s), csr::Table::Propellant, db.schema(csr::Table::Propellant)).records)
         powders.insert((r.value(u"mname"_s).toString() + u' ' + r.value(u"pname"_s).toString()).toLower(), r);
 
     const int steps = cli.value(u"steps"_s).toInt();
@@ -191,21 +191,21 @@ int main(int argc, char *argv[])
                                      {u"pname"_s, QString()},
                                      {u"gdia"_s, g->second.bore_mm},
                                      {u"glen"_s, column_mm},
-                                     {u"gmass"_s, (shot + 2.5) / grt::kGrainToGram},
+                                     {u"gmass"_s, (shot + 2.5) / csr::kGrainToGram},
                                      {u"gpressure"_s, 20.0},
                                      {u"gtailtype"_s, 0}};
-            grt::LoadParams p;
+            csr::LoadParams p;
             p.charge_g = row.value(u"charge_g"_s).toDouble();
             p.barrelLength_mm = row.value(u"barrel_mm"_s, u"711"_s).toDouble();
             p.seatingDepth_mm = column_mm;  // completely inside the hull
-            grt::LoadFile lf = grt::buildLoad(caliber, bullet, powder, p, calColumns);
+            csr::LoadFile lf = csr::buildLoad(caliber, bullet, powder, p, calColumns);
             lf.caliber.set(u"shotshell"_s, u"true"_s);
-            grt::SimInput si = withPhys(lf, key);
+            csr::SimInput si = withPhys(lf, key);
             // factors of the row itself on top of those of the shell, wad and primer of the load (fits): columns shot_cap and shot_energy
             if (row.contains(u"shot_cap"_s)) si.shotCapacityScale *= row.value(u"shot_cap"_s).toDouble();
             if (row.contains(u"shot_energy"_s)) si.shotEnergyScale *= row.value(u"shot_energy"_s).toDouble();
-            const grt::SimResult r = grt::simulate(si, cal, steps);
-            if (r.status != grt::SimStatus::Ok) continue;
+            const csr::SimResult r = csr::simulate(si, cal, steps);
+            if (r.status != csr::SimStatus::Ok) continue;
             out << n << ',' << QString::asprintf("%.3f,%.1f", r.muzzleVelocity_ms, r.maxPressure_bar) << '\n';
             continue;
         }
@@ -230,15 +230,15 @@ int main(int argc, char *argv[])
             bullet.insert(u"gtaildiaB"_s, 0.88 * row.value(u"bullet_dia_mm"_s).toDouble());
             bullet.insert(u"gtailh"_s, 0.45 * row.value(u"bullet_dia_mm"_s).toDouble());
         }
-        grt::LoadParams p;
+        csr::LoadParams p;
         p.charge_g = row.value(u"charge_g"_s).toDouble();
         p.barrelLength_mm = row.value(u"barrel_mm"_s).toDouble();
         p.seatingDepth_mm = cal0->value(u"L3"_s).toDouble() + bullet.value(u"glen"_s).toDouble() - row.value(u"col_mm"_s).toDouble();
         if (!row.value(u"twist_mm"_s).isEmpty()) p.twistLength_mm = row.value(u"twist_mm"_s).toDouble();
         if (p.seatingDepth_mm <= 1.0 || p.barrelLength_mm <= 0.0) continue;
-        const grt::SimResult r =
-            grt::simulate(withPhys(withJump(grt::buildLoad(*cal0, bullet, powder, p, calColumns), row), key), cal, steps);
-        if (r.status != grt::SimStatus::Ok) continue;
+        const csr::SimResult r =
+            csr::simulate(withPhys(withJump(csr::buildLoad(*cal0, bullet, powder, p, calColumns), row), key), cal, steps);
+        if (r.status != csr::SimStatus::Ok) continue;
         out << n << ',' << QString::asprintf("%.3f,%.1f", r.muzzleVelocity_ms, r.maxPressure_bar) << '\n';
     }
     return 0;

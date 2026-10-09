@@ -6,7 +6,7 @@
 #include <optional>
 #include <vector>
 
-namespace grt
+namespace csr
 {
 
 enum class ChronographFormat
@@ -39,4 +39,4 @@ struct ChronographFile
 // the text is none of them or has no shots.
 [[nodiscard]] std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *error = nullptr);
 
-}  // namespace grt
+}  // namespace csr

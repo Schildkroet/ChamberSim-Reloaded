@@ -6,7 +6,7 @@
 #include <optional>
 #include <vector>
 
-namespace grt
+namespace csr
 {
 
 // Text values of the file format are percent-encoded (UTF-8); decode leaves text without '%' as it is.
@@ -46,23 +46,23 @@ private:
     std::vector<Entry> m_entries;
 };
 
-// The two file formats of a load. *.grtreload is this program's own (<GRTReloaded format="1"><load>), *.grtload is the
+// The two file formats of a load. *.csrload is this program's own (<ChamberSimReloaded format="1"><load>), *.grtload is the
 // original program's (<GordonsReloadingTool><InnerBallistikInput>): both are read, the original's is only written as an export.
 // This program's data that the original does not know (physical burn values, shotshell parts) has its own sections
-// (<physical>, <shotshell>) in *.grtreload; the export leaves it out. In memory it is in the propellant / caliber entries.
+// (<physical>, <shotshell>) in *.csrload; the export leaves it out. In memory it is in the propellant / caliber entries.
 enum class FileFormat
 {
     Reload,
     Original,
 };
 
-inline constexpr auto kReloadSuffix = "grtreload";
+inline constexpr auto kReloadSuffix = "csrload";
 inline constexpr auto kOriginalSuffix = "grtload";
 
 // The format a file name stands for: *.grtload is the original's, everything else this program's.
 [[nodiscard]] FileFormat formatForPath(const QString &path);
 
-// In-memory form of a load file (*.grtreload, or the original's *.grtload).
+// In-memory form of a load file (*.csrload, or the original's *.grtload).
 struct LoadFile
 {
     QString appVersion;
@@ -84,4 +84,4 @@ struct LoadFile
     [[nodiscard]] QByteArray toXml(FileFormat format = FileFormat::Reload) const;
 };
 
-}  // namespace grt
+}  // namespace csr

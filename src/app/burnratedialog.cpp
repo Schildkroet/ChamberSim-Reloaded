@@ -69,7 +69,7 @@ public:
 }
 }  // namespace
 
-BurnRateDialog::BurnRateDialog(const grt::Database &db, QWidget *parent)
+BurnRateDialog::BurnRateDialog(const csr::Database &db, QWidget *parent)
     : QDialog(parent)
     , m_model(new QStandardItemModel(0, ColumnCount, this))
     , m_proxy(new SearchFilterProxy(this))
@@ -183,7 +183,7 @@ BurnRateDialog::~BurnRateDialog()
     QSettings().setValue(QStringLiteral("burnrate/size"), size());
 }
 
-void BurnRateDialog::load(const grt::Database &db)
+void BurnRateDialog::load(const csr::Database &db)
 {
     struct Row
     {
@@ -200,7 +200,7 @@ void BurnRateDialog::load(const grt::Database &db)
                   number(q, 4),          number(q, 5),          number(q, 6),          number(q, 12)};
             if (r.br <= 0.0)  // records without stored factors: derived from the model values
             {
-                const grt::BurnFactors f = grt::burnFactors(r.ba, number(q, 7), number(q, 8), number(q, 9), number(q, 10), number(q, 11));
+                const csr::BurnFactors f = csr::burnFactors(r.ba, number(q, 7), number(q, 8), number(q, 9), number(q, 10), number(q, 11));
                 r.br = f.Br;
                 r.bp = f.Bp;
                 r.brp = f.Brp;

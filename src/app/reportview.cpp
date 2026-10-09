@@ -75,7 +75,7 @@ ReportView::ReportView(QWidget *parent)
     connect(&UnitPreferences::instance(), &UnitPreferences::changed, this, &ReportView::invalidate);
 }
 
-void ReportView::setDataProvider(std::function<grt::report::Data()> provider)
+void ReportView::setDataProvider(std::function<csr::report::Data()> provider)
 {
     m_provider = std::move(provider);
     invalidate();
@@ -97,13 +97,13 @@ void ReportView::refresh()
 {
     m_dirty = false;
     if (!m_provider) return;
-    grt::report::RenderOptions options;
-    options.unitFor = [](grt::units::Quantity q) -> const grt::units::Unit & { return UnitPreferences::instance().unitFor(q); };
+    csr::report::RenderOptions options;
+    options.unitFor = [](csr::units::Quantity q) -> const csr::units::Unit & { return UnitPreferences::instance().unitFor(q); };
     QFont f = m_browser->document()->defaultFont();
     if (m_baseFontSize <= 0) m_baseFontSize = f.pointSizeF() > 0 ? f.pointSizeF() : 10.0;
     f.setPointSizeF(m_baseFontSize * storedScale() / 100.0);
     m_browser->document()->setDefaultFont(f);
-    m_browser->setHtml(grt::report::renderReport(storedTemplate(), m_provider(), options));
+    m_browser->setHtml(csr::report::renderReport(storedTemplate(), m_provider(), options));
 }
 
 QString ReportView::html()
@@ -120,13 +120,13 @@ bool ReportView::hasCustomTemplate()
 QString ReportView::storedTemplate()
 {
     const QString t = QSettings().value(QLatin1String(kTemplateKey)).toString();
-    return t.isEmpty() ? grt::report::defaultTemplate() : t;
+    return t.isEmpty() ? csr::report::defaultTemplate() : t;
 }
 
 void ReportView::storeTemplate(const QString &text)
 {
     QSettings s;
-    if (text.trimmed().isEmpty() || text == grt::report::defaultTemplate()) s.remove(QLatin1String(kTemplateKey));
+    if (text.trimmed().isEmpty() || text == csr::report::defaultTemplate()) s.remove(QLatin1String(kTemplateKey));
     else s.setValue(QLatin1String(kTemplateKey), text);
 }
 
@@ -167,11 +167,11 @@ std::unique_ptr<QTextDocument> ReportView::makePrintDocument(const QSizeF &pageP
 {
     const double s = storedScale() / 100.0;
     const QSizeF page(pagePoints.width() / s, pagePoints.height() / s);
-    grt::report::RenderOptions options;
-    options.unitFor = [](grt::units::Quantity q) -> const grt::units::Unit & { return UnitPreferences::instance().unitFor(q); };
+    csr::report::RenderOptions options;
+    options.unitFor = [](csr::units::Quantity q) -> const csr::units::Unit & { return UnitPreferences::instance().unitFor(q); };
     options.pageWidth = static_cast<int>(page.width());
     auto doc = std::make_unique<QTextDocument>();
-    doc->setHtml(grt::report::renderReport(storedTemplate(), m_provider ? m_provider() : grt::report::Data{}, options));
+    doc->setHtml(csr::report::renderReport(storedTemplate(), m_provider ? m_provider() : csr::report::Data{}, options));
     doc->setPageSize(page);
     return doc;
 }
@@ -222,7 +222,7 @@ void ReportView::showPrintDialog(QWidget *parent)
 
 void ReportView::editTemplate(QWidget *parent)
 {
-    ReportTemplateDialog dlg(m_provider ? m_provider() : grt::report::Data{}, storedTemplate(), parent);
+    ReportTemplateDialog dlg(m_provider ? m_provider() : csr::report::Data{}, storedTemplate(), parent);
     if (dlg.exec() != QDialog::Accepted) return;
     storeTemplate(dlg.templateText());
     refresh();

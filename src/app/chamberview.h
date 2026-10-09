@@ -20,7 +20,7 @@ class ChamberView : public QWidget
 public:
     explicit ChamberView(QWidget *parent = nullptr);
 
-    void setLoad(const grt::LoadFile &file, const grt::SimInput &input);
+    void setLoad(const csr::LoadFile &file, const csr::SimInput &input);
     void clear();
     void setTableVisible(bool visible);  // for reports: only the measure A below the drawing
 

@@ -7,7 +7,7 @@
 #include <utility>
 #include <vector>
 
-namespace grt
+namespace csr
 {
 
 // Attributes in file order with their raw (still percent-encoded) values.
@@ -76,4 +76,4 @@ struct ShotStatistics
 [[nodiscard]] std::optional<Measurement> readMeasurement(const QString &appendixXml);
 [[nodiscard]] QString writeMeasurement(const QString &appendixXml, const Measurement &m);
 
-}  // namespace grt
+}  // namespace csr

@@ -184,34 +184,34 @@ private slots:
     void languagesHaveFlags();
 
 private:
-    static int idOf(grt::Database &db, grt::Table t, const QString &where);
+    static int idOf(csr::Database &db, csr::Table t, const QString &where);
 
-    grt::Database m_db;
+    csr::Database m_db;
 };
 
 void GuiTest::initTestCase()
 {
     // the shotshell parts are in the resources of the program only: the tests read the file of the source tree
-    grt::setShotPartsFile(QStringLiteral(GRT_SOURCE_DIR "/data/shotshell/parts.json"));
+    csr::setShotPartsFile(QStringLiteral(CSR_SOURCE_DIR "/data/shotshell/parts.json"));
     // never touch the user's real settings or own database
     QStandardPaths::setTestModeEnabled(true);
-    QFile::remove(grt::Database::defaultOwnPath());  // start every run with an empty own database
+    QFile::remove(csr::Database::defaultOwnPath());  // start every run with an empty own database
     static QTemporaryDir settingsDir;
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, settingsDir.path());
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     UnitPreferences::instance().resetFieldUnits();
-    UnitPreferences::instance().setSystem(grt::units::System::Original);
+    UnitPreferences::instance().setSystem(csr::units::System::Original);
 
-    const QString dbPath = QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
+    const QString dbPath = QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
     if (!QFile::exists(dbPath)) QSKIP("plain database not available");
     QVERIFY(m_db.open(dbPath));
 }
 
-int GuiTest::idOf(grt::Database &db, grt::Table t, const QString &where)
+int GuiTest::idOf(csr::Database &db, csr::Table t, const QString &where)
 {
     QSqlQuery q(db.handle());
-    if (q.exec(u"SELECT id FROM %1 WHERE geloescht = 0 AND %2 ORDER BY id"_s.arg(QLatin1String(grt::tableName(t)), where)) && q.next())
+    if (q.exec(u"SELECT id FROM %1 WHERE geloescht = 0 AND %2 ORDER BY id"_s.arg(QLatin1String(csr::tableName(t)), where)) && q.next())
         return q.value(0).toInt();
     return -1;
 }
@@ -225,7 +225,7 @@ void GuiTest::unitConverterConvertsAllUnits()
             if (dialog.symbolAt(i) == symbol) return QLocale().toDouble(dialog.valueAt(i));
         return std::numeric_limits<double>::quiet_NaN();
     };
-    dialog.setQuantity(grt::units::Quantity::Pressure);
+    dialog.setQuantity(csr::units::Quantity::Pressure);
     dialog.setFromUnit(u"bar"_s);
     dialog.setInput(u"1000"_s);
     QCOMPARE(dialog.rowCount(), 4);
@@ -233,7 +233,7 @@ void GuiTest::unitConverterConvertsAllUnits()
     QVERIFY(std::abs(value(u"psi"_s) - 14503.77) < 0.01);
     QCOMPARE(value(u"MPa"_s), 100.0);
     // an offset unit: Celsius to Fahrenheit
-    dialog.setQuantity(grt::units::Quantity::Temperature);
+    dialog.setQuantity(csr::units::Quantity::Temperature);
     dialog.setFromUnit(u"cel"_s);
     dialog.setInput(u"100"_s);
     QVERIFY(std::abs(value(u"°F"_s) - 212.0) < 1e-6);
@@ -275,33 +275,33 @@ void GuiTest::burnRateTableSortsAndFilters()
 void GuiTest::solverCalibrationIsChosenInTheSettings()
 {
     auto &prefs = SolverPreferences::instance();
-    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Physical);  // the default: the own physical model
-    prefs.setProfile(grt::CalibrationProfile::Original);
+    QCOMPARE(prefs.profile(), csr::CalibrationProfile::Physical);  // the default: the own physical model
+    prefs.setProfile(csr::CalibrationProfile::Original);
     SettingsDialog dlg;
     QComboBox *calibration = nullptr;
     for (auto *c : dlg.findChildren<QComboBox *>())
-        if (c->findText(SolverPreferences::name(grt::CalibrationProfile::Published)) >= 0) calibration = c;
+        if (c->findText(SolverPreferences::name(csr::CalibrationProfile::Published)) >= 0) calibration = c;
     QVERIFY(calibration);
     QSignalSpy changed(&prefs, &SolverPreferences::changed);
-    calibration->setCurrentIndex(calibration->findText(SolverPreferences::name(grt::CalibrationProfile::Published)));
+    calibration->setCurrentIndex(calibration->findText(SolverPreferences::name(csr::CalibrationProfile::Published)));
     dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
-    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Published);
-    QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Published);
+    QCOMPARE(prefs.profile(), csr::CalibrationProfile::Published);
+    QCOMPARE(csr::calibrationProfile(), csr::CalibrationProfile::Published);
     QCOMPARE(changed.count(), 1);
     QCOMPARE(QSettings().value(u"solver/calibration"_s).toString(), u"published"_s);
-    prefs.setProfile(grt::CalibrationProfile::Original);  // leave the others as they were
-    QCOMPARE(grt::calibrationProfile(), grt::CalibrationProfile::Original);
+    prefs.setProfile(csr::CalibrationProfile::Original);  // leave the others as they were
+    QCOMPARE(csr::calibrationProfile(), csr::CalibrationProfile::Original);
 
     // an open load is recalculated with the other constants (the shown result comes from the ladder simulation)
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const double original = view.result().maxPressure_bar;
     QVERIFY(original > 0.0);
-    prefs.setProfile(grt::CalibrationProfile::Published);
+    prefs.setProfile(csr::CalibrationProfile::Published);
     const double published = view.result().maxPressure_bar;
     QVERIFY(std::abs(published / original - 1.0) > 0.01);
-    prefs.setProfile(grt::CalibrationProfile::Original);
+    prefs.setProfile(csr::CalibrationProfile::Original);
     QCOMPARE(view.result().maxPressure_bar, original);
     const auto modelLine = [&]
     {
@@ -310,24 +310,24 @@ void GuiTest::solverCalibrationIsChosenInTheSettings()
         return QString();
     };
     QCOMPARE(modelLine(), u"Model: GRT Original"_s);              // above the results: only the model used
-    prefs.setProfile(grt::CalibrationProfile::Physical, false);   // the default again, for the other tests
+    prefs.setProfile(csr::CalibrationProfile::Physical, false);   // the default again, for the other tests
     QVERIFY(modelLine().startsWith(u"Model: Physical Model"_s));  // (the sample's N150 has the original's lot values: with the note)
 }
 
 void GuiTest::grtFilesCanUseGrtOriginal()
 {
     auto &prefs = SolverPreferences::instance();
-    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Physical);
+    QCOMPARE(prefs.profile(), csr::CalibrationProfile::Physical);
     QVERIFY(!prefs.originalForGrtFiles());  // off by default: every load uses the chosen model
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     QVERIFY(view.isGrtFile());
     const double physical = view.result().maxPressure_bar;
-    prefs.setProfile(grt::CalibrationProfile::Original, false);
+    prefs.setProfile(csr::CalibrationProfile::Original, false);
     const double original = view.result().maxPressure_bar;
     const double originalVelocity = view.result().muzzleVelocity_ms;
-    prefs.setProfile(grt::CalibrationProfile::Physical, false);
+    prefs.setProfile(csr::CalibrationProfile::Physical, false);
     QCOMPARE(view.result().maxPressure_bar, physical);
     QVERIFY(std::abs(physical / original - 1.0) > 0.01);
 
@@ -339,7 +339,7 @@ void GuiTest::grtFilesCanUseGrtOriginal()
     dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
     QVERIFY(prefs.originalForGrtFiles());
     QCOMPARE(QSettings().value(u"solver/originalForGrtFiles"_s).toBool(), true);
-    QCOMPARE(prefs.profile(), grt::CalibrationProfile::Physical);  // the chosen model stays
+    QCOMPARE(prefs.profile(), csr::CalibrationProfile::Physical);  // the chosen model stays
     QCOMPARE(view.result().maxPressure_bar, original);             // exactly what GRT Original gives
     QCOMPARE(view.result().muzzleVelocity_ms, originalVelocity);
     QVERIFY(view.findChild<QWidget *>(u"burnValuesNotice"_s)->isHidden());  // no note about the Physical Model's values
@@ -347,9 +347,9 @@ void GuiTest::grtFilesCanUseGrtOriginal()
     for (QLabel *l : view.findChildren<QLabel *>()) named |= l->text().startsWith(u"Model: GRT Original (original GRT file"_s);
     QVERIFY(named);
 
-    // the model follows the format of the file: a *.grtreload uses the chosen one, an export to *.grtload GRT Original again
+    // the model follows the format of the file: a *.csrload uses the chosen one, an export to *.grtload GRT Original again
     QTemporaryDir dir;
-    QVERIFY(view.save(dir.filePath(u"load.grtreload"_s)));
+    QVERIFY(view.save(dir.filePath(u"load.csrload"_s)));
     QVERIFY(!view.isGrtFile());
     QCOMPARE(view.result().maxPressure_bar, physical);
     QVERIFY(view.save(dir.filePath(u"load.grtload"_s)));
@@ -361,7 +361,7 @@ void GuiTest::grtFilesCanUseGrtOriginal()
 
 void GuiTest::tableBrowserFiltersAndSelects()
 {
-    TableBrowser b(grt::Table::Propellant);
+    TableBrowser b(csr::Table::Propellant);
     b.setDatabase(&m_db);
     QVERIFY(b.selectId(562));
     QCOMPARE(b.currentId(), 562);
@@ -370,7 +370,7 @@ void GuiTest::tableBrowserFiltersAndSelects()
     QCOMPARE(b.currentId(), -1);
 
     // the filter finds "8 x 57 IS" whatever the spelling
-    TableBrowser calibers(grt::Table::Caliber);
+    TableBrowser calibers(csr::Table::Caliber);
     calibers.setDatabase(&m_db);
     auto *edit = calibers.findChild<QLineEdit *>();
     auto *view = calibers.findChild<QTableView *>();
@@ -384,7 +384,7 @@ void GuiTest::tableBrowserFiltersAndSelects()
 
 void GuiTest::rowFilterRestrictsTheTable()
 {
-    TableBrowser b(grt::Table::Projectile);
+    TableBrowser b(csr::Table::Projectile);
     b.setDatabase(&m_db);
     QVERIFY(b.selectId(4542));  // Sellier-Bellot FMJ-BT 2910, .323
     b.setRowFilter(u"ABS(gdia - 4.5) < 0.25"_s);
@@ -396,30 +396,30 @@ void GuiTest::rowFilterRestrictsTheTable()
 void GuiTest::newLoadDialogBuildsARunnableLoad()
 {
     NewLoadDialog dlg(m_db);
-    const int cal = idOf(m_db, grt::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
-    const int prj = idOf(m_db, grt::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
-    const int pro = idOf(m_db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
+    const int cal = idOf(m_db, csr::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
+    const int prj = idOf(m_db, csr::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
+    const int pro = idOf(m_db, csr::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
     QVERIFY(cal > 0 && prj > 0 && pro > 0);
     QVERIFY(dlg.select(cal, prj, pro));
 
-    const grt::LoadFile lf = dlg.result();
+    const csr::LoadFile lf = dlg.result();
     QCOMPARE(lf.caliber.text(u"CaliberName"), u"8 x 57 IS (8 x 57 JS)"_s);
     QCOMPARE(lf.propellant.text(u"pname"), u"N150"_s);
     QCOMPARE(lf.gun.number(u"xe"), 600.0);                            // rifle default
     QVERIFY(std::abs(lf.projectile.number(u"gdepth") - 7.9) < 0.01);  // default: cartridge at its maximum length (57 + 32.9 - 82)
-    const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(lf));
+    const csr::SimResult r = csr::simulate(csr::SimInput::fromLoad(lf));
     QVERIFY(r.ok());
     QVERIFY(r.maxPressure_bar > 1000.0 && r.maxPressure_bar < 5000.0);
-    dlg.grab().save(QDir::temp().filePath(u"grt_newload_dialog.png"_s));
+    dlg.grab().save(QDir::temp().filePath(u"csr_newload_dialog.png"_s));
 }
 
 void GuiTest::newLoadDialogKeepsEditsOfTheSecondStep()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm, g
+    UnitPreferences::instance().setSystem(csr::units::System::Original);  // mm, g
     NewLoadDialog dlg(m_db);
-    const int cal = idOf(m_db, grt::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
-    const int prj = idOf(m_db, grt::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
-    const int pro = idOf(m_db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
+    const int cal = idOf(m_db, csr::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
+    const int prj = idOf(m_db, csr::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
+    const int pro = idOf(m_db, csr::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
     QVERIFY(dlg.select(cal, prj, pro));  // second step, with the defaults
 
     const auto button = [&](const QString &text)
@@ -447,7 +447,7 @@ void GuiTest::newLoadDialogKeepsEditsOfTheSecondStep()
     QCOMPARE(barrel()->value(), standard - 100.0);
 
     button(u"< Back"_s)->click();  // another powder: the data are filled in again
-    const int other = idOf(m_db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N140' AND lotid = '2021-11-13'"_s);
+    const int other = idOf(m_db, csr::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N140' AND lotid = '2021-11-13'"_s);
     if (other > 0)
     {
         QVERIFY(dlg.select(cal, prj, other));
@@ -481,10 +481,10 @@ int rowOf(QTableWidget *t, const QString &key)
 
 void GuiTest::shotshellIsDrawnAsAShell()
 {
-    grt::LoadFile file;
+    csr::LoadFile file;
     file.caliber.set(u"shotshell", u"true"_s);
     file.caliber.set(u"caselen", 70.0);
-    grt::SimInput in;
+    csr::SimInput in;
     in.shotshell = true;
     in.caseLength_mm = 70.0;
     in.caseVolume_cm3 = 17.24;
@@ -509,7 +509,7 @@ void GuiTest::shotshellIsDrawnAsAShell()
             const QColor c = img.pixelColor(x, y);
             red += c.red() > 140 && c.green() < 110 && c.blue() < 110;
         }
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/shotshell.png"_s);
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/shotshell.png"_s);
     QVERIFY2(red > 100, qPrintable(QString::number(red)));
     ChamberView chamber;
     chamber.setLoad(file, in);  // without C.I.P. dimensions: nothing to draw, but no crash
@@ -518,17 +518,17 @@ void GuiTest::shotshellIsDrawnAsAShell()
 
 void GuiTest::shotshellPartsAreChoices()
 {
-    grt::EntryList caliber;
+    csr::EntryList caliber;
     caliber.set(u"shotshell", u"true"_s);
-    QVERIFY(grt::ensureShotParts(caliber));   // an older shotshell load gets the entries ...
-    QVERIFY(!grt::ensureShotParts(caliber));  // ... once
+    QVERIFY(csr::ensureShotParts(caliber));   // an older shotshell load gets the entries ...
+    QVERIFY(!csr::ensureShotParts(caliber));  // ... once
     // an individual part (a file of an earlier version) is replaced by the group it belongs to
     caliber.set(u"shothull", u"winchester-aa-hs"_s);
     caliber.set(u"shotwad", u"12-waa12sl"_s);
-    QVERIFY(grt::ensureShotParts(caliber));
+    QVERIFY(csr::ensureShotParts(caliber));
     QCOMPARE(caliber.text(u"shothull"), u"group-high"_s);
     QCOMPARE(caliber.text(u"shotwad"), u"group-low"_s);
-    QVERIFY(!grt::ensureShotParts(caliber));
+    QVERIFY(!csr::ensureShotParts(caliber));
     caliber.set(u"shotprimer", u"nonsense"_s);  // an id of another version stays visible
     PropertyPanel panel;
     panel.setSections({{0, u"caliber"_s, u"Caliber"_s, &caliber}});
@@ -547,14 +547,14 @@ void GuiTest::shotshellPartsAreChoices()
     panel.syncValues();
     QCOMPARE(t->item(rowOf(t, u"shothull"_s), 1)->text(), u"not specified (average)"_s);
     // a cartridge that is no shotshell gets nothing
-    grt::EntryList rifle;
+    csr::EntryList rifle;
     rifle.set(u"shotshell", u"false"_s);
-    QVERIFY(!grt::ensureShotParts(rifle));
+    QVERIFY(!csr::ensureShotParts(rifle));
 }
 
 void GuiTest::codedFieldsShowReadableText()
 {
-    grt::EntryList list;
+    csr::EntryList list;
     const auto add = [&](const char *name, const char *value, const char *descr)
     {
         list.entries().push_back({.name = QString::fromLatin1(name),
@@ -591,7 +591,7 @@ void GuiTest::codedFieldsShowReadableText()
     QCOMPARE(t->item(rTail, 1)->text(), u"hollow base"_s);
 
     // a code the program does not know stays visible instead of being hidden
-    grt::EntryList odd;
+    csr::EntryList odd;
     odd.entries().push_back({.name = u"gTailType"_s, .value = u"3"_s, .unit = {}, .type = u"decimal"_s, .descr = u"base"_s});
     PropertyPanel panel2;
     panel2.setSections({{0, u"projectile"_s, u"Projectile"_s, &odd}});
@@ -601,10 +601,10 @@ void GuiTest::codedFieldsShowReadableText()
 // The solver uses the seating depth; the cartridge overall length is derived from it, so editing the length must change the depth.
 void GuiTest::editsCanBeUndoneAndRedone()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm
+    UnitPreferences::instance().setSystem(csr::units::System::Original);  // mm
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     QVERIFY(!view.canUndo());
     QVERIFY(!view.canRedo());
     const auto edit = [&](const QString &key, const QString &text)
@@ -640,7 +640,7 @@ void GuiTest::editsCanBeUndoneAndRedone()
 
     // a saved state is the clean one; a new edit after an undo drops the redo steps
     QTemporaryDir dir;
-    QVERIFY(view.save(dir.filePath(u"x.grtreload"_s), &error));
+    QVERIFY(view.save(dir.filePath(u"x.csrload"_s), &error));
     QVERIFY(!view.isModified());
     view.undo();
     QVERIFY(view.isModified());
@@ -656,10 +656,10 @@ void GuiTest::editsCanBeUndoneAndRedone()
 
 void GuiTest::overallLengthAndSeatingDepthStayInStep()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Original);  // mm
+    UnitPreferences::instance().setSystem(csr::units::System::Original);  // mm
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const auto edit = [&](const QString &key, const QString &text)
     {
         for (PropertyPanel *panel : view.findChildren<PropertyPanel *>())
@@ -674,8 +674,8 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
         QTemporaryDir dir;
         const QString path = dir.filePath(u"x.grtload"_s);
         QString err;
-        if (!view.save(path, &err)) return std::optional<grt::LoadFile>{};
-        return grt::LoadFile::read(path);
+        if (!view.save(path, &err)) return std::optional<csr::LoadFile>{};
+        return csr::LoadFile::read(path);
     };
     auto lf = saved();
     QVERIFY(lf);
@@ -715,8 +715,8 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
 
 void GuiTest::panelShowsAndEditsInTheChosenUnit()
 {
-    using grt::units::System;
-    grt::EntryList list;
+    using csr::units::System;
+    csr::EntryList list;
     list.entries().push_back(
         {.name = u"mp"_s, .value = u"12.700586359951799"_s, .unit = u"g"_s, .type = u"decimal"_s, .descr = u"projectile weight"_s});
     list.entries().push_back(
@@ -765,9 +765,9 @@ void GuiTest::panelShowsAndEditsInTheChosenUnit()
 
 void GuiTest::perFieldUnitOverridesTheSystem()
 {
-    using grt::units::Quantity;
-    using grt::units::System;
-    grt::EntryList list;
+    using csr::units::Quantity;
+    using csr::units::System;
+    csr::EntryList list;
     list.entries().push_back(
         {.name = u"mp"_s, .value = u"12.700586359951799"_s, .unit = u"g"_s, .type = u"decimal"_s, .descr = u"weight"_s});
     list.entries().push_back({.name = u"glen"_s, .value = u"25.4"_s, .unit = u"mm"_s, .type = u"decimal"_s, .descr = u"length"_s});
@@ -796,10 +796,10 @@ void GuiTest::perFieldUnitOverridesTheSystem()
 
 void GuiTest::resultsFollowTheUnitSystem()
 {
-    using grt::units::System;
+    using csr::units::System;
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const auto allText = [&]
     {
         QStringList s;
@@ -821,7 +821,7 @@ void GuiTest::resultsFollowTheUnitSystem()
 void GuiTest::ladderCurvesAndFocus()
 {
     QTemporaryDir dir;
-    auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const double mc = lf->propellant.number(u"mc");
     lf->propellant.set(u"laddercnt", 4.0);
@@ -858,7 +858,7 @@ void GuiTest::ladderCurvesAndFocus()
     QVERIFY(std::abs(view.focusCharge_g() - (mc - 0.4)) < 1e-12);
     const QString out = dir.filePath(u"saved.grtload"_s);
     QVERIFY(view.save(out, &error));
-    const auto saved = grt::LoadFile::read(out);
+    const auto saved = csr::LoadFile::read(out);
     QVERIFY(saved);
     QCOMPARE(saved->config.number(u"CurveFocusIdx"), 2.0);
     // reopening shows the same curve selected
@@ -883,7 +883,7 @@ void GuiTest::ladderCurvesAndFocus()
 
     // switching the ladder off removes the controls
     LoadView plain;
-    QVERIFY(plain.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error));
+    QVERIFY(plain.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error));
     plain.show();
     QCOMPARE(plain.ladderSize(), 1);
     // without a ladder the tab strip and the comparison table are hidden
@@ -937,7 +937,7 @@ void GuiTest::fontSizeAppliesToTheWholeApplication()
     // charts have their own fonts and follow: the axis labels grow with the application font
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.show();
     const auto axisLabelSize = [&]
     {
@@ -979,7 +979,7 @@ void GuiTest::lastLoadsAreReopened()
     // two loads (copies of a sample, so that the files can be removed) and the one that was shown
     static QTemporaryDir dir;
     const QString a = dir.filePath(u"first.grtload"_s), b = dir.filePath(u"second.grtload"_s);
-    for (const QString &f : {a, b}) QVERIFY(QFile::copy(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), f));
+    for (const QString &f : {a, b}) QVERIFY(QFile::copy(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), f));
     {
         MainWindow w;
         QVERIFY(w.openLoad(a));
@@ -1074,7 +1074,7 @@ void GuiTest::startPageHasLoadButtons()
                        });
     create->click();
     QVERIFY(opened);
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) w.grab().save(u"%1/startpage.png"_s.arg(shots));
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) w.grab().save(u"%1/startpage.png"_s.arg(shots));
 }
 
 void GuiTest::fileMenuHasSettingsAndPrinting()
@@ -1108,7 +1108,7 @@ void GuiTest::unitsLiveInSettingsNotInViewMenu()
         QVERIFY(combo);
         dlg.show();
         const int target = combo->findData(
-            static_cast<int>(original == grt::units::System::Imperial ? grt::units::System::Metric : grt::units::System::Imperial));
+            static_cast<int>(original == csr::units::System::Imperial ? csr::units::System::Metric : csr::units::System::Imperial));
         QVERIFY(target >= 0);
         combo->setCurrentIndex(target);
         dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
@@ -1122,7 +1122,7 @@ void GuiTest::hoveringATableRowShowsItsMeasureInTheDrawing()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.resize(1400, 900);
     view.show();
     QVERIFY(QTest::qWaitForWindowExposed(&view));
@@ -1148,8 +1148,8 @@ void GuiTest::hoveringATableRowShowsItsMeasureInTheDrawing()
 void GuiTest::noteWithoutPhysicalBurnValues()
 {
     // the table of the physical burn values is a resource of the program only: the file of the source tree for this test
-    grt::setPhysicalBurnFile(QStringLiteral(GRT_SOURCE_DIR "/data/physical/propellants.json"));
-    const auto restore = qScopeGuard([] { grt::setPhysicalBurnFile(QStringLiteral(":/data/physical/propellants.json")); });
+    csr::setPhysicalBurnFile(QStringLiteral(CSR_SOURCE_DIR "/data/physical/propellants.json"));
+    const auto restore = qScopeGuard([] { csr::setPhysicalBurnFile(QStringLiteral(":/data/physical/propellants.json")); });
     // the orange banner (hidden: no text)
     const auto statusOf = [](LoadView &v)
     {
@@ -1158,7 +1158,7 @@ void GuiTest::noteWithoutPhysicalBurnValues()
     };
     // the sample's N150 has the original's values: those of the project's record are different, so it has no physical ones
     LoadView original;
-    QVERIFY(original.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(original.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     QVERIFY(statusOf(original).contains(u"No physical burn values"_s));
     QVERIFY(statusOf(original).contains(u"Use the physical values"_s));  // the table has N150: the user can take them
 
@@ -1184,15 +1184,15 @@ void GuiTest::noteWithoutPhysicalBurnValues()
     QVERIFY(original.isModified());
     QVERIFY(!statusOf(original).contains(u"No physical burn values"_s));
     QTemporaryDir saveDir;
-    QVERIFY(original.save(saveDir.filePath(u"taken.grtreload"_s)));  // saved with the load
-    QVERIFY(grt::readPhysicalBurn(grt::LoadFile::read(saveDir.filePath(u"taken.grtreload"_s))->propellant));
+    QVERIFY(original.save(saveDir.filePath(u"taken.csrload"_s)));  // saved with the load
+    QVERIFY(csr::readPhysicalBurn(csr::LoadFile::read(saveDir.filePath(u"taken.csrload"_s))->propellant));
 
     // with the values of the project's record (N150: Ba 0.7878, a0 0, z1 0.3, z2 0.6) the powder's physical values are attached
-    auto lf = *grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    auto lf = *csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     for (const auto &[name, value] : {std::pair{u"Ba"_s, 0.7878}, {u"a0"_s, 0.0}, {u"z1"_s, 0.3}, {u"z2"_s, 0.6}})
         lf.propellant.set(name, value);
     QTemporaryDir dir;
-    const QString path = dir.filePath(u"record.grtreload"_s);
+    const QString path = dir.filePath(u"record.csrload"_s);
     QVERIFY(lf.write(path));
     LoadView known;
     QVERIFY(known.load(path));
@@ -1234,12 +1234,12 @@ void GuiTest::recentFilesAreListedInTheFileMenu()
     QCOMPARE(list.first(), u"/tmp/load8.grtload"_s);
     QCOMPARE(list.count(u"/tmp/load8.grtload"_s), 1);
 
-    QCOMPARE(withLoadExtension(u"/tmp/mine"_s), u"/tmp/mine.grtreload"_s);
-    QCOMPARE(withLoadExtension(u"/tmp/mine.grtreload"_s), u"/tmp/mine.grtreload"_s);
+    QCOMPARE(withLoadExtension(u"/tmp/mine"_s), u"/tmp/mine.csrload"_s);
+    QCOMPARE(withLoadExtension(u"/tmp/mine.csrload"_s), u"/tmp/mine.csrload"_s);
     QCOMPARE(withLoadExtension(u"/tmp/mine.xml"_s), u"/tmp/mine.xml"_s);
-    QCOMPARE(withLoadExtension(u"/tmp.d/mine"_s), u"/tmp.d/mine.grtreload"_s);      // a dot in a folder name is no extension
-    QCOMPARE(withLoadExtension(u"/tmp/6.5x55SE"_s), u"/tmp/6.5x55SE.grtreload"_s);  // the "extension" has digits: part of the name
-    QCOMPARE(withLoadExtension(u"/tmp/.223 Rem 55gr"_s), u"/tmp/.223 Rem 55gr.grtreload"_s);
+    QCOMPARE(withLoadExtension(u"/tmp.d/mine"_s), u"/tmp.d/mine.csrload"_s);      // a dot in a folder name is no extension
+    QCOMPARE(withLoadExtension(u"/tmp/6.5x55SE"_s), u"/tmp/6.5x55SE.csrload"_s);  // the "extension" has digits: part of the name
+    QCOMPARE(withLoadExtension(u"/tmp/.223 Rem 55gr"_s), u"/tmp/.223 Rem 55gr.csrload"_s);
     QVERIFY(withLoadExtension({}).isEmpty());
 
     // opening a load puts it into the File menu
@@ -1263,7 +1263,7 @@ void GuiTest::recentFilesAreListedInTheFileMenu()
         return items;
     };
     QVERIFY(visibleRecent().isEmpty());
-    QVERIFY(w.openLoad(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(w.openLoad(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     QCOMPARE(visibleRecent(), QStringList{u"&1 8x57is.grtload"_s});
     QVERIFY(recent->isEnabled());
     QCOMPARE(recentfiles::load().size(), 1);
@@ -1317,13 +1317,13 @@ void GuiTest::helpMenuHasAbout()
     QCOMPARE(menus.last(), u"Help"_s);  // Help is the last menu, as usual
     QStringList items;
     for (QAction *a : help->actions()) items << a->text().remove(u'&');
-    QVERIFY(items.contains(u"About GRT Reloaded…"_s));
+    QVERIFY(items.contains(u"About ChamberSim Reloaded…"_s));
     QVERIFY(!items.contains(u"About Qt…"_s));
 
     // the text: name, version, purpose, calibration, safety, libraries; the database only when one is open
     const QString plain = about::html();
-    QVERIFY(plain.contains(u"GRT Reloaded"_s));
-    QVERIFY(plain.contains(QStringLiteral(GRT_VERSION)));
+    QVERIFY(plain.contains(u"ChamberSim Reloaded"_s));
+    QVERIFY(plain.contains(QStringLiteral(CSR_VERSION)));
     QVERIFY(plain.contains(u"Qt"_s) && plain.contains(QString::fromLatin1(qVersion())));
     QVERIFY(plain.contains(u"Safety"_s) && plain.contains(u"at your own risk"_s));
     QVERIFY(plain.contains(u"not affiliated"_s));
@@ -1335,7 +1335,7 @@ void GuiTest::helpMenuHasAbout()
     // the three parts of the database, each with its counts; the original's file name only, escaped. The English plural
     // forms come from the en_US translation, which the program always loads.
     QTranslator english;
-    QVERIFY(english.load(u"GRTReloaded_en_US"_s, QStringLiteral(GRT_QM_DIR)));
+    QVERIFY(english.load(u"ChamberSimReloaded_en_US"_s, QStringLiteral(CSR_QM_DIR)));
     QCoreApplication::installTranslator(&english);
     const auto removeEnglish = qScopeGuard([&] { QCoreApplication::removeTranslator(&english); });
     const about::DatabaseInfo info{
@@ -1360,7 +1360,7 @@ void GuiTest::helpMenuHasAbout()
                                // nothing may be cut off: the text browser needs no horizontal scrolling
                                if (auto *tb = box->findChild<QTextBrowser *>())
                                    noHorizontalScroll = tb->horizontalScrollBar()->maximum() == 0;
-                               box->grab().save(QDir::temp().filePath(u"grt_about.png"_s));
+                               box->grab().save(QDir::temp().filePath(u"csr_about.png"_s));
                                box->accept();
                            }
                        });
@@ -1374,10 +1374,10 @@ void GuiTest::helpMenuHasAbout()
 void GuiTest::reportTabRendersTheLoad()
 {
     ReportView::storeTemplate({});
-    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    UnitPreferences::instance().setSystem(csr::units::System::Metric);
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.resize(1500, 950);
     view.show();
     ReportView *report = view.report();
@@ -1388,25 +1388,25 @@ void GuiTest::reportTabRendersTheLoad()
     QVERIFY(html.contains(u" bar"_s) && html.contains(u" m/s"_s));
     QVERIFY(!html.contains(u"[work."_s) && !html.contains(u"[result."_s));  // nothing unresolved
     // the diagrams are in the report as pictures (chart + drawing)
-    const grt::report::Data d = view.reportData();
+    const csr::report::Data d = view.reportData();
     for (const char *name :
          {"result.diagramm.png", "result.diagramCurves.png", "result.diagramPropellant.png", "caliber.drawing.png", "caliber.chamber.png"})
     {
         const auto *v = d.find(QLatin1String(name));
-        QVERIFY2(v && v->kind == grt::report::Value::Kind::Image, name);
+        QVERIFY2(v && v->kind == csr::report::Value::Kind::Image, name);
         QVERIFY2(QImage::fromData(v->png).width() > 300, name);
     }
     QVERIFY(html.count(u"<img"_s) >= 2);
 
     // the unit system applies to the report too
-    UnitPreferences::instance().setSystem(grt::units::System::Imperial);
+    UnitPreferences::instance().setSystem(csr::units::System::Imperial);
     QVERIFY(report->html().contains(u" psi"_s) && report->html().contains(u" ft/s"_s));
     QVERIFY(!report->html().contains(u" bar"_s));
-    UnitPreferences::instance().setSystem(grt::units::System::Original);
+    UnitPreferences::instance().setSystem(csr::units::System::Original);
 
     // editing the load changes the report
     const QString before = report->html();
-    const int n340 = idOf(m_db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N340'"_s);
+    const int n340 = idOf(m_db, csr::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N340'"_s);
     view.setDatabase(&m_db);
     QVERIFY(view.applyRecord(LoadView::Component::Propellant, n340));
     QVERIFY(report->html() != before);
@@ -1419,7 +1419,7 @@ void GuiTest::reportTemplateIsCustomisable()
     QVERIFY(!ReportView::hasCustomTemplate());
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     ReportView *report = view.report();
     ReportView::storeTemplate(
         u"====== My report ======\nCaliber: ~~work.CaliberName~~, Pmax ~~result.MaxPressure(\"0\")~~ bar.\n~~work.nothing~~"_s);
@@ -1431,7 +1431,7 @@ void GuiTest::reportTemplateIsCustomisable()
     QVERIFY(html.contains(u"[work.nothing?]"_s));  // a missing value is visible
     QVERIFY(!html.contains(u"Input data"_s));      // the default report is gone
     // writing the default template (or nothing) removes the custom one
-    ReportView::storeTemplate(grt::report::defaultTemplate());
+    ReportView::storeTemplate(csr::report::defaultTemplate());
     QVERIFY(!ReportView::hasCustomTemplate());
     report->refresh();
     QVERIFY(report->html().contains(u"Input data"_s));
@@ -1441,7 +1441,7 @@ void GuiTest::actionButtonsAreEasyToSee()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.setDatabase(&m_db);
     view.resize(1500, 950);
     view.show();
@@ -1510,7 +1510,7 @@ void GuiTest::reportScaleChangesTheLayout()
     ReportView::storeScale(100);
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     ReportView *report = view.report();
     const QSizeF a4(595.0, 842.0);  // points, margins ignored here
 
@@ -1560,7 +1560,7 @@ void GuiTest::reportScaleChangesTheLayout()
 
 void GuiTest::propertyNamesStartWithACapital()
 {
-    grt::EntryList list;
+    csr::EntryList list;
     list.entries().push_back({.name = u"casevol"_s, .value = u"1"_s, .unit = u"cm3"_s, .type = u"decimal"_s, .descr = u"case volume"_s});
     list.entries().push_back(
         {.name = u"xe"_s, .value = u"1"_s, .unit = {}, .type = u"decimal"_s, .descr = {}});  // no description: the key is shown
@@ -1575,7 +1575,7 @@ void GuiTest::propertyNamesStartWithACapital()
     // the tooltip keeps the exact key of the file
     QCOMPARE(t->item(rowOf(t, u"casevol"_s), 0)->toolTip(), u"casevol"_s);
     {
-        grt::EntryList l;
+        csr::EntryList l;
         l.entries().push_back({.name = u"laddercnt"_s,
                                .value = u"1"_s,
                                .unit = {},
@@ -1592,7 +1592,7 @@ void GuiTest::propertyNamesStartWithACapital()
     // every label of a real load starts with a capital letter
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     int labels = 0;
     for (PropertyPanel *p : view.findChildren<PropertyPanel *>())
         for (int r = 0; r < tableOf(*p)->rowCount(); ++r)
@@ -1614,7 +1614,7 @@ void GuiTest::reportExportsAPdf()
     ReportView::storeTemplate({});
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     QTemporaryDir dir;
     const QString pdf = dir.filePath(u"report.pdf"_s);
     QVERIFY(view.report()->exportPdf(pdf));
@@ -1624,14 +1624,14 @@ void GuiTest::reportExportsAPdf()
     QVERIFY(data.startsWith("%PDF"));
     QVERIFY(data.size() > 20000);  // text, tables and the embedded diagrams
     QVERIFY(data.contains("/Type /Page") || data.contains("/Type/Page"));
-    QFile::copy(pdf, QDir::temp().filePath(u"grt_report_sample.pdf"_s));
+    QFile::copy(pdf, QDir::temp().filePath(u"csr_report_sample.pdf"_s));
 }
 
 void GuiTest::inputsAreGroupedInThreeTabs()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     const auto tabs = view.findChildren<QTabWidget *>();
     QTabWidget *inputs = nullptr;
     for (QTabWidget *t : tabs)
@@ -1659,7 +1659,7 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.setDatabase(&m_db);
     QSignalSpy modified(&view, &LoadView::modifiedChanged);
     const auto allText = [&]
@@ -1672,7 +1672,7 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
     QVERIFY(allText().contains(u"N150"_s));
 
     // another powder: the header shows it and the load counts as modified; the charge is kept
-    const int n340 = idOf(m_db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N340'"_s);
+    const int n340 = idOf(m_db, csr::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N340'"_s);
     QVERIFY(n340 > 0);
     QVERIFY(view.applyRecord(LoadView::Component::Propellant, n340));
     QVERIFY(view.isModified());
@@ -1681,13 +1681,13 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
     QVERIFY(!allText().contains(u"N150"_s));
 
     // another bullet
-    const int other = idOf(m_db, grt::Table::Projectile, u"caliber = '.323' AND gmass > 150 AND mname <> 'Sellier-Bellot'"_s);
+    const int other = idOf(m_db, csr::Table::Projectile, u"caliber = '.323' AND gmass > 150 AND mname <> 'Sellier-Bellot'"_s);
     QVERIFY(other > 0);
     QVERIFY(view.applyRecord(LoadView::Component::Projectile, other));
     QVERIFY(!allText().contains(u"Sellier-Bellot"_s));
 
     // another caliber, with the dependent values reset: a pistol barrel is much shorter
-    const int pistol = idOf(m_db, grt::Table::Caliber, u"cipname = '.45 Auto'"_s);
+    const int pistol = idOf(m_db, csr::Table::Caliber, u"cipname = '.45 Auto'"_s);
     QVERIFY(pistol > 0);
     QVERIFY(view.applyRecord(LoadView::Component::Caliber, pistol, true));
     QVERIFY(allText().contains(u".45 Auto"_s));
@@ -1695,7 +1695,7 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
     QTemporaryDir dir;
     const QString out = dir.filePath(u"changed.grtload"_s);
     QVERIFY(view.save(out, &error));
-    const auto lf = grt::LoadFile::read(out);
+    const auto lf = csr::LoadFile::read(out);
     QVERIFY(lf);
     QCOMPARE(lf->propellant.text(u"pname"), u"N340"_s);
     QCOMPARE(lf->caliberFile.text(u"cipname"), u".45 Auto"_s);
@@ -1705,10 +1705,10 @@ void GuiTest::componentsCanBeReplacedAfterSetup()
 
 void GuiTest::chamberGeometryFollowsTheDimensions()
 {
-    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    const auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     QMap<QString, double> d;
-    for (const grt::Entry &e : lf->caliberFile.entries()) d.insert(e.name, e.value.toDouble());
+    for (const csr::Entry &e : lf->caliberFile.entries()) d.insert(e.name, e.value.toDouble());
     // chamber of the 8x57 IS: P1 11.97, P2 10.98 at L1 46.16, H1 9.11 at L2 48.85, H2 9.10 at L3 57.3, lands 7.89, grooves 8.2
     const auto g = ChamberView::buildGeometry(d, 90.0);
     QVERIFY(g.valid);
@@ -1741,7 +1741,7 @@ void GuiTest::drawingPanelHasCartridgeAndChamberTabs()
 {
     LoadView view;
     QString error;
-    QVERIFY2(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     view.resize(1500, 950);
     view.show();
     QTabWidget *drawings = nullptr;
@@ -1761,10 +1761,10 @@ void GuiTest::drawingPanelHasCartridgeAndChamberTabs()
 // The drawn interior is calibrated to the case capacity, so the powder fill level is consistent.
 void GuiTest::cartridgeGeometryMatchesTheCaseCapacity()
 {
-    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    const auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     QMap<QString, double> dims;
-    for (const grt::Entry &e : lf->caliberFile.entries()) dims.insert(e.name, e.value.toDouble());
+    for (const csr::Entry &e : lf->caliberFile.entries()) dims.insert(e.name, e.value.toDouble());
     const double capacity = lf->caliber.number(u"casevol");  // cm3
     const auto g = CartridgeView::buildGeometry(dims, capacity, 0.5 * capacity);
     QVERIFY(g.valid);
@@ -1786,24 +1786,24 @@ void GuiTest::cartridgeViewDrawsAndHandlesStraightCases()
     CartridgeView view;
     view.resize(420, 520);
     // a bottleneck case from the sample load
-    auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
-    view.setLoad(*lf, grt::SimInput::fromLoad(*lf));
+    view.setLoad(*lf, csr::SimInput::fromLoad(*lf));
     QVERIFY(view.geometry().valid);
     const QImage a = view.grab().toImage();
     QVERIFY(!a.isNull());
 
     // a straight pistol case (L1/L2/H1/P2 are zero in the database): no crash, still valid
-    if (!QFile::exists(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db"))) return;
-    grt::Database db;
-    QVERIFY(db.open(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
-    const int cal = idOf(db, grt::Table::Caliber, u"cipname = '.45 Auto'"_s);
-    const int prj = idOf(db, grt::Table::Projectile, u"caliber = '.451'"_s);
-    const int pro = idOf(db, grt::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N340'"_s);
+    if (!QFile::exists(QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db"))) return;
+    csr::Database db;
+    QVERIFY(db.open(QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
+    const int cal = idOf(db, csr::Table::Caliber, u"cipname = '.45 Auto'"_s);
+    const int prj = idOf(db, csr::Table::Projectile, u"caliber = '.451'"_s);
+    const int pro = idOf(db, csr::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N340'"_s);
     QVERIFY(cal > 0 && prj > 0 && pro > 0);
-    const grt::LoadFile pistol = grt::buildLoad(*db.record(grt::Table::Caliber, cal), *db.record(grt::Table::Projectile, prj),
-                                                *db.record(grt::Table::Propellant, pro), {}, db.columns(grt::Table::Caliber));
-    view.setLoad(pistol, grt::SimInput::fromLoad(pistol));
+    const csr::LoadFile pistol = csr::buildLoad(*db.record(csr::Table::Caliber, cal), *db.record(csr::Table::Projectile, prj),
+                                                *db.record(csr::Table::Propellant, pro), {}, db.columns(csr::Table::Caliber));
+    view.setLoad(pistol, csr::SimInput::fromLoad(pistol));
     QVERIFY(view.geometry().valid);
     QVERIFY(view.geometry().outer.size() >= 4);
     QVERIFY(!view.grab().toImage().isNull());
@@ -1813,9 +1813,9 @@ void GuiTest::cartridgeViewDrawsAndHandlesStraightCases()
 
 void GuiTest::measurementTabShowsTheFilesResults()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    UnitPreferences::instance().setSystem(csr::units::System::Metric);
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/measurements.grtload")));
+    QVERIFY(view.load(QStringLiteral(CSR_FIXTURE_DIR "/measurements.grtload")));
     view.showResultTab(1);
     view.resize(1400, 900);
     view.show();
@@ -1839,15 +1839,15 @@ void GuiTest::measurementTabShowsTheFilesResults()
     QVERIFY(html.contains(u"Charge 1"_s));
     QVERIFY(html.contains(u"848.3 m/s"_s));
     QVERIFY(!html.contains(u"measurement.section?"_s));
-    UnitPreferences::instance().setSystem(grt::units::System::Original);
+    UnitPreferences::instance().setSystem(csr::units::System::Original);
 }
 
 // Dates in the record dialog: a date picker in the form yyyy-MM-dd ("– not set –" = empty), the program's dates as
 // text; propellant and projectile dialogs are wide enough for two columns.
 void GuiTest::recordDialogCalculatesTheBoreCrossSection()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Metric);
-    RecordDialog dlg(m_db, grt::Table::Caliber, RecordDialog::Mode::New);
+    UnitPreferences::instance().setSystem(csr::units::System::Metric);
+    RecordDialog dlg(m_db, csr::Table::Caliber, RecordDialog::Mode::New);
     auto *button = dlg.findChild<QPushButton *>(u"calculateBoreArea"_s);
     QVERIFY(button);
     // nothing entered yet: no value, a hint
@@ -1864,10 +1864,10 @@ void GuiTest::recordDialogCalculatesTheBoreCrossSection()
 
 void GuiTest::recordViewerShowsAllData()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    UnitPreferences::instance().setSystem(csr::units::System::Metric);
     // the numbers that the original database stores as text are aligned like the other numbers
     {
-        RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::New);
+        RecordDialog cal(m_db, csr::Table::Caliber, RecordDialog::Mode::New);
         for (const QString column : {u"delta"_s, u"beta"_s, u"alpha"_s, u"L3"_s})
         {
             auto *edit = cal.findChild<QLineEdit *>(column);
@@ -1875,7 +1875,7 @@ void GuiTest::recordViewerShowsAllData()
             QVERIFY2(edit->alignment() & Qt::AlignRight, qPrintable(column));
         }
     }
-    for (const grt::Table t : grt::kRecordTables)
+    for (const csr::Table t : csr::kRecordTables)
     {
         const int id = idOf(m_db, t, u"1=1"_s);
         QVERIFY(id >= 0);
@@ -1884,17 +1884,17 @@ void GuiTest::recordViewerShowsAllData()
         RecordViewDialog view(m_db, t, id, *record);
         QVERIFY(view.fieldCount() > 10);
         QVERIFY(!view.windowTitle().isEmpty());
-        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+        if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
             view.grab().save(u"%1/recordview%2.png"_s.arg(shots).arg(static_cast<int>(t)));
         // the original's records cannot be changed: the viewer offers a copy
-        const bool own = grt::Database::isOwnId(id);
+        const bool own = csr::Database::isOwnId(id);
         QVERIFY(view.findChild<QPushButton *>(own ? u"editRecordButton"_s : u"copyRecordButton"_s));
-        if (t == grt::Table::Propellant)  // the fit quality has a bar next to the number
+        if (t == csr::Table::Propellant)  // the fit quality has a bar next to the number
         {
             QVERIFY(!view.valueText(u"Qlty"_s).isEmpty());
             QVERIFY(view.findChild<QProgressBar *>());
         }
-        if (t == grt::Table::Caliber)
+        if (t == csr::Table::Caliber)
         {
             QCOMPARE(view.valueText(u"cipname"_s), record->value(u"cipname"_s).toString());
             QVERIFY(view.valueText(u"L3"_s).contains(QLocale().decimalPoint()));  // the length in mm
@@ -1904,17 +1904,17 @@ void GuiTest::recordViewerShowsAllData()
 
 void GuiTest::selectPropellantShowsTheQuality()
 {
-    SelectRecordDialog select(m_db, grt::Table::Propellant, u"Select propellant"_s);
+    SelectRecordDialog select(m_db, csr::Table::Propellant, u"Select propellant"_s);
     auto *bar = select.findChild<QProgressBar *>();
     QVERIFY(bar);
     auto *browser = select.findChild<TableBrowser *>();
-    const int id = idOf(m_db, grt::Table::Propellant, u"Qlty > 0.5"_s);
+    const int id = idOf(m_db, csr::Table::Propellant, u"Qlty > 0.5"_s);
     QVERIFY(id >= 0);
     QVERIFY(browser->selectId(id));
-    const double quality = m_db.record(grt::Table::Propellant, id)->value(u"Qlty"_s).toDouble();
+    const double quality = m_db.record(csr::Table::Propellant, id)->value(u"Qlty"_s).toDouble();
     QCOMPARE(bar->value(), qRound(100 * quality));
     QVERIFY(bar->isVisibleTo(&select));
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
         select.grab().save(u"%1/selectpropellant.png"_s.arg(shots));
 }
 
@@ -1925,14 +1925,14 @@ void GuiTest::newLoadAndDatabaseShowTheQuality()
     QVERIFY(row);
     auto *bar = row->findChild<QProgressBar *>();
     QVERIFY(bar);
-    const int cal = idOf(m_db, grt::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
-    const int prj = idOf(m_db, grt::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
-    const int pro = idOf(m_db, grt::Table::Propellant, u"Qlty > 0.5"_s);
+    const int cal = idOf(m_db, csr::Table::Caliber, u"cipname = '8 x 57 IS'"_s);
+    const int prj = idOf(m_db, csr::Table::Projectile, u"mname = 'Sellier-Bellot' AND pname = 'FMJ-BT 2910'"_s);
+    const int pro = idOf(m_db, csr::Table::Propellant, u"Qlty > 0.5"_s);
     QVERIFY(dlg.select(cal, prj, pro));
-    QCOMPARE(bar->value(), qRound(100 * m_db.record(grt::Table::Propellant, pro)->value(u"Qlty"_s).toDouble()));
+    QCOMPARE(bar->value(), qRound(100 * m_db.record(csr::Table::Propellant, pro)->value(u"Qlty"_s).toDouble()));
 
     // in the database list the quality column follows the powder's name
-    TableBrowser browser(grt::Table::Propellant);
+    TableBrowser browser(csr::Table::Propellant);
     browser.setDatabase(&m_db);
     auto *view = browser.findChild<QTableView *>();
     auto *header = view->horizontalHeader();
@@ -1951,11 +1951,11 @@ void GuiTest::dialogsFitTheScreen()
 {
     const QRect area = QGuiApplication::primaryScreen()->availableGeometry();
     const auto check = [&](QDialog &d, const char *name) { QVERIFY2(d.width() <= area.width() && d.height() <= area.height(), name); };
-    SelectRecordDialog select(m_db, grt::Table::Propellant, u"x"_s);
+    SelectRecordDialog select(m_db, csr::Table::Propellant, u"x"_s);
     check(select, "select");
     BurnRateDialog burn(m_db);
     check(burn, "burn rate");
-    for (const grt::Table t : grt::kRecordTables)
+    for (const csr::Table t : csr::kRecordTables)
     {
         const int id = idOf(m_db, t, u"1=1"_s);
         RecordViewDialog view(m_db, t, id, *m_db.record(t, id));
@@ -1971,13 +1971,13 @@ void GuiTest::dialogsFitTheScreen()
 
 void GuiTest::recordDialogDatesAndWidth()
 {
-    RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy,
-                     *m_db.record(grt::Table::Caliber, idOf(m_db, grt::Table::Caliber, u"cipdate != ''"_s)));
+    RecordDialog cal(m_db, csr::Table::Caliber, RecordDialog::Mode::Copy,
+                     *m_db.record(csr::Table::Caliber, idOf(m_db, csr::Table::Caliber, u"cipdate != ''"_s)));
     auto *picker = cal.findChild<QDateEdit *>(u"cipdate"_s);
     QVERIFY(picker);
     QCOMPARE(picker->displayFormat(), u"yyyy-MM-dd"_s);
     QVERIFY(picker->calendarPopup());
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) cal.grab().save(shots + u"/caliberdates.png"_s);
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) cal.grab().save(shots + u"/caliberdates.png"_s);
     cal.setText(u"cipdate"_s, u"14.6.1984"_s);
     QCOMPARE(cal.text(u"cipdate"_s), u"1984-06-14"_s);
     QCOMPARE(cal.values().value(u"cipdate"_s).toString(), u"1984-06-14"_s);
@@ -1987,7 +1987,7 @@ void GuiTest::recordDialogDatesAndWidth()
     QCOMPARE(cal.values().value(u"cdate"_s).toString(), QDate::currentDate().toString(Qt::ISODate));  // a copy: today
 
     // the creation date can be entered for every kind of record (a picker, today for a new record)
-    for (const grt::Table t : grt::kRecordTables)
+    for (const csr::Table t : csr::kRecordTables)
     {
         RecordDialog dlg(m_db, t, RecordDialog::Mode::New);
         auto *created = dlg.findChild<QDateEdit *>(u"cdate"_s);
@@ -1999,7 +1999,7 @@ void GuiTest::recordDialogDatesAndWidth()
         QCOMPARE(dlg.values().value(u"mdate"_s).toString(), QString());
     }
 
-    for (const grt::Table t : {grt::Table::Projectile, grt::Table::Propellant})
+    for (const csr::Table t : {csr::Table::Projectile, csr::Table::Propellant})
     {
         RecordDialog dlg(m_db, t, RecordDialog::Mode::New);
         QCOMPARE_GE(dlg.width(), std::min(800, static_cast<int>(QGuiApplication::primaryScreen()->availableGeometry().width() * 0.95)));
@@ -2009,7 +2009,7 @@ void GuiTest::recordDialogDatesAndWidth()
 // The notes under the results: the bullet jump is part of the model; a shotshell gets a note how to enter it.
 void GuiTest::ignoredInputsAreNamed()
 {
-    QFile f(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    QFile f(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(f.open(QIODevice::ReadOnly));
     QString xml = QString::fromUtf8(f.readAll());
     const auto set = [&](const QString &name, const QString &value)
@@ -2033,7 +2033,7 @@ void GuiTest::ignoredInputsAreNamed()
         out.write(xml.toUtf8());
     };
     LoadView plain;
-    QVERIFY(plain.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(plain.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     QVERIFY(!statusText(plain).contains(u"Not taken into account"_s));
     // the jump distance is an input; its lock is not shown (the original uses the distance either way)
     QStringList labels;
@@ -2084,18 +2084,18 @@ void GuiTest::propellantPhotoIsShown()
 
     // a load with a propellant record of the original database shows its photos
     LoadView lv;
-    QVERIFY(lv.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
-    grt::Database db;
-    QVERIFY(db.open(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
+    QVERIFY(lv.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
+    csr::Database db;
+    QVERIFY(db.open(QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
     lv.setDatabase(&db);
     const auto *photo = lv.findChild<PhotoView *>();
     QVERIFY(photo);
-    const int withImage = idOf(db, grt::Table::Propellant, u"imageUuid != '' AND imageDetailUuid != ''"_s);
+    const int withImage = idOf(db, csr::Table::Propellant, u"imageUuid != '' AND imageDetailUuid != ''"_s);
     QVERIFY(withImage > 0);
     QVERIFY(lv.applyRecord(LoadView::Component::Propellant, withImage));
     QVERIFY(photo->hasPhotos());
     QCOMPARE(photo->shown(), 0);
-    const int without = idOf(db, grt::Table::Propellant, u"imageUuid = '' AND imageDetailUuid = ''"_s);
+    const int without = idOf(db, csr::Table::Propellant, u"imageUuid = '' AND imageDetailUuid = ''"_s);
     QVERIFY(without > 0);
     QVERIFY(lv.applyRecord(LoadView::Component::Propellant, without));
     QVERIFY(!photo->hasPhotos());
@@ -2107,10 +2107,10 @@ void GuiTest::propellantPhotoIsShown()
 void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
 {
     QTemporaryDir dir;
-    grt::Database own;  // only the program's own database: no original GRT database
+    csr::Database own;  // only the program's own database: no original GRT database
     QVERIFY(own.open({}, dir.filePath(u"own.db"_s)));
 
-    RecordDialog dlg(own, grt::Table::Propellant, RecordDialog::Mode::New);
+    RecordDialog dlg(own, csr::Table::Propellant, RecordDialog::Mode::New);
     dlg.setText(u"pname"_s, u"Home powder"_s);
     QVERIFY(dlg.pendingImages().empty());
     QVERIFY(dlg.values().value(u"imageUuid"_s).toString().isEmpty());
@@ -2120,7 +2120,7 @@ void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
     QImage close(300, 200, QImage::Format_RGB32);
     close.fill(Qt::lightGray);
     dlg.setPhoto(1, close, 0.0, u"grain.png"_s);
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
     {
         dlg.resize(620, 900);
         dlg.grab().save(shots + u"/recordphotos.png"_s);
@@ -2136,19 +2136,19 @@ void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
     QCOMPARE(QImage::fromData(pending[0].data).width(), 1200);
 
     for (const auto &img : pending) QVERIFY(own.addImage(img));
-    const auto id = own.insert(grt::Table::Propellant, dlg.values());
+    const auto id = own.insert(csr::Table::Propellant, dlg.values());
     QVERIFY(id);
 
     // a load that uses the record shows the photo (Powder tab) from the own database alone
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     view.setDatabase(&own);
     QVERIFY(view.applyRecord(LoadView::Component::Propellant, *id));
     const auto *photo = view.findChild<PhotoView *>();
     QVERIFY(photo && photo->hasPhotos());
 
     // an edit that removes the detail photo
-    RecordDialog edit(own, grt::Table::Propellant, RecordDialog::Mode::Edit, *own.record(grt::Table::Propellant, *id));
+    RecordDialog edit(own, csr::Table::Propellant, RecordDialog::Mode::Edit, *own.record(csr::Table::Propellant, *id));
     edit.removePhoto(1);
     QVERIFY(edit.values().value(u"imageDetailUuid"_s).toString().isEmpty());
     QCOMPARE(edit.values().value(u"imageUuid"_s).toString(), pending[0].uuid);
@@ -2158,9 +2158,9 @@ void GuiTest::ownPropellantWithPhotoWorksWithoutTheOriginal()
 void GuiTest::chronographImportAddsCharges()
 {
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     MeasurementView *m = view.measurements();
-    const auto file = grt::readChronograph(
+    const auto file = csr::readChronograph(
         QByteArray("Series, 1, Shots:,2\r\n 1, 1, 800.0, m/s\r\n 1, 2, 810.0, m/s\r\nSeries, 2, Shots:,1\r\n 2, 1, 820.0, m/s\r\n"));
     QVERIFY(file);
     ChronographImportDialog dialog(*file, 3.0);
@@ -2170,14 +2170,14 @@ void GuiTest::chronographImportAddsCharges()
     QCOMPARE(picked[0].charge_g, 3.0);
     QCOMPARE(m->importCharges(picked), 1);
     QCOMPARE(m->measurement().charges.size(), std::size_t{1});
-    QCOMPARE(grt::velocityStatistics(m->measurement().charges[0]).count, 2);
+    QCOMPARE(csr::velocityStatistics(m->measurement().charges[0]).count, 2);
     QVERIFY(view.isModified());
 }
 
 void GuiTest::measurementSeriesAreEditedAndSaved()
 {
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     MeasurementView *m = view.measurements();
     m->addCharge();
     m->addSeries();  // a second, empty series is shown
@@ -2193,9 +2193,9 @@ void GuiTest::measurementSeriesAreEditedAndSaved()
     QTemporaryDir dir;
     const QString path = dir.filePath(u"s.grtload"_s);
     QVERIFY(view.save(path));
-    const auto lf = grt::LoadFile::read(path);
+    const auto lf = csr::LoadFile::read(path);
     QVERIFY(lf);
-    QCOMPARE(grt::readMeasurements(lf->appendixXml).size(), std::size_t{2});
+    QCOMPARE(csr::readMeasurements(lf->appendixXml).size(), std::size_t{2});
 
     LoadView again;
     QVERIFY(again.load(path));
@@ -2205,14 +2205,14 @@ void GuiTest::measurementSeriesAreEditedAndSaved()
     again.measurements()->removeSeries();
     QCOMPARE(again.measurements()->allMeasurements().size(), std::size_t{1});
     QVERIFY(again.save(path));
-    QCOMPARE(grt::readMeasurements(grt::LoadFile::read(path)->appendixXml).size(), std::size_t{1});
+    QCOMPARE(csr::readMeasurements(csr::LoadFile::read(path)->appendixXml).size(), std::size_t{1});
 }
 
 void GuiTest::measurementsAreEditedAndSaved()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    UnitPreferences::instance().setSystem(csr::units::System::Metric);
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(view.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     MeasurementView *m = view.measurements();
     QVERIFY(m->measurement().charges.empty());
     QVERIFY(!view.isModified());
@@ -2222,17 +2222,17 @@ void GuiTest::measurementsAreEditedAndSaved()
     QCOMPARE(m->measurement().charges.size(), std::size_t{1});
     QCOMPARE(m->measurement().charges[0].charge_g(), view.focusCharge_g());
     QCOMPARE(m->pasteShots(u"Velocity\tPressure\n812.5\t3500\n815.5\n\n818.0;3600\n"_s), 3);
-    const grt::ShotStatistics v = grt::velocityStatistics(m->measurement().charges[0]);
+    const csr::ShotStatistics v = csr::velocityStatistics(m->measurement().charges[0]);
     QCOMPARE(v.count, 3);
     QCOMPARE(v.max, 818.0);
-    QCOMPARE(grt::pressureStatistics(m->measurement().charges[0]).count, 2);
+    QCOMPARE(csr::pressureStatistics(m->measurement().charges[0]).count, 2);
 
     QTemporaryDir dir;
     const QString path = dir.filePath(u"m.grtload"_s);
     QVERIFY(view.save(path));
-    const auto lf = grt::LoadFile::read(path);
+    const auto lf = csr::LoadFile::read(path);
     QVERIFY(lf);
-    const auto saved = grt::readMeasurement(lf->appendixXml);
+    const auto saved = csr::readMeasurement(lf->appendixXml);
     QVERIFY(saved);
     QCOMPARE(saved->charges.size(), std::size_t{1});
     QCOMPARE(saved->charges[0].shots.size(), std::size_t{3});
@@ -2245,12 +2245,12 @@ void GuiTest::measurementsAreEditedAndSaved()
     LoadView again;
     QVERIFY(again.load(path));
     QCOMPARE(again.measurements()->measurement().charges.size(), std::size_t{1});
-    UnitPreferences::instance().setSystem(grt::units::System::Original);
+    UnitPreferences::instance().setSystem(csr::units::System::Original);
 }
 
 void GuiTest::originalDatabaseIsChosenInTheSettings()
 {
-    const QString original = QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
+    const QString original = QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
     const QString before = QSettings().value(u"database/path"_s).toString();
     {
         MainWindow w;
@@ -2277,7 +2277,7 @@ void GuiTest::originalDatabaseIsChosenInTheSettings()
         dlg.findChild<QDialogButtonBox *>()->button(QDialogButtonBox::Apply)->click();
         QCOMPARE(chosen.count(), 1);  // unchanged: nothing to do
         dlg.setOriginalDatabase(original, u"GordonsReloadingTool.plain.db: 578 calibers, 5659 projectiles, 683 propellants"_s);
-        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+        if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
         {  // for looking at the layout
             dlg.adjustSize();
             dlg.grab().save(shots + u"/settings.png"_s);
@@ -2292,10 +2292,10 @@ void GuiTest::originalDatabaseIsChosenInTheSettings()
 
 void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Metric);
-    const auto powder = m_db.record(grt::Table::Propellant, 562);
+    UnitPreferences::instance().setSystem(csr::units::System::Metric);
+    const auto powder = m_db.record(csr::Table::Propellant, 562);
     QVERIFY(powder);
-    RecordDialog copy(m_db, grt::Table::Propellant, RecordDialog::Mode::Copy, *powder);
+    RecordDialog copy(m_db, csr::Table::Propellant, RecordDialog::Mode::Copy, *powder);
     QCOMPARE(copy.text(u"pname"_s), u"N150 (copy)"_s);
     QCOMPARE(copy.text(u"Ba"_s), u"0.5814"_s);
     QCOMPARE(copy.text(u"pcd"_s), u"890"_s);              // kg/m3
@@ -2318,16 +2318,16 @@ void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
     QVERIFY(!v.contains(u"id"_s));
 
     // the bullet mass is stored in grains but shown and typed in the user's unit (grams here)
-    const auto bullet = m_db.record(grt::Table::Projectile, 4542);
+    const auto bullet = m_db.record(csr::Table::Projectile, 4542);
     QVERIFY(bullet);
-    RecordDialog edit(m_db, grt::Table::Projectile, RecordDialog::Mode::Edit, *bullet);
+    RecordDialog edit(m_db, csr::Table::Projectile, RecordDialog::Mode::Edit, *bullet);
     QCOMPARE(edit.text(u"gmass"_s).left(6), u"12.700"_s);  // 196 grain, all digits kept
     QCOMPARE(edit.text(u"gtailtype"_s), u"boat tail"_s);
     edit.setText(u"gmass"_s, u"13"_s);
     QVERIFY(std::abs(edit.values().value(u"gmass"_s).toDouble() - 13.0 / 0.06479891) < 1e-9);
     QCOMPARE(edit.values().value(u"gtailtype"_s).toInt(), 2);
     // the country of origin is chosen from a list: no free text
-    RecordDialog caliber(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Caliber, 1));
+    RecordDialog caliber(m_db, csr::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(csr::Table::Caliber, 1));
     auto *origin = caliber.findChild<QComboBox *>(u"ciporigin"_s);
     QVERIFY(origin);
     QVERIFY(!origin->isEditable());
@@ -2341,9 +2341,9 @@ void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
     QCOMPARE(caliber.values().value(u"ciporigin"_s).toString(), u"DE"_s);
     origin->setCurrentIndex(0);
     QCOMPARE(caliber.values().value(u"ciporigin"_s).toString(), QString());  // not specified
-    QVariantMap combined = *m_db.record(grt::Table::Caliber, 1);
+    QVariantMap combined = *m_db.record(csr::Table::Caliber, 1);
     combined.insert(u"ciporigin"_s, u"DE/AT"_s);
-    RecordDialog keeps(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, combined);
+    RecordDialog keeps(m_db, csr::Table::Caliber, RecordDialog::Mode::Copy, combined);
     QCOMPARE(keeps.text(u"ciporigin"_s), u"DE/AT"_s);  // an unusual value of an existing record is kept
 
     // standard and case type too; the stored values stay those of the original database
@@ -2356,17 +2356,17 @@ void GuiTest::recordDialogShowsReadableFieldsInUserUnits()
     QCOMPARE(caliber.values().value(u"ciptype"_s).toString(), u"4 pistol/revolver"_s);
     combined.insert(u"standard"_s, u"Wildcat"_s);  // spelled differently in a few records
     combined.insert(u"ciptype"_s, u"4 pistol"_s);
-    RecordDialog normalized(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, combined);
+    RecordDialog normalized(m_db, csr::Table::Caliber, RecordDialog::Mode::Copy, combined);
     QCOMPARE(normalized.text(u"standard"_s), u"WildCat"_s);
     QCOMPARE(normalized.text(u"ciptype"_s), u"4 pistol"_s);
 
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
     {
         copy.grab().save(shots + u"/record.png"_s);
-        RecordDialog cal(m_db, grt::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Caliber, 1));
+        RecordDialog cal(m_db, csr::Table::Caliber, RecordDialog::Mode::Copy, *m_db.record(csr::Table::Caliber, 1));
         cal.grab().save(shots + u"/record_caliber.png"_s);
     }
-    UnitPreferences::instance().setSystem(grt::units::System::Original);
+    UnitPreferences::instance().setSystem(csr::units::System::Original);
 }
 
 void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
@@ -2374,14 +2374,14 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
     const QString before = QSettings().value(u"database/path"_s).toString();
     {
         MainWindow w;
-        QVERIFY(w.openDatabase(QStringLiteral(GRT_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
+        QVERIFY(w.openDatabase(QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db")));
         const auto tabs = w.findChildren<QTabWidget *>();
         QTabWidget *dbTabs = nullptr;
         for (QTabWidget *t : tabs)
             if (t->count() == 3 && t->tabText(2) == u"Propellants"_s) dbTabs = t;
         QVERIFY(dbTabs);
         dbTabs->setCurrentIndex(2);
-        QCOMPARE(w.currentTable(), grt::Table::Propellant);
+        QCOMPARE(w.currentTable(), csr::Table::Propellant);
         auto *browser = qobject_cast<TableBrowser *>(dbTabs->currentWidget());
         QVERIFY(browser->selectId(562));
         const auto button = [&](const QString &text)
@@ -2395,11 +2395,11 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QVERIFY(!button(u"Delete"_s)->isEnabled());
 
         // a copy goes into the own database and appears in the same list
-        RecordDialog dlg(m_db, grt::Table::Propellant, RecordDialog::Mode::Copy, *m_db.record(grt::Table::Propellant, 562));
+        RecordDialog dlg(m_db, csr::Table::Propellant, RecordDialog::Mode::Copy, *m_db.record(csr::Table::Propellant, 562));
         dlg.setText(u"Ba"_s, u"0.6"_s);
         const int count = browser->findChild<QTableView *>()->model()->rowCount();
-        const int id = w.storeRecord(grt::Table::Propellant, RecordDialog::Mode::Copy, 562, dlg.values());
-        QCOMPARE(id, grt::Database::kOwnIdBase);
+        const int id = w.storeRecord(csr::Table::Propellant, RecordDialog::Mode::Copy, 562, dlg.values());
+        QCOMPARE(id, csr::Database::kOwnIdBase);
         QCOMPARE(browser->currentId(), id);
         QCOMPARE(browser->findChild<QTableView *>()->model()->rowCount(), count + 1);
         QVERIFY(button(u"Edit…"_s)->isEnabled());
@@ -2413,7 +2413,7 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QCOMPARE(view->currentIndex().siblingAtColumn(0).data().toString(), u"Original GRT"_s);
         browser->findChild<QLineEdit *>()->setText(u"Personal"_s);
         QCOMPARE(view->model()->rowCount(), 1);
-        if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+        if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
         {
             w.resize(1100, 400);
             browser->findChild<QLineEdit *>()->setText(u"N150"_s);
@@ -2429,21 +2429,21 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QDir().mkpath(QFileInfo(exported).absolutePath());
         QVERIFY(w.exportRecord(exported));
         const auto loaded =
-            grt::projectdata::load(exportDir.filePath(u"data"_s), grt::Table::Propellant, m_db.schema(grt::Table::Propellant));
+            csr::projectdata::load(exportDir.filePath(u"data"_s), csr::Table::Propellant, m_db.schema(csr::Table::Propellant));
         QVERIFY2(loaded.errors.isEmpty(), qPrintable(loaded.errors.join(u'\n')));
         QCOMPARE(loaded.records.size(), std::size_t{1});
         QCOMPARE(loaded.records[0].value(u"Ba"_s).toDouble(), 0.6);
 
         // the new powder is offered wherever powders are chosen
-        SelectRecordDialog select(m_db, grt::Table::Propellant, u"x"_s);
+        SelectRecordDialog select(m_db, csr::Table::Propellant, u"x"_s);
         QVERIFY(select.findChild<TableBrowser *>()->selectId(id));
 
         // changing it
         QVariantMap changed = dlg.values();
         changed.insert(u"Ba"_s, 0.65);
-        QCOMPARE(w.storeRecord(grt::Table::Propellant, RecordDialog::Mode::Edit, id, changed), id);
-        QCOMPARE(m_db.record(grt::Table::Propellant, id)->value(u"Ba"_s).toDouble(), 0.65);
-        QCOMPARE(m_db.record(grt::Table::Propellant, 562)->value(u"Ba"_s).toDouble(), 0.5814);  // the original is unchanged
+        QCOMPARE(w.storeRecord(csr::Table::Propellant, RecordDialog::Mode::Edit, id, changed), id);
+        QCOMPARE(m_db.record(csr::Table::Propellant, id)->value(u"Ba"_s).toDouble(), 0.65);
+        QCOMPARE(m_db.record(csr::Table::Propellant, 562)->value(u"Ba"_s).toDouble(), 0.5814);  // the original is unchanged
 
         // deleting it
         QVERIFY(w.deleteRecord(false));
@@ -2452,7 +2452,7 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QVERIFY(browser->selectId(562));
         QVERIFY(!w.deleteRecord(false));  // records of the original cannot be deleted
         QVERIFY(!button(u"Export…"_s)->isEnabled());
-        QCOMPARE(m_db.count(grt::Table::Propellant), count);
+        QCOMPARE(m_db.count(csr::Table::Propellant), count);
     }
     QSettings().setValue(u"database/path"_s, before);
 }
@@ -2507,7 +2507,7 @@ void GuiTest::loadMenuEntriesNeedALoad()
     QVERIFY(action(u"New load"_s)->isEnabled());
     QVERIFY(action(u"Open load"_s)->isEnabled());
     QVERIFY(action(u"Settings"_s)->isEnabled());
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
     {  // for looking at the contrast
         auto &app = *qobject_cast<QApplication *>(QCoreApplication::instance());
         for (const theme::Mode mode : {theme::Mode::Dark, theme::Mode::Light})
@@ -2520,7 +2520,7 @@ void GuiTest::loadMenuEntriesNeedALoad()
         theme::apply(app, theme::Mode::System);
     }
 
-    QVERIFY(w.openLoad(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(w.openLoad(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     for (const QString &name : needLoad) QVERIFY2(action(name)->isEnabled(), qPrintable(name));
     QVERIFY(!action(u"Save"_s)->isEnabled());             // nothing changed yet
     QVERIFY(!action(u"Clear reference"_s)->isEnabled());  // no overlay
@@ -2561,7 +2561,7 @@ void GuiTest::ownTitleBarCanBeSwitched()
         QVERIFY(b->width() >= 40);
     }
     // the title follows the window (and names the shown load)
-    QVERIFY(w.openLoad(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload")));
+    QVERIFY(w.openLoad(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     QVERIFY(w.windowTitle().startsWith(u"8x57is"_s));
     bool titled = false;
     for (QLabel *l : bar->findChildren<QLabel *>()) titled = titled || l->text() == w.windowTitle();
@@ -2605,7 +2605,7 @@ void GuiTest::disclaimerAtStartup()
     QVERIFY(box->informativeText().contains(u"not responsible"_s));
     QVERIFY(box->checkBox());
     QCOMPARE(box->buttons().size(), 2);
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
     {
         box->show();
         box->grab().save(shots + u"/disclaimer.png"_s);
@@ -2632,7 +2632,7 @@ void GuiTest::checkBoxesVisibleInDarkMode()
     w.show();
     QApplication::processEvents();
     const QImage img = w.grab().toImage();
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/darkcheckbox.png"_s);
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/darkcheckbox.png"_s);
     QStyleOptionButton opt;
     opt.initFrom(box);
     const QRect r = box->style()->subElementRect(QStyle::SE_CheckBoxIndicator, &opt, box).translated(box->pos());
@@ -2677,7 +2677,7 @@ void GuiTest::dialogsHaveAVisibleBorder()
                                                                    -kWindowBorderWidth)) == bar->geometry());
     }
     const QImage img = dialog.grab().toImage();
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/dialogborder.png"_s);
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/dialogborder.png"_s);
     if (bar)  // rounded corners: the corner pixel is transparent, the middle of the window is not
     {
         QCOMPARE(img.pixelColor(0, 0).alpha(), 0);
@@ -2749,11 +2749,11 @@ void GuiTest::roundedCornersCanBeSwitchedOffInTheSettings()
 // A wrapped label (the model description in the Settings) gets the height of all its lines.
 void GuiTest::settingsInfoTextIsNotCutOff()
 {
-    if (qEnvironmentVariableIsSet("GRT_NOBAR")) TitleBar::store(false);
+    if (qEnvironmentVariableIsSet("CSR_NOBAR")) TitleBar::store(false);
     SettingsDialog dlg;
     dlg.show();
     for (int i = 0; i < 5; ++i) QApplication::processEvents();  // the labels grow, the layout and the dialog follow
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) dlg.grab().save(shots + u"/settings.png"_s);
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) dlg.grab().save(shots + u"/settings.png"_s);
     // nothing overlaps its neighbour: the check box row under the model description starts below it
     const QCheckBox *grtFiles = dlg.findChild<QCheckBox *>(u"originalForGrtFiles"_s);
     QVERIFY(grtFiles);
@@ -2781,7 +2781,7 @@ void GuiTest::scrollBarsVisibleInDarkMode()
     bar.show();
     QApplication::processEvents();
     const QImage img = bar.grab().toImage();
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/darkscrollbar.png"_s);
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) img.save(shots + u"/darkscrollbar.png"_s);
     const int window = bar.palette().color(QPalette::Window).lightness();
     int brightest = 0;  // the handle: the lightest pixel down the middle
     for (int y = 0; y < img.height(); ++y) brightest = std::max(brightest, img.pixelColor(img.width() / 2, y).lightness());
@@ -2792,9 +2792,9 @@ void GuiTest::scrollBarsVisibleInDarkMode()
 // The mouse over the pressure chart: a cursor with the interpolated values of the curves; gone when the mouse leaves.
 void GuiTest::chartCursorShowsTheValues()
 {
-    const auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    const auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
-    const grt::SimResult r = grt::simulate(grt::SimInput::fromLoad(*lf));
+    const csr::SimResult r = csr::simulate(csr::SimInput::fromLoad(*lf));
     QVERIFY(r.ok());
     CurveChart chart;
     chart.setResult(r, 3900.0);
@@ -2806,16 +2806,16 @@ void GuiTest::chartCursorShowsTheValues()
     QTest::mouseMove(chart.viewport(), inside);
     QTRY_VERIFY(chart.cursorX().has_value());
     // at the time of the pressure peak the cursor shows the peak pressure
-    const grt::SimPoint &peak = r.points[r.indexPmax];
+    const csr::SimPoint &peak = r.points[r.indexPmax];
     const auto atPeak = chart.pointAt(peak.t_ms);
     QVERIFY(atPeak);
     QCOMPARE(atPeak->p_bar, peak.p_bar);
     // between two points: interpolated
-    const grt::SimPoint &a = r.points[10], &b = r.points[11];
+    const csr::SimPoint &a = r.points[10], &b = r.points[11];
     const auto mid = chart.pointAt((a.t_ms + b.t_ms) / 2.0);
     QVERIFY(mid && std::abs(mid->v_ms - (a.v_ms + b.v_ms) / 2.0) < 1e-9);
     QVERIFY(!chart.pointAt(r.points.back().t_ms + 1.0));
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) chart.grab().save(shots + u"/chartcursor.png"_s);
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) chart.grab().save(shots + u"/chartcursor.png"_s);
     QTest::mouseMove(chart.viewport(), QPoint(2, 2));  // outside the plot
     QTRY_VERIFY(!chart.cursorX().has_value());
 }
@@ -2825,11 +2825,11 @@ void GuiTest::overpressureIsWarnedAbout()
 {
     QString error;
     LoadView normal;
-    QVERIFY2(normal.load(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
+    QVERIFY2(normal.load(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"), &error), qPrintable(error));
     QVERIFY(normal.result().maxPressure_bar < 3900.0);
     QVERIFY(!normal.overpressureShown());
 
-    auto lf = grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/8x57is.grtload"));
+    auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     lf->caliber.set(u"pMaxZul", 2000.0);  // below the load's maximum pressure
     QTemporaryDir dir;
@@ -2843,7 +2843,7 @@ void GuiTest::overpressureIsWarnedAbout()
     QVERIFY(banner);
     const auto labels = banner->findChildren<QLabel *>();
     QVERIFY(std::ranges::any_of(labels, [](const QLabel *l) { return l->text().contains(u"Overpressure"_s); }));
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
     {
         over.resize(1280, 800);
         over.show();
@@ -2854,9 +2854,9 @@ void GuiTest::overpressureIsWarnedAbout()
 
 void GuiTest::fitToMeasurementsChangesThePowder()
 {
-    UnitPreferences::instance().setSystem(grt::units::System::Metric);
+    UnitPreferences::instance().setSystem(csr::units::System::Metric);
     LoadView view;
-    QVERIFY(view.load(QStringLiteral(GRT_FIXTURE_DIR "/measurements.grtload")));
+    QVERIFY(view.load(QStringLiteral(CSR_FIXTURE_DIR "/measurements.grtload")));
     auto *button = [&]
     {
         for (QPushButton *b : view.measurements()->findChildren<QPushButton *>())
@@ -2868,13 +2868,13 @@ void GuiTest::fitToMeasurementsChangesThePowder()
 
     // the dialog: fits right away, Save hands over the result
     QStringList warnings;
-    grt::LoadFile file = *grt::LoadFile::read(QStringLiteral(GRT_FIXTURE_DIR "/measurements.grtload"));
-    const auto samples = grt::powderfit::samples(file, u"template"_s, &warnings);
+    csr::LoadFile file = *csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/measurements.grtload"));
+    const auto samples = csr::powderfit::samples(file, u"template"_s, &warnings);
     QCOMPARE(samples.size(), std::size_t{2});
     PowderFitDialog dlg(samples, warnings);
-    std::optional<grt::powderfit::Result> saved;
+    std::optional<csr::powderfit::Result> saved;
     dlg.setSaveHandler(
-        [&](const grt::powderfit::Result &r)
+        [&](const csr::powderfit::Result &r)
         {
             saved = r;
             return true;
@@ -2893,8 +2893,8 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QVERIFY(save && save->isEnabled());
     save->click();
     QVERIFY(saved);
-    QCOMPARE(saved->model, grt::powderfit::Model::Original);  // a record holds the original model's values
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty()) dlg.grab().save(shots + u"/powderfit.png"_s);
+    QCOMPARE(saved->model, csr::powderfit::Model::Original);  // a record holds the original model's values
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty()) dlg.grab().save(shots + u"/powderfit.png"_s);
     QVERIFY(dlg.findChild<QTableWidget *>()->item(0, 5)->text().endsWith(u"%"_s));  // original, after
     QVERIFY(dlg.findChild<QTableWidget *>()->item(0, 8)->text().endsWith(u"%"_s));  // physical, after
 
@@ -2906,10 +2906,10 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QCOMPARE(m->pasteShots(u"895\n900\n905\n898\n902\n895\n900\n905\n898\n902"_s), 10);
     m->selectCharge(1);
     QCOMPARE(m->pasteShots(u"955\n960\n965\n958\n962\n955\n960\n965\n958\n962"_s), 10);
-    QVERIFY(view.save(QDir::temp().filePath(u"grt-fit-test.grtload"_s)));  // unmodified again: only the fit can modify it now
+    QVERIFY(view.save(QDir::temp().filePath(u"csr-fit-test.grtload"_s)));  // unmodified again: only the fit can modify it now
     QVariantMap record;
     view.setRecordSaver(
-        [&](grt::Table, const QVariantMap &values)
+        [&](csr::Table, const QVariantMap &values)
         {
             record = values;
             return 42;
@@ -2925,20 +2925,20 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     QVERIFY(!view.isModified());
     button->click();
     QVERIFY(view.isModified());
-    QFile::remove(QDir::temp().filePath(u"grt-fit-test.grtload"_s));
-    grt::LoadFile after;
+    QFile::remove(QDir::temp().filePath(u"csr-fit-test.grtload"_s));
+    csr::LoadFile after;
     QTemporaryDir dir;
-    QVERIFY(view.save(dir.filePath(u"fitted.grtreload"_s)));
-    after = *grt::LoadFile::read(dir.filePath(u"fitted.grtreload"_s));
+    QVERIFY(view.save(dir.filePath(u"fitted.csrload"_s)));
+    after = *csr::LoadFile::read(dir.filePath(u"fitted.csrload"_s));
     QVERIFY2(after.propellant.number(u"Ba") > before * 1.02, qPrintable(u"Ba %1 -> %2"_s.arg(before).arg(after.propellant.number(u"Ba"))));
-    QVERIFY(grt::readPhysicalBurn(after.propellant));  // and the physical model's values
+    QVERIFY(csr::readPhysicalBurn(after.propellant));  // and the physical model's values
 
     // a record made from it: the database's columns, 21 degC, the photos of the powder
-    const QVariantMap rec = grt::powderfit::toRecord(after.propellant, *saved, m_db.schema(grt::Table::Propellant), u"test"_s);
+    const QVariantMap rec = csr::powderfit::toRecord(after.propellant, *saved, m_db.schema(csr::Table::Propellant), u"test"_s);
     QCOMPARE(rec.value(u"pt"_s).toDouble(), 21.0);
     QVERIFY(rec.contains(u"imageUuid"_s));
-    QVERIFY(grt::projectdata::check(grt::Table::Propellant, rec, m_db.schema(grt::Table::Propellant)).isEmpty());
-    UnitPreferences::instance().setSystem(grt::units::System::Original);
+    QVERIFY(csr::projectdata::check(csr::Table::Propellant, rec, m_db.schema(csr::Table::Propellant)).isEmpty());
+    UnitPreferences::instance().setSystem(csr::units::System::Original);
 }
 
 // View > Language shows the flag of each language's country (drawn, no image files).
@@ -2972,7 +2972,7 @@ void GuiTest::languagesHaveFlags()
     QVERIFY(lang);
     QVERIFY(lang->actions().front()->icon().isNull());                              // "System default"
     for (QAction *a : lang->actions()) QCOMPARE(a->font().bold(), a->isChecked());  // the chosen language is bold
-    if (const QString shots = qEnvironmentVariable("GRT_SHOT_DIR"); !shots.isEmpty())
+    if (const QString shots = qEnvironmentVariable("CSR_SHOT_DIR"); !shots.isEmpty())
     {
         lang->addAction(flags::forLanguage(u"de_DE"_s), u"Deutsch (test)"_s);
         lang->addAction(flags::forLanguage(u"fr_FR"_s), u"français (test)"_s);

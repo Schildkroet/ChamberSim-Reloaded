@@ -3,7 +3,7 @@
 #include <array>
 #include <cmath>
 
-namespace grt
+namespace csr
 {
 
 namespace
@@ -50,4 +50,4 @@ void fillBurnFactors(QVariantMap &p)
     p.insert(QStringLiteral("Brp"), f.Brp);
 }
 
-}  // namespace grt
+}  // namespace csr

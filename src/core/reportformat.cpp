@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace grt::report
+namespace csr::report
 {
 
 namespace
@@ -148,4 +148,4 @@ QString formatNumber(double value, const QString &format)
     return fill(prefix) + lead + text + fill(suffix);
 }
 
-}  // namespace grt::report
+}  // namespace csr::report

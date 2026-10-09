@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compares simulated muzzle velocities with the PUBLISHED ones (jobs of make_jobs_vv.py).
 usage: compare_vv.py <vv_meta.json> <grt_compare --loads output> [<results dir of the original>]
-Prints the error of GRT Reloaded and, if the original's results are given, of the original, per cartridge,
+Prints the error of ChamberSim Reloaded and, if the original's results are given, of the original, per cartridge,
 for the start and maximum charges, and over the simulated peak pressure."""
 import json, os, re, sys, statistics as st
 meta = json.load(open(sys.argv[1]))
@@ -25,12 +25,12 @@ def line(label, names):
     both = [n for n in names if n in ours and (not orig or n in orig)]
     e1 = [100 * (ours[n][1] / meta[n]["v_ms"] - 1) for n in both]
     e2 = [100 * (orig[n] / meta[n]["v_ms"] - 1) for n in both if n in orig]
-    print("  %-30s n=%4d   GRT Reloaded %s   original %s" % (label, len(both), stat(e1), stat(e2) if orig else "(no results)"))
+    print("  %-30s n=%4d   ChamberSim Reloaded %s   original %s" % (label, len(both), stat(e1), stat(e2) if orig else "(no results)"))
 
 names = list(meta)
 line("all", names)
 for w in ("start", "max"): line(w + " charges", [n for n in names if meta[n]["which"] == w])
 for c in sorted({m["cartridge"] for m in meta.values()}): line(c[:30], [n for n in names if meta[n]["cartridge"] == c])
-print(" by simulated peak pressure (GRT Reloaded):")
+print(" by simulated peak pressure (ChamberSim Reloaded):")
 for lo, hi in ((0, 1000), (1000, 1800), (1800, 2800), (2800, 4000), (4000, 9000)):
     line("%d-%d bar" % (lo, hi), [n for n in names if n in ours and lo <= ours[n][0] < hi])

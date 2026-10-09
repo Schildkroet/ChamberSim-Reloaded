@@ -14,16 +14,16 @@ class UnitPreferences : public QObject
 public:
     static UnitPreferences &instance();
 
-    [[nodiscard]] grt::units::System system() const noexcept { return m_system; }
-    void setSystem(grt::units::System system);
+    [[nodiscard]] csr::units::System system() const noexcept { return m_system; }
+    void setSystem(csr::units::System system);
 
     // Unit of the preset system for a quantity (used for results, chart axes, dialogs).
-    [[nodiscard]] const grt::units::Unit &unitFor(grt::units::Quantity q) const;
+    [[nodiscard]] const csr::units::Unit &unitFor(csr::units::Quantity q) const;
 
     // Unit of a field: its override if there is one, else the system's. `fieldKey` is "section/name".
-    [[nodiscard]] const grt::units::Unit &unitForField(const QString &fieldKey, grt::units::Quantity q) const;
+    [[nodiscard]] const csr::units::Unit &unitForField(const QString &fieldKey, csr::units::Quantity q) const;
     [[nodiscard]] bool hasOverride(const QString &fieldKey) const;
-    void setFieldUnit(const QString &fieldKey, grt::units::Quantity q, const QString &unitId);  // empty id: reset
+    void setFieldUnit(const QString &fieldKey, csr::units::Quantity q, const QString &unitId);  // empty id: reset
     void resetFieldUnits();
 
 signals:
@@ -34,6 +34,6 @@ private:
     void load();
     void save() const;
 
-    grt::units::System m_system{grt::units::System::Original};
+    csr::units::System m_system{csr::units::System::Original};
     QHash<QString, QString> m_fieldUnits;  // "section/name" -> unit id
 };
