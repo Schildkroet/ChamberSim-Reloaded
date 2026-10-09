@@ -158,6 +158,9 @@ CurveChart::CurveChart(QWidget *parent)
 QAreaSeries *CurveChart::makeBand(const QColor &color, QLineSeries *lo, QLineSeries *hi)
 {
     auto *area = new QAreaSeries(hi, lo);
+    // a QAreaSeries does not own its boundary lines: the series owns them, so they go with it
+    lo->setParent(area);
+    hi->setParent(area);
     QColor fill = color;
     fill.setAlpha(120);
     area->setBrush(fill);
