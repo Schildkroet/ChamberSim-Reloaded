@@ -449,17 +449,17 @@ void CoreTest::chronographFiles()
     QCOMPARE_LT(std::abs(l->series[0].velocities_ms[1] - 2754 * 0.3048), 1e-9);
 
     // the Garmin Xero: the app's CSV (unit from the header, notes may contain commas) and the device's FIT file
-    QFile xeroCsv(QStringLiteral(GRT_FIXTURE_DIR "/garmin-xero.csv"));
+    QFile xeroCsv(QStringLiteral(GRT_FIXTURE_DIR "/xero/garmin-xero.csv"));
     QVERIFY(xeroCsv.open(QIODevice::ReadOnly));
     const auto xc = grt::readChronograph(xeroCsv.readAll(), &error);
     QVERIFY2(xc, qPrintable(error));
     QCOMPARE(xc->format, grt::ChronographFormat::GarminXero);
     QCOMPARE(xc->series.size(), std::size_t{1});
-    QCOMPARE(xc->series[0].name, u"Rifle Cartridge"_s);
+    QCOMPARE(xc->series[0].name, u"Rifle Cartridge, 150,0 gr"_s);
     QCOMPARE(xc->series[0].velocities_ms.size(), std::size_t{3});
     QCOMPARE_LT(std::abs(xc->series[0].velocities_ms[1] - 2670.3 * 0.3048), 1e-9);
 
-    QFile xeroFit(QStringLiteral(GRT_FIXTURE_DIR "/garmin-xero.fit"));
+    QFile xeroFit(QStringLiteral(GRT_FIXTURE_DIR "/xero/garmin-xero.fit"));
     QVERIFY(xeroFit.open(QIODevice::ReadOnly));
     const QByteArray fit = xeroFit.readAll();
     const auto xf = grt::readChronograph(fit, &error);
@@ -474,6 +474,34 @@ void CoreTest::chronographFiles()
     QByteArray activity = fit;
     activity[14 + 21 + 1] = 4;  // file id type (after the 14-byte header, the 21-byte definition and the record header): activity
     QVERIFY(!grt::readChronograph(activity, &error));
+
+    // files of the Xero app and of the device from other users (xero/README.md): shot counts and first values
+    const auto readFixture = [&](const char *name) -> std::optional<grt::ChronographFile>
+    {
+        QFile f(QStringLiteral(GRT_FIXTURE_DIR "/xero/") + QLatin1String(name));
+        return f.open(QIODevice::ReadOnly) ? grt::readChronograph(f.readAll(), &error) : std::nullopt;
+    };
+    struct Expected
+    {
+        const char *file;
+        std::size_t shots;
+        double first_ms;
+    };
+    for (const Expected &e : {Expected{"06-18-2024_15-47-11.fit", 10, 265.391}, Expected{"06-18-2024_15-50-06.fit", 15, 286.795},
+                              Expected{"06-18-2024_15-56-35.fit", 22, 384.820}, Expected{"08-10-2026_10-44-31.fit", 5, 980.278},
+                              Expected{"Hornady_VMAX_64gr__2024-10-04_18-41-13.csv", 4, 696.7},  // German app, quoted decimal commas
+                              Expected{"Shotview_a.csv", 10, 488.3}, Expected{"Shotview_i_de.csv", 4, 924.3},
+                              Expected{"Shotview_i.csv", 19, 2808.2 * 0.3048}})  // fps
+    {
+        const auto x = readFixture(e.file);
+        QVERIFY2(x, e.file);
+        QCOMPARE(x->format, grt::ChronographFormat::GarminXero);
+        QCOMPARE(x->series.size(), std::size_t{1});
+        QCOMPARE_EQ(x->series[0].velocities_ms.size(), e.shots);
+        QCOMPARE_LT(std::abs(x->series[0].velocities_ms.front() - e.first_ms), 1e-6);
+    }
+    QCOMPARE(readFixture("Shotview_a.csv")->series[0].name, u"Marlin,.357, 15,3grs W296, 158,0 gr"_s);
+    QVERIFY(!readFixture("broken.fit"));
 
     QVERIFY(!grt::readChronograph("a,b,c\n1,2,3\n", &error));
     QVERIFY(!error.isEmpty());

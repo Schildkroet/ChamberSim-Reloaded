@@ -245,38 +245,57 @@ std::optional<ChronographFile> readGarminFit(const QByteArray &data, QString *er
     return ChronographFile{.format = ChronographFormat::GarminXero, .series = {std::move(series)}};
 }
 
-// The Garmin Xero app's CSV: a title line, then "#,SPEED (MPS),Δ AVG (MPS),KE (J),..." and one line per shot (number first, speed
-// second) up to a line that starts with "-"; the unit is the one in the header (MPS, FPS, KPH, MPH).
+// A CSV line split at the commas outside double quotes (the app quotes numbers that have a decimal comma: "696,7"); quotes removed.
+QStringList splitQuoted(const QString &line)
+{
+    QStringList fields;
+    QString current;
+    bool quoted = false;
+    for (const QChar c : line)
+    {
+        if (c == u'"') quoted = !quoted;
+        else if (c == u',' && !quoted)
+        {
+            fields << current.trimmed();
+            current.clear();
+        }
+        else current += c;
+    }
+    fields << current.trimmed();
+    return fields;
+}
+
+// The velocity unit in the speed column of the Xero CSV header ("SPEED (MPS)", localized: "Tempo (MPS)", "TEMPO (MPS)"); 0 if the
+// line is not that header.
+double xeroHeaderFactor(const QStringList &f)
+{
+    if (f.size() < 2 || f[0] != u"#") return 0.0;
+    const qsizetype open = f[1].indexOf(u'(');
+    const qsizetype close = f[1].indexOf(u')');
+    return open >= 0 && close > open ? velocityFactor(f[1].mid(open + 1, close - open - 1)) : 0.0;
+}
+
+// The Garmin Xero app's CSV, in any language of the app: a title line, then "#,SPEED (MPS),Δ AVG (MPS),KE (J),..." and one line per
+// shot (number first, speed second) up to a line that starts with "-"; the unit is the one in the header (MPS, FPS, KPH, MPH).
 std::optional<ChronographFile> readGarminCsv(const QStringList &lines, QString *error)
 {
     ChronographSeries series;
     double factor = 0.0;
-    bool inShots = false;
     for (const QString &line : lines)
     {
-        const QStringList f = splitLine(line, u',');
-        if (f.isEmpty()) continue;
-        if (!inShots)
+        const QStringList f = splitQuoted(line);
+        if (factor <= 0.0)
         {
-            if (f[0] == u"#" && f.size() > 1 && f[1].startsWith(u"SPEED", Qt::CaseInsensitive))
-            {
-                const qsizetype open = f[1].indexOf(u'(');
-                const qsizetype close = f[1].indexOf(u')');
-                if (open >= 0 && close > open) factor = velocityFactor(f[1].mid(open + 1, close - open - 1));
-                inShots = true;
-            }
-            else if (series.name.isEmpty() && !f[0].isEmpty())
-            {
-                series.name = f[0];
-                series.name.remove(u'"');
-            }
+            factor = xeroHeaderFactor(f);
+            const QString title = line.trimmed();
+            if (factor <= 0.0 && series.name.isEmpty() && !title.isEmpty()) series.name = QString(title).remove(u'"');
             continue;
         }
         if (f[0].startsWith(u'-')) break;  // the end of the shot table
         bool numberOk = false;
         f[0].toInt(&numberOk);
         const auto v = f.size() > 1 ? number(f[1]) : std::nullopt;
-        if (numberOk && v && *v > 0.0 && factor > 0.0) series.velocities_ms.push_back(*v * factor);
+        if (numberOk && v && *v > 0.0) series.velocities_ms.push_back(*v * factor);
     }
     if (factor <= 0.0)
     {
@@ -311,9 +330,8 @@ std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *
     QByteArray bytes = data;
     bytes.remove(0, bytes.startsWith("\xEF\xBB\xBF") ? 3 : 0);
     bytes.replace('\0', "");  // the Labradar pads its lines with NUL bytes
-    const QStringList lines = QString::fromUtf8(bytes).split(u'\n');
-    const bool xero = std::ranges::any_of(lines, [](const QString &l)
-                                          { return l.trimmed().startsWith(u"#,") && l.contains(u"SPEED (", Qt::CaseInsensitive); });
+    const QStringList lines = QString::fromUtf8(bytes).remove(u'\uFEFF').split(u'\n');
+    const bool xero = std::ranges::any_of(lines, [](const QString &l) { return xeroHeaderFactor(splitQuoted(l)) > 0.0; });
     if (xero) return readGarminCsv(lines, error);
     const bool labradar = std::ranges::any_of(lines, [](const QString &l) { return l.trimmed().startsWith(u"Shot ID;"); });
     if (labradar) return readLabradar(lines, error);
