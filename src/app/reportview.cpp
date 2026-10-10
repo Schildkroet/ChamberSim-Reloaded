@@ -16,6 +16,7 @@
 #include <QPrinter>
 #include <QPushButton>
 #include <QSettings>
+#include <QTimer>
 #include <QSpinBox>
 #include <QLabel>
 #include <QTextBrowser>
@@ -90,7 +91,13 @@ void ReportView::invalidate()
 void ReportView::showEvent(QShowEvent *event)
 {
     QWidget::showEvent(event);
-    if (m_dirty) refresh();
+    // not inside the show: the provider renders other widgets, and the window's children are still being shown
+    if (m_dirty)
+        QTimer::singleShot(0, this,
+                           [this]
+                           {
+                               if (m_dirty && isVisible()) refresh();
+                           });
 }
 
 void ReportView::refresh()

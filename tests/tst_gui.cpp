@@ -132,6 +132,7 @@ private slots:
     void noteWithoutPhysicalBurnValues();
     void hoveringATableRowShowsItsMeasureInTheDrawing();
     void reportTabRendersTheLoad();
+    void startingOnTheReportTabRendersAfterTheShow();
     void reportTemplateIsCustomisable();
     void actionButtonsAreEasyToSee();
     void reportScaleIsLimitedAndStored();
@@ -1411,6 +1412,19 @@ void GuiTest::reportTabRendersTheLoad()
     QVERIFY(view.applyRecord(LoadView::Component::Propellant, n340));
     QVERIFY(report->html() != before);
     QVERIFY(report->html().contains(u"N340"_s));
+}
+
+void GuiTest::startingOnTheReportTabRendersAfterTheShow()
+{
+    // a window that starts on the stored Report tab rendered the report inside its own show and crashed
+    QSettings().setValue(u"layout/resultTab"_s, 2);
+    MainWindow w;
+    QVERIFY(w.openLoad(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
+    w.showTab(1);
+    w.resize(1400, 900);
+    w.show();
+    QTest::qWait(300);
+    QSettings().setValue(u"layout/resultTab"_s, 0);
 }
 
 void GuiTest::reportTemplateIsCustomisable()
