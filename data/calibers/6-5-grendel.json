@@ -1,0 +1,20 @@
+{
+  "cipname": "6.5 Grendel",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2003-01-01",
+  "L3": 38.7,
+  "L6": 57.5,
+  "R1": 11.2,
+  "E": 1.5,
+  "P1": 11.15,
+  "P2": 10.87,
+  "H1": 7.44,
+  "H2": 7.44,
+  "G1": 6.71,
+  "V": 35.5,
+  "c_Q": 35.36,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

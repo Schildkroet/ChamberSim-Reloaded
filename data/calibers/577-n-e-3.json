@@ -1,0 +1,19 @@
+{
+  "cipname": "577 N.E. 3\"",
+  "altname": ".577 N.E. 3\"",
+  "standard": "CIP",
+  "ciptype": "2 rimmed",
+  "cipdate": "1890-01-01",
+  "L3": 76.2,
+  "L6": 93.98,
+  "R1": 19,
+  "E": 1.32,
+  "P1": 16.76,
+  "H1": 15.49,
+  "H2": 15.49,
+  "G1": 14.86,
+  "V": 185.3,
+  "c_Q": 173.43,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

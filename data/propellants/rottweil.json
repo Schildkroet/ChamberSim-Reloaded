@@ -15,7 +15,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "Qlty": 0.05,
+    "Qlty": 0.1,
     "cdate": "2026-10-07",
     "origin": "RWS reloading data (rws-ammunition.com/de/infotainment/wiederladen)",
     "descr": "Burn rate Ba fitted to 10 start and maximum loads of the manufacturer's published load data (3 cartridges), velocity error 3.0 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Test barrels from the RWS reloading book (600 mm, 650 mm for some magnums); only the maximum load has a velocity (v3, 3 m from the muzzle). Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
@@ -36,7 +36,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "Qlty": 0.25,
+    "Qlty": 0.3,
     "cdate": "2026-10-07",
     "origin": "RWS reloading data (rws-ammunition.com/de/infotainment/wiederladen)",
     "descr": "Burn rate Ba fitted to 42 start and maximum loads of the manufacturer's published load data (10 cartridges), velocity error 3.6 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Test barrels from the RWS reloading book (600 mm, 650 mm for some magnums); only the maximum load has a velocity (v3, 3 m from the muzzle)."
@@ -57,7 +57,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "Qlty": 0.45,
+    "Qlty": 0.55,
     "cdate": "2026-10-07",
     "origin": "RWS reloading data (rws-ammunition.com/de/infotainment/wiederladen)",
     "descr": "Burn rate Ba fitted to 75 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 4.2 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Test barrels from the RWS reloading book (600 mm, 650 mm for some magnums); only the maximum load has a velocity (v3, 3 m from the muzzle)."
@@ -78,7 +78,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "Qlty": 0.55,
+    "Qlty": 0.7,
     "cdate": "2026-10-07",
     "origin": "RWS reloading data (rws-ammunition.com/de/infotainment/wiederladen)",
     "descr": "Burn rate Ba fitted to 104 start and maximum loads of the manufacturer's published load data (23 cartridges), velocity error 4.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Test barrels from the RWS reloading book (600 mm, 650 mm for some magnums); only the maximum load has a velocity (v3, 3 m from the muzzle)."
@@ -99,7 +99,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "Qlty": 0.45,
+    "Qlty": 0.55,
     "cdate": "2026-10-07",
     "origin": "RWS reloading data (rws-ammunition.com/de/infotainment/wiederladen)",
     "descr": "Burn rate Ba fitted to 81 start and maximum loads of the manufacturer's published load data (19 cartridges), velocity error 4.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Test barrels from the RWS reloading book (600 mm, 650 mm for some magnums); only the maximum load has a velocity (v3, 3 m from the muzzle)."
@@ -120,7 +120,7 @@
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
-    "Qlty": 0.55,
+    "Qlty": 0.7,
     "cdate": "2026-10-07",
     "origin": "RWS reloading data (rws-ammunition.com/de/infotainment/wiederladen)",
     "descr": "Burn rate Ba fitted to 122 start and maximum loads of the manufacturer's published load data (27 cartridges), velocity error 4.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Test barrels from the RWS reloading book (600 mm, 650 mm for some magnums); only the maximum load has a velocity (v3, 3 m from the muzzle)."

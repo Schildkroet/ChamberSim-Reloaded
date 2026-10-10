@@ -1591,12 +1591,12 @@ void CoreTest::powderFitFindsTheBurnRate()
     r.velocityRmsAfter = 0.0;
     QCOMPARE(csr::powderfit::fitQuality(r), 1.0);
     r.velocityRmsAfter = 0.04;
-    QCOMPARE(csr::powderfit::fitQuality(r), 0.6);
-    r.velocityRmsAfter = 0.2;  // beyond 10 %: the lowest grade, not "unknown"
+    QCOMPARE(csr::powderfit::fitQuality(r), 0.75);  // 1 - 4 / 15 = 0.73
+    r.velocityRmsAfter = 0.2;                       // beyond 15 %: the lowest grade, not "unknown"
     QCOMPARE(csr::powderfit::fitQuality(r), 0.05);
     r.velocityRmsAfter = 0.0;
-    r.pressureRmsAfter = 0.1;  // mean of 1.0 and 0.5
-    QCOMPARE(csr::powderfit::fitQuality(r), 0.75);
+    r.pressureRmsAfter = 0.1;  // mean of 1.0 and 0.67
+    QCOMPARE(csr::powderfit::fitQuality(r), 0.85);
 
     // the fitted value goes into the load
     csr::powderfit::apply(lf->propellant, res);

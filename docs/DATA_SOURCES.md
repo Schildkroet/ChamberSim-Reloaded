@@ -31,8 +31,8 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   (Vectan A24, AS, A1, A0, 206V, GM3, D20, Prima SV and Prima V; Hodgdon Clays, Titewad, International, 700-X, Universal, Longshot, Titegroup, Winchester Super Handicap and WST, Ramshot Competition; Alliant Red Dot,
   Green Dot, Blue Dot, Unique, Herco, Promo, American Select, Clay Dot, Pro Reach and 20/28; lot "shotshell", for shotshell loads only: 2,616 loads of the Hodgdon
   manual's 12 gauge tables, 1,993 of Alliant's Reloader's Guide and 450 of the Vectan catalogue, burn rates refitted 2026-10-05).
-  Every record carries a fit quality `Qlty` (0-1, the original's column "Model quality", 0 = unknown): it falls with the velocity error (0 at 10 %),
-  the pressure error (0 at 20 %, where the data have pressures) and with fewer than 100 fitted loads; shown in Tools > Burn rate table.
+  Every record carries a fit quality `Qlty` (0-1, the original's column "Model quality", 0 = unknown): it falls with the velocity error (0 at 15 %),
+  the pressure error (0 at 30 %, where the data have pressures) and with fewer than 100 fitted loads; shown in Tools > Burn rate table.
   Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate
   Ba was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
   (Explosia's Reloading Guide 2019), Reload Swiss (online loading data of Nitrochemie), the Hodgdon Reloading Manual 2024 and the

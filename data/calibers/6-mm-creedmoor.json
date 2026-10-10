@@ -1,0 +1,20 @@
+{
+  "cipname": "6 mm Creedmoor",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "2007-01-01",
+  "L3": 48.77,
+  "L6": 71.75,
+  "R1": 12.01,
+  "E": 1.37,
+  "P1": 11.95,
+  "P2": 11.73,
+  "H1": 7.49,
+  "H2": 7.49,
+  "G1": 6.17,
+  "V": 52.5,
+  "c_Q": 35.36,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter (bullet diameter corrected to 6.17 mm)"
+}

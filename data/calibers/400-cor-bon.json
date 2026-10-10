@@ -1,0 +1,21 @@
+{
+  "cipname": "400 Cor-Bon",
+  "altname": ".400 Cor-Bon",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "1997-01-01",
+  "L3": 22.81,
+  "L6": 30.48,
+  "R1": 11.96,
+  "E": 1.27,
+  "P1": 11.94,
+  "P2": 11.91,
+  "H1": 10.74,
+  "H2": 10.74,
+  "G1": 10.19,
+  "V": 21.5,
+  "c_Q": 81.55,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

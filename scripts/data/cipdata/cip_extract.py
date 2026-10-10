@@ -108,6 +108,8 @@ def parse_page(page: str, source: str) -> dict | None:
             continue
         name = re.sub(r"(?<=\d),(?=\d)", ".", t.strip())  # "6,5 x 55" -> "6.5 x 55"
         break
+    # a name containing "Cartridge" ("300 Precision Rifle Cartridge") is skipped above; the line below then lists the short name
+    name = re.sub(r"^Alternative Names:\s*", "", name)
     if not name:
         return None
     nxt = next((ln for ln in block if re.search(r"Origin|Ursprungsland", ln)), "")

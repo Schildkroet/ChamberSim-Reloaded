@@ -1,0 +1,19 @@
+{
+  "cipname": "280 Ackley Improved",
+  "altname": ".280 Ackley Improved",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "2 rimmed",
+  "L3": 64.13,
+  "L6": 84.58,
+  "R1": 12.01,
+  "P1": 11.96,
+  "P2": 11.53,
+  "H1": 8,
+  "H2": 8,
+  "G1": 7.21,
+  "V": 74.2,
+  "c_Q": 40.83,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

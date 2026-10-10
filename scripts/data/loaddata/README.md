@@ -56,6 +56,10 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
 - `rs_extract.py` reads the loading data page of reload-swiss.com. The table is embedded in the page's Nuxt state (a minified function
   whose arguments are the values); the script decodes it without running any script. 2002 samples of 14 RS powders, start and maximum
   load with pressures.
+- `rs_pdf_extract.py guide.pdf` reads the Reload Swiss Ladedaten-Guide 2025 (DE/EN, `pdftotext -layout`, one line per load; rifle and handgun
+  tables, older rows without pressures or start load). 3,065 samples, 14 powders; the web page and the guide overlap in about 760 loads (the
+  velocities and pressures agree), the rest is new (calibers such as 45 ACP, 9 mm, 6 BR Norma, 7 x 64). Both files are merged without
+  duplicates into `sources/samples/rs_samples.csv` (3,906 samples) and fitted together (2026-10-10).
 - `samples_common.py`: matches cartridges (with the table's spelling variants) to `data/calibers` and bullets to `data/projectiles`,
   else an estimated length (`estimate_length.py`).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
@@ -70,12 +74,12 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
 
 The Lovex rows were refitted (2026-10-06) to the 2016 and the 2020 guide together (identical loads count once; the samples are the fitted ones, loads whose charge is too
 high for the case are left out), with the physical values of the eight Lovex powders (`fit_physical_powders.py --only ... --merge`). D063 (7.4 % velocity error) keeps its record.
-| Reload Swiss RS50 / 52 / 60 / 62 / 70 / 76 | 184 / 206 / 294 / 246 / 228 / 88 | 0.536 / 0.553 / 0.501 / 0.454 / 0.437 / 0.368 | 4.9 / 5.6 / 5.2 / 6.2 / 4.7 / 5.4 % | 14-21 % |
+| Reload Swiss RS50 / 52 / 60 / 62 / 70 / 76 (web + guide 2025) | 327 / 466 / 619 / 442 / 404 / 146 | 0.534 / 0.561 / 0.507 / 0.455 / 0.441 / 0.373 | 5.0 / 5.8 / 5.4 / 5.9 / 4.8 / 5.3 % | 14-21 % |
 
 The burn rates order as the manufacturers describe their powders (D073.4 faster than .5 faster than .6; S060 > S062 > S065 > S070).
 Fitting a0, z1, z2 as well with the pressures does not help (pressure error 15 % -> 15 %, the parameters run to the limits), so the
 form function stays the chosen one. Handgun powders are written as well, whatever their error (user's decision, 2026-10-08: the 2020 guide's
-handgun tables are read by `lovex_extract.py`; their descriptions say "use with more caution"). Reload Swiss RS12-RS40 and RS80 (7-22 % velocity error) were added 2026-10-08. Not included: Lovex S040, S053,
+handgun tables are read by `lovex_extract.py`; their descriptions say "use with more caution"). Reload Swiss RS12-RS40 and RS80 (8-20 % velocity error) were added 2026-10-08 and refitted to the web page and the guide 2025 on 2026-10-10 (RS12 / 14 / 20 / 24 / 30 / 36 / 40 / 80: 242 / 149 / 212 / 143 / 125 / 117 / 292 / 126 samples, physical values refitted). Not included: Lovex S040, S053,
 D060, D063 (fewer than 40 samples) and RS40 / RS80 (7 / 11 %).
 
 ## RWS (Rottweil powders)
@@ -266,7 +270,7 @@ loads are too few to fit one.
 ## Quality of a fit
 
 Every record written by `vv_to_json.py`, `published_fit.py` and `csr_fitpowder --out` gets the propellant column `Qlty` (the original's
-"Model quality", 0..1 in steps of 0.05, 0 = unknown): `(1 - velocity rms / 10 %)`, with pressures averaged with `(1 - pressure rms / 20 %)`,
+"Model quality", 0..1 in steps of 0.05, 0 = unknown): `(1 - velocity rms / 15 %)`, with pressures averaged with `(1 - pressure rms / 30 %)`,
 times `min(1, loads / 100)`. `scripts/data/fit_quality.py` and `powderfit::fitQuality` (`src/core/powderfit.cpp`) are the two implementations.
 The existing records were graded from the numbers in their descriptions (N150: 0.55-0.7, the Lovex powders with 20 loads and 7 % error: 0.05-0.2).
 

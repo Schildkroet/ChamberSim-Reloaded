@@ -111,7 +111,10 @@ def fit(powder, subset, x0, form):
         parts = [rv, args.pressure_weight * rp]
         if args.slope_weight > 0:
             sg, pg = gains(subset, v, mv)
-            parts.append(args.slope_weight * (sg - pg))
+            # fixed length: a pair that fails to simulate at some trial values must not change the residual vector's size
+            full = np.zeros(len(pairs_of(subset)))
+            full[:len(sg)] = sg - pg
+            parts.append(args.slope_weight * full)
         return np.concatenate(parts)
     lo, hi = ([0.05, -3.0, 0.05, 0.05], [20.0, 10.0, 0.8, 0.95]) if len(x0) == 4 else ([0.05], [20.0])
     sol = least_squares(fun, np.clip(x0, np.array(lo) + 1e-6, np.array(hi) - 1e-6), bounds=(lo, hi), loss="soft_l1", f_scale=0.1,

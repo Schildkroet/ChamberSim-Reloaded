@@ -422,8 +422,8 @@ void apply(EntryList &propellant, const std::vector<Result> &results)
 double fitQuality(const Result &result)
 {
     if (result.samples.empty()) return 0.0;
-    double q = std::max(0.0, 1.0 - 100 * result.velocityRmsAfter / 10.0);
-    if (result.pressureRmsAfter > 0.0) q = (q + std::max(0.0, 1.0 - 100 * result.pressureRmsAfter / 20.0)) / 2.0;
+    double q = std::max(0.0, 1.0 - 100 * result.velocityRmsAfter / 15.0);
+    if (result.pressureRmsAfter > 0.0) q = (q + std::max(0.0, 1.0 - 100 * result.pressureRmsAfter / 30.0)) / 2.0;
     q *= std::min(1.0, static_cast<double>(result.samples.size()) / 100.0);
     return std::max(0.05, std::round(q / 0.05) * 0.05);  // a fit is never "unknown" (0)
 }

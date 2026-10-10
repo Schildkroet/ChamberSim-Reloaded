@@ -1,0 +1,20 @@
+{
+  "cipname": "458 Lott",
+  "altname": ".458 Lott",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "3 belted",
+  "cipdate": "1971-01-01",
+  "L3": 71.12,
+  "L6": 91.44,
+  "R1": 13.51,
+  "E": 1.27,
+  "P1": 13.03,
+  "H1": 12.22,
+  "H2": 12.22,
+  "G1": 11.63,
+  "V": 110,
+  "c_Q": 106.23,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

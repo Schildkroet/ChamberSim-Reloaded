@@ -1,0 +1,19 @@
+{
+  "cipname": "7.5 x 54 MAS",
+  "standard": "CIP",
+  "ciptype": "1 rimless",
+  "cipdate": "1924-01-01",
+  "L3": 54,
+  "L6": 76,
+  "R1": 12.34,
+  "E": 1.4,
+  "P1": 12.25,
+  "P2": 11.3,
+  "H1": 8.66,
+  "H2": 8.66,
+  "G1": 7.84,
+  "V": 58,
+  "c_Q": 48.27,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}
