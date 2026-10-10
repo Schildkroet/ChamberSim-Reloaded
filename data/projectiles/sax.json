@@ -1,0 +1,578 @@
+[
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.366 244 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 28.3,
+    "gmass": 244.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.375 215 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 23.6,
+    "gmass": 215.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.375 245 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 26.9,
+    "gmass": 245.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.400 282 gr",
+    "caliber": ".400",
+    "gdia": 10.16,
+    "glen": 26.6,
+    "gmass": 282.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.404 231 gr",
+    "caliber": ".404",
+    "gdia": 10.26,
+    "glen": 21.3,
+    "gmass": 231.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.416 245 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 21.1,
+    "gmass": 245.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.416 293 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 25.3,
+    "gmass": 293.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.450 353 gr",
+    "caliber": ".450",
+    "gdia": 11.43,
+    "glen": 25.3,
+    "gmass": 353.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.458 292 gr",
+    "caliber": ".458",
+    "gdia": 11.63,
+    "glen": 20.1,
+    "gmass": 292.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.458 351 gr",
+    "caliber": ".458",
+    "gdia": 11.63,
+    "glen": 24.1,
+    "gmass": 351.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.470 378 gr",
+    "caliber": ".470",
+    "gdia": 11.94,
+    "glen": 24.5,
+    "gmass": 378.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.500 434 gr",
+    "caliber": ".500",
+    "gdia": 12.7,
+    "glen": 24.3,
+    "gmass": 434.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.577 573 gr",
+    "caliber": ".577",
+    "gdia": 14.66,
+    "glen": 22.7,
+    "gmass": 573.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS 0.600 636 gr",
+    "caliber": ".600",
+    "gdia": 15.24,
+    "glen": 23.0,
+    "gmass": 636.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS-Solid 0.500 525 gr",
+    "caliber": ".500",
+    "gdia": 12.7,
+    "glen": 29.3,
+    "gmass": 525.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-BCS-Solid 0.600 748 gr",
+    "caliber": ".600",
+    "gdia": 15.24,
+    "glen": 27.0,
+    "gmass": 748.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-HS 0.224 37 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 13.0,
+    "gmass": 37.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-HSR 0.224 46 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 16.2,
+    "gmass": 46.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-HSR 0.228 46 gr",
+    "caliber": ".228",
+    "gdia": 5.79,
+    "glen": 15.5,
+    "gmass": 46.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-HSR 0.243 77 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 22.6,
+    "gmass": 77.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-HSR (.444 Marlin) 0.444 203 gr",
+    "caliber": ".444",
+    "gdia": 11.28,
+    "glen": 15.0,
+    "gmass": 203.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-HSR (.45-70 G) 0.458 232 gr",
+    "caliber": ".458",
+    "gdia": 11.63,
+    "glen": 16.0,
+    "gmass": 232.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-S (Graubünden) 0.413 201 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 17.6,
+    "gmass": 201.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SO (Solid) 0.413 201 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 17.6,
+    "gmass": 201.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.257 93 gr",
+    "caliber": ".257",
+    "gdia": 6.53,
+    "glen": 24.1,
+    "gmass": 93.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.261 91 gr",
+    "caliber": ".261",
+    "gdia": 6.63,
+    "glen": 22.8,
+    "gmass": 91.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.264 93 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 22.7,
+    "gmass": 93.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.286 104 gr",
+    "caliber": ".286",
+    "gdia": 7.26,
+    "glen": 21.2,
+    "gmass": 104.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.306 120 gr",
+    "caliber": ".306",
+    "gdia": 7.77,
+    "glen": 21.0,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.308 124 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 21.4,
+    "gmass": 124.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.308 153 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 26.3,
+    "gmass": 153.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.318 125 gr",
+    "caliber": ".318",
+    "gdia": 8.08,
+    "glen": 20.0,
+    "gmass": 125.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.323 127 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 19.6,
+    "gmass": 127.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.323 146 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 22.6,
+    "gmass": 146.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.338 139 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 19.4,
+    "gmass": 139.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.338 230 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 32.0,
+    "gmass": 230.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.359 154 gr",
+    "caliber": ".359",
+    "gdia": 9.12,
+    "glen": 18.7,
+    "gmass": 154.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.366 154 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 17.9,
+    "gmass": 154.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR 0.375 154 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 16.9,
+    "gmass": 154.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SR (7,62x39) 0.312 123 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 20.6,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KJG-SX 0.308 123 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 21.2,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "KSG LM-105 0.338 293 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 40.8,
+    "gmass": 293.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSR Bleifrei 0.224 46 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 14.7,
+    "gmass": 46.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSR Bleifrei 0.243 70 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 18.9,
+    "gmass": 70.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSR Bleifrei 0.264 90 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 20.6,
+    "gmass": 90.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSR Bleifrei 0.277 103 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 21.5,
+    "gmass": 103.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSX Bleifrei 0.285 104 gr",
+    "caliber": ".285",
+    "gdia": 7.24,
+    "glen": 20.5,
+    "gmass": 104.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSX Bleifrei 0.308 121 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 20.4,
+    "gmass": 121.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSX Bleifrei 0.323 127 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 19.5,
+    "gmass": 127.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-HSX Bleifrei 0.375 185 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 21.0,
+    "gmass": 185.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.285 105 gr",
+    "caliber": ".285",
+    "gdia": 7.24,
+    "glen": 20.7,
+    "gmass": 105.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.308 121 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 20.4,
+    "gmass": 121.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.318 132 gr",
+    "caliber": ".318",
+    "gdia": 8.08,
+    "glen": 20.9,
+    "gmass": 132.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.323 127 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 19.5,
+    "gmass": 127.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.338 130 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 18.2,
+    "gmass": 130.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.338 219 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 30.6,
+    "gmass": 219.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.366 159 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 19.0,
+    "gmass": 159.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MJG-SX Bleifrei 0.375 161 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 18.3,
+    "gmass": 161.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MSG (.50 BMG) 0.50 600 gr",
+    "caliber": ".500",
+    "gdia": 12.7,
+    "glen": 33.5,
+    "gmass": 600.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MSG (.50 BMG) 0.50 745 gr",
+    "caliber": ".500",
+    "gdia": 12.7,
+    "glen": 41.6,
+    "gmass": 745.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MSG (Chey Tac) 0.408 420 gr",
+    "caliber": ".408",
+    "gdia": 10.36,
+    "glen": 37.9,
+    "gmass": 420.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "MSG FK SO (.50 BMG) 0.50 803 gr",
+    "caliber": ".500",
+    "gdia": 12.7,
+    "glen": 44.9,
+    "gmass": 803.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "US KJG-SR 0.284 103 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 21.3,
+    "gmass": 103.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Sax",
+    "pname": "USG Unterschall 0.308 141 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 24.3,
+    "gmass": 141.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  }
+]

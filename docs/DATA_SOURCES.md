@@ -12,8 +12,10 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   C.I.P. name, `altname` other names. Shotshells are not included. `Pmax` is the C.I.P. maximum pressure; `PmaxSAAMI` (a column the
   project added, shown next to it) the SAAMI maximum average pressure of 97 cartridges, from Wikipedia's infoboxes
   (`scripts/data/cipdata/saami_pressures.py`). Load data makers use the lower of the two.
-- **Projectiles (1761)**: the product pages of 16 manufacturers (Berger, Nosler, Speer, Hornady, Sierra, Barnes, Sellier & Bellot,
-  Lapua, Norma, RWS, PPU, Federal, Winchester, Remington, H&N, Sako), read with `scripts/data/bulletdata/*_fetch.py`: weight,
+- **Projectiles (2470)**: the product pages of 16 manufacturers (Berger, Nosler, Speer, Hornady, Sierra, Barnes, Sellier & Bellot,
+  Lapua, Norma, RWS, PPU, Federal, Winchester, Remington, H&N, Sako) and, from the listing of the reloading shop grauwolf.net (`grauwolf_fetch.py`, title only: maker, type,
+  diameter, weight), 709 bullets of Fox, Sax, Degol, DK Bullets, LOS, Brenneke, GECO, Magtech, CopperBear, Frontier, GPA, Cutting Edge, Ballistix Academy,
+  North Fork, Leader and Wi-La-Tech, read with `scripts/data/bulletdata/*_fetch.py`: weight,
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.

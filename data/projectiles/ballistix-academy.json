@@ -1,0 +1,1622 @@
+[
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Starkmantel 1,25 Open Tip 0.323 150 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 23.2,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Starkmantel 1,25 Open Tip 0.323 198 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 30.6,
+    "gmass": 198.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.441 260 gr",
+    "caliber": ".441",
+    "gdia": 11.2,
+    "glen": 16.6,
+    "gmass": 260.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.441 290 gr",
+    "caliber": ".441",
+    "gdia": 11.2,
+    "glen": 18.5,
+    "gmass": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.441 320 gr",
+    "caliber": ".441",
+    "gdia": 11.2,
+    "glen": 20.4,
+    "gmass": 320.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.441 350 gr",
+    "caliber": ".441",
+    "gdia": 11.2,
+    "glen": 22.3,
+    "gmass": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.441 370 gr",
+    "caliber": ".441",
+    "gdia": 11.2,
+    "glen": 23.6,
+    "gmass": 370.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.446 260 gr",
+    "caliber": ".446",
+    "gdia": 11.33,
+    "glen": 16.2,
+    "gmass": 260.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.446 290 gr",
+    "caliber": ".446",
+    "gdia": 11.33,
+    "glen": 18.1,
+    "gmass": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.446 320 gr",
+    "caliber": ".446",
+    "gdia": 11.33,
+    "glen": 20.0,
+    "gmass": 320.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "SWC Baseguard Rundkopf Blei 0.446 350 gr",
+    "caliber": ".446",
+    "gdia": 11.33,
+    "glen": 21.8,
+    "gmass": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.220 53 gr",
+    "caliber": ".220",
+    "gdia": 5.59,
+    "glen": 19.4,
+    "gmass": 53.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.220 70 gr",
+    "caliber": ".220",
+    "gdia": 5.59,
+    "glen": 25.6,
+    "gmass": 70.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.222 58 gr",
+    "caliber": ".222",
+    "gdia": 5.64,
+    "glen": 20.8,
+    "gmass": 58.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.222 75 gr",
+    "caliber": ".222",
+    "gdia": 5.64,
+    "glen": 26.9,
+    "gmass": 75.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.224 58 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 20.4,
+    "gmass": 58.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.224 75 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 26.4,
+    "gmass": 75.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.225 58 gr",
+    "caliber": ".225",
+    "gdia": 5.71,
+    "glen": 20.2,
+    "gmass": 58.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.225 75 gr",
+    "caliber": ".225",
+    "gdia": 5.71,
+    "glen": 26.1,
+    "gmass": 75.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.226 58 gr",
+    "caliber": ".226",
+    "gdia": 5.74,
+    "glen": 20.0,
+    "gmass": 58.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.226 75 gr",
+    "caliber": ".226",
+    "gdia": 5.74,
+    "glen": 25.8,
+    "gmass": 75.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.262 159 gr",
+    "caliber": ".262",
+    "gdia": 6.65,
+    "glen": 39.4,
+    "gmass": 159.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.264 140 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 34.1,
+    "gmass": 140.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.264 160 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 39.0,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.266 140 gr",
+    "caliber": ".266",
+    "gdia": 6.76,
+    "glen": 33.6,
+    "gmass": 140.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.266 160 gr",
+    "caliber": ".266",
+    "gdia": 6.76,
+    "glen": 38.4,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.268 160 gr",
+    "caliber": ".268",
+    "gdia": 6.81,
+    "glen": 37.7,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 110 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 18.9,
+    "gmass": 110.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 120 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 20.7,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 140 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 24.1,
+    "gmass": 140.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 150 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.8,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 155 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 26.7,
+    "gmass": 155.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 164 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 28.2,
+    "gmass": 164.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 168 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 28.9,
+    "gmass": 168.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 180 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 31.0,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 190 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 32.7,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 200 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 34.4,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 220 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 37.9,
+    "gmass": 220.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 240 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 41.3,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.308 90 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 15.5,
+    "gmass": 90.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.309 120 gr",
+    "caliber": ".309",
+    "gdia": 7.85,
+    "glen": 20.5,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.309 140 gr",
+    "caliber": ".309",
+    "gdia": 7.85,
+    "glen": 23.9,
+    "gmass": 140.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.309 160 gr",
+    "caliber": ".309",
+    "gdia": 7.85,
+    "glen": 27.3,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.309 170 gr",
+    "caliber": ".309",
+    "gdia": 7.85,
+    "glen": 29.1,
+    "gmass": 170.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.309 180 gr",
+    "caliber": ".309",
+    "gdia": 7.85,
+    "glen": 30.8,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.309 200 gr",
+    "caliber": ".309",
+    "gdia": 7.85,
+    "glen": 34.2,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.312 110 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 18.4,
+    "gmass": 110.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.312 130 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 21.7,
+    "gmass": 130.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.312 150 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 25.1,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.312 174 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 29.1,
+    "gmass": 174.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.312 190 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 31.8,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.312 200 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 33.4,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.312 90 gr",
+    "caliber": ".312",
+    "gdia": 7.92,
+    "glen": 15.0,
+    "gmass": 90.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.318 180 gr",
+    "caliber": ".318",
+    "gdia": 8.08,
+    "glen": 28.8,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.318 200 gr",
+    "caliber": ".318",
+    "gdia": 8.08,
+    "glen": 32.0,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.318 225 gr",
+    "caliber": ".318",
+    "gdia": 8.08,
+    "glen": 36.0,
+    "gmass": 225.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.318 240 gr",
+    "caliber": ".318",
+    "gdia": 8.08,
+    "glen": 38.4,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.321 180 gr",
+    "caliber": ".321",
+    "gdia": 8.15,
+    "glen": 28.2,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.321 200 gr",
+    "caliber": ".321",
+    "gdia": 8.15,
+    "glen": 31.3,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.321 220 gr",
+    "caliber": ".321",
+    "gdia": 8.15,
+    "glen": 34.5,
+    "gmass": 220.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.321 244 gr",
+    "caliber": ".321",
+    "gdia": 8.15,
+    "glen": 38.2,
+    "gmass": 244.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.321 260 gr",
+    "caliber": ".321",
+    "gdia": 8.15,
+    "glen": 40.8,
+    "gmass": 260.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 120 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 18.5,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 150 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 23.2,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 160 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 24.7,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 165 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 25.5,
+    "gmass": 165.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 175 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 27.0,
+    "gmass": 175.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 180 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 27.8,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 198 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 30.6,
+    "gmass": 198.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 200 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 30.9,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.323 227 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 35.1,
+    "gmass": 227.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.327 160 gr",
+    "caliber": ".327",
+    "gdia": 8.31,
+    "glen": 24.0,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.327 180 gr",
+    "caliber": ".327",
+    "gdia": 8.31,
+    "glen": 27.0,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.327 200 gr",
+    "caliber": ".327",
+    "gdia": 8.31,
+    "glen": 30.0,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.327 206 gr",
+    "caliber": ".327",
+    "gdia": 8.31,
+    "glen": 31.0,
+    "gmass": 206.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.327 227 gr",
+    "caliber": ".327",
+    "gdia": 8.31,
+    "glen": 34.1,
+    "gmass": 227.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.329 160 gr",
+    "caliber": ".329",
+    "gdia": 8.36,
+    "glen": 23.7,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.329 180 gr",
+    "caliber": ".329",
+    "gdia": 8.36,
+    "glen": 26.7,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.329 200 gr",
+    "caliber": ".329",
+    "gdia": 8.36,
+    "glen": 29.6,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.329 206 gr",
+    "caliber": ".329",
+    "gdia": 8.36,
+    "glen": 30.5,
+    "gmass": 206.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.329 227 gr",
+    "caliber": ".329",
+    "gdia": 8.36,
+    "glen": 33.6,
+    "gmass": 227.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.331 160 gr",
+    "caliber": ".331",
+    "gdia": 8.41,
+    "glen": 23.4,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.331 180 gr",
+    "caliber": ".331",
+    "gdia": 8.41,
+    "glen": 26.3,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.331 200 gr",
+    "caliber": ".331",
+    "gdia": 8.41,
+    "glen": 29.2,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.331 206 gr",
+    "caliber": ".331",
+    "gdia": 8.41,
+    "glen": 30.1,
+    "gmass": 206.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.331 227 gr",
+    "caliber": ".331",
+    "gdia": 8.41,
+    "glen": 33.2,
+    "gmass": 227.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.338 190 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 26.5,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.338 240 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 33.4,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.340 190 gr",
+    "caliber": ".340",
+    "gdia": 8.64,
+    "glen": 26.1,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.340 240 gr",
+    "caliber": ".340",
+    "gdia": 8.64,
+    "glen": 33.0,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.342 190 gr",
+    "caliber": ".342",
+    "gdia": 8.69,
+    "glen": 25.8,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.342 240 gr",
+    "caliber": ".342",
+    "gdia": 8.69,
+    "glen": 32.5,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.350 120 gr",
+    "caliber": ".350",
+    "gdia": 8.89,
+    "glen": 15.4,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.350 190 gr",
+    "caliber": ".350",
+    "gdia": 8.89,
+    "glen": 24.4,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.350 240 gr",
+    "caliber": ".350",
+    "gdia": 8.89,
+    "glen": 30.9,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.350 80 gr",
+    "caliber": ".350",
+    "gdia": 8.89,
+    "glen": 10.3,
+    "gmass": 80.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.352 120 gr",
+    "caliber": ".352",
+    "gdia": 8.94,
+    "glen": 15.2,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.352 190 gr",
+    "caliber": ".352",
+    "gdia": 8.94,
+    "glen": 24.1,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.352 240 gr",
+    "caliber": ".352",
+    "gdia": 8.94,
+    "glen": 30.5,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.352 80 gr",
+    "caliber": ".352",
+    "gdia": 8.94,
+    "glen": 10.2,
+    "gmass": 80.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.355 120 gr",
+    "caliber": ".355",
+    "gdia": 9.02,
+    "glen": 14.9,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.355 190 gr",
+    "caliber": ".355",
+    "gdia": 9.02,
+    "glen": 23.6,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.355 240 gr",
+    "caliber": ".355",
+    "gdia": 9.02,
+    "glen": 29.9,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.355 80 gr",
+    "caliber": ".355",
+    "gdia": 9.02,
+    "glen": 10.0,
+    "gmass": 80.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.356 120 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 14.8,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.356 190 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 23.5,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.356 240 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 29.7,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.356 80 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 9.9,
+    "gmass": 80.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.357 120 gr",
+    "caliber": ".357",
+    "gdia": 9.07,
+    "glen": 14.7,
+    "gmass": 120.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.357 190 gr",
+    "caliber": ".357",
+    "gdia": 9.07,
+    "glen": 23.3,
+    "gmass": 190.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.357 240 gr",
+    "caliber": ".357",
+    "gdia": 9.07,
+    "glen": 29.5,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.357 80 gr",
+    "caliber": ".357",
+    "gdia": 9.07,
+    "glen": 9.8,
+    "gmass": 80.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.358 240 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 29.3,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.358 300 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 36.6,
+    "gmass": 300.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.360 240 gr",
+    "caliber": ".360",
+    "gdia": 9.14,
+    "glen": 28.9,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.360 300 gr",
+    "caliber": ".360",
+    "gdia": 9.14,
+    "glen": 36.2,
+    "gmass": 300.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.362 240 gr",
+    "caliber": ".362",
+    "gdia": 9.19,
+    "glen": 28.6,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.362 300 gr",
+    "caliber": ".362",
+    "gdia": 9.19,
+    "glen": 35.7,
+    "gmass": 300.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.364 240 gr",
+    "caliber": ".364",
+    "gdia": 9.25,
+    "glen": 28.2,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.364 300 gr",
+    "caliber": ".364",
+    "gdia": 9.25,
+    "glen": 35.2,
+    "gmass": 300.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.366 240 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 27.8,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.366 300 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 34.8,
+    "gmass": 300.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.402 280 gr",
+    "caliber": ".402",
+    "gdia": 10.21,
+    "glen": 26.1,
+    "gmass": 280.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.402 350 gr",
+    "caliber": ".402",
+    "gdia": 10.21,
+    "glen": 32.7,
+    "gmass": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.404 280 gr",
+    "caliber": ".404",
+    "gdia": 10.26,
+    "glen": 25.8,
+    "gmass": 280.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.404 350 gr",
+    "caliber": ".404",
+    "gdia": 10.26,
+    "glen": 32.3,
+    "gmass": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.406 280 gr",
+    "caliber": ".406",
+    "gdia": 10.31,
+    "glen": 25.5,
+    "gmass": 280.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.406 350 gr",
+    "caliber": ".406",
+    "gdia": 10.31,
+    "glen": 31.9,
+    "gmass": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.408 280 gr",
+    "caliber": ".408",
+    "gdia": 10.36,
+    "glen": 25.3,
+    "gmass": 280.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.408 350 gr",
+    "caliber": ".408",
+    "gdia": 10.36,
+    "glen": 31.6,
+    "gmass": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.411 280 gr",
+    "caliber": ".411",
+    "gdia": 10.44,
+    "glen": 24.8,
+    "gmass": 280.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.411 350 gr",
+    "caliber": ".411",
+    "gdia": 10.44,
+    "glen": 31.0,
+    "gmass": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.413 340 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 29.8,
+    "gmass": 340.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.413 360 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 31.6,
+    "gmass": 360.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.413 380 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 33.3,
+    "gmass": 380.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.413 400 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 35.1,
+    "gmass": 400.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.414 340 gr",
+    "caliber": ".414",
+    "gdia": 10.52,
+    "glen": 29.6,
+    "gmass": 340.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.414 360 gr",
+    "caliber": ".414",
+    "gdia": 10.52,
+    "glen": 31.4,
+    "gmass": 360.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.414 380 gr",
+    "caliber": ".414",
+    "gdia": 10.52,
+    "glen": 33.1,
+    "gmass": 380.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.414 400 gr",
+    "caliber": ".414",
+    "gdia": 10.52,
+    "glen": 34.9,
+    "gmass": 400.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.416 340 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 29.3,
+    "gmass": 340.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.416 360 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 31.0,
+    "gmass": 360.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.416 380 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 32.8,
+    "gmass": 380.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.416 400 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 34.5,
+    "gmass": 400.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.418 340 gr",
+    "caliber": ".418",
+    "gdia": 10.62,
+    "glen": 29.0,
+    "gmass": 340.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.418 360 gr",
+    "caliber": ".418",
+    "gdia": 10.62,
+    "glen": 30.7,
+    "gmass": 360.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.418 380 gr",
+    "caliber": ".418",
+    "gdia": 10.62,
+    "glen": 32.4,
+    "gmass": 380.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.418 400 gr",
+    "caliber": ".418",
+    "gdia": 10.62,
+    "glen": 34.1,
+    "gmass": 400.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.510 650 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 34.7,
+    "gmass": 650.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.510 680 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 36.3,
+    "gmass": 680.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.512 650 gr",
+    "caliber": ".512",
+    "gdia": 13.0,
+    "glen": 34.3,
+    "gmass": 650.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.512 680 gr",
+    "caliber": ".512",
+    "gdia": 13.0,
+    "glen": 35.9,
+    "gmass": 680.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.512 700 gr",
+    "caliber": ".512",
+    "gdia": 13.0,
+    "glen": 37.0,
+    "gmass": 700.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.513 650 gr",
+    "caliber": ".513",
+    "gdia": 13.03,
+    "glen": 34.2,
+    "gmass": 650.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.513 680 gr",
+    "caliber": ".513",
+    "gdia": 13.03,
+    "glen": 35.8,
+    "gmass": 680.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.513 700 gr",
+    "caliber": ".513",
+    "gdia": 13.03,
+    "glen": 36.8,
+    "gmass": 700.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.514 650 gr",
+    "caliber": ".514",
+    "gdia": 13.06,
+    "glen": 34.0,
+    "gmass": 650.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.514 680 gr",
+    "caliber": ".514",
+    "gdia": 13.06,
+    "glen": 35.6,
+    "gmass": 680.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.514 700 gr",
+    "caliber": ".514",
+    "gdia": 13.06,
+    "glen": 36.6,
+    "gmass": 700.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.586 1000 gr",
+    "caliber": ".586",
+    "gdia": 14.88,
+    "glen": 38.2,
+    "gmass": 1000.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.586 900 gr",
+    "caliber": ".586",
+    "gdia": 14.88,
+    "glen": 34.4,
+    "gmass": 900.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.588 1000 gr",
+    "caliber": ".588",
+    "gdia": 14.94,
+    "glen": 37.9,
+    "gmass": 1000.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.588 900 gr",
+    "caliber": ".588",
+    "gdia": 14.94,
+    "glen": 34.1,
+    "gmass": 900.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.590 1000 gr",
+    "caliber": ".590",
+    "gdia": 14.99,
+    "glen": 37.6,
+    "gmass": 1000.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.590 900 gr",
+    "caliber": ".590",
+    "gdia": 14.99,
+    "glen": 33.8,
+    "gmass": 900.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.700 1000 gr",
+    "caliber": ".700",
+    "gdia": 17.78,
+    "glen": 24.8,
+    "gmass": 1000.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.700 900 gr",
+    "caliber": ".700",
+    "gdia": 17.78,
+    "glen": 22.3,
+    "gmass": 900.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.702 1000 gr",
+    "caliber": ".702",
+    "gdia": 17.83,
+    "glen": 24.6,
+    "gmass": 1000.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip 0.702 900 gr",
+    "caliber": ".702",
+    "gdia": 17.83,
+    "glen": 22.2,
+    "gmass": 900.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip (Geschossform: 8S Ogive) 0.510 650 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 34.7,
+    "gmass": 650.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip Stufenheck 0.308 140 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 24.1,
+    "gmass": 140.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "Teilmantel Open Tip Stufenheck 0.510 650 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 34.7,
+    "gmass": 650.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.308 168 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 28.9,
+    "gmass": 168.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.308 180 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 31.0,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.308 200 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 34.4,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.510 740 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 39.5,
+    "gmass": 740.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.510 760 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 40.5,
+    "gmass": 760.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.510 780 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 41.6,
+    "gmass": 780.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.510 800 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 42.7,
+    "gmass": 800.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Ballistix Academy",
+    "pname": "ULD 0.510 820 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 43.7,
+    "gmass": 820.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  }
+]

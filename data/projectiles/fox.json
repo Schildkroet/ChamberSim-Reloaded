@@ -1,0 +1,452 @@
+[
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.224 45 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 14.3,
+    "gmass": 45.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.224 50 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 15.9,
+    "gmass": 50.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.224 55 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 17.5,
+    "gmass": 55.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.224 60 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 19.1,
+    "gmass": 60.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.243 80 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 21.7,
+    "gmass": 80.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.257 100 gr",
+    "caliber": ".257",
+    "gdia": 6.53,
+    "glen": 24.2,
+    "gmass": 100.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.264 100 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 22.9,
+    "gmass": 100.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.264 123 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 28.2,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.264 139 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 31.9,
+    "gmass": 139.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.268 123 gr",
+    "caliber": ".268",
+    "gdia": 6.81,
+    "glen": 27.4,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.277 130 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 27.1,
+    "gmass": 130.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.277 145 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 30.2,
+    "gmass": 145.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.284 130 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 25.8,
+    "gmass": 130.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.284 145 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 28.7,
+    "gmass": 145.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.306 155 gr",
+    "caliber": ".306",
+    "gdia": 7.77,
+    "glen": 26.5,
+    "gmass": 155.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.308 110 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 18.5,
+    "gmass": 110.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.308 130 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 21.9,
+    "gmass": 130.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.308 150 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.3,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.308 165 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 27.8,
+    "gmass": 165.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.308 180 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 30.3,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.311 123 gr",
+    "caliber": ".311",
+    "gdia": 7.9,
+    "glen": 20.3,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.311 155 gr",
+    "caliber": ".311",
+    "gdia": 7.9,
+    "glen": 25.6,
+    "gmass": 155.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.318 150 gr",
+    "caliber": ".318",
+    "gdia": 8.08,
+    "glen": 23.7,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.323 160 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 24.5,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.323 180 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 27.6,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.338 185 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 25.9,
+    "gmass": 185.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.338 210 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 29.4,
+    "gmass": 210.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.358 200 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 24.9,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.366 220 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 26.3,
+    "gmass": 220.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.366 250 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 29.8,
+    "gmass": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.375 250 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 28.4,
+    "gmass": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.413 200 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 18.7,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.416 300 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 27.7,
+    "gmass": 300.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.416 400 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 36.9,
+    "gmass": 400.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei Tipless 0.224 50 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 15.9,
+    "gmass": 50.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Tipless Bleifrei 0.224 40 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 12.7,
+    "gmass": 40.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Tipless Bleifrei 0.228 50 gr",
+    "caliber": ".228",
+    "gdia": 5.79,
+    "glen": 15.4,
+    "gmass": 50.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Tipless Bleifrei 0.243 100 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 27.1,
+    "gmass": 100.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Tipless Bleifrei 0.264 139 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 31.9,
+    "gmass": 139.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Tipless Bleifrei 0.366 200 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 23.9,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.224 55 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 17.5,
+    "gmass": 55.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.243 80 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 21.7,
+    "gmass": 80.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.264 123 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 28.2,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.284 130 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 25.8,
+    "gmass": 130.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.308 150 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.3,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.308 165 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 27.8,
+    "gmass": 165.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.323 160 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 24.5,
+    "gmass": 160.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.338 185 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 25.9,
+    "gmass": 185.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.366 220 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 26.3,
+    "gmass": 220.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Fox",
+    "pname": "Target Bleifrei 0.416 400 gr",
+    "caliber": ".416",
+    "gdia": 10.57,
+    "glen": 36.9,
+    "gmass": 400.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  }
+]

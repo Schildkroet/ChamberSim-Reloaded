@@ -1,0 +1,328 @@
+[
+  {
+    "mname": "LOS",
+    "pname": "CEB Bleifrei 0.308 150 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.3,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "FP 0.356 123 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 15.2,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "FP 0.356 145 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 17.9,
+    "gmass": 145.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "HP 0.356 123 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 14.6,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "HP 0.356 145 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 17.2,
+    "gmass": 145.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "HP verk. Blei 0.358 158 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 15.3,
+    "gmass": 158.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "HP verk. Blei 0.358 180 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 17.4,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Hunter 0.308 155 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 26.7,
+    "gmass": 155.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Hunter Tactic 0.224 52 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 18.3,
+    "gmass": 52.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Hunter Tactic 0.284 130 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 26.9,
+    "gmass": 130.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Hunter Tactic 0.284 145 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 30.0,
+    "gmass": 145.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Hunter Tactic 0.308 140 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 24.1,
+    "gmass": 140.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Hunter Tactic 0.308 150 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.8,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Hunter Tactic 0.308 165 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 28.4,
+    "gmass": 165.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RN 0.356 100 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 12.4,
+    "gmass": 100.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RN 0.356 115 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 14.2,
+    "gmass": 115.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RN 0.356 123 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 15.2,
+    "gmass": 123.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RN 0.356 145 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 17.9,
+    "gmass": 145.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RN 0.401 180 gr",
+    "caliber": ".401",
+    "gdia": 10.19,
+    "glen": 16.9,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RN verk. Blei 0.451 230 gr",
+    "caliber": ".451",
+    "gdia": 11.46,
+    "glen": 14.0,
+    "gmass": 230.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RNFP verk Blei 0.358 158 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 15.3,
+    "gmass": 158.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RNFP verk. Blei 0.358 180 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 17.4,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RNFP verk. Blei 0.401 180 gr",
+    "caliber": ".401",
+    "gdia": 10.19,
+    "glen": 13.9,
+    "gmass": 180.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "RNFP verk. Blei 0.429 240 gr",
+    "caliber": ".429",
+    "gdia": 10.9,
+    "glen": 16.2,
+    "gmass": 240.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "SWC verk. Blei 0.358 158 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 15.3,
+    "gmass": 158.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "SWC verk. Blei 0.451 200 gr",
+    "caliber": ".451",
+    "gdia": 11.46,
+    "glen": 12.2,
+    "gmass": 200.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Tactic 0.224 52 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 18.3,
+    "gmass": 52.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Tactic 0.308 150 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.8,
+    "gmass": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Tactic 0.308 165 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 28.4,
+    "gmass": 165.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Vollmantel Rundkopf 0.355 115 gr",
+    "caliber": ".355",
+    "gdia": 9.02,
+    "glen": 13.2,
+    "gmass": 115.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Vollmantel Rundkopf 0.355 124 gr",
+    "caliber": ".355",
+    "gdia": 9.02,
+    "glen": 14.2,
+    "gmass": 124.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Vollmantel Rundkopf 0.355 147 gr",
+    "caliber": ".355",
+    "gdia": 9.02,
+    "glen": 16.8,
+    "gmass": 147.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Vollmantel Rundkopf 0.451 230 gr",
+    "caliber": ".451",
+    "gdia": 11.46,
+    "glen": 16.2,
+    "gmass": 230.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Vollmantel Rundkopf RNFP 0.357 158 gr",
+    "caliber": ".357",
+    "gdia": 9.07,
+    "glen": 15.4,
+    "gmass": 158.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "Vollmantel Spitz BT 0.224 55 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 15.9,
+    "gmass": 55.0,
+    "gtailtype": 2,
+    "gtaildiaA": 5.69,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+  },
+  {
+    "mname": "LOS",
+    "pname": "WCHB verk. Blei 0.358 148 gr",
+    "caliber": ".358",
+    "gdia": 9.09,
+    "glen": 14.3,
+    "gmass": 148.0,
+    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+  }
+]

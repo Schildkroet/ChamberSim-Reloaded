@@ -93,8 +93,8 @@ The program shows one database made of three parts:
 
 ### 📚 Where the project database comes from
 
-The records in `data/` were collected from public sources with scripts (C.I.P. data sheets for 467 calibers, the product pages of 16
-bullet makers for 1,761 projectiles, and 211 propellants fitted to the published load tables of Vihtavuori, Hodgdon, Western, Lovex,
+The records in `data/` were collected from public sources with scripts (C.I.P. data sheets for 484 calibers, the product pages of 32
+bullet makers for 2,470 projectiles, and 214 propellants fitted to the published load tables of Vihtavuori, Hodgdon, Western, Lovex,
 Reload Swiss, ADI and Vectan); nothing was copied from the database of Gordon's Reloading Tool. Records made from estimates say so in
 their `descr` field. Sources, quality and the commands to rebuild: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md). Please check every load
 against the manufacturer's current load data.
