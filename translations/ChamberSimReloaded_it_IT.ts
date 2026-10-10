@@ -272,7 +272,7 @@
 <context>
     <name>DialogTitleBar</name>
     <message>
-        <location filename="../src/app/dialogframe.cpp" line="+88"/>
+        <location filename="../src/app/dialogframe.cpp" line="+95"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+187"/>
-        <location line="+944"/>
+        <location line="+957"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-944"/>
-        <location line="+945"/>
+        <location line="-957"/>
+        <location line="+958"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-945"/>
+        <location line="-958"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+946"/>
+        <location line="+959"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-945"/>
+        <location line="-958"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -388,11 +388,12 @@
     </message>
     <message>
         <location line="+39"/>
+        <location line="+799"/>
         <source>Charge</source>
         <translation>Carica</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-799"/>
         <source>Max. pressure</source>
         <translation>Pressione max.</translation>
     </message>
@@ -429,17 +430,19 @@
     <message>
         <location line="+0"/>
         <location line="+173"/>
+        <location line="+577"/>
         <source>Projectile</source>
         <translation>Proiettile</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-750"/>
         <location line="+174"/>
+        <location line="+577"/>
         <source>Propellant</source>
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-750"/>
         <source>Select Caliber…</source>
         <translation>Scegli il calibro…</translation>
     </message>
@@ -506,7 +509,32 @@
         <translation>Sostituisci questo componente con un altro record della banca dati</translation>
     </message>
     <message>
-        <location line="-347"/>
+        <location line="+546"/>
+        <source>Case volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>L3/CL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>L6/OAL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Seating depth</source>
+        <translation type="unfinished">Profondità di inserimento</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Projectile length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-897"/>
         <source>Select Caliber</source>
         <translation>Scegli il calibro</translation>
     </message>
@@ -627,12 +655,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>^ Carica ^ Nome ^ Colpi ^ Velocità ^ DS ^ ES ^ Simulato ^ Δ ^ Pressione ^ Simulato ^ Δ ^</translation>
     </message>
     <message>
-        <location line="+109"/>
-        <source>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Projectile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Propellant:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/CL:&lt;/b&gt; %6, &lt;b&gt;L6/OAL:&lt;/b&gt; %7, &lt;b&gt;Seating depth:&lt;/b&gt; %8, &lt;b&gt;Projectile length:&lt;/b&gt; %9, &lt;b&gt;Case volume:&lt;/b&gt; %10</source>
-        <translation>&lt;span style=&apos;font-size:large&apos;&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;b&gt;Proiettile:&lt;/b&gt; &lt;i&gt;%2&lt;/i&gt;, &lt;b&gt;Polvere:&lt;/b&gt; &lt;i&gt;%3 %4&lt;/i&gt;, %5&lt;br&gt;&lt;b&gt;L3/LB:&lt;/b&gt; %6, &lt;b&gt;L6/LT:&lt;/b&gt; %7, &lt;b&gt;Profondità di inserimento:&lt;/b&gt; %8, &lt;b&gt;Lunghezza del proiettile:&lt;/b&gt; %9, &lt;b&gt;Volume del bossolo:&lt;/b&gt; %10</translation>
-    </message>
-    <message>
-        <location line="+32"/>
+        <location line="+154"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Carica troppo alta:&lt;/b&gt; la carica di polvere non entra nel bossolo dietro la palla.</translation>
     </message>

@@ -170,8 +170,7 @@ LoadView::LoadView(QWidget *parent)
     , m_burnNoticeText(new QLabel)
     , m_outdatedNotice(new QWidget)
     , m_outdatedNoticeText(new QLabel)
-    , m_leftResults(new QFormLayout)
-    , m_rightResults(new QFormLayout)
+    , m_resultCols{new QFormLayout, new QFormLayout, new QFormLayout}
     , m_comparison(new QLabel)
     , m_vivacity(new VivacityChart)
     , m_chart(new CurveChart)
@@ -184,19 +183,18 @@ LoadView::LoadView(QWidget *parent)
     m_status->setWordWrap(true);
     m_comparison->setTextFormat(Qt::RichText);
 
-    for (const QString &label : {tr("Maximum pressure"), tr("Muzzle pressure"), tr("Projectile energy"), tr("Muzzle velocity"),
-                                 tr("Barrel time (BT)"), tr("Burnout pressure"), tr("Gas outflow velocity")})
-        m_leftResults->addRow(label + u':', valueLabel());
-    for (const QString &label : {tr("Projectile speed"), tr("Recoil energy"), tr("IPSC / MIP factor"), tr("Load ratio"),
-                                 tr("Burnt propellant"), tr("Effective efficiency"), tr("Heat / friction loss")})
-        m_rightResults->addRow(label + u':', valueLabel());
-    m_leftResults->setLabelAlignment(Qt::AlignLeft);
-    m_rightResults->setLabelAlignment(Qt::AlignLeft);
-
+    const std::array labels = {tr("Maximum pressure"),     tr("Muzzle pressure"),     tr("Projectile energy"),    tr("Muzzle velocity"),
+                               tr("Barrel time (BT)"),     tr("Burnout pressure"),    tr("Gas outflow velocity"), tr("Projectile speed"),
+                               tr("Recoil energy"),        tr("IPSC / MIP factor"),   tr("Load ratio"),           tr("Burnt propellant"),
+                               tr("Effective efficiency"), tr("Heat / friction loss")};
+    for (std::size_t i = 0; i < labels.size(); ++i) m_resultCols[i / 5]->addRow(labels[i] + u':', valueLabel());
     auto *results = new QHBoxLayout;
-    results->addLayout(m_leftResults);
-    results->addSpacing(24);
-    results->addLayout(m_rightResults);
+    for (QFormLayout *col : m_resultCols)
+    {
+        col->setLabelAlignment(Qt::AlignLeft);
+        if (col != m_resultCols.front()) results->addSpacing(24);
+        results->addLayout(col);
+    }
     results->addStretch(1);
 
     auto *infoCol = new QVBoxLayout;
@@ -1015,15 +1013,28 @@ QString LoadView::headingHtml() const
     using csr::units::Quantity;
     const csr::SimInput &in = m_input;
     const auto &p = m_file.propellant;
-    return tr("<span style='font-size:large'><b>%1</b></span><br>"
-              "<b>Projectile:</b> <i>%2</i>, <b>Propellant:</b> <i>%3 %4</i>, %5<br>"
-              "<b>L3/CL:</b> %6, <b>L6/OAL:</b> %7, <b>Seating depth:</b> %8, <b>Projectile length:</b> %9, "
-              "<b>Case volume:</b> %10")
-        .arg(m_file.caliber.text(u"CaliberName").toHtmlEscaped(), m_file.projectile.text(u"ProjectileName").toHtmlEscaped(),
-             p.text(u"mname").toHtmlEscaped(), p.text(u"pname").toHtmlEscaped(), shown(m_focusInput.charge_g, Quantity::BulletMass),
-             shown(in.caseLength_mm, Quantity::Length), shown(m_file.caliber.number(u"oal"), Quantity::Length),
-             shown(in.seatingDepth_mm, Quantity::Length))
-        .arg(shown(in.bulletLength_mm, Quantity::Length), shown(in.caseVolume_cm3, Quantity::Volume));
+    // title, then the load settings as a table: label/value pairs aligned in columns
+    const auto cell = [](const QString &label, const QString &value, int span = 1)
+    {
+        return u"<td style='padding-right:4px; white-space:nowrap'><b>%1:</b></td>"
+               "<td colspan='%2' style='padding-right:20px; white-space:nowrap'><i>%3</i></td>"_s.arg(label)
+                   .arg(span)
+                   .arg(value);
+    };
+    const QString propellant = p.text(u"mname").toHtmlEscaped() + u' ' + p.text(u"pname").toHtmlEscaped();
+    const QStringList rows = {
+        cell(tr("Projectile"), m_file.projectile.text(u"ProjectileName").toHtmlEscaped(), 5),
+        cell(tr("Propellant"), propellant) + cell(tr("Charge"), shown(m_focusInput.charge_g, Quantity::BulletMass)) +
+            cell(tr("Case volume"), shown(in.caseVolume_cm3, Quantity::Volume)),
+        cell(tr("L3/CL"), shown(in.caseLength_mm, Quantity::Length)) +
+            cell(tr("L6/OAL"), shown(m_file.caliber.number(u"oal"), Quantity::Length)) +
+            cell(tr("Seating depth"), shown(in.seatingDepth_mm, Quantity::Length)),
+        cell(tr("Projectile length"), shown(in.bulletLength_mm, Quantity::Length)),
+    };
+    QString html = u"<span style='font-size:large'><b>%1</b></span><table cellspacing='0' cellpadding='1'>"_s.arg(
+        m_file.caliber.text(u"CaliberName").toHtmlEscaped());
+    for (const QString &row : rows) html += u"<tr>"_s + row + u"</tr>"_s;
+    return html + u"</table>"_s;
 }
 
 bool LoadView::overpressureShown() const
@@ -1038,10 +1049,10 @@ void LoadView::showResult()
     m_overpressure->hide();
     m_burnNotice->hide();
     updateOutdatedNotice();
-    if (auto *item = m_leftResults->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet({});
+    if (auto *item = m_resultCols[0]->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet({});
     const auto clearAll = [&]
     {
-        for (QFormLayout *f : {m_leftResults, m_rightResults})
+        for (QFormLayout *f : m_resultCols)
             for (int r = 0; r < f->rowCount(); ++r) setRow(f, r, QStringLiteral("–"));
     };
     if (!m_result.ok())
@@ -1087,7 +1098,8 @@ void LoadView::showResult()
 
     const csr::SimResult &r = m_result;
     using csr::units::Quantity;
-    setRow(m_leftResults, 0, shown(r.maxPressure_bar, Quantity::Pressure));
+    const auto put = [this](int i, const QString &text) { setRow(m_resultCols[i / 5], i % 5, text); };
+    put(0, shown(r.maxPressure_bar, Quantity::Pressure));
     if (const double permitted = m_input.maxPressure_bar; permitted > 0.0 && r.maxPressure_bar > permitted)
     {
         m_overpressureText->setText(tr("<b>Overpressure!</b> The maximum pressure %1 is %2 % above the permitted %3. "
@@ -1095,27 +1107,25 @@ void LoadView::showResult()
                                         .arg(shown(r.maxPressure_bar, Quantity::Pressure),
                                              num(100.0 * (r.maxPressure_bar / permitted - 1.0), 1), shown(permitted, Quantity::Pressure)));
         m_overpressure->show();
-        if (auto *item = m_leftResults->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet(u"color: #e0453a;"_s);
+        if (auto *item = m_resultCols[0]->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet(u"color: #e0453a;"_s);
     }
-    setRow(m_leftResults, 1, shown(r.muzzlePressure_bar, Quantity::Pressure));
-    setRow(m_leftResults, 2, shown(r.muzzleEnergy_J, Quantity::Energy));
-    setRow(m_leftResults, 3, shown(r.muzzleVelocity_ms, Quantity::Velocity));
-    setRow(m_leftResults, 4, tr("%1 ms").arg(num(r.muzzleTime_ms, 4)));
-    setRow(m_leftResults, 5, r.burnoutInBarrel ? shown(r.burnoutPressure_bar, Quantity::Pressure) : tr("not burnt out"));
+    put(1, shown(r.muzzlePressure_bar, Quantity::Pressure));
+    put(2, shown(r.muzzleEnergy_J, Quantity::Energy));
+    put(3, shown(r.muzzleVelocity_ms, Quantity::Velocity));
+    put(4, tr("%1 ms").arg(num(r.muzzleTime_ms, 4)));
+    put(5, r.burnoutInBarrel ? shown(r.burnoutPressure_bar, Quantity::Pressure) : tr("not burnt out"));
     // mean velocity of the powder gases leaving the muzzle (gas impulse / charge mass), as in the report
-    setRow(m_leftResults, 6,
-           m_input.charge_g > 0.0 ? shown(r.gasImpulse_Ns / (m_input.charge_g * 1e-3), Quantity::Velocity) : QStringLiteral("–"));
-    setRow(m_rightResults, 0, r.muzzleRpm > 0 ? tr("%1 k/min").arg(num(r.muzzleRpm / 1000.0, 1)) : QStringLiteral("–"));
-    setRow(m_rightResults, 1, r.recoilEnergy_J > 0 ? shown(r.recoilEnergy_J, Quantity::Energy) : tr("– (gun weight 0)"));
-    setRow(m_rightResults, 2, QStringLiteral("%1, %2").arg(num(r.ipscFactor, 0), num(r.mipFactor, 0)));
-    setRow(m_rightResults, 3, QStringLiteral("%1 %").arg(num(100.0 * r.loadRatio, 1)));
-    setRow(m_rightResults, 4, QStringLiteral("%1 %").arg(num(100.0 * r.burntFraction, 1)));
-    setRow(m_rightResults, 5, QStringLiteral("%1 %").arg(num(100.0 * r.efficiency, 1)));
+    put(6, m_input.charge_g > 0.0 ? shown(r.gasImpulse_Ns / (m_input.charge_g * 1e-3), Quantity::Velocity) : QStringLiteral("–"));
+    put(7, r.muzzleRpm > 0 ? tr("%1 k/min").arg(num(r.muzzleRpm / 1000.0, 1)) : QStringLiteral("–"));
+    put(8, r.recoilEnergy_J > 0 ? shown(r.recoilEnergy_J, Quantity::Energy) : tr("– (gun weight 0)"));
+    put(9, QStringLiteral("%1, %2").arg(num(r.ipscFactor, 0), num(r.mipFactor, 0)));
+    put(10, QStringLiteral("%1 %").arg(num(100.0 * r.loadRatio, 1)));
+    put(11, QStringLiteral("%1 %").arg(num(100.0 * r.burntFraction, 1)));
+    put(12, QStringLiteral("%1 %").arg(num(100.0 * r.efficiency, 1)));
     // the physical model computes both; the original's model has no heat loss and its friction is only an estimate
-    setRow(m_rightResults, 6,
-           r.heatLoss_J > 0.0
-               ? QStringLiteral("%1, %2").arg(shown(r.heatLoss_J, Quantity::Energy), shown(r.muzzleFrictionEnergy_J, Quantity::Energy))
-               : tr("–, %1").arg(shown(r.muzzleFrictionEnergy_J, Quantity::Energy)));
+    put(13, r.heatLoss_J > 0.0
+                ? QStringLiteral("%1, %2").arg(shown(r.heatLoss_J, Quantity::Energy), shown(r.muzzleFrictionEnergy_J, Quantity::Energy))
+                : tr("–, %1").arg(shown(r.muzzleFrictionEnergy_J, Quantity::Energy)));
 
     if (!m_reference) return;
     struct Row
