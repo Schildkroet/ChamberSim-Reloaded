@@ -31,7 +31,7 @@
   "PK": 4945,
   "PE": 5375,
   "EE": 4950,
-  "V": 57.4,
+  "V": 70.1,
   "M": "25.00",
   "c_L1": 39.74,
   "c_L2": 42.95,
@@ -59,5 +59,5 @@
   "c_Q": 56.95,
   "c_Fe": 0.1,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); case capacity 70.1 gr H2O (published, American Hunter) (checked against the original database, 2026-10-10)"
 }

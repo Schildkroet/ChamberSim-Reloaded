@@ -10,11 +10,13 @@
   "E": 1.37,
   "P1": 11.95,
   "P2": 11.73,
-  "H1": 7.49,
-  "H2": 7.49,
+  "H1": 7.01,
+  "H2": 7.01,
   "G1": 6.17,
+  "Pmax": 4350,
   "V": 52.5,
   "c_Q": 35.36,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter (bullet diameter corrected to 6.17 mm)"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter (bullet diameter corrected to 6.17 mm); Pmax 435 MPa (C.I.P.), SAAMI 62,000 psi (Wikipedia) (checked against the original database, 2026-10-10); neck diameter H1/H2: the 6.5 Creedmoor neck (7.49) less the bullet diameter difference (0.55 mm)",
+  "PmaxSAAMI": 4275
 }

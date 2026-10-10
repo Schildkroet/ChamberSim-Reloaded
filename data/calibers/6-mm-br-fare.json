@@ -23,6 +23,7 @@
   "r2": 1.5,
   "H1": 6.82,
   "H2": 6.82,
+  "G1": 6.17,
   "f": 0.4,
   "L3G": 46.03,
   "Pmax": 4400,
@@ -56,5 +57,5 @@
   "c_Q": 29.52,
   "c_Fe": 0.1,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); groove diameter 6.17 mm (Wikipedia) (checked against the original database, 2026-10-10)"
 }

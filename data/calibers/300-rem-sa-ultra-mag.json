@@ -31,7 +31,7 @@
   "PK": 5060,
   "PE": 5500,
   "EE": 5100,
-  "V": 55.7,
+  "V": 73.0,
   "M": "25.00",
   "c_L1": 38.95,
   "c_L2": 43.12,
@@ -57,5 +57,5 @@
   "c_Q": 47.32,
   "c_Fe": 0.1,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); case capacity from Wikipedia (73.0 gr H2O) (checked against the original database, 2026-10-10)"
 }

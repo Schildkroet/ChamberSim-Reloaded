@@ -28,7 +28,7 @@
   "PK": 5060,
   "PE": 5500,
   "EE": 2720,
-  "V": 59,
+  "V": 49.1,
   "M": "25.00",
   "c_L1": 44.46,
   "c_L2": 50.38,
@@ -55,5 +55,5 @@
   "c_Q": 25.03,
   "c_Fe": 0.1,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); case capacity of the 5.6 x 57 (Wikipedia, 49.1 gr H2O); the rimmed case is assumed equal (checked against the original database, 2026-10-10)"
 }

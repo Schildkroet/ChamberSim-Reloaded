@@ -13,8 +13,9 @@
   "H1": 7.44,
   "H2": 7.44,
   "G1": 6.71,
+  "Pmax": 3600,
   "V": 35.5,
   "c_Q": 35.36,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; Pmax 360 MPa (52,000 psi, Alexander Arms via Wikipedia) (checked against the original database, 2026-10-10)"
 }

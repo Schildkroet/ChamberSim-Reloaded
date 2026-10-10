@@ -27,7 +27,7 @@
   "PK": 3450,
   "PE": 3750,
   "EE": 2600,
-  "V": 64.8,
+  "V": 79.9,
   "M": "25.00",
   "c_L1": 42.17,
   "c_L2": 47.12,
@@ -55,5 +55,5 @@
   "c_Q": 51.52,
   "c_Fe": 0.15,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); case capacity of the parent .348 Winchester case (Wikipedia, 79.9 gr H2O) (checked against the original database, 2026-10-10)"
 }

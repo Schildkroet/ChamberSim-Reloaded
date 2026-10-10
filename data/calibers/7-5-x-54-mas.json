@@ -12,8 +12,9 @@
   "H1": 8.66,
   "H2": 8.66,
   "G1": 7.84,
+  "Pmax": 3800,
   "V": 58,
   "c_Q": 48.27,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; Pmax 380 MPa (C.I.P., Wikipedia) (checked against the original database, 2026-10-10)"
 }

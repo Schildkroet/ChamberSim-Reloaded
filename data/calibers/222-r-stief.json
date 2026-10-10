@@ -21,6 +21,7 @@
   "r2": 2.54,
   "H1": 6.43,
   "H2": 6.43,
+  "G1": 5.7,
   "f": 0.5,
   "L3G": 45.37,
   "Pmax": 3700,
@@ -55,5 +56,5 @@
   "c_Q": 25.09,
   "c_Fe": 0.15,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); bullet diameter 5.7 mm (as the .222 Remington) (checked against the original database, 2026-10-10)"
 }
