@@ -54,7 +54,7 @@
     "pname": "FMJ V318622",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.9,
+    "glen": 19.1,
     "gmass": 158.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -64,7 +64,7 @@
     "pname": "FMJ V318722",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.9,
+    "glen": 19.1,
     "gmass": 158.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -74,7 +74,7 @@
     "pname": "FMJ V318822",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 16.2,
+    "glen": 17.3,
     "gmass": 180.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -84,7 +84,7 @@
     "pname": "FMJ V318842",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 14.8,
+    "glen": 15.8,
     "gmass": 165.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -94,7 +94,7 @@
     "pname": "FMJ V318872",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 16.2,
+    "glen": 17.3,
     "gmass": 230.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -104,7 +104,7 @@
     "pname": "FMJ V319022",
     "caliber": ".251",
     "gdia": 6.38,
-    "glen": 11.5,
+    "glen": 12.3,
     "gmass": 50.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -114,7 +114,7 @@
     "pname": "FMJ V319072",
     "caliber": ".309",
     "gdia": 7.85,
-    "glen": 11.1,
+    "glen": 11.8,
     "gmass": 73.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -124,7 +124,7 @@
     "pname": "FMJ V319122",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 10.5,
+    "glen": 11.2,
     "gmass": 92.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -134,7 +134,7 @@
     "pname": "FMJ V319172",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 13.2,
+    "glen": 14.1,
     "gmass": 115.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -144,7 +144,7 @@
     "pname": "FMJ V319222",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 14.2,
+    "glen": 15.2,
     "gmass": 124.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -154,7 +154,7 @@
     "pname": "FMJ V319322",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 16.0,
+    "glen": 17.1,
     "gmass": 140.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -164,7 +164,7 @@
     "pname": "FMJ V319342",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 17.2,
+    "glen": 18.4,
     "gmass": 150.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -174,7 +174,7 @@
     "pname": "FMJ V319372",
     "caliber": ".363",
     "gdia": 9.22,
-    "glen": 10.4,
+    "glen": 11.1,
     "gmass": 95.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -184,7 +184,7 @@
     "pname": "FMJ V319542",
     "caliber": ".454",
     "gdia": 11.53,
-    "glen": 16.0,
+    "glen": 17.1,
     "gmass": 230.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -194,7 +194,7 @@
     "pname": "FMJ V319622",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 13.0,
+    "glen": 13.9,
     "gmass": 85.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -204,7 +204,7 @@
     "pname": "FMJ V338022",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 13.0,
+    "glen": 13.9,
     "gmass": 45.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -214,7 +214,7 @@
     "pname": "FMJ V338122",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 14.5,
+    "glen": 15.5,
     "gmass": 50.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -224,7 +224,7 @@
     "pname": "FMJ V338142",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 15.9,
+    "glen": 17.0,
     "gmass": 55.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -234,7 +234,7 @@
     "pname": "FMJ V338322",
     "caliber": ".226",
     "gdia": 5.74,
-    "glen": 19.9,
+    "glen": 21.2,
     "gmass": 70.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -244,7 +244,7 @@
     "pname": "FMJ V338632",
     "caliber": ".306",
     "gdia": 7.77,
-    "glen": 26.9,
+    "glen": 28.7,
     "gmass": 174.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -254,7 +254,7 @@
     "pname": "FMJ V338682",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 25.0,
+    "glen": 26.7,
     "gmass": 232.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -264,7 +264,7 @@
     "pname": "FMJ V338782",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 22.9,
+    "glen": 24.4,
     "gmass": 150.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -274,7 +274,7 @@
     "pname": "FMJ V338822",
     "caliber": ".312",
     "gdia": 7.92,
-    "glen": 26.7,
+    "glen": 28.5,
     "gmass": 180.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -284,7 +284,7 @@
     "pname": "FMJ V338922",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 22.4,
+    "glen": 23.9,
     "gmass": 147.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -294,7 +294,7 @@
     "pname": "FMJ V339022",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 27.4,
+    "glen": 29.2,
     "gmass": 180.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -304,7 +304,7 @@
     "pname": "FMJ V339052",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 30.5,
+    "glen": 32.6,
     "gmass": 200.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -314,7 +314,7 @@
     "pname": "FMJ V339102",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 18.9,
+    "glen": 20.2,
     "gmass": 124.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -324,7 +324,7 @@
     "pname": "FMJ V339132",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 20.8,
+    "glen": 22.2,
     "gmass": 110.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -334,7 +334,7 @@
     "pname": "FMJ V339372",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 27.1,
+    "glen": 28.9,
     "gmass": 196.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -344,7 +344,7 @@
     "pname": "FMJ V339622",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 29.1,
+    "glen": 31.1,
     "gmass": 140.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -354,7 +354,7 @@
     "pname": "FMJ V339802",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 16.8,
+    "glen": 17.9,
     "gmass": 110.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -364,7 +364,7 @@
     "pname": "FMJ V339922",
     "caliber": ".312",
     "gdia": 7.92,
-    "glen": 18.4,
+    "glen": 19.6,
     "gmass": 124.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -374,7 +374,7 @@
     "pname": "FMJ V339972",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 25.1,
+    "glen": 26.8,
     "gmass": 140.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -922,7 +922,7 @@
     "pname": "TFMJ V318532",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.9,
+    "glen": 19.1,
     "gmass": 158.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -932,7 +932,7 @@
     "pname": "TFMJ V318922",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.9,
+    "glen": 19.1,
     "gmass": 158.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -942,7 +942,7 @@
     "pname": "TFMJ V318952",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 16.2,
+    "glen": 17.3,
     "gmass": 180.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -952,7 +952,7 @@
     "pname": "TFMJ V319572",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 16.2,
+    "glen": 17.3,
     "gmass": 230.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -962,7 +962,7 @@
     "pname": "TFMJ V319802",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 13.2,
+    "glen": 14.1,
     "gmass": 115.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
@@ -972,7 +972,7 @@
     "pname": "TFMJ V319842",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 14.2,
+    "glen": 15.2,
     "gmass": 124.0,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
