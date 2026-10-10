@@ -1017,7 +1017,7 @@ QString LoadView::headingHtml() const
     const auto cell = [](const QString &label, const QString &value, int span = 1)
     {
         return u"<td style='padding-right:4px; white-space:nowrap'><b>%1:</b></td>"
-               "<td colspan='%2' style='padding-right:20px; white-space:nowrap'><i>%3</i></td>"_s.arg(label)
+               u"<td colspan='%2' style='padding-right:20px; white-space:nowrap'><i>%3</i></td>"_s.arg(label)
                    .arg(span)
                    .arg(value);
     };
