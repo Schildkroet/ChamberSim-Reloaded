@@ -1,0 +1,20 @@
+{
+  "cipname": "4.6 x 30",
+  "standard": "CIP",
+  "ciporigin": "DE",
+  "ciptype": "1 rimless",
+  "L3": 30.5,
+  "L6": 38.5,
+  "R1": 8,
+  "E": 1.1,
+  "P1": 8.02,
+  "P2": 7.75,
+  "H1": 5.31,
+  "H2": 5.31,
+  "G1": 4.65,
+  "Pmax": 4000,
+  "V": 13.2,
+  "c_Q": 16.98,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

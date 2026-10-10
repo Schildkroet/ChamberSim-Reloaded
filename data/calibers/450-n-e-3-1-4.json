@@ -1,0 +1,20 @@
+{
+  "cipname": "450 N.E. 3 1/4\"",
+  "altname": ".450 N.E. 3 1/4\"",
+  "standard": "CIP",
+  "ciptype": "2 rimmed",
+  "cipdate": "1898-01-01",
+  "L3": 82.55,
+  "L6": 100.33,
+  "R1": 15.85,
+  "E": 1.07,
+  "P1": 13.84,
+  "H1": 12.22,
+  "H2": 12.22,
+  "G1": 11.63,
+  "Pmax": 3050,
+  "V": 130,
+  "c_Q": 106.23,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

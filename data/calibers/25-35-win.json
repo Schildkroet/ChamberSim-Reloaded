@@ -1,0 +1,22 @@
+{
+  "cipname": "25-35 Win.",
+  "altname": ".25-35 Win.",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "2 rimmed",
+  "cipdate": "1895-01-01",
+  "L3": 51.89,
+  "L6": 64.77,
+  "R1": 12.85,
+  "E": 1.6,
+  "P1": 10.72,
+  "P2": 9.27,
+  "H1": 7.16,
+  "H2": 7.16,
+  "G1": 6.55,
+  "Pmax": 3000,
+  "V": 41.3,
+  "c_Q": 33.7,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}

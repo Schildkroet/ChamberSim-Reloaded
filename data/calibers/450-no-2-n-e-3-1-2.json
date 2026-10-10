@@ -1,0 +1,19 @@
+{
+  "cipname": "450 No.2 N.E. 3 1/2\"",
+  "altname": ".450 No.2 N.E. 3 1/2\"",
+  "standard": "CIP",
+  "ciptype": "2 rimmed",
+  "cipdate": "1903-01-01",
+  "L3": 88.9,
+  "L6": 108.71,
+  "R1": 16.51,
+  "E": 1.02,
+  "P1": 13.16,
+  "H1": 12.12,
+  "H2": 12.12,
+  "G1": 11.56,
+  "V": 169.3,
+  "c_Q": 104.96,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

@@ -1,0 +1,21 @@
+{
+  "cipname": "264 Win. Mag.",
+  "altname": ".264 Win. Mag.",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "1 rimless",
+  "cipdate": "1959-01-01",
+  "L3": 63.5,
+  "L6": 84.84,
+  "R1": 13.51,
+  "P1": 13.08,
+  "P2": 12.47,
+  "H1": 7.59,
+  "H2": 7.59,
+  "G1": 6.71,
+  "Pmax": 4400,
+  "V": 82,
+  "c_Q": 35.36,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

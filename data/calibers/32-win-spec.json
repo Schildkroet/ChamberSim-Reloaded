@@ -1,0 +1,22 @@
+{
+  "cipname": "32 Win. Spec.",
+  "altname": ".32 Win. Spec.",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "2 rimmed",
+  "cipdate": "1899-01-01",
+  "L3": 51.82,
+  "L6": 65.15,
+  "R1": 12.85,
+  "E": 1.6,
+  "P1": 10.72,
+  "P2": 10.19,
+  "H1": 8.71,
+  "H2": 8.71,
+  "G1": 8.15,
+  "Pmax": 2900,
+  "V": 45,
+  "c_Q": 52.17,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+}

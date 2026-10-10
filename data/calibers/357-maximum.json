@@ -1,0 +1,21 @@
+{
+  "cipname": "357 Maximum",
+  "altname": ".357 Maximum",
+  "standard": "CIP",
+  "ciporigin": "US",
+  "ciptype": "2 rimmed",
+  "cipdate": "1983-01-01",
+  "L3": 40.77,
+  "L6": 50.55,
+  "R1": 11.18,
+  "E": 1.52,
+  "P1": 9.63,
+  "H1": 9.63,
+  "H2": 9.63,
+  "G1": 9.07,
+  "Pmax": 2758,
+  "V": 33.2,
+  "c_Q": 64.61,
+  "origin": "en.wikipedia.org",
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+}
