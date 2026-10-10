@@ -26,7 +26,8 @@ ALIASES = {".32 Smith & Wesson Long": "32 S.&W. Long", ".40 Smith & Wesson": "40
            "38 Spec.": "38 Special", "45 ACP": "45 Auto", "7 mm WSM": "7 mm Win. Short Mag.", "7 x 64 Brenneke": "7 x 64", "9.3 x 64": "9.3 x 64 Brenneke",
            "7.65 Para": "7.65 Parabellum", "6 Norma BR": "6mm BR Norma", "25-20 Win CF": "25-20 Win.", "10.4 mm Ordonnanz": "10.40 Ord. It.",
            "416 Rigby": "416 Rigby N°2", "38 Super Comp": "38 Super Auto", "280 Rl. N.E. ROSS": "280 Riml. N. E. Ross", "243 WSSM": "243 Win. Super Short Mag.",
-           "280 Ack Imp": "280 Ackley Improved", "577 N.E. 3\"": "577 N.E. 3\""}
+           "280 Ack Imp": "280 Ackley Improved", "577 N.E. 3\"": "577 N.E. 3\"",
+           "8.5 x 63": "8.5 x 63 R", "6 x 47 Lapua": "6 x 47 SM"}  # 8.5 x 63: the rimless twin of the 8.5 x 63 R (same body)
 
 
 class Records:

@@ -57,9 +57,9 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   whose arguments are the values); the script decodes it without running any script. 2002 samples of 14 RS powders, start and maximum
   load with pressures.
 - `rs_pdf_extract.py guide.pdf` reads the Reload Swiss Ladedaten-Guide 2025 (DE/EN, `pdftotext -layout`, one line per load; rifle and handgun
-  tables, older rows without pressures or start load). 3,065 samples, 14 powders; the web page and the guide overlap in about 760 loads (the
+  tables, older rows without pressures or start load). 3,092 samples, 14 powders; the web page and the guide overlap in about 760 loads (the
   velocities and pressures agree), the rest is new (calibers such as 45 ACP, 9 mm, 6 BR Norma, 7 x 64). Both files are merged without
-  duplicates into `sources/samples/rs_samples.csv` (3,906 samples) and fitted together (2026-10-10).
+  duplicates into `sources/samples/rs_samples.csv` (3,933 samples) and fitted together (2026-10-10).
 - `samples_common.py`: matches cartridges (with the table's spelling variants) to `data/calibers` and bullets to `data/projectiles`,
   else an estimated length (`estimate_length.py`).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
