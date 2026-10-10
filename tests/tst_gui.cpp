@@ -2486,6 +2486,9 @@ void GuiTest::comboBoxesOpenAsAScrollingList()
         QStyleOptionComboBox opt;
         opt.initFrom(&combo);
         QCOMPARE(combo.style()->styleHint(QStyle::SH_ComboBox_Popup, &opt, &combo), 0);
+        QTableWidget table;  // scrolls by pixel, not by item (a column jumped)
+        QCOMPARE(table.horizontalScrollMode(), QAbstractItemView::ScrollPerPixel);
+        QCOMPARE(table.verticalScrollMode(), QAbstractItemView::ScrollPerPixel);
         if (mode == theme::Mode::Dark)
         {  // disabled entries (menus use WindowText) must look disabled
             const QPalette p = app.palette();

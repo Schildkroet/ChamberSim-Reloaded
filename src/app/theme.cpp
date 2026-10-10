@@ -7,6 +7,7 @@
 #include <QEvent>
 #include <QPainter>
 #include <QPalette>
+#include <QAbstractItemView>
 #include <QProxyStyle>
 #include <QSettings>
 #include <QStyle>
@@ -50,6 +51,8 @@ QPalette darkPalette()
 // Fusion/GTK popup that covers the field and tries to show every item. A long list (e.g. the countries) does not
 // fit on the screen and gets moved; on Wayland the mouse release then lands outside and closes it at once.
 //
+// Item views: smooth scrolling by pixel in both directions, not by row and column.
+//
 // Dialogs: a visible frame and, with the custom title bar, their own title bar (DialogFrame). Scroll bars: with a dark palette a lighter handle.
 //
 // Check boxes and radio buttons: Fusion draws their frame a little darker than the window, on a dark window an unchecked box is
@@ -67,6 +70,7 @@ public:
     int styleHint(StyleHint hint, const QStyleOption *option, const QWidget *widget, QStyleHintReturn *ret) const override
     {
         if (hint == SH_ComboBox_Popup) return 0;
+        if (hint == SH_ItemView_ScrollMode) return QAbstractItemView::ScrollPerPixel;  // the default scrolls by item (a column jumps)
         return QProxyStyle::styleHint(hint, option, widget, ret);
     }
     void drawComplexControl(ComplexControl control, const QStyleOptionComplex *option, QPainter *painter,
