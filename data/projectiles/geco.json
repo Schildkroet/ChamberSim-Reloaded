@@ -4,251 +4,251 @@
     "pname": "Express 0.277 130 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 28.4,
+    "glen": 27.5,
     "gmass": 130.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Express 0.284 155 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 32.1,
+    "glen": 34.4,
     "gmass": 155.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Express 0.308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.4,
+    "glen": 30.5,
     "gmass": 165.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Express 0.366 255 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 29.6,
+    "glen": 32.5,
     "gmass": 255.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Hexagon 0.355 124 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 15.4,
+    "glen": 16.6,
     "gmass": 124.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Plus 0.264 156 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 38.0,
+    "glen": 40.8,
     "gmass": 156.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Plus Teilmantel 0.277 150 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 32.8,
+    "glen": 35.2,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Plus Teilmantel 0.284 170 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 35.2,
+    "glen": 37.7,
     "gmass": 170.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Plus Teilmantel 0.308 170 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 29.3,
+    "glen": 31.4,
     "gmass": 170.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Plus Teilmantel 0.323 196 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 30.3,
+    "glen": 32.5,
     "gmass": 196.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Plus Teilmantel 0.366 255 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 29.6,
+    "glen": 31.8,
     "gmass": 255.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Star 0.308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.4,
+    "glen": 29.9,
     "gmass": 165.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Star 0.323 160 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 24.7,
+    "glen": 28.5,
     "gmass": 160.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Star 0.366 250 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 29.0,
+    "glen": 32.0,
     "gmass": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Teilmantel 0.243 105 gr",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 30.8,
+    "glen": 33.0,
     "gmass": 105.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Teilmantel 0.284 165 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 34.1,
+    "glen": 36.6,
     "gmass": 165.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Teilmantel 0.308 170 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 29.3,
+    "glen": 31.3,
     "gmass": 170.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Teilmantel 0.323 185 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 28.6,
+    "glen": 32.8,
     "gmass": 185.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "TMR 0.366 255 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 29.6,
+    "glen": 31.7,
     "gmass": 255.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Vollmantel Flachkopf 0.355 154 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 17.6,
+    "glen": 17.2,
     "gmass": 154.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Vollmantel Flachkopf 0.357 158 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.9,
+    "glen": 16.7,
     "gmass": 158.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Vollmantel Flachkopf 0.40 180 gr",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 16.2,
+    "glen": 15.2,
     "gmass": 180.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Vollmantel Rundkopf 0.355 115 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 13.2,
+    "glen": 12.9,
     "gmass": 115.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.98, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Vollmantel Rundkopf 0.355 124 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 14.2,
+    "glen": 13.9,
     "gmass": 124.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.98, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Zero 0.284 127 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 26.3,
+    "glen": 30.7,
     "gmass": 127.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "GECO",
     "pname": "Zero 0.308 136 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 23.4,
+    "glen": 25.1,
     "gmass": 136.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Zero 0.323 139 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 21.5,
+    "glen": 23.0,
     "gmass": 139.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "GECO",
     "pname": "Zero 0.366 188 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 21.8,
+    "glen": 23.4,
     "gmass": 188.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   }
 ]

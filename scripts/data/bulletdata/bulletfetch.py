@@ -10,7 +10,7 @@ from pathlib import Path
 
 UA = {"User-Agent": "Mozilla/5.0 (ChamberSimReloaded data collection)"}
 COLUMNS = ["manufacturer", "line", "part", "caliber_name", "weight_gr", "diameter_in", "length_in", "g1bc", "g7bc", "base_style",
-           "ogive_style", "boat_tail_length_in", "discontinued", "valid", "note", "url"]
+           "ogive_style", "boat_tail_length_in", "discontinued", "valid", "note", "url", "length_note"]
 
 
 def get(url: str, cache: Path | None, delay: float = 0.5) -> str:

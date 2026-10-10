@@ -4,229 +4,229 @@
     "pname": "CMJ verkupferte Blei Rundkopf 0.355 115 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 11.3,
+    "glen": 14.2,
     "gmass": 115.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "FP CMJ Blei verkupfert 0.355 124 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 12.2,
+    "glen": 13.9,
     "gmass": 124.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "FP CMJ Blei verkupfert 0.357 125 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 12.2,
+    "glen": 14.4,
     "gmass": 125.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "FP CMJ Blei verkupfert 0.429 300 gr",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 20.2,
+    "glen": 22.1,
     "gmass": 300.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "RN CMJ Blei verkupfert 0.355 124 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 12.2,
+    "glen": 15.2,
     "gmass": 124.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "RN CMJ Blei verkupfert 0.355 147 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 14.5,
+    "glen": 17.2,
     "gmass": 147.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "RN CMJ Match Blei verkupfert 0.355 124 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 12.2,
+    "glen": 15.0,
     "gmass": 124.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "RN verkupfert 0.451 230 gr",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 16.4,
+    "glen": 17.3,
     "gmass": 230.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan HP Kupfer 0.366 286 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 34.1,
+    "glen": 36.9,
     "gmass": 286.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan HPBT Kupfer 0.308 180 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 30.3,
+    "glen": 34.9,
     "gmass": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Premium Hunter 0.284 155 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 32.1,
+    "glen": 38.1,
     "gmass": 155.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Premium Hunter 0.323 180 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 27.8,
+    "glen": 32.1,
     "gmass": 180.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Premium Hunter HPFB 0.308 180 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 31.0,
+    "glen": 34.6,
     "gmass": 180.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Utimate Hunter HP Kupfer mit Polymerspitze 0.323 200 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 30.6,
+    "glen": 38.5,
     "gmass": 200.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Utimate Hunter HPBT Kupfer mit Polymerspitze 0.264 120 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 27.5,
+    "glen": 33.0,
     "gmass": 120.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Utimate Hunter HPBT Kupfer mit Polymerspitze 0.277 140 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 29.2,
+    "glen": 33.9,
     "gmass": 140.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Utimate Hunter HPBT Kupfer mit Polymerspitze 0.308 150 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.3,
+    "glen": 31.2,
     "gmass": 150.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Utimate Hunter HPBT Kupfer mit Polymerspitze 0.308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 27.8,
+    "glen": 32.9,
     "gmass": 165.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Utimate Hunter HPBT Kupfer mit Polymerspitze 0.308 180 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 30.3,
+    "glen": 36.4,
     "gmass": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Utimate Hunter HPBT Kupfer mit Polymerspitze 0.323 175 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 26.8,
+    "glen": 33.2,
     "gmass": 175.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Xiphos Hohlspitz 0.355 90 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 10.8,
+    "glen": 12.8,
     "gmass": 90.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Xiphos Hohlspitz 0.357 100 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 11.8,
+    "glen": 14.1,
     "gmass": 100.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Xiphos Hohlspitz 0.40 120 gr",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 10.9,
+    "glen": 12.9,
     "gmass": 120.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Frontier",
     "pname": "Spartan Xiphos Hohlspitz 0.451 150 gr",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 10.2,
+    "glen": 12.1,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   }
 ]

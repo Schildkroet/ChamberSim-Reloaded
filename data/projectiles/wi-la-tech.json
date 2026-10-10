@@ -4,179 +4,179 @@
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.224 46 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 14.7,
+    "glen": 17.0,
     "gmass": 46.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.227 68 gr",
     "caliber": ".227",
     "gdia": 5.77,
-    "glen": 21.1,
+    "glen": 23.9,
     "gmass": 68.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.243 65 gr",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 17.6,
+    "glen": 20.4,
     "gmass": 65.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.264 100 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 22.9,
+    "glen": 26.6,
     "gmass": 100.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.270 100 gr",
     "caliber": ".270",
     "gdia": 6.86,
-    "glen": 21.9,
+    "glen": 23.4,
     "gmass": 100.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.284 110 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 21.8,
+    "glen": 25.3,
     "gmass": 110.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.308 130 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 21.9,
+    "glen": 25.4,
     "gmass": 130.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.318 150 gr",
     "caliber": ".318",
     "gdia": 8.08,
-    "glen": 23.7,
+    "glen": 29.7,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.323 150 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 23.0,
+    "glen": 27.1,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.338 165 gr",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 23.1,
+    "glen": 26.7,
     "gmass": 165.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.356 180 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 22.7,
+    "glen": 26.3,
     "gmass": 180.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.366 180 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 21.5,
+    "glen": 24.9,
     "gmass": 180.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.375 231 gr",
     "caliber": ".375",
     "gdia": 9.52,
-    "glen": 26.3,
+    "glen": 32.1,
     "gmass": 231.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.416 303 gr",
     "caliber": ".416",
     "gdia": 10.57,
-    "glen": 28.0,
+    "glen": 32.4,
     "gmass": 303.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.458 350 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 26.7,
+    "glen": 31.3,
     "gmass": 350.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei 0.500 438 gr",
     "caliber": ".500",
     "gdia": 12.7,
-    "glen": 28.0,
+    "glen": 32.0,
     "gmass": 438.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG Doppel-Scharfrand- bleifrei Hornet 0.224 43 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 13.7,
+    "glen": 15.9,
     "gmass": 43.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG / NS Doppel-Scharfrand- bleifrei 0.308 154 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 26.0,
+    "glen": 30.1,
     "gmass": 154.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.16, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG / NS Doppel-Scharfrand- bleifrei 0.323 170 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 26.0,
+    "glen": 31.9,
     "gmass": 170.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Wi-La-Tech",
     "pname": "DSG / NS Doppel-Scharfrand- bleifrei 0.366 200 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 23.9,
+    "glen": 30.7,
     "gmass": 200.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   }
 ]

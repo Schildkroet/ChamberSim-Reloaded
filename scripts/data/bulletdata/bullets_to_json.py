@@ -48,7 +48,9 @@ def record(row: dict) -> dict:
            "glen": round(length, 1), "gmass": f(row, "weight_gr"), "gtailtype": 2 if boat else (1 if "hollow" in style else 0),
            "gtaildiaA": round(dia, 2) if boat else 0, "gtailh": round(tail, 1) if boat else 0, "g1bc": f(row, "g1bc"),
            "g7bc": f(row, "g7bc")}
-    if estimated:
+    if row.get("length_in") and row.get("length_note"):
+        rec["descr"] = row["length_note"]  # a length measured or scaled by image_length.py
+    elif estimated:
         rec["descr"] = estimated
     return {k: v for k, v in rec.items() if v not in (0, 0.0, "")}
 

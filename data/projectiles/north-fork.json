@@ -4,80 +4,80 @@
     "pname": "Technologies FPS Voll 0.308 200 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 34.4,
+    "glen": 38.2,
     "gmass": 200.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.11, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies FPS Voll 0.474 500 gr",
     "caliber": ".474",
     "gdia": 12.04,
-    "glen": 31.7,
+    "glen": 35.2,
     "gmass": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies PP Verbundkern 0.416 430 gr",
     "caliber": ".416",
     "gdia": 10.57,
-    "glen": 37.1,
+    "glen": 37.5,
     "gmass": 430.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies SS Verbundkern 0.284 160 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 33.1,
+    "glen": 36.7,
     "gmass": 160.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.11, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies SS Verbundkern 0.308 150 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.8,
+    "glen": 30.0,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies SS Verbundkern 0.323 180 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 27.8,
+    "glen": 31.2,
     "gmass": 180.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies SS Verbundkern 0.423 400 gr",
     "caliber": ".423",
     "gdia": 10.74,
-    "glen": 33.2,
+    "glen": 35.8,
     "gmass": 400.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies SS Verbundkern 0.458 350 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 24.1,
+    "glen": 29.2,
     "gmass": 350.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "North Fork",
     "pname": "Technologies SS Verbundkern 0.474 500 gr",
     "caliber": ".474",
     "gdia": 12.04,
-    "glen": 31.7,
+    "glen": 36.0,
     "gmass": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   }
 ]

@@ -26,7 +26,7 @@ converted, and a value of 1000 and more without unit is psi, below MPa. Wikipedi
 
 `berger_fetch.py`, `nosler_fetch.py`, `speer_fetch.py`, `hornady_fetch.py`, `sierra_fetch.py`, `barnes_fetch.py`,
 `sellier_fetch.py`, `lapua_fetch.py`, `norma_fetch.py`, `rws_fetch.py`, `ppu_fetch.py`, `federal_fetch.py`, `winchester_fetch.py`,
-`remington_fetch.py`, `hn_fetch.py`, `sako_fetch.py`, `grauwolf_fetch.py` (the listing of a German reloading shop: Fox, Sax, Degol, DK Bullets, Brenneke, ...; title only, so no length; in `scripts/data/bulletdata`) read the specification lists of the manufacturers' web shops into
+`remington_fetch.py`, `hn_fetch.py`, `sako_fetch.py`, `grauwolf_fetch.py` (the listing of a German reloading shop: Fox, Sax, Degol, DK Bullets, Brenneke, ...; title only, so no length: `image_length.py` measures it on the product photos (length / width x diameter, needs numpy and opencv-python-headless; the estimate is scaled by each maker's median photo / estimate ratio where the photo disagrees); in `scripts/data/bulletdata`) read the specification lists of the manufacturers' web shops into
 `bullets_<maker>.csv` (grain, inch); `bullets_to_json.py` writes the records (mm, grain) into the manufacturers' files `data/projectiles/<maker>.json`
 (`scripts/data/recordfiles.py`).
 

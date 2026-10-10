@@ -15,7 +15,7 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
 - **Projectiles (2470)**: the product pages of 16 manufacturers (Berger, Nosler, Speer, Hornady, Sierra, Barnes, Sellier & Bellot,
   Lapua, Norma, RWS, PPU, Federal, Winchester, Remington, H&N, Sako) and, from the listing of the reloading shop grauwolf.net (`grauwolf_fetch.py`, title only: maker, type,
   diameter, weight), 709 bullets of Fox, Sax, Degol, DK Bullets, LOS, Brenneke, GECO, Magtech, CopperBear, Frontier, GPA, Cutting Edge, Ballistix Academy,
-  North Fork, Leader and Wi-La-Tech, read with `scripts/data/bulletdata/*_fetch.py`: weight,
+  North Fork, Leader and Wi-La-Tech (366 lengths measured on the product photos, the rest estimated and scaled with the maker's photo ratio: Sax x1.29, Fox x1.18), read with `scripts/data/bulletdata/*_fetch.py`: weight,
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
   it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
   automated requests and is not included.

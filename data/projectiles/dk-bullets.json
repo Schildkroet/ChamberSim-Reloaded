@@ -4,193 +4,193 @@
     "pname": "GTE CU HV BT Kupferhohlspitz 0.264 130 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 29.8,
+    "glen": 28.0,
     "gmass": 130.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU HV BT Kupferhohlspitz 0.308 130 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 21.9,
+    "glen": 23.6,
     "gmass": 130.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU HV BT Kupferhohlspitz 0.308 150 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.3,
+    "glen": 25.0,
     "gmass": 150.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU HV BT Kupferhohlspitz 0.308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 27.8,
+    "glen": 26.9,
     "gmass": 165.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU HV BT Kupferhohlspitz 0.308 180 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 30.3,
+    "glen": 28.6,
     "gmass": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU HV FB Kupferhohlspitz 0.308 110 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 18.5,
+    "glen": 18.4,
     "gmass": 110.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU SV BT Kupferhohlspitz 0.458 260 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 19.8,
+    "glen": 21.3,
     "gmass": 260.0,
     "gtailtype": 2,
     "gtaildiaA": 11.63,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU SV BT Kupferhohlspitz Subsonic 0.458 500 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 38.1,
+    "glen": 37.8,
     "gmass": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 11.63,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU SV BT Subsonic Kupferhohlspitz 0.308 210 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 35.4,
+    "glen": 32.5,
     "gmass": 210.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU SV BT Subsonic Kupferhohlspitz 0.429 260 gr",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 22.6,
+    "glen": 20.0,
     "gmass": 260.0,
     "gtailtype": 2,
     "gtaildiaA": 10.9,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE CU SV BT Subsonic Kupferhohlspitz 0.458 420 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 32.0,
+    "glen": 31.7,
     "gmass": 420.0,
     "gtailtype": 2,
     "gtaildiaA": 11.63,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE HV BT Kupferhohlspitz 0.308 180 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 30.3,
+    "glen": 28.6,
     "gmass": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "GTE HV Kupferhohlspitz 0.366 230 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 27.4,
+    "glen": 27.3,
     "gmass": 230.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "DK Bullets",
     "pname": "Hunter HPBT 0.224 55 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 17.5,
+    "glen": 17.4,
     "gmass": 55.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "DK Bullets",
     "pname": "Hunter HPBT 0.277 128 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 26.7,
+    "glen": 26.4,
     "gmass": 128.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "DK Bullets",
     "pname": "Hunter HPBT 0.312 150 gr",
     "caliber": ".312",
     "gdia": 7.92,
-    "glen": 24.6,
+    "glen": 24.4,
     "gmass": 150.0,
     "gtailtype": 2,
     "gtaildiaA": 7.92,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "DK Bullets",
     "pname": "Hunter HPBT 0.323 196 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 30.0,
+    "glen": 29.8,
     "gmass": 196.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "DK Bullets",
     "pname": "Hunter HPBT 0.375 276 gr",
     "caliber": ".375",
     "gdia": 9.52,
-    "glen": 31.4,
+    "glen": 31.1,
     "gmass": 276.0,
     "gtailtype": 2,
     "gtaildiaA": 9.52,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   }
 ]

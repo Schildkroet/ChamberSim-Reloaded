@@ -4,216 +4,216 @@
     "pname": "Basic 0.308 185 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 31.9,
+    "glen": 29.3,
     "gmass": 185.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "Basic 0.323 200 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 30.9,
+    "glen": 29.3,
     "gmass": 200.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "Basic Nature 0.308 139 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 23.9,
+    "glen": 24.7,
     "gmass": 139.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TAG 0.264 130 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 31.7,
+    "glen": 29.9,
     "gmass": 130.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TAG 0.277 130 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 28.4,
+    "glen": 32.5,
     "gmass": 130.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TAG 0.284 160 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 33.1,
+    "glen": 32.3,
     "gmass": 160.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TAG 0.308 155 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 26.7,
+    "glen": 30.6,
     "gmass": 155.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TAG 0.323 175 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 27.0,
+    "glen": 27.9,
     "gmass": 175.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TAG 0.366 225 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 26.1,
+    "glen": 26.9,
     "gmass": 225.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "Teilmantel 0.284 145 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 30.0,
+    "glen": 30.9,
     "gmass": 145.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TIG 0.284 177 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 36.6,
+    "glen": 37.7,
     "gmass": 177.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TIG 0.308 150 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.8,
+    "glen": 26.6,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TIG 0.323 198 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 30.6,
+    "glen": 31.5,
     "gmass": 198.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.243 95 gr",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 27.9,
+    "glen": 26.2,
     "gmass": 95.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.264 139 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 33.9,
+    "glen": 32.8,
     "gmass": 139.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.277 150 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 32.8,
+    "glen": 33.8,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.284 150 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 31.0,
+    "glen": 30.7,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.4,
+    "glen": 29.6,
     "gmass": 165.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.323 180 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 27.8,
+    "glen": 30.6,
     "gmass": 180.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.323 220 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 34.0,
+    "glen": 35.0,
     "gmass": 220.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.338 225 gr",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 31.3,
+    "glen": 32.3,
     "gmass": 225.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.366 247 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 28.7,
+    "glen": 29.5,
     "gmass": 247.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.375 270 gr",
     "caliber": ".375",
     "gdia": 9.52,
-    "glen": 29.6,
+    "glen": 31.2,
     "gmass": 270.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TOG 0.413 232 gr",
     "caliber": ".413",
     "gdia": 10.49,
-    "glen": 20.3,
+    "glen": 21.0,
     "gmass": 232.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
@@ -222,51 +222,51 @@
     "gdia": 7.82,
     "glen": 31.2,
     "gmass": 181.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
     "mname": "Brenneke",
     "pname": "TUG 0.366 293 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 34.0,
+    "glen": 35.0,
     "gmass": 293.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TUG Nature+ 0.308 147 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.3,
+    "glen": 26.1,
     "gmass": 147.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TUG Nature+ 0.323 150 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 23.2,
+    "glen": 23.9,
     "gmass": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TUG Nature+ 0.366 220 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 25.5,
+    "glen": 26.3,
     "gmass": 220.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
     "pname": "TUG Nature+ bleifrei 0.284 128 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 25.4,
+    "glen": 27.7,
     "gmass": 128.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   }
 ]
