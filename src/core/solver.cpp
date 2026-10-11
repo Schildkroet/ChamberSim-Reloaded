@@ -172,7 +172,8 @@ struct Model
 
 [[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal, const std::optional<PhysicalBurn> &pb) noexcept
 {
-    return pb ? burnCoefficient(in, cal, pb->Ba) : burnCoefficient(in, cal);
+    // the caliber's correction of the physical burn rates (pistol and revolver cartridges, data/physical/calibers.json)
+    return pb ? burnCoefficient(in, cal, pb->Ba * (cal.caliberBurnScaling ? in.caliberBurnScale : 1.0)) : burnCoefficient(in, cal);
 }
 
 }  // namespace
@@ -945,6 +946,7 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"slideStress_MPa", &cal.slideStress_MPa},
             {"engravingInterference", &cal.engravingInterference},
             {"slideInterference", &cal.slideInterference},
+            {"caliberBurnScaling", &cal.caliberBurnScaling},
             {"heatTransferFactor", &cal.heatTransferFactor},
             {"heatVelocity_ms", &cal.heatVelocity_ms},
             {"bulletInertiaFactor", &cal.bulletInertiaFactor},

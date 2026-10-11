@@ -162,6 +162,8 @@ struct Calibration
     // the engraving resistance and the sliding stress by max(1 + k e, 0.25); 0: the bullet's fit does not matter
     double engravingInterference{0.0};
     double slideInterference{0.0};
+    double caliberBurnScaling{
+        1.0};  // 1: the physical burn rates are scaled per caliber (physicalCaliberScale), 0: not (fits of the scales)
     double heatTransferFactor{0.5};    // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
     double heatVelocity_ms{0.0};       // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
     double gasInertiaFactor{1.0};      // x the load's Sebert factor: the share of the powder gas that moves with the bullet (Lagrange: 1/3)

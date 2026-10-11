@@ -75,6 +75,7 @@ private slots:
     void sebertDefault();
     void saamiColumnMigration();
     void powderFitPhysicalValues();
+    void physicalCaliberScale();
     void measurementStatistics();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
@@ -787,6 +788,29 @@ void CoreTest::physicalBurnInLoad()
     QVERIFY(csr::SimInput::fromLoad(older).physicalBurn);
     QVERIFY(!csr::attachPhysicalBurn(older.propellant));  // already there
     csr::setPhysicalBurnFile(QStringLiteral(CSR_SOURCE_DIR "/data/physical/propellants.json"));
+}
+
+// The factor on the physical burn rates of pistol and revolver cartridges comes from calibers.json next to the powder file: an entry of the
+// caliber, else the class of its rim (1 in the shipped file), 1 without the file; the load's SimInput carries it for handgun cartridges only.
+void CoreTest::physicalCaliberScale()
+{
+    QTemporaryDir dir;
+    {
+        QFile f(dir.filePath(u"calibers.json"_s));
+        QVERIFY(f.open(QIODevice::WriteOnly));
+        f.write(
+            R"({"autoScale": 1.2, "rimmedScale": 0.9, "rimmedFrom": 1.045, "calibers": [{"cipname": "9 mm Luger", "burnScale": 1.16}]})");
+    }
+    csr::setPhysicalBurnFile(dir.filePath(u"propellants.json"_s));
+    QCOMPARE(csr::physicalCaliberScale(u"9 MM Luger"_s, 1.0), 1.16);  // own entry, any case
+    QCOMPARE(csr::physicalCaliberScale(u"380 Auto"_s, 1.0), 1.2);     // class of a small rim
+    QCOMPARE(csr::physicalCaliberScale(u"38 Special"_s, 1.16), 0.9);  // rimmed
+    QCOMPARE(csr::physicalCaliberScale(u"Unknown"_s, 0.0), 1.0);      // no geometry, no entry
+    csr::setPhysicalBurnFile(dir.filePath(u"none/propellants.json"_s));
+    QCOMPARE(csr::physicalCaliberScale(u"9 mm Luger"_s, 1.0), 1.0);  // no file
+    csr::setPhysicalBurnFile(QStringLiteral(CSR_SOURCE_DIR "/data/physical/propellants.json"));
+    QVERIFY(csr::physicalCaliberScale(u"9 mm Luger"_s, 1.0) > 1.05);  // the shipped factors
+    QVERIFY(csr::physicalCaliberScale(u"40 S.& W."_s, 1.0) > 1.05);
 }
 
 // A boat-tail or hollow-base bullet without tail dimensions gets typical ones, so the base type changes the result; given dimensions stay.

@@ -3,6 +3,7 @@
 #include "log.h"
 
 #include <QFile>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -34,6 +35,10 @@ struct Store
     QString path{u":/data/physical/propellants.json"_s};
     bool loaded{};
     std::map<QString, PowderEntry> entries;  // key: "maker name", lower case
+    bool calibersLoaded{};
+    std::map<QString, double> caliberScales;  // key: cipname, lower case
+    double autoScale{1.0}, rimmedScale{1.0};
+    double rimmedFrom{1.045};  // rim / head diameter from which a handgun cartridge counts as rimmed (revolver)
 };
 
 Store &store()
@@ -92,6 +97,33 @@ void setPhysicalBurnFile(const QString &path)
     const std::scoped_lock lock(s.mutex);
     s.path = path;
     s.loaded = false;
+    s.calibersLoaded = false;
+}
+
+double physicalCaliberScale(const QString &cipname, double rimRatio)
+{
+    Store &s = store();
+    const std::scoped_lock lock(s.mutex);
+    if (!s.calibersLoaded)
+    {
+        s.calibersLoaded = true;
+        s.caliberScales.clear();
+        s.autoScale = s.rimmedScale = 1.0;
+        QFile f(QFileInfo(s.path).path() + u"/calibers.json"_s);
+        if (f.open(QIODevice::ReadOnly))
+        {
+            const QJsonObject o = QJsonDocument::fromJson(f.readAll()).object();
+            s.autoScale = o.value(u"autoScale"_s).toDouble(1.0);
+            s.rimmedScale = o.value(u"rimmedScale"_s).toDouble(1.0);
+            s.rimmedFrom = o.value(u"rimmedFrom"_s).toDouble(s.rimmedFrom);
+            for (const auto &item : o.value(u"calibers"_s).toArray())
+                s.caliberScales[item.toObject().value(u"cipname"_s).toString().toLower()] =
+                    item.toObject().value(u"burnScale"_s).toDouble(1.0);
+        }
+    }
+    if (const auto it = s.caliberScales.find(cipname.toLower()); it != s.caliberScales.end()) return it->second;
+    if (rimRatio <= 0.0) return 1.0;
+    return rimRatio >= s.rimmedFrom ? s.rimmedScale : s.autoScale;
 }
 
 std::optional<PhysicalBurn> physicalBurnOf(const QVariantMap &propellant)

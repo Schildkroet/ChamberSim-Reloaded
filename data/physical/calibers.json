@@ -1,0 +1,113 @@
+{
+ "note": "Factors on the physical burn rates of pistol and revolver cartridges, fitted with analysis/fit_caliber_scales.py to the published loads (velocities). Generated - do not edit by hand.",
+ "autoScale": 1.0,
+ "rimmedScale": 1.0,
+ "rimmedFrom": 1.045,
+ "calibers": [
+  {
+   "cipname": "10 mm Auto",
+   "burnScale": 1.0758,
+   "n": 223,
+   "v_rms_before": 5.96,
+   "v_rms_after": 4.96
+  },
+  {
+   "cipname": "357 Magnum",
+   "burnScale": 0.9426,
+   "n": 667,
+   "v_rms_before": 10.88,
+   "v_rms_after": 10.57
+  },
+  {
+   "cipname": "357 SIG",
+   "burnScale": 1.0525,
+   "n": 247,
+   "v_rms_before": 5.06,
+   "v_rms_after": 4.59
+  },
+  {
+   "cipname": "38 Special",
+   "burnScale": 0.9409,
+   "n": 748,
+   "v_rms_before": 9.15,
+   "v_rms_after": 8.61
+  },
+  {
+   "cipname": "38 Super Auto",
+   "burnScale": 1.2101,
+   "n": 189,
+   "v_rms_before": 8.24,
+   "v_rms_after": 5.26
+  },
+  {
+   "cipname": "40 S.& W.",
+   "burnScale": 1.1246,
+   "n": 759,
+   "v_rms_before": 6.8,
+   "v_rms_after": 4.98
+  },
+  {
+   "cipname": "41 Rem. Mag.",
+   "burnScale": 0.9496,
+   "n": 200,
+   "v_rms_before": 7.25,
+   "v_rms_after": 6.82
+  },
+  {
+   "cipname": "44 Rem. Mag.",
+   "burnScale": 0.9876,
+   "n": 703,
+   "v_rms_before": 6.59,
+   "v_rms_after": 6.57
+  },
+  {
+   "cipname": "45 Auto",
+   "burnScale": 1.1572,
+   "n": 284,
+   "v_rms_before": 9.06,
+   "v_rms_after": 7.62
+  },
+  {
+   "cipname": "45 Colt",
+   "burnScale": 0.9988,
+   "n": 563,
+   "v_rms_before": 9.35,
+   "v_rms_after": 9.35
+  },
+  {
+   "cipname": "454 Casull",
+   "burnScale": 0.9504,
+   "n": 182,
+   "v_rms_before": 6.23,
+   "v_rms_after": 5.73
+  },
+  {
+   "cipname": "460 S&W Mag",
+   "burnScale": 0.9327,
+   "n": 205,
+   "v_rms_before": 6.85,
+   "v_rms_after": 5.74
+  },
+  {
+   "cipname": "480 Ruger",
+   "burnScale": 1.0853,
+   "n": 136,
+   "v_rms_before": 7.73,
+   "v_rms_after": 6.63
+  },
+  {
+   "cipname": "500 S&W Mag",
+   "burnScale": 0.9726,
+   "n": 308,
+   "v_rms_before": 6.18,
+   "v_rms_after": 5.99
+  },
+  {
+   "cipname": "9 mm Luger",
+   "burnScale": 1.1597,
+   "n": 1051,
+   "v_rms_before": 7.71,
+   "v_rms_after": 5.11
+  }
+ ]
+}

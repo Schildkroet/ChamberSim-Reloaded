@@ -236,8 +236,9 @@ int main(int argc, char *argv[])
         p.seatingDepth_mm = cal0->value(u"L3"_s).toDouble() + bullet.value(u"glen"_s).toDouble() - row.value(u"col_mm"_s).toDouble();
         if (!row.value(u"twist_mm"_s).isEmpty()) p.twistLength_mm = row.value(u"twist_mm"_s).toDouble();
         if (p.seatingDepth_mm <= 1.0 || p.barrelLength_mm <= 0.0) continue;
-        const csr::SimResult r =
-            csr::simulate(withPhys(withJump(csr::buildLoad(*cal0, bullet, powder, p, calColumns), row), key), cal, steps);
+        csr::SimInput si = withPhys(withJump(csr::buildLoad(*cal0, bullet, powder, p, calColumns), row), key);
+        if (!row.value(u"ba_scale"_s).isEmpty() && si.physicalBurn) si.physicalBurn->Ba *= row.value(u"ba_scale"_s).toDouble();
+        const csr::SimResult r = csr::simulate(si, cal, steps);
         if (r.status != csr::SimStatus::Ok) continue;
         out << n << ',' << QString::asprintf("%.3f,%.1f", r.muzzleVelocity_ms, r.maxPressure_bar) << '\n';
     }

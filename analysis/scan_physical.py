@@ -22,6 +22,7 @@ ap.add_argument("--powders", default="")
 ap.add_argument("--jobs", type=int, default=int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1))), help="threads (default: at most 14 cores, or CSR_JOBS)")
 ap.add_argument("--pressure-weight", type=float, default=1.0)
 ap.add_argument("--quiet", action="store_true")
+ap.add_argument("--drop-inconsistent", type=float, default=0.0, help="drop loads whose velocity is this far (relative, e.g. 0.15) off the trend of their own table (sample_filter.py)")
 ap.add_argument("--fit-form", action="store_true", help="fit the form function (a0, z1, z2) as well as Ba, with the pressures (slower)")
 args = ap.parse_args()
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
@@ -42,6 +43,12 @@ for f in args.samples:
         if r["pressure_bar"] and not 500 <= float(r["pressure_bar"]) <= 9000: r["pressure_bar"] = ""
         key = (r["powder"].upper(), r["caliber"], r["bullet_gr"], r["kind"], r["charge_g"], r["velocity_ms"], r["col_mm"])
         if key not in seen: seen.add(key); rows.append(r)
+if args.drop_inconsistent > 0:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from sample_filter import inconsistent
+    gone = inconsistent(rows, args.drop_inconsistent)
+    rows = [r for i, r in enumerate(rows) if i not in gone]
+    print(f"dropped {len(gone)} inconsistent loads", file=sys.stderr)
 held = set(sorted({r["caliber"] for r in rows})[3::4])
 by = {}
 for r in rows:
@@ -130,5 +137,11 @@ src = np.array([r["_src"] for f in fits for r in f.rows]); tst = np.concatenate(
 for name in sorted(set(src)):
     m = (src == name) & tst
     print(f"  {name:8} held-out: velocity {rms(allev[m]):.2f} %  pressure {rms(allep[m]):.2f} %  (bias {100*np.nanmean(allep[m]) if np.any(~np.isnan(allep[m])) else float('nan'):+.1f} %)  n={int(m.sum())}")
+if any("cls" in r for f in fits for r in f.rows):  # optional column cls: the figures per class (rifle, pistol, ...)
+    cls = np.array([r.get("cls", "") for f in fits for r in f.rows])
+    for c in sorted(set(cls)):
+        for label, sel in (("train", ~tst), ("held-out", tst)):
+            m = (cls == c) & sel
+            print(f"  class {c:8} {label:8}: velocity {rms(allev[m]):.2f} %  pressure {rms(allep[m]):.2f} %  (bias v {100*np.nanmean(allev[m]):+.1f} p {100*np.nanmean(allep[m]) if np.any(~np.isnan(allep[m])) else float('nan'):+.1f} %)  n={int(m.sum())}")
 print(f"trends (slope of ln sim/published): loading density  v {slope(allev,0):+.3f} p {slope(allep,0):+.3f} | bullet mass  v {slope(allev,1):+.3f} p {slope(allep,1):+.3f}")
 print(f"start/max velocity bias: {100*np.nanmean(allev[kind=='start']):+.2f} / {100*np.nanmean(allev[kind=='max']):+.2f} %  pressure {100*np.nanmean(allep[kind=='start']):+.2f} / {100*np.nanmean(allep[kind=='max']):+.2f} %")

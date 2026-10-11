@@ -34,6 +34,12 @@ void setPhysicalBurnFile(const QString &path);
 // edited): what a user can be offered for a load that has none that apply.
 [[nodiscard]] std::optional<PhysicalBurn> findPhysicalBurn(const QString &maker, const QString &name);
 
+// The factor on the physical burn rates for a pistol or revolver cartridge (data/physical/calibers.json, next to the powder file): the
+// published loads of an auto-loading cartridge (small rim, about 1.1) and of a revolver cartridge (rimmed, about 0.95) are not met by
+// the same burn rate of a powder, a caliber with enough published loads has its own factor. `rimRatio` is the rim over the head diameter
+// (R1 / P1, 0 = unknown), which decides the class of a caliber without an entry. 1 for anything else (the file is missing, ...).
+[[nodiscard]] double physicalCaliberScale(const QString &cipname, double rimRatio);
+
 // In a load file the values are the propellant entries physBa, physA0, physZ1, physZ2 and physRef (the record's "Ba a0 z1 z2" they
 // belong to). write() sets them, or removes them for std::nullopt; read() returns them only while the load's Ba, a0, z1 and z2 still
 // equal physRef (after an edit of those values the physical ones no longer apply).

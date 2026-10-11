@@ -32,6 +32,12 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
         in.shotEnergyScale = f.energy;
     }
 
+    if (in.handgun && !in.shotshell)
+    {
+        const double head = lf.caliberFile.number(u"P1");
+        in.caliberBurnScale = physicalCaliberScale(lf.caliberFile.text(u"cipname"), head > 0.0 ? lf.caliberFile.number(u"R1") / head : 0.0);
+    }
+
     in.barrelLength_mm = g.number(u"xe");
     in.twistLength_mm = g.number(u"twistlen");
     in.gunWeight_kg = g.number(u"mgun");

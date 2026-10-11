@@ -43,6 +43,25 @@ After refitting all 157 powders' burn values on everything the gain is mixed: po
 17.11 % -> 17.37 % in pressure, powders with velocities only 3.40 % -> 3.53 % (figures on the fitted data). The table above is from before
 this change. Scaling the engraving resistance the same way made the fit worse and is not used (`engravingInterference` 0).
 
+*2026-10-11, per-caliber burn rate for pistol and revolver cartridges:* the published loads of auto-loading cartridges (9 mm Luger, .40 S&W,
+.45 Auto, .38 Super, 10 mm, 357 SIG) came out 4-7 % too slow and those of revolver cartridges 1-4 % too fast with one burn rate per powder.
+`data/physical/calibers.json` (`analysis/fit_caliber_scales.py`) gives 15 calibers with at least 100 published loads their own factor on the
+physical burn rate (0.93 - 1.21, 25 % of the fitted deviation is dropped as the factors of half the powders do not transfer fully); other
+calibers keep 1. Fitted on half of the powders and tested on the other half: pistol velocity rms 7.95 % -> 7.28 %. Over all published loads
+(fitted data, powders as before), split by class (velocity rms / bias, pressure rms / bias):
+
+| Class | Loads | Before | After |
+|---|---:|---|---|
+| Rifle | 23,574 | v 3.97 % / -0.5 %, p 14.7 % / -2.8 % | unchanged |
+| Pistol and revolver | 5,183 | v 8.54 % / -1.1 %, p 20.0 % / +1.9 % | v 7.75 % / -0.4 %, p 18.9 % / +3.4 % |
+| Shotgun (own model, not affected) | 4,875 | v 6.2 % / -1.0 %, p 35.8 % / -15.8 % | unchanged |
+
+What did not explain the pistol error (all tested with the burn rates refitted): start pressure (also per auto / revolver class), engraving,
+sliding stress (also lower for lead bullets), ignition time, heat transfer, primer energy, gas inertia, the burn-law exponent, a gas leak at the
+revolver's cylinder gap, a shift of the revolver barrel length and the bullet length estimates. The published tables themselves scatter by
+5.9 % rms around a smooth trend of velocity over bullet mass and charge; 62 pistol and 38 rifle loads that are more than 15 % off their own
+table (mostly solid-copper Lehigh XD and CEB bullets) are left out of the calibrations (`analysis/sample_filter.py`, `--drop-inconsistent`).
+
 ## Against the original program's runs
 
 <!-- accuracy:start -->
