@@ -23,9 +23,11 @@ GRAIN_PER_G = 15.4324
 
 def foreground(img: np.ndarray) -> np.ndarray:
     bgr = img[..., :3]
-    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
-    mask = ((hsv[..., 1] > 38) & (hsv[..., 2] > 40)) | (hsv[..., 2] < 90)  # coloured metal and its dark reflections, not the grey shadow
-    mask = mask.astype(np.uint8) * 255
+    if img.shape[2] == 4 and img[..., 3].min() < 250:
+        mask = (img[..., 3] > 200).astype(np.uint8) * 255  # transparent background; the soft shadow is translucent
+    else:
+        hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
+        mask = (((hsv[..., 1] > 38) & (hsv[..., 2] > 40)) | (hsv[..., 2] < 90)).astype(np.uint8) * 255  # coloured metal and its dark reflections, not the grey shadow
     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))
     padded = cv2.copyMakeBorder(mask, 2, 2, 2, 2, cv2.BORDER_CONSTANT, value=0)
     inv = cv2.bitwise_not(padded)
@@ -42,8 +44,8 @@ def runs(row: np.ndarray):
     return list(zip(np.nonzero(d == 1)[0], np.nonzero(d == -1)[0] - 1))
 
 
-def measure(path: Path, diameter_in: float, overlay: Path | None):
-    img = cv2.imread(str(path), cv2.IMREAD_COLOR)
+def measure(path: Path, diameter_in: float, overlay: Path | None, phi_deg: float | None = None, length_in_known: float | None = None):
+    img = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
     if img is None:
         return None
     mask = foreground(img).astype(bool)
@@ -92,14 +94,20 @@ def measure(path: Path, diameter_in: float, overlay: Path | None):
         if yb is not None and yb_c is not None:
             sag.append(yb_c - yb)
     sin_phi = float(np.clip(max(sag) / (0.282 * D_px), 0.05, 0.6)) if sag else 0.25
-    phi = math.asin(sin_phi)
+    phi = math.asin(sin_phi) if phi_deg is None else math.radians(phi_deg)
+    sin_phi = math.sin(phi)
     H = float(yb_c - y_top + 1)
     m = float(np.clip(np.median(w[: max(3, int(0.04 * H))]) / D_px, 0.0, 1.0)) if len(w) else 0.5
     # the width just below the very top is the nose end; the first rows are the antialiased edge
     near = w[int(0.02 * H): int(0.06 * H) + 2]
     m = float(np.clip(np.median(near) / D_px, 0.0, 1.0)) if len(near) else m
-    L_px = (H - 0.5 * D_px * (1 + m) * sin_phi) / math.cos(phi)
     s = D_px / diameter_in
+    if length_in_known is not None:  # calibration: the elevation that makes H = L cos(phi) + (D / 2) (1 + m) sin(phi) for the known length
+        A, B = length_in_known * s, 0.5 * D_px * (1 + m)
+        R, delta = math.hypot(A, B), math.atan2(B, A)
+        phi = delta + math.acos(min(H / R, 1.0))  # H = R cos(phi - delta), phi - delta > 0 (the camera looks down)
+        sin_phi = math.sin(phi)
+    L_px = (H - 0.5 * D_px * (1 + m) * sin_phi) / math.cos(phi)
     length_in = L_px / s
     flag = []
     if len(w) < 40 or (w <= wmax).sum() < 0.4 * len(w):
@@ -107,12 +115,12 @@ def measure(path: Path, diameter_in: float, overlay: Path | None):
     if not sag:
         flag.append("no-base")
     if overlay is not None:
-        vis = img.copy()
+        vis = img[..., :3].copy()
         vis[mask] = (0.6 * vis[mask] + 0.4 * np.array([0, 255, 0])).astype(np.uint8)
         cv2.line(vis, (xc, y_top), (xc, int(yb_c)), (0, 0, 255), 3)
         cv2.rectangle(vis, (int(xc - D_px / 2), y_top), (int(xc + D_px / 2), int(yb_c)), (255, 0, 0), 2)
         cv2.imwrite(str(overlay / (path.stem + ".png")), cv2.resize(vis, None, fx=0.5, fy=0.5))
-    return {"D_px": round(D_px, 1), "H_px": round(H, 1), "phi_deg": round(math.degrees(phi), 1), "meplat_d": round(m, 2),
+    return {"D_px": round(D_px, 1), "H_px": round(H, 1), "phi_deg": round(math.degrees(phi), 1), "phi_base_arc_deg": round(math.degrees(math.asin(float(np.clip(max(sag) / (0.282 * D_px), 0.05, 0.6)))) if sag else float("nan"), 1), "meplat_d": round(m, 2),
             "length_in": round(length_in, 4), "length_mm": round(length_in * 25.4, 2), "flag": " ".join(flag)}
 
 
@@ -123,19 +131,28 @@ def main() -> None:
     ap.add_argument("--manifest")
     ap.add_argument("--out")
     ap.add_argument("--overlay")
+    ap.add_argument("--phi", type=float, help="camera elevation in degrees (the same for all photos of one renderer) instead of the base edge of each")
+    ap.add_argument("--kind", help="only photos of this manifest kind (einzeln, doppelt)")
+    ap.add_argument("--calibrate", help="FILE:LENGTH_MM, a photo of a bullet of known length: prints the camera elevation and exits")
     args = ap.parse_args()
     root = Path(args.dir)
     manifest = {r["file"]: r for r in csv.DictReader(open(args.manifest or root / "manifest.csv", encoding="utf-8"))}
     overlay = Path(args.overlay) if args.overlay else None
     if overlay:
         overlay.mkdir(parents=True, exist_ok=True)
-    paths = [root / f for f in args.files] if args.files else sorted(p for p in root.glob("*") if p.name in manifest)
+    if args.calibrate:
+        f, mm = args.calibrate.rsplit(":", 1)
+        m = manifest[f]
+        res = measure(root / f, float(m["diameter_in"]), overlay, length_in_known=float(mm) / 25.4)
+        print(f"{f}: elevation {res['phi_deg']} deg for a length of {mm} mm (the base edge of this photo says {res['phi_base_arc_deg']} deg); D {res['D_px']} px, height {res['H_px']} px, nose end {res['meplat_d']} D")
+        return
+    paths = [root / f for f in args.files] if args.files else sorted(p for p in root.glob("*") if p.name in manifest and (not args.kind or manifest[p.name].get("kind") == args.kind))
     rows = []
     for path in paths:
         m = manifest[path.name]
         d, wgr = float(m["diameter_in"]), float(m["weight_gr"])
         try:
-            res = measure(path, d, overlay)
+            res = measure(path, d, overlay, args.phi)
         except Exception as e:  # a photo that does not fit the pattern
             print("failed:", path.name, e)
             continue
