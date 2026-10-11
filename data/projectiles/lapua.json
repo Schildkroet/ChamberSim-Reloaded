@@ -128,10 +128,10 @@
     "pname": "Lead-free copper N509",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 18.9,
+    "glen": 21.9,
     "gmass": 90.0,
     "gpressure": 350.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
@@ -152,22 +152,22 @@
     "pname": "LWC C356",
     "caliber": ".315",
     "gdia": 7.99,
-    "glen": 12.3,
+    "glen": 12.4,
     "gmass": 98.0,
     "gpressure": 250.0,
     "g1bc": 0.041,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
     "pname": "LWC C427",
     "caliber": ".315",
     "gdia": 7.99,
-    "glen": 10.4,
+    "glen": 10.5,
     "gmass": 83.0,
     "gpressure": 250.0,
     "g1bc": 0.029,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
@@ -241,80 +241,80 @@
     "pname": "Naturalis N508",
     "caliber": ".339",
     "gdia": 8.6,
-    "glen": 25.0,
+    "glen": 28.9,
     "gmass": 231.0,
     "gpressure": 350.0,
     "g1bc": 0.373,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
     "pname": "Naturalis N558",
     "caliber": ".308",
     "gdia": 7.83,
-    "glen": 22.2,
+    "glen": 25.7,
     "gmass": 170.0,
     "gpressure": 350.0,
     "g1bc": 0.354,
     "g7bc": 0.177,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
     "pname": "Naturalis N559",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 21.4,
+    "glen": 24.8,
     "gmass": 180.0,
     "gpressure": 350.0,
     "g1bc": 0.357,
     "g7bc": 0.179,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
     "pname": "Naturalis N560",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 23.2,
+    "glen": 26.8,
     "gmass": 250.0,
     "gpressure": 350.0,
     "g1bc": 0.419,
     "g7bc": 0.215,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
     "pname": "Naturalis N563",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 24.9,
+    "glen": 28.8,
     "gmass": 140.0,
     "gpressure": 350.0,
     "g1bc": 0.201,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
     "pname": "Naturalis N564",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 24.0,
+    "glen": 27.8,
     "gmass": 156.0,
     "gpressure": 350.0,
     "g1bc": 0.28,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
     "pname": "Naturalis N566",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 12.4,
+    "glen": 14.4,
     "gmass": 50.0,
     "gpressure": 350.0,
     "g1bc": 0.197,
-    "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
