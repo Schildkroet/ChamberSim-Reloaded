@@ -16,6 +16,7 @@ struct SimInput
     double caseLength_mm{};
     double caseVolume_cm3{};
     double boreArea_mm2{};
+    double grooveDiameter_mm{};  // 0: unknown
     double sebert{0.5};
     double startPressure_bar{250.0};
     double maxPressure_bar{};  // permitted maximum (CIP), informative only

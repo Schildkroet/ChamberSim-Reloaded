@@ -36,6 +36,13 @@ share (1.0 -> 0.6) and refitting all burn values lifts it to about 0.8: on the 4
 5.4 %, the bias of start and maximum loads from +1.1 / -1.5 % to +0.4 / -0.7 %; the pressure rms rises from 16.7 % to 17.2 % (figures on
 the fitted data, not held out; the table above is from before this change). Vectan and Lovex loads got slightly worse.
 
+*2026-10-11:* the Physical Model's sliding friction now scales with the bullet's oversize over the groove diameter
+(`slideInterference` 1.5: +1.5 % per percent of oversize; median oversize 0.2 %, 95 % of the bullets below 1 %). On the held-out cartridges
+of 14,000 loads (burn rate refitted per powder) the velocity rms fell from 5.37 % to 5.26 % and the pressure rms from 18.01 % to 17.74 %.
+After refitting all 157 powders' burn values on everything the gain is mixed: powders with pressures 5.66 % -> 5.42 % in velocity and
+17.11 % -> 17.37 % in pressure, powders with velocities only 3.40 % -> 3.53 % (figures on the fitted data). The table above is from before
+this change. Scaling the engraving resistance the same way made the fit worse and is not used (`engravingInterference` 0).
+
 ## Against the original program's runs
 
 <!-- accuracy:start -->

@@ -446,8 +446,13 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     // bearing surface: the bullet's length without the boat tail and about one calibre of nose (one calibre if the length is unknown)
     const double tail = in.tailType == 2 ? in.tailLength_mm * 1e-3 : 0.0;
     m.bearing = std::max(in.bulletLength_mm > 0.0 ? in.bulletLength_mm * 1e-3 - tail - bulletDia : bulletDia, 0.3 * bulletDia);
-    m.engraveForce = cal.engravingShare * m.startP * m.A;
-    m.slideForce = cal.slideStress_MPa * 1e6 * n::pi * bulletDia * m.bearing;
+    // relative oversize of the bullet over the groove diameter in percent (0 when the caliber has no groove diameter)
+    const double oversize = in.grooveDiameter_mm > 0.0 && in.bulletDiameter_mm > 0.0
+                                ? 100.0 * (in.bulletDiameter_mm - in.grooveDiameter_mm) / in.grooveDiameter_mm
+                                : 0.0;
+    const auto fit = [oversize](double k) { return std::max(1.0 + k * oversize, 0.25); };
+    m.engraveForce = cal.engravingShare * fit(cal.engravingInterference) * m.startP * m.A;
+    m.slideForce = cal.slideStress_MPa * fit(cal.slideInterference) * 1e6 * n::pi * bulletDia * m.bearing;
     m.extraForce = in.extraFrictionUnlocked ? in.extraFriction_bar * kBar * m.A : 0.0;
     // gas: lambda 0.2 W/(m K), mu 8e-5 Pa s, Pr 0.7
     m.heatCoeff = cal.heatTransferFactor * 0.023 * 0.2 * std::pow(0.7, 0.4) * std::pow(8e-5, -0.8) * std::pow(m.D, -0.2);
@@ -868,6 +873,7 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.ignitionTime_ms = 0.1;
         cal.engravingShare = 0.6;
         cal.slideStress_MPa = 0.700469;
+        cal.slideInterference = 1.5;  // 2026-10-11: sliding stress +1.5 % per percent of bullet oversize over the groove (scan_physical.py)
         cal.heatTransferFactor = 0.0618079;
         cal.heatVelocity_ms = 169.199;
         cal.burnExponent = -0.05;
@@ -937,6 +943,8 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"ignitionTime_ms", &cal.ignitionTime_ms},
             {"engravingShare", &cal.engravingShare},
             {"slideStress_MPa", &cal.slideStress_MPa},
+            {"engravingInterference", &cal.engravingInterference},
+            {"slideInterference", &cal.slideInterference},
             {"heatTransferFactor", &cal.heatTransferFactor},
             {"heatVelocity_ms", &cal.heatVelocity_ms},
             {"bulletInertiaFactor", &cal.bulletInertiaFactor},

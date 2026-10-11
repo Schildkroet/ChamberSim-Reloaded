@@ -154,15 +154,19 @@ struct Calibration
     // covolume of the powder gas (times the powder's eta, 1 when unknown); the solid powder takes 1 / pc. 1.0 cm3/g is the median of
     // closed-vessel tests of 470 powders (pressure at loading density 0.2 g/cm3 with f = impetusFactor (k-1) Qex), independent of pc.
     double gasCovolume_cm3g{1.0};
-    double primerEnergy_J{50.0};     // energy of the primer gas that lights the powder (20-30 mg of priming compound)
-    double ignitionTime_ms{0.0};     // flame spread: the lit share of the grains is 1 - exp(-t / this) after ignition (0: all at once)
-    double engravingShare{0.5};      // rifling engraving: resistance = share x start pressure x bore area, decaying over the bearing length
-    double slideStress_MPa{3.0};     // friction stress on the bullet's bearing surface in the bore
-    double heatTransferFactor{0.5};  // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
-    double heatVelocity_ms{0.0};     // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
-    double gasInertiaFactor{1.0};    // x the load's Sebert factor: the share of the powder gas that moves with the bullet (Lagrange: 1/3)
-    double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
-    double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
+    double primerEnergy_J{50.0};  // energy of the primer gas that lights the powder (20-30 mg of priming compound)
+    double ignitionTime_ms{0.0};  // flame spread: the lit share of the grains is 1 - exp(-t / this) after ignition (0: all at once)
+    double engravingShare{0.5};   // rifling engraving: resistance = share x start pressure x bore area, decaying over the bearing length
+    double slideStress_MPa{3.0};  // friction stress on the bullet's bearing surface in the bore
+    // interference of bullet and rifling: relative oversize e = (bullet diameter - groove diameter) / groove diameter in percent scales
+    // the engraving resistance and the sliding stress by max(1 + k e, 0.25); 0: the bullet's fit does not matter
+    double engravingInterference{0.0};
+    double slideInterference{0.0};
+    double heatTransferFactor{0.5};    // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
+    double heatVelocity_ms{0.0};       // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
+    double gasInertiaFactor{1.0};      // x the load's Sebert factor: the share of the powder gas that moves with the bullet (Lagrange: 1/3)
+    double bulletInertiaFactor{0.45};  // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
+    double gasConstant_JkgK{340.0};    // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
     double integrationTolerance{1e-7};  // relative error per time step of the adaptive integration
 
     // ---- burn law dz/dt = Ba * p[bar] * (p / 1000 bar)^burnExponent * phi(z), identified from the powder sweeps ----

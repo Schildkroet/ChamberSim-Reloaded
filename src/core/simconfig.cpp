@@ -19,6 +19,7 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.caseLength_mm = c.number(u"caselen");
     in.caseVolume_cm3 = c.number(u"casevol");
     in.boreArea_mm2 = c.number(u"Aeff");
+    in.grooveDiameter_mm = c.number(u"Dz");
     in.sebert = c.number(u"sebert", in.sebert);
     in.startPressure_bar = c.number(u"ps", in.startPressure_bar);
     in.maxPressure_bar = c.number(u"pMaxZul");
