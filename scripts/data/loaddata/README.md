@@ -23,6 +23,15 @@ The load tables contain no pressures. A form function needs pressure data, so on
 3-4 % comes from the table data and the inputs that a table does not give (case capacity of a fired case, bullet length).
 `Qex`, `k` and the densities stay at the start values: take them from the manufacturer's safety data sheet.
 
+## Quality of the samples
+
+The published tables scatter by about 5.9 % rms (velocity) around a smooth trend over bullet mass and charge within one cartridge, powder and load kind;
+`analysis/sample_filter.py` drops the loads more than 15 % off that trend (62 pistol and 38 rifle loads, mostly solid-copper Lehigh XD and CEB bullets whose
+published velocities contradict their weights): `analysis/scan_physical.py --drop-inconsistent 0.15`, and the fits of the caliber factors
+(`analysis/fit_caliber_scales.py`) use it. The bullet length in a sample row comes from the projectile records (`database`) or, estimated, from
+`scripts/data/bulletdata/estimate_length.py` (lead bullets by shape, measured on product photos); the length decides the seating depth and with it the powder
+space, so it matters most for pistol cartridges (+1.5 mm = +16 % peak pressure of a 9 mm Luger).
+
 ## Independent values for the powder record
 
 Vihtavuori publishes a technical table per powder (industrial products brochure 2022, `vv_powder_data.csv`): relative burn rate

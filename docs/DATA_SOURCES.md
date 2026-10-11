@@ -17,7 +17,11 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   diameter, weight), 709 bullets of Fox, Sax, Degol, DK Bullets, LOS, Brenneke, GECO, Magtech, CopperBear, Frontier, GPA, Cutting Edge, Ballistix Academy,
   North Fork, Leader and Wi-La-Tech (366 lengths measured on the product photos, the rest estimated and scaled with the maker's photo ratio: Sax x1.29, Fox x1.18), read with `scripts/data/bulletdata/*_fetch.py`: weight,
   diameter and, where published, ballistic coefficients. Only Berger, Nosler and Speer publish the bullet length; for the others
-  it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain). Fiocchi's site refuses
+  it is estimated from mass, diameter and bullet type (`estimate_length.py`, about 5-10 % uncertain; lead bullets by their shape: 8.1 - 9.0 g/cm3 effective density, measured on photos).
+  The lengths of the 64 H&N bullets (hn-sport.de) are measured on the product photo of the single standing bullet (`hn_photos_fetch.py`,
+  `measure_standing_bullet.py`: camera elevation 10 degrees, scale fixed with the caliper-measured 20.0 mm of the TC .458 300 gr HS, about 4 % uncertain; table
+  `bullets_hn_photos.csv`), those of LOS bullets on the two-bullet photos of hunting-sport.com (`hunting_sport_fetch.py`, table `bullets_hunting_sport.csv`);
+  `apply_hunting_sport_lengths.py` writes them into the records. Fiocchi's site refuses
   automated requests and is not included.
   The initial gas pressure (`gpressure`, the pressure at which the bullet starts and engraves) is an estimate from the construction
   (`start_pressure.py`): lead (cast, plated) 150 bar, jacketed 250 bar, brass monolithic 290 bar, copper monolithic (Barnes TSX/TTSX/LRX,
@@ -47,6 +51,11 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   ADI AP/APS, Hodgdon Titegroup, Universal, Clays, HS-6, W231, ..., Vectan A1, AS, Ba6-Ba10; velocity error 7-19 %, pressure error 20-35 %, a low `Qlty`:
   their descriptions say "use with more caution"), only powders with fewer than 9 samples are not. `tools/csr_fitdata` and `scripts/data/loaddata` do the work, see
   `scripts/data/loaddata/README.md` for the method and the results.
+- **Physical model values** (`data/physical/`, fitted, generated: do not edit by hand): `propellants.json` has the burn rate Ba and form function of
+  157 powders for the physical model (`analysis/fit_physical_powders.py`, 127 fitted to velocities and pressures, 30 to velocities only), `calibers.json` a
+  factor on the burn rate for 15 pistol and revolver calibers with at least 100 published loads (`analysis/fit_caliber_scales.py`, 0.93 - 1.21). Both are fitted
+  to the published load tables (`scripts/data/loaddata/sources/samples`) without the loads that disagree with their own table by more than 15 %
+  (`analysis/sample_filter.py`). Bullet photos for the lengths: see Projectiles above.
 
 The details, the commands to repeat each step and the limits of the data are in `scripts/data/cipdata/README.md` and
 `scripts/data/loaddata/README.md`. Please check every load against the manufacturer's current load data.

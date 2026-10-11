@@ -139,7 +139,7 @@ Stored with `QSettings` (organization and application name `ChamberSimReloaded`)
 recalculates every open load.
 
 - **Physical Model** (default): the project's own time-integrated model (flame spread, engraving, friction, air, heat loss, spin) with
-  physical burn values for 179 project powders; powders without them (own records) are less accurate.
+  physical burn values for 157 project powders and a burn rate factor per pistol / revolver caliber; powders without them (own records) are less accurate.
 - **GRT Original**: constants fitted to runs of Gordon's Reloading Tool; results like the original.
 - **GRT Tuned**: the original's equations, constants fitted to published loads.
 

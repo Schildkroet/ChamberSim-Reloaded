@@ -99,6 +99,16 @@ python3 scripts/data/loaddata/vv_to_json.py vv_fits.csv --work vv_work
 .venv/bin/python analysis/fit_physical_powders.py build/release/csr_eval \
     hod_samples.csv west_samples.csv lovex_samples.csv rs_samples.csv vv_*.csv [--split train] [--fit form|ba]
 # only new records (Ba only, the other powders of the file stay): add --fit ba --form a0,z1,z2 --only N110,N120 --merge
+# burn rate factor of the pistol / revolver calibers -> data/physical/calibers.json  (--holdout: fit on half of the powders, test on the rest)
+.venv/bin/python analysis/fit_caliber_scales.py build/release/csr_eval hod_samples.csv west_samples.csv adi_pistol_samples.csv [--holdout] [--shrink 0.75]
+
+# bullet lengths from product photos (needs opencv-python-headless in the venv)
+python3 scripts/data/bulletdata/hunting_sport_fetch.py [--out DIR]          # hunting-sport.com handgun bullets: photos + manifest.csv
+python3 scripts/data/bulletdata/hn_photos_fetch.py [--out DIR]              # hn-sport.de: single (einzeln) and two-bullet (doppelt) photos
+.venv/bin/python scripts/data/bulletdata/measure_side_photos.py DIR         # perfect side views: length, nose / meplat / bearing / base profile
+.venv/bin/python scripts/data/bulletdata/measure_standing_bullet.py DIR --kind einzeln --phi 10 --scale 1.0256   # standing bullet seen from above
+.venv/bin/python scripts/data/bulletdata/measure_standing_bullet.py DIR --phi 10 --calibrate "FILE.png:20"      # factor for a bullet of known length (mm)
+python3 scripts/data/bulletdata/apply_hunting_sport_lengths.py              # measured lengths -> data/projectiles (idempotent)
 ```
 
 ## 🧮 Solver calibration
@@ -115,7 +125,7 @@ CSR_STEPS=2000 .venv/bin/python analysis/calibrate.py build/release/grt_compare 
     hod_samples.csv west_samples.csv --profile physical [--free a,b,c] [--start constants.json] [--evaluate-only]
 build/release/csr_eval hod_samples.csv --profile physical [--set name=value] [--phys "Maker Name=Ba,a0,z1,z2"]
 # test constants of the physical model powder by powder (parallel, held-out cartridges, trends over loading density and bullet mass)
-.venv/bin/python analysis/scan_physical.py build/release/csr_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--quiet]
+.venv/bin/python analysis/scan_physical.py build/release/csr_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--drop-inconsistent 0.15] [--quiet]   # a column cls in the CSV prints the figures per class (rifle, pistol, ...)
 
 .venv/bin/python analysis/fit_shot_factors.py build/release/csr_eval hodgdon_shot_samples.csv alliant_shot_samples.csv vectan_shot_samples.csv --out data/shotshell/parts.json   # shell, wad and primer factors (seconds)
 # shotshells

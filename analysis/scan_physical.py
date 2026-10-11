@@ -61,7 +61,7 @@ header = [h for h in rows[0].keys() if h != "_src"]
 class Powder:
     def __init__(self, name):
         self.name, self.rows = name, by[name]
-        self.path = os.path.join(tmp, name.replace(" ", "_") + ".csv")
+        self.path = os.path.join(tmp, name.replace(" ", "_").replace("/", "-") + ".csv")
         with open(self.path, "w", newline="") as f:
             w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(self.rows)
         self.mv = np.array([float(r["velocity_ms"]) for r in self.rows])

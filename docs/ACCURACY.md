@@ -62,6 +62,17 @@ revolver's cylinder gap, a shift of the revolver barrel length and the bullet le
 5.9 % rms around a smooth trend of velocity over bullet mass and charge; 62 pistol and 38 rifle loads that are more than 15 % off their own
 table (mostly solid-copper Lehigh XD and CEB bullets) are left out of the calibrations (`analysis/sample_filter.py`, `--drop-inconsistent`).
 
+*Bullet lengths of lead bullets (2026-10-11):* the length of a bullet fixes how deep it sits in the case and so the powder space (+1.5 mm = +1.9 % in
+velocity, +16 % in peak pressure of a 9 mm Luger). The estimator assumed an effective density (mass / cross-section x length) of 10.3 g/cm3 for lead
+bullets; measured on the product photos of hn-sport.de (the single standing bullet, camera elevation 10 degrees, scale fixed with a caliper
+measurement of one bullet: TC .458 300 gr HS, exactly 20.0 mm) it is 8.1 - 9.0 g/cm3 by shape (round nose 8.5, semi-wadcutter 8.1, flat / truncated cone 9.0,
+hollow point 8.4, wadcutter 8.7). Lead bullets were 15 % too short, the earlier measurements of the angled LOS photos 14 %. 63 H&N records are now
+measured, the other estimated lead bullets use the new densities (`scripts/data/bulletdata/estimate_length.py`). Jacketed handgun bullets were already
+right: 26 side views of hunting-sport.com give 8.8 +- 0.7 g/cm3, 1.5 % from the estimate. Effect on the 740 published loads with estimated lead bullets (burn rates
+fixed): peak pressure bias -8.5 % -> +10 %, velocity unchanged (-4.5 %), and 77 loads no longer fit the case. With the right lengths the solver now
+overshoots the pressure of deeply seated bullets: it counts everything seated in the case as a full cylinder, although the narrower nose of the bullet
+is inside it (not corrected yet). The velocity shortfall of lead bullets (-4.5 %) is not a length effect.
+
 ## Against the original program's runs
 
 <!-- accuracy:start -->
