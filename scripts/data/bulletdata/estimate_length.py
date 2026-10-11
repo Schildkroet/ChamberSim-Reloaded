@@ -8,11 +8,12 @@ The bullets of Berger, Nosler and Speer with published lengths (469) show that t
     hollow point                                 5.66 + 7.94 d     7 %
     fmj / total metal jacket                     8.15 + 0.44 d     6 %   (photos)
     soft point and other                         5.71 + 6.88 d    11 %
-    lead (coated handgun bullets), by shape       RN 8.8, SWC 8.6, flat / truncated cone 9.4, hollow point 8.9, wadcutter 10.2   (4-6 %)
+    lead (coated handgun bullets), by shape       RN 8.5, SWC 8.1, flat / truncated cone 9.0, hollow point 8.4, wadcutter 8.7   (4-8 %)
     hollow-point copper (TSX, E-Tip, ...)        6.65             -   (photos)
 
-with d in inch. The lead densities are measured: 54 H&N and LOS handgun bullets (bullets_hunting_sport.csv), standing bullet of the two-bullet product photos
-of hunting-sport.com with the camera elevation corrected (measure_standing_bullet.py). They replace the earlier 10.3 (not validated), which made lead
+with d in inch. The lead densities are measured: 63 H&N bullets (bullets_hn_photos.csv), the single standing bullet of the product photos of hn-sport.de with the
+camera elevation (10 deg, as seen) and a scale factor (1.0256) fixed by a caliper measurement of one bullet (TC .458 300 gr HS: 20.0 mm) and the same
+lead alloy density of all of them (measure_standing_bullet.py). They replace the earlier 10.3 (not validated), which made lead
 bullets 15 % too short; the earlier length / width measurement of those angled photos (image_length.py) was too short as well. 2026-10-11: the product photos of grauwolf.net (about 1,400 bullets measured as length / width x diameter, image_length.py)
 confirm the match, hollow-point and soft-point classes (photo / estimate 0.98, 1.01, 1.00) and show copper 20 % and fmj 7 % longer than the earlier
 densities (8.0 and 8.7 + 0.47 d) gave; the two classes were rescaled. The estimate is uncertain by the scatter above; records made with it say so in `descr`.
@@ -41,14 +42,14 @@ def lead_density(text: str) -> float:
     """Effective density of a coated lead handgun bullet by its shape (measured on product photos, see above)."""
     t = text.lower()
     if re.search(r"\bl?wc\b|wadcutter|wc-?h?-?hb", t):
-        return 10.2
+        return 8.7
     if re.search(r"swc", t):
-        return 8.6
+        return 8.1
     if re.search(r"\bl?f[np]\b|\btc\b|\bltc\b|flat|\bw[lf]n\b|\blw[lf]n", t) and not re.search(r"rnfp|rn fp", t):
-        return 9.4
+        return 9.0
     if re.search(r"\bhp\b|hollow", t):
-        return 8.9
-    return 8.8 if re.search(r"\bl?rn\b|round|rnfp|rn fp", t) else 8.9
+        return 8.4
+    return 8.5 if re.search(r"\bl?rn\b|round|rnfp|rn fp", t) else 8.4
 
 
 def length_in(weight_gr: float, diameter_in: float, text: str) -> tuple[float, str]:

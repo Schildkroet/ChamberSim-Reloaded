@@ -44,7 +44,7 @@ def runs(row: np.ndarray):
     return list(zip(np.nonzero(d == 1)[0], np.nonzero(d == -1)[0] - 1))
 
 
-def measure(path: Path, diameter_in: float, overlay: Path | None, phi_deg: float | None = None, length_in_known: float | None = None):
+def measure(path: Path, diameter_in: float, overlay: Path | None, phi_deg: float | None = None, length_in_known: float | None = None, scale: float = 1.0):
     img = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
     if img is None:
         return None
@@ -108,7 +108,7 @@ def measure(path: Path, diameter_in: float, overlay: Path | None, phi_deg: float
         phi = delta + math.acos(min(H / R, 1.0))  # H = R cos(phi - delta), phi - delta > 0 (the camera looks down)
         sin_phi = math.sin(phi)
     L_px = (H - 0.5 * D_px * (1 + m) * sin_phi) / math.cos(phi)
-    length_in = L_px / s
+    length_in = L_px / s * scale
     flag = []
     if len(w) < 40 or (w <= wmax).sum() < 0.4 * len(w):
         flag.append("merged")
@@ -132,8 +132,9 @@ def main() -> None:
     ap.add_argument("--out")
     ap.add_argument("--overlay")
     ap.add_argument("--phi", type=float, help="camera elevation in degrees (the same for all photos of one renderer) instead of the base edge of each")
+    ap.add_argument("--scale", type=float, default=1.0, help="factor on every length (from --calibrate with --phi)")
     ap.add_argument("--kind", help="only photos of this manifest kind (einzeln, doppelt)")
-    ap.add_argument("--calibrate", help="FILE:LENGTH_MM, a photo of a bullet of known length: prints the camera elevation and exits")
+    ap.add_argument("--calibrate", help="FILE:LENGTH_MM, a photo of a bullet of known length: prints the camera elevation (or, with --phi, the factor on the lengths) and exits")
     args = ap.parse_args()
     root = Path(args.dir)
     manifest = {r["file"]: r for r in csv.DictReader(open(args.manifest or root / "manifest.csv", encoding="utf-8"))}
@@ -143,6 +144,10 @@ def main() -> None:
     if args.calibrate:
         f, mm = args.calibrate.rsplit(":", 1)
         m = manifest[f]
+        if args.phi is not None:  # the elevation is given: the factor on the lengths that makes this bullet's length the known one
+            res = measure(root / f, float(m["diameter_in"]), overlay, args.phi)
+            print(f"{f}: at {args.phi} deg the length is {res['length_mm']} mm, factor for {mm} mm: {float(mm) / res['length_mm']:.4f}")
+            return
         res = measure(root / f, float(m["diameter_in"]), overlay, length_in_known=float(mm) / 25.4)
         print(f"{f}: elevation {res['phi_deg']} deg for a length of {mm} mm (the base edge of this photo says {res['phi_base_arc_deg']} deg); D {res['D_px']} px, height {res['H_px']} px, nose end {res['meplat_d']} D")
         return
@@ -152,7 +157,7 @@ def main() -> None:
         m = manifest[path.name]
         d, wgr = float(m["diameter_in"]), float(m["weight_gr"])
         try:
-            res = measure(path, d, overlay, args.phi)
+            res = measure(path, d, overlay, args.phi, scale=args.scale)
         except Exception as e:  # a photo that does not fit the pattern
             print("failed:", path.name, e)
             continue

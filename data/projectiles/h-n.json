@@ -4,147 +4,147 @@
     "pname": "HP HS .356 100 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 12.0,
+    "glen": 12.9,
     "gmass": 100.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .356 115 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 13.5,
+    "glen": 14.4,
     "gmass": 115.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .356 125 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 14.2,
+    "glen": 15.3,
     "gmass": 125.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .356 145 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 16.2,
+    "glen": 17.2,
     "gmass": 145.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .357 127 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 14.3,
+    "glen": 15.3,
     "gmass": 127.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .357 147 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 16.6,
+    "glen": 17.5,
     "gmass": 147.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .357 158 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 16.9,
+    "glen": 17.8,
     "gmass": 158.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .357 180 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 18.5,
+    "glen": 19.9,
     "gmass": 180.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .429 240 gr",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 17.0,
+    "glen": 18.3,
     "gmass": 240.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .451 200 gr",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 13.4,
+    "glen": 14.8,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .452 185 gr",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 13.0,
+    "glen": 14.8,
     "gmass": 185.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .452 200 gr",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 13.4,
+    "glen": 14.8,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "HP HS .458 300 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 20.6,
+    "glen": 21.1,
     "gmass": 300.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .224 55 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 15.9,
+    "glen": 13.5,
     "gmass": 55.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .264 140 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 29.1,
+    "glen": 30.2,
     "gmass": 140.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -154,300 +154,300 @@
     "pname": "RN HS .308 110 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 16.9,
+    "glen": 17.3,
     "gmass": 110.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.3,
+    "glen": 27.1,
     "gmass": 165.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .309 71 gr",
     "caliber": ".309",
     "gdia": 7.85,
-    "glen": 10.8,
+    "glen": 13.8,
     "gmass": 71.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .309 86 gr",
     "caliber": ".309",
     "gdia": 7.85,
-    "glen": 13.1,
+    "glen": 13.8,
     "gmass": 86.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .311 86 gr",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 13.1,
+    "glen": 13.9,
     "gmass": 86.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .314 100 gr",
     "caliber": ".314",
     "gdia": 7.98,
-    "glen": 13.4,
+    "glen": 14.1,
     "gmass": 100.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .323 190 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 26.5,
+    "glen": 27.2,
     "gmass": 190.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .356 125 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 14.6,
+    "glen": 15.5,
     "gmass": 125.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .356 145 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 16.6,
+    "glen": 17.3,
     "gmass": 145.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .357 158 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.9,
+    "glen": 18.7,
     "gmass": 158.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .451 200 gr",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 14.3,
+    "glen": 15.0,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .451 230 gr",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 15.7,
+    "glen": 16.7,
     "gmass": 230.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "RN HS .452 230 gr",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 15.7,
+    "glen": 16.8,
     "gmass": 230.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "SWC HS .357 158 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.6,
+    "glen": 18.4,
     "gmass": 158.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "SWC HS .429 240 gr",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 16.9,
+    "glen": 18.0,
     "gmass": 240.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "SWC HS .451 195 gr",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 15.2,
+    "glen": 16.3,
     "gmass": 195.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "SWC HS .451 200 gr",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 14.6,
+    "glen": 15.6,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "SWC HS .452 195 gr",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 15.2,
+    "glen": 16.3,
     "gmass": 195.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "SWC HS .452 200 gr",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 14.6,
+    "glen": 15.6,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 23.7,
+    "glen": 24.6,
     "gmass": 165.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .356 125 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 13.4,
+    "glen": 14.5,
     "gmass": 125.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .356 145 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 15.6,
+    "glen": 16.7,
     "gmass": 145.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .357 125 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 13.4,
+    "glen": 14.6,
     "gmass": 125.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .357 127 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 13.6,
+    "glen": 14.6,
     "gmass": 127.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .357 147 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 15.7,
+    "glen": 16.7,
     "gmass": 147.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .357 158 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 16.9,
+    "glen": 17.4,
     "gmass": 158.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .357 180 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 19.2,
+    "glen": 19.3,
     "gmass": 180.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .357 200 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 21.4,
+    "glen": 21.2,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .401 180 gr",
     "caliber": ".401",
     "gdia": 10.19,
-    "glen": 15.2,
+    "glen": 16.7,
     "gmass": 180.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .428 200 gr",
     "caliber": ".428",
     "gdia": 10.87,
-    "glen": 14.9,
+    "glen": 15.7,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
@@ -457,197 +457,197 @@
     "glen": 17.8,
     "gmass": 240.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .430 240 gr",
     "caliber": ".430",
     "gdia": 10.92,
-    "glen": 17.6,
+    "glen": 17.9,
     "gmass": 240.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .452 200 gr",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 13.4,
+    "glen": 14.8,
     "gmass": 200.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .452 250 gr",
     "caliber": ".452",
     "gdia": 11.48,
-    "glen": 16.7,
+    "glen": 17.3,
     "gmass": 250.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .458 300 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 19.5,
+    "glen": 20.0,
     "gmass": 300.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .458 350 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 22.7,
+    "glen": 23.7,
     "gmass": 350.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .458 400 gr",
     "caliber": ".458",
     "gdia": 11.63,
-    "glen": 26.0,
+    "glen": 26.6,
     "gmass": 400.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "TC HS .501 300 gr",
     "caliber": ".501",
     "gdia": 12.73,
-    "glen": 16.2,
+    "glen": 17.0,
     "gmass": 300.0,
     "gpressure": 150.0,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC H-HB HS .357 125 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 12.7,
+    "glen": 14.5,
     "gmass": 125.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC H-HB HS .357 148 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 12.7,
+    "glen": 16.5,
     "gmass": 148.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC H-HB HS .357 85 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 8.4,
+    "glen": 11.0,
     "gmass": 85.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB HS .314 100 gr",
     "caliber": ".314",
     "gdia": 7.98,
-    "glen": 12.9,
+    "glen": 14.3,
     "gmass": 100.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB L .312 100 gr",
     "caliber": ".312",
     "gdia": 7.92,
-    "glen": 12.9,
+    "glen": 16.5,
     "gmass": 100.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB L .313 100 gr",
     "caliber": ".313",
     "gdia": 7.95,
-    "glen": 12.9,
+    "glen": 16.6,
     "gmass": 100.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB L .314 100 gr",
     "caliber": ".314",
     "gdia": 7.98,
-    "glen": 12.9,
+    "glen": 16.6,
     "gmass": 100.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB L .314 90 gr",
     "caliber": ".314",
     "gdia": 7.98,
-    "glen": 11.4,
+    "glen": 14.7,
     "gmass": 90.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB L .357 148 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 12.7,
+    "glen": 16.1,
     "gmass": 148.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB PC .355 148 gr",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 12.7,
+    "glen": 16.4,
     "gmass": 148.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   },
   {
     "mname": "H&N",
     "pname": "WC HB PC .357 148 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 12.7,
+    "glen": 16.5,
     "gmass": 148.0,
     "gpressure": 150.0,
     "gtailtype": 1,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
   }
 ]

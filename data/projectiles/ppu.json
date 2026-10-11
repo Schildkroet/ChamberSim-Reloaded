@@ -1112,7 +1112,7 @@
     "pname": "LRN B-081",
     "caliber": ".312",
     "gdia": 7.94,
-    "glen": 14.6,
+    "glen": 15.1,
     "gmass": 98.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1122,7 +1122,7 @@
     "pname": "LRN B-089",
     "caliber": ".359",
     "gdia": 9.12,
-    "glen": 16.4,
+    "glen": 16.9,
     "gmass": 145.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1132,7 +1132,7 @@
     "pname": "LRN B-192",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 14.2,
+    "glen": 14.7,
     "gmass": 124.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1142,7 +1142,7 @@
     "pname": "LRN B-202",
     "caliber": ".412",
     "gdia": 10.45,
-    "glen": 19.8,
+    "glen": 20.4,
     "gmass": 230.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1692,7 +1692,7 @@
     "pname": "SWC B-140",
     "caliber": ".358",
     "gdia": 9.08,
-    "glen": 18.3,
+    "glen": 19.5,
     "gmass": 158.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1702,7 +1702,7 @@
     "pname": "SWC B-326",
     "caliber": ".358",
     "gdia": 9.08,
-    "glen": 18.3,
+    "glen": 19.5,
     "gmass": 158.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1712,7 +1712,7 @@
     "pname": "SWC HP B-136",
     "caliber": ".358",
     "gdia": 9.08,
-    "glen": 18.3,
+    "glen": 19.5,
     "gmass": 158.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1792,7 +1792,7 @@
     "pname": "WC B-017",
     "caliber": ".358",
     "gdia": 9.08,
-    "glen": 15.5,
+    "glen": 18.2,
     "gmass": 158.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1802,7 +1802,7 @@
     "pname": "WC B-053",
     "caliber": ".358",
     "gdia": 9.08,
-    "glen": 14.5,
+    "glen": 17.0,
     "gmass": 148.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
@@ -1812,7 +1812,7 @@
     "pname": "WC B-298",
     "caliber": ".312",
     "gdia": 7.94,
-    "glen": 12.6,
+    "glen": 14.7,
     "gmass": 98.0,
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
