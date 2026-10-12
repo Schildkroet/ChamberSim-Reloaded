@@ -1,0 +1,16 @@
+caliber,powder,bullet,bullet_dia_mm,bullet_len_mm,bullet_gr,tail_type,charge_gr,charge_g,barrel_mm,col_mm,jump_mm,v_muzzle_ms
+6.5 x 55 SE,vectan sp10,HDY V-MAX,6.71,23.2,95,0,43.3,2.8058,560,73,0.6,961
+6.5 x 55 SE,reload swiss rs60,HDY ELD-X,6.71,34.9,143,0,41.6,2.6956,560,76,0.6,777
+8 x 57 IS,vihtavuori n135,Fox CH,8.2,30.5,160,0,44.8,2.903,600,81,1.0,797
+8 x 57 IS,vihtavuori n135,Fox Target,8.2,29.0,160,0,45.1,2.9224,600,81,0.5,787
+9.3 x 62,vihtavuori n135,Fox CH,9.3,32.9,220,0,57.5,3.7259,495,84,0.5,793
+9.3 x 62,vihtavuori n135,Fox CH,9.3,32.9,220,0,55,3.5639,495,84,0.5,775
+9.3 x 62,vihtavuori n135,Fox CH,9.3,32.9,220,0,53,3.4343,495,84,0.5,741
+9.3 x 62,reload swiss rs60,PPU SP B-330,9.27,33.3,285,0,64.3,4.1666,495,82,4.6,690
+222 Rem.,reload swiss rs30,HDY V-MAX,5.69,14.1,40,0,20,1.296,600,55.5,1.5,1119
+308 Win.,vihtavuori n135,Fox CH,7.82,30.4,150,0,40.5,2.6244,510,70,0.5,807
+308 Win.,vihtavuori n135,Fox CH,7.82,28.0,130,0,42.2,2.7345,510,70,0.5,868
+308 Win.,vihtavuori n135,Fox CH,7.82,32.8,165,0,37.9,2.4559,510,70,0.5,756
+308 Win.,vihtavuori n135,HDB#2,7.82,29.0,150,0,42.8,2.7734,510,72.6,4.7,834
+308 Win.,vihtavuori n135,HDB#9,7.82,28.2,146,0,42.5,2.754,510,68.5,1.6,839
+45-70 Govt.,reload swiss rs30,HDB#2,11.63,21.4,260,0,42.4,2.7475,660,65.5,2.0,705

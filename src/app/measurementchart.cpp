@@ -5,6 +5,10 @@
 #include <QLegend>
 #include <QLegendMarker>
 #include <QLineSeries>
+#include <QLocale>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPalette>
 #include <QScatterSeries>
 #include <QValueAxis>
 
@@ -80,6 +84,7 @@ MeasurementChart::MeasurementChart(QWidget *parent)
     m_shotPressure->setMarkerSize(7);
     for (QLegendMarker *mk : chart->legend()->markers(m_meanVelocity)) mk->setVisible(false);
     setChart(chart);
+    viewport()->setMouseTracking(true);  // the cursor follows the mouse without a pressed button
     setRenderHint(QPainter::Antialiasing);
     setMinimumSize(320, 220);
     applyTheme();
@@ -229,4 +234,142 @@ void MeasurementChart::changeEvent(QEvent *event)
     {
         applyFonts();
     }
+}
+
+void MeasurementChart::mouseMoveEvent(QMouseEvent *event)
+{
+    QChartView::mouseMoveEvent(event);
+    const QPointF pos = chart()->mapFromScene(mapToScene(event->position().toPoint()));
+    std::optional<double> x;
+    if (chart()->plotArea().contains(pos)) x = chart()->mapToValue(pos, m_simVelocity).x();
+    if (x == m_cursorX) return;
+    m_cursorX = x;
+    viewport()->update();
+}
+
+void MeasurementChart::leaveEvent(QEvent *event)
+{
+    QChartView::leaveEvent(event);
+    m_cursorX.reset();
+    viewport()->update();
+}
+
+// The simulated values at a charge (linear between the simulated charges); nothing outside their range.
+std::optional<MeasurementChart::Prediction> MeasurementChart::predictionAt(double charge_g) const
+{
+    if (m_simulated.empty() || charge_g < m_simulated.front().charge_g || charge_g > m_simulated.back().charge_g) return std::nullopt;
+    const auto it = std::ranges::lower_bound(m_simulated, charge_g, {}, &Prediction::charge_g);
+    if (it == m_simulated.begin()) return *it;
+    const Prediction &a = *std::prev(it), &b = *it;
+    const double span = b.charge_g - a.charge_g, f = span > 0.0 ? (charge_g - a.charge_g) / span : 0.0;
+    return Prediction{.charge_g = charge_g,
+                      .velocity_ms = a.velocity_ms + f * (b.velocity_ms - a.velocity_ms),
+                      .pressure_bar = a.pressure_bar + f * (b.pressure_bar - a.pressure_bar)};
+}
+
+// The cursor: a vertical line at the mouse and a box with the simulated values and, when the mouse is near a measured charge, the
+// measurements of that charge.
+void MeasurementChart::drawForeground(QPainter *painter, const QRectF &rect)
+{
+    QChartView::drawForeground(painter, rect);
+    if (!m_cursorX) return;
+    using csr::units::format;
+    const QRectF plot = chart()->mapRectToScene(chart()->plotArea());
+    const auto sceneX = [&](double x) { return chart()->mapToScene(chart()->mapToPosition({x, 0.0}, m_simVelocity)).x(); };
+
+    // the measured charge under the mouse (within 12 px); the line snaps to it
+    const csr::MeasuredCharge *near = nullptr;
+    double nearDist = 12.0;
+    for (const csr::MeasuredCharge &c : m_data.charges)
+    {
+        const double d = std::abs(sceneX(csr::units::toDisplay(c.charge_g(), *m_chargeUnit)) - sceneX(*m_cursorX));
+        if (d <= nearDist) near = &c, nearDist = d;
+    }
+    const double charge_g = near ? near->charge_g() : csr::units::fromDisplay(*m_cursorX, *m_chargeUnit);
+    const std::optional<Prediction> pred = predictionAt(charge_g);
+    const double x = sceneX(csr::units::toDisplay(charge_g, *m_chargeUnit));
+
+    const auto unit = [](const csr::units::Unit &u) { return QString::fromUtf8(u.symbol); };
+    QList<QString> lines{tr("Charge: %1 %2").arg(format(charge_g, *m_chargeUnit), unit(*m_chargeUnit))};
+    QList<QColor> colors{palette().color(QPalette::Text)};
+    const auto add = [&](const QString &l, const QColor &c)
+    {
+        lines.append(l);
+        colors.append(c);
+    };
+    if (pred)
+    {
+        add(tr("Velocity (sim.): %1 %2").arg(format(pred->velocity_ms, *m_velocityUnit), unit(*m_velocityUnit)), kVelocity);
+        add(tr("Pressure (sim.): %1 %2").arg(format(pred->pressure_bar, *m_pressureUnit), unit(*m_pressureUnit)), kPressure);
+    }
+    if (near)
+    {
+        const csr::ShotStatistics st = csr::velocityStatistics(*near);
+        if (st.count > 0)
+        {
+            add(tr("Velocity: %1 ± %2 %3 (%n shot(s))", nullptr, st.count)
+                    .arg(format(st.mean, *m_velocityUnit), format(st.sd, *m_velocityUnit), unit(*m_velocityUnit)),
+                kVelocity);
+            add(tr("Extreme spread: %1 %2").arg(format(st.extremeSpread(), *m_velocityUnit), unit(*m_velocityUnit)), kVelocity);
+            if (pred)
+                add(tr("Deviation from sim.: %1 %").arg(QLocale().toString(100.0 * (st.mean / pred->velocity_ms - 1.0), 'f', 1)),
+                    kVelocity);
+        }
+        double sum = 0.0;
+        int n = 0;
+        for (const csr::Shot &s : near->shots)
+            if (s.pressure_bar > 0.0) sum += s.pressure_bar, ++n;
+        if (n > 0)
+        {
+            add(tr("Pressure: %1 %2 (%n shot(s))", nullptr, n).arg(format(sum / n, *m_pressureUnit), unit(*m_pressureUnit)), kPressure);
+            if (pred)
+                add(tr("Deviation from sim.: %1 %").arg(QLocale().toString(100.0 * (sum / n / pred->pressure_bar - 1.0), 'f', 1)),
+                    kPressure);
+        }
+    }
+
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing);
+    QColor lineColor = palette().color(QPalette::Text);
+    lineColor.setAlpha(140);
+    painter->setPen(QPen(lineColor, 1.0, Qt::DashLine));
+    painter->drawLine(QPointF(x, plot.top()), QPointF(x, plot.bottom()));
+    if (pred)
+    {
+        const double cx = csr::units::toDisplay(charge_g, *m_chargeUnit);
+        const struct
+        {
+            QLineSeries *series;
+            double value;
+            QColor color;
+        } dots[] = {{m_simVelocity, csr::units::toDisplay(pred->velocity_ms, *m_velocityUnit), kVelocity},
+                    {m_simPressure, csr::units::toDisplay(pred->pressure_bar, *m_pressureUnit), kPressure}};
+        for (const auto &d : dots)
+        {
+            painter->setPen(QPen(palette().color(QPalette::Base), 1.5));
+            painter->setBrush(d.color);
+            painter->drawEllipse(chart()->mapToScene(chart()->mapToPosition({cx, d.value}, d.series)), 4.0, 4.0);
+        }
+    }
+    QFont f = font();
+    f.setPointSizeF(f.pointSizeF() * 0.9);
+    painter->setFont(f);
+    const QFontMetricsF fm(f);
+    double w = 0.0;
+    for (const QString &l : lines) w = std::max(w, fm.horizontalAdvance(l));
+    const double pad = 6.0, h = lines.size() * fm.height() + 2 * pad;
+    w += 2 * pad;
+    QRectF box(x + 10.0, plot.top() + 6.0, w, h);  // right of the line, on the left near the right edge
+    if (box.right() > plot.right()) box.moveRight(x - 10.0);
+    QColor bg = palette().color(QPalette::Base);
+    bg.setAlpha(230);
+    painter->setPen(QPen(palette().color(QPalette::PlaceholderText), 1.0));
+    painter->setBrush(bg);
+    painter->drawRoundedRect(box, 4.0, 4.0);
+    for (qsizetype i = 0; i < lines.size(); ++i)
+    {
+        painter->setPen(colors[i]);
+        painter->drawText(QPointF(box.left() + pad, box.top() + pad + fm.ascent() + i * fm.height()), lines[i]);
+    }
+    painter->restore();
 }

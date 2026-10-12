@@ -313,30 +313,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+187"/>
-        <location line="+957"/>
+        <location filename="../src/app/loadview.cpp" line="+186"/>
+        <location line="+955"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-957"/>
-        <location line="+958"/>
+        <location line="-955"/>
+        <location line="+956"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-958"/>
+        <location line="-956"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+959"/>
+        <location line="+957"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-958"/>
+        <location line="-956"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -351,12 +351,12 @@
         <translation>Vitesse d’éjection des gaz</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+0"/>
         <source>Projectile speed</source>
         <translation>Rotation du projectile</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Recoil energy</source>
         <translation>Énergie de recul</translation>
     </message>
@@ -372,12 +372,12 @@
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="-40"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Effective efficiency</source>
         <translation>Rendement effectif</translation>
     </message>
@@ -534,7 +534,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-897"/>
+        <location line="-895"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
@@ -549,7 +549,7 @@
         <translation>Choisir la poudre</translation>
     </message>
     <message>
-        <location line="+421"/>
+        <location line="+419"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
@@ -695,7 +695,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>&lt;b&gt;Cartouche de chasse :&lt;/b&gt; bourre et colonne de plomb comme projectile (masse plomb + bourre, longueur de la colonne, placée dans le tube, pression de départ = ouverture du sertissage environ 20 bar). Ajusté sur des chargements de fusil publiés : vitesse typiquement 5 à 7 % trop basse ; pression juste en moyenne mais jusqu&apos;à 30 % d&apos;écart selon la poudre - à comparer aux données du fabricant de poudre.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
         <translation>&lt;b&gt;Surpression !&lt;/b&gt; La pression maximale %1 dépasse de %2 % la pression admissible %3. Ne chargez pas cette charge.</translation>
     </message>
@@ -710,7 +710,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>combustion incomplète</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>%1 k/min</source>
         <translation>%1 k/min</translation>
     </message>
@@ -720,7 +720,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>– (masse de l&apos;arme 0)</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>–, %1</source>
         <translation>–, %1</translation>
     </message>
@@ -1231,7 +1231,7 @@ L&apos;exporter quand même ?</translation>
 <context>
     <name>MeasurementChart</name>
     <message>
-        <location filename="../src/app/measurementchart.cpp" line="+51"/>
+        <location filename="../src/app/measurementchart.cpp" line="+55"/>
         <source>Velocity (sim.)</source>
         <translation>Vitesse (sim.)</translation>
     </message>
@@ -1256,7 +1256,7 @@ L&apos;exporter quand même ?</translation>
         <translation>Pression</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+133"/>
         <source>Charge [%1]</source>
         <translation>Charge [%1]</translation>
     </message>
@@ -1269,6 +1269,48 @@ L&apos;exporter quand même ?</translation>
         <location line="+1"/>
         <source>Peak pressure [%1]</source>
         <translation>Pression maximale [%1]</translation>
+    </message>
+    <message>
+        <location line="+99"/>
+        <source>Charge: %1 %2</source>
+        <translation>Charge : %1 %2</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Velocity (sim.): %1 %2</source>
+        <translation>Vitesse (sim.) : %1 %2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pressure (sim.): %1 %2</source>
+        <translation>Pression (sim.) : %1 %2</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+7"/>
+        <source>Velocity: %1 ± %2 %3 (%n shot(s))</source>
+        <translation>
+            <numerusform>Vitesse : %1 ± %2 %3 (%n coup)</numerusform>
+            <numerusform>Vitesse : %1 ± %2 %3 (%n coups)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Extreme spread: %1 %2</source>
+        <translation>Écart extrême : %1 %2</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+11"/>
+        <source>Deviation from sim.: %1 %</source>
+        <translation>Écart par rapport à la sim. : %1 %</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-2"/>
+        <source>Pressure: %1 %2 (%n shot(s))</source>
+        <translation>
+            <numerusform>Pression : %1 %2 (%n coup)</numerusform>
+            <numerusform>Pression : %1 %2 (%n coups)</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2195,7 +2237,7 @@ pression Δ</translation>
 <context>
     <name>ReportView</name>
     <message>
-        <location filename="../src/app/reportview.cpp" line="+42"/>
+        <location filename="../src/app/reportview.cpp" line="+43"/>
         <source>Size of the report: scales text, tables and images (on screen and in print, preview and PDF)</source>
         <translation>Taille du rapport : met à l&apos;échelle le texte, les tableaux et les images (à l&apos;écran et à l&apos;impression, dans l&apos;aperçu et le PDF)</translation>
     </message>

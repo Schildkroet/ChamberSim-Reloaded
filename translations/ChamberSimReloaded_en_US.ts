@@ -313,7 +313,7 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+450"/>
+        <location filename="../src/app/loadview.cpp" line="+448"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -358,25 +358,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-880"/>
-        <location line="+957"/>
+        <location line="-879"/>
+        <location line="+955"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-957"/>
-        <location line="+958"/>
+        <location line="-955"/>
+        <location line="+956"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-958"/>
-        <location line="+959"/>
+        <location line="-956"/>
+        <location line="+957"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-959"/>
+        <location line="-957"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -396,12 +396,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+0"/>
         <source>Projectile speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Recoil energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -417,12 +417,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="-40"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Effective efficiency</source>
         <translation type="unfinished"></translation>
     </message>
@@ -514,7 +514,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-347"/>
+        <location line="-345"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -529,7 +529,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+421"/>
+        <location line="+419"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -691,7 +691,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -706,7 +706,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>%1 k/min</source>
         <translation type="unfinished"></translation>
     </message>
@@ -716,7 +716,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>–, %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1213,7 +1213,7 @@ Export it anyway?</source>
 <context>
     <name>MeasurementChart</name>
     <message>
-        <location filename="../src/app/measurementchart.cpp" line="+51"/>
+        <location filename="../src/app/measurementchart.cpp" line="+55"/>
         <source>Velocity (sim.)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1238,7 +1238,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+133"/>
         <source>Charge [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1251,6 +1251,48 @@ Export it anyway?</source>
         <location line="+1"/>
         <source>Peak pressure [%1]</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+99"/>
+        <source>Charge: %1 %2</source>
+        <translation>Charge: %1 %2</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Velocity (sim.): %1 %2</source>
+        <translation>Velocity (sim.): %1 %2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pressure (sim.): %1 %2</source>
+        <translation>Pressure (sim.): %1 %2</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+7"/>
+        <source>Velocity: %1 ± %2 %3 (%n shot(s))</source>
+        <translation>
+            <numerusform>Velocity: %1 ± %2 %3 (%n shot)</numerusform>
+            <numerusform>Velocity: %1 ± %2 %3 (%n shots)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Extreme spread: %1 %2</source>
+        <translation>Extreme spread: %1 %2</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+11"/>
+        <source>Deviation from sim.: %1 %</source>
+        <translation>Deviation from sim.: %1 %</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-2"/>
+        <source>Pressure: %1 %2 (%n shot(s))</source>
+        <translation>
+            <numerusform>Pressure: %1 %2 (%n shot)</numerusform>
+            <numerusform>Pressure: %1 %2 (%n shots)</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2171,7 +2213,7 @@ pressure Δ</source>
 <context>
     <name>ReportView</name>
     <message>
-        <location filename="../src/app/reportview.cpp" line="+42"/>
+        <location filename="../src/app/reportview.cpp" line="+43"/>
         <source>Size of the report: scales text, tables and images (on screen and in print, preview and PDF)</source>
         <translation type="unfinished"></translation>
     </message>

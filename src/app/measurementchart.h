@@ -5,6 +5,7 @@
 
 #include <QChartView>
 
+#include <optional>
 #include <span>
 #include <vector>
 
@@ -13,7 +14,7 @@ class QScatterSeries;
 class QValueAxis;
 
 // Velocity and peak pressure over the charge: the measured shots, their mean with +- one standard deviation, and
-// the simulated curves of the load for comparison.
+// the simulated curves of the load for comparison. The mouse over the plot shows a cursor line with a box of the values.
 class MeasurementChart : public QChartView
 {
     Q_OBJECT
@@ -32,13 +33,19 @@ public:
 
 protected:
     void changeEvent(QEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+    void drawForeground(QPainter *painter, const QRectF &rect) override;
 
 private:
     void rebuild();
     void applyTheme();
     void applyFonts();
 
+    std::optional<Prediction> predictionAt(double charge_g) const;
+
     csr::Measurement m_data;
+    std::optional<double> m_cursorX;  // mouse cursor, in charge axis units
     std::vector<Prediction> m_simulated;
     const csr::units::Unit *m_chargeUnit;
     const csr::units::Unit *m_velocityUnit;

@@ -313,30 +313,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+187"/>
-        <location line="+957"/>
+        <location filename="../src/app/loadview.cpp" line="+186"/>
+        <location line="+955"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-957"/>
-        <location line="+958"/>
+        <location line="-955"/>
+        <location line="+956"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-958"/>
+        <location line="-956"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+959"/>
+        <location line="+957"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-958"/>
+        <location line="-956"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -351,12 +351,12 @@
         <translation>Gasausströmgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+0"/>
         <source>Projectile speed</source>
         <translation>Geschossdrehzahl</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Recoil energy</source>
         <translation>Rückstoßenergie</translation>
     </message>
@@ -372,12 +372,12 @@
         <translation>Füllgrad</translation>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="-40"/>
         <source>Burnt propellant</source>
         <translation>Verbranntes Pulver</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Effective efficiency</source>
         <translation>Wirkungsgrad</translation>
     </message>
@@ -534,7 +534,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-897"/>
+        <location line="-895"/>
         <source>Select Caliber</source>
         <translation>Kaliber wählen</translation>
     </message>
@@ -549,7 +549,7 @@
         <translation>Pulver wählen</translation>
     </message>
     <message>
-        <location line="+421"/>
+        <location line="+419"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Auch Lauflänge, Setztiefe und Ladung auf die Vorgaben des neuen Kalibers setzen</translation>
     </message>
@@ -695,7 +695,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>&lt;b&gt;Schrotpatrone:&lt;/b&gt; Pfropfen und Schrotsäule als Geschoss (Masse Schrot + Pfropfen, Säulenlänge, in der Hülse sitzend, Anfangsdruck = Öffnen der Bördelung etwa 20 bar). An veröffentlichte Schrotladungen angepasst: Geschwindigkeit typisch 5-7 % zu niedrig; Druck im Mittel richtig, je nach Pulver aber bis zu 30 % daneben - mit den Daten des Pulverherstellers vergleichen.</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
         <translation>&lt;b&gt;Überdruck!&lt;/b&gt; Der Maximaldruck %1 liegt %2 % über dem zulässigen Wert %3. Diese Ladung nicht laden.</translation>
     </message>
@@ -710,7 +710,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>nicht ausgebrannt</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>%1 k/min</source>
         <translation>%1 k/min</translation>
     </message>
@@ -720,7 +720,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>– (Waffengewicht 0)</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>–, %1</source>
         <translation>–, %1</translation>
     </message>
@@ -1231,7 +1231,7 @@ Trotzdem exportieren?</translation>
 <context>
     <name>MeasurementChart</name>
     <message>
-        <location filename="../src/app/measurementchart.cpp" line="+51"/>
+        <location filename="../src/app/measurementchart.cpp" line="+55"/>
         <source>Velocity (sim.)</source>
         <translation>Geschwindigkeit (Sim.)</translation>
     </message>
@@ -1256,7 +1256,7 @@ Trotzdem exportieren?</translation>
         <translation>Druck</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+133"/>
         <source>Charge [%1]</source>
         <translation>Ladung [%1]</translation>
     </message>
@@ -1269,6 +1269,48 @@ Trotzdem exportieren?</translation>
         <location line="+1"/>
         <source>Peak pressure [%1]</source>
         <translation>Spitzendruck [%1]</translation>
+    </message>
+    <message>
+        <location line="+99"/>
+        <source>Charge: %1 %2</source>
+        <translation>Ladung: %1 %2</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Velocity (sim.): %1 %2</source>
+        <translation>Geschwindigkeit (Sim.): %1 %2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pressure (sim.): %1 %2</source>
+        <translation>Druck (Sim.): %1 %2</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+7"/>
+        <source>Velocity: %1 ± %2 %3 (%n shot(s))</source>
+        <translation>
+            <numerusform>Geschwindigkeit: %1 ± %2 %3 (%n Schuss)</numerusform>
+            <numerusform>Geschwindigkeit: %1 ± %2 %3 (%n Schüsse)</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Extreme spread: %1 %2</source>
+        <translation>Extremwertstreuung: %1 %2</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+11"/>
+        <source>Deviation from sim.: %1 %</source>
+        <translation>Abweichung von Sim.: %1 %</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-2"/>
+        <source>Pressure: %1 %2 (%n shot(s))</source>
+        <translation>
+            <numerusform>Druck: %1 %2 (%n Schuss)</numerusform>
+            <numerusform>Druck: %1 %2 (%n Schüsse)</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2195,7 +2237,7 @@ Druck Δ</translation>
 <context>
     <name>ReportView</name>
     <message>
-        <location filename="../src/app/reportview.cpp" line="+42"/>
+        <location filename="../src/app/reportview.cpp" line="+43"/>
         <source>Size of the report: scales text, tables and images (on screen and in print, preview and PDF)</source>
         <translation>Größe des Berichts: skaliert Text, Tabellen und Bilder (am Bildschirm sowie in Druck, Vorschau und PDF)</translation>
     </message>
