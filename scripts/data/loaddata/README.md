@@ -283,6 +283,15 @@ records gave -10.6 % bias, 13.5 % rms in shotshell mode, the fitted ones 3.0 % r
 loads come out at 440-1,130 bar. The 2020 tables lower four maximum loads of an older edition (40 g 3N37 and N105, 44 g 3N37 and N105) and no longer have the 48 g load.
 `csr_eval` takes the lot "shotshell" records for shotshell rows only and the others for all other rows, and the optional column `shot_density` (steel 7.87 g/cm3).
 
+## Alliant Powder online guide (2026-10-14)
+
+`alliant_web_extract.py` reads the recipe pages of Alliant's Reloader's Guide on alliantpowder.com (pistol / revolver `gtypeid=1`, 211 recipes; rifle `gtypeid=2`,
+605 recipes; the pages need the site's safety notice accepted first, i.e. the session cookie of its "Enter the Guide" link; saved to `sources/alliant_web/`).
+Per recipe: cartridge, bullet, minimum overall length, test barrel, primer, powder, charge and velocity of the maximum load (Alliant: reduce every charge by
+10 % for a start load). The pressure column is commented out of the pages: it is not read. 1,522 samples of 30 powders; 26 have at least 9 samples from 3
+cartridges and get records (`published_fit.py --maker Alliant --no-pressure --min-samples 9 --min-cartridges 3`) and physical values (`fit_physical_powders.py
+--fit ba`, form function = median of the others): velocity error rifle powders 1.7 - 4.4 %, pistol powders 2.7 - 10.2 % (Bullseye 10.2 %, 2400 8.6 %).
+
 ## Quality of a fit
 
 Every record written by `vv_to_json.py`, `published_fit.py` and `csr_fitpowder --out` gets the propellant column `Qlty` (the original's
