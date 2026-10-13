@@ -131,7 +131,7 @@ transition (z2 below about 0.5) and start pressures above about 400 bar are also
 **Shotgun loads** (caliber with *Shotshell* = yes) use their own model terms: the wad and the shot column are the
 projectile, the plastic wad seals the bore, and the powder space and the friction of wad and shot are fitted to 64
 published shotgun loads, not to the original program: the 50 loads of the Vihtavuori Reloading Guide (12/76, lead and
-steel shot), two Reload Swiss loads (12/70, RS12 / RS20) and 12 loads of the Hodgdon Reloading Data Center (12/70,
+steel shot; four maximum loads of this older edition are lower in the 2020 tables, see `scripts/data/loaddata/README.md`), two Reload Swiss loads (12/70, RS12 / RS20) and 12 loads of the Hodgdon Reloading Data Center (12/70,
 Universal and W244); the last 14 with measured pressure. The published velocities are measured 1-3 m in front of the
 muzzle and converted to the muzzle with the air drag of the pellets. Result: muzzle velocity typically 5-7 % low (up
 to 15 %); pressure right on average, but **up to 30 % too high or too low depending on the powder** (the powders'

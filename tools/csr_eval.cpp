@@ -146,10 +146,16 @@ int main(int argc, char *argv[])
         calibers.insert(r.value(u"cipname"_s).toString(), r);
     QStringList calColumns;
     for (const auto &[name, type] : calSchema) calColumns << name;
-    QMap<QString, QVariantMap> powders;
+    // powders by name; the records of lot "shotshell" are for shotshell rows only, the others for all other rows
+    QMap<QString, QVariantMap> powders, shotPowders;
     for (const QVariantMap &r :
          csr::projectdata::load(cli.value(u"data"_s), csr::Table::Propellant, db.schema(csr::Table::Propellant)).records)
-        powders.insert((r.value(u"mname"_s).toString() + u' ' + r.value(u"pname"_s).toString()).toLower(), r);
+    {
+        const QString name = (r.value(u"mname"_s).toString() + u' ' + r.value(u"pname"_s).toString()).toLower();
+        (r.value(u"lotid"_s).toString() == u"shotshell"_s ? shotPowders : powders).insert(name, r);
+    }
+    for (auto it = shotPowders.cbegin(); it != shotPowders.cend(); ++it)
+        if (!powders.contains(it.key())) powders.insert(it.key(), it.value());  // shotshell-only powders stay usable in any row
 
     const int steps = cli.value(u"steps"_s).toInt();
     const auto rows = readCsv(cli.positionalArguments().front());
@@ -171,15 +177,17 @@ int main(int argc, char *argv[])
         {
             const auto g = gauges.find(row.value(u"gauge"_s).toInt());
             const QString key = row.value(u"powder"_s).toLower();
-            if (g == gauges.end() || !powders.contains(key)) continue;
+            if (g == gauges.end() || !(shotPowders.contains(key) || powders.contains(key))) continue;
             int hull = static_cast<int>(row.value(u"hull_mm"_s).toDouble() + 0.5);
             if (hull == 69) hull = 70;
             const auto volume = g->second.volume_gr.find(hull);
             if (volume == g->second.volume_gr.end()) continue;
-            QVariantMap powder = powders.value(key);
+            QVariantMap powder = shotPowders.contains(key) ? shotPowders.value(key) : powders.value(key);
             if (ba.contains(key)) powder.insert(u"Ba"_s, ba.value(key));
             const double shot = row.value(u"shot_g"_s).toDouble();
-            const double column_mm = shot / (11.34 * 0.62) * 1000.0 / g->second.area_mm2 + 25.0;  // shot (packing 0.62) + wad 25 mm
+            const double density =
+                row.contains(u"shot_density"_s) ? row.value(u"shot_density"_s).toDouble() : 11.34;  // g/cm3 (lead; steel 7.87)
+            const double column_mm = shot / (density * 0.62) * 1000.0 / g->second.area_mm2 + 25.0;  // shot (packing 0.62) + wad 25 mm
             const QVariantMap caliber{{u"cipname"_s, u"%1/%2"_s.arg(g->first).arg(hull)},
                                       {u"L3"_s, hull == 70 ? 69.8 : double(hull)},
                                       {u"V"_s, volume->second},

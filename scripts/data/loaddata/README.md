@@ -276,6 +276,13 @@ limit of the fit), 410, 2400 and Power Pro 300-MP (1-16 loads, and the .410 and 
 friction constants are the same for every gauge; the gauge-dependent pressure bias of the 20 and 16 gauge loads suggests they would need their own factor, but 13-79
 loads are too few to fit one.
 
+`vv_shot_extract.py` reads Vihtavuori's two shotgun tables (12/76, lead and steel shot, 2020; 48 start and maximum loads of N320, N340, 3N37, 3N38 and N105; 28" barrel,
+velocity 2.5 m in front of the muzzle, 3 mm pellets, no pressures). `analysis/fit_vv_shot.py` fits their shotshell burn rates (records of lot "shotshell"): the rifle / pistol
+records gave -10.6 % bias, 13.5 % rms in shotshell mode, the fitted ones 3.0 % rms; fitted on the lead loads and tested on the steel loads (and the other way round)
+4.4 % and 2.2 %. Velocities alone do not fix Ba (N320 ran to 20 and 1,200 bar), so the fit has a one-sided penalty above the C.I.P. maximum of 1,050 bar; the maximum
+loads come out at 440-1,130 bar. The 2020 tables lower four maximum loads of an older edition (40 g 3N37 and N105, 44 g 3N37 and N105) and no longer have the 48 g load.
+`csr_eval` takes the lot "shotshell" records for shotshell rows only and the others for all other rows, and the optional column `shot_density` (steel 7.87 g/cm3).
+
 ## Quality of a fit
 
 Every record written by `vv_to_json.py`, `published_fit.py` and `csr_fitpowder --out` gets the propellant column `Qlty` (the original's
