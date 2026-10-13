@@ -4,7 +4,7 @@
 <context>
     <name>BurnRateDialog</name>
     <message>
-        <location filename="../src/app/burnratedialog.cpp" line="+78"/>
+        <location filename="../src/app/burnratedialog.cpp" line="+97"/>
         <source>All lots</source>
         <translation type="unfinished"></translation>
     </message>
@@ -95,7 +95,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+466"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+485"/>
         <source>No cartridge data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -123,7 +123,7 @@
 <context>
     <name>ChamberView</name>
     <message>
-        <location filename="../src/app/chamberview.cpp" line="+182"/>
+        <location filename="../src/app/chamberview.cpp" line="+201"/>
         <source>No chamber data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -142,7 +142,7 @@
 <context>
     <name>ChronographImportDialog</name>
     <message>
-        <location filename="../src/app/chronographimportdialog.cpp" line="+51"/>
+        <location filename="../src/app/chronographimportdialog.cpp" line="+70"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -194,7 +194,7 @@
 <context>
     <name>CurveChart</name>
     <message>
-        <location filename="../src/app/curvechart.cpp" line="+67"/>
+        <location filename="../src/app/curvechart.cpp" line="+86"/>
         <source>Pressure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -272,7 +272,7 @@
 <context>
     <name>DialogTitleBar</name>
     <message>
-        <location filename="../src/app/dialogframe.cpp" line="+95"/>
+        <location filename="../src/app/dialogframe.cpp" line="+114"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -280,7 +280,7 @@
 <context>
     <name>Disclaimer</name>
     <message>
-        <location filename="../src/app/disclaimer.cpp" line="+34"/>
+        <location filename="../src/app/disclaimer.cpp" line="+53"/>
         <source>Safety notice</source>
         <translation type="unfinished"></translation>
     </message>
@@ -313,7 +313,7 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+448"/>
+        <location filename="../src/app/loadview.cpp" line="+467"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -750,7 +750,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+366"/>
+        <location filename="../src/app/mainwindow.cpp" line="+385"/>
         <source>ChamberSim Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -830,12 +830,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+255"/>
-        <location line="+336"/>
+        <location line="+339"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-590"/>
+        <location line="-593"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -897,12 +897,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+9"/>
-        <location line="+465"/>
+        <location line="+468"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-442"/>
+        <location line="-445"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1018,7 +1018,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+90"/>
         <source>Saved as your own record: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1033,7 +1033,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-604"/>
+        <location line="-607"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1109,12 +1109,12 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+678"/>
+        <location line="+681"/>
         <source>Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-430"/>
+        <location line="-433"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1125,18 +1125,18 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+92"/>
-        <location line="+302"/>
+        <location line="+305"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-152"/>
+        <location line="-155"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+104"/>
+        <location line="+107"/>
         <location line="+7"/>
         <location line="+6"/>
         <source>Export record</source>
@@ -1213,7 +1213,7 @@ Export it anyway?</source>
 <context>
     <name>MeasurementChart</name>
     <message>
-        <location filename="../src/app/measurementchart.cpp" line="+55"/>
+        <location filename="../src/app/measurementchart.cpp" line="+74"/>
         <source>Velocity (sim.)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1298,7 +1298,7 @@ Export it anyway?</source>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+109"/>
+        <location filename="../src/app/measurementview.cpp" line="+128"/>
         <source>New series</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1561,7 +1561,7 @@ Export it anyway?</source>
 <context>
     <name>NewLoadDialog</name>
     <message>
-        <location filename="../src/app/newloaddialog.cpp" line="+69"/>
+        <location filename="../src/app/newloaddialog.cpp" line="+88"/>
         <source>Show only bullets that fit the caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1670,7 +1670,7 @@ Export it anyway?</source>
 <context>
     <name>PhotoView</name>
     <message>
-        <location filename="../src/app/photoview.cpp" line="+22"/>
+        <location filename="../src/app/photoview.cpp" line="+41"/>
         <source>Overview</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1708,7 +1708,7 @@ Export it anyway?</source>
 <context>
     <name>PowderFitDialog</name>
     <message>
-        <location filename="../src/app/powderfitdialog.cpp" line="+50"/>
+        <location filename="../src/app/powderfitdialog.cpp" line="+69"/>
         <source>Fit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1868,7 +1868,7 @@ pressure Δ</source>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+52"/>
+        <location filename="../src/app/propertypanel.cpp" line="+71"/>
         <source>not specified (average)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1957,7 +1957,7 @@ pressure Δ</source>
 <context>
     <name>QualityRow</name>
     <message>
-        <location filename="../src/app/qualityrow.cpp" line="+18"/>
+        <location filename="../src/app/qualityrow.cpp" line="+37"/>
         <source>Model quality:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1976,7 +1976,7 @@ pressure Δ</source>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+82"/>
+        <location filename="../src/app/recorddialog.cpp" line="+101"/>
         <source>caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2007,7 +2007,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../src/app/recordviewdialog.cpp" line="+50"/>
+        <location filename="../src/app/recordviewdialog.cpp" line="+69"/>
         <source>flat base</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2190,7 +2190,7 @@ pressure Δ</source>
 <context>
     <name>ReportTemplateDialog</name>
     <message>
-        <location filename="../src/app/reporttemplatedialog.cpp" line="+28"/>
+        <location filename="../src/app/reporttemplatedialog.cpp" line="+47"/>
         <source>Edit report template</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2213,7 +2213,7 @@ pressure Δ</source>
 <context>
     <name>ReportView</name>
     <message>
-        <location filename="../src/app/reportview.cpp" line="+43"/>
+        <location filename="../src/app/reportview.cpp" line="+62"/>
         <source>Size of the report: scales text, tables and images (on screen and in print, preview and PDF)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2262,7 +2262,7 @@ pressure Δ</source>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../src/app/settingsdialog.cpp" line="+37"/>
+        <location filename="../src/app/settingsdialog.cpp" line="+56"/>
         <source>Open the loads of the last session at start</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2455,7 +2455,7 @@ pressure Δ</source>
 <context>
     <name>SolverPreferences</name>
     <message>
-        <location filename="../src/app/solverprefs.cpp" line="+57"/>
+        <location filename="../src/app/solverprefs.cpp" line="+76"/>
         <source>GRT Original</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2488,7 +2488,7 @@ pressure Δ</source>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+31"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+50"/>
         <source>Your own record (can be changed)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2547,7 +2547,7 @@ pressure Δ</source>
 <context>
     <name>TitleBar</name>
     <message>
-        <location filename="../src/app/titlebar.cpp" line="+104"/>
+        <location filename="../src/app/titlebar.cpp" line="+123"/>
         <source>Minimize</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2570,7 +2570,7 @@ pressure Δ</source>
 <context>
     <name>UnitConverterDialog</name>
     <message>
-        <location filename="../src/app/unitconverterdialog.cpp" line="+26"/>
+        <location filename="../src/app/unitconverterdialog.cpp" line="+45"/>
         <source>Length</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2664,7 +2664,7 @@ pressure Δ</source>
 <context>
     <name>VivacityChart</name>
     <message>
-        <location filename="../src/app/vivacitychart.cpp" line="+22"/>
+        <location filename="../src/app/vivacitychart.cpp" line="+41"/>
         <source>Burn rate Ba·φ(z)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2677,7 +2677,7 @@ pressure Δ</source>
 <context>
     <name>about</name>
     <message numerus="yes">
-        <location filename="../src/app/about.cpp" line="+30"/>
+        <location filename="../src/app/about.cpp" line="+49"/>
         <source>%Ln caliber(s)</source>
         <translation>
             <numerusform>%Ln caliber</numerusform>
@@ -2706,7 +2706,12 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+9"/>
+        <source>Source code and issue tracker:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Load development ladder; reports with print preview and PDF export&lt;/li&gt;&lt;li&gt;Measurements: chronograph data (import of Garmin Xero, MagnetoSpeed and Labradar files) compared with the simulation; the powder&apos;s model values can be fitted to your measurements&lt;/li&gt;&lt;li&gt;Built-in database of calibers, projectiles and propellants, your own records, and optionally the database of the original program&lt;/li&gt;&lt;li&gt;Cartridge and chamber drawings with the C.I.P. dimensions&lt;/li&gt;&lt;li&gt;Metric, imperial or the original&apos;s units; light and dark theme; several languages&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2726,7 +2731,12 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
+        <source>&lt;h3&gt;Copyright and license&lt;/h3&gt;&lt;p&gt;Copyright &amp;copy; 2026 Schildkroet&lt;/p&gt;&lt;p&gt;&lt;b&gt;This is free software.&lt;/b&gt; You should not have paid for it. If someone sold it to you, you were cheated: ask for your money back and get the program from the link above.&lt;/p&gt;&lt;p&gt;ChamberSim Reloaded is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. It is distributed in the hope that it will be useful, but without any warranty; see the &lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;GNU General Public License&lt;/a&gt; for details.&lt;/p&gt;&lt;p&gt;The records of the built-in database are licensed under &lt;a href=&quot;https://creativecommons.org/licenses/by-sa/4.0/&quot;&gt;CC BY-SA 4.0&lt;/a&gt;.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>&lt;hr&gt;&lt;p&gt;&lt;small&gt;Qt %1 (built with %2) · %3 · language %4&lt;/small&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2759,7 +2769,7 @@ pressure Δ</source>
 <context>
     <name>csr</name>
     <message>
-        <location filename="../src/core/chronograph.cpp" line="+64"/>
+        <location filename="../src/core/chronograph.cpp" line="+83"/>
         <source>Series %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2813,7 +2823,7 @@ pressure Δ</source>
 <context>
     <name>csr::LoadFile</name>
     <message>
-        <location filename="../src/core/loadfile.cpp" line="+193"/>
+        <location filename="../src/core/loadfile.cpp" line="+212"/>
         <source>Not a ChamberSim Reloaded or GRT load file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2826,7 +2836,7 @@ pressure Δ</source>
 <context>
     <name>csr::dbfields</name>
     <message>
-        <location filename="../src/core/dbfields.cpp" line="+34"/>
+        <location filename="../src/core/dbfields.cpp" line="+53"/>
         <location line="+50"/>
         <location line="+20"/>
         <source>Name</source>
@@ -3183,7 +3193,7 @@ pressure Δ</source>
 <context>
     <name>csr::fields</name>
     <message>
-        <location filename="../src/core/fieldnames.cpp" line="+13"/>
+        <location filename="../src/core/fieldnames.cpp" line="+32"/>
         <source>G1 ballistic coefficient</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3506,7 +3516,7 @@ pressure Δ</source>
 <context>
     <name>csr::units</name>
     <message>
-        <location filename="../src/core/units.cpp" line="+157"/>
+        <location filename="../src/core/units.cpp" line="+176"/>
         <source>Metric (mm, g, bar, m/s)</source>
         <translation type="unfinished"></translation>
     </message>

@@ -1,3 +1,22 @@
+/*
+ * This file is part of ChamberSim Reloaded.
+ *
+ * Copyright (C) 2026 Schildkroet
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 #include "about.h"
 
 #include <QApplication>
@@ -55,6 +74,9 @@ QString html(const std::optional<DatabaseInfo> &database)
                                          "<p>A Qt&nbsp;6 re-creation of the workflow of Gordon's Reloading Tool. It is an independent "
                                          "project and is not affiliated with or supported by the original program or its author.</p>")
             .arg(version.toHtmlEscaped());
+    text += QStringLiteral(
+                "<p>%1 <a href=\"https://github.com/Schildkroet/ChamberSim-Reloaded\">github.com/Schildkroet/ChamberSim-Reloaded</a></p>")
+                .arg(QApplication::translate("about", "Source code and issue tracker:"));
     text += QApplication::translate("about",
                                     "<h3>Features</h3>"
                                     "<ul>"
@@ -90,6 +112,18 @@ QString html(const std::optional<DatabaseInfo> &database)
                                          "results, including damage to firearms or property.<br><br>"
                                          "Reloading ammunition is dangerous and is done entirely at your own responsibility."
                                          "</td></tr></table>");
+    text +=
+        QApplication::translate("about", "<h3>Copyright and license</h3>"
+                                         "<p>Copyright &copy; 2026 Schildkroet</p>"
+                                         "<p><b>This is free software.</b> You should not have paid for it. If someone sold it to you, "
+                                         "you were cheated: ask for your money back and get the program from the link above.</p>"
+                                         "<p>ChamberSim Reloaded is free software: you can redistribute it and/or modify it under the "
+                                         "terms of the GNU General Public License as published by the Free Software Foundation, either "
+                                         "version 3 of the License, or (at your option) any later version. It is distributed in the hope "
+                                         "that it will be useful, but without any warranty; see the "
+                                         "<a href=\"https://www.gnu.org/licenses/\">GNU General Public License</a> for details.</p>"
+                                         "<p>The records of the built-in database are licensed under "
+                                         "<a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</p>");
     text += QApplication::translate("about", "<hr><p><small>Qt %1 (built with %2) · %3 · language %4</small></p>")
                 .arg(QString::fromLatin1(qVersion()), QStringLiteral(QT_VERSION_STR), QSysInfo::prettyProductName().toHtmlEscaped(),
                      QLocale().name());
