@@ -667,7 +667,10 @@ bool MainWindow::exportRecord(const QString &path)
     const auto record = m_db.record(table, id);
     if (!record) return false;
     const auto schema = m_db.schema(table);
-    if (const QStringList problems = csr::projectdata::check(table, *record, schema); !problems.isEmpty() && path.isEmpty())
+    // the file gets the schema's columns without id and geloescht (toJson): check the record as it is written, not the database row
+    QVariantMap content = *record;
+    for (const QString &column : {QStringLiteral("id"), QStringLiteral("geloescht"), QStringLiteral("source")}) content.remove(column);
+    if (const QStringList problems = csr::projectdata::check(table, content, schema); !problems.isEmpty() && path.isEmpty())
     {
         if (QMessageBox::warning(
                 this, tr("Export record"),
