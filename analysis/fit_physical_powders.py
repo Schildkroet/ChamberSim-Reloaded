@@ -3,7 +3,7 @@
 
     fit_physical_powders.py <csr_eval> samples.csv [samples2.csv ...] [--out FILE] [--split train|all] [--min-samples 40]
                             [--pressure-weight 1.0] [--slope-weight 1.0] [--only N110,N120 --merge] [--start FILE]
-                            [--fit form|ba] [--form a0,z1,z2] [--limit-pressure]
+                            [--fit form|ba] [--form a0,z1,z2] [--limit-pressure [--limit-margin 50]]
 
 For every powder of data/propellants with at least --min-samples rows in the sample files (scripts/data/loaddata): Ba, a0, z1 and z2 are fitted
 to the velocities and, where published, the measured pressures (relative errors, robust loss) with the physical model's constants
@@ -17,7 +17,7 @@ the published gain at 0.92; weights of 1-10 change nothing. A per-powder burn-la
 tried and dropped: they trade velocity against pressure and leave the elasticity of own ladders, 1.1 against the model's 0.84, as it is.)
 --limit-pressure: for samples without measured pressures (Vihtavuori publishes only the C.I.P. maximum of the cartridge, column pmax_bar) the
 maximum loads count as loads at that limit, so the form function is determined as well (2026-10-14: the 16 Vihtavuori rifle powders; the maximum loads
-come out at 0.98 of the limit instead of 1.07, loads more than 20 % over it 166 instead of 670 of 3,755, velocity error 3.2 % as before).
+come out at 0.98 of the limit instead of 1.07 (with --limit-margin 50, i.e. the limit minus 50 bar, as in the data file: 0.97), loads more than 20 % over it 166 instead of 670 of 3,755, velocity error 3.2 % as before).
 The file keeps the record values the burn values belong to: they apply only to the unchanged record (physicalpowders.h)."""
 import argparse, csv, json, os, subprocess, sys, tempfile
 import numpy as np
@@ -38,6 +38,7 @@ ap.add_argument("--slope-weight", type=float, default=1.0, help="weight of the s
 ap.add_argument("--merge", action="store_true", help="keep the other powders of the existing --out file (with --only: refit some, e.g. new records)")
 ap.add_argument("--limit-pressure", action="store_true",
                 help="rows without a measured pressure: the maximum loads get the caliber's C.I.P. limit (column pmax_bar) as pressure (Vihtavuori)")
+ap.add_argument("--limit-margin", type=float, default=0.0, help="with --limit-pressure: the maximum loads count as this many bar below the limit")
 ap.add_argument("--eval-arg", action="append", default=[], help="extra option for csr_eval (repeatable), e.g. --eval-arg=--ps-handgun=150")
 args = ap.parse_args()
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
@@ -55,7 +56,7 @@ rows, seen = [], set()
 for f in args.samples:
     for r in csv.DictReader(open(f)):
         r.setdefault("pressure_bar", "")  # files without pressures (Vihtavuori)
-        if args.limit_pressure and not r["pressure_bar"] and r["kind"] == "max" and r.get("pmax_bar"): r["pressure_bar"] = r["pmax_bar"]
+        if args.limit_pressure and not r["pressure_bar"] and r["kind"] == "max" and r.get("pmax_bar"): r["pressure_bar"] = str(float(r["pmax_bar"]) - args.limit_margin)
         if r["powder"].lower() not in records and len(by_name.get(r["powder"].lower(), [])) == 1: r["powder"] = by_name[r["powder"].lower()][0]
         if r.get("pressure_bar") and not 500 <= float(r["pressure_bar"]) <= 9000: r["pressure_bar"] = ""
         key = (r["powder"].upper(), r["caliber"], r["bullet_gr"], r["kind"], r["charge_g"], r["velocity_ms"], r["col_mm"])

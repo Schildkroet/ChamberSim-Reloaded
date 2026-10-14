@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # The application version: the single place to change it (shown in Help > About, bundle info, ...).
-set(CSR_VERSION "0.6")
+set(CSR_VERSION "0.7")
 
 project(ChamberSimReloaded VERSION ${CSR_VERSION} LANGUAGES CXX)
 
