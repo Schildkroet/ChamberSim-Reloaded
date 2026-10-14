@@ -49,6 +49,7 @@ signals:
     void customTitleBarChanged(bool on);
 
 protected:
+    void setVisible(bool visible) override;
     void resizeEvent(QResizeEvent *event) override;
 
 private:

@@ -295,6 +295,22 @@ void SettingsDialog::fitWrappedLabels()
         if (label->wordWrap() && label->width() > 0) label->setMinimumHeight(label->heightForWidth(label->width()));
 }
 
+// The wrapped labels only get their final height once the layout has a width. Doing that after the window exists raises the
+// minimum height of the dialog behind the window system's back (Windows: "Unable to set geometry"), so lay out first.
+void SettingsDialog::setVisible(bool visible)
+{
+    if (visible && !isVisible())
+    {
+        resize(size().expandedTo(sizeHint()));
+        layout()->activate();
+        fitWrappedLabels();
+        layout()->invalidate();
+        layout()->activate();
+        resize(size().expandedTo(minimumSizeHint()));
+    }
+    QDialog::setVisible(visible);
+}
+
 void SettingsDialog::resizeEvent(QResizeEvent *event)
 {
     QDialog::resizeEvent(event);
