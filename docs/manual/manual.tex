@@ -128,6 +128,26 @@ ChamberSimReloaded [options] [load.csrload ...]
 \end{verbatim}
 Files given on the command line are opened as loads.
 
+\subsection{Simulating without the window}\label{sec:csrsim}
+The program \texttt{csr\_sim} runs simulations without a graphical interface, for scripts and batch jobs. It reads \texttt{.csrload} and
+\texttt{.grtload} files and prints one row per load and ladder step.
+\begin{verbatim}
+csr_sim [options] load.csrload|load.grtload ...
+  --profile <m>         original | published | physical (default)
+  --grt-original        use the Original model for .grtload files
+  --charge <g>          override the charge of the load
+  --ladder-count <n>    override the number of ladder steps
+  --ladder-step <g>     override the charge difference of the ladder
+  --format <f>          table (default) | csv | json
+  --out <file>          write the results to a file
+  --curve <file.csv>    pressure/velocity curve of the focused ladder step;
+                        {name} is replaced by the load's file name
+  --steps <n>           position steps of the solver (default 2000)
+\end{verbatim}
+Each row holds the charge, maximum and muzzle pressure, muzzle velocity, energy and time, burnt fraction, efficiency, burnout in the barrel,
+load ratio and the status. Units are g, mm, bar, m/s, J and ms, whatever the unit settings of the program. The exit code is 0 when all
+simulations succeeded, 1 when at least one failed (for example because the charge does not fit into the case) and 2 for a usage or file error.
+
 %=====================================================================
 \section{The main window}
 

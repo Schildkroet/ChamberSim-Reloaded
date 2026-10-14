@@ -17,6 +17,12 @@ set_tests_properties(gui PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 # the project's record files must all be usable
 add_test(NAME projectdata COMMAND csr_datacheck "${CMAKE_SOURCE_DIR}/data")
 
+# headless simulation
+add_test(NAME sim_cli COMMAND csr_sim --format json "${CMAKE_CURRENT_SOURCE_DIR}/fixtures/8x57is.grtload")
+set_tests_properties(sim_cli PROPERTIES PASS_REGULAR_EXPRESSION "muzzleVelocity_ms")
+add_test(NAME sim_cli_missing_file COMMAND csr_sim "${CMAKE_CURRENT_SOURCE_DIR}/fixtures/does-not-exist.grtload")
+set_tests_properties(sim_cli_missing_file PROPERTIES WILL_FAIL TRUE)
+
 if(TARGET clang_format)
     add_dependencies(tst_core clang_format)
     add_dependencies(tst_gui clang_format)

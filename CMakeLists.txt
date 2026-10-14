@@ -130,6 +130,11 @@ add_executable(csr_eval tools/csr_eval.cpp)
 target_link_libraries(csr_eval PRIVATE csrcore)
 target_compile_definitions(csr_eval PRIVATE CSR_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
+# headless simulation for scripts: csr_sim --help
+add_executable(csr_sim tools/csr_sim.cpp)
+target_link_libraries(csr_sim PRIVATE csrcore)
+install(TARGETS csr_sim RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
 add_executable(grt_compare tools/grt_compare.cpp)
 target_link_libraries(grt_compare PRIVATE csrcore)
 target_compile_definitions(grt_compare PRIVATE CSR_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
@@ -145,7 +150,7 @@ if(CSR_FORMAT_ON_BUILD AND CSR_CLANG_FORMAT)
         COMMAND ${CSR_CLANG_FORMAT} -i --style=file ${CSR_FORMAT_FILES}
         COMMENT "clang-format"
         VERBATIM)
-    foreach(t csrcore csrui ChamberSimReloaded csr_datacheck csr_fitpowder csr_fitdata csr_eval grt_compare)
+    foreach(t csrcore csrui ChamberSimReloaded csr_datacheck csr_fitpowder csr_fitdata csr_eval csr_sim grt_compare)
         add_dependencies(${t} clang_format)
     endforeach()
 elseif(CSR_FORMAT_ON_BUILD)

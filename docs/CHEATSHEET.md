@@ -81,6 +81,16 @@ python3 adi_extract.py -o adi_samples.csv --cache adi_pages                    #
 python3 vectan_extract.py catalogue.pdf -o vectan_samples.csv --ocr-cache ocr.json   # needs rapidocr-onnxruntime (OCR)
 ```
 
+## ⌨️ Simulate from the command line
+
+```bash
+# one row per load and ladder step (units: g, mm, bar, m/s, J, ms); exit code 0 ok, 1 simulation failed, 2 usage/read error
+build/release/csr_sim [--profile original|published|physical] [--grt-original] [--charge g] \
+    [--ladder-count n --ladder-step g] [--format table|csv|json] [--out file] [--steps n] a.csrload b.grtload ...
+build/release/csr_sim --format json load.csrload                  # for scripts
+build/release/csr_sim --curve 'curves/{name}.csv' *.csrload       # p/v/e/z along the barrel (focused ladder step)
+```
+
 ## 🔥 Powders: fit and write records
 
 ```bash
