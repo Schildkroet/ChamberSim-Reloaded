@@ -98,7 +98,7 @@ and minimum charge, primer, case, cartridge length, velocity v3 of the maximum l
 448 samples (maximum loads only; 10.3 x 60 R is not in the records). No pressures are published. The test barrels come from chapter 9 of the RWS
 reloading book (`rws-ammunition.com/fileadmin/.../Wiederladebuch/Kapitel_9_Wiederladebuch.pdf`, page 20): 600 mm for most cartridges, 650 mm for the
 magnums and a few others (`BARRELS` in the script). Only velocities are fitted.
-`published_fit.py --maker Rottweil --no-pressure --max-rms 6 --min-samples 10` writes R901 / R902 / R903 / R904 / R905 / R907 (Ba 0.71 / 0.79 / 0.55 / 0.61 / 0.45 / 0.68,
+`published_fit.py --maker RWS-Rottweil --no-pressure --max-rms 6 --min-samples 10` writes R901 / R902 / R903 / R904 / R905 / R907 (Ba 0.71 / 0.79 / 0.55 / 0.61 / 0.45 / 0.68,
 velocity error 3.0-4.4 %; `rws_fits.csv`). The single/double base type is not published (the better fit decides), so the Ba values do not order strictly by the
 powder numbers. R906 (1 load) is not written.
 

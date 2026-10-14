@@ -1,6 +1,6 @@
 [
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS12",
     "lotid": "",
     "Ba": 2.6367,
@@ -21,7 +21,7 @@
     "descr": "Burn rate Ba fitted to 242 start and maximum loads of the manufacturer's published load data (12 cartridges), velocity error 9.6 % rms, pressure error 37 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS14",
     "lotid": "",
     "Ba": 2.5862,
@@ -42,7 +42,7 @@
     "descr": "Burn rate Ba fitted to 149 start and maximum loads of the manufacturer's published load data (22 cartridges), velocity error 20.4 % rms, pressure error 31 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS20",
     "lotid": "",
     "Ba": 2.0015,
@@ -63,7 +63,7 @@
     "descr": "Burn rate Ba fitted to 212 start and maximum loads of the manufacturer's published load data (19 cartridges), velocity error 13.2 % rms, pressure error 34 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS24",
     "lotid": "",
     "Ba": 1.8333,
@@ -84,7 +84,7 @@
     "descr": "Burn rate Ba fitted to 143 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 9.5 % rms, pressure error 37 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS30",
     "lotid": "",
     "Ba": 0.901,
@@ -105,7 +105,7 @@
     "descr": "Burn rate Ba fitted to 125 start and maximum loads of the manufacturer's published load data (20 cartridges), velocity error 7.8 % rms, pressure error 33 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS36",
     "lotid": "",
     "Ba": 0.744,
@@ -126,7 +126,7 @@
     "descr": "Burn rate Ba fitted to 117 start and maximum loads of the manufacturer's published load data (16 cartridges), velocity error 8.8 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS40",
     "lotid": "",
     "Ba": 0.6334,
@@ -147,7 +147,7 @@
     "descr": "Burn rate Ba fitted to 298 start and maximum loads of the manufacturer's published load data (28 cartridges), velocity error 8.3 % rms, pressure error 26 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS50",
     "lotid": "",
     "Ba": 0.528,
@@ -168,7 +168,7 @@
     "descr": "Burn rate Ba fitted to 331 start and maximum loads of the manufacturer's published load data (28 cartridges), velocity error 5.3 % rms, pressure error 20 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS52",
     "lotid": "",
     "Ba": 0.5612,
@@ -189,7 +189,7 @@
     "descr": "Burn rate Ba fitted to 468 start and maximum loads of the manufacturer's published load data (39 cartridges), velocity error 5.8 % rms, pressure error 19 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS60",
     "lotid": "",
     "Ba": 0.507,
@@ -210,7 +210,7 @@
     "descr": "Burn rate Ba fitted to 628 start and maximum loads of the manufacturer's published load data (48 cartridges), velocity error 5.4 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS62",
     "lotid": "",
     "Ba": 0.4551,
@@ -231,7 +231,7 @@
     "descr": "Burn rate Ba fitted to 444 start and maximum loads of the manufacturer's published load data (31 cartridges), velocity error 5.9 % rms, pressure error 21 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS70",
     "lotid": "",
     "Ba": 0.4409,
@@ -252,7 +252,7 @@
     "descr": "Burn rate Ba fitted to 404 start and maximum loads of the manufacturer's published load data (41 cartridges), velocity error 4.8 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS76",
     "lotid": "",
     "Ba": 0.3725,
@@ -273,7 +273,7 @@
     "descr": "Burn rate Ba fitted to 146 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 5.3 % rms, pressure error 14 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
   },
   {
-    "mname": "Reload Swiss",
+    "mname": "ReloadSwiss",
     "pname": "RS80",
     "lotid": "",
     "Ba": 0.3035,

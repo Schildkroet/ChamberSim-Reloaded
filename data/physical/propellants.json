@@ -2941,7 +2941,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS12",
    "record": {
     "Ba": 2.6367,
@@ -2964,7 +2964,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS14",
    "record": {
     "Ba": 2.5862,
@@ -2987,7 +2987,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS20",
    "record": {
     "Ba": 2.0015,
@@ -3010,7 +3010,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS24",
    "record": {
     "Ba": 1.8333,
@@ -3033,7 +3033,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS30",
    "record": {
     "Ba": 0.901,
@@ -3056,7 +3056,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS36",
    "record": {
     "Ba": 0.744,
@@ -3079,7 +3079,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS40",
    "record": {
     "Ba": 0.6334,
@@ -3102,7 +3102,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS50",
    "record": {
     "Ba": 0.528,
@@ -3125,7 +3125,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS52",
    "record": {
     "Ba": 0.5612,
@@ -3148,7 +3148,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS60",
    "record": {
     "Ba": 0.507,
@@ -3171,7 +3171,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS62",
    "record": {
     "Ba": 0.4551,
@@ -3194,7 +3194,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS70",
    "record": {
     "Ba": 0.4409,
@@ -3217,7 +3217,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS76",
    "record": {
     "Ba": 0.3725,
@@ -3240,7 +3240,7 @@
    }
   },
   {
-   "mname": "Reload Swiss",
+   "mname": "ReloadSwiss",
    "pname": "RS80",
    "record": {
     "Ba": 0.3035,
@@ -3263,7 +3263,7 @@
    }
   },
   {
-   "mname": "Rottweil",
+   "mname": "RWS-Rottweil",
    "pname": "R902",
    "record": {
     "Ba": 0.7893,
@@ -3284,7 +3284,7 @@
    }
   },
   {
-   "mname": "Rottweil",
+   "mname": "RWS-Rottweil",
    "pname": "R903",
    "record": {
     "Ba": 0.5548,
@@ -3305,7 +3305,7 @@
    }
   },
   {
-   "mname": "Rottweil",
+   "mname": "RWS-Rottweil",
    "pname": "R904",
    "record": {
     "Ba": 0.6084,
@@ -3326,7 +3326,7 @@
    }
   },
   {
-   "mname": "Rottweil",
+   "mname": "RWS-Rottweil",
    "pname": "R905",
    "record": {
     "Ba": 0.4451,
@@ -3347,7 +3347,7 @@
    }
   },
   {
-   "mname": "Rottweil",
+   "mname": "RWS-Rottweil",
    "pname": "R907",
    "record": {
     "Ba": 0.6761,

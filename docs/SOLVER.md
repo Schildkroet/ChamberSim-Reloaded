@@ -14,9 +14,9 @@
   and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show the heat loss and
   the work of the sliding friction (the engraving and the air act on the bullet but are not part of that value); a bullet that cannot leave
   the barrel is reported.
-  Its constants and the **physical burn values** of 183 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
-  pressures (127 powders: Hodgdon, Western, Lovex, Reload Swiss, ADI); Vihtavuori, Vectan and RWS publish no pressures, their 30 powders have a fitted Ba and the median
-  form function of the others) come from `analysis/calibrate_published.py --profile physical` and
+  Its constants and the **physical burn values** of 193 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
+  pressures (Hodgdon, Western, Lovex, ReloadSwiss, ADI; Vihtavuori, Vectan, RWS and Alliant publish none: their maximum loads count as the C.I.P. limit minus 50 bar;
+  4 Alliant powders with too few loads have the median form function of the others) come from `analysis/calibrate_published.py --profile physical` and
   `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A `.csrload` stores them in its `<physical>` section (`physBa`,
   `physA0`, `physZ1`, `physZ2`, `physRef` = the record values they belong to); they apply only while Ba, a0, z1, z2 of the load are
   unchanged, otherwise (other powders, edited values) the load's burn rate is scaled and the deviations are larger. A load saved

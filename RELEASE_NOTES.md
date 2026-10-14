@@ -3,21 +3,7 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
-## 0.6
-
-### Fixed
-
-- **Windows: crash when creating or opening a load.** The program stopped as soon
-  as it needed the physical burn values of a propellant, on PCs whose Visual C++
-  runtime (msvcp140.dll) is older than the compiler of the release build. The
-  Windows build no longer uses the mutex constructor that fails with the older
-  runtime.
-- **Exporting a record no longer shows a false warning.** The check for the
-  project's database ran on the database row, which also holds `id`,
-  `geloescht` and `source`, so every export of a caliber, projectile or
-  propellant warned that these "must not be in the file" or were an "unknown
-  column". The exported file was always correct; only the check was wrong, it
-  now looks at the record as it is written.
+## 0.7
 
 ### Added and changed
 
@@ -47,6 +33,32 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
   Vectan 6.1 to 7.2 % rms). The American Alliant loads are limited by SAAMI, which
   differs from C.I.P. for some pistol cartridges. Alliant American Select, Red Dot, 1200-R and
   Reloder 33 have too few loads to fit the burn shape and use the median.
+- **Maker names of the Rottweil and Reload Swiss records match the original database.**
+  The project records were called "Rottweil" and "Reload Swiss", the original
+  database "RWS-Rottweil" and "ReloadSwiss", so loads made with the original's
+  records (maker "RWS-Rottweil", e.g. R904) found no record of the project and the
+  powders were listed twice. The project records now use the original's spelling.
+  Loads saved with the old names ("Rottweil", "Reload Swiss") no longer match the
+  project records; select the propellant again to update them.
+
+## 0.6
+
+### Fixed
+
+- **Windows: crash when creating or opening a load.** The program stopped as soon
+  as it needed the physical burn values of a propellant, on PCs whose Visual C++
+  runtime (msvcp140.dll) is older than the compiler of the release build. The
+  Windows build no longer uses the mutex constructor that fails with the older
+  runtime.
+- **Exporting a record no longer shows a false warning.** The check for the
+  project's database ran on the database row, which also holds `id`,
+  `geloescht` and `source`, so every export of a caliber, projectile or
+  propellant warned that these "must not be in the file" or were an "unknown
+  column". The exported file was always correct; only the check was wrong, it
+  now looks at the record as it is written.
+
+### Added and changed
+
 - **Simulate from the command line.** The new program `csr_sim` runs the solver
   without a window and prints the results of one or several loads as a table,
   CSV or JSON (maximum and muzzle pressure, velocity, energy, burnt fraction,
