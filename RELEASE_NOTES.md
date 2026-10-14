@@ -21,6 +21,16 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
 
 ### Added and changed
 
+- **Vihtavuori rifle powders refitted with the C.I.P. limit.** The physical burn
+  values of the 16 rifle powders (N130-N170, N530-N570) are fitted to the
+  published velocities and to the cartridge's C.I.P. maximum pressure for every
+  maximum load, which the Vihtavuori tables give instead of measured pressures.
+  Over their 3,755 maximum loads the model now stays at 0.98 of the limit on
+  average (before 1.07); loads more than 20 % over the limit drop from 670 to
+  166. The velocity error stays at 3.2 % rms. The pressure of one load still
+  scatters by about 12 % (for example a 178 gr bullet with a compressed charge
+  of N140 in .308 Win.: 4,860 bar instead of 5,050 bar, limit 4,150 bar).
+  Existing loads keep their stored values until the propellant is selected again.
 - **Simulate from the command line.** The new program `csr_sim` runs the solver
   without a window and prints the results of one or several loads as a table,
   CSV or JSON (maximum and muzzle pressure, velocity, energy, burnt fraction,
