@@ -24,6 +24,9 @@ endif()
 # -j<N> or set CMAKE_BUILD_PARALLEL_LEVEL (cmake --build . --parallel).
 if(MSVC)
     add_compile_options(/MP)  # compile the files of one target in parallel
+    # Since Visual Studio 2022 17.10 std::mutex has a constexpr constructor that crashes at the first lock() when the program runs with an
+    # older msvcp140.dll (the Visual C++ runtime of the user's PC; windeployqt does not ship it): the loads crashed in physicalpowders.
+    add_compile_definitions(_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR)
 endif()
 find_program(CSR_CCACHE ccache)
 if(CSR_CCACHE)
