@@ -149,7 +149,7 @@ jobs:
         run: |
           cmake --install build --prefix dist
           if ($LASTEXITCODE -ne 0) { throw "cmake --install failed" }
-          windeployqt --release --no-translations --no-system-d3d-compiler --no-opengl-sw dist\bin\ChamberSimReloaded.exe
+          windeployqt --release --compiler-runtime --no-translations --no-system-d3d-compiler --no-opengl-sw dist\bin\ChamberSimReloaded.exe
           Get-ChildItem dist\bin
 
       - name: Smoke test (starts the app and takes a screenshot)
