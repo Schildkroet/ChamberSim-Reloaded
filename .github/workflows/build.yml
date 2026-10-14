@@ -38,7 +38,7 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-          cmake --build build --target tst_core tst_gui csr_datacheck --parallel
+          cmake --build build --target tst_core tst_gui csr_datacheck csr_sim --parallel
 
       # tst_core, tst_gui (offscreen, see tests/CMakeLists.txt) and the check of the project database (data/)
       - name: Run the tests
@@ -71,7 +71,7 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
-          cmake --build build --target ChamberSimReloaded csr_fitpowder --parallel
+          cmake --build build --target ChamberSimReloaded csr_fitpowder csr_sim --parallel
 
       - name: Smoke test (starts the app offscreen and takes a screenshot)
         env:
@@ -142,7 +142,7 @@ jobs:
       - name: Configure and build
         run: |
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-          cmake --build build --target ChamberSimReloaded csr_fitpowder --parallel
+          cmake --build build --target ChamberSimReloaded csr_fitpowder csr_sim --parallel
 
       - name: Collect and deploy Qt
         shell: pwsh
