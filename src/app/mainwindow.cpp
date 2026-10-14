@@ -45,6 +45,8 @@
 #include <QApplication>
 #include <QActionGroup>
 #include <QCloseEvent>
+#include <QDesktopServices>
+#include <QDir>
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -62,6 +64,7 @@
 #include <QStatusBar>
 #include <QTabBar>
 #include <QTabWidget>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -343,6 +346,7 @@ void MainWindow::createActions()
 
     // Help
     QMenu *help = m_menuBar->addMenu(tr("&Help"));
+    help->addAction(tr("&User manual"), QKeySequence::HelpContents, this, [this] { openManual(); });
     help->addAction(tr("&About ChamberSim Reloaded…"), this,
                     [this]
                     {
@@ -369,6 +373,22 @@ void MainWindow::createActions()
 LoadView *MainWindow::currentLoad() const
 {
     return qobject_cast<LoadView *>(m_tabs->currentWidget());
+}
+
+// The manual PDF is installed next to the executable (Windows) or under share/ChamberSimReloaded (AppImage, packages).
+void MainWindow::openManual()
+{
+    const QString dir = QCoreApplication::applicationDirPath();
+    for (const QString &candidate : {dir + QStringLiteral("/manual.pdf"), dir + QStringLiteral("/../share/ChamberSimReloaded/manual.pdf")})
+    {
+        if (QFileInfo::exists(candidate))
+        {
+            if (!QDesktopServices::openUrl(QUrl::fromLocalFile(QFileInfo(candidate).canonicalFilePath())))
+                QMessageBox::warning(this, tr("User manual"), tr("No program was found to open the PDF file."));
+            return;
+        }
+    }
+    QMessageBox::information(this, tr("User manual"), tr("The user manual is not part of this installation."));
 }
 
 void MainWindow::addRecentFile(const QString &path)

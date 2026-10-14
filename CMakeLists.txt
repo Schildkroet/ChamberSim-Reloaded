@@ -82,6 +82,15 @@ install(TARGETS ChamberSimReloaded
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+# the user manual (Help > User manual): next to the executable on Windows, in the data directory elsewhere
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/docs/manual/manual.pdf)
+    if(WIN32)
+        install(FILES docs/manual/manual.pdf DESTINATION ${CMAKE_INSTALL_BINDIR})
+    else()
+        install(FILES docs/manual/manual.pdf DESTINATION ${CMAKE_INSTALL_DATADIR}/ChamberSimReloaded)
+    endif()
+endif()
+
 if(UNIX AND NOT APPLE)
     install(FILES packaging/linux/chambersimreloaded-mime.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/packages)
 endif()

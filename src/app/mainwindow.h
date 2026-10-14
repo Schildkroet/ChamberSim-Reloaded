@@ -105,6 +105,7 @@ private:
     void updateTabTitle(LoadView *view);
     void setLoadViewDatabases(bool available);
     void addRecentFile(const QString &path);
+    void openManual();
     void updateRecentActions();
     void updateActions();
     void setupLoadView(LoadView *view);
