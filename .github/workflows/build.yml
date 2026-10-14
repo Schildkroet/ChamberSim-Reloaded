@@ -218,5 +218,6 @@ jobs:
           skip-decompress: true     # the Windows zip stays a zip (it would be unpacked into a folder, which the upload skips)
       - uses: softprops/action-gh-release@v3
         with:
+          name: ChamberSim Reloaded ${{ github.ref_name }}
           draft: true
           files: artifacts/*

@@ -25,6 +25,7 @@
 #include "unitprefs.h"
 
 #include <QComboBox>
+#include <QEvent>
 #include <QHeaderView>
 #include <QLineEdit>
 #include <QSettings>
@@ -227,10 +228,16 @@ void PropertyPanel::rememberColumns(const QString &key)
     m_userSizedColumns = true;
 }
 
-void PropertyPanel::resizeEvent(QResizeEvent *event)
+// Follows the table's own viewport (the panel's resize event arrives before the table has its new size, which left
+// the property column as wide as the whole table so the values had to be scrolled into view).
+bool PropertyPanel::eventFilter(QObject *watched, QEvent *event)
 {
-    QWidget::resizeEvent(event);
-    if (m_userSizedColumns) return;
+    if (watched == m_table->viewport() && event->type() == QEvent::Resize && !m_userSizedColumns) fitColumns();
+    return QWidget::eventFilter(watched, event);
+}
+
+void PropertyPanel::fitColumns()
+{
     m_adjustingColumns = true;
     const int unitWidth = 60;
     m_table->setColumnWidth(0, std::max(80, m_table->viewport()->width() - m_table->columnWidth(1) - unitWidth));
@@ -249,6 +256,7 @@ PropertyPanel::PropertyPanel(QWidget *parent)
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     m_table->horizontalHeader()->setMinimumSectionSize(30);
     m_table->setColumnWidth(1, 96);
+    m_table->viewport()->installEventFilter(this);
     connect(m_table->horizontalHeader(), &QHeaderView::sectionResized, this,
             [this]
             {

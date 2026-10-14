@@ -56,9 +56,11 @@ signals:
     void valueEdited(int sectionId, const QString &key, const QString &text);
 
 protected:
-    void resizeEvent(QResizeEvent *event) override;
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
+    void fitColumns();
+
     enum Role
     {
         SectionRole = Qt::UserRole,
