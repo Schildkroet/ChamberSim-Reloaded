@@ -21,16 +21,32 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
 
 ### Added and changed
 
-- **Vihtavuori rifle powders refitted with the C.I.P. limit.** The physical burn
-  values of the 16 rifle powders (N130-N170, N530-N570) are fitted to the
-  published velocities and to the cartridge's C.I.P. maximum pressure minus 50 bar for
-  every maximum load, which the Vihtavuori tables give instead of measured pressures.
-  Over their 3,755 maximum loads the model now stays at 0.97 of the limit on
-  average (before 1.07); loads more than 20 % over the limit drop from 670 to
-  128. The velocity error stays at 3.2 % rms. The pressure of one load still
-  scatters by about 12 % (for example a 178 gr bullet with a compressed charge
-  of N140 in .308 Win.: 4,660 bar instead of 5,050 bar, limit 4,150 bar).
-  Existing loads keep their stored values until the propellant is selected again.
+- **Vihtavuori powders refitted with the C.I.P. limit.** The physical burn values of
+  26 Vihtavuori powders (rifle N130-N170 and N530-N570, pistol and fast powders
+  24N41, N105, N110, N120, N320, N330, N340, N350, 3N37, 3N38) are fitted to the
+  published velocities and to the cartridge's C.I.P. maximum pressure minus
+  50 bar for every maximum load, which the Vihtavuori tables give instead of
+  measured pressures. The 16 rifle powders: over their 3,996 maximum loads the
+  model now stays at 0.98 of the limit on average (before 1.07), loads more than
+  20 % over the limit drop from 729 to 154, and the velocity error stays at
+  3.2 % rms. The pressure of one load still scatters by about 12 % (for example
+  a 178 gr bullet with a compressed charge of N140 in .308 Win.: 4,660 bar
+  instead of 5,050 bar, limit 4,150 bar). The 10 pistol and fast powders were
+  at 1.24 of the limit on average and are now at 0.93 (loads more than 20 % over:
+  269 of 511 before, 34 now); their velocity error falls from 12.9 % to 8.0 %
+  rms, still much worse than for rifle powders. N310, N32C and 20N29 have too
+  few loads and keep their record values. Existing loads keep their stored
+  values until the propellant is selected again.
+- **Rottweil, Alliant and Vectan powders refitted with the C.I.P. limit.** Their
+  tables give no pressures either, so the 40 powders (5 Rottweil, 26 Alliant,
+  9 Vectan) are fitted like the Vihtavuori ones: the maximum loads count as the
+  cartridge's C.I.P. limit minus 50 bar. Mean calculated pressure of the maximum
+  loads / limit: Rottweil 1.09 to 0.98, Alliant 1.12 to 0.97, Vectan 1.42 to 1.01;
+  loads more than 20 % over the limit: 73 to 9, 471 to 37 and 164 to 36. The
+  velocity error rises a little (Rottweil 3.5 to 3.6 %, Alliant 3.9 to 4.5 %,
+  Vectan 6.1 to 7.2 % rms). The American Alliant loads are limited by SAAMI, which
+  differs from C.I.P. for some pistol cartridges. Alliant American Select, Red Dot, 1200-R and
+  Reloder 33 have too few loads to fit the burn shape and use the median.
 - **Simulate from the command line.** The new program `csr_sim` runs the solver
   without a window and prints the results of one or several loads as a table,
   CSV or JSON (maximum and muzzle pressure, velocity, energy, burnt fraction,

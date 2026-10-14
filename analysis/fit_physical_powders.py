@@ -17,7 +17,7 @@ the published gain at 0.92; weights of 1-10 change nothing. A per-powder burn-la
 tried and dropped: they trade velocity against pressure and leave the elasticity of own ladders, 1.1 against the model's 0.84, as it is.)
 --limit-pressure: for samples without measured pressures (Vihtavuori publishes only the C.I.P. maximum of the cartridge, column pmax_bar) the
 maximum loads count as loads at that limit, so the form function is determined as well (2026-10-14: the 16 Vihtavuori rifle powders; the maximum loads
-come out at 0.98 of the limit instead of 1.07 (with --limit-margin 50, i.e. the limit minus 50 bar, as in the data file: 0.97), loads more than 20 % over it 166 instead of 670 of 3,755, velocity error 3.2 % as before).
+come out at 0.98 of the limit instead of 1.07 (with --limit-margin 50, i.e. the limit minus 50 bar, as in the data file: 0.98 over all 3,996 max loads of the 16 rifle powders; the 10 pistol powders 1.24 -> 0.93, velocity 12.9 -> 8.0 % rms), loads more than 20 % over it 166 instead of 670 of 3,755, velocity error 3.2 % as before).
 The file keeps the record values the burn values belong to: they apply only to the unchanged record (physicalpowders.h)."""
 import argparse, csv, json, os, subprocess, sys, tempfile
 import numpy as np

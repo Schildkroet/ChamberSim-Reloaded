@@ -52,7 +52,7 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   their descriptions say "use with more caution"), only powders with fewer than 9 samples are not. `tools/csr_fitdata` and `scripts/data/loaddata` do the work, see
   `scripts/data/loaddata/README.md` for the method and the results.
 - **Physical model values** (`data/physical/`, fitted, generated: do not edit by hand): `propellants.json` has the burn rate Ba and form function of
-  183 powders for the physical model (`analysis/fit_physical_powders.py`, 127 fitted to velocities and pressures, 56 to velocities only), `calibers.json` a
+  193 powders for the physical model (`analysis/fit_physical_powders.py`, 189 fitted to velocities and pressures, 4 to velocities only; for the Vihtavuori, Rottweil, Alliant and Vectan powders, whose tables give no pressures, the maximum loads count as the C.I.P. limit minus 50 bar, `--limit-pressure --limit-margin 50`), `calibers.json` a
   factor on the burn rate for 15 pistol and revolver calibers with at least 100 published loads (`analysis/fit_caliber_scales.py`, 0.93 - 1.21). Both are fitted
   to the published load tables (`scripts/data/loaddata/sources/samples`) without the loads that disagree with their own table by more than 15 %
   (`analysis/sample_filter.py`). Bullet photos for the lengths: see Projectiles above.
