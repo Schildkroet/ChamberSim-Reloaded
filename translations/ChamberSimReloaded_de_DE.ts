@@ -3485,7 +3485,7 @@ Druck Δ</translation>
     <message>
         <location line="+1"/>
         <source>special bullet resistance inside the barrel</source>
-        <translation>Zusätzlicher Geschosswiderstand im Lauf</translation>
+        <translation>Geschossreibung</translation>
     </message>
     <message>
         <location line="+1"/>

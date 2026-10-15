@@ -3461,7 +3461,7 @@ pressure Δ</source>
     <message>
         <location line="+1"/>
         <source>special bullet resistance inside the barrel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bullet friction</translation>
     </message>
     <message>
         <location line="+1"/>

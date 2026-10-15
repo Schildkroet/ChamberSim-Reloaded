@@ -3485,7 +3485,7 @@ pression Δ</translation>
     <message>
         <location line="+1"/>
         <source>special bullet resistance inside the barrel</source>
-        <translation>Résistance particulière de la balle dans le canon</translation>
+        <translation>Frottement balle</translation>
     </message>
     <message>
         <location line="+1"/>

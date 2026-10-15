@@ -3485,7 +3485,7 @@ pressione Δ</translation>
     <message>
         <location line="+1"/>
         <source>special bullet resistance inside the barrel</source>
-        <translation>Resistenza particolare della palla nella canna</translation>
+        <translation>Attrito palla</translation>
     </message>
     <message>
         <location line="+1"/>
