@@ -132,7 +132,8 @@
     "gdia": 6.17,
     "glen": 33.0,
     "gmass": 105.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "gpressure": 250.0
   },
   {
     "mname": "GECO",

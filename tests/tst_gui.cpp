@@ -584,14 +584,12 @@ void GuiTest::codedFieldsShowReadableText()
                                   .descr = QString::fromLatin1(descr)});
     };
     add("gTailType", "2", "projectile base type");
-    add("gfrictionUnlock", "false", "unlocked friction");
     add("shotshell", "true", "true if shotshell");
     PropertyPanel panel;
     panel.setSections({{0, u"projectile"_s, u"Projectile"_s, &list}});
     QTableWidget *t = tableOf(panel);
-    const int rTail = rowOf(t, u"gTailType"_s), rLock = rowOf(t, u"gfrictionUnlock"_s), rShell = rowOf(t, u"shotshell"_s);
+    const int rTail = rowOf(t, u"gTailType"_s), rShell = rowOf(t, u"shotshell"_s);
     QCOMPARE(t->item(rTail, 1)->text(), u"boat tail"_s);  // not "2"
-    QCOMPARE(t->item(rLock, 1)->text(), u"locked"_s);
     QCOMPARE(t->item(rShell, 1)->text(), u"yes"_s);
     QCOMPARE(t->item(rShell, 0)->text(), u"Shotshell"_s);
     QCOMPARE(t->item(rTail, 0)->text(), u"Projectile Base Type"_s);
@@ -603,8 +601,8 @@ void GuiTest::codedFieldsShowReadableText()
     QCOMPARE(spy.at(0).at(1).toString(), u"gTailType"_s);
     QCOMPARE(spy.at(0).at(2).toString(), u"1"_s);
     QCOMPARE(t->item(rTail, 1)->text(), u"hollow base"_s);
-    t->item(rLock, 1)->setText(u"unlocked"_s);
-    QCOMPARE(spy.at(1).at(2).toString(), u"true"_s);
+    t->item(rShell, 1)->setText(u"no"_s);
+    QCOMPARE(spy.at(1).at(2).toString(), u"false"_s);
     // something that is not a choice is ignored and the old text is restored
     t->item(rTail, 1)->setText(u"banana"_s);
     QCOMPARE(spy.count(), 2);

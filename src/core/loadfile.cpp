@@ -324,7 +324,9 @@ QByteArray LoadFile::toXml(FileFormat format) const
     writeList(w, u"caliber"_s, caliber, u"input"_s, std::not_fn(isShotPart));
     writeList(w, u"caliberfile"_s, caliberFile, u"var"_s);
     writeList(w, u"gun"_s, gun, u"input"_s);
-    writeList(w, u"projectile"_s, projectile, u"input"_s);
+    EntryList prj = projectile;
+    if (original) prj.set(u"gfrictionUnlock"_s, u"true"_s);  // the original applies gfriction only when this is on; here it always applies
+    writeList(w, u"projectile"_s, prj, u"input"_s);
     writeList(w, u"propellant"_s, propellant, u"input"_s, std::not_fn(isPhysical));
     if (!original)
     {

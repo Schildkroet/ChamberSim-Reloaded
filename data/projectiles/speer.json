@@ -18,10 +18,11 @@
     "gdia": 6.17,
     "glen": 27.0,
     "gmass": 100.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
-    "g1bc": 0.446
+    "g1bc": 0.446,
+    "gfriction": 35.0
   },
   {
     "mname": "Speer",
@@ -78,10 +79,11 @@
     "gdia": 7.21,
     "glen": 26.9,
     "gmass": 130.0,
-    "gpressure": 250.0,
+    "gpressure": 270.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "g1bc": 0.384
+    "g1bc": 0.384,
+    "gfriction": 120.0
   },
   {
     "mname": "Speer",
@@ -117,7 +119,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "g1bc": 0.417
+    "g1bc": 0.417,
+    "gfriction": -15.0
   },
   {
     "mname": "Speer",
@@ -564,8 +567,9 @@
     "gdia": 7.21,
     "glen": 32.8,
     "gmass": 175.0,
-    "gpressure": 250.0,
-    "g1bc": 0.436
+    "gpressure": 500.0,
+    "g1bc": 0.436,
+    "gfriction": 35.0
   },
   {
     "mname": "Speer",
@@ -734,8 +738,9 @@
     "gdia": 8.59,
     "glen": 28.8,
     "gmass": 200.0,
-    "gpressure": 250.0,
-    "g1bc": 0.448
+    "gpressure": 450.0,
+    "g1bc": 0.448,
+    "gfriction": -10.0
   },
   {
     "mname": "Speer",
@@ -764,8 +769,9 @@
     "gdia": 9.52,
     "glen": 26.5,
     "gmass": 235.0,
-    "gpressure": 250.0,
-    "g1bc": 0.317
+    "gpressure": 220.0,
+    "g1bc": 0.317,
+    "gfriction": -30.0
   },
   {
     "mname": "Speer",
@@ -964,8 +970,9 @@
     "gdia": 11.63,
     "glen": 24.6,
     "gmass": 400.0,
-    "gpressure": 250.0,
-    "g1bc": 0.259
+    "gpressure": 80.0,
+    "g1bc": 0.259,
+    "gfriction": -50.0
   },
   {
     "mname": "Speer",
@@ -994,7 +1001,7 @@
     "gdia": 7.82,
     "glen": 17.0,
     "gmass": 110.0,
-    "gpressure": 250.0,
+    "gpressure": 410.0,
     "g1bc": 0.179
   },
   {
@@ -1223,8 +1230,9 @@
     "gdia": 6.17,
     "glen": 21.1,
     "gmass": 70.0,
-    "gpressure": 250.0,
-    "g1bc": 0.282
+    "gpressure": 350.0,
+    "g1bc": 0.282,
+    "gfriction": 30.0
   },
   {
     "mname": "Speer",
@@ -1243,8 +1251,9 @@
     "gdia": 6.71,
     "glen": 22.9,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "g1bc": 0.281
+    "gpressure": 135.0,
+    "g1bc": 0.281,
+    "gfriction": -70.0
   },
   {
     "mname": "Speer",
@@ -1253,8 +1262,9 @@
     "gdia": 7.04,
     "glen": 21.6,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "g1bc": 0.303
+    "gpressure": 260.0,
+    "g1bc": 0.303,
+    "gfriction": -40.0
   },
   {
     "mname": "Speer",
@@ -1373,7 +1383,7 @@
     "gdia": 7.04,
     "glen": 22.0,
     "gmass": 100.0,
-    "gpressure": 250.0,
+    "gpressure": 380.0,
     "g1bc": 0.225
   },
   {
@@ -1423,8 +1433,9 @@
     "gdia": 5.69,
     "glen": 14.2,
     "gmass": 45.0,
-    "gpressure": 250.0,
-    "g1bc": 0.167
+    "gpressure": 400.0,
+    "g1bc": 0.167,
+    "gfriction": 15.0
   },
   {
     "mname": "Speer",
@@ -1463,8 +1474,9 @@
     "gdia": 5.69,
     "glen": 20.1,
     "gmass": 70.0,
-    "gpressure": 250.0,
-    "g1bc": 0.214
+    "gpressure": 360.0,
+    "g1bc": 0.214,
+    "gfriction": 45.0
   },
   {
     "mname": "Speer",

@@ -345,7 +345,7 @@ LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, co
 
     QVariantMap prj = projectileFields(projectile);
     prj.insert(u"gdepth"_s, fmt(p.seatingDepth_mm));
-    prj.insert(u"gfrictionUnlock"_s, u"false"_s);
+    prj.insert(u"gfrictionUnlock"_s, u"true"_s);  // the original's switch: the friction always applies here
     fill(lf.projectile, spec::kProjectile, prj);
     completeTail(lf.projectile);
 

@@ -60,7 +60,8 @@
     "gdia": 6.71,
     "glen": 27.6,
     "gmass": 100.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "gpressure": 250.0
   },
   {
     "mname": "Fox",

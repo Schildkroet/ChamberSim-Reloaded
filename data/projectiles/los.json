@@ -69,7 +69,9 @@
     "gdia": 7.82,
     "glen": 23.0,
     "gmass": 155.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.86, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.86, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "gpressure": 375.0,
+    "gfriction": -10.0
   },
   {
     "mname": "LOS",
@@ -123,7 +125,8 @@
     "gdia": 7.82,
     "glen": 24.5,
     "gmass": 165.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.86, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.86, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "gpressure": 250.0
   },
   {
     "mname": "LOS",

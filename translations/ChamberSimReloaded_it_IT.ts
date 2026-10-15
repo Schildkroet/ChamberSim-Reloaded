@@ -1949,16 +1949,6 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>locked</source>
-        <translation>bloccato</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>unlocked</source>
-        <translation>sbloccato</translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>no</source>
         <translation>no</translation>
     </message>

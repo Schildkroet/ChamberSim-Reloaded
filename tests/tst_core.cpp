@@ -752,7 +752,6 @@ void CoreTest::physicalModel()
     weak.charge_g = 0.05;
     weak.bulletMass_g = 40.0;
     weak.barrelLength_mm = 3000.0;
-    weak.extraFrictionUnlocked = true;
     weak.extraFriction_bar = 300.0;
     QCOMPARE(csr::simulate(weak, cal).status, csr::SimStatus::BulletStuck);
 }

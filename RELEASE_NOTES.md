@@ -3,6 +3,27 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.8
+
+### Added and changed
+
+- **The friction unlock switch is gone; the extra friction always applies.** The "unlocked
+  friction" row is no longer shown, and a bullet's extra friction (`gfriction`, bar) acts
+  whether or not an old file has it switched on. Older loads with a non-zero friction and
+  the switch off now include that friction in the result. A `.grtload` export still writes
+  the original's switch as on, so the original program applies the friction too. Negative
+  values stay possible: the original's database uses them for low-friction bullets
+  (Peregrine -100 bar, TPM -80 to -95 bar).
+- **Own start pressure and friction for 362 rifle bullets.** For every published load with a
+  pressure, the loads more than 5 % off in velocity or pressure are swept over start pressure
+  (50 to 500 bar) and friction (-100 to 150 bar) in steps of 5 bar, and each bullet takes the
+  median of its loads (`analysis/fit_bullet_start_values.py`, bullets with at least 8 loads).
+  Checked on powders that were not used for the fit: velocity error 3.9 to 3.5 %, pressure
+  error 25.1 to 23.7 %, loads more than 5 % off in pressure 68 to 59 %. Bullets that also
+  appear in pistol or revolver loads are left out (their start pressure is set by the solver).
+  Existing loads keep their stored values until the bullet is selected again.
+- **`csr_eval` takes per-row `gpressure` and `gfriction` columns** (for the fits).
+
 ## 0.7
 
 ### Added and changed

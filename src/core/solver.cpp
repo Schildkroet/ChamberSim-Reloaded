@@ -473,7 +473,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     const auto fit = [oversize](double k) { return std::max(1.0 + k * oversize, 0.25); };
     m.engraveForce = cal.engravingShare * fit(cal.engravingInterference) * m.startP * m.A;
     m.slideForce = cal.slideStress_MPa * fit(cal.slideInterference) * 1e6 * n::pi * bulletDia * m.bearing;
-    m.extraForce = in.extraFrictionUnlocked ? in.extraFriction_bar * kBar * m.A : 0.0;
+    m.extraForce = in.extraFriction_bar * kBar * m.A;
     // gas: lambda 0.2 W/(m K), mu 8e-5 Pa s, Pr 0.7
     m.heatCoeff = cal.heatTransferFactor * 0.023 * 0.2 * std::pow(0.7, 0.4) * std::pow(8e-5, -0.8) * std::pow(m.D, -0.2);
     const double rc = std::sqrt(m.V0 / (n::pi * m.x0));
@@ -704,7 +704,7 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
 
     // shares of the pressure force lost to friction: "gfriction" of the original (only when unlocked), and for a
     // shotshell the wad and shot sliding in the bore
-    const double gfrictionShare = in.extraFrictionUnlocked ? std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9) : 0.0;
+    const double gfrictionShare = std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9);
     const double shotShare = in.shotshell ? std::clamp(cal.shotFrictionShare, 0.0, 0.9) : 0.0;
     const double manualFriction = 1.0 - (1.0 - gfrictionShare) * (1.0 - shotShare);
     const double p0 = in.startPressure_bar * kBar;

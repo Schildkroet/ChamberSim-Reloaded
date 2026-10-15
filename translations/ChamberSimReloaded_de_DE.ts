@@ -1949,16 +1949,6 @@ Druck Δ</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>locked</source>
-        <translation>gesperrt</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>unlocked</source>
-        <translation>freigegeben</translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>no</source>
         <translation>nein</translation>
     </message>

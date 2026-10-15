@@ -71,7 +71,6 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.tailDiameterB_mm = p.number(u"gTailDiaB");
     in.tailType = toIntClamped(p.number(u"gTailType"), 0, 2);
     in.extraFriction_bar = p.number(u"gfriction");
-    in.extraFrictionUnlocked = p.flag(u"gfrictionUnlock");
 
     in.vivacityBa = q.number(u"Ba");
     in.heatQex_kJkg = q.number(u"Qex");

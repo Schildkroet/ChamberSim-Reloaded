@@ -88,7 +88,6 @@ const QList<Choice> *choicesFor(const QString &key)
 {
     static const QList<Choice> tail{
         {u"0"_s, PropertyPanel::tr("flat base")}, {u"1"_s, PropertyPanel::tr("hollow base")}, {u"2"_s, PropertyPanel::tr("boat tail")}};
-    static const QList<Choice> lock{{u"false"_s, PropertyPanel::tr("locked")}, {u"true"_s, PropertyPanel::tr("unlocked")}};
     static const QList<Choice> yesNo{{u"false"_s, PropertyPanel::tr("no")}, {u"true"_s, PropertyPanel::tr("yes")}};
     static const QList<Choice> ladder = []
     {
@@ -98,7 +97,6 @@ const QList<Choice> *choicesFor(const QString &key)
     }();
     if (key == u"laddercnt") return &ladder;
     if (key == u"gTailType") return &tail;
-    if (key == u"gfrictionUnlock") return &lock;
     if (key == u"shotshell") return &yesNo;
     // the shell, wad and primer of a shotshell load: the parts of the data file (their factors correct the model), or none
     for (const csr::ShotPart part : csr::kShotParts)
@@ -110,7 +108,8 @@ const QList<Choice> *choicesFor(const QString &key)
 // the original uses the distance either way (measured, batch 10).
 bool hiddenField(const QString &key)
 {
-    return key == u"gjumpUnlock" || key == u"physRef";  // physRef: the burn values the physical ones belong to
+    return key == u"gjumpUnlock" || key == u"gfrictionUnlock" ||
+           key == u"physRef";  // gfrictionUnlock: the friction always applies; physRef: the burn values the physical ones belong to
 }
 
 QString tipFor(const QList<Choice> &list, const QString &code)

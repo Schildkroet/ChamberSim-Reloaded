@@ -63,7 +63,6 @@ struct SimInput
     double tailDiameterB_mm{};
     int tailType{};  // 0 flat base, 1 hollow base, 2 boat tail
     double extraFriction_bar{};
-    bool extraFrictionUnlocked{};
 
     // propellant
     double vivacityBa{};

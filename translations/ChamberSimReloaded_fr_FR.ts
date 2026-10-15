@@ -1949,16 +1949,6 @@ pression Δ</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>locked</source>
-        <translation>verrouillé</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>unlocked</source>
-        <translation>déverrouillé</translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>no</source>
         <translation>non</translation>
     </message>

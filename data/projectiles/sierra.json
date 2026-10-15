@@ -36,8 +36,9 @@
     "gdia": 11.46,
     "glen": 17.3,
     "gmass": 230.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 500.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain",
+    "gfriction": -25.0
   },
   {
     "mname": "Sierra",
@@ -46,10 +47,11 @@
     "gdia": 5.69,
     "glen": 17.0,
     "gmass": 55.0,
-    "gpressure": 250.0,
+    "gpressure": 430.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain",
+    "gfriction": 25.0
   },
   {
     "mname": "Sierra",
@@ -58,10 +60,11 @@
     "gdia": 7.82,
     "glen": 24.4,
     "gmass": 150.0,
-    "gpressure": 250.0,
+    "gpressure": 475.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain",
+    "gfriction": -40.0
   },
   {
     "mname": "Sierra",
@@ -70,8 +73,9 @@
     "gdia": 7.82,
     "glen": 25.8,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 195.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": -70.0
   },
   {
     "mname": "Sierra",
@@ -80,8 +84,9 @@
     "gdia": 7.82,
     "glen": 29.3,
     "gmass": 170.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 90.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": -70.0
   },
   {
     "mname": "Sierra",
@@ -150,7 +155,7 @@
     "gdia": 5.69,
     "glen": 14.1,
     "gmass": 40.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -191,7 +196,8 @@
     "glen": 18.6,
     "gmass": 53.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": 30.0
   },
   {
     "mname": "Sierra",
@@ -210,7 +216,7 @@
     "gdia": 7.82,
     "glen": 20.8,
     "gmass": 125.0,
-    "gpressure": 250.0,
+    "gpressure": 240.0,
     "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
   },
   {
@@ -240,7 +246,7 @@
     "gdia": 5.69,
     "glen": 20.6,
     "gmass": 60.0,
-    "gpressure": 250.0,
+    "gpressure": 195.0,
     "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
   },
   {
@@ -261,7 +267,8 @@
     "glen": 17.1,
     "gmass": 60.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
+    "gfriction": 15.0
   },
   {
     "mname": "Sierra",
@@ -281,7 +288,8 @@
     "glen": 23.7,
     "gmass": 100.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
+    "gfriction": 60.0
   },
   {
     "mname": "Sierra",
@@ -290,8 +298,9 @@
     "gdia": 7.21,
     "glen": 20.0,
     "gmass": 100.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 315.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
+    "gfriction": 5.0
   },
   {
     "mname": "Sierra",
@@ -300,8 +309,9 @@
     "gdia": 7.82,
     "glen": 18.3,
     "gmass": 110.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 500.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
+    "gfriction": -45.0
   },
   {
     "mname": "Sierra",
@@ -320,7 +330,7 @@
     "gdia": 7.82,
     "glen": 22.5,
     "gmass": 135.0,
-    "gpressure": 250.0,
+    "gpressure": 265.0,
     "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
   },
   {
@@ -352,7 +362,7 @@
     "gdia": 5.69,
     "glen": 19.3,
     "gmass": 55.0,
-    "gpressure": 250.0,
+    "gpressure": 125.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
@@ -388,10 +398,11 @@
     "gdia": 6.71,
     "glen": 33.2,
     "gmass": 130.0,
-    "gpressure": 250.0,
+    "gpressure": 275.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": 10.0
   },
   {
     "mname": "Sierra",
@@ -400,10 +411,11 @@
     "gdia": 7.04,
     "glen": 32.6,
     "gmass": 140.0,
-    "gpressure": 250.0,
+    "gpressure": 260.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -15.0
   },
   {
     "mname": "Sierra",
@@ -424,10 +436,11 @@
     "gdia": 7.21,
     "glen": 35.6,
     "gmass": 160.0,
-    "gpressure": 250.0,
+    "gpressure": 130.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -50.0
   },
   {
     "mname": "Sierra",
@@ -484,7 +497,7 @@
     "gdia": 6.17,
     "glen": 21.0,
     "gmass": 70.0,
-    "gpressure": 250.0,
+    "gpressure": 275.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
@@ -544,7 +557,7 @@
     "gdia": 6.71,
     "glen": 35.8,
     "gmass": 140.0,
-    "gpressure": 250.0,
+    "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
@@ -568,7 +581,7 @@
     "gdia": 7.04,
     "glen": 26.8,
     "gmass": 115.0,
-    "gpressure": 250.0,
+    "gpressure": 240.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
@@ -604,10 +617,11 @@
     "gdia": 7.21,
     "glen": 37.3,
     "gmass": 168.0,
-    "gpressure": 250.0,
+    "gpressure": 110.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -25.0
   },
   {
     "mname": "Sierra",
@@ -616,10 +630,11 @@
     "gdia": 7.21,
     "glen": 38.9,
     "gmass": 175.0,
-    "gpressure": 250.0,
+    "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -652,10 +667,11 @@
     "gdia": 7.82,
     "glen": 28.6,
     "gmass": 150.0,
-    "gpressure": 250.0,
+    "gpressure": 80.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -15.0
   },
   {
     "mname": "Sierra",
@@ -667,7 +683,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -15.0
   },
   {
     "mname": "Sierra",
@@ -676,10 +693,11 @@
     "gdia": 7.82,
     "glen": 36.2,
     "gmass": 190.0,
-    "gpressure": 250.0,
+    "gpressure": 225.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -40.0
   },
   {
     "mname": "Sierra",
@@ -691,7 +709,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -15.0
   },
   {
     "mname": "Sierra",
@@ -700,10 +719,11 @@
     "gdia": 7.82,
     "glen": 41.9,
     "gmass": 220.0,
-    "gpressure": 250.0,
+    "gpressure": 90.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -100.0
   },
   {
     "mname": "Sierra",
@@ -715,7 +735,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -30.0
   },
   {
     "mname": "Sierra",
@@ -724,10 +745,11 @@
     "gdia": 7.9,
     "glen": 32.5,
     "gmass": 174.0,
-    "gpressure": 250.0,
+    "gpressure": 200.0,
     "gtailtype": 2,
     "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": 35.0
   },
   {
     "mname": "Sierra",
@@ -748,10 +770,11 @@
     "gdia": 8.59,
     "glen": 39.9,
     "gmass": 250.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -100.0
   },
   {
     "mname": "Sierra",
@@ -763,7 +786,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -40.0
   },
   {
     "mname": "Sierra",
@@ -775,7 +799,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": 15.0
   },
   {
     "mname": "Sierra",
@@ -808,10 +833,11 @@
     "gdia": 6.71,
     "glen": 36.3,
     "gmass": 142.0,
-    "gpressure": 250.0,
+    "gpressure": 145.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -5.0
   },
   {
     "mname": "Sierra",
@@ -928,10 +954,11 @@
     "gdia": 6.71,
     "glen": 31.4,
     "gmass": 123.0,
-    "gpressure": 250.0,
+    "gpressure": 200.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -30.0
   },
   {
     "mname": "Sierra",
@@ -964,10 +991,11 @@
     "gdia": 6.71,
     "glen": 38.3,
     "gmass": 150.0,
-    "gpressure": 250.0,
+    "gpressure": 120.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -45.0
   },
   {
     "mname": "Sierra",
@@ -1096,7 +1124,7 @@
     "gdia": 5.69,
     "glen": 31.5,
     "gmass": 90.0,
-    "gpressure": 250.0,
+    "gpressure": 95.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
@@ -1144,8 +1172,9 @@
     "gdia": 7.92,
     "glen": 14.5,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 500.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
+    "gfriction": -30.0
   },
   {
     "mname": "Sierra",
@@ -1505,7 +1534,8 @@
     "glen": 31.0,
     "gmass": 180.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": -35.0
   },
   {
     "mname": "Sierra",
@@ -1514,8 +1544,9 @@
     "gdia": 7.82,
     "glen": 37.9,
     "gmass": 220.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 50.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": 10.0
   },
   {
     "mname": "Sierra",
@@ -1524,8 +1555,9 @@
     "gdia": 9.09,
     "glen": 24.4,
     "gmass": 200.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 60.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": -40.0
   },
   {
     "mname": "Sierra",
@@ -1580,10 +1612,11 @@
     "gdia": 6.53,
     "glen": 31.5,
     "gmass": 117.0,
-    "gpressure": 250.0,
+    "gpressure": 125.0,
     "gtailtype": 2,
     "gtaildiaA": 6.53,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -85.0
   },
   {
     "mname": "Sierra",
@@ -1628,7 +1661,7 @@
     "gdia": 7.04,
     "glen": 32.6,
     "gmass": 140.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
@@ -1643,7 +1676,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -20.0
   },
   {
     "mname": "Sierra",
@@ -1652,10 +1686,11 @@
     "gdia": 7.21,
     "glen": 33.3,
     "gmass": 150.0,
-    "gpressure": 250.0,
+    "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -25.0
   },
   {
     "mname": "Sierra",
@@ -1676,10 +1711,11 @@
     "gdia": 7.21,
     "glen": 38.9,
     "gmass": 175.0,
-    "gpressure": 250.0,
+    "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -100.0
   },
   {
     "mname": "Sierra",
@@ -1700,10 +1736,11 @@
     "gdia": 7.82,
     "glen": 31.4,
     "gmass": 165.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -30.0
   },
   {
     "mname": "Sierra",
@@ -1715,7 +1752,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -20.0
   },
   {
     "mname": "Sierra",
@@ -1724,10 +1762,11 @@
     "gdia": 7.82,
     "glen": 38.1,
     "gmass": 200.0,
-    "gpressure": 250.0,
+    "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -100.0
   },
   {
     "mname": "Sierra",
@@ -1736,10 +1775,11 @@
     "gdia": 8.2,
     "glen": 38.3,
     "gmass": 220.0,
-    "gpressure": 250.0,
+    "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -45.0
   },
   {
     "mname": "Sierra",
@@ -1748,7 +1788,7 @@
     "gdia": 8.59,
     "glen": 39.9,
     "gmass": 250.0,
-    "gpressure": 250.0,
+    "gpressure": 345.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
@@ -1763,7 +1803,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -30.0
   },
   {
     "mname": "Sierra",
@@ -1775,7 +1816,8 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 9.09,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -55.0
   },
   {
     "mname": "Sierra",
@@ -1784,10 +1826,11 @@
     "gdia": 9.52,
     "glen": 32.9,
     "gmass": 250.0,
-    "gpressure": 250.0,
+    "gpressure": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 9.52,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
+    "gfriction": -50.0
   },
   {
     "mname": "Sierra",
@@ -1935,7 +1978,8 @@
     "glen": 21.1,
     "gmass": 125.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": -20.0
   },
   {
     "mname": "Sierra",
@@ -1944,8 +1988,9 @@
     "gdia": 7.9,
     "glen": 30.3,
     "gmass": 180.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 50.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": -80.0
   },
   {
     "mname": "Sierra",
@@ -1994,7 +2039,7 @@
     "gdia": 5.69,
     "glen": 17.6,
     "gmass": 50.0,
-    "gpressure": 250.0,
+    "gpressure": 280.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -2534,8 +2579,9 @@
     "gdia": 6.53,
     "glen": 18.1,
     "gmass": 70.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 50.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": 80.0
   },
   {
     "mname": "Sierra",

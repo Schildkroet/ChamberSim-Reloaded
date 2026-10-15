@@ -28,6 +28,12 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   Hornady CX/GMX, lead-free ...) 350 bar. Checked with the physical model against published pressures: copper loads median peak
   pressure error 7.6 -> 6.3 % (no longer 5 % too low), lead loads bias +4 -> -2 %; the original's 150 bar for jacketed handgun bullets
   made those results worse and is not used.
+  Where a bullet matches a record of the original's database (maker, name, mass, diameter; 335 of 2,481), `scripts/data/bulletdata/apply_original_start_values.py`
+  takes that record's `gpressure` and, when it is not 0, its `gfriction` (Fox Classic Hunter +100 bar, whole line; the original also has negative values,
+  e.g. Peregrine -100 bar). Lead bullets keep 150 bar.
+  Rifle bullets with at least 8 published loads (362 records) then got their own `gpressure` and `gfriction` (-100..150 bar, 5 bar steps) from
+  `analysis/fit_bullet_start_values.py`: loads more than 5 % off in velocity or pressure are swept over both, the record gets the median. Checked on
+  held-out powders: velocity error 3.9 -> 3.5 %, pressure 25.1 -> 23.7 %. Handgun bullets are not fitted (the solver sets their start pressure).
   The physical model starts pistol and revolver cartridges (C.I.P. table IV) with at least 0.3 x the permitted pressure when the barrel is shorter than 400 mm
   (`handgunStartFraction`, `handgunMaxBarrel_mm`): the published loads of the 9 mm Luger, .40 S&W and .357 Magnum need about 600 bar. The handgun powders'
   pressure bias went from -17 % to +6 % (rms 30 -> 24 %), rifle cartridges are unchanged.

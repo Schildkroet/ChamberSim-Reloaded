@@ -1925,16 +1925,6 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>locked</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>unlocked</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>no</source>
         <translation type="unfinished"></translation>
     </message>

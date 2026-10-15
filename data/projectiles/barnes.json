@@ -48,7 +48,7 @@
     "gdia": 11.46,
     "glen": 23.2,
     "gmass": 325.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -58,8 +58,9 @@
     "gdia": 11.63,
     "glen": 27.5,
     "gmass": 400.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 175.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": 20.0
   },
   {
     "mname": "Barnes",
@@ -98,10 +99,11 @@
     "gdia": 6.71,
     "glen": 35.0,
     "gmass": 127.0,
-    "gpressure": 350.0,
+    "gpressure": 430.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": 40.0
   },
   {
     "mname": "Barnes",
@@ -170,10 +172,11 @@
     "gdia": 8.59,
     "glen": 42.1,
     "gmass": 250.0,
-    "gpressure": 350.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": 10.0
   },
   {
     "mname": "Barnes",
@@ -182,8 +185,9 @@
     "gdia": 5.69,
     "glen": 19.3,
     "gmass": 55.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 480.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": 40.0
   },
   {
     "mname": "Barnes",
@@ -192,7 +196,7 @@
     "gdia": 7.04,
     "glen": 18.6,
     "gmass": 85.0,
-    "gpressure": 250.0,
+    "gpressure": 340.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -203,7 +207,8 @@
     "glen": 25.8,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
+    "gfriction": -20.0
   },
   {
     "mname": "Barnes",
@@ -482,10 +487,11 @@
     "gdia": 6.17,
     "glen": 27.7,
     "gmass": 85.0,
-    "gpressure": 350.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": 50.0
   },
   {
     "mname": "Barnes",
@@ -506,8 +512,9 @@
     "gdia": 6.53,
     "glen": 33.4,
     "gmass": 115.0,
-    "gpressure": 350.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "gpressure": 70.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": 75.0
   },
   {
     "mname": "Barnes",
@@ -516,8 +523,9 @@
     "gdia": 7.82,
     "glen": 30.4,
     "gmass": 150.0,
-    "gpressure": 350.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "gpressure": 280.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": -35.0
   },
   {
     "mname": "Barnes",
@@ -580,8 +588,9 @@
     "gdia": 10.44,
     "glen": 34.2,
     "gmass": 300.0,
-    "gpressure": 350.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "gpressure": 380.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": 100.0
   },
   {
     "mname": "Barnes",
@@ -690,7 +699,7 @@
     "gdia": 5.69,
     "glen": 19.1,
     "gmass": 50.0,
-    "gpressure": 350.0,
+    "gpressure": 200.0,
     "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
   },
   {
@@ -722,8 +731,9 @@
     "gdia": 7.82,
     "glen": 22.3,
     "gmass": 110.0,
-    "gpressure": 350.0,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "gpressure": 310.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": -45.0
   },
   {
     "mname": "Barnes",
@@ -735,7 +745,8 @@
     "gpressure": 350.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": 5.0
   },
   {
     "mname": "Barnes",
@@ -744,7 +755,7 @@
     "gdia": 8.59,
     "glen": 26.9,
     "gmass": 160.0,
-    "gpressure": 350.0,
+    "gpressure": 500.0,
     "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
   },
   {
@@ -779,7 +790,8 @@
     "gpressure": 350.0,
     "gtailtype": 2,
     "gtaildiaA": 9.3,
-    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain",
+    "gfriction": 30.0
   },
   {
     "mname": "Barnes",
