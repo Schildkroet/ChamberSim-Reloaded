@@ -748,6 +748,14 @@ void CoreTest::physicalModel()
     shot.shotshell = true;
     QCOMPARE(csr::simulate(shot, cal).maxPressure_bar, csr::simulate(shot, csr::Calibration{}).maxPressure_bar);
 
+    csr::SimInput slick = in;  // a negative extra friction adds force in the original's model, but only up to half the pressure force
+    slick.extraFriction_bar = -5000.0;
+    const double limited = csr::simulate(slick, csr::Calibration{}).maxPressure_bar;
+    slick.extraFriction_bar = -50000.0;
+    QCOMPARE(csr::simulate(slick, csr::Calibration{}).maxPressure_bar, limited);
+    slick.extraFriction_bar = -100.0;
+    QVERIFY(csr::simulate(slick, csr::Calibration{}).maxPressure_bar != limited);
+
     csr::SimInput weak = in;  // far too little powder for a long, heavy bullet in a long barrel
     weak.charge_g = 0.05;
     weak.bulletMass_g = 40.0;

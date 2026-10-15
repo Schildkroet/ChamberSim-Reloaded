@@ -145,6 +145,9 @@ target_compile_definitions(csr_eval PRIVATE CSR_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
 # headless simulation for scripts: csr_sim --help
 add_executable(csr_sim tools/csr_sim.cpp)
 target_link_libraries(csr_sim PRIVATE csrcore)
+if(CSR_PROJECT_DATA)  # the physical burn values and caliber factors as in the program (":/data/physical/...")
+    qt_add_resources(csr_sim "projectdata" PREFIX "/" FILES ${CSR_PROJECT_DATA})
+endif()
 install(TARGETS csr_sim RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_executable(grt_compare tools/grt_compare.cpp)

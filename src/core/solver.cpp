@@ -702,9 +702,10 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
     m.phi = formFunction(in, cal, std::nullopt);
     if (m.V0_m3 <= 0.0) return res;
 
-    // shares of the pressure force lost to friction: "gfriction" of the original (only when unlocked), and for a
+    // shares of the pressure force lost to friction: "gfriction" of the original (always applied here), and for a
     // shotshell the wad and shot sliding in the bore
-    const double gfrictionShare = std::min(cal.manualFrictionFactor * in.extraFriction_bar, 0.9);
+    // a negative gfriction (low-friction bullets, the original's database goes to -100 bar) adds force; limited so a typing error stays harmless
+    const double gfrictionShare = std::clamp(cal.manualFrictionFactor * in.extraFriction_bar, -0.5, 0.9);
     const double shotShare = in.shotshell ? std::clamp(cal.shotFrictionShare, 0.0, 0.9) : 0.0;
     const double manualFriction = 1.0 - (1.0 - gfrictionShare) * (1.0 - shotShare);
     const double p0 = in.startPressure_bar * kBar;
