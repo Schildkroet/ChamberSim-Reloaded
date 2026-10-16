@@ -23,6 +23,27 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
   appear in pistol or revolver loads are left out (their start pressure is set by the solver).
   Existing loads keep their stored values until the bullet is selected again.
 - **`csr_eval` takes per-row `gpressure` and `gfriction` columns** (for the fits).
+- **Shorter label for the extra friction.** The property panel shows "Bullet friction"
+  instead of "Special Bullet Resistance Inside The Barrel" (German, French and Italian
+  as well); the German, French and Italian translations have no unfinished entries left.
+- **User manual included.** The AppImage and the Windows zip contain the manual (PDF);
+  *Help ▸ User manual* (F1) opens it.
+- **Windows: the Visual C++ runtime is bundled**, so the program no longer depends on the
+  version installed on the PC.
+
+### Fixed
+
+- **Property panel: the values are visible without scrolling** (issue #2). The default
+  column widths followed the panel before the table had its new size, so the property
+  column took the whole width; they now follow the table itself.
+- **`csr_sim` gives the same results as the program.** The command-line simulation did not
+  have the project's physical burn values and pistol / revolver caliber factors built in,
+  so loads without stored burn values (every `.grtload`, older files) were calculated with
+  the scaled record burn rate: for example 4,711 bar instead of 3,881 bar for a .308 Win.
+  load.
+- **A large negative extra friction no longer multiplies the pressure** in the GRT models:
+  its effect is limited to half the pressure force (the original's database goes down to
+  -100 bar, about 3.5 %).
 
 ## 0.7
 

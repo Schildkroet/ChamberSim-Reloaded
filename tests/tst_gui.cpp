@@ -1824,6 +1824,15 @@ void GuiTest::cartridgeViewDrawsAndHandlesStraightCases()
     const QImage a = view.grab().toImage();
     QVERIFY(!a.isNull());
 
+    // a trimmed case: the drawing shows the load's case length and overall length, not the caliber record's
+    auto trimmed = *lf;
+    trimmed.caliber.set(u"caselen"_s, u"56.8"_s);
+    trimmed.caliber.set(u"oal"_s, u"79"_s);
+    trimmed.projectile.set(u"gdepth"_s, QString::number(56.8 + trimmed.projectile.number(u"glen") - 79.0));
+    const auto round = CartridgeView::makeRound(trimmed, csr::SimInput::fromLoad(trimmed));
+    QVERIFY(std::abs(round.caseLength() - 56.8) < 1e-9);
+    QVERIFY(std::abs(round.bulletTip() - 79.0) < 1e-6);
+
     // a straight pistol case (L1/L2/H1/P2 are zero in the database): no crash, still valid
     if (!QFile::exists(QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db"))) return;
     csr::Database db;

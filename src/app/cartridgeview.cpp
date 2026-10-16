@@ -19,7 +19,6 @@
 
 #include "cartridgeview.h"
 
-#include "loadbuilder.h"
 #include "numeric.h"
 #include "dimensionlabel.h"
 #include "hovermeasure.h"
@@ -220,8 +219,8 @@ CartridgeView::RoundShape CartridgeView::makeRound(const csr::LoadFile &file, co
     {
         if (const auto v = csr::parseFinite(e.value)) r.dims.insert(e.name, *v);
     }
-    // the load's own values win where the caliber record has none
-    if (r.dims.value(QStringLiteral("L3")) <= 0.0) r.dims.insert(QStringLiteral("L3"), input.caseLength_mm);
+    // the load's own case length wins (a trimmed case differs from the record; the seating depth is derived from it)
+    if (input.caseLength_mm > 0.0 || r.dims.value(QStringLiteral("L3")) <= 0.0) r.dims.insert(QStringLiteral("L3"), input.caseLength_mm);
     r.bulletDiameter = input.bulletDiameter_mm;
     r.bulletLength = input.bulletLength_mm;
     r.depth = input.seatingDepth_mm;
