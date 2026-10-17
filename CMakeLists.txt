@@ -68,6 +68,13 @@ if(CSR_PROJECT_DATA)
     qt_add_resources(ChamberSimReloaded "projectdata" PREFIX "/" FILES ${CSR_PROJECT_DATA})
 endif()
 
+# Windows: the icon and version information of the .exe (the Explorer icon; version info also lowers antivirus false positives)
+if(WIN32)
+    set(CSR_ICON_FILE "${CMAKE_SOURCE_DIR}/resources/icons/chambersimreloaded.ico")
+    configure_file(resources/icons/chambersimreloaded.rc.in "${CMAKE_BINARY_DIR}/chambersimreloaded.rc" @ONLY)
+    target_sources(ChamberSimReloaded PRIVATE "${CMAKE_BINARY_DIR}/chambersimreloaded.rc")
+endif()
+
 set_target_properties(ChamberSimReloaded PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
