@@ -81,6 +81,15 @@ python3 adi_extract.py -o adi_samples.csv --cache adi_pages                    #
 python3 vectan_extract.py catalogue.pdf -o vectan_samples.csv --ocr-cache ocr.json   # needs rapidocr-onnxruntime (OCR)
 ```
 
+## 🔎 Original model against published pressures
+
+```bash
+# loads of Hodgdon / Lovex / Reload Swiss / ADI whose caliber, projectile and powder exist in the ORIGINAL's database, simulated with GRT Original
+python3 analysis/compare_grt_published.py build/release/csr_dbeval [--lots best|all] [--profile original|published] [--set name=value] [--top 6]
+# -> reference/grt_vs_published/grt_vs_published.csv (local only), statistics per class and publisher, the largest deviations in both directions
+build/release/csr_dbeval --db tools/GordonsReloadingTool.plain.db jobs.csv   # the simulator behind it: records of the original by id
+```
+
 ## ⌨️ Simulate from the command line
 
 ```bash
@@ -133,7 +142,15 @@ CSR_STEPS=2000 .venv/bin/python analysis/calibrate.py build/release/grt_compare 
 # against published load data (Original / Published / Physical constants)
 .venv/bin/python analysis/calibrate_published.py build/release/csr_eval build/release/grt_compare \
     hod_samples.csv west_samples.csv --profile physical [--free a,b,c] [--start constants.json] [--evaluate-only]
-build/release/csr_eval hod_samples.csv --profile physical [--set name=value] [--phys "Maker Name=Ba,a0,z1,z2"]
+build/release/csr_eval hod_samples.csv --profile physical [--set name=value] [--phys "Maker Name=Ba,a0,z1,z2[,shape,ld,hole,amp]"]
+# effective grain geometry (ball / single-perforated cylinder) of the physical form functions, then Ba-only refit keeping the form
+python3 analysis/fit_grain_geometry.py build/release/csr_eval --threshold 0.08 --write
+.venv/bin/python analysis/fit_physical_powders.py build/release/csr_eval hod_samples.csv west_samples.csv \
+    --split all --fit ba --keep-form --start data/physical/propellants.json --merge   # --limit-pressure for the VV limits
+# published loads against the shipped powder records, rifle / pistol / publisher, optionally against an older build (--baseline) or other burn values
+.venv/bin/python analysis/compare_physical_published.py build/release/csr_eval [samples.csv ...] [--baseline older/csr_eval] [--eval-arg=--physical=DIR/propellants.json] [--max-pressure-dev 45] [--worst 6]
+# copies of the sample files without the loads whose simulated pressure is >45 % off the published one (-> sources/samples_clean, removed.csv lists them), then refit on those
+.venv/bin/python analysis/filter_published_outliers.py build/release/csr_eval [--max-dev 45]
 # test constants of the physical model powder by powder (parallel, held-out cartridges, trends over loading density and bullet mass)
 .venv/bin/python analysis/scan_physical.py build/release/csr_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--drop-inconsistent 0.15] [--quiet]   # a column cls in the CSV prints the figures per class (rifle, pistol, ...)
 

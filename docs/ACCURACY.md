@@ -8,7 +8,17 @@ is the algorithm of any other program.
 
 Simulated with the project's powder records and compared with the manufacturers' tables (velocity, and measured peak pressure where
 published). Every powder's burn values were fitted on 3/4 of the cartridges, the figures are for the **cartridges that were left out**
-(every 4th cartridge). Before = the constants until 2026-10-04, after = the current ones (the same fit on the same data, 106 powders,
+(every 4th cartridge).
+
+*2026-10-17, current equations:* the physical model now uses the classical Lagrange gas-mass share (1/4), burns at the breech pressure,
+corrects the seated ogive volume and no longer counts the free run twice in the gas volume. The 193 powders' Ba were refitted with the
+form functions of the previous fit. Held-out cartridges (173 powders, 9,434 simulated loads, 6,822 with a measured pressure): velocity
+**4.85 % rms**, peak pressure **16.51 % rms**, velocity gain from start to maximum load **0.957** of the published. Split by class:
+rifle **4.56 % / 16.30 %**, pistol and revolver **5.87 % / 17.12 %** (velocity / peak pressure rms); shotgun loads use their own
+model and are reported separately. The table below is the 2026-10-04 fit with the previous equations (it is kept for comparison); a
+per-maker split of the current equations is still pending.
+
+Before = the constants until 2026-10-04, after = the constants of that date (the same fit on the same data, 106 powders,
 about 42,000 loads of Hodgdon, Western, Lovex, Reload Swiss, Vihtavuori, ADI and Vectan):
 
 | Published data | Held-out loads | Velocity: before → after (rms) | Peak pressure: before → after (rms) |
@@ -102,25 +112,25 @@ is inside it (not corrected yet). The velocity shortfall of lead bullets (-4.5 %
 
 | Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
 |---|---:|---:|---:|---:|---:|---:|
-| Other cartridges (caliber sweep) | 28 | 30.2 % | 50.8 % | 7.7 % | 12.9 % | 24.6 % |
-| Powders (40 powders, one cartridge) | 39 | 22.9 % | 49.8 % | 4.9 % | 11.6 % | 18.5 % |
-| Charge, bullet weight, start pressure, case volume | 24 | 34.7 % | 83.1 % | 5.8 % | 9.1 % | 21.9 % |
-| Barrel length, twist, Sebert factor | 10 | 35.9 % | 49.5 % | 7.2 % | 14.5 % | 25.2 % |
-| Powder temperature | 26 | 34.5 % | 37.5 % | 6.1 % | 7.0 % | 21.2 % |
-| Bullet friction | 11 | 44.4 % | 69.6 % | 6.0 % | 14.5 % | 28.4 % |
-| Almost closed vessel (very heavy bullet) | 9 | 4.8 % | 16.4 % | 6.5 % | 15.2 % | 11.2 % |
-| Fast powders (burn rate, step length, form function) | 21 | 9.5 % | 43.8 % | 1.2 % | 5.7 % | 10.9 % |
-| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 32 | 9.9 % | 45.1 % | 1.4 % | 5.6 % | 9.9 % |
-| Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 17.1 % | 65.8 % | 3.4 % | 10.7 % | 10.7 % |
-| Pistol and revolver loads with fast powders | 28 | 15.5 % | 38.3 % | 3.8 % | 9.7 % | 11.9 % |
-| Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 34 | 38.0 % | 73.1 % | 1.2 % | 8.7 % | 28.5 % |
-| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 19.4 % | 37.3 % | 4.8 % | 6.3 % | 13.4 % |
-| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 29.5 % | 59.0 % | 4.4 % | 8.5 % | 19.7 % |
-| Loading density (charge, case volume, powder density, Qex) | 22 | 31.6 % | 93.5 % | 4.8 % | 10.8 % | 20.3 % |
-| Other | 1 | 23.7 % | 23.7 % | 3.1 % | 3.1 % | 21.1 % |
-| **All runs** | 349 | 24.7 % | 93.5 % | 4.3 % | 15.2 % | 18.1 % |
+| Other cartridges (caliber sweep) | 28 | 41.3 % | 88.3 % | 8.6 % | 18.0 % | 28.2 % |
+| Powders (40 powders, one cartridge) | 39 | 28.8 % | 62.8 % | 6.2 % | 16.1 % | 20.5 % |
+| Charge, bullet weight, start pressure, case volume | 24 | 43.0 % | 88.5 % | 6.4 % | 13.1 % | 23.8 % |
+| Barrel length, twist, Sebert factor | 10 | 44.4 % | 58.8 % | 8.1 % | 18.3 % | 27.9 % |
+| Powder temperature | 26 | 42.8 % | 46.6 % | 6.4 % | 7.7 % | 22.8 % |
+| Bullet friction | 11 | 51.8 % | 74.3 % | 6.4 % | 16.1 % | 30.2 % |
+| Almost closed vessel (very heavy bullet) | 9 | 4.8 % | 16.3 % | 6.5 % | 15.2 % | 11.3 % |
+| Fast powders (burn rate, step length, form function) | 21 | 9.0 % | 49.3 % | 1.4 % | 7.1 % | 9.6 % |
+| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 32 | 8.2 % | 42.9 % | 1.7 % | 7.0 % | 7.8 % |
+| Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 18.6 % | 75.4 % | 3.9 % | 13.3 % | 11.6 % |
+| Pistol and revolver loads with fast powders | 28 | 16.6 % | 42.8 % | 4.1 % | 9.9 % | 12.9 % |
+| Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 33 | 44.5 % | 90.0 % | 1.3 % | 9.8 % | 29.1 % |
+| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 26.4 % | 50.6 % | 5.0 % | 7.9 % | 15.3 % |
+| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 35.8 % | 66.3 % | 4.8 % | 9.4 % | 21.6 % |
+| Loading density (charge, case volume, powder density, Qex) | 22 | 35.8 % | 96.1 % | 5.1 % | 11.1 % | 20.7 % |
+| Other | 1 | 13.3 % | 13.3 % | 4.7 % | 4.7 % | 17.7 % |
+| **All runs** | 348 | 29.3 % | 96.1 % | 4.8 % | 18.3 % | 19.1 % |
 
-_Absolute deviations against 349 runs of the original program; updated 2026-10-08 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute deviations against 349 runs of the original program; updated 2026-10-17 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is

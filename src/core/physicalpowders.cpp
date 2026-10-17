@@ -96,7 +96,11 @@ void loadLocked(Store &s)
             .burn = {.Ba = o.value(u"Ba"_s).toDouble(),
                      .a0 = o.value(u"a0"_s).toDouble(),
                      .z1 = o.value(u"z1"_s).toDouble(),
-                     .z2 = o.value(u"z2"_s).toDouble()}};
+                     .z2 = o.value(u"z2"_s).toDouble(),
+                     .grain = grainShapeFromName(o.value(u"grain"_s).toObject().value(u"shape"_s).toString()),
+                     .grainLd = o.value(u"grain"_s).toObject().value(u"ld"_s).toDouble(),
+                     .grainHole = o.value(u"grain"_s).toObject().value(u"hole"_s).toDouble(),
+                     .grainAmplitude = o.value(u"grain"_s).toObject().value(u"amplitude"_s).toDouble(1.0)}};
     }
     LOG_Debug() << "Physical burn values:" << s.entries.size() << "powders from" << s.path;
 }
@@ -109,6 +113,24 @@ QString refText(double Ba, double a0, double z1, double z2)
 }
 
 }  // namespace
+
+const char *grainShapeName(GrainShape shape) noexcept
+{
+    switch (shape)
+    {
+    case GrainShape::Ball: return "ball";
+    case GrainShape::Cylinder: return "cylinder";
+    case GrainShape::Fitted: break;
+    }
+    return "fitted";
+}
+
+GrainShape grainShapeFromName(QStringView name) noexcept
+{
+    if (name == u"ball") return GrainShape::Ball;
+    if (name == u"cylinder") return GrainShape::Cylinder;
+    return GrainShape::Fitted;
+}
 
 void setPhysicalBurnFile(const QString &path)
 {
@@ -193,6 +215,10 @@ void writePhysicalBurn(EntryList &propellant, const std::optional<PhysicalBurn> 
     put(u"physA0", number(burn->a0), u"decimal"_s, u"physical model: prog/deg coefficient"_s);
     put(u"physZ1", number(burn->z1), u"decimal"_s, u"physical model: burn-up limit z1"_s);
     put(u"physZ2", number(burn->z2), u"decimal"_s, u"physical model: burn-up limit z2"_s);
+    put(u"physGrain", QString::fromLatin1(grainShapeName(burn->grain)), u"string"_s, u"physical model: grain surface shape"_s);
+    put(u"physGrainLd", number(burn->grainLd), u"decimal"_s, u"physical model: grain length / diameter"_s);
+    put(u"physGrainHole", number(burn->grainHole), u"decimal"_s, u"physical model: grain hole / outer radius"_s);
+    put(u"physGrainAmp", number(burn->grainAmplitude), u"decimal"_s, u"physical model: geometric surface amplitude"_s);
     put(u"physRef", refText(propellant.number(u"Ba"), propellant.number(u"a0"), propellant.number(u"z1"), propellant.number(u"z2")),
         u"string"_s, u"burn values the physical ones belong to"_s);
 }
@@ -202,7 +228,11 @@ std::optional<PhysicalBurn> readPhysicalBurn(const EntryList &propellant)
     const PhysicalBurn b{.Ba = propellant.number(u"physBa"),
                          .a0 = propellant.number(u"physA0"),
                          .z1 = propellant.number(u"physZ1"),
-                         .z2 = propellant.number(u"physZ2")};
+                         .z2 = propellant.number(u"physZ2"),
+                         .grain = grainShapeFromName(propellant.text(u"physGrain")),
+                         .grainLd = propellant.number(u"physGrainLd"),
+                         .grainHole = propellant.number(u"physGrainHole"),
+                         .grainAmplitude = propellant.number(u"physGrainAmp", 1.0)};
     if (b.Ba <= 0.0 || b.z2 <= b.z1) return std::nullopt;
     const QStringList ref = propellant.text(u"physRef").split(u' ', Qt::SkipEmptyParts);
     if (ref.size() != 4) return std::nullopt;

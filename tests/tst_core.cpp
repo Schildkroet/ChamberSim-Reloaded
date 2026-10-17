@@ -705,6 +705,7 @@ void CoreTest::physicalModel()
     QCOMPARE(csr::calibrationFor(csr::CalibrationProfile::Published).model, csr::SolverModel::Original);  // the empirical constants
     const csr::Calibration cal = csr::calibrationFor(csr::CalibrationProfile::Physical);
     QCOMPARE(cal.model, csr::SolverModel::Physical);
+    QCOMPARE(cal.gasMassShare, 0.25);  // the classical Lagrange share of the mean-pressure momentum and energy equations
     const csr::SimResult r = csr::simulate(in, cal);
     QVERIFY(r.ok());
     QCOMPARE(r.points.size(), std::size_t{2000});
@@ -756,6 +757,37 @@ void CoreTest::physicalModel()
     slick.extraFriction_bar = -100.0;
     QVERIFY(csr::simulate(slick, csr::Calibration{}).maxPressure_bar != limited);
 
+    csr::SimInput deep = in;  // a deeply seated round nose: the ogive frees powder space that the full cylinder took
+    deep.seatingDepth_mm = 0.95 * deep.bulletLength_mm;
+    QVERIFY(csr::bulletIntrusionPhysical_m3(deep) < csr::bulletIntrusion_m3(deep));
+    csr::SimInput shallow = in;  // the nose is not inside the case: both volumes are equal
+    shallow.seatingDepth_mm = 0.25 * shallow.bulletLength_mm;
+    QCOMPARE(csr::bulletIntrusionPhysical_m3(shallow), csr::bulletIntrusion_m3(shallow));
+
+    csr::SimInput ball = in;  // a geometric ball surface: phi(0) = amplitude, phi(0.5) = amplitude * 0.5^(2/3)
+    ball.physicalBurn =
+        csr::PhysicalBurn{.Ba = 1.0, .a0 = 0.0, .z1 = 0.3, .z2 = 0.6, .grain = csr::GrainShape::Ball, .grainAmplitude = 1.2};
+    const auto ballCurve = csr::vivacityCurve(ball, cal, 3);
+    QVERIFY(qAbs(ballCurve.front() - 1.2) < 1e-12);
+    QVERIFY(qAbs(ballCurve[1] - 1.2 * std::pow(0.5, 2.0 / 3.0)) < 1e-9);
+    QVERIFY(csr::simulate(ball, cal).ok());
+
+    ball.physicalBurn->grain = csr::GrainShape::Cylinder;  // a single-perforated cylinder changes the surface curve
+    ball.physicalBurn->grainLd = 1.2;
+    ball.physicalBurn->grainHole = 0.3;
+    const auto cylinderCurve = csr::vivacityCurve(ball, cal, 101);
+    QVERIFY(qAbs(cylinderCurve.front() - 1.2) < 1e-9);
+    QVERIFY(qAbs(cylinderCurve[50] - ballCurve[1]) > 1e-3);
+    QVERIFY(csr::simulate(ball, cal).ok());
+
+    csr::Calibration otherShare = cal;  // the Lagrange share is used by the model
+    otherShare.gasMassShare = 0.10;
+    QVERIFY(csr::simulate(in, otherShare).maxPressure_bar != r.maxPressure_bar);
+    csr::SimInput jump = in;
+    jump.bulletJump_mm = 1.0;
+    QVERIFY(csr::simulate(jump, cal).ok());
+    QVERIFY(csr::simulate(jump, cal).maxPressure_bar < r.maxPressure_bar);
+
     csr::SimInput weak = in;  // far too little powder for a long, heavy bullet in a long barrel
     weak.charge_g = 0.05;
     weak.bulletMass_g = 40.0;
@@ -774,7 +806,8 @@ void CoreTest::physicalBurnInLoad()
         QFile f(file);
         QVERIFY(f.open(QIODevice::WriteOnly));
         f.write(R"({"propellants": [{"mname": "Test", "pname": "P1", "record": {"Ba": 0.6, "a0": 0, "z1": 0.3, "z2": 0.6},
-                    "Ba": 0.9, "a0": 1.5, "z1": 0.4, "z2": 0.75}]})");
+                    "Ba": 0.9, "a0": 1.5, "z1": 0.4, "z2": 0.75,
+                    "grain": {"shape": "cylinder", "ld": 1.2, "hole": 0.3, "amplitude": 1.1}}]})");
     }
     csr::setPhysicalBurnFile(file);
     const QVariantMap powder{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"P1"_s}, {u"Ba"_s, 0.6}, {u"a0"_s, 0.0},    {u"z1"_s, 0.3},
@@ -793,6 +826,10 @@ void CoreTest::physicalBurnInLoad()
     QVERIFY(in.physicalBurn);
     QCOMPARE(in.physicalBurn->Ba, 0.9);
     QCOMPARE(in.physicalBurn->z2, 0.75);
+    QVERIFY(in.physicalBurn->grain == csr::GrainShape::Cylinder);  // the geometric surface travels with the load
+    QCOMPARE(in.physicalBurn->grainLd, 1.2);
+    QCOMPARE(in.physicalBurn->grainHole, 0.3);
+    QCOMPARE(in.physicalBurn->grainAmplitude, 1.1);
     const csr::Calibration cal = csr::calibrationFor(csr::CalibrationProfile::Physical);
     const double withValues = csr::simulate(in, cal).muzzleVelocity_ms;
     QVERIFY(withValues > 0.0);

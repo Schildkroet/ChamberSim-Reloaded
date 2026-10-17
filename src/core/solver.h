@@ -183,11 +183,13 @@ struct Calibration
     double slideInterference{0.0};
     double caliberBurnScaling{
         1.0};  // 1: the physical burn rates are scaled per caliber (physicalCaliberScale), 0: not (fits of the scales)
-    double heatTransferFactor{0.5};    // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
-    double heatVelocity_ms{0.0};       // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
-    double gasInertiaFactor{1.0};      // x the load's Sebert factor: the share of the powder gas that moves with the bullet (Lagrange: 1/3)
-    double bulletInertiaFactor{0.45};  // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
-    double gasConstant_JkgK{340.0};    // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
+    double heatTransferFactor{0.5};  // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
+    double heatVelocity_ms{0.0};     // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
+    // Share of the charge that moves with the bullet in the physical model's mean-pressure momentum and kinetic-energy equations
+    // (the classical Lagrange value for a linear gas profile is 1/4). The Original model uses the load's Sebert factor instead.
+    double gasMassShare{0.25};
+    double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
+    double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
     double integrationTolerance{1e-7};  // relative error per time step of the adaptive integration
 
     // ---- burn law dz/dt = Ba * p[bar] * (p / 1000 bar)^burnExponent * phi(z), identified from the powder sweeps ----
@@ -257,6 +259,10 @@ struct NamedParameter
 
 // Volume of the bullet's part inside the case [m^3] (cylinder minus the boat-tail frustum).
 [[nodiscard]] double bulletIntrusion_m3(const SimInput &in);
+
+// The same for the physical model: the part of the ogive nose that is seated in the case is not counted as a full cylinder but
+// as the volume of a tangent ogive (the bullet length fixes the nose length, about one calibre).
+[[nodiscard]] double bulletIntrusionPhysical_m3(const SimInput &in);
 
 // Simulates the whole ladder. Without a ladder (count below 2) the result has one step, the selected
 // charge. Steps that would have no powder left are omitted. Index 0 is the maximum charge.

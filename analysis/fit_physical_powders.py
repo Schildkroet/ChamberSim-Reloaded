@@ -19,7 +19,7 @@ tried and dropped: they trade velocity against pressure and leave the elasticity
 maximum loads count as loads at that limit, so the form function is determined as well (2026-10-14: the 16 Vihtavuori rifle powders; the maximum loads
 come out at 0.98 of the limit instead of 1.07 (with --limit-margin 50, i.e. the limit minus 50 bar, as in the data file: 0.98 over all 3,996 max loads of the 16 rifle powders; the 10 pistol powders 1.24 -> 0.93, velocity 12.9 -> 8.0 % rms), loads more than 20 % over it 166 instead of 670 of 3,755, velocity error 3.2 % as before).
 The file keeps the record values the burn values belong to: they apply only to the unchanged record (physicalpowders.h)."""
-import argparse, csv, json, os, subprocess, sys, tempfile
+import argparse, csv, glob, json, os, subprocess, sys, tempfile
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 from scipy.optimize import least_squares
@@ -33,6 +33,7 @@ ap.add_argument("--pressure-weight", type=float, default=1.0)
 ap.add_argument("--start", default="", help="earlier output: start values per powder")
 ap.add_argument("--fit", choices=["form", "ba"], default="form", help="form: Ba, a0, z1, z2 (powders with pressures); ba: only Ba")
 ap.add_argument("--form", default="0.45,0.27,0.62", help="a0,z1,z2 for --fit ba")
+ap.add_argument("--keep-form", action="store_true", help="with --fit ba: keep each powder's a0, z1, z2 from --start (or the record)")
 ap.add_argument("--only", help="comma separated powders (product name or \"maker name\"): fit only these")
 ap.add_argument("--slope-weight", type=float, default=1.0, help="weight of the start-to-maximum velocity gain of the load pairs (0: off)")
 ap.add_argument("--merge", action="store_true", help="keep the other powders of the existing --out file (with --only: refit some, e.g. new records)")
@@ -66,6 +67,14 @@ by_powder = {}
 for r in rows:
     if r["powder"].lower() in records: by_powder.setdefault(r["powder"].lower(), []).append(r)
 start = {(p["mname"] + " " + p["pname"]).lower(): p for p in json.load(open(args.start))["propellants"]} if args.start else {}
+# The grain geometry of a powder is independent of the Ba fit: csr_eval takes it from this file when --phys replaces Ba, a0, z1, z2.
+PHYS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "physical", "propellants.json")
+# rifle / pistol class of a caliber (C.I.P. table IV is pistol and revolver)
+CAL_CLASS = {}
+for _f in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "calibers", "*.json")):
+    _r = json.load(open(_f))
+    _pistol = "/tab-iv/" in _r.get("cippdf", "") or "pistol" in _r.get("ciptype", "").lower()
+    CAL_CLASS[_r.get("cipname", "").lower()] = "pistol" if _pistol else "rifle"
 tmp = tempfile.mkdtemp()
 header = list(dict.fromkeys(k for r in rows for k in r))
 
@@ -74,7 +83,7 @@ def simulate(name, powder, burn, subset):
     path = os.path.join(tmp, f"{name.replace('/', '_')}.csv")
     with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(subset)
-    cmd = [args.eval_exe, path, "--profile", "physical", "--physical", os.path.join(tmp, "none.json"),
+    cmd = [args.eval_exe, path, "--profile", "physical", "--physical", PHYS_FILE,
            "--phys", f"{powder}=" + ",".join(f"{v:.8g}" for v in burn)] + args.eval_arg
     out = subprocess.run(cmd, capture_output=True, text=True).stdout
     v = np.full(len(subset), np.nan); p = np.full(len(subset), np.nan)
@@ -136,6 +145,17 @@ def stats(powder, burn, subset):
     sg, pg = gains(subset, v, mv)
     big = pg > 0.03
     if big.any(): s.update(gain_n=int(big.sum()), gain=round(float(np.median(sg[big] / pg[big])), 3))  # 1: the model follows the data
+    classes = {}
+    for cls in ("rifle", "pistol"):
+        mask = np.array([CAL_CLASS.get(r["caliber"].lower(), "rifle") == cls for r in subset], dtype=bool)
+        if not mask.any(): continue
+        m = ok & mask
+        c = {"n": int(m.sum())}
+        if m.any(): c["v_rms"] = round(100 * float(np.sqrt(np.mean(rv[m] ** 2))), 2)
+        mp = hasp & mask
+        if mp.any(): c.update(p_n=int(mp.sum()), p_rms=round(100 * float(np.sqrt(np.mean(rp[mp] ** 2))), 2))
+        classes[cls] = c
+    if classes: s["classes"] = classes
     return s
 
 def start_of(powder):
@@ -148,6 +168,8 @@ def run(powder, with_form, form=(0.0, 0.3, 0.6)):
     train = [r for r in data if args.split == "all" or r["caliber"] not in held_out]
     test = [r for r in data if args.split == "train" and r["caliber"] in held_out]
     x0 = start_of(powder)
+    if not with_form and args.keep_form:
+        form = (x0[1], x0[2], x0[2] + x0[3] * (1 - x0[2]))
     burn = fit(powder, train, x0 if with_form else x0[:1], form)
     return powder, burn, stats(powder, burn, train), stats(powder, burn, test)
 
@@ -176,20 +198,41 @@ def summary(key):
         gr = sum(results[p][key]["gain_n"] * results[p][key]["gain"] for p in ps if results[p][key].get("gain_n")) / gn if gn else float("nan")
         print(f"   {title:16s}: {len(ps)} powders, velocity {v:.2f} % rms ({n} loads), pressure {pr:.2f} % rms ({pn} loads), "
               f"velocity gain start -> max {gr:.3f} of the published ({gn} pairs)")
+        for cls in ("rifle", "pistol"):
+            cn = sum(results[p][key].get("classes", {}).get(cls, {}).get("n", 0) for p in ps)
+            if not cn: continue
+            cv = np.sqrt(sum(results[p][key]["classes"][cls]["n"] * results[p][key]["classes"][cls]["v_rms"] ** 2
+                             for p in ps if results[p][key].get("classes", {}).get(cls, {}).get("n")) / cn)
+            cpn = sum(results[p][key].get("classes", {}).get(cls, {}).get("p_n", 0) for p in ps)
+            cpr = np.sqrt(sum(results[p][key]["classes"][cls]["p_n"] * results[p][key]["classes"][cls]["p_rms"] ** 2
+                              for p in ps if results[p][key].get("classes", {}).get(cls, {}).get("p_n")) / cpn) if cpn else float("nan")
+            print(f"     {cls:8s}: velocity {cv:.2f} % rms ({cn} loads), pressure {cpr:.2f} % rms ({cpn} loads)")
 print("\nfitted rows:"); summary(1)
 if args.split == "train": print("held-out cartridges:"); summary(2)
 
-out = {"note": "Physical burn values (Ba, a0, z1, z2) for the physical model (CalibrationProfile::Physical), fitted with "
-               "analysis/fit_physical_powders.py to the powders' published loads (velocities and measured pressures); they apply only "
-               "to the record values in 'record'. Generated - do not edit by hand.",
+out = {"note": "Physical burn values (Ba, a0, z1, z2, optional effective grain geometry) for the physical model "
+               "(CalibrationProfile::Physical), fitted with analysis/fit_physical_powders.py and analysis/fit_grain_geometry.py to the "
+               "powders' published loads (velocities and measured pressures); they apply only to the record values in 'record'. "
+               "Generated - do not edit by hand.",
        "split": args.split,
        "propellants": []}
+old_grain = {}
+if os.path.exists(args.out):
+    try:
+        old_grain = {(e["mname"] + " " + e["pname"]).lower(): e["grain"]
+                     for e in json.load(open(args.out))["propellants"] if "grain" in e}
+    except (OSError, ValueError, KeyError):
+        old_grain = {}
 for powder in sorted(results):
     rec = records[powder]; burn, tr, te = results[powder]
-    out["propellants"].append({"mname": rec["mname"], "pname": rec["pname"],
-                               "record": {k: rec[k] for k in ("Ba", "a0", "z1", "z2")},
-                               "Ba": round(burn[0], 6), "a0": round(burn[1], 6), "z1": round(burn[2], 6), "z2": round(burn[3], 6),
-                               "form": "fitted" if powder in with_p else "median", "fit": tr, **({"heldOut": te} if te else {})})
+    entry = {"mname": rec["mname"], "pname": rec["pname"],
+             "record": {k: rec[k] for k in ("Ba", "a0", "z1", "z2")},
+             "Ba": round(burn[0], 6), "a0": round(burn[1], 6), "z1": round(burn[2], 6), "z2": round(burn[3], 6),
+             "form": "kept" if args.fit == "ba" and args.keep_form else ("fitted" if powder in with_p else "median"),
+             "fit": tr, **({"heldOut": te} if te else {})}
+    key = (rec["mname"] + " " + rec["pname"]).lower()
+    if key in old_grain: entry["grain"] = old_grain[key]  # keep the effective grain geometry (fit_grain_geometry.py)
+    out["propellants"].append(entry)
 if args.merge and os.path.exists(args.out):
     kept = {(p["mname"] + " " + p["pname"]).lower(): p for p in json.load(open(args.out))["propellants"]}
     kept.update({(p["mname"] + " " + p["pname"]).lower(): p for p in out["propellants"]})

@@ -21,7 +21,7 @@
 // the solver calibration experiments (analysis/calibrate_published.py) call it.
 //
 //   csr_eval samples.csv [--profile original|published|physical] [--data DIR] [--set name=value]... [--ba "Maker Name=value"]... [--steps n]
-//            [--physical FILE] [--phys "Maker Name=Ba,a0,z1,z2"]... [--list-params]
+//            [--physical FILE] [--phys "Maker Name=Ba,a0,z1,z2[,shape,ld,hole,amp]"]... [--list-params]
 //
 // Optional CSV columns per row: ba_scale (factor on the powder's physical Ba), gpressure (start pressure of the bullet [bar]),
 // gfriction (extra bullet friction [bar]).
@@ -137,9 +137,28 @@ int main(int argc, char *argv[])
     for (const QString &nv : cli.values(u"phys"_s))
     {
         const QStringList v = nv.section(u'=', 1).split(u',');
-        if (v.size() == 4)
-            phys.insert(nv.section(u'=', 0, 0).toLower(),
-                        {.Ba = v[0].toDouble(), .a0 = v[1].toDouble(), .z1 = v[2].toDouble(), .z2 = v[3].toDouble()});
+        if (v.size() < 4) continue;
+        const QString key = nv.section(u'=', 0, 0).toLower();
+        csr::PhysicalBurn burn{.Ba = v[0].toDouble(), .a0 = v[1].toDouble(), .z1 = v[2].toDouble(), .z2 = v[3].toDouble()};
+        if (v.size() >= 8)
+        {
+            burn.grain = csr::grainShapeFromName(v[4]);
+            burn.grainLd = v[5].toDouble();
+            burn.grainHole = v[6].toDouble();
+            burn.grainAmplitude = v[7].toDouble();
+        }
+        else if (const qsizetype space = key.indexOf(u' '); space > 0)
+        {
+            // Ba-only fits keep the geometric surface of the file for this powder.
+            if (const auto file = csr::findPhysicalBurn(key.left(space), key.mid(space + 1)))
+            {
+                burn.grain = file->grain;
+                burn.grainLd = file->grainLd;
+                burn.grainHole = file->grainHole;
+                burn.grainAmplitude = file->grainAmplitude;
+            }
+        }
+        phys.insert(key, burn);
     }
     // optional column jump_mm: bullet jump of the gun
     const auto withJump = [](csr::LoadFile lf, const QMap<QString, QString> &row)

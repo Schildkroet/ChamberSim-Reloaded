@@ -424,8 +424,17 @@ void apply(EntryList &propellant, const Result &result)
         values[static_cast<std::size_t>(result.params[i])] = result.after[i];
     if (result.model == Model::Physical)
     {
-        // physRef: the load's Ba, a0, z1, z2 at this moment (apply the original model's result first)
-        writePhysicalBurn(propellant, PhysicalBurn{.Ba = values[0], .a0 = values[1], .z1 = values[2], .z2 = values[3]});
+        // physRef: the load's Ba, a0, z1, z2 at this moment (apply the original model's result first); keep the effective grain
+        // geometry of the powder when the load already carries one
+        PhysicalBurn burn{.Ba = values[0], .a0 = values[1], .z1 = values[2], .z2 = values[3]};
+        if (const auto old = readPhysicalBurn(propellant))
+        {
+            burn.grain = old->grain;
+            burn.grainLd = old->grainLd;
+            burn.grainHole = old->grainHole;
+            burn.grainAmplitude = old->grainAmplitude;
+        }
+        writePhysicalBurn(propellant, burn);
         return;
     }
     for (const Param p : result.params) propellant.set(name(p), values[static_cast<std::size_t>(p)]);

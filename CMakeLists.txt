@@ -142,6 +142,10 @@ add_executable(csr_eval tools/csr_eval.cpp)
 target_link_libraries(csr_eval PRIVATE csrcore)
 target_compile_definitions(csr_eval PRIVATE CSR_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
+# simulates loads of records of the original's database (analysis/compare_grt_published.py): csr_dbeval --help
+add_executable(csr_dbeval tools/csr_dbeval.cpp)
+target_link_libraries(csr_dbeval PRIVATE csrcore)
+
 # headless simulation for scripts: csr_sim --help
 add_executable(csr_sim tools/csr_sim.cpp)
 target_link_libraries(csr_sim PRIVATE csrcore)
@@ -165,7 +169,7 @@ if(CSR_FORMAT_ON_BUILD AND CSR_CLANG_FORMAT)
         COMMAND ${CSR_CLANG_FORMAT} -i --style=file ${CSR_FORMAT_FILES}
         COMMENT "clang-format"
         VERBATIM)
-    foreach(t csrcore csrui ChamberSimReloaded csr_datacheck csr_fitpowder csr_fitdata csr_eval csr_sim grt_compare)
+    foreach(t csrcore csrui ChamberSimReloaded csr_datacheck csr_fitpowder csr_fitdata csr_eval csr_dbeval csr_sim grt_compare)
         add_dependencies(${t} clang_format)
     endforeach()
 elseif(CSR_FORMAT_ON_BUILD)
