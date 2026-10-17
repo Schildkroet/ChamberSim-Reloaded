@@ -7,6 +7,8 @@ Every sample is simulated with the powder records of the build (csr_eval, defaul
 the shotshell files). A load with a published pressure whose simulated peak pressure differs by more than --max-dev percent (low or high) is left out of
 the copy in DIR (default: scripts/data/loaddata/sources/samples_clean, git-ignored like the samples); the originals stay untouched. DIR/removed.csv lists
 the dropped loads. Loads without a published pressure (Vihtavuori, ...) and loads that cannot be simulated are kept.
+--apply instead edits the sample files themselves: the dropped loads are removed from them and appended (all columns, plus source_file, the reason and
+the simulated pressure) to samples/invalid/invalid_samples.csv, a subfolder so that no tool picks it up as input; nothing is lost.
 Use the copies with fit_physical_powders.py / compare_physical_published.py to fit and judge the powder records on the cleaned data.
 """
 import argparse, csv, glob, json, os, subprocess, tempfile
@@ -17,18 +19,20 @@ ap.add_argument("eval_exe"); ap.add_argument("samples", nargs="*")
 ap.add_argument("--max-dev", type=float, default=45.0)
 ap.add_argument("--profile", default="physical")
 ap.add_argument("--out", default="")
+ap.add_argument("--apply", action="store_true", help="remove the loads from the sample files and keep them in samples/invalid/invalid_samples.csv")
 ap.add_argument("--jobs", type=int, default=min(14, os.cpu_count() or 1))
 args = ap.parse_args()
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 SDIR = os.path.join(ROOT, "scripts", "data", "loaddata", "sources", "samples")
 out_dir = args.out or os.path.join(SDIR, "..", "samples_clean")
+invalid_file = os.path.join(SDIR, "invalid", "invalid_samples.csv")
 files = args.samples or sorted(f for f in glob.glob(os.path.join(SDIR, "*.csv")) if "shot" not in os.path.basename(f))
-os.makedirs(out_dir, exist_ok=True)
+if not args.apply: os.makedirs(out_dir, exist_ok=True)
 names = {}
 for f in glob.glob(os.path.join(ROOT, "data", "propellants", "*.json")):
     for e in json.load(open(f)): names.setdefault(e["pname"].lower(), []).append(e["mname"] + " " + e["pname"])
 full_names = {x.lower() for v in names.values() for x in v}
-tmp = tempfile.mkdtemp(); removed = []
+tmp = tempfile.mkdtemp(); removed, invalid_rows = [], []
 for path in files:
     rows = list(csv.DictReader(open(path)))
     header = list(rows[0].keys())
@@ -51,11 +55,21 @@ for path in files:
         if pub > 0 and i in pressure and abs(pressure[i] / pub - 1) * 100 > args.max_dev:
             removed.append(dict(file=os.path.basename(path), powder=r["powder"], caliber=r["caliber"], bullet=r["bullet"], bullet_gr=r["bullet_gr"], kind=r["kind"],
                                 charge_g=r["charge_g"], published_bar=pub, simulated_bar=pressure[i], deviation_pct=round((pressure[i] / pub - 1) * 100, 1)))
+            invalid_rows.append(dict(source_file=os.path.basename(path), invalid=f"pressure more than {args.max_dev:g} % off the simulation",
+                                     sim_pressure_bar=pressure[i], deviation_pct=removed[-1]["deviation_pct"], **r))
         else: kept.append(r)
-    with open(os.path.join(out_dir, os.path.basename(path)), "w", newline="") as f:
+    with open(path if args.apply else os.path.join(out_dir, os.path.basename(path)), "w", newline="") as f:
         w = csv.DictWriter(f, header); w.writeheader(); w.writerows(kept)
     print(f"{os.path.basename(path):28} {len(rows):6} loads, {len(rows) - len(kept):4} removed")
-if removed:
+if args.apply and invalid_rows:  # append to the earlier invalid loads (the columns of the files differ a little)
+    old = list(csv.DictReader(open(invalid_file))) if os.path.exists(invalid_file) else []
+    allrows = old + invalid_rows
+    fields = list(dict.fromkeys(["source_file", "invalid", "sim_pressure_bar", "deviation_pct"] + [k for r in allrows for k in r]))
+    os.makedirs(os.path.dirname(invalid_file), exist_ok=True)
+    with open(invalid_file, "w", newline="") as f:
+        w = csv.DictWriter(f, fields, restval=""); w.writeheader(); w.writerows(allrows)
+    print(f"{len(removed)} loads moved to {invalid_file}")
+elif removed:
     with open(os.path.join(out_dir, "removed.csv"), "w", newline="") as f:
         w = csv.DictWriter(f, list(removed[0])); w.writeheader(); w.writerows(removed)
-print(f"{len(removed)} loads removed in total -> {out_dir}")
+if not args.apply: print(f"{len(removed)} loads removed in total -> {out_dir}")

@@ -149,8 +149,8 @@ python3 analysis/fit_grain_geometry.py build/release/csr_eval --threshold 0.08 -
     --split all --fit ba --keep-form --start data/physical/propellants.json --merge   # --limit-pressure for the VV limits
 # published loads against the shipped powder records, rifle / pistol / publisher, optionally against an older build (--baseline) or other burn values
 .venv/bin/python analysis/compare_physical_published.py build/release/csr_eval [samples.csv ...] [--baseline older/csr_eval] [--eval-arg=--physical=DIR/propellants.json] [--max-pressure-dev 45] [--worst 6]
-# copies of the sample files without the loads whose simulated pressure is >45 % off the published one (-> sources/samples_clean, removed.csv lists them), then refit on those
-.venv/bin/python analysis/filter_published_outliers.py build/release/csr_eval [--max-dev 45]
+# loads whose simulated pressure is >45 % off the published one are probably invalid: copies without them (-> sources/samples_clean), or --apply
+.venv/bin/python analysis/filter_published_outliers.py build/release/csr_eval [--max-dev 45] [--apply]   # --apply: remove them from the sample files and keep them in sources/samples/invalid/invalid_samples.csv
 # test constants of the physical model powder by powder (parallel, held-out cartridges, trends over loading density and bullet mass)
 .venv/bin/python analysis/scan_physical.py build/release/csr_eval adi_samples.csv adi_pistol.csv [--set name=value] [--fit-form] [--drop-inconsistent 0.15] [--quiet]   # a column cls in the CSV prints the figures per class (rifle, pistol, ...)
 
