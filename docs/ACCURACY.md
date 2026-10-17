@@ -18,6 +18,14 @@ rifle **4.56 % / 16.30 %**, pistol and revolver **5.87 % / 17.12 %** (velocity /
 model and are reported separately. The table below is the 2026-10-04 fit with the previous equations (it is kept for comparison); a
 per-maker split of the current equations is still pending.
 
+*2026-10-17, refit without outliers:* 369 published loads whose simulated pressure was more than 45 % off the published one (342 too high,
+27 too low; probably misread or invalid, `analysis/filter_published_outliers.py`) were left out and Ba of the 173 fitted powders was refitted with
+the form functions kept (`analysis/fit_physical_powders.py --fit ba --keep-form --limit-pressure --limit-margin 50`). Shipped records against
+the cleaned published loads (the fit used all of them, so the figures are not held out; velocity / peak pressure rms): rifle **4.00 % / 13.85 %**,
+pistol and revolver **7.16 % / 16.77 %**, velocity gain from start to maximum load **0.974**. On the cartridges that were left out in the earlier
+fit (every 4th): rifle 4.22 % / 15.59 %, pistol 5.17 % / 17.18 %; before the refit 4.29 % / 15.76 % and 5.31 % / 17.34 %
+(`analysis/compare_physical_published.py`).
+
 Before = the constants until 2026-10-04, after = the constants of that date (the same fit on the same data, 106 powders,
 about 42,000 loads of Hodgdon, Western, Lovex, Reload Swiss, Vihtavuori, ADI and Vectan):
 
