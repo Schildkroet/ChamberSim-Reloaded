@@ -238,8 +238,8 @@ struct Model
 // own values (Ba scaled with burnRateScale).
 [[nodiscard]] FormFunction formFunction(const SimInput &in, const Calibration &cal, const std::optional<PhysicalBurn> &pb) noexcept
 {
-    FormFunction f = pb ? FormFunction{.cal = &cal, .a0 = pb->a0, .z1 = pb->z1, .z2 = pb->z2}
-                        : FormFunction{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2};
+    FormFunction f = pb ? FormFunction{.cal = &cal, .a0 = pb->a0, .z1 = pb->z1, .z2 = pb->z2, .grain = {}}
+                        : FormFunction{.cal = &cal, .a0 = in.a0, .z1 = in.z1, .z2 = in.z2, .grain = {}};
     if (pb && pb->grain != GrainShape::Fitted && pb->grainAmplitude > 0.0)
     {
         f.useGrain = true;
@@ -391,7 +391,7 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 //                                                       is the lit share of the grains (flame spread from the primer, tau =
 //                                                       ignitionTime_ms, t counted from ignition)
 //   p     = (k - 1) * U / Vgas                         Resal: the space-mean pressure of the gas
-//   U     = impetusFactor * Qex * mc * z + Eprimer - 1/2 M v^2 - Q - W
+//   U     = impetusFactor * Qex * mc * z + Eprimer * (1 - exp(-t / primerTime)) - 1/2 M v^2 - Q - W
 //   Vgas  = V0 + A (x - x0) - mc (1 - z) / pc - eta * b * mc * z
 //   M dv/dt = A p - F,   M = mp (1 + spin inertia) + gasMassShare * mc
 //   p_burn = p + (1/2 - gasMassShare) * mc * a / A      the breech pressure (Lagrange gradient, linear profile)
@@ -400,12 +400,12 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 // momentum and the breech pressure is p + mc a / (4 A). The powder burns at the breech pressure; the energy balance uses the
 // mean pressure. The Original model keeps the load's Sebert factor instead.
 // The bullet stays at x0 until the gas pressure reaches the start pressure ps; until then the powder burns in the closed case, lit by
-// the primer gas (primerEnergy_J in the powder space). The resistance F: engraving (engravingShare * ps * A once the bullet has
+// the primer gas (primerEnergy_J, released over primerTime_ms). The resistance F: engraving (engravingShare * ps * A once the bullet has
 // crossed the free run gjump, decaying over the bearing length), friction of the bearing surface (slideStress * pi * D * bearing
 // length), the user's extra friction gfriction [bar] * A (when unlocked) and the air pushed out of the bore (piston-driven shock).
 // Heat transfer: Dittus-Boelter for turbulent pipe flow, h = factor * 0.023 * lambda * Pr^0.4 * mu^-0.8 * D^-0.2 * (rho u)^0.8 with
 // the gas velocity u = v / 2 + heatVelocity_ms (the turbulence of the burning charge, also before the bullet moves), the gas temperature T = p Vgas / (m_gas R), the wetted surface = powder space (a cylinder as long
-// as the case behind the bullet) + the bore behind the bullet. The reported pressure is the breech pressure of the Lagrange gradient.
+// as the case behind the bullet) + the bore behind the bullet, and the wall at the load temperature. The reported pressure is the breech pressure of the Lagrange gradient.
 // The friction outputs are the sliding friction (bearing surface + gfriction) and its work over the bore; the engraving and the air are
 // part of the energy balance but not of the friction outputs.
 
@@ -415,16 +415,17 @@ struct PhysicalModel
 {
     double A, D, mBullet, mMove, mc, V0, x0, solid, covolume, theta, eChem, ePrimer, mPrimerGas, startP, jump, bearing;
     double engraveForce, slideForce, extraForce, heatCoeff, heatVelocity, gasR, chamberSurface, burnBa, burnExponent, ignitionTime;
-    double gasMassShare;
+    double gasMassShare, primerTime, wallTemperature;
     FormFunction phi;
 
     [[nodiscard]] double gasVolume(double x, double z) const noexcept
     {
         return V0 + A * (x - x0) - mc * (1.0 - z) * solid - covolume * mc * z;
     }
+    [[nodiscard]] double primerFraction(double t) const noexcept { return primerTime > 0.0 ? 1.0 - std::exp(-t / primerTime) : 1.0; }
     [[nodiscard]] double gasPressure(const PhysState &y) const noexcept
     {
-        const double e = eChem * mc * y[2] + ePrimer - 0.5 * mMove * y[1] * y[1] - y[3] - y[4];
+        const double e = eChem * mc * y[2] + ePrimer * primerFraction(y[5]) - 0.5 * mMove * y[1] * y[1] - y[3] - y[4];
         const double vg = gasVolume(y[0], y[2]);
         return vg > 0.0 ? theta * std::max(e, 0.0) / vg : 0.0;
     }
@@ -450,10 +451,11 @@ struct PhysicalModel
         const double vg = gasVolume(y[0], y[2]);
         const double u = 0.5 * y[1] + heatVelocity;
         if (heatCoeff <= 0.0 || vg <= 0.0 || u <= 0.0) return 0.0;
-        const double mg = mc * y[2] + mPrimerGas;
+        const double mg = mc * y[2] + mPrimerGas * primerFraction(y[5]);
+        if (mg <= 0.0) return 0.0;
         const double T = p * vg / (mg * gasR);
         const double h = heatCoeff * std::pow(mg / vg * u, 0.8);
-        return std::max(h * (chamberSurface + std::numbers::pi * D * (y[0] - x0)) * (T - 293.0), 0.0);
+        return std::max(h * (chamberSurface + std::numbers::pi * D * (y[0] - x0)) * (T - wallTemperature), 0.0);
     }
     struct Rates
     {
@@ -555,6 +557,8 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.gasMassShare = cal.gasMassShare;
     m.x0 = in.startPosition_mm() * 1e-3;
     m.jump = in.bulletJump_mm * 1e-3;
+    m.primerTime = std::max(cal.primerTime_ms * 1e-3, 0.0);
+    m.wallTemperature = in.temperature_C + 273.15;
     // The free run is not part of the gas volume at rest: the bullet base starts at x0 and gasVolume() adds A (x - x0) while it
     // travels the jump. Adding A * jump here counted the freebore twice.
     m.V0 = cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - bulletIntrusionPhysical_m3(in);
@@ -1001,6 +1005,7 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.capacityFactor = 1.15;
         cal.gasCovolume_cm3g = 0.8;
         cal.primerEnergy_J = 10.0009;
+        cal.primerTime_ms = 0.05;  // the primer gas reaches the powder over this time constant
         cal.ignitionTime_ms = 0.1;
         cal.engravingShare = 0.6;
         cal.slideStress_MPa = 0.700469;
@@ -1071,6 +1076,7 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"phase3_1", &cal.phase3[2]},
             {"gasCovolume_cm3g", &cal.gasCovolume_cm3g},
             {"primerEnergy_J", &cal.primerEnergy_J},
+            {"primerTime_ms", &cal.primerTime_ms},
             {"ignitionTime_ms", &cal.ignitionTime_ms},
             {"engravingShare", &cal.engravingShare},
             {"slideStress_MPa", &cal.slideStress_MPa},

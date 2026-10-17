@@ -174,6 +174,7 @@ struct Calibration
     // closed-vessel tests of 470 powders (pressure at loading density 0.2 g/cm3 with f = impetusFactor (k-1) Qex), independent of pc.
     double gasCovolume_cm3g{1.0};
     double primerEnergy_J{50.0};  // energy of the primer gas that lights the powder (20-30 mg of priming compound)
+    double primerTime_ms{0.05};   // time constant of the primer gas release (0: the primer energy appears at t = 0)
     double ignitionTime_ms{0.0};  // flame spread: the lit share of the grains is 1 - exp(-t / this) after ignition (0: all at once)
     double engravingShare{0.5};   // rifling engraving: resistance = share x start pressure x bore area, decaying over the bearing length
     double slideStress_MPa{3.0};  // friction stress on the bullet's bearing surface in the bore

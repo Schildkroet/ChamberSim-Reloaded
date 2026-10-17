@@ -15,7 +15,10 @@
   the work of the sliding friction (the engraving and the air act on the bullet but are not part of that value); a bullet that cannot leave
   the barrel is reported. The gas moves with the classical Lagrange share of the charge (1/4) and the powder burns at the breech pressure
   (the mean pressure plus the gas-column term), so the momentum, energy and reported pressure use one consistent gradient model. The part
-  of the ogive nose seated in the case is corrected with its real volume, and the free run is not counted twice in the gas volume.
+  of the ogive nose seated in the case is corrected with its real volume, and the free run is not counted twice in the gas volume. The primer releases its energy over a finite time (`primerTime_ms`, 0.05 ms) and the chamber walls are at the load's powder temperature
+  (neutral against the published loads: 0.00-0.01 points). Tried and dropped (2026-10-17): the gas mass of the momentum equation counting only the burnt
+  share of the charge, and case-neck friction falling over the seating depth with a short engraving length; each made the fit to the published loads
+  worse (rifle pressure 13.7 -> 15.0 % rms, velocity 4.0 -> 4.2 %), also with refitted friction constants (14.5 % / 4.4 %).
   Its constants and the **physical burn values** of 193 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
   pressures (Hodgdon, Western, Lovex, ReloadSwiss, ADI; Vihtavuori, Vectan, RWS and Alliant publish none: their maximum loads count as the C.I.P. limit minus 50 bar;
   4 Alliant powders with too few loads have the median form function of the others) come from `analysis/calibrate_published.py --profile physical` and

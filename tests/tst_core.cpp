@@ -706,6 +706,7 @@ void CoreTest::physicalModel()
     const csr::Calibration cal = csr::calibrationFor(csr::CalibrationProfile::Physical);
     QCOMPARE(cal.model, csr::SolverModel::Physical);
     QCOMPARE(cal.gasMassShare, 0.25);  // the classical Lagrange share of the mean-pressure momentum and energy equations
+    QVERIFY(cal.primerTime_ms > 0.0);
     const csr::SimResult r = csr::simulate(in, cal);
     QVERIFY(r.ok());
     QCOMPARE(r.points.size(), std::size_t{2000});
@@ -783,6 +784,12 @@ void CoreTest::physicalModel()
     csr::Calibration otherShare = cal;  // the Lagrange share is used by the model
     otherShare.gasMassShare = 0.10;
     QVERIFY(csr::simulate(in, otherShare).maxPressure_bar != r.maxPressure_bar);
+    csr::Calibration instantPrimer = cal;  // a finite primer release changes the start
+    instantPrimer.primerTime_ms = 0.0;
+    QVERIFY(csr::simulate(in, instantPrimer).maxPressure_bar != r.maxPressure_bar);
+    csr::Calibration noPrimer = cal;  // no primer energy: the powder never reaches the start pressure, reported cleanly
+    noPrimer.primerEnergy_J = 0.0;
+    QCOMPARE(csr::simulate(in, noPrimer).status, csr::SimStatus::BulletStuck);
     csr::SimInput jump = in;
     jump.bulletJump_mm = 1.0;
     QVERIFY(csr::simulate(jump, cal).ok());
