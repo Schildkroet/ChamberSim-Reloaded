@@ -21,7 +21,7 @@
 \setlength{\parskip}{6pt}
 
 % Two versions: the manual's own revision, and the program version it describes (build.sh takes the latter from CMakeLists.txt)
-\newcommand{\manualversion}{1.1}
+\newcommand{\manualversion}{1.2}
 \providecommand{\programversion}{0.3}
 
 \definecolor{accent}{HTML}{2A7FBF}
@@ -90,9 +90,13 @@ the original's database, but stores its own loads in the \file{.csrload} format.
 
 \subsection{How accurate is it?}
 The default \emph{Physical Model} is fitted to published load data of powder manufacturers. Against loads that were left out of the
-fit, the muzzle velocity is typically within 3--5\,\% (root mean square) and the peak pressure within about 15\,\%. Single loads
-can deviate much more. Unusual loads, other powders and other cartridges than the ones tested can deviate more again; slow powders
-at low pressure, pistol and revolver cartridges (about 8\,\% in velocity and 19\,\% in pressure) and shotgun loads are known weak spots. The project's \file{README.md} contains the current accuracy tables.
+fit, the muzzle velocity is typically within 3--6\,\% (root mean square; Vihtavuori powders about 3\,\%, Hodgdon about 6\,\%) and the peak pressure
+within about 15\,\% where the tables publish it. The scatter of the published tables themselves (lots, barrels, components) is of that size.
+Single loads can deviate much more. Unusual loads, other powders and other cartridges than the ones tested can deviate more again; slow powders
+at low pressure, pistol and revolver cartridges (about 8\,\% in velocity and 19\,\% in pressure) and shotgun loads (about 3\,\% in velocity and 16\,\%
+in pressure, with their own constants) are known weak spots. Powders without physical burn values, such as your own records, are less accurate than
+the project's powders. The \ui{GRT Original} model reproduces the results of the original program to about 1\,\% in velocity and 3\,\% in pressure.
+The files \file{README.md} and \file{docs/ACCURACY.md} of the project contain the current accuracy tables.
 
 \begin{warning}
 Never use a calculated load without checking it against the manufacturer's data. Work up from a safe starting charge and watch
@@ -104,7 +108,8 @@ for signs of excessive pressure.
 
 \subsection{Installing}
 Release builds are available from the project's GitHub page: an AppImage for Linux and a zip file for Windows. Unpack or
-make the AppImage executable and start it; no installation is needed.
+make the AppImage executable and start it; no installation is needed. Both contain this manual (\menu{Help}\sep\ui{User manual}, F1); the Windows zip also
+contains the Visual C++ runtime, so nothing else has to be installed.
 To build the program yourself you need Qt 6.4 or newer, CMake 3.16 or newer and a C++20 compiler:
 \begin{verbatim}
 tools/build.sh release
@@ -118,7 +123,8 @@ ticked, \ui{I understand} also switches the notice off for later starts. There i
 \subsection{Command-line options}
 \begin{verbatim}
 ChamberSimReloaded [options] [load.csrload ...]
-  -d <file>             the original's (plain) database
+  -d, --database <file> the original's (plain) database
+  -r, --reference <f>   overlay a reference result (JSON) on the chart
   --calibration <m>     solver model: original|published|physical
   --language <code>     de_DE, en_US, fr_FR, it_IT
   --theme <t>           light | dark
@@ -126,7 +132,9 @@ ChamberSimReloaded [options] [load.csrload ...]
   --log-level <level>   debug | info | warning | error
   --help                all options
 \end{verbatim}
-Files given on the command line are opened as loads.
+Files given on the command line are opened as loads. \texttt{-{}-theme} applies to this run only; \texttt{-{}-units} and \texttt{-{}-calibration}
+are saved like the choices in the settings. \texttt{-{}-screenshot} saves an image of the window and exits (for documentation; see \texttt{-{}-help} for
+\texttt{-{}-tab}, \texttt{-{}-input-tab} and \texttt{-{}-result-tab}).
 
 \subsection{Simulating without the window}\label{sec:csrsim}
 The program \texttt{csr\_sim} runs simulations without a graphical interface, for scripts and batch jobs. It reads \texttt{.csrload} and
@@ -144,7 +152,8 @@ csr_sim [options] load.csrload|load.grtload ...
                         {name} is replaced by the load's file name
   --steps <n>           position steps of the solver (default 2000)
 \end{verbatim}
-Each row holds the charge, maximum and muzzle pressure, muzzle velocity, energy and time, burnt fraction, efficiency, burnout in the barrel,
+The program's project data (physical burn values of the powders and the factors of the pistol and revolver calibers) are built in, so the results
+equal those of the program. Each row holds the charge, maximum and muzzle pressure, muzzle velocity, energy and time, burnt fraction, efficiency, burnout in the barrel,
 load ratio and the status. Units are g, mm, bar, m/s, J and ms, whatever the unit settings of the program. The exit code is 0 when all
 simulations succeeded, 1 when at least one failed (for example because the charge does not fit into the case) and 2 for a usage or file error.
 
@@ -170,7 +179,7 @@ gets a tab of its own. On Linux the program draws its own title bar with the men
   \item[\menu{Edit}] \ui{Undo} (Ctrl+Z) and \ui{Redo} (Ctrl+Shift+Z or Ctrl+Y) for the load that is shown; see Section~\ref{sec:undo}.
   \item[\menu{View}] \ui{Theme} (system default, light, dark) and \ui{Language}. A language change takes effect after a restart.
   \item[\menu{Tools}] \ui{Burn rate table\dots} and \ui{Unit converter\dots}.
-  \item[\menu{Help}] \ui{About ChamberSim Reloaded\dots}
+  \item[\menu{Help}] \ui{User manual} (F1), which opens this manual as a PDF, and \ui{About ChamberSim Reloaded\dots}
 \end{description}
 
 \subsection{Layout}
@@ -357,7 +366,10 @@ of the new caliber (tick the corresponding option in the selection dialog).
 
 \subsection{Projectile}
 Mass, diameter, length and the other bullet data. \ui{Select Projectile\dots} replaces the bullet; tick \ui{Show only bullets that fit the caliber}
-to narrow the list. The \ui{Initial Gas Pressure} is the pressure at which the bullet starts to move and engraves.
+to narrow the list. The \ui{Initial Gas Pressure} is the pressure at which the bullet starts to move and engraves. The \ui{Bullet friction} is an extra
+resistance in bar that acts all along the barrel; it is always applied. Negative values are possible and describe low-friction bullets (the original's
+database has values down to $-100$\,bar). For 362 rifle bullets the project records carry start pressure and friction values fitted to published loads.
+A load keeps the values it was made with until you select the bullet again.
 
 \subsection{Propellant}\label{sec:propellant}
 Powder charge, explosion heat, burn rate and the form-function values. \ui{Select Propellant\dots} replaces the powder.
@@ -411,6 +423,10 @@ bands show the permitted maximum pressure. Move the mouse over the chart to read
 
 \subsection{Burn-rate chart}
 The smaller chart shows the burn rate $B_a\cdot\varphi(z)$ over the burnt fraction.
+
+\subsection{Reference overlay}
+\menu{File}\sep\ui{Overlay reference result\dots} (Ctrl+R) draws a saved result (a JSON file, for example from a run of the original program) as dashed
+curves over the chart of the shown load, for comparison. \ui{Clear reference overlay} removes it.
 
 \subsection{Load development ladder}
 With a ladder, the program simulates several charges at once. Set the number of steps and the charge difference in the load's ladder fields; up to
