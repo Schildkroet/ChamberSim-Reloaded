@@ -176,8 +176,26 @@ struct Calibration
     double primerEnergy_J{50.0};  // energy of the primer gas that lights the powder (20-30 mg of priming compound)
     double primerTime_ms{0.05};   // time constant of the primer gas release (0: the primer energy appears at t = 0)
     double ignitionTime_ms{0.0};  // flame spread: the lit share of the grains is 1 - exp(-t / this) after ignition (0: all at once)
-    double engravingShare{0.5};   // rifling engraving: resistance = share x start pressure x bore area, decaying over the bearing length
+    // Start resistance of the bullet, fitted (not a physical engraving force): share x start pressure x bore area, decaying over the
+    // bearing length. The start pressure is the model's release threshold, and it is 0.3 x pMax for handguns: this term therefore scales
+    // the start resistance with the cartridge class, which is what the published loads are fitted with (see docs/SOLVER.md, 2026-10-17).
+    double engravingShare{0.5};
     double slideStress_MPa{3.0};  // friction stress on the bullet's bearing surface in the bore
+    // Absolute engraving pressure of the bullet in the rifling [bar] x bore area = engraving force, independent of the start pressure.
+    // 0: engravingShare x start pressure (the fitted form above). A physical engraving force is 200 - 600 bar x bore area; measured on
+    // the published loads it does not improve the fit (rifle pressure -0.3 points, pistol pressure +1.2 points).
+    double engravingPressure_bar{0.0};
+    // Length over which the start resistance decays after the bullet reaches the rifling. 0: the bearing length (the fitted value; a
+    // physical engraving is 0.2 - 1 mm). Measured: 2-10 mm changes the rifle fit by less than 0.2 points and the pistol fit by up to 1.
+    double engravingLength_mm{0.0};
+    // Pistol and revolver cartridges (C.I.P. table IV) have their own start resistance: their start pressure is 0.3 x pMax (rifles: the
+    // bullet's 50 - 500 bar), so one share does not fit both. < 0: the rifle value above applies. Engraving length 0: the bearing length.
+    double engravingShareHandgun{-1.0};
+    double engravingLengthHandgun_mm{-1.0};
+    // Case-neck friction stress on the bullet inside the case mouth [MPa]: the force is the stress x pi x D x the seating depth still in
+    // the neck, which falls to zero as the bullet slides out. 0: no neck friction (during the free run the constant release force of the
+    // engraving acts instead). It adds to the fitted start resistance; measured on the published loads it does not improve the fit.
+    double neckStress_MPa{0.0};
     // interference of bullet and rifling: relative oversize e = (bullet diameter - groove diameter) / groove diameter in percent scales
     // the engraving resistance and the sliding stress by max(1 + k e, 0.25); 0: the bullet's fit does not matter
     double engravingInterference{0.0};

@@ -23,12 +23,15 @@ ap.add_argument("eval_exe"); ap.add_argument("samples", nargs="*")
 ap.add_argument("--baseline", help="csr_eval of the older build to compare with")
 ap.add_argument("--profile", default="physical")
 ap.add_argument("--eval-arg", action="append", default=[], help="extra option for the csr_eval of the first build (repeatable), e.g. --eval-arg=--physical=other.json")
+ap.add_argument("--baseline-projectiles", default="", help="projectile records for the baseline run (default: --projectiles; \"none\": the solver's defaults)")
 ap.add_argument("--baseline-arg", action="append", default=[], help="extra option for the baseline csr_eval; the baseline may be the same executable with other options")
 ap.add_argument("--min-samples", type=int, default=60)
 ap.add_argument("--drop-inconsistent", type=float, default=0.15)
 ap.add_argument("--jobs", type=int, default=min(14, os.cpu_count() or 1))
 ap.add_argument("--max-pressure-dev", type=float, default=0.0, help="leave out loads whose simulated pressure is more than this far (percent) off the published one: probably invalid data")
 ap.add_argument("--exclude-by", choices=["baseline", "both", "either", "current"], default="baseline", help="which build decides (the same loads are left out of both)")
+ap.add_argument("--projectiles", default="", help="directory of projectile record files (data/projectiles): every load gets the start pressure gpressure and the extra friction "
+                "gfriction of the bullet record it matches, as in the program (default: none, the solver's default start pressure of 250 bar and no extra friction)")
 ap.add_argument("--worst", type=int, default=0, help="also list the loads whose pressure changed most between the builds")
 args = ap.parse_args()
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
@@ -56,21 +59,39 @@ if args.drop_inconsistent > 0:
     from sample_filter import inconsistent
     gone = inconsistent(rows, args.drop_inconsistent)
     rows = [r for i, r in enumerate(rows) if i not in gone]
+def bullet_columns(directory):
+    """(gpressure, gfriction) per row from the bullet records in `directory` (empty strings without a directory or a matching record)."""
+    if not directory: return [("", "")] * len(rows)
+    import re
+    sys.path.insert(0, os.path.join(ROOT, "scripts", "data"))
+    import recordfiles
+    recs = [r for _, r in recordfiles.read(directory)]
+    def match(label, gr, dia):  # the record of the load's bullet (maker prefix, mass, diameter; best name overlap), like fit_bullet_start_values.py
+        low = label.lower()
+        c = [p for p in recs if low.startswith(p["mname"].lower()) and abs(p["gmass"] - gr) < 0.8 and abs(p["gdia"] - dia) < 0.06]
+        return max(c, key=lambda p: sum(w in p["pname"].lower() for w in re.findall(r"[a-z0-9]+", low))) if c else None
+    out = []
+    for r in rows:
+        rec = match(r["bullet"], float(r["bullet_gr"]), float(r["bullet_dia_mm"]))
+        out.append((str(rec.get("gpressure") or "") if rec else "", str(rec.get("gfriction") or "") if rec else ""))
+    return out
+
+
 held = set(sorted({r["caliber"] for r in rows})[3::4])
 count = {}
 for r in rows: count[r["powder"]] = count.get(r["powder"], 0) + 1
 rows = [r for r in rows if count[r["powder"]] >= args.min_samples]
-tmp = tempfile.mkdtemp(); header = [h for h in rows[0].keys() if h != "_src"]
+tmp = tempfile.mkdtemp(); header = [h for h in rows[0].keys() if h != "_src"] + ["gpressure", "gfriction"]
 by = {}
 for i, r in enumerate(rows): by.setdefault(r["powder"], []).append(i)
 
 
-def simulate(exe, extra):
+def simulate(exe, extra, columns):
     v = np.full(len(rows), np.nan); p = np.full(len(rows), np.nan)
     def one(name):
         path = os.path.join(tmp, f"{os.getpid()}_{abs(hash((exe, name)))}.csv"); idx = by[name]
         with open(path, "w", newline="") as f:
-            w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(rows[i] for i in idx)
+            w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(dict(rows[i], gpressure=columns[i][0], gfriction=columns[i][1]) for i in idx)
         out = subprocess.run([exe, path, "--profile", args.profile] + extra, capture_output=True, text=True).stdout
         for l in out.splitlines():
             a = l.split(",")
@@ -82,8 +103,8 @@ def simulate(exe, extra):
 mv = np.array([float(r["velocity_ms"]) for r in rows]); mp = np.array([float(r["pressure_bar"]) if r["pressure_bar"] else np.nan for r in rows])
 cls = np.array(["pistol" if "/tab-iv/" in cal.get(r["caliber"], {}).get("cippdf", "") else "rifle" for r in rows])
 src = np.array([r["_src"] for r in rows]); test = np.array([r["caliber"] in held for r in rows])
-runs = {"current": simulate(args.eval_exe, args.eval_arg)}
-if args.baseline: runs["baseline"] = simulate(args.baseline, args.baseline_arg)
+runs = {"current": simulate(args.eval_exe, args.eval_arg, bullet_columns(args.projectiles))}
+if args.baseline: runs["baseline"] = simulate(args.baseline, args.baseline_arg, bullet_columns("" if args.baseline_projectiles == "none" else (args.baseline_projectiles or args.projectiles)))
 rms = lambda x: 100 * np.sqrt(np.mean(x[~np.isnan(x)] ** 2)) if np.any(~np.isnan(x)) else float("nan")
 bias = lambda x: 100 * np.nanmean(x) if np.any(~np.isnan(x)) else float("nan")
 ev = {k: np.log(v / mv) for k, (v, p) in runs.items()}; ep = {k: np.log(p / mp) for k, (v, p) in runs.items()}

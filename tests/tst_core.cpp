@@ -790,6 +790,25 @@ void CoreTest::physicalModel()
     csr::Calibration noPrimer = cal;  // no primer energy: the powder never reaches the start pressure, reported cleanly
     noPrimer.primerEnergy_J = 0.0;
     QCOMPARE(csr::simulate(in, noPrimer).status, csr::SimStatus::BulletStuck);
+
+    // the start resistance is fitted (share x start pressure, decaying over the bearing length) but every part is a working knob
+    csr::Calibration shortEngraving = cal;
+    shortEngraving.engravingLength_mm = 5.0;
+    QVERIFY(csr::simulate(in, shortEngraving).maxPressure_bar != r.maxPressure_bar);
+    csr::Calibration absoluteEngraving = cal;  // independent of the start pressure
+    absoluteEngraving.engravingPressure_bar = 150.0;
+    QVERIFY(csr::simulate(in, absoluteEngraving).maxPressure_bar != r.maxPressure_bar);
+    csr::Calibration neck = cal;  // case-neck friction instead of the constant free-run release force
+    neck.neckStress_MPa = 2.0;
+    QVERIFY(csr::simulate(in, neck).maxPressure_bar != r.maxPressure_bar);
+    QVERIFY(csr::simulate(in, neck).ok());
+    csr::SimInput pistol = in;  // handguns have their own start resistance (fitted share x start pressure) and rifles an absolute one
+    pistol.handgun = true;
+    csr::Calibration sameForBoth = cal;
+    sameForBoth.engravingShareHandgun = -1.0;
+    sameForBoth.engravingLengthHandgun_mm = -1.0;
+    QVERIFY(csr::simulate(pistol, cal).maxPressure_bar != csr::simulate(pistol, sameForBoth).maxPressure_bar);
+    QCOMPARE(csr::simulate(in, cal).maxPressure_bar, csr::simulate(in, sameForBoth).maxPressure_bar);  // rifles are not affected
     csr::SimInput jump = in;
     jump.bulletJump_mm = 1.0;
     QVERIFY(csr::simulate(jump, cal).ok());

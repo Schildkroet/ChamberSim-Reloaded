@@ -400,9 +400,11 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 // momentum and the breech pressure is p + mc a / (4 A). The powder burns at the breech pressure; the energy balance uses the
 // mean pressure. The Original model keeps the load's Sebert factor instead.
 // The bullet stays at x0 until the gas pressure reaches the start pressure ps; until then the powder burns in the closed case, lit by
-// the primer gas (primerEnergy_J, released over primerTime_ms). The resistance F: engraving (engravingShare * ps * A once the bullet has
-// crossed the free run gjump, decaying over the bearing length), friction of the bearing surface (slideStress * pi * D * bearing
-// length), the user's extra friction gfriction [bar] * A (when unlocked) and the air pushed out of the bore (piston-driven shock).
+// the primer gas (primerEnergy_J, released over primerTime_ms). The resistance F: start resistance (engravingShare * ps * A, or an
+// absolute engravingPressure_bar * A when that is set; once the bullet has crossed the free run gjump, decaying over
+// engravingLength_mm, else over the bearing length), case-neck friction while the bullet slides out of the neck (neckStress_MPa x
+// pi x D x the remaining seating depth; only when set), friction of the bearing surface (slideStress * pi * D * bearing length), the
+// user's extra friction gfriction [bar] * A (when unlocked) and the air pushed out of the bore (piston-driven shock).
 // Heat transfer: Dittus-Boelter for turbulent pipe flow, h = factor * 0.023 * lambda * Pr^0.4 * mu^-0.8 * D^-0.2 * (rho u)^0.8 with
 // the gas velocity u = v / 2 + heatVelocity_ms (the turbulence of the burning charge, also before the bullet moves), the gas temperature T = p Vgas / (m_gas R), the wetted surface = powder space (a cylinder as long
 // as the case behind the bullet) + the bore behind the bullet, and the wall at the load temperature. The reported pressure is the breech pressure of the Lagrange gradient.
@@ -416,6 +418,7 @@ struct PhysicalModel
     double A, D, mBullet, mMove, mc, V0, x0, solid, covolume, theta, eChem, ePrimer, mPrimerGas, startP, jump, bearing;
     double engraveForce, slideForce, extraForce, heatCoeff, heatVelocity, gasR, chamberSurface, burnBa, burnExponent, ignitionTime;
     double gasMassShare, primerTime, wallTemperature;
+    double neckLength, neckStress, engravingLength;
     FormFunction phi;
 
     [[nodiscard]] double gasVolume(double x, double z) const noexcept
@@ -436,14 +439,27 @@ struct PhysicalModel
         const double M = v / a1;
         return p1 * (1.0 + g * c * M * M + g * M * std::sqrt(1.0 + c * c * M * M));
     }
+    // Case-neck friction: the contact length falls while the bullet slides out of the neck.
+    [[nodiscard]] double neckForce(double travel) const noexcept
+    {
+        if (neckStress <= 0.0 || neckLength <= 0.0 || travel >= neckLength) return 0.0;
+        return neckStress * std::numbers::pi * D * (neckLength - travel);
+    }
     [[nodiscard]] double resistance(double x, double v) const noexcept
     {
         double f = extraForce + airPressure(v) * A;
-        const double s = x - x0 - jump;  // travel in the rifling
-        // in the free run the case neck still holds the bullet: the release force of the start pressure, which the engraving continues at s = 0
-        // (without it the bullet would run free at the start pressure: -15 % peak pressure for a jump of 0.25 mm in a 9 mm Luger)
-        if (s >= 0.0) f += slideForce + engraveForce * std::exp(-s / bearing);
-        else f += engraveForce;
+        const double travel = std::max(x - x0, 0.0);
+        const double s = x - x0 - jump;  // travel after the bullet reached the rifling
+        // In the free run the case neck still holds the bullet: the release force of the start pressure, which the engraving continues at
+        // s = 0. Without neck friction (fitted value) it is a constant force (otherwise the bullet would run free at the start pressure:
+        // -15 % peak pressure for a jump of 0.25 mm in a 9 mm Luger).
+        if (s < 0.0)
+        {
+            f += neckStress > 0.0 ? neckForce(travel) : engraveForce;
+            return std::max(f, 0.0);
+        }
+        f += neckForce(travel);
+        f += slideForce + engraveForce * std::exp(-s / (engravingLength > 0.0 ? engravingLength : bearing));
         return std::max(f, 0.0);
     }
     [[nodiscard]] double heatRate(const PhysState &y, double p) const noexcept
@@ -557,6 +573,10 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.gasMassShare = cal.gasMassShare;
     m.x0 = in.startPosition_mm() * 1e-3;
     m.jump = in.bulletJump_mm * 1e-3;
+    m.neckLength = std::max(in.seatingDepth_mm * 1e-3, 0.0);
+    m.neckStress = std::max(cal.neckStress_MPa, 0.0) * 1e6;
+    const auto perClass = [&](double rifle, double handgun) { return in.handgun && handgun >= 0.0 ? handgun : rifle; };
+    m.engravingLength = std::max(perClass(cal.engravingLength_mm, cal.engravingLengthHandgun_mm) * 1e-3, 0.0);
     m.primerTime = std::max(cal.primerTime_ms * 1e-3, 0.0);
     m.wallTemperature = in.temperature_C + 273.15;
     // The free run is not part of the gas volume at rest: the bullet base starts at x0 and gasVolume() adds A (x - x0) while it
@@ -580,7 +600,10 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
                                 ? 100.0 * (in.bulletDiameter_mm - in.grooveDiameter_mm) / in.grooveDiameter_mm
                                 : 0.0;
     const auto fit = [oversize](double k) { return std::max(1.0 + k * oversize, 0.25); };
-    m.engraveForce = cal.engravingShare * fit(cal.engravingInterference) * m.startP * m.A;
+    // absolute engraving pressure of the bullet in the rifling, else the empirical share of the start pressure
+    const double engravePressure = cal.engravingPressure_bar > 0.0 ? cal.engravingPressure_bar * kBar
+                                                                   : perClass(cal.engravingShare, cal.engravingShareHandgun) * m.startP;
+    m.engraveForce = fit(cal.engravingInterference) * engravePressure * m.A;
     m.slideForce = cal.slideStress_MPa * fit(cal.slideInterference) * 1e6 * n::pi * bulletDia * m.bearing;
     m.extraForce = in.extraFriction_bar * kBar * m.A;
     // gas: lambda 0.2 W/(m K), mu 8e-5 Pa s, Pr 0.7
@@ -1007,7 +1030,12 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.primerEnergy_J = 10.0009;
         cal.primerTime_ms = 0.05;  // the primer gas reaches the powder over this time constant
         cal.ignitionTime_ms = 0.1;
-        cal.engravingShare = 0.6;
+        // 2026-10-18: separate start resistance per class (share x start pressure): rifles 1.2 decaying over 2 mm, handguns (start
+        // pressure 0.3 x pMax) 0.6 over the bearing length; docs/SOLVER.md
+        cal.engravingShare = 1.2;
+        cal.engravingLength_mm = 2.0;
+        cal.engravingShareHandgun = 0.6;
+        cal.engravingLengthHandgun_mm = 0.0;
         cal.slideStress_MPa = 0.700469;
         cal.slideInterference = 1.5;  // 2026-10-11: sliding stress +1.5 % per percent of bullet oversize over the groove (scan_physical.py)
         cal.heatTransferFactor = 0.0618079;
@@ -1079,6 +1107,11 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"primerTime_ms", &cal.primerTime_ms},
             {"ignitionTime_ms", &cal.ignitionTime_ms},
             {"engravingShare", &cal.engravingShare},
+            {"engravingLength_mm", &cal.engravingLength_mm},
+            {"engravingPressure_bar", &cal.engravingPressure_bar},
+            {"engravingShareHandgun", &cal.engravingShareHandgun},
+            {"engravingLengthHandgun_mm", &cal.engravingLengthHandgun_mm},
+            {"neckStress_MPa", &cal.neckStress_MPa},
             {"slideStress_MPa", &cal.slideStress_MPa},
             {"engravingInterference", &cal.engravingInterference},
             {"slideInterference", &cal.slideInterference},

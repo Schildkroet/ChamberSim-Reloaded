@@ -16,9 +16,37 @@
   the barrel is reported. The gas moves with the classical Lagrange share of the charge (1/4) and the powder burns at the breech pressure
   (the mean pressure plus the gas-column term), so the momentum, energy and reported pressure use one consistent gradient model. The part
   of the ogive nose seated in the case is corrected with its real volume, and the free run is not counted twice in the gas volume. The primer releases its energy over a finite time (`primerTime_ms`, 0.05 ms) and the chamber walls are at the load's powder temperature
-  (neutral against the published loads: 0.00-0.01 points). Tried and dropped (2026-10-17): the gas mass of the momentum equation counting only the burnt
-  share of the charge, and case-neck friction falling over the seating depth with a short engraving length; each made the fit to the published loads
-  worse (rifle pressure 13.7 -> 15.0 % rms, velocity 4.0 -> 4.2 %), also with refitted friction constants (14.5 % / 4.4 %).
+  (neutral against the published loads: 0.00-0.01 points).
+
+  **The start resistance is a fitted term, not an engraving force** (2026-10-17). It is `engravingShare x start pressure x bore area`,
+  decaying over the **bearing length**; the start pressure is the model's release threshold and is `0.3 x pMax` for handguns, so the term
+  gives pistols 2-4 times the start resistance of rifles. That scaling is what the published loads are fitted with. Replacing it with a
+  physical engraving (absolute 150-300 bar x bore area, decaying over 0.2-2 mm) or adding case-neck friction (stress x pi x D x the
+  remaining seating depth) does not improve the fit: with the Ba of every powder refitted for each variant (all published loads, fit
+  residuals, velocity / peak pressure rms):
+
+  | start resistance | rifle | pistol | velocity gain |
+  |---|---|---|---|
+  | share x ps, bearing decay (**current**) | 3.99 / 13.76 % | 7.93 / 19.66 % | 0.976 |
+  | share x ps, decay 2 mm | 4.02 / 13.98 % | 7.85 / 19.59 % | 0.988 |
+  | share x ps, decay 5 mm | 4.01 / 13.89 % | 7.91 / 19.59 % | 0.983 |
+  | absolute 150 bar, decay 0.5 mm | 3.98 / 13.94 % | 8.02 / 19.76 % | 0.997 |
+  | absolute 300 bar, decay 0.2 mm | 3.93 / 13.53 % | 7.93 / 20.27 % | 0.975 |
+  | absolute 300 bar, decay 2 mm | 3.94 / 13.29 % | 7.94 / 20.85 % | 0.957 |
+  | share 0.9, bearing decay | 4.10 / 13.56 % | 8.18 / 20.36 % | 0.954 |
+
+  Each variant buys rifle pressure with pistol pressure or velocity, or with the start-to-maximum velocity gain; no combination improves
+  both classes with one setting for all cartridges. **Separate settings per class do** (2026-10-18): rifles `engravingShare` 1.2 decaying over
+  `engravingLength_mm` 2, pistols and revolvers `engravingShareHandgun` 0.6 over the bearing length (`engravingLengthHandgun_mm` 0). With Ba
+  refitted: rifle 3.98 / 13.34 %, pistol 7.88 / 19.26 %, velocity gain 0.957 (fit residuals; the previous constants 3.98 / 13.73 % and
+  7.96 / 19.57 %, 0.974); rifle 1.2 x 250 bar equals the absolute 300 bar of the table, but keeps the dependence on the start pressure of the bullet.
+  Pistol share 0.4: 3.94 / 13.28 % and 7.84 / 19.08 % in the fit, but worse pressure on the held-out pistol cartridges (+0.5 points); 0.9 and an
+  absolute 400 bar are worse. The price is the agreement with the original program's reference runs (peak pressure mean 29 -> 40 %).
+  The same held for the bearing friction (0.35 / 0.7 / 1.4 MPa: pistol 8.11 / 7.97 / 9.57 % velocity). The parts of the term
+  stay adjustable (`engravingPressure_bar`, `engravingLength_mm`, `neckStress_MPa`; 0 = the fitted behaviour above), but the defaults are
+  the fitted optimum. Also dropped: counting only the **burnt** share of the charge in the momentum equation - the whole charge moves with
+  the bullet (gas *and* unburnt grains), only its phase changes, so the burnt fraction is not the moving mass; and with a growing mass the
+  momentum equation would need the influx term `-alpha * dm/dt * v` as well.
   Its constants and the **physical burn values** of 193 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
   pressures (Hodgdon, Western, Lovex, ReloadSwiss, ADI; Vihtavuori, Vectan, RWS and Alliant publish none: their maximum loads count as the C.I.P. limit minus 50 bar;
   4 Alliant powders with too few loads have the median form function of the others) come from `analysis/calibrate_published.py --profile physical` and

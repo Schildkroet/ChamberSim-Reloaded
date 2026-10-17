@@ -42,6 +42,7 @@ POOL = ThreadPoolExecutor(int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() 
 rows, seen = [], set()
 for f in args.samples:
     for r in csv.DictReader(open(f)):
+        r.setdefault("pressure_bar", "")  # velocity-only sample files (Vihtavuori) have no pressure column
         if r["pressure_bar"] and not 500 <= float(r["pressure_bar"]) <= 9000: r["pressure_bar"] = ""
         key = (r["powder"].upper(), r["caliber"], r["bullet_gr"], r["kind"], r["charge_g"], r["velocity_ms"], r["col_mm"])
         if key not in seen: seen.add(key); rows.append(r)
@@ -55,11 +56,12 @@ def subset(powders, test):
     return [r for r in rows if r["powder"] in powders and (r["caliber"] in test_cartridges) == test]
 sets = {"train": subset(train_p, False), "testA": subset(train_p, True), "B_fit": subset(test_p, False), "B_test": subset(test_p, True)}
 tmp = tempfile.mkdtemp()
+header = list(dict.fromkeys(k for r in rows for k in r))  # the sample files do not all have the same columns
 files = {}
 for name, rs in sets.items():
     files[name] = os.path.join(tmp, name + ".csv")
     with open(files[name], "w", newline="") as f:
-        w = csv.DictWriter(f, list(rows[0].keys())); w.writeheader(); w.writerows(rs)
+        w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(rs)
 print({k: len(v) for k, v in sets.items()}, "test cartridges:", len(test_cartridges), "of", len(cartridges), flush=True)
 
 PHYS = {}
@@ -81,7 +83,7 @@ def simulate(name, cal, ba, chunks=int(os.environ.get("CSR_JOBS", min(14, os.cpu
         if not idx: return []
         path = os.path.join(tmp, f"{name}_{os.getpid()}_{idx[0]}.csv")
         with open(path, "w", newline="") as f:
-            w = csv.DictWriter(f, list(rows[0].keys())); w.writeheader(); w.writerows([rs[i] for i in idx])
+            w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows([rs[i] for i in idx])
         cmd = [args.eval_exe, path, "--profile", args.profile] + [a for k, v in cal.items() for a in ("--set", f"{k}={v:.10g}")] + ba_args(ba)
         out = subprocess.run(cmd, capture_output=True, text=True).stdout
         os.remove(path)
