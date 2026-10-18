@@ -1,0 +1,52 @@
+[
+  {
+    "mname": "Shooting Technology",
+    "pname": "HPHB Kegelspitz verkupfert 0.356 100 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 12.4,
+    "gmass": 100.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Shooting Technology",
+    "pname": "HPHB TC Kegelstumpf Hohlspitz verkupfert 0.356 116 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 13.8,
+    "gmass": 116.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+  },
+  {
+    "mname": "Shooting Technology",
+    "pname": "Kegelstumpf verkupfert 0.356 116 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 14.3,
+    "gmass": 116.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Shooting Technology",
+    "pname": "Rundkopf verkupfert 0.356 100 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 12.4,
+    "gmass": 100.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Shooting Technology",
+    "pname": "Rundkopf verkupfert 0.356 116 gr",
+    "caliber": ".356",
+    "gdia": 9.04,
+    "glen": 14.3,
+    "gmass": 116.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  }
+]

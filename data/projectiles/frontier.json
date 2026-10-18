@@ -6,6 +6,7 @@
     "gdia": 9.02,
     "glen": 14.2,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -15,6 +16,7 @@
     "gdia": 9.02,
     "glen": 13.9,
     "gmass": 124.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -24,6 +26,7 @@
     "gdia": 9.07,
     "glen": 14.4,
     "gmass": 125.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -33,6 +36,7 @@
     "gdia": 10.9,
     "glen": 22.1,
     "gmass": 300.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -42,6 +46,7 @@
     "gdia": 9.02,
     "glen": 15.2,
     "gmass": 124.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -51,6 +56,7 @@
     "gdia": 9.02,
     "glen": 17.2,
     "gmass": 147.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -60,6 +66,7 @@
     "gdia": 9.02,
     "glen": 15.0,
     "gmass": 124.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -69,6 +76,7 @@
     "gdia": 11.46,
     "glen": 17.3,
     "gmass": 230.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -78,6 +86,7 @@
     "gdia": 9.3,
     "glen": 36.9,
     "gmass": 286.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -87,6 +96,7 @@
     "gdia": 7.82,
     "glen": 34.9,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
@@ -98,6 +108,7 @@
     "gdia": 7.21,
     "glen": 38.1,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
@@ -107,6 +118,7 @@
     "gdia": 8.2,
     "glen": 32.1,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -116,6 +128,7 @@
     "gdia": 7.82,
     "glen": 34.6,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -125,6 +138,7 @@
     "gdia": 8.2,
     "glen": 38.5,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -134,6 +148,7 @@
     "gdia": 6.71,
     "glen": 33.0,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
@@ -145,6 +160,7 @@
     "gdia": 7.04,
     "glen": 33.9,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
@@ -156,6 +172,7 @@
     "gdia": 7.82,
     "glen": 31.2,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
@@ -167,6 +184,7 @@
     "gdia": 7.82,
     "glen": 32.9,
     "gmass": 165.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
@@ -178,6 +196,7 @@
     "gdia": 7.82,
     "glen": 36.4,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
@@ -189,6 +208,7 @@
     "gdia": 8.2,
     "glen": 33.2,
     "gmass": 175.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
@@ -200,6 +220,7 @@
     "gdia": 9.02,
     "glen": 12.8,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
@@ -209,6 +230,7 @@
     "gdia": 9.07,
     "glen": 14.1,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -218,6 +240,7 @@
     "gdia": 10.16,
     "glen": 12.9,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
@@ -227,6 +250,7 @@
     "gdia": 11.46,
     "glen": 12.1,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.19, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   }
 ]

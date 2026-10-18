@@ -1,6 +1,16 @@
 [
   {
     "mname": "Nosler",
+    "pname": "AccuBond 0.277 110 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 24.1,
+    "gmass": 110.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Nosler",
     "pname": "AccuBond 50712",
     "caliber": ".358",
     "gdia": 9.09,
@@ -454,6 +464,16 @@
   },
   {
     "mname": "Nosler",
+    "pname": "AccuBond Long Range Spitzer 0.277 165 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 36.1,
+    "gmass": 165.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Nosler",
     "pname": "Assured Stopping Power 43123",
     "caliber": ".355",
     "gdia": 9.02,
@@ -685,6 +705,26 @@
     "gtaildiaA": 8.59,
     "g1bc": 0.414,
     "gfriction": -50.0
+  },
+  {
+    "mname": "Nosler",
+    "pname": "Ballistic Tip 0.270 150 gr",
+    "caliber": ".270",
+    "gdia": 6.86,
+    "glen": 34.8,
+    "gmass": 150.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Nosler",
+    "pname": "Ballistic Tip 0.277 170 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 37.2,
+    "gmass": 170.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Nosler",
@@ -1347,6 +1387,16 @@
   },
   {
     "mname": "Nosler",
+    "pname": "E-Tip bleifrei 0.277 85 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 21.3,
+    "gmass": 85.0,
+    "gpressure": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Nosler",
     "pname": "Expansion Tip 59165",
     "caliber": ".243",
     "gdia": 6.17,
@@ -1536,6 +1586,28 @@
     "gtailtype": 2,
     "gtaildiaA": 7.21,
     "g1bc": 0.489
+  },
+  {
+    "mname": "Nosler",
+    "pname": "HPBT RDF 0.243 115 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 34.5,
+    "gmass": 115.0,
+    "gpressure": 250.0,
+    "gtailtype": 2,
+    "gtaildiaA": 6.17,
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+  },
+  {
+    "mname": "Nosler",
+    "pname": "JHP Sporting Handgun Hohlspitz 0.429 200 gr",
+    "caliber": ".429",
+    "gdia": 10.9,
+    "glen": 15.3,
+    "gmass": 200.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
   },
   {
     "mname": "Nosler",
@@ -2338,5 +2410,15 @@
     "gmass": 35.0,
     "gpressure": 250.0,
     "g1bc": 0.12
+  },
+  {
+    "mname": "Nosler",
+    "pname": "Varmageddon Polymerspitze 0.264 90 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 21.9,
+    "gmass": 90.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   }
 ]

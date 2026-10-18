@@ -349,6 +349,16 @@
   },
   {
     "mname": "Lapua",
+    "pname": "OT G573 Hohlspitz 0.323 120 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 17.9,
+    "gmass": 120.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+  },
+  {
+    "mname": "Lapua",
     "pname": "Scenar GB422",
     "caliber": ".308",
     "gdia": 7.83,

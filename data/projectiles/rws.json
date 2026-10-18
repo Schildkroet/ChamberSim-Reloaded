@@ -141,6 +141,26 @@
   },
   {
     "mname": "RWS",
+    "pname": "HIT 0.284 140 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 29.0,
+    "gmass": 140.0,
+    "gpressure": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "RWS",
+    "pname": "Hit 0.366 250 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 29.0,
+    "gmass": 250.0,
+    "gpressure": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "RWS",
     "pname": "Hit 2416965",
     "caliber": ".413",
     "gdia": 10.49,
@@ -318,6 +338,16 @@
     "glen": 31.0,
     "gmass": 127.0,
     "gpressure": 140.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "RWS",
+    "pname": "KS 0.366 247 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 28.7,
+    "gmass": 247.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -560,6 +590,16 @@
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+  },
+  {
+    "mname": "RWS",
+    "pname": "UNI Classic 0.375 301 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 33.0,
+    "gmass": 301.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "RWS",

@@ -1,0 +1,12 @@
+[
+  {
+    "mname": "Buffalo Arms",
+    "pname": "Hartblei 7 mm Nambu 0.280 60 gr",
+    "caliber": ".280",
+    "gdia": 7.11,
+    "glen": 12.8,
+    "gmass": 60.0,
+    "gpressure": 150.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  }
+]

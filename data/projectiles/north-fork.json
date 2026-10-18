@@ -6,6 +6,7 @@
     "gdia": 7.82,
     "glen": 38.2,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.11, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
@@ -15,6 +16,7 @@
     "gdia": 12.04,
     "glen": 35.2,
     "gmass": 500.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -24,6 +26,7 @@
     "gdia": 10.57,
     "glen": 37.5,
     "gmass": 430.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -33,6 +36,7 @@
     "gdia": 7.21,
     "glen": 36.7,
     "gmass": 160.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.11, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
   {
@@ -42,6 +46,7 @@
     "gdia": 7.82,
     "glen": 30.0,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -51,6 +56,7 @@
     "gdia": 8.2,
     "glen": 31.2,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -60,6 +66,7 @@
     "gdia": 10.74,
     "glen": 35.8,
     "gmass": 400.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -69,6 +76,7 @@
     "gdia": 11.63,
     "glen": 29.2,
     "gmass": 350.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
   {
@@ -78,6 +86,7 @@
     "gdia": 12.04,
     "glen": 36.0,
     "gmass": 500.0,
+    "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   }
 ]

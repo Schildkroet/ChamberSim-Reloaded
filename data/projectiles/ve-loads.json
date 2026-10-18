@@ -1,0 +1,22 @@
+[
+  {
+    "mname": "Ve-Loads",
+    "pname": "BMG Long Range Target Match Kupfer 0.510 813 gr",
+    "caliber": ".510",
+    "gdia": 12.95,
+    "glen": 60.1,
+    "gmass": 813.0,
+    "gpressure": 350.0,
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
+  },
+  {
+    "mname": "Ve-Loads",
+    "pname": "Long Range Target Match Messing 0.284 141 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 31.3,
+    "gmass": 141.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+  }
+]

@@ -1,0 +1,172 @@
+[
+  {
+    "mname": "GM",
+    "pname": "Murmel Messingjagd 0.406 190 gr",
+    "caliber": ".406",
+    "gdia": 10.31,
+    "glen": 17.3,
+    "gmass": 190.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Crown Messingjagd 0.284 104 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 21.5,
+    "gmass": 104.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Crown Messingjagd 0.308 121 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 20.8,
+    "gmass": 121.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Crown Messingjagd 0.323 127 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 19.6,
+    "gmass": 127.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Crown Messingjagd 0.366 154 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 17.9,
+    "gmass": 154.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Crown Messingjagd 0.375 185 gr",
+    "caliber": ".375",
+    "gdia": 9.52,
+    "glen": 20.3,
+    "gmass": 185.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Messingjagd 0.222 37 gr",
+    "caliber": ".222",
+    "gdia": 5.64,
+    "glen": 13.3,
+    "gmass": 37.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Messingjagd 0.224 47 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 16.5,
+    "gmass": 47.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Messingjagd 0.243 71 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 20.8,
+    "gmass": 71.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Messingjagd 0.264 91 gr",
+    "caliber": ".264",
+    "gdia": 6.71,
+    "glen": 22.2,
+    "gmass": 91.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Messingjagd 0.277 102 gr",
+    "caliber": ".277",
+    "gdia": 7.04,
+    "glen": 22.3,
+    "gmass": 102.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Tip Messingjagd 0.284 104 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 21.5,
+    "gmass": 104.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Tip Messingjagd 0.308 121 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 20.8,
+    "gmass": 121.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Tip Messingjagd 0.323 127 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 19.6,
+    "gmass": 127.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Tip Messingjagd 0.338 131 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 18.2,
+    "gmass": 131.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Tip Messingjagd 0.366 154 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 17.9,
+    "gmass": 154.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "GM",
+    "pname": "Splinter Tip Messingjagd 0.406 188 gr",
+    "caliber": ".406",
+    "gdia": 10.31,
+    "glen": 17.2,
+    "gmass": 188.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  }
+]

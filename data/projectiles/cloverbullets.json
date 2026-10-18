@@ -1,0 +1,92 @@
+[
+  {
+    "mname": "CloverBullets",
+    "pname": "HTLR Tombak Jagd- / Scheiben 0.308 150 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 25.8,
+    "gmass": 150.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Messing Jagd 0.284 120 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 24.8,
+    "gmass": 120.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Messing Jagd 0.308 135 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 23.2,
+    "gmass": 135.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Messing Jagd 0.323 145 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 22.4,
+    "gmass": 145.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Messing Jagd 0.366 160 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 18.6,
+    "gmass": 160.0,
+    "gpressure": 290.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Tombak Jagd 0.284 125 gr",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 25.9,
+    "gmass": 125.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Tombak Jagd 0.308 140 gr",
+    "caliber": ".308",
+    "gdia": 7.82,
+    "glen": 24.1,
+    "gmass": 140.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Tombak Jagd 0.323 145 gr",
+    "caliber": ".323",
+    "gdia": 8.2,
+    "glen": 22.4,
+    "gmass": 145.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "CloverBullets",
+    "pname": "Tombak Jagd 0.366 170 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 19.7,
+    "gmass": 170.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  }
+]

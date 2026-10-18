@@ -1,6 +1,16 @@
 [
   {
     "mname": "Federal",
+    "pname": "Fusion 0.338 225 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 31.3,
+    "gmass": 225.0,
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+  },
+  {
+    "mname": "Federal",
     "pname": "Fusion FB224F1",
     "caliber": ".224",
     "gdia": 5.69,

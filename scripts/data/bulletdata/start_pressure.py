@@ -26,11 +26,11 @@ import recordfiles  # noqa: E402
 CLASSES = {"lead": 150.0, "handgun": 250.0, "jacketed": 250.0, "brass": 290.0, "copper": 350.0}
 
 LEAD_MAKERS = {"h&n", "lyman", "lee", "hw-wiederladen", "wm-bullets", "rcbs", "hornady lead"}
-LEAD_WORDS = r"\b(lead|cast|plated|swaged|lrn|lfn|lswc|swc|wc|hbwc|dewc|lrnfp|lfp|hard ?cast|bevel ?base|plated)\b"
-COPPER_WORDS = (r"\b(tsx|ttsx|lrx|tac-?xp?|banded|cx|gmx|monoflex|mono ?flex|e-?tip|naturalis|ecostrike|powerhead|trophy copper|"
+LEAD_WORDS = r"\b(lead|cast|plated|swaged|lrn|lfn|lswc|swc|wc|hbwc|dewc|lrnfp|lfp|hard ?cast|bevel ?base|plated|blei|hartblei)\b"
+COPPER_WORDS = (r"\b(kupfer(?!mantel)\w*|tsx|ttsx|lrx|tac-?xp?|banded|cx|gmx|monoflex|mono ?flex|e-?tip|naturalis|ecostrike|powerhead|trophy copper|"
                 r"cutting edge|lehigh|solid copper|copper solid|monolithic|all[- ]copper|hit|raptor|impala|evo green|x-bullet|xpb|"
                 r"bullet x|gs custom|tac-tx|vor-tx|copper impact|solid)\b")
-BRASS_WORDS = r"\b(peregrine|brass|bushmaster brass|vlr|plainsmaster)\b"
+BRASS_WORDS = r"\b(peregrine|brass|messing\w*|messingjagd|bushmaster brass|vlr|plainsmaster)\b"
 # pistol and revolver bullet diameters [inch]
 HANDGUN_DIAMETERS = {".251", ".312", ".355", ".356", ".357", ".363", ".400", ".401", ".410", ".429", ".430", ".451", ".452", ".475",
                      ".476", ".500"}
