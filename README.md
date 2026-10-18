@@ -64,12 +64,12 @@ curve points). The most important equations, with the state *x* (bullet position
 ```text
 burn rate        dz/dt  = Ba * p[bar] * (p / 1000 bar)^n * phi(z) * (1 - exp(-t / tau))
 gas pressure     p      = (kappa - 1) * U / Vgas
-gas energy       U      = f * mc * z + E_primer - 1/2 M v^2 - Q - W,     f = impetusFactor * Qex
+gas energy       U      = f * mc * z + E_primer * (1 - exp(-t / t_primer)) - 1/2 M v^2 - Q - W,     f = impetusFactor * Qex
 gas volume       Vgas   = V0 + A (x - x0) - mc (1 - z) / rho_c - eta * mc * z
-bullet           M dv/dt = A * p - F,                                    M = mp (1 + spin) + sebert * mc
+bullet           M dv/dt = A * p - F,                                    M = mp (1 + spin) + mc / 4
 resistance       F      = engraving + sliding + gfriction * A + air ahead of the bullet
 heat and work    dQ/dt  = h * S * (T - Tw),   T = p * Vgas / (m_gas * R),   dW/dt = F * v
-peak pressure    p_breech = (mp * a + F) / A + mc * a / (2 A)            (Lagrange gradient of the gas column)
+peak pressure    p_breech = p + mc * a / (4 A)                           (Lagrange gradient of the gas column; the powder burns at p_breech)
 ```
 
 - **Burn:** *Ba* is the powder's vivacity, *phi(z)* its three-phase form function (*a0*, *z1*, *z2*), *n* a small pressure exponent
@@ -77,7 +77,8 @@ peak pressure    p_breech = (mp * a + F) / A + mc * a / (2 A)            (Lagran
 - **Gas:** *mc* is the charge, *Qex* the specific explosive heat, *kappa* the ratio of the specific heats, *eta* the covolume,
   *rho_c* the powder density, *V0* the case volume (less the part of the bullet in the case) and *A* the bore area.
 - **Start:** the powder burns in the closed case until the gas pressure reaches the start pressure; only then the bullet moves.
-- **Resistance:** engraving (a share of the start pressure times *A*, decaying over the bearing length), sliding friction
+- **Resistance:** the start resistance (a fitted share of the start pressure times *A*: 1.2 for rifles decaying over 2 mm, 0.6 for pistols and
+  revolvers over the bearing length), sliding friction
   (a stress times the bearing surface, which grows with the bullet's oversize over the groove), the extra bullet friction
   *gfriction* [bar] times *A*, and the air pushed out of the barrel.
 - **Heat loss:** turbulent pipe flow (Dittus-Boelter) over the chamber and the bore behind the bullet.

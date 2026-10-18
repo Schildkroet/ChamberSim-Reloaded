@@ -61,7 +61,10 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   193 powders for the physical model (`analysis/fit_physical_powders.py`, 189 fitted to velocities and pressures, 4 to velocities only; for the Vihtavuori, Rottweil, Alliant and Vectan powders, whose tables give no pressures, the maximum loads count as the C.I.P. limit minus 50 bar, `--limit-pressure --limit-margin 50`), `calibers.json` a
   factor on the burn rate for 15 pistol and revolver calibers with at least 100 published loads (`analysis/fit_caliber_scales.py`, 0.93 - 1.21). Both are fitted
   to the published load tables (`scripts/data/loaddata/sources/samples`) without the loads that disagree with their own table by more than 15 %
-  (`analysis/sample_filter.py`). Bullet photos for the lengths: see Projectiles above.
+  (`analysis/sample_filter.py`) and, since 2026-10-17, without 369 loads whose pressure is more than 45 % off the simulation (probably misread or invalid;
+  `analysis/filter_published_outliers.py`; they are kept in `samples/invalid/invalid_samples.csv`). 40 of the 193 powders carry an effective grain geometry (ball or
+  single-perforated cylinder, `analysis/fit_grain_geometry.py`): fitted to the powder's form function, not measured; no manufacturer publishes the perforation.
+  Bullet photos for the lengths: see Projectiles above.
 
 The details, the commands to repeat each step and the limits of the data are in `scripts/data/cipdata/README.md` and
 `scripts/data/loaddata/README.md`. Please check every load against the manufacturer's current load data.
