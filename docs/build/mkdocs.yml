@@ -1,0 +1,101 @@
+site_name: ChamberSim-Reloaded
+site_url: https://GITHUB_USERNAME.github.io
+site_author: Schildkroet
+site_description: a short description of your website
+repo_name: Schildkroet/ChamberSim-Reloaded
+repo_url: https://github.com/Schildkroet/ChamberSim-Reloaded
+hooks:
+  - hooks/generate_toc.py
+nav:
+  - Home: index.md
+  - User Guide:
+    - Intro: ug_intro.md
+    - Installation: ug_installation.md
+    - Main window: ug_mainwindow.md
+    - Database: ug_database.md
+    - Working with loads: ug_files.md
+    - New Loads: ug_newload.md
+    - Results: ug_results.md
+    - Measurements: ug_measurements.md
+    - Reporting: ug_reporting.md
+    - Tools: ug_tools.md
+    - Settings: ug_settings.md
+    - Troubleshooting: ug_troubleshooting.md
+    - Glossary: ug_glossary.md
+  - Data Sources: DATA_SOURCES.md
+  - Accuracy: ACCURACY.md
+  - Solver: SOLVER.md
+  - Fit your Powder: FIT_POWDER.md
+  - Cheatsheet: CHEATSHEET.md
+  - Contributing: CONTRIBUTING.md
+
+theme:
+  name: material 
+  features:
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
+    - toc.follow
+    - navigation.footer
+  logo: images/favicon.svg
+  favicon: images/favicon.svg
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      title: Table of contents
+      title_class: toc-title
+      toc_depth: 2-3
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+  # Math support
+  - pymdownx.arithmatex:
+      generic: true
+extra_css:
+  - resources/stylesheets/custom.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/mathjax-pdf.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Schildkroet
+
+plugins:     
+  - search 
+  - exporter:
+      formats:
+        pdf:
+          enabled: !ENV [MKDOCS_EXPORTER_PDF, true]
+          concurrency: 1
+          explicit: true
+          covers: 
+          aggregator:
+            enabled: true
+            output: ChamberSimReloaded-UserManual.pdf
+            covers: limits
+          stylesheets:
+            - resources/stylesheets/pdf.scss
+          covers:
+            front: resources/templates/covers/front.html.j2
+            back: resources/templates/covers/back.html.j2

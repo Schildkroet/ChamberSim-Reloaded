@@ -1,0 +1,79 @@
+@page {
+  size: A4;
+  margin: 1.50cm;
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+  }
+}
+
+@page :first {
+  @bottom-center {
+    content: none;
+  }
+}
+
+.front-cover {
+  box-sizing: border-box;
+  position: relative;
+  min-height: 27cm;
+  padding: 2cm 1cm 1cm;
+  text-align: center;
+}
+
+.front-cover .logo {
+  display: block;
+  width: 3.5cm;
+  height: auto;
+  margin: 0 auto 0.6cm;
+}
+
+.front-cover h1, .front-cover h2 {
+  margin-bottom: 0.2cm;
+}
+
+.front-cover-subtitle {
+  margin-top: 0;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.front-cover .admonition.warning {
+  margin-top : 5cm;
+  padding: 0.5cm;
+  border-left: 0.15cm solid #d18b00;
+  background: #fff5d6;
+  text-align: left;
+}
+
+.front-cover .admonition-title {
+  margin-top: 0;
+  font-weight: 700;
+}
+
+.front-cover-disclaimer {
+  margin: 0.5cm 0 0;
+}
+
+.back-cover {
+  box-sizing: border-box;
+  break-before: page;
+  page-break-before: always;
+  min-height: 27cm;
+  padding: 2cm 1cm 1cm;
+  text-align: center;
+}
+
+.back-cover .title {
+  margin-top: 0;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.page-break {
+  break-after: page;
+  page-break-after: always;
+}
+
+.toc {
+  display: initial;
+}

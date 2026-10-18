@@ -1,0 +1,55 @@
+name: Prepare manual folder
+
+on:
+  workflow_call:
+    outputs:
+      artifact_id: 
+        description: "artifact id"
+        value:  ${{ jobs.prep-folder.outputs.artifact_id }}
+
+permissions:
+  contents: read
+
+jobs:
+  prep-folder:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
+        with:
+          sparse-checkout: |
+            docs/manual
+            docs/build
+            packaging/linux/chambersimreloaded.svg
+
+      - name: prepare folders for mkdocs
+        shell: bash
+        working-directory: docs
+        run: |
+          mkdir -p build/docs
+          mv manual/*.md build/docs/
+          mv *.md build/docs/
+          mv manual/images build/docs/
+          mv build/javascripts build/docs/
+          cp -r build/resources build/docs/
+
+      - run: cp packaging/linux/chambersimreloaded.svg docs/build/docs/images/favicon.svg
+
+      - name: Setup Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 #v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Convert GFM alerts for MkDocs
+        run: python docs/build/gfm_to_mkdocs.py docs/build/docs
+
+      - name: upload folder
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 ##v7.0.2
+        with:
+          name: folder
+          path: docs/build
+          retention-days: 1
+          overwrite: true

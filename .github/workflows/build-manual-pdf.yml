@@ -1,0 +1,58 @@
+name: Build manual PDF
+
+on:
+  workflow_call:
+    inputs:
+      artifact_id:
+        description: "ID of the artifact containing the prepared MkDocs files"
+        required: false
+        type: string
+        default: folder
+    outputs:
+      pdf_artifact_id:
+        description: "ID of the generated PDF artifact"
+        value: ${{ jobs.build-pdf.outputs.pdf_artifact_id }}
+
+permissions:
+  contents: read
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    outputs:
+      pdf_artifact_id: ${{ steps.upload-pdf-artifact.outputs.artifact-id }}
+    steps:
+      - name: get folder
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 ##v8.0.2
+        with:
+          artifact-ids: ${{ inputs.artifact_id }}
+          path: .
+
+      - name: Setup Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 #v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install requirements
+        shell: bash
+        run: pip install -r requirements.txt
+
+      - name: prep playwright
+        shell: bash
+        run: playwright install --with-deps --only-shell
+
+      - name: Build combined manual PDF
+        shell: bash
+        env:
+          MKDOCS_EXPORTER_PDF: true
+          MKDOCS_EXPORTER_PDF_ONLY: true
+        run: mkdocs build --site-dir pdf-site
+
+      - name: upload guide
+        id: upload-pdf-artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 ##v7.0.2
+        with:
+          name: user-guide
+          archive: false
+          path: pdf-site/ChamberSimReloaded-UserManual.pdf
+          overwrite: true
