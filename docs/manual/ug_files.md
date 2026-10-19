@@ -2,9 +2,9 @@
 
 ## New load
 
-**File** → New load… (Ctrl+N) opens a dialog with two steps.
+**File** → **New load… (Ctrl+N)** opens a dialog with two steps.
 
-### Step 1: choose the components.
+### Step 1: choose the components
 
 The tabs 1. Caliber, 2. Projectile and 3. Propellant list the records of
 the database. Select one record in each tab; below the lists the dialog
@@ -13,7 +13,7 @@ to bullets that fit the caliber (Show only bullets that fit the
 caliber). Next \> becomes available when all three components are
 chosen.
 
-### Step 2: check the load data.
+### Step 2: check the load data
 
 The dialog shows the chosen components and the Load data: propellant
 charge, barrel length, bullet seating depth, twist length and propellant
@@ -57,21 +57,21 @@ Cancel.
 
 ## The two file formats
 
-|  |  |
-|:---|:---|
+| Extension | Description |
+| :--- | :--- |
 | `.csrload` | The program’s own format (XML). It contains everything: all input values, the caliber, projectile and propellant records with their values, the physical burn values of the Physical Model, the shotshell parts and your measurements and notes. |
 | `.grtload` | The format of Gordon’s Reloading Tool. It can be opened and, as an export, written. |
 
 The format is chosen by the file name’s extension.
 
-### Opening an original file.
+### Opening an original file
 
 A `.grtload` file is read completely, including the measurements, notes
 and pictures of its appendix. Because the program saves only in its own
 format, Save on such a load works like Save as…: it suggests the same
 name with the extension `.csrload`. The original file is never changed.
 
-### Exporting for the original program.
+### Exporting for the original program
 
 In Save as… choose the filter *Original GRT loads, without the data of
 ChamberSim Reloaded* (or type a name ending in `.grtload`). The exported

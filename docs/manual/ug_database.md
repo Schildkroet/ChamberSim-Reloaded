@@ -16,14 +16,14 @@ columns; click a column header to sort.
 The list is one view made of up to three sources, shown in the Source
 column:
 
-1.  The **project database**: calibers, projectiles and propellants that
+1. The **project database**: calibers, projectiles and propellants that
     are built into the program.
 
-2.  Your **own records**, stored in the file `ChamberSimReloaded.db` in
+1. Your **own records**, stored in the file `ChamberSimReloaded.db` in
     the application data folder. Everything you create or copy is stored
     here.
 
-3.  Optionally the records of **Gordon’s Reloading Tool** (Original
+1. Optionally the records of **Gordon’s Reloading Tool** (Original
     GRT). The original’s database is encrypted and must first be
     converted to a plain copy
     (Section <a href="#sec:dump" data-reference-type="ref"
@@ -39,13 +39,13 @@ script makes a *plain* (unencrypted) *copy* that you then choose in the
 settings. The program and its database stay unchanged; only the copy is
 converted. You need your own installation of Gordon’s Reloading Tool.
 
-### How it works.
+### How it works
 
 The script starts a scratch copy of the original program. As soon as the
 original has unlocked its database, the script asks it to remove the
 encryption from that copy. Nothing is compiled and no key is typed in.
 
-### Linux.
+### Linux
 
 1.  Unpack the *Linux* version of Gordon’s Reloading Tool. Its folder
     contains `GordonsReloadingTool`, `libs/` and
@@ -72,7 +72,7 @@ asking), `-c` (only report what is found and missing, change nothing),
 `--headless` (use a virtual display, no window appears), `-t SECONDS`
 (give up after this time, default 90) and `-h` (help).
 
-### Windows.
+### Windows
 
 1.  Copy `tools/grt_decrypt_db.cmd` and `tools/grt_decrypt_db.ps1` into
     the folder of Gordon’s Reloading Tool (next to
@@ -88,7 +88,7 @@ asking), `-c` (only report what is found and missing, change nothing),
 In PowerShell the options are `-Out FILE`, `-Yes`, `-Check` (report
 only) and `-Timeout SECONDS`.
 
-### Using the copy.
+### Using the copy
 
 Open **File** → Settings → Database, choose
 `GordonsReloadingTool.plain.db` as the Original database. The status

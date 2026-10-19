@@ -13,8 +13,6 @@ Linux the program draws its own title bar with the menu in the title row
 
 ## Menus
 
-<div class="description">
-
 New load… (Ctrl+N), Open load… (Ctrl+O), Open recent, Save (Ctrl+S),
 Save as…, Print preview…, Print… (Ctrl+P), Export report as PDF…,
 Overlay reference result… (Ctrl+R), Clear reference overlay, Settings…
@@ -31,8 +29,6 @@ Burn rate table… and Unit converter….
 
 User manual (F1), which opens this manual as a PDF, and About ChamberSim
 Reloaded…
-
-</div>
 
 ## Layout
 

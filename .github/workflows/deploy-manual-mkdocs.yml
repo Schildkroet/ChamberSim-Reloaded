@@ -37,10 +37,12 @@ jobs:
         with:
           sparse-checkout: |
             docs/manual
+            docs/build/.markdownlint.yml
       - name: lint md
         uses: DavidAnson/markdownlint-cli2-action@21c1be1b93ad9ed58fa840aacc3f279cde2a72ff #v24.2.0
         with:
           globs: 'docs/manual/ug_*.md'
+          config: docs/build/.markdownlint.yml
         continue-on-error: true
   
   prep-folder:

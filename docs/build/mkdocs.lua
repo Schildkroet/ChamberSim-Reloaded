@@ -38,8 +38,14 @@ end
 function Header(header)
   if header.level == 4 then
     header.level = 3
-    return header
   end
+
+  local last_inline = header.content[#header.content]
+  if last_inline and last_inline.t == "Str" then
+    last_inline.text = last_inline.text:gsub("%.+$", "")
+  end
+
+  return header
 end
 
 function Div(div)
