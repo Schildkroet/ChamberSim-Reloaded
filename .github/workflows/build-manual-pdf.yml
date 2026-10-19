@@ -8,6 +8,10 @@ on:
         required: false
         type: string
         default: folder
+      version:
+        description: "CSR version to display on the manual cover"
+        required: true
+        type: string
     outputs:
       pdf_artifact_id:
         description: "ID of the generated PDF artifact"
@@ -40,6 +44,26 @@ jobs:
       - name: prep playwright
         shell: bash
         run: playwright install --with-deps --only-shell
+
+      - name: Set manual cover version
+        shell: bash
+        env:
+          CSR_VERSION: ${{ inputs.version }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          cover = Path("resources/templates/covers/front.html.j2")
+          contents = cover.read_text(encoding="utf-8")
+          placeholder = "{{ CSR_VERSION }}"
+          if placeholder not in contents:
+              raise SystemExit(f"Version placeholder not found in {cover}")
+          cover.write_text(
+              contents.replace(placeholder, os.environ["CSR_VERSION"]),
+              encoding="utf-8",
+          )
+          PY
 
       - name: Build combined manual PDF
         shell: bash
