@@ -67,9 +67,9 @@ The deployment is implemented by
 On pushes to `main`, it prepares one shared input artifact and builds the site
 and combined PDF in parallel:
 
-1. `prepare-manual-folder.yml` checks out the documentation sources, stages them for MkDocs, converts Markdown alerts, and uploads the prepared folder.
+1. `prepare-manual-folder.yml` checks out the documentation sources, reads `CSR_VERSION` from `CMakeLists.txt`, stages them for MkDocs, converts Markdown alerts, and uploads the prepared folder.
 2. `build-manual-site.yml` takes the folder output and runs `mkdocs build`. It uploads the generated site as artifact.
-3. `build-manual-pdf.yml` takes the folder output and creates the pdf using mkdocs and mkdocs-exporter. It uploads `ChamberSimReloaded-UserManual.pdf` as artifact.
+3. `build-manual-pdf.yml` takes the folder output and version, passes it to MkDocs, and the `generate_toc.py` hook inserts it into the PDF cover. MkDocs and MkDocs Exporter then create the PDF, uploaded as `ChamberSimReloaded-UserManual.pdf`.
 4. The deploy job combines the site and PDF artifacts, then publishes them to
    GitHub Pages. The PDF is at the site root, matching the download link in
    `docs/manual/index.md`.

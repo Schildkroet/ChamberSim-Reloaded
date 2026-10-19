@@ -218,6 +218,7 @@ jobs:
     uses: ./.github/workflows/build-manual-pdf.yml
     with:
       artifact_id: ${{ needs.prep-folder.outputs.artifact_id}}
+      version: ${{ needs.prep-folder.outputs.version }}
 
   release:
     name: Release (tags only)

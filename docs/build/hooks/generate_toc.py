@@ -3,6 +3,7 @@ import os
 import posixpath
 import re
 from datetime import datetime, timezone
+from pathlib import Path
 from urllib.parse import quote
 
 import markdown
@@ -13,6 +14,8 @@ from mkdocs.structure.nav import Section, get_navigation
 from mkdocs.structure.pages import Page
 
 PDF_ONLY_ENV = "MKDOCS_EXPORTER_PDF_ONLY"
+CSR_VERSION_ENV = "CSR_VERSION"
+FRONT_COVER_PATH = Path("resources/templates/covers/front.html.j2")
 FRONT_MATTER_RE = re.compile(
     r"\A---[ \t]*\r?\n.*?\r?\n---[ \t]*(?:\r?\n|$)", re.DOTALL
 )
@@ -213,6 +216,25 @@ def on_files(files: Files, config: Config) -> Files:
     files.append(toc_file)
     config.nav.insert(0, {"": "generated_site_toc.md"})
     return files
+
+
+def on_config(config: Config) -> Config:
+    if os.environ.get(PDF_ONLY_ENV, "").lower() not in {"1", "true", "yes"}:
+        return config
+
+    version = os.environ.get(CSR_VERSION_ENV)
+    if not version:
+        raise ValueError(f"{CSR_VERSION_ENV} must be set to build the PDF manual.")
+
+    cover_path = Path(config.config_file_path).parent / FRONT_COVER_PATH
+    cover = cover_path.read_text(encoding="utf-8")
+    placeholder = "{{ CSR_VERSION }}"
+    if cover.count(placeholder) != 1:
+        raise ValueError(
+            f"Expected exactly one {placeholder} placeholder in {cover_path}."
+        )
+    cover_path.write_text(cover.replace(placeholder, version), encoding="utf-8")
+    return config
 
 
 def on_page_markdown(markdown_text: str, page: Page, **kwargs) -> str:

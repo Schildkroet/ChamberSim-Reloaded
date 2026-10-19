@@ -6,23 +6,39 @@ on:
       artifact_id: 
         description: "artifact id"
         value:  ${{ jobs.prep-folder.outputs.artifact_id }}
+      version:
+        description: "CSR version from CMakeLists.txt"
+        value: ${{ jobs.prep-folder.outputs.version }}
 
 permissions:
   contents: read
 
 jobs:
   prep-folder:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       artifact_id: ${{ steps.upload.outputs.artifact-id}}
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
         with:
           sparse-checkout: |
+            CMakeLists.txt
             docs/manual
             docs/build
             packaging/linux/chambersimreloaded.svg
+
+      - name: Read CSR version
+        id: version
+        shell: bash
+        run: |
+          version="$(sed -n 's/^set(CSR_VERSION "\(.*\)")$/\1/p' CMakeLists.txt)"
+          if [ -z "$version" ]; then
+            echo "CSR_VERSION was not found in CMakeLists.txt" >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: prepare folders for mkdocs
         shell: bash

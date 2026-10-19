@@ -6,11 +6,15 @@ on:
   push:
     branches:
       - main
+    tags: ["v*"]
   pull_request:
     types:
       - opened
       - synchronize
       - reopened
+    paths:
+      - docs/**
+      - .github/workflows/*manual*.yml
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -28,7 +32,7 @@ concurrency:
 jobs:
   lint:
     name: lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     steps:
@@ -54,6 +58,7 @@ jobs:
     uses: ./.github/workflows/build-manual-pdf.yml
     with:
       artifact_id: ${{ needs.prep-folder.outputs.artifact_id}}
+      version: ${{ needs.prep-folder.outputs.version }}
         
   build-site:
     needs: prep-folder
@@ -70,8 +75,8 @@ jobs:
       pages: write
       id-token: write
     needs: [build-pdf,build-site]
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-26.04
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: get artifacts
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 ##v8.0.2

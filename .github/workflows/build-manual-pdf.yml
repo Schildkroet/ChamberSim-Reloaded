@@ -8,6 +8,10 @@ on:
         required: false
         type: string
         default: folder
+      version:
+        description: "CSR version to display on the manual cover"
+        required: true
+        type: string
     outputs:
       pdf_artifact_id:
         description: "ID of the generated PDF artifact"
@@ -18,7 +22,7 @@ permissions:
 
 jobs:
   build-pdf:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       pdf_artifact_id: ${{ steps.upload-pdf-artifact.outputs.artifact-id }}
     steps:
@@ -46,6 +50,7 @@ jobs:
         env:
           MKDOCS_EXPORTER_PDF: true
           MKDOCS_EXPORTER_PDF_ONLY: true
+          CSR_VERSION: ${{ inputs.version }}
         run: mkdocs build --site-dir pdf-site
 
       - name: upload guide

@@ -19,16 +19,14 @@ column:
 1. The **project database**: calibers, projectiles and propellants that
     are built into the program.
 
-1. Your **own records**, stored in the file `ChamberSimReloaded.db` in
+2. Your **own records**, stored in the file `ChamberSimReloaded.db` in
     the application data folder. Everything you create or copy is stored
     here.
 
-1. Optionally the records of **Gordon’s Reloading Tool** (Original
+3. Optionally the records of **Gordon’s Reloading Tool** (Original
     GRT). The original’s database is encrypted and must first be
-    converted to a plain copy
-    (Section <a href="#sec:dump" data-reference-type="ref"
-    data-reference="sec:dump">4.2</a>); choose that copy in
-    **File** → Settings → Database. It is only read, never changed.
+    converted to a plain copy (Section "Using the originals database");
+    choose that copy in **File** → Settings → Database. It is only read, never changed.
 
 ## Using the original’s database
 

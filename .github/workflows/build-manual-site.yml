@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build-site:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       site_artifact_id: ${{ steps.upload.outputs.artifact-id}}
     steps:
