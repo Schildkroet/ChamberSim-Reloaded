@@ -5,7 +5,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches:
-      - uyn-mdoku
+      - main
   pull_request:
     types:
       - opened

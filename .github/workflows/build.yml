@@ -48,6 +48,8 @@ jobs:
     name: Linux AppImage
     needs: [manual]
     runs-on: ubuntu-24.04
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@v7
 
@@ -62,7 +64,7 @@ jobs:
       # the manual built by the manual job replaces the tracked PDF that cmake --install packages
       - uses: actions/download-artifact@v8
         with:
-          pattern: "ChamberSimReloaded-UserManual.pdf"
+          artifact-ids: ${{ needs.manual.outputs.pdf_artifact_id }}
           path: manual-dl
           merge-multiple: true
           skip-decompress: true
@@ -116,6 +118,7 @@ jobs:
 
       # the AppImage as it is (not wrapped in a zip)
       - uses: actions/upload-artifact@v7
+        id: upload
         with:
           path: "*.AppImage"
           archive: false
@@ -125,13 +128,15 @@ jobs:
     name: Windows
     needs: [manual]
     runs-on: windows-2022
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@v7
 
       # the manual built by the manual job replaces the tracked PDF that cmake --install packages
       - uses: actions/download-artifact@v8
         with:
-          pattern: "*ChamberSimReloaded-UserManual.pdf"
+          artifact-ids: ${{ needs.manual.outputs.pdf_artifact_id }}
           path: manual-dl
           merge-multiple: true
           skip-decompress: true
@@ -199,6 +204,7 @@ jobs:
 
       # upload the zip as it is: zipped again by upload-artifact, the download would be a zip inside a zip
       - uses: actions/upload-artifact@v7
+        id: upload
         with:
           path: "*.zip"
           archive: false
@@ -215,17 +221,22 @@ jobs:
 
   release:
     name: Release (tags only)
-    if: startsWith(github.ref, 'refs/tags/v')
     needs: [tests, linux, windows, manual]
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
       - uses: actions/download-artifact@v8
         with:
+          artifact-ids: ${{ needs.linux.outputs.artifact_id }}, ${{ needs.windows.outputs.artifact_id}}, ${{ needs.manual.outputs.pdf_artifact_id}}
           path: artifacts
           merge-multiple: true
           skip-decompress: true     # the Windows zip stays a zip (it would be unpacked into a folder, which the upload skips)
+      
+      - name: show files
+        run: ls -alR
+
       - uses: softprops/action-gh-release@v3
         with:
           name: ChamberSim Reloaded ${{ github.ref_name }}
