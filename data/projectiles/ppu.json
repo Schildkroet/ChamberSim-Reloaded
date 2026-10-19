@@ -4,30 +4,27 @@
     "pname": "FMJ B-007",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 22.6,
+    "glen": 27.5,
     "gmass": 139.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "FMJ B-012",
     "caliber": ".306",
     "gdia": 7.79,
-    "glen": 14.0,
+    "glen": 13.6,
     "gmass": 85.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "FMJ B-013",
     "caliber": ".354",
     "gdia": 9.0,
-    "glen": 15.2,
+    "glen": 15.8,
     "gmass": 124.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -64,20 +61,18 @@
     "pname": "FMJ B-074",
     "caliber": ".310",
     "gdia": 7.87,
-    "glen": 19.7,
+    "glen": 23.9,
     "gmass": 123.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "FMJ B-099",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 24.4,
+    "glen": 28.1,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -94,10 +89,9 @@
     "pname": "FMJ B-112",
     "caliber": ".354",
     "gdia": 9.0,
-    "glen": 14.1,
+    "glen": 13.7,
     "gmass": 115.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -114,10 +108,9 @@
     "pname": "FMJ B-166",
     "caliber": ".354",
     "gdia": 9.0,
-    "glen": 18.0,
+    "glen": 17.2,
     "gmass": 147.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -184,10 +177,9 @@
     "pname": "FMJ B-460",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 20.0,
+    "glen": 23.6,
     "gmass": 123.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -204,96 +196,88 @@
     "pname": "FMJ BT B-001",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 29.2,
+    "glen": 33.5,
     "gmass": 198.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.2,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 8.2
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-006",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 30.3,
+    "glen": 33.5,
     "gmass": 190.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.9
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-009",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 23.6,
+    "glen": 28.6,
     "gmass": 145.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-010",
     "caliber": ".307",
     "gdia": 7.8,
-    "glen": 18.0,
+    "glen": 17.3,
     "gmass": 110.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.8,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.8
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-022",
     "caliber": ".322",
     "gdia": 8.18,
-    "glen": 29.5,
+    "glen": 34.1,
     "gmass": 198.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.18,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 8.18
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-083",
     "caliber": ".263",
     "gdia": 6.68,
-    "glen": 31.1,
+    "glen": 31.8,
     "gmass": 139.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.68,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 6.68
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-119",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 23.6,
+    "glen": 28.6,
     "gmass": 145.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-127",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 33.3,
+    "glen": 31.8,
     "gmass": 174.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "PPU",
@@ -312,48 +296,44 @@
     "pname": "FMJ BT B-143",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 27.8,
+    "glen": 31.6,
     "gmass": 174.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.9
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-169",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 29.0,
+    "glen": 33.4,
     "gmass": 182.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.9
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-212",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 17.0,
+    "glen": 18.8,
     "gmass": 55.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-219",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 23.9,
+    "glen": 28.7,
     "gmass": 150.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.9
   },
   {
     "mname": "PPU",
@@ -372,36 +352,33 @@
     "pname": "FMJ BT B-345",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.3,
+    "glen": 33.5,
     "gmass": 174.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-366",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.5,
+    "glen": 32.7,
     "gmass": 175.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-384",
     "caliber": ".330",
     "gdia": 8.38,
-    "glen": 29.5,
+    "glen": 33.2,
     "gmass": 208.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.38,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 8.38
   },
   {
     "mname": "PPU",
@@ -420,12 +397,11 @@
     "pname": "FMJ BT B-419",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.1,
+    "glen": 20.5,
     "gmass": 62.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "PPU",
@@ -468,24 +444,22 @@
     "pname": "FMJ BT B-437",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 27.1,
+    "glen": 30.6,
     "gmass": 170.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.9
   },
   {
     "mname": "PPU",
     "pname": "FMJ BT B-449",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.5,
+    "glen": 32.7,
     "gmass": 175.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
@@ -632,10 +606,9 @@
     "pname": "FPJ B-195",
     "caliber": ".400",
     "gdia": 10.15,
-    "glen": 18.0,
+    "glen": 15.8,
     "gmass": 190.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -672,10 +645,9 @@
     "pname": "FPJ B-361",
     "caliber": ".400",
     "gdia": 10.15,
-    "glen": 16.1,
+    "glen": 15.4,
     "gmass": 170.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -692,10 +664,9 @@
     "pname": "FPJ B-446",
     "caliber": ".354",
     "gdia": 9.0,
-    "glen": 15.6,
+    "glen": 13.4,
     "gmass": 125.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -722,20 +693,18 @@
     "pname": "FSP B-028",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.8,
+    "glen": 24.3,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "FSP B-200",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 29.3,
+    "glen": 27.1,
     "gmass": 170.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -752,68 +721,62 @@
     "pname": "HP B-046",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 22.6,
+    "glen": 22.5,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "HP B-401",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 24.0,
+    "glen": 26.5,
     "gmass": 120.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "HP BT B-350",
     "caliber": ".322",
     "gdia": 8.18,
-    "glen": 30.6,
+    "glen": 29.0,
     "gmass": 175.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.18,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 8.18
   },
   {
     "mname": "PPU",
     "pname": "HP BT B-363",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 32.0,
+    "glen": 30.4,
     "gmass": 168.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
     "pname": "HP BT B-367",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 36.2,
+    "glen": 33.1,
     "gmass": 190.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
     "pname": "HP BT B-405",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 33.3,
+    "glen": 31.6,
     "gmass": 150.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "PPU",
@@ -832,12 +795,11 @@
     "pname": "HP BT B-481",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 26.3,
+    "glen": 24.7,
     "gmass": 75.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "PPU",
@@ -1012,20 +974,18 @@
     "pname": "HSP B-273",
     "caliber": ".307",
     "gdia": 7.8,
-    "glen": 19.1,
+    "glen": 17.3,
     "gmass": 110.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "JHP B-101",
     "caliber": ".354",
     "gdia": 9.0,
-    "glen": 13.8,
+    "glen": 13.9,
     "gmass": 115.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -1112,10 +1072,9 @@
     "pname": "JHP B-196",
     "caliber": ".400",
     "gdia": 10.15,
-    "glen": 16.3,
+    "glen": 15.8,
     "gmass": 180.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -1162,90 +1121,82 @@
     "pname": "PSP B-047",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 25.9,
+    "glen": 24.1,
     "gmass": 100.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "PSP B-114",
     "caliber": ".263",
     "gdia": 6.68,
-    "glen": 34.4,
+    "glen": 31.1,
     "gmass": 140.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "PSP B-210",
     "caliber": ".310",
     "gdia": 7.87,
-    "glen": 20.9,
+    "glen": 23.0,
     "gmass": 123.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "PSP BT B-349",
     "caliber": ".322",
     "gdia": 8.18,
-    "glen": 30.6,
+    "glen": 30.1,
     "gmass": 175.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.18,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 8.18
   },
   {
     "mname": "PPU",
     "pname": "PSP BT B-362",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 31.4,
+    "glen": 30.1,
     "gmass": 165.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "PPU",
     "pname": "PSP BT B-400",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 31.1,
+    "glen": 29.6,
     "gmass": 140.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "PPU",
     "pname": "PSP BT B-403",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 35.6,
+    "glen": 32.0,
     "gmass": 160.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "PPU",
     "pname": "PSP BT B-404",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 38.7,
+    "glen": 34.1,
     "gmass": 174.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "PPU",
@@ -1292,10 +1243,9 @@
     "pname": "SJFP B-490",
     "caliber": ".354",
     "gdia": 9.0,
-    "glen": 12.5,
+    "glen": 12.9,
     "gmass": 100.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -1366,110 +1316,99 @@
     "pname": "SP B-027",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 32.8,
+    "glen": 29.6,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-032",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 17.6,
+    "glen": 16.2,
     "gmass": 50.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-051",
     "caliber": ".285",
     "gdia": 7.24,
-    "glen": 28.5,
+    "glen": 24.5,
     "gmass": 139.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-062",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 25.8,
+    "glen": 27.0,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-066",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 31.0,
+    "glen": 30.5,
     "gmass": 180.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-067",
     "caliber": ".285",
     "gdia": 7.24,
-    "glen": 35.5,
+    "glen": 30.7,
     "gmass": 173.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-115",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 36.0,
+    "glen": 32.7,
     "gmass": 174.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-117",
     "caliber": ".263",
     "gdia": 6.68,
-    "glen": 30.2,
+    "glen": 28.6,
     "gmass": 123.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-123",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 30.0,
+    "glen": 28.6,
     "gmass": 145.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-128",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 30.3,
+    "glen": 30.1,
     "gmass": 196.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-131",
     "caliber": ".242",
     "gdia": 6.15,
-    "glen": 26.6,
+    "glen": 23.6,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -1486,80 +1425,72 @@
     "pname": "SP B-134",
     "caliber": ".242",
     "gdia": 6.15,
-    "glen": 29.6,
+    "glen": 26.0,
     "gmass": 100.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-161",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 28.4,
+    "glen": 26.5,
     "gmass": 130.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-162",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 21.5,
+    "glen": 23.0,
     "gmass": 139.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-193",
     "caliber": ".222",
     "gdia": 5.64,
-    "glen": 16.1,
+    "glen": 13.6,
     "gmass": 45.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-211",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.3,
+    "glen": 17.5,
     "gmass": 55.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-330",
     "caliber": ".365",
     "gdia": 9.27,
-    "glen": 33.3,
+    "glen": 31.4,
     "gmass": 285.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-428",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 30.0,
+    "glen": 30.5,
     "gmass": 174.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP B-459",
     "caliber": ".322",
     "gdia": 8.18,
-    "glen": 30.5,
+    "glen": 29.9,
     "gmass": 196.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -1616,66 +1547,60 @@
     "pname": "SP BT B-084",
     "caliber": ".263",
     "gdia": 6.68,
-    "glen": 35.8,
+    "glen": 31.1,
     "gmass": 139.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.68,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.68
   },
   {
     "mname": "PPU",
     "pname": "SP BT B-125",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 33.7,
+    "glen": 29.6,
     "gmass": 180.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.9
   },
   {
     "mname": "PPU",
     "pname": "SP BT B-382",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 28.1,
+    "glen": 25.5,
     "gmass": 150.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.9
   },
   {
     "mname": "PPU",
     "pname": "SP RN B-030",
     "caliber": ".310",
     "gdia": 7.87,
-    "glen": 20.9,
+    "glen": 18.3,
     "gmass": 123.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP RN B-118",
     "caliber": ".263",
     "gdia": 6.68,
-    "glen": 38.4,
+    "glen": 32.5,
     "gmass": 156.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
     "pname": "SP RN B-204",
     "caliber": ".307",
     "gdia": 7.8,
-    "glen": 19.1,
+    "glen": 16.8,
     "gmass": 110.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",
@@ -1772,10 +1697,9 @@
     "pname": "TMJ B-353",
     "caliber": ".400",
     "gdia": 10.15,
-    "glen": 17.3,
+    "glen": 16.2,
     "gmass": 180.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "PPU",

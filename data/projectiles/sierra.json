@@ -4,30 +4,27 @@
     "pname": "FMJ TOURNAMENT MASTER 8105",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 11.6,
+    "glen": 10.6,
     "gmass": 95.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "FMJ TOURNAMENT MASTER 8115",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 14.1,
+    "glen": 13.9,
     "gmass": 115.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "FMJ TOURNAMENT MASTER 8120",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 15.3,
+    "glen": 14.8,
     "gmass": 125.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -123,80 +120,72 @@
     "pname": "FPJ TOURNAMENT MASTER 8370",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 22.1,
+    "glen": 19.2,
     "gmass": 180.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "FPJ TOURNAMENT MASTER 8615",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 20.1,
+    "glen": 19.2,
     "gmass": 250.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "FPJ TOURNAMENT MASTER 8825",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 14.3,
+    "glen": 13.4,
     "gmass": 200.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Hornet VarmintKing 1100",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 14.1,
+    "glen": 12.5,
     "gmass": 40.0,
-    "gpressure": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 500.0
   },
   {
     "mname": "Sierra",
     "pname": "Hornet VarmintKing 1110",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 15.8,
+    "glen": 13.7,
     "gmass": 45.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Hornet VarmintKing 1200",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 14.1,
+    "glen": 12.4,
     "gmass": 40.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Hornet VarmintKing 1210",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 15.8,
+    "glen": 13.5,
     "gmass": 45.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "HP MatchKing 1400",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 18.6,
+    "glen": 17.8,
     "gmass": 53.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": 30.0
   },
   {
@@ -244,30 +233,27 @@
     "pname": "HP VarmintKing 1375",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 20.6,
+    "glen": 20.2,
     "gmass": 60.0,
-    "gpressure": 195.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 195.0
   },
   {
     "mname": "Sierra",
     "pname": "HP VarmintKing 1385",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 13.7,
+    "glen": 14.4,
     "gmass": 40.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "HP VarmintKing 1500",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 17.1,
+    "glen": 18.8,
     "gmass": 60.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
     "gfriction": 15.0
   },
   {
@@ -275,20 +261,18 @@
     "pname": "HP VarmintKing 1510",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 21.4,
+    "glen": 20.7,
     "gmass": 75.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "HP VarmintKing 1710",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 23.7,
+    "glen": 23.4,
     "gmass": 100.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
     "gfriction": 60.0
   },
   {
@@ -296,10 +280,9 @@
     "pname": "HP VarmintKing 1895",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 20.0,
+    "glen": 22.5,
     "gmass": 100.0,
     "gpressure": 315.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
     "gfriction": 5.0
   },
   {
@@ -307,10 +290,9 @@
     "pname": "HP VarmintKing 2110",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 18.3,
+    "glen": 20.2,
     "gmass": 110.0,
     "gpressure": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
     "gfriction": -45.0
   },
   {
@@ -328,10 +310,9 @@
     "pname": "HP VarmintKing 2124",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 22.5,
+    "glen": 24.3,
     "gmass": 135.0,
-    "gpressure": 265.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 265.0
   },
   {
     "mname": "Sierra",
@@ -360,36 +341,33 @@
     "pname": "HPBT GameKing 1390",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.3,
+    "glen": 18.3,
     "gmass": 55.0,
     "gpressure": 125.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "Sierra",
     "pname": "HPBT GameKing 1530",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 25.5,
+    "glen": 26.2,
     "gmass": 85.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.17,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.17
   },
   {
     "mname": "Sierra",
     "pname": "HPBT GameKing 1615",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 24.2,
+    "glen": 22.7,
     "gmass": 90.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.53,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.53
   },
   {
     "mname": "Sierra",
@@ -409,12 +387,11 @@
     "pname": "HPBT GameKing 1835",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 32.6,
+    "glen": 31.4,
     "gmass": 140.0,
     "gpressure": 260.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -15.0
   },
   {
@@ -422,24 +399,22 @@
     "pname": "HPBT GameKing 1912",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 31.1,
+    "glen": 33.7,
     "gmass": 140.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "Sierra",
     "pname": "HPBT GameKing 1925",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 35.6,
+    "glen": 33.3,
     "gmass": 160.0,
     "gpressure": 130.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -50.0
   },
   {
@@ -447,12 +422,11 @@
     "pname": "HPBT GAMEKING 2140",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 31.4,
+    "glen": 29.8,
     "gmass": 165.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "Sierra",
@@ -471,48 +445,44 @@
     "pname": "HPBT MatchKing 1380",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 24.2,
+    "glen": 22.9,
     "gmass": 69.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MatchKing 1410",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 18.2,
+    "glen": 17.9,
     "gmass": 52.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MatchKing 1505",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 21.0,
+    "glen": 21.1,
     "gmass": 70.0,
     "gpressure": 275.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.17,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.17
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MatchKing 1628",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 26.9,
+    "glen": 27.6,
     "gmass": 100.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.53,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.53
   },
   {
     "mname": "Sierra",
@@ -531,12 +501,11 @@
     "pname": "HPBT MatchKing 1715",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 27.3,
+    "glen": 31.2,
     "gmass": 107.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.71
   },
   {
     "mname": "Sierra",
@@ -555,12 +524,11 @@
     "pname": "HPBT MatchKing 1740",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 35.8,
+    "glen": 33.2,
     "gmass": 140.0,
     "gpressure": 50.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.71
   },
   {
     "mname": "Sierra",
@@ -579,48 +547,44 @@
     "pname": "HPBT MatchKing 1815",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 26.8,
+    "glen": 25.2,
     "gmass": 115.0,
     "gpressure": 240.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.04
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MatchKing 1833",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 31.5,
+    "glen": 33.1,
     "gmass": 135.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.04
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MatchKing 1915",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 33.3,
+    "glen": 31.8,
     "gmass": 150.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MatchKing 1930",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 37.3,
+    "glen": 34.6,
     "gmass": 168.0,
     "gpressure": 110.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -25.0
   },
   {
@@ -628,12 +592,11 @@
     "pname": "HPBT MatchKing 1975",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 38.9,
+    "glen": 36.7,
     "gmass": 175.0,
     "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -10.0
   },
   {
@@ -641,36 +604,33 @@
     "pname": "HPBT MatchKing 1980",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 40.0,
+    "glen": 36.2,
     "gmass": 180.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MATCHKING 2155",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 29.5,
+    "glen": 28.8,
     "gmass": 155.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MATCHKING 2190",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.6,
+    "glen": 28.3,
     "gmass": 150.0,
     "gpressure": 80.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -15.0
   },
   {
@@ -678,12 +638,11 @@
     "pname": "HPBT MATCHKING 2200",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 32.0,
+    "glen": 30.7,
     "gmass": 168.0,
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -15.0
   },
   {
@@ -730,12 +689,11 @@
     "pname": "HPBT MATCHKING 2275",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 33.3,
+    "glen": 32.2,
     "gmass": 175.0,
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -30.0
   },
   {
@@ -743,12 +701,11 @@
     "pname": "HPBT MATCHKING 2315",
     "caliber": ".311",
     "gdia": 7.9,
-    "glen": 32.5,
+    "glen": 31.2,
     "gmass": 174.0,
     "gpressure": 200.0,
     "gtailtype": 2,
     "gtaildiaA": 7.9,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": 35.0
   },
   {
@@ -756,24 +713,22 @@
     "pname": "HPBT MATCHKING 2415",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 34.8,
+    "glen": 33.3,
     "gmass": 200.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.2,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 8.2
   },
   {
     "mname": "Sierra",
     "pname": "HPBT MATCHKING 2650",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 39.9,
+    "glen": 40.3,
     "gmass": 250.0,
     "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -100.0
   },
   {
@@ -928,12 +883,11 @@
     "pname": "HPBT\\u002fCN MatchKing 1570",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 32.1,
+    "glen": 31.9,
     "gmass": 107.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.17,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.17
   },
   {
     "mname": "Sierra",
@@ -952,12 +906,11 @@
     "pname": "HPBT\\u002fCN MatchKing 1727",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 31.4,
+    "glen": 32.6,
     "gmass": 123.0,
     "gpressure": 200.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -30.0
   },
   {
@@ -977,12 +930,11 @@
     "pname": "HPBT\\u002fCN MatchKing 1742",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 36.3,
+    "glen": 35.0,
     "gmass": 142.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.71
   },
   {
     "mname": "Sierra",
@@ -1014,12 +966,11 @@
     "pname": "HPBT\\u002fCN MatchKing 1983",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 40.7,
+    "glen": 41.0,
     "gmass": 183.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "Sierra",
@@ -1170,10 +1121,9 @@
     "pname": "JHC SPORTS MASTER 8030",
     "caliber": ".312",
     "gdia": 7.92,
-    "glen": 14.5,
+    "glen": 13.2,
     "gmass": 90.0,
     "gpressure": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain",
     "gfriction": -30.0
   },
   {
@@ -1181,70 +1131,63 @@
     "pname": "JHC SPORTS MASTER 8360",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 18.7,
+    "glen": 16.9,
     "gmass": 158.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHC SPORTS MASTER 8500",
     "caliber": ".410",
     "gdia": 10.41,
-    "glen": 14.5,
+    "glen": 15.2,
     "gmass": 170.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHC SPORTS MASTER 8520",
     "caliber": ".410",
     "gdia": 10.41,
-    "glen": 17.9,
+    "glen": 18.0,
     "gmass": 210.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHC SPORTS MASTER 8600",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 13.8,
+    "glen": 14.8,
     "gmass": 180.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHC SPORTS MASTER 8610",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 18.4,
+    "glen": 19.5,
     "gmass": 240.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHC SPORTS MASTER 8620",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 16.1,
+    "glen": 17.2,
     "gmass": 210.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHC SPORTS MASTER 8820",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 16.3,
+    "glen": 16.2,
     "gmass": 240.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -1271,40 +1214,36 @@
     "pname": "JHP -  SIG V-CROWN 9465",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 14.9,
+    "glen": 14.4,
     "gmass": 165.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHP - Sig V-Crown 9820",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 13.6,
+    "glen": 14.2,
     "gmass": 200.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHP -  SIG V-CROWN 9924",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 14.8,
+    "glen": 13.5,
     "gmass": 124.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHP -  SIG V-CROWN 9925",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 15.0,
+    "glen": 13.6,
     "gmass": 125.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -1323,8 +1262,7 @@
     "gdia": 9.02,
     "glen": 10.8,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -1343,18 +1281,16 @@
     "gdia": 9.02,
     "glen": 10.8,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHP SPORTS MASTER 8110",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 13.8,
+    "glen": 13.1,
     "gmass": 115.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -1371,10 +1307,9 @@
     "pname": "JHP SPORTS MASTER 8125",
     "caliber": ".355",
     "gdia": 9.02,
-    "glen": 15.0,
+    "glen": 14.1,
     "gmass": 125.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -1411,40 +1346,36 @@
     "pname": "JHP SPORTS MASTER 8430",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 13.6,
+    "glen": 13.8,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHP SPORTS MASTER 8445",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 14.9,
+    "glen": 15.1,
     "gmass": 165.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHP SPORTS MASTER 8460",
     "caliber": ".400",
     "gdia": 10.16,
-    "glen": 16.3,
+    "glen": 16.0,
     "gmass": 180.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JHP SPORTS MASTER 8805",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 15.6,
+    "glen": 16.5,
     "gmass": 230.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (hollow), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -1481,40 +1412,36 @@
     "pname": "JSP SPORTS MASTER 8310",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 15.4,
+    "glen": 13.5,
     "gmass": 125.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JSP SPORTS MASTER 8340",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 19.4,
+    "glen": 16.3,
     "gmass": 158.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JSP SPORTS MASTER 8630",
     "caliber": ".429",
     "gdia": 10.9,
-    "glen": 24.1,
+    "glen": 22.6,
     "gmass": 300.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "JSP SPORTS MASTER 8830",
     "caliber": ".451",
     "gdia": 11.46,
-    "glen": 21.4,
+    "glen": 21.0,
     "gmass": 300.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -1586,58 +1513,53 @@
     "pname": "RN SPORTS MASTER 8005",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 14.6,
+    "glen": 13.6,
     "gmass": 85.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1365",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.3,
+    "glen": 18.4,
     "gmass": 55.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1395",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 22.8,
+    "glen": 21.7,
     "gmass": 65.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 5.69,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 5.69
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1625",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 26.9,
+    "glen": 25.2,
     "gmass": 100.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.53,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.53
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1630",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 31.5,
+    "glen": 28.7,
     "gmass": 117.0,
     "gpressure": 125.0,
     "gtailtype": 2,
     "gtaildiaA": 6.53,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -85.0
   },
   {
@@ -1645,36 +1567,33 @@
     "pname": "SBT GameKing 1730",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 35.8,
+    "glen": 32.3,
     "gmass": 140.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 6.71
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1820",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 30.3,
+    "glen": 28.8,
     "gmass": 130.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.04
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1840",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 35.0,
+    "glen": 31.8,
     "gmass": 150.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.04
   },
   {
     "mname": "Sierra",
@@ -1685,20 +1604,18 @@
     "gmass": 140.0,
     "gpressure": 500.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.04,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.04
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1905",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 31.1,
+    "glen": 29.5,
     "gmass": 140.0,
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -20.0
   },
   {
@@ -1719,24 +1636,22 @@
     "pname": "SBT GameKing 1920",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 35.6,
+    "glen": 32.0,
     "gmass": 160.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.21
   },
   {
     "mname": "Sierra",
     "pname": "SBT GameKing 1940",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 38.9,
+    "glen": 35.5,
     "gmass": 175.0,
     "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -100.0
   },
   {
@@ -1744,24 +1659,22 @@
     "pname": "SBT GAMEKING 2125",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.6,
+    "glen": 27.9,
     "gmass": 150.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 7.82
   },
   {
     "mname": "Sierra",
     "pname": "SBT GAMEKING 2145",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 31.4,
+    "glen": 30.2,
     "gmass": 165.0,
     "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -30.0
   },
   {
@@ -1769,12 +1682,11 @@
     "pname": "SBT GAMEKING 2160",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 34.3,
+    "glen": 32.5,
     "gmass": 180.0,
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -20.0
   },
   {
@@ -1782,12 +1694,11 @@
     "pname": "SBT GAMEKING 2165",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 38.1,
+    "glen": 35.6,
     "gmass": 200.0,
     "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -100.0
   },
   {
@@ -1795,12 +1706,11 @@
     "pname": "SBT GAMEKING 2420",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 38.3,
+    "glen": 35.4,
     "gmass": 220.0,
     "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -45.0
   },
   {
@@ -1808,24 +1718,22 @@
     "pname": "SBT GAMEKING 2600",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 39.9,
+    "glen": 36.5,
     "gmass": 250.0,
     "gpressure": 345.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.59,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gtaildiaA": 8.59
   },
   {
     "mname": "Sierra",
     "pname": "SBT GAMEKING 2610",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 34.4,
+    "glen": 32.3,
     "gmass": 215.0,
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -30.0
   },
   {
@@ -1833,12 +1741,11 @@
     "pname": "SBT GAMEKING 2850",
     "caliber": ".358",
     "gdia": 9.09,
-    "glen": 32.3,
+    "glen": 29.4,
     "gmass": 225.0,
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 9.09,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -55.0
   },
   {
@@ -1846,12 +1753,11 @@
     "pname": "SBT GAMEKING 2950",
     "caliber": ".375",
     "gdia": 9.52,
-    "glen": 32.9,
+    "glen": 30.1,
     "gmass": 250.0,
     "gpressure": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 9.52,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain",
     "gfriction": -50.0
   },
   {
@@ -2049,60 +1955,54 @@
     "pname": "SPT PRO-HUNTER 2620",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 31.3,
+    "glen": 32.6,
     "gmass": 225.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "SPT VarmintKing 1310",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 15.8,
+    "glen": 15.9,
     "gmass": 45.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "SPT VarmintKing 1330",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 17.6,
+    "glen": 17.2,
     "gmass": 50.0,
-    "gpressure": 280.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 280.0
   },
   {
     "mname": "Sierra",
     "pname": "SPT VarmintKing 1360",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.3,
+    "glen": 18.1,
     "gmass": 55.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "SPT VarmintKing 1520",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 24.9,
+    "glen": 23.2,
     "gmass": 85.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "SPT VarmintKing 1610",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 22.5,
+    "glen": 21.9,
     "gmass": 87.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -2349,30 +2249,27 @@
     "pname": "Tipped MatchKing 7160",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 21.0,
+    "glen": 23.0,
     "gmass": 60.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Tipped MatchKing 7169",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 24.2,
+    "glen": 25.1,
     "gmass": 69.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Tipped MatchKing 7177",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 27.0,
+    "glen": 27.1,
     "gmass": 77.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -2459,10 +2356,9 @@
     "pname": "Tipped MatchKing 7660",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 35.6,
+    "glen": 36.1,
     "gmass": 160.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -2489,20 +2385,18 @@
     "pname": "TIPPED MATCHKING 7725",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 23.8,
+    "glen": 28.0,
     "gmass": 125.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "TIPPED MATCHKING 7755",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 29.5,
+    "glen": 32.4,
     "gmass": 155.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -2539,10 +2433,9 @@
     "pname": "Tipped VarmintKing 1032",
     "caliber": ".204",
     "gdia": 5.18,
-    "glen": 13.8,
+    "glen": 16.9,
     "gmass": 32.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -2569,50 +2462,45 @@
     "pname": "Tipped VarmintKing 1450",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 17.6,
+    "glen": 20.0,
     "gmass": 50.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Tipped VarmintKing 1455",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.3,
+    "glen": 20.1,
     "gmass": 55.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Tipped VarmintKing 1502",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 16.1,
+    "glen": 19.0,
     "gmass": 55.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Tipped VarmintKing 1507",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 20.5,
+    "glen": 22.9,
     "gmass": 70.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "Tipped VarmintKing 1605",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 18.1,
+    "glen": 22.2,
     "gmass": 70.0,
     "gpressure": 50.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
     "gfriction": 80.0
   },
   {
@@ -2620,10 +2508,9 @@
     "pname": "Tipped VarmintKing 1616",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 23.3,
+    "glen": 28.2,
     "gmass": 90.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
@@ -2660,19 +2547,17 @@
     "pname": "VarmintKing 1340",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 17.6,
+    "glen": 16.8,
     "gmass": 50.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Sierra",
     "pname": "VarmintKing 1345",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.3,
+    "glen": 18.4,
     "gmass": 55.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
+    "gpressure": 250.0
   }
 ]

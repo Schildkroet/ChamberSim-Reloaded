@@ -264,30 +264,27 @@
     "pname": "TUG Nature+ 0.308 147 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 26.1,
+    "glen": 34.1,
     "gmass": 147.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Brenneke",
     "pname": "TUG Nature+ 0.323 150 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 23.9,
+    "glen": 32.2,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Brenneke",
     "pname": "TUG Nature+ 0.366 220 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 26.3,
+    "glen": 37.5,
     "gmass": 220.0,
-    "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gpressure": 250.0
   },
   {
     "mname": "Brenneke",

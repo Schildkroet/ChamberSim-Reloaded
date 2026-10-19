@@ -22,6 +22,8 @@ ap.add_argument("--powders", default="")
 ap.add_argument("--jobs", type=int, default=int(os.environ.get("CSR_JOBS", min(14, os.cpu_count() or 1))), help="threads (default: at most 14 cores, or CSR_JOBS)")
 ap.add_argument("--pressure-weight", type=float, default=1.0)
 ap.add_argument("--quiet", action="store_true")
+ap.add_argument("--dump", default="", help="write the fitted powders' loads with their errors (ln sim/published) to this CSV")
+ap.add_argument("--jump", type=float, default=None, help="bullet jump [mm] of every load (csr_eval column jump_mm); default: the file's column or none")
 ap.add_argument("--drop-inconsistent", type=float, default=0.0, help="drop loads whose velocity is this far (relative, e.g. 0.15) off the trend of their own table (sample_filter.py)")
 ap.add_argument("--fit-form", action="store_true", help="fit the form function (a0, z1, z2) as well as Ba, with the pressures (slower)")
 args = ap.parse_args()
@@ -56,6 +58,8 @@ for r in rows:
 want = [p.strip() for p in args.powders.split(",") if p.strip()]
 powders = [p for p in sorted(by) if len(by[p]) >= args.min_samples and (not want or p in want)]
 tmp = tempfile.mkdtemp()
+if args.jump is not None:
+    for r in rows: r["jump_mm"] = f"{args.jump:g}"
 header = [h for h in rows[0].keys() if h != "_src"]
 
 class Powder:
@@ -117,6 +121,13 @@ def covariates(P):
 
 with ThreadPoolExecutor(args.jobs) as pool:
     fits = list(pool.map(lambda n: Powder(n).fit(), powders))
+if args.dump:
+    with open(args.dump, "w", newline="") as fh:
+        w = csv.writer(fh); w.writerow(["powder", "Ba", "src", "caliber", "kind", "bullet_gr", "charge_g", "col_mm", "barrel_mm", "pmax_bar", "case_cm3", "held", "velocity_ms", "pressure_bar", "ev", "ep"])
+        for f in fits:
+            for r, ev, ep, t in zip(f.rows, f.ev, f.ep, f.test):
+                w.writerow([f.name, f"{f.ba:.5g}", r["_src"], r["caliber"], r["kind"], r["bullet_gr"], r["charge_g"], r.get("col_mm", ""), r.get("barrel_mm", ""), r.get("pmax_bar", ""),
+                            case.get(r["caliber"], {}).get("V", ""), int(t), r["velocity_ms"], r["pressure_bar"], f"{ev:.5g}", f"{ep:.5g}"])
 def rms(x): x = x[~np.isnan(x)]; return 100 * np.sqrt(np.mean(x ** 2)) if len(x) else float("nan")
 def stat(sel):
     ev = np.concatenate([f.ev[sel(f)] for f in fits]); ep = np.concatenate([f.ep[sel(f)] for f in fits])
