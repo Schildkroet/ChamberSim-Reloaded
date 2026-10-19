@@ -125,6 +125,11 @@ RecordViewDialog::RecordViewDialog(const csr::Database &db, csr::Table table, in
             value->setObjectName(f.column);
             value->setTextInteractionFlags(Qt::TextSelectableByMouse);
             value->setWordWrap(true);
+            if (f.column == u"gValid"_s && stored.toInt() != 0)  // measured: a green check mark in front
+            {
+                value->setText(QString(QChar(0x2714)) + u' ' + value->text());
+                value->setStyleSheet(u"color: #2ea043; font-weight: bold;"_s);
+            }
             if (f.alignRight) value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
             const bool wide = f.kind == Kind::Text && stored.toString().size() > 24;  // long texts (origin, description) use the full row
             const int row = wide ? (i + pairs - 1) / pairs : i / pairs, col = wide ? 0 : 2 * (i % pairs);

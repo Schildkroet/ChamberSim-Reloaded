@@ -95,7 +95,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+485"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+484"/>
         <source>No cartridge data</source>
         <translation>Nessun dato della cartuccia</translation>
     </message>
@@ -2064,7 +2064,7 @@ pressione Δ</translation>
         <translation>– non indicato –</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>– not set –</source>
         <translation>– non impostato –</translation>
     </message>
@@ -2197,7 +2197,7 @@ pressione Δ</translation>
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+44"/>
         <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
         <translation>Qualità dell&apos;adattamento del modello della polvere: 1 = molto buona, 0 = sconosciuta</translation>
     </message>
@@ -2523,7 +2523,7 @@ pressione Δ</translation>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+50"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+51"/>
         <source>Your own record (can be changed)</source>
         <translation>Record proprio (modificabile)</translation>
     </message>
@@ -2553,12 +2553,27 @@ pressione Δ</translation>
         <translation>GRT originale</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
+        <source>Validated by hand: measured on a bullet or checked against the original database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Not validated: the length is estimated or taken from a photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Source</source>
         <translation>Fonte</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+1"/>
+        <source>Validated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Filter (all columns)…</source>
         <translation>Filtro (tutte le colonne)…</translation>
     </message>
@@ -2873,12 +2888,12 @@ pressione Δ</translation>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+53"/>
         <location line="+50"/>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location line="-69"/>
+        <location line="-70"/>
         <source>Case dimensions (CIP)</source>
         <translation>Quote del bossolo (CIP)</translation>
     </message>
@@ -3064,18 +3079,18 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Manufacturer</source>
         <translation>Produttore</translation>
     </message>
     <message>
-        <location line="-18"/>
-        <location line="+20"/>
+        <location line="-19"/>
+        <location line="+21"/>
         <source>Lot</source>
         <translation>Lotto</translation>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="-20"/>
         <source>Caliber designation</source>
         <translation>Designazione del calibro</translation>
     </message>
@@ -3088,6 +3103,11 @@ pressione Δ</translation>
         <location line="+1"/>
         <source>Length</source>
         <translation>Lunghezza</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Validated</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>

@@ -143,8 +143,9 @@ RecordDialog::RecordDialog(const csr::Database &db, csr::Table table, Mode mode,
             {
                 // a fixed list: no free text, so the values stay consistent (the program reads some of them)
                 auto *combo = new QComboBox;
-                combo->addItem(tr("– not specified –"), QString());
-                for (const auto &[value, text] : csr::dbfields::choices(table, f.column)) combo->addItem(text, value);
+                if (f.column != u"gValid") combo->addItem(tr("– not specified –"), QString());  // a yes/no column always has a value
+                for (const auto &[value, text] : csr::dbfields::choices(table, f.column))
+                    combo->addItem(f.column == u"gValid" && value == u"1" ? QString(QChar(0x2714)) + u' ' + text : text, value);
                 const QString value = stored.toString();
                 int index = combo->findData(value);
                 for (int k = 0; index < 0 && k < combo->count(); ++k)  // "Wildcat" is "WildCat"

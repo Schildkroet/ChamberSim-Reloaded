@@ -27,6 +27,7 @@
 #include <QLineEdit>
 #include <QSortFilterProxyModel>
 #include <QSqlError>
+#include <QColor>
 #include <QSqlTableModel>
 #include <QTableView>
 #include <QVBoxLayout>
@@ -56,17 +57,33 @@ public:
             if (code == QLatin1String(csr::Database::kSourceProject)) return TableBrowser::tr("Project");
             return TableBrowser::tr("Original GRT");
         }
+        if (index.column() == validColumn())  // projectiles: a green check mark where the record was validated by hand
+        {
+            const bool valid = QSqlTableModel::data(index, Qt::DisplayRole).toInt() != 0;
+            switch (role)
+            {
+            case Qt::DisplayRole: return valid ? QString(QChar(0x2714)) : QString();
+            case Qt::ForegroundRole: return QColor(valid ? QColor(0x2e, 0xa0, 0x43) : QColor(Qt::gray));
+            case Qt::TextAlignmentRole: return int(Qt::AlignCenter);
+            case Qt::ToolTipRole:
+                return valid ? TableBrowser::tr("Validated by hand: measured on a bullet or checked against the original database")
+                             : TableBrowser::tr("Not validated: the length is estimated or taken from a photo");
+            default: break;
+            }
+        }
         return QSqlTableModel::data(index, role);
     }
 
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override
     {
         if (orientation == Qt::Horizontal && section == sourceColumn() && role == Qt::DisplayRole) return TableBrowser::tr("Source");
+        if (orientation == Qt::Horizontal && section == validColumn() && role == Qt::DisplayRole) return TableBrowser::tr("Validated");
         return QSqlTableModel::headerData(section, orientation, role);
     }
 
 private:
     [[nodiscard]] int sourceColumn() const { return fieldIndex(QStringLiteral("source")); }
+    [[nodiscard]] int validColumn() const { return fieldIndex(QStringLiteral("gValid")); }
 };
 
 }  // namespace

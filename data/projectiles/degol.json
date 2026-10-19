@@ -6,6 +6,8 @@
     "gdia": 10.57,
     "glen": 45.2,
     "gmass": 420.0,
+    "gtailtype": 2,
+    "gtaildiaA": 10.57,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
@@ -346,6 +348,10 @@
     "gdia": 6.71,
     "glen": 35.3,
     "gmass": 140.0,
+    "gtailtype": 2,
+    "gtaildiaA": 6.7,
+    "gtaildiaB": 5.4,
+    "gtailh": 5.9,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.07, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
@@ -1146,6 +1152,8 @@
     "gdia": 11.63,
     "glen": 54.0,
     "gmass": 600.0,
+    "gtailtype": 2,
+    "gtaildiaA": 11.63,
     "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.99, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },

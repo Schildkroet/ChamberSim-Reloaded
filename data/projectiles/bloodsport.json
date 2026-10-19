@@ -6,6 +6,10 @@
     "gdia": 7.04,
     "glen": 32.6,
     "gmass": 130.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.0,
+    "gtaildiaB": 6.2,
+    "gtailh": 3.2,
     "gpressure": 350.0,
     "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
   }

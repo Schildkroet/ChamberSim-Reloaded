@@ -95,7 +95,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+485"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+484"/>
         <source>No cartridge data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2040,7 +2040,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+23"/>
         <source>– not set –</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2173,7 +2173,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+44"/>
         <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2499,7 +2499,7 @@ pressure Δ</source>
 <context>
     <name>TableBrowser</name>
     <message>
-        <location filename="../src/app/tablebrowser.cpp" line="+50"/>
+        <location filename="../src/app/tablebrowser.cpp" line="+51"/>
         <source>Your own record (can be changed)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2529,12 +2529,27 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
+        <source>Validated by hand: measured on a bullet or checked against the original database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Not validated: the length is estimated or taken from a photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+1"/>
+        <source>Validated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Filter (all columns)…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2849,12 +2864,12 @@ pressure Δ</source>
     <message>
         <location filename="../src/core/dbfields.cpp" line="+53"/>
         <location line="+50"/>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-69"/>
+        <location line="-70"/>
         <source>Case dimensions (CIP)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3040,18 +3055,18 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+20"/>
+        <location line="+21"/>
         <source>Manufacturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-18"/>
-        <location line="+20"/>
+        <location line="-19"/>
+        <location line="+21"/>
         <source>Lot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="-20"/>
         <source>Caliber designation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3063,6 +3078,11 @@ pressure Δ</source>
     <message>
         <location line="+1"/>
         <source>Length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Validated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

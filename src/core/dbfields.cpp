@@ -105,6 +105,7 @@ constexpr Spec kProjectile[] = {
     {"caliber", QT_TRANSLATE_NOOP("csr::dbfields", "Caliber designation"), kName, Quantity::None, 1, Kind::Text, ""},
     {"gdia", QT_TRANSLATE_NOOP("csr::dbfields", "Diameter"), kBullet, Quantity::Length, 1, Kind::Number, ""},
     {"glen", QT_TRANSLATE_NOOP("csr::dbfields", "Length"), kBullet, Quantity::Length, 1, Kind::Number, ""},
+    {"gValid", QT_TRANSLATE_NOOP("csr::dbfields", "Validated"), kBullet, Quantity::None, 1, Kind::Choice, ""},
     {"gmass", QT_TRANSLATE_NOOP("csr::dbfields", "Mass"), kBullet, Quantity::BulletMass, kGrain, Kind::Number, ""},
     {"gtailtype", QT_TRANSLATE_NOOP("csr::dbfields", "Base type"), kBullet, Quantity::None, 1, Kind::BaseType, ""},
     {"gtaildiaA", QT_TRANSLATE_NOOP("csr::dbfields", "Base diameter A"), kBullet, Quantity::Length, 1, Kind::Number, ""},
@@ -249,6 +250,9 @@ std::vector<std::pair<QString, QString>> countries()
 
 std::vector<std::pair<QString, QString>> choices(Table t, const QString &column)
 {
+    if (t == Table::Projectile && column == u"gValid")
+        return {{u"0"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "no (not validated)"))},
+                {u"1"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "yes (validated by hand)"))}};
     if (t != Table::Caliber) return {};
     if (column == u"ciporigin")
     {

@@ -86,7 +86,12 @@
     "caliber": ".224",
     "gdia": 5.69,
     "glen": 21.3,
+    "gValid": true,
     "gmass": 52.0,
+    "gtailtype": 2,
+    "gtaildiaA": 6.0,
+    "gtaildiaB": 5.3,
+    "gtailh": 3.0,
     "gpressure": 250.0
   },
   {
@@ -95,7 +100,12 @@
     "caliber": ".284",
     "gdia": 7.21,
     "glen": 33.3,
+    "gValid": true,
     "gmass": 130.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.2,
+    "gtaildiaB": 6.0,
+    "gtailh": 5.8,
     "gpressure": 250.0
   },
   {
@@ -104,7 +114,12 @@
     "caliber": ".284",
     "gdia": 7.21,
     "glen": 36.8,
+    "gValid": true,
     "gmass": 145.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.2,
+    "gtaildiaB": 6.0,
+    "gtailh": 5.8,
     "gpressure": 250.0
   },
   {
@@ -113,7 +128,12 @@
     "caliber": ".308",
     "gdia": 7.82,
     "glen": 31.4,
+    "gValid": true,
     "gmass": 140.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.7,
+    "gtaildiaB": 7.1,
+    "gtailh": 3.8,
     "gpressure": 250.0
   },
   {
@@ -122,7 +142,12 @@
     "caliber": ".308",
     "gdia": 7.82,
     "glen": 33.0,
+    "gValid": true,
     "gmass": 150.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.8,
+    "gtaildiaB": 7.2,
+    "gtailh": 4.8,
     "gpressure": 250.0
   },
   {
@@ -131,7 +156,12 @@
     "caliber": ".308",
     "gdia": 7.82,
     "glen": 36.1,
+    "gValid": true,
     "gmass": 165.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.8,
+    "gtaildiaB": 7.2,
+    "gtailh": 4.8,
     "gpressure": 250.0
   },
   {

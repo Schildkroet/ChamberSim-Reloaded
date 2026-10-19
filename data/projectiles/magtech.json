@@ -6,6 +6,10 @@
     "gdia": 9.07,
     "glen": 18.0,
     "gmass": 158.0,
+    "gtailtype": 1,
+    "gtaildiaA": 8.0,
+    "gtaildiaB": 2.0,
+    "gtailh": 0.5,
     "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -216,6 +220,10 @@
     "gdia": 10.9,
     "glen": 19.1,
     "gmass": 240.0,
+    "gtailtype": 1,
+    "gtaildiaA": 10.0,
+    "gtaildiaB": 3.0,
+    "gtailh": 0.5,
     "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },

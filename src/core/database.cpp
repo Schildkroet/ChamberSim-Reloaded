@@ -78,7 +78,7 @@ constexpr std::array<TableSchema, 5> kSchema{{
      "status TEXT NOT NULL, origin TEXT NOT NULL, descr TEXT NOT NULL, geloescht INTEGER NOT NULL"},
     {"projectile", "id INTEGER PRIMARY KEY AUTOINCREMENT, mname TEXT COLLATE NOCASE NOT NULL, "
                    "pname TEXT COLLATE NOCASE NOT NULL, lotid TEXT COLLATE NOCASE NOT NULL, "
-                   "caliber TEXT COLLATE NOCASE NOT NULL, gdia FLOAT NOT NULL, glen FLOAT NOT NULL, "
+                   "caliber TEXT COLLATE NOCASE NOT NULL, gdia FLOAT NOT NULL, glen FLOAT NOT NULL, gValid BOOLEAN NOT NULL DEFAULT 0, "
                    "gmass FLOAT NOT NULL, gpressure FLOAT NOT NULL, gfriction FLOAT NOT NULL, gtaildiaA FLOAT NOT NULL, "
                    "gtaildiaB FLOAT NOT NULL, gtailh FLOAT NOT NULL, gtailtype INTEGER NOT NULL, "
                    "gdepthmax FLOAT NOT NULL, g1bc FLOAT NOT NULL, g7bc FLOAT NOT NULL, "
@@ -117,8 +117,10 @@ struct AddedColumn
     const char *declaration;
     const char *after;
 };
-constexpr std::array<AddedColumn, 1> kAddedColumns{{
+constexpr std::array<AddedColumn, 2> kAddedColumns{{
     {"caliber", "PmaxSAAMI", "FLOAT NOT NULL DEFAULT 0", "Pmax"},  // SAAMI maximum average pressure [bar]; Pmax is the C.I.P. one
+    {"projectile", "gValid", "BOOLEAN NOT NULL DEFAULT 0",
+     "glen"},  // true: the record was validated by hand (measured on a bullet, checked against the original database), false: not
 }};
 
 QString lastError(const QSqlQuery &q)
@@ -333,6 +335,22 @@ bool Database::createOwnTablesInTransaction(QString *error)
     {
         const QString name = QLatin1String(t.name);
         if (!exec(m_db, u"CREATE TABLE IF NOT EXISTS main.%1 (%2)"_s.arg(name, QLatin1String(t.columns)), error)) return false;
+        // the flag of the projectiles was called glenMeasured for a short while (unreleased): keep its values under the new name
+        if (name == u"projectile")
+        {
+            const auto cols = tableColumns(m_db, u"main"_s, name);
+            const auto has = [&](const QString &n) { return std::ranges::any_of(cols, [&](const auto &c) { return c.first == n; }); };
+            if (has(u"glenMeasured"_s))
+            {
+                if (!has(u"gValid"_s))
+                {
+                    if (!exec(m_db, u"ALTER TABLE main.projectile RENAME COLUMN glenMeasured TO gValid"_s, error)) return false;
+                }
+                else if (!exec(m_db, u"UPDATE main.projectile SET gValid = 1 WHERE glenMeasured <> 0"_s, error) ||
+                         !exec(m_db, u"ALTER TABLE main.projectile DROP COLUMN glenMeasured"_s, error))
+                    return false;
+            }
+        }
         for (const AddedColumn &c : kAddedColumns)
         {
             if (name != QLatin1String(c.table)) continue;

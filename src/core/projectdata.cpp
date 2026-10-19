@@ -43,6 +43,11 @@ bool isNumeric(const QString &sqlType)
     return sqlType == u"FLOAT" || sqlType == u"INTEGER";
 }
 
+bool isBoolean(const QString &sqlType)
+{
+    return sqlType == u"BOOLEAN";  // true / false in the files, 0 / 1 in the database
+}
+
 QString typeOf(const Schema &schema, const QString &column)
 {
     for (const auto &[name, type] : schema)
@@ -89,6 +94,11 @@ QStringList check(Table t, const QVariantMap &record, const Schema &schema)
         if (it.key() == u"id" || it.key() == u"geloescht")
         {
             problems << u"\"%1\" must not be in the file"_s.arg(it.key());
+            continue;
+        }
+        if (isBoolean(type))
+        {
+            if (it.value().typeId() != QMetaType::Bool) problems << u"\"%1\" must be true or false"_s.arg(it.key());
             continue;
         }
         const bool number =
@@ -174,7 +184,10 @@ QByteArray toJson(const QVariantMap &record, const Schema &schema)
     {
         if (column == u"id" || column == u"geloescht" || !record.contains(column)) continue;
         const QVariant v = record.value(column);
-        lines << "  " + encode(column) + ": " + encode(isNumeric(type) ? QJsonValue(v.toDouble()) : QJsonValue(v.toString()));
+        lines << "  " + encode(column) + ": " +
+                     encode(isBoolean(type)   ? QJsonValue(v.toBool())
+                            : isNumeric(type) ? QJsonValue(v.toDouble())
+                                              : QJsonValue(v.toString()));
     }
     return "{\n" + lines.join(",\n") + "\n}\n";
 }

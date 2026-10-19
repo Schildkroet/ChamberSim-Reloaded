@@ -265,7 +265,12 @@
     "caliber": ".308",
     "gdia": 7.82,
     "glen": 34.1,
+    "gValid": true,
     "gmass": 147.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.8,
+    "gtaildiaB": 1.0,
+    "gtailh": 3.4,
     "gpressure": 250.0
   },
   {
@@ -274,7 +279,12 @@
     "caliber": ".323",
     "gdia": 8.2,
     "glen": 32.2,
+    "gValid": true,
     "gmass": 150.0,
+    "gtailtype": 2,
+    "gtaildiaA": 8.2,
+    "gtaildiaB": 2.0,
+    "gtailh": 3.5,
     "gpressure": 250.0
   },
   {
@@ -283,7 +293,12 @@
     "caliber": ".366",
     "gdia": 9.3,
     "glen": 37.5,
+    "gValid": true,
     "gmass": 220.0,
+    "gtailtype": 2,
+    "gtaildiaA": 9.3,
+    "gtaildiaB": 2.5,
+    "gtailh": 3.5,
     "gpressure": 250.0
   },
   {
