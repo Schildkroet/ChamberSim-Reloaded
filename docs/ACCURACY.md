@@ -88,6 +88,19 @@ revolver's cylinder gap, a shift of the revolver barrel length and the bullet le
 5.9 % rms around a smooth trend of velocity over bullet mass and charge; 62 pistol and 38 rifle loads that are more than 15 % off their own
 table (mostly solid-copper Lehigh XD and CEB bullets) are left out of the calibrations (`analysis/sample_filter.py`, `--drop-inconsistent`).
 
+*2026-10-19, start pressure and per-caliber factors for rifle calibers:* on 32,867 published loads (adi, hodgdon, west, reload swiss, lovex, rws, alliant;
+Ba refitted per powder) a higher start pressure does not help the weak groups. Small-bore rifle bullets (<= 5.8 mm): 400 bar 4.1 % -> 4.9 % velocity, 700 bar 7.8 %,
+1200 bar 12.4 %, the pressure bias grows from +1.5 % to +9 / +26 / +48 %. Pistol and revolver (`handgunStartFraction` 0.15 / 0.3 / 0.45 / 0.6 x the permitted
+pressure): velocity 7.4 / 7.4 / 8.1 / 9.0 %, pressure 19.4 / 17.2 / 20.4 / 26.1 %, so 0.3 stays. Fast powders in rifle calibers gain 0.2 points at 400 bar and lose at
+more: not adopted. The offsets sit in whole calibers: .30 Super Carry -8 %, 300 Norma -7 %, 338 Norma -6 %, .33 Nosler -5 % (too slow), 17 Rem. +6 %, 45-70 +5 %, 257 Weatherby +5 %
+(too fast). A factor on the burn rate per rifle caliber, fitted on half of the powders and tested on the other half (stock Ba): rifle velocity rms 3.79 -> 3.29 %, pressure
+13.1 -> 12.6 % (bias -1.7 -> +0.8 %); the same kind of factor on the case volume gave 3.31 % but a worse pressure (13.3 %, bias +2.3 %), so the caliber records' volumes are not the
+cause. The pistol factors fitted that way (7.51 % / 17.6 %) are no better than the shipped ones (7.38 % / 17.2 %), which stay. `calibers.json` now has 71 rifle entries
+(at least 60 loads, 25 % of the deviation dropped, |factor - 1| >= 1 %). Against all loads with Ba refitted (factors fitted on the same loads): rifle 4.1 / 13.2 % -> 3.6 / 12.6 %,
+pistol 7.4 / 17.2 % -> 7.4 / 17.0 %, all 4.8 / 14.1 % -> 4.5 / 13.6 % (velocity / pressure rms). Powder-and-caliber combinations with a consistent bias (60 of 1,107 with
+at least 12 loads, e.g. Titegroup in 500 S&W / 480 Ruger / 44 Magnum -10 to -15 %, Accurate No. 5 / 7 / 9 in 357 Magnum +7 to +9 %, ADI AR22xx in 45-70 +9 %) hold 10 % of
+the squared velocity error: scatter between powders and tables, not one fixable effect. Small-bore rifles with fast powders (237 loads) got slightly worse (5.1 -> 5.6 %).
+
 *Bullet lengths of lead bullets (2026-10-11):* the length of a bullet fixes how deep it sits in the case and so the powder space (+1.5 mm = +1.9 % in
 velocity, +16 % in peak pressure of a 9 mm Luger). The estimator assumed an effective density (mass / cross-section x length) of 10.3 g/cm3 for lead
 bullets; measured on the product photos of hn-sport.de (the single standing bullet, camera elevation 10 degrees, scale fixed with a caliper
@@ -146,7 +159,7 @@ is inside it (not corrected yet). The velocity shortfall of lead bullets (-4.5 %
 | Other | 1 | 17.6 % | 17.6 % | 4.3 % | 4.3 % | 24.5 % |
 | **All runs** | 348 | 39.5 % | 136.5 % | 5.4 % | 26.9 % | 26.2 % |
 
-_Absolute deviations against 349 runs of the original program; updated 2026-10-18 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute deviations against 349 runs of the original program; updated 2026-10-19 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is

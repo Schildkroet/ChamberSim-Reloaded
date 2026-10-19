@@ -1,15 +1,372 @@
 {
- "note": "Factors on the physical burn rates of pistol and revolver cartridges, fitted with analysis/fit_caliber_scales.py to the published loads (velocities). Generated - do not edit by hand.",
+ "note": "Factors on the physical burn rates of cartridges with at least 60 (pistol and revolver: 100) published loads, fitted with analysis/fit_caliber_scales.py to the published loads (velocities). Generated - do not edit by hand.",
  "autoScale": 1.0,
  "rimmedScale": 1.0,
  "rimmedFrom": 1.045,
  "calibers": [
+  {
+   "cipname": ".222 Remington Magnum",
+   "burnScale": 0.9489,
+   "n": 151,
+   "v_rms_before": 4.78,
+   "v_rms_after": 3.16
+  },
+  {
+   "cipname": ".224 Valkyrie",
+   "burnScale": 1.0337,
+   "n": 126,
+   "v_rms_before": 3.39,
+   "v_rms_after": 2.7
+  },
+  {
+   "cipname": ".26 Nosler",
+   "burnScale": 1.0223,
+   "n": 68,
+   "v_rms_before": 5.61,
+   "v_rms_after": 5.33
+  },
+  {
+   "cipname": ".27 Nosler",
+   "burnScale": 1.0364,
+   "n": 140,
+   "v_rms_before": 3.8,
+   "v_rms_after": 2.64
+  },
+  {
+   "cipname": ".30 Super Carry",
+   "burnScale": 1.2097,
+   "n": 132,
+   "v_rms_before": 9.58,
+   "v_rms_after": 5.06
+  },
+  {
+   "cipname": ".327 Federal Magnum",
+   "burnScale": 1.1458,
+   "n": 186,
+   "v_rms_before": 6.77,
+   "v_rms_after": 3.97
+  },
+  {
+   "cipname": ".33 Nosler",
+   "burnScale": 1.075,
+   "n": 212,
+   "v_rms_before": 5.76,
+   "v_rms_after": 2.67
+  },
+  {
+   "cipname": ".35 Whelen",
+   "burnScale": 1.0431,
+   "n": 144,
+   "v_rms_before": 4.09,
+   "v_rms_after": 3.19
+  },
+  {
+   "cipname": ".458 SOCOM",
+   "burnScale": 1.01,
+   "n": 186,
+   "v_rms_before": 5.6,
+   "v_rms_after": 5.56
+  },
   {
    "cipname": "10 mm Auto",
    "burnScale": 1.0758,
    "n": 223,
    "v_rms_before": 5.96,
    "v_rms_after": 4.96
+  },
+  {
+   "cipname": "17 Hornet",
+   "burnScale": 0.978,
+   "n": 88,
+   "v_rms_before": 4.44,
+   "v_rms_after": 4.2
+  },
+  {
+   "cipname": "17 Rem.",
+   "burnScale": 0.9154,
+   "n": 61,
+   "v_rms_before": 6.58,
+   "v_rms_after": 3.25
+  },
+  {
+   "cipname": "17 Rem. Fireball",
+   "burnScale": 0.9311,
+   "n": 76,
+   "v_rms_before": 5.55,
+   "v_rms_after": 2.88
+  },
+  {
+   "cipname": "204 Ruger",
+   "burnScale": 0.9451,
+   "n": 246,
+   "v_rms_before": 4.54,
+   "v_rms_after": 2.39
+  },
+  {
+   "cipname": "22 Hornet",
+   "burnScale": 1.076,
+   "n": 193,
+   "v_rms_before": 8.7,
+   "v_rms_after": 6.6
+  },
+  {
+   "cipname": "22-250 Rem",
+   "burnScale": 0.9772,
+   "n": 555,
+   "v_rms_before": 3.83,
+   "v_rms_after": 3.53
+  },
+  {
+   "cipname": "220 Swift",
+   "burnScale": 0.9853,
+   "n": 290,
+   "v_rms_before": 3.12,
+   "v_rms_after": 2.96
+  },
+  {
+   "cipname": "221 Rem. Fireball",
+   "burnScale": 0.9835,
+   "n": 80,
+   "v_rms_before": 3.67,
+   "v_rms_after": 3.51
+  },
+  {
+   "cipname": "222 Rem.",
+   "burnScale": 0.9779,
+   "n": 559,
+   "v_rms_before": 4.16,
+   "v_rms_after": 3.88
+  },
+  {
+   "cipname": "225 Win.",
+   "burnScale": 0.9796,
+   "n": 78,
+   "v_rms_before": 3.73,
+   "v_rms_after": 3.5
+  },
+  {
+   "cipname": "243 Win.",
+   "burnScale": 1.0213,
+   "n": 1000,
+   "v_rms_before": 3.48,
+   "v_rms_after": 3.18
+  },
+  {
+   "cipname": "25 Win. Super Short Mag.",
+   "burnScale": 1.012,
+   "n": 100,
+   "v_rms_before": 2.0,
+   "v_rms_after": 1.85
+  },
+  {
+   "cipname": "25-06 Rem.",
+   "burnScale": 1.0218,
+   "n": 422,
+   "v_rms_before": 3.84,
+   "v_rms_after": 3.53
+  },
+  {
+   "cipname": "257 Weath. Mag.",
+   "burnScale": 0.9346,
+   "n": 205,
+   "v_rms_before": 5.74,
+   "v_rms_after": 3.01
+  },
+  {
+   "cipname": "260 Rem.",
+   "burnScale": 1.0163,
+   "n": 462,
+   "v_rms_before": 2.69,
+   "v_rms_after": 2.48
+  },
+  {
+   "cipname": "270 Weath. Mag.",
+   "burnScale": 0.9465,
+   "n": 71,
+   "v_rms_before": 6.67,
+   "v_rms_after": 5.47
+  },
+  {
+   "cipname": "270 Win.",
+   "burnScale": 1.0329,
+   "n": 786,
+   "v_rms_before": 4.27,
+   "v_rms_after": 3.7
+  },
+  {
+   "cipname": "270 Win. Short Mag.",
+   "burnScale": 1.0109,
+   "n": 226,
+   "v_rms_before": 2.89,
+   "v_rms_after": 2.79
+  },
+  {
+   "cipname": "280 Rem.",
+   "burnScale": 1.0439,
+   "n": 145,
+   "v_rms_before": 3.48,
+   "v_rms_after": 2.16
+  },
+  {
+   "cipname": "284 Win.",
+   "burnScale": 1.0206,
+   "n": 125,
+   "v_rms_before": 3.07,
+   "v_rms_after": 2.81
+  },
+  {
+   "cipname": "30 Carbine",
+   "burnScale": 1.0898,
+   "n": 108,
+   "v_rms_before": 7.5,
+   "v_rms_after": 3.3
+  },
+  {
+   "cipname": "30 TC",
+   "burnScale": 1.0146,
+   "n": 84,
+   "v_rms_before": 1.81,
+   "v_rms_after": 1.56
+  },
+  {
+   "cipname": "30-06 Spring.",
+   "burnScale": 1.0473,
+   "n": 1589,
+   "v_rms_before": 4.22,
+   "v_rms_after": 3.03
+  },
+  {
+   "cipname": "300 AAC Blackout",
+   "burnScale": 1.0516,
+   "n": 306,
+   "v_rms_before": 6.73,
+   "v_rms_after": 5.9
+  },
+  {
+   "cipname": "300 Norma Mag",
+   "burnScale": 1.1026,
+   "n": 127,
+   "v_rms_before": 8.24,
+   "v_rms_after": 3.55
+  },
+  {
+   "cipname": "300 RCM",
+   "burnScale": 1.0203,
+   "n": 101,
+   "v_rms_before": 2.03,
+   "v_rms_after": 1.57
+  },
+  {
+   "cipname": "300 Rem. SA Ultra Mag.",
+   "burnScale": 0.9881,
+   "n": 83,
+   "v_rms_before": 2.25,
+   "v_rms_after": 2.11
+  },
+  {
+   "cipname": "300 Rem. Ultra Mag.",
+   "burnScale": 1.0157,
+   "n": 245,
+   "v_rms_before": 2.88,
+   "v_rms_after": 2.64
+  },
+  {
+   "cipname": "300 Win. Mag.",
+   "burnScale": 1.014,
+   "n": 856,
+   "v_rms_before": 3.02,
+   "v_rms_after": 2.85
+  },
+  {
+   "cipname": "300 Win. Short Mag.",
+   "burnScale": 1.0251,
+   "n": 582,
+   "v_rms_before": 2.85,
+   "v_rms_after": 2.37
+  },
+  {
+   "cipname": "303 British",
+   "burnScale": 0.9844,
+   "n": 159,
+   "v_rms_before": 4.08,
+   "v_rms_after": 3.95
+  },
+  {
+   "cipname": "308 Marlin Express",
+   "burnScale": 1.0172,
+   "n": 100,
+   "v_rms_before": 2.79,
+   "v_rms_after": 2.56
+  },
+  {
+   "cipname": "308 Norma Mag.",
+   "burnScale": 1.0167,
+   "n": 65,
+   "v_rms_before": 3.16,
+   "v_rms_after": 2.98
+  },
+  {
+   "cipname": "308 Win.",
+   "burnScale": 1.0377,
+   "n": 1992,
+   "v_rms_before": 3.17,
+   "v_rms_after": 2.27
+  },
+  {
+   "cipname": "325 WSM",
+   "burnScale": 1.0494,
+   "n": 66,
+   "v_rms_before": 3.59,
+   "v_rms_after": 1.98
+  },
+  {
+   "cipname": "338 Federal",
+   "burnScale": 1.0514,
+   "n": 294,
+   "v_rms_before": 4.09,
+   "v_rms_after": 2.63
+  },
+  {
+   "cipname": "338 Lapua Mag.",
+   "burnScale": 1.07,
+   "n": 463,
+   "v_rms_before": 5.61,
+   "v_rms_after": 2.92
+  },
+  {
+   "cipname": "338 Rem. Ultra Mag.",
+   "burnScale": 1.0243,
+   "n": 154,
+   "v_rms_before": 2.65,
+   "v_rms_after": 2.02
+  },
+  {
+   "cipname": "338 Win. Mag.",
+   "burnScale": 1.0497,
+   "n": 377,
+   "v_rms_before": 4.25,
+   "v_rms_after": 2.78
+  },
+  {
+   "cipname": "338-378 Weath. Mag.",
+   "burnScale": 0.987,
+   "n": 78,
+   "v_rms_before": 2.21,
+   "v_rms_after": 2.02
+  },
+  {
+   "cipname": "35 Rem.",
+   "burnScale": 0.9629,
+   "n": 101,
+   "v_rms_before": 4.53,
+   "v_rms_after": 3.65
+  },
+  {
+   "cipname": "350 Legend",
+   "burnScale": 0.9763,
+   "n": 118,
+   "v_rms_before": 3.87,
+   "v_rms_after": 3.49
   },
   {
    "cipname": "357 Magnum",
@@ -24,6 +381,20 @@
    "n": 247,
    "v_rms_before": 5.06,
    "v_rms_after": 4.59
+  },
+  {
+   "cipname": "358 Win.",
+   "burnScale": 1.0172,
+   "n": 76,
+   "v_rms_before": 3.13,
+   "v_rms_after": 2.93
+  },
+  {
+   "cipname": "375 Ruger",
+   "burnScale": 1.0385,
+   "n": 76,
+   "v_rms_before": 3.19,
+   "v_rms_after": 2.08
   },
   {
    "cipname": "38 Special",
@@ -61,6 +432,20 @@
    "v_rms_after": 6.57
   },
   {
+   "cipname": "44 S&W Special",
+   "burnScale": 1.0189,
+   "n": 81,
+   "v_rms_before": 6.89,
+   "v_rms_after": 6.83
+  },
+  {
+   "cipname": "444 Marlin",
+   "burnScale": 0.9571,
+   "n": 343,
+   "v_rms_before": 4.56,
+   "v_rms_after": 3.23
+  },
+  {
    "cipname": "45 Auto",
    "burnScale": 1.1572,
    "n": 284,
@@ -75,11 +460,32 @@
    "v_rms_after": 9.35
   },
   {
+   "cipname": "45-70 Govt.",
+   "burnScale": 0.9154,
+   "n": 223,
+   "v_rms_before": 8.24,
+   "v_rms_after": 5.26
+  },
+  {
+   "cipname": "450 Bushmaster",
+   "burnScale": 1.0385,
+   "n": 121,
+   "v_rms_before": 5.77,
+   "v_rms_after": 5.17
+  },
+  {
    "cipname": "454 Casull",
    "burnScale": 0.9504,
    "n": 182,
    "v_rms_before": 6.23,
    "v_rms_after": 5.73
+  },
+  {
+   "cipname": "458 Win. Mag.",
+   "burnScale": 0.9892,
+   "n": 98,
+   "v_rms_before": 3.97,
+   "v_rms_after": 3.92
   },
   {
    "cipname": "460 S&W Mag",
@@ -103,11 +509,102 @@
    "v_rms_after": 5.99
   },
   {
+   "cipname": "6 mm Dasher",
+   "burnScale": 0.9761,
+   "n": 95,
+   "v_rms_before": 2.37,
+   "v_rms_after": 1.81
+  },
+  {
+   "cipname": "6.5 Creedmoor",
+   "burnScale": 1.0239,
+   "n": 644,
+   "v_rms_before": 2.61,
+   "v_rms_after": 2.14
+  },
+  {
+   "cipname": "6.5 PRC",
+   "burnScale": 1.0354,
+   "n": 189,
+   "v_rms_before": 4.14,
+   "v_rms_after": 3.21
+  },
+  {
+   "cipname": "6.8 Western",
+   "burnScale": 1.0345,
+   "n": 354,
+   "v_rms_before": 3.42,
+   "v_rms_after": 2.48
+  },
+  {
+   "cipname": "6mm BR Norma",
+   "burnScale": 1.0327,
+   "n": 91,
+   "v_rms_before": 2.25,
+   "v_rms_after": 1.34
+  },
+  {
+   "cipname": "7 mm - 08 Rem.",
+   "burnScale": 1.016,
+   "n": 854,
+   "v_rms_before": 2.53,
+   "v_rms_after": 2.31
+  },
+  {
+   "cipname": "7 mm BR Rem.",
+   "burnScale": 1.0231,
+   "n": 144,
+   "v_rms_before": 2.31,
+   "v_rms_after": 1.79
+  },
+  {
+   "cipname": "7 mm Rem. Mag.",
+   "burnScale": 1.0198,
+   "n": 715,
+   "v_rms_before": 2.84,
+   "v_rms_after": 2.47
+  },
+  {
+   "cipname": "7 mm Rem. Ultra Mag.",
+   "burnScale": 0.9655,
+   "n": 98,
+   "v_rms_before": 3.49,
+   "v_rms_after": 2.39
+  },
+  {
+   "cipname": "7 mm Win. Short Mag.",
+   "burnScale": 1.0286,
+   "n": 235,
+   "v_rms_before": 3.17,
+   "v_rms_after": 2.64
+  },
+  {
+   "cipname": "7.62 x 54 R",
+   "burnScale": 0.978,
+   "n": 70,
+   "v_rms_before": 2.75,
+   "v_rms_after": 2.36
+  },
+  {
+   "cipname": "8 x 57 IS",
+   "burnScale": 1.0139,
+   "n": 190,
+   "v_rms_before": 2.55,
+   "v_rms_after": 2.41
+  },
+  {
    "cipname": "9 mm Luger",
    "burnScale": 1.1597,
    "n": 1051,
    "v_rms_before": 7.71,
    "v_rms_after": 5.11
+  },
+  {
+   "cipname": "9.3 x 62",
+   "burnScale": 0.9365,
+   "n": 255,
+   "v_rms_before": 4.89,
+   "v_rms_after": 2.28
   }
  ]
 }

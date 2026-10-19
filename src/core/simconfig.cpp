@@ -51,10 +51,13 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
         in.shotEnergyScale = f.energy;
     }
 
-    if (in.handgun && !in.shotshell)
+    if (!in.shotshell)
     {
+        // the factor of the caliber (data/physical/calibers.json: pistol, revolver and rifle cartridges); the factor of the class (auto, rimmed)
+        // exists for the handgun cartridges only
         const double head = lf.caliberFile.number(u"P1");
-        in.caliberBurnScale = physicalCaliberScale(lf.caliberFile.text(u"cipname"), head > 0.0 ? lf.caliberFile.number(u"R1") / head : 0.0);
+        in.caliberBurnScale =
+            physicalCaliberScale(lf.caliberFile.text(u"cipname"), in.handgun && head > 0.0 ? lf.caliberFile.number(u"R1") / head : 0.0);
     }
 
     in.barrelLength_mm = g.number(u"xe");

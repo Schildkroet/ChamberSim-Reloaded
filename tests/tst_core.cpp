@@ -902,6 +902,16 @@ void CoreTest::physicalCaliberScale()
     csr::setPhysicalBurnFile(QStringLiteral(CSR_SOURCE_DIR "/data/physical/propellants.json"));
     QVERIFY(csr::physicalCaliberScale(u"9 mm Luger"_s, 1.0) > 1.05);  // the shipped factors
     QVERIFY(csr::physicalCaliberScale(u"40 S.& W."_s, 1.0) > 1.05);
+    QVERIFY(csr::physicalCaliberScale(u"300 Norma Mag"_s, 0.0) > 1.05);  // rifle calibers have factors too (2026-10-19)
+    QVERIFY(csr::physicalCaliberScale(u"45-70 Govt."_s, 0.0) < 0.95);
+    QCOMPARE(csr::physicalCaliberScale(u"7 x 57"_s, 0.0), 1.0);  // a factor within 1 % of 1 is not stored
+
+    // a rifle load carries the factor of its caliber (the 8 x 57 IS has 1.014, a pistol load keeps the class rule)
+    auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const double rifleScale = csr::SimInput::fromLoad(*lf).caliberBurnScale;
+    QCOMPARE(rifleScale, csr::physicalCaliberScale(lf->caliberFile.text(u"cipname"), 0.0));
+    QVERIFY(rifleScale > 1.0);
 }
 
 // A boat-tail or hollow-base bullet without tail dimensions gets typical ones, so the base type changes the result; given dimensions stay.

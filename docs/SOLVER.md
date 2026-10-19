@@ -63,7 +63,7 @@
   **Pistol and revolver cartridges** (C.I.P. table IV, calibers with at least 100 published loads: 9 mm Luger, .40 S&W, 10 mm, .45 Auto, .38 Super, 357 SIG,
   .38 Special, .357 Magnum, .44 Magnum, .45 Colt, .454 Casull, .460 and .500 S&W, .480 Ruger, ...) get a factor of their own on the powder's physical burn rate
   (0.93 - 1.21, `data/physical/calibers.json`, `analysis/fit_caliber_scales.py`): auto-loading cartridges burn faster than the powder's value, revolver
-  cartridges a little slower. Other calibers use the powder's value. They remain the least accurate class: velocity about 7.8 %, pressure 19 % rms
+  cartridges a little slower. Since 2026-10-19 rifle calibers with at least 60 published loads have such a factor too (71 of them, 0.92 - 1.21: .30 Super Carry, .327 Federal, 300 Norma, .33 Nosler and 338 Lapua burn about 5 - 10 % faster than the powder's value, 45-70, 9.3 x 62 and 257 Weatherby slower); other calibers use the powder's value. They remain the least accurate class: velocity about 7.8 %, pressure 19 % rms
   (rifle 4.0 % / 14.7 %).
   Accuracy against the published loads: see the table in [ACCURACY.md](ACCURACY.md). The 2026-10-17 refit (new pressure model, ogive
   intrusion, no double-counted jump, Ba refitted with the old form functions, held-out cartridges of 173 powders): velocity 4.85 % rms,

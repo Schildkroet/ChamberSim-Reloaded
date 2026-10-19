@@ -23,7 +23,7 @@
 //   csr_eval samples.csv [--profile original|published|physical] [--data DIR] [--set name=value]... [--ba "Maker Name=value"]... [--steps n]
 //            [--physical FILE] [--phys "Maker Name=Ba,a0,z1,z2[,shape,ld,hole,amp]"]... [--list-params]
 //
-// Optional CSV columns per row: ba_scale (factor on the powder's physical Ba), gpressure (start pressure of the bullet [bar]),
+// Optional CSV columns per row: ba_scale (factor on the powder's physical Ba), case_scale (factor on the case volume), gpressure (start pressure of the bullet [bar]),
 // gfriction (extra bullet friction [bar]).
 // --physical is the file of the physical burn values (default: the project data's); --phys sets those of one powder (fits).
 // --profile chooses the starting constants (and with them the model: physical = the own physical model); --set changes single ones.
@@ -286,6 +286,7 @@ int main(int argc, char *argv[])
         if (p.seatingDepth_mm <= 1.0 || p.barrelLength_mm <= 0.0) continue;
         csr::SimInput si = withPhys(withJump(csr::buildLoad(*cal0, bullet, powder, p, calColumns), row), key);
         if (!row.value(u"ba_scale"_s).isEmpty() && si.physicalBurn) si.physicalBurn->Ba *= row.value(u"ba_scale"_s).toDouble();
+        if (!row.value(u"case_scale"_s).isEmpty()) si.caseVolume_cm3 *= row.value(u"case_scale"_s).toDouble();
         if (!row.value(u"gfriction"_s).isEmpty())
         {
             si.extraFriction_bar = row.value(u"gfriction"_s).toDouble();

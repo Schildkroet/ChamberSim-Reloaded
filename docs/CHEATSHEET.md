@@ -118,7 +118,8 @@ python3 scripts/data/loaddata/vv_to_json.py vv_fits.csv --work vv_work
 .venv/bin/python analysis/fit_physical_powders.py build/release/csr_eval \
     hod_samples.csv west_samples.csv lovex_samples.csv rs_samples.csv vv_*.csv [--split train] [--fit form|ba]
 # only new records (Ba only, the other powders of the file stay): add --fit ba --form a0,z1,z2 --only N110,N120 --merge
-# burn rate factor of the pistol / revolver calibers -> data/physical/calibers.json  (--holdout: fit on half of the powders, test on the rest)
+# burn rate factor of the pistol / revolver calibers -> data/physical/calibers.json  (--holdout: fit on half of the powders, test on the rest;
+# --rifles --keep-existing --min-samples 60 adds the rifle calibers and keeps the existing entries)
 .venv/bin/python analysis/fit_caliber_scales.py build/release/csr_eval hod_samples.csv west_samples.csv adi_pistol_samples.csv [--holdout] [--shrink 0.75]
 
 # bullet lengths from product photos (needs opencv-python-headless in the venv)
