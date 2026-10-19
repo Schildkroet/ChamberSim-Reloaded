@@ -68,7 +68,7 @@ PowderFitDialog::PowderFitDialog(std::vector<csr::powderfit::Sample> samples, QS
     , m_summary(new QLabel)
     , m_fit(new QPushButton(tr("Fit")))
     , m_apply(new QPushButton(tr("Apply to this load")))
-    , m_saveButton(new QPushButton(tr("Save as own propellant…")))
+    , m_saveButton(new QPushButton(tr("Save as own propellant")))
 {
     setWindowTitle(tr("Fit to measurements"));
     auto *intro = new QLabel(tr("Changes the propellant's model values until the simulation agrees with the measured "
@@ -166,7 +166,7 @@ void PowderFitDialog::runFit()
     QApplication::setOverrideCursor(Qt::WaitCursor);
     m_results = csr::powderfit::fitAll(m_samples, options);
     QApplication::restoreOverrideCursor();
-    m_saveButton->setText(tr("Save as own propellant…"));
+    m_saveButton->setText(tr("Save as own propellant"));
     showResult();
 }
 

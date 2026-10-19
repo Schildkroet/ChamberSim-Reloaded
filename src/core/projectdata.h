@@ -63,4 +63,28 @@ struct Loaded
 // "vihtavuori-n150-2021-08-29.json": a file name for a record (lower case, ASCII, from its names).
 [[nodiscard]] QString fileName(Table t, const QVariantMap &record);
 
+// A bullet file: what a manufacturer publishes for this program (docs/BULLET_FILE.md). A JSON object
+//   {"format": "ChamberSimReloaded bullets", "version": 1, "manufacturer": ..., "source": ..., "date": ..., "bullets": [projectile records]}
+// whose records use the units of the database (mm, grains, bar). A plain record or array of records (an exported record, a file of data/projectiles)
+// is read as well.
+inline constexpr const char *kBulletFileFormat = "ChamberSimReloaded bullets";
+inline constexpr int kBulletFileVersion = 1;
+inline constexpr const char *kBulletFileSuffix = "csrbullets";
+
+struct BulletFile
+{
+    QString manufacturer;
+    QString source;  // where the data come from (web address, data sheet); stored in each record's "origin"
+    QString date;
+    std::vector<QVariantMap>
+        bullets;         // the usable records (maker filled in, checked); "gValid" is dropped: only the user validates a record
+    QStringList errors;  // "bullet 3 (name): problem", or a problem of the file as a whole (then no bullets)
+};
+
+// Reads a bullet file; records with problems are reported in `errors` and left out.
+[[nodiscard]] BulletFile readBulletFile(const QByteArray &json, const Schema &projectileSchema);
+
+// The text of a bullet file (columns in schema order, as toJson).
+[[nodiscard]] QByteArray toBulletFile(const BulletFile &file, const Schema &projectileSchema);
+
 }  // namespace csr::projectdata

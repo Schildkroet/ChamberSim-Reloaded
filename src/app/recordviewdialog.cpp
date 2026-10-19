@@ -125,10 +125,11 @@ RecordViewDialog::RecordViewDialog(const csr::Database &db, csr::Table table, in
             value->setObjectName(f.column);
             value->setTextInteractionFlags(Qt::TextSelectableByMouse);
             value->setWordWrap(true);
-            if (f.column == u"gValid"_s && stored.toInt() != 0)  // measured: a green check mark in front
+            if (f.column == u"gValid"_s)  // validated: a green check mark, not validated: a red cross
             {
-                value->setText(QString(QChar(0x2714)) + u' ' + value->text());
-                value->setStyleSheet(u"color: #2ea043; font-weight: bold;"_s);
+                const bool valid = stored.toInt() != 0;
+                value->setText(QString(QChar(valid ? 0x2714 : 0x2718)) + u' ' + value->text());
+                value->setStyleSheet(valid ? u"color: #2ea043; font-weight: bold;"_s : u"color: #d1242f; font-weight: bold;"_s);
             }
             if (f.alignRight) value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
             const bool wide = f.kind == Kind::Text && stored.toString().size() > 24;  // long texts (origin, description) use the full row
@@ -160,7 +161,7 @@ RecordViewDialog::RecordViewDialog(const csr::Database &db, csr::Table table, in
     scroll->setWidget(content);
     auto *buttons = new QDialogButtonBox;
     const bool own = csr::Database::isOwnId(id);
-    auto *edit = buttons->addButton(own ? tr("Edit…") : tr("Copy…"), QDialogButtonBox::ActionRole);
+    auto *edit = buttons->addButton(own ? tr("Edit") : tr("Copy"), QDialogButtonBox::ActionRole);
     edit->setObjectName(own ? u"editRecordButton"_s : u"copyRecordButton"_s);
     edit->setToolTip(own ? tr("Change this record") : tr("Only your own records can be changed: add a changed copy"));
     connect(edit, &QPushButton::clicked, this, [this, own] { done(own ? EditRequested : CopyRequested); });

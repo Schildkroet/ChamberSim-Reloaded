@@ -53,6 +53,10 @@ projectiles and propellants. Use a pull request on GitHub to send the data.
     `python3 scripts/data/recordfiles.py data/projectiles`: it moves the record into the file of its manufacturer.
 11. Do procedure 3.
 
+Manufacturers (and users with a bullet data sheet) can also publish many projectiles at once as a bullet file
+(`.csrbullets`, see [BULLET_FILE.md](BULLET_FILE.md)). *Import bullets…* in the tab *Projectiles* adds such a file to the own
+records.
+
 ### Procedure 2: Make a propellant model from measurements
 
 CAUTION: Reloading is dangerous. Use only loads from the current load data of the manufacturer.

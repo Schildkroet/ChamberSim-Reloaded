@@ -61,10 +61,13 @@
 #include <QMessageBox>
 #include <QScopeGuard>
 #include <QSettings>
+#include <QSqlQuery>
 #include <QStatusBar>
 #include <QTabBar>
 #include <QTabWidget>
 #include <QUrl>
+
+using namespace Qt::StringLiterals;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -89,13 +92,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_dbTabs, &QTabWidget::currentChanged, this, &MainWindow::updateRecordButtons);
 
     // records: new ones (and copies of the original's) go into the own database, only those can be changed
-    m_newRecord = new QPushButton(style()->standardIcon(QStyle::SP_FileIcon), tr("New…"));
-    m_copyRecord = new QPushButton(tr("Copy…"));
-    m_editRecord = new QPushButton(tr("Edit…"));
+    m_newRecord = new QPushButton(style()->standardIcon(QStyle::SP_FileIcon), tr("New"));
+    m_copyRecord = new QPushButton(tr("Copy"));
+    m_editRecord = new QPushButton(tr("Edit"));
     m_deleteRecord = new QPushButton(tr("Delete"));
-    m_exportRecord = new QPushButton(tr("Export…"));
+    m_exportRecord = new QPushButton(tr("Export"));
     m_exportRecord->setToolTip(tr("Save the selected record as a file to contribute it to the project's database "
                                   "(see CONTRIBUTING.md)"));
+    m_importBullets = new QPushButton(tr("Import bullets"));
+    m_importBullets->setToolTip(tr("Add the bullets of a manufacturer's bullet file (*.%1) to your own records")
+                                    .arg(QLatin1String(csr::projectdata::kBulletFileSuffix)));
     m_newRecord->setToolTip(tr("Add a new record to the database"));
     m_copyRecord->setToolTip(tr("Add a changed copy of the selected record (a double click shows a record and offers this)"));
     connect(m_newRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::New); });
@@ -103,17 +109,19 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_editRecord, &QPushButton::clicked, this, [this] { editRecord(RecordDialog::Mode::Edit); });
     connect(m_deleteRecord, &QPushButton::clicked, this, [this] { deleteRecord(); });
     connect(m_exportRecord, &QPushButton::clicked, this, [this] { exportRecord(); });
+    connect(m_importBullets, &QPushButton::clicked, this, [this] { importBullets(); });
     auto *recordBar = new QHBoxLayout;
     for (QPushButton *b : {m_newRecord, m_copyRecord, m_editRecord, m_deleteRecord}) recordBar->addWidget(b);
     recordBar->addStretch(1);
+    recordBar->addWidget(m_importBullets);
     recordBar->addWidget(m_exportRecord);
     // the first thing to do at the start: a new load (also in the File menu) or an existing one
-    m_newLoad = new QPushButton(style()->standardIcon(QStyle::SP_FileIcon), tr("New load…"));
+    m_newLoad = new QPushButton(style()->standardIcon(QStyle::SP_FileIcon), tr("New load"));
     m_newLoad->setObjectName(QStringLiteral("newLoadButton"));
     m_newLoad->setToolTip(tr("Create a load from a caliber, a projectile and a propellant (%1)")
                               .arg(QKeySequence(QKeySequence::New).toString(QKeySequence::NativeText)));
     markPrimary(m_newLoad);
-    auto *openLoadButton = new QPushButton(style()->standardIcon(QStyle::SP_DialogOpenButton), tr("Open load…"));
+    auto *openLoadButton = new QPushButton(style()->standardIcon(QStyle::SP_DialogOpenButton), tr("Open load"));
     openLoadButton->setObjectName(QStringLiteral("openLoadButton"));
     for (QPushButton *b : {m_newLoad, openLoadButton})  // the first steps: larger than the record buttons
     {
@@ -605,6 +613,8 @@ void MainWindow::updateRecordButtons()
     m_editRecord->setEnabled(own);
     m_deleteRecord->setEnabled(own);
     m_exportRecord->setEnabled(own);
+    m_importBullets->setVisible(currentTable() == csr::Table::Projectile);  // only the projectile tab has bullet files
+    m_importBullets->setEnabled(m_db.isOpen());
     const QString locked = tr("Only your own records can be changed: make a copy");
     m_editRecord->setToolTip(id >= 0 && !own ? locked : tr("Change the selected record"));
     m_deleteRecord->setToolTip(id >= 0 && !own ? locked : tr("Delete the selected record"));
@@ -731,6 +741,69 @@ bool MainWindow::exportRecord(const QString &path)
     statusBar()->showMessage(tr("Saved %1: add it to data/%2/ in the project to contribute it.")
                                  .arg(QFileInfo(file).fileName(), csr::projectdata::folderName(table)));
     return true;
+}
+
+int MainWindow::importBullets(const QString &path)
+{
+    if (!m_db.isOpen()) return 0;
+    QSettings settings;
+    QString file = path;
+    if (file.isEmpty())
+        file = QFileDialog::getOpenFileName(
+            this, tr("Import bullets"), settings.value(u"files/importDir"_s).toString(),
+            tr("Bullet files (*.%1 *.json);;All files (*)").arg(QLatin1String(csr::projectdata::kBulletFileSuffix)));
+    if (file.isEmpty()) return 0;
+    settings.setValue(u"files/importDir"_s, QFileInfo(file).absolutePath());
+    QFile in(file);
+    if (!in.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::warning(this, tr("Import bullets"), tr("Cannot read %1").arg(QDir::toNativeSeparators(file)));
+        return 0;
+    }
+    const csr::projectdata::BulletFile bullets = csr::projectdata::readBulletFile(in.readAll(), m_db.schema(csr::Table::Projectile));
+    // bullets the database has already (same manufacturer, name and lot) are left out
+    std::vector<QVariantMap> fresh;
+    int known = 0;
+    for (const QVariantMap &b : bullets.bullets)
+    {
+        QSqlQuery q(m_db.handle());
+        q.prepare(u"SELECT count(*) FROM projectile WHERE geloescht = 0 AND mname = ? AND pname = ? AND lotid = ?"_s);
+        q.addBindValue(b.value(u"mname"_s));
+        q.addBindValue(b.value(u"pname"_s));
+        q.addBindValue(b.value(u"lotid"_s).toString());
+        if (q.exec() && q.next() && q.value(0).toInt() > 0) ++known;
+        else fresh.push_back(b);
+    }
+    QString text = tr("%n bullet(s) can be added", nullptr, static_cast<int>(fresh.size()));
+    if (!bullets.manufacturer.isEmpty()) text += tr(" (manufacturer: %1)").arg(bullets.manufacturer);
+    text += u'.';
+    if (!bullets.source.isEmpty()) text += u"\n"_s + tr("Source: %1").arg(bullets.source);
+    if (known > 0) text += u"\n"_s + tr("%n bullet(s) are already in the database and are left out.", nullptr, known);
+    if (!bullets.errors.isEmpty())
+        text += u"\n\n"_s + tr("%n problem(s) in the file, those bullets are left out:", nullptr, static_cast<int>(bullets.errors.size())) +
+                u"\n"_s + bullets.errors.mid(0, 8).join(u'\n') + (bullets.errors.size() > 8 ? u"\n…"_s : QString());
+    if (fresh.empty())
+    {
+        QMessageBox::information(this, tr("Import bullets"), text);
+        return 0;
+    }
+    if (QMessageBox::question(this, tr("Import bullets"), text + u"\n\n"_s + tr("Add them to your own records?")) != QMessageBox::Yes)
+        return 0;
+    int added = 0;
+    QString error;
+    for (const QVariantMap &b : fresh)
+    {
+        if (m_db.insert(csr::Table::Projectile, b, &error)) ++added;
+        else
+        {
+            QMessageBox::warning(this, tr("Import bullets"), tr("A bullet could not be stored:\n%1").arg(error));
+            break;
+        }
+    }
+    currentBrowser()->refresh();
+    updateRecordButtons();
+    statusBar()->showMessage(tr("%n bullet(s) imported.", nullptr, added));
+    return added;
 }
 
 void MainWindow::showSettings()

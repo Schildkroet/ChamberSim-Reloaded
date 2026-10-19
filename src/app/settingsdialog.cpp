@@ -183,7 +183,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     m_database->setPlaceholderText(tr("GordonsReloadingTool.plain.db"));
     m_database->setToolTip(tr("The decrypted database of Gordon's Reloading Tool. It is only read; new records go "
                               "into the program's own database, and both appear as one database."));
-    auto *browse = new QPushButton(tr("Browse…"));
+    auto *browse = new QPushButton(tr("Browse"));
     connect(browse, &QPushButton::clicked, this,
             [this]
             {

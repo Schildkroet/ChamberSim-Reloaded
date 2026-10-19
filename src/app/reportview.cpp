@@ -64,10 +64,10 @@ ReportView::ReportView(QWidget *parent)
     // the page looks like paper, whatever the theme is
     m_browser->setStyleSheet(QStringLiteral("QTextBrowser { background: white; color: black; }"));
 
-    auto *edit = new QPushButton(tr("Edit template…"));
-    auto *preview = new QPushButton(tr("Print preview…"));
-    auto *print = new QPushButton(tr("Print…"));
-    auto *pdf = new QPushButton(tr("Export PDF…"));
+    auto *edit = new QPushButton(tr("Edit template"));
+    auto *preview = new QPushButton(tr("Print preview"));
+    auto *print = new QPushButton(tr("Print"));
+    auto *pdf = new QPushButton(tr("Export PDF"));
     for (QPushButton *b : {preview, print, pdf}) markPrimary(b);
     auto *bar = new QHBoxLayout;
     bar->addWidget(edit);

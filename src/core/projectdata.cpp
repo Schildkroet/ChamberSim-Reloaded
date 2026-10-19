@@ -208,4 +208,84 @@ QString fileName(Table t, const QVariantMap &record)
     return (slug.isEmpty() ? u"record"_s : slug) + u".json"_s;
 }
 
+BulletFile readBulletFile(const QByteArray &json, const Schema &schema)
+{
+    BulletFile out;
+    QJsonParseError err;
+    const QJsonDocument doc = QJsonDocument::fromJson(json, &err);
+    if (err.error != QJsonParseError::NoError || (!doc.isObject() && !doc.isArray()))
+    {
+        out.errors << u"not a JSON file (%1)"_s.arg(err.errorString());
+        return out;
+    }
+    QJsonArray items;
+    if (doc.isObject() && doc.object().contains(u"format"_s))
+    {
+        const QJsonObject o = doc.object();
+        if (o.value(u"format"_s).toString() != QLatin1String(kBulletFileFormat))
+        {
+            out.errors << u"not a bullet file (\"format\" must be \"%1\")"_s.arg(QLatin1String(kBulletFileFormat));
+            return out;
+        }
+        if (o.value(u"version"_s).toInt() > kBulletFileVersion)
+        {
+            out.errors << u"the file has version %1; this program reads up to version %2 (update the program)"_s
+                              .arg(o.value(u"version"_s).toInt())
+                              .arg(kBulletFileVersion);
+            return out;
+        }
+        out.manufacturer = o.value(u"manufacturer"_s).toString().trimmed();
+        out.source = o.value(u"source"_s).toString().trimmed();
+        out.date = o.value(u"date"_s).toString().trimmed();
+        items = o.value(u"bullets"_s).toArray();
+        if (items.isEmpty()) out.errors << u"the file has no \"bullets\""_s;
+    }
+    else
+    {
+        items = doc.isArray() ? doc.array() : QJsonArray{doc.object()};
+    }
+    for (qsizetype i = 0; i < items.size(); ++i)
+    {
+        if (!items.at(i).isObject())
+        {
+            out.errors << u"bullet %1: not a JSON object"_s.arg(i + 1);
+            continue;
+        }
+        QVariantMap record = items.at(i).toObject().toVariantMap();
+        if (record.value(u"mname"_s).toString().trimmed().isEmpty() && !out.manufacturer.isEmpty())
+            record.insert(u"mname"_s, out.manufacturer);
+        if (record.value(u"origin"_s).toString().isEmpty() && !out.source.isEmpty()) record.insert(u"origin"_s, out.source);
+        record.remove(u"gValid"_s);
+        QStringList problems = check(Table::Projectile, record, schema);
+        if (record.value(u"mname"_s).toString().trimmed().isEmpty()) problems << u"\"mname\" (the manufacturer) is missing"_s;
+        if (!problems.isEmpty())
+        {
+            const QString name = record.value(u"pname"_s).toString();
+            for (const QString &p : problems)
+                out.errors << u"bullet %1%2: %3"_s.arg(i + 1).arg(name.isEmpty() ? QString() : u" ("_s + name + u')', p);
+            continue;
+        }
+        out.bullets.push_back(record);
+    }
+    if (out.manufacturer.isEmpty() && !out.bullets.empty()) out.manufacturer = out.bullets.front().value(u"mname"_s).toString();
+    return out;
+}
+
+QByteArray toBulletFile(const BulletFile &file, const Schema &schema)
+{
+    const auto encode = [](const QString &v) { return QJsonDocument(QJsonArray{v}).toJson(QJsonDocument::Compact).mid(1).chopped(1); };
+    QByteArray out = "{\n  \"format\": " + encode(QLatin1String(kBulletFileFormat)) +
+                     ",\n  \"version\": " + QByteArray::number(kBulletFileVersion) + ",\n  \"manufacturer\": " + encode(file.manufacturer) +
+                     ",\n  \"source\": " + encode(file.source) + ",\n  \"date\": " + encode(file.date) + ",\n  \"bullets\": [";
+    for (std::size_t i = 0; i < file.bullets.size(); ++i)
+    {
+        QVariantMap record = file.bullets[i];
+        if (record.value(u"mname"_s).toString() == file.manufacturer) record.remove(u"mname"_s);  // the file's manufacturer is the default
+        QByteArray body = toJson(record, schema).trimmed();
+        body.replace("\n", "\n    ");
+        out += (i ? ",\n    " : "\n    ") + body;
+    }
+    return out + "\n  ]\n}\n";
+}
+
 }  // namespace csr::projectdata

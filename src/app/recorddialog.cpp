@@ -27,6 +27,7 @@
 #include "unitprefs.h"
 
 #include <QBuffer>
+#include <QColor>
 #include <QComboBox>
 #include <QDateEdit>
 #include <QDate>
@@ -145,7 +146,17 @@ RecordDialog::RecordDialog(const csr::Database &db, csr::Table table, Mode mode,
                 auto *combo = new QComboBox;
                 if (f.column != u"gValid") combo->addItem(tr("– not specified –"), QString());  // a yes/no column always has a value
                 for (const auto &[value, text] : csr::dbfields::choices(table, f.column))
-                    combo->addItem(f.column == u"gValid" && value == u"1" ? QString(QChar(0x2714)) + u' ' + text : text, value);
+                {
+                    if (f.column != u"gValid")
+                    {
+                        combo->addItem(text, value);
+                        continue;
+                    }
+                    const bool yes = value == u"1";  // validated: a green check mark, not validated: a red cross
+                    combo->addItem(QString(QChar(yes ? 0x2714 : 0x2718)) + u' ' + text, value);
+                    combo->setItemData(combo->count() - 1, QColor(yes ? QColor(0x2e, 0xa0, 0x43) : QColor(0xd1, 0x24, 0x2f)),
+                                       Qt::ForegroundRole);
+                }
                 const QString value = stored.toString();
                 int index = combo->findData(value);
                 for (int k = 0; index < 0 && k < combo->count(); ++k)  // "Wildcat" is "WildCat"
@@ -364,7 +375,7 @@ void RecordDialog::addPhotoGroup(QVBoxLayout *layout)
         slot.scale->setAlignment(Qt::AlignRight);
         slot.scale->setMaximumWidth(90);
         slot.scale->setToolTip(tr("Pixels per millimeter of the new photo (for the scale bar); empty: unknown"));
-        auto *choose = new QPushButton(tr("Choose file…"));
+        auto *choose = new QPushButton(tr("Choose file"));
         auto *remove = new QPushButton(tr("Remove"));
         connect(choose, &QPushButton::clicked, this,
                 [this, i]

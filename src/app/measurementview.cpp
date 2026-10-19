@@ -139,8 +139,8 @@ MeasurementView::MeasurementView(QWidget *parent)
     , m_addShot(new QPushButton(tr("Add shot")))
     , m_removeShot(new QPushButton(tr("Remove shot")))
     , m_paste(new QPushButton(tr("Paste shots")))
-    , m_import(new QPushButton(tr("Import chronograph file…")))
-    , m_fitButton(new QPushButton(tr("Fit to measurements…")))
+    , m_import(new QPushButton(tr("Import chronograph file")))
+    , m_fitButton(new QPushButton(tr("Fit to measurements")))
     , m_chart(new MeasurementChart)
 {
     m_title->setPlaceholderText(tr("Title of the measurement series"));

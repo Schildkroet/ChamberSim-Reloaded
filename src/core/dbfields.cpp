@@ -251,8 +251,7 @@ std::vector<std::pair<QString, QString>> countries()
 std::vector<std::pair<QString, QString>> choices(Table t, const QString &column)
 {
     if (t == Table::Projectile && column == u"gValid")
-        return {{u"0"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "no (not validated)"))},
-                {u"1"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "yes (validated by hand)"))}};
+        return {{u"0"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "no"))}, {u"1"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "yes"))}};
     if (t != Table::Caliber) return {};
     if (column == u"ciporigin")
     {

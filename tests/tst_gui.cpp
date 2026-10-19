@@ -112,11 +112,11 @@ using namespace Qt::StringLiterals;
 namespace
 {
 
-// the buttons of the input tabs: "Select Caliber…", "Select Projectile…", "Select Propellant…"
+// the buttons of the input tabs: "Select Caliber", "Select Projectile", "Select Propellant"
 bool isSelectButton(const QPushButton *b)
 {
     const QString t = b->text();
-    return t == u"Select Caliber…"_s || t == u"Select Projectile…"_s || t == u"Select Propellant…"_s;
+    return t == u"Select Caliber"_s || t == u"Select Projectile"_s || t == u"Select Propellant"_s;
 }
 
 }  // namespace
@@ -1670,7 +1670,7 @@ void GuiTest::inputsAreGroupedInThreeTabs()
     QVERIFY(inputs);
     QCOMPARE(inputs->tabText(1), u"Projectile"_s);
     QCOMPARE(inputs->tabText(2), u"Propellant"_s);
-    // every tab has a "Select <component>…" button; it is off until a database is available
+    // every tab has a "Select <component>" button; it is off until a database is available
     const auto buttons = view.findChildren<QPushButton *>();
     int selectButtons = 0;
     for (QPushButton *b : buttons)
@@ -2430,8 +2430,8 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
                 if (b->text() == text) return b;
             return static_cast<QPushButton *>(nullptr);
         };
-        QVERIFY(button(u"Copy…"_s)->isEnabled());
-        QVERIFY(!button(u"Edit…"_s)->isEnabled());  // a record of the original
+        QVERIFY(button(u"Copy"_s)->isEnabled());
+        QVERIFY(!button(u"Edit"_s)->isEnabled());  // a record of the original
         QVERIFY(!button(u"Delete"_s)->isEnabled());
 
         // a copy goes into the own database and appears in the same list
@@ -2442,7 +2442,7 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QCOMPARE(id, csr::Database::kOwnIdBase);
         QCOMPARE(browser->currentId(), id);
         QCOMPARE(browser->findChild<QTableView *>()->model()->rowCount(), count + 1);
-        QVERIFY(button(u"Edit…"_s)->isEnabled());
+        QVERIFY(button(u"Edit"_s)->isEnabled());
         QVERIFY(button(u"Delete"_s)->isEnabled());
 
         // the first column says where a record comes from; the filter finds them by it
@@ -2463,7 +2463,7 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QVERIFY(browser->selectId(id));
 
         // an own record can be exported as a project data file (records of the original cannot)
-        QVERIFY(button(u"Export…"_s)->isEnabled());
+        QVERIFY(button(u"Export"_s)->isEnabled());
         QTemporaryDir exportDir;
         const QString exported = exportDir.filePath(u"data/propellants/n150.json"_s);
         QDir().mkpath(QFileInfo(exported).absolutePath());
@@ -2491,7 +2491,7 @@ void GuiTest::recordsAreAddedCopiedEditedAndDeleted()
         QVERIFY(!browser->selectId(id));
         QVERIFY(browser->selectId(562));
         QVERIFY(!w.deleteRecord(false));  // records of the original cannot be deleted
-        QVERIFY(!button(u"Export…"_s)->isEnabled());
+        QVERIFY(!button(u"Export"_s)->isEnabled());
         QCOMPARE(m_db.count(csr::Table::Propellant), count);
     }
     QSettings().setValue(u"database/path"_s, before);
@@ -2903,7 +2903,7 @@ void GuiTest::fitToMeasurementsChangesThePowder()
     auto *button = [&]
     {
         for (QPushButton *b : view.measurements()->findChildren<QPushButton *>())
-            if (b->text() == u"Fit to measurements…"_s) return b;
+            if (b->text() == u"Fit to measurements"_s) return b;
         return static_cast<QPushButton *>(nullptr);
     }();
     QVERIFY(button);

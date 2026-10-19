@@ -293,7 +293,7 @@ LoadView::LoadView(QWidget *parent)
 
     // input tabs: each page shows the current item with a button to pick another record from the database
     const std::array<QString, 3> tabTitles{tr("Cartridge && gun"), tr("Projectile"), tr("Propellant")};
-    const std::array<QString, 3> selectTexts{tr("Select Caliber…"), tr("Select Projectile…"), tr("Select Propellant…")};
+    const std::array<QString, 3> selectTexts{tr("Select Caliber"), tr("Select Projectile"), tr("Select Propellant")};
     const std::array<PropertyPanel *, 3> panels{m_cartridgePanel, m_projectilePanel, m_propellantPanel};
     for (PropertyPanel *p : panels) p->rememberColumns(QStringLiteral("properties"));  // one width for all three tabs
     for (std::size_t i = 0; i < 3; ++i)

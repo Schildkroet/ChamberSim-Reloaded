@@ -94,6 +94,7 @@ private slots:
     void sebertDefault();
     void saamiColumnMigration();
     void powderFitPhysicalValues();
+    void bulletFile();
     void physicalCaliberScale();
     void measurementStatistics();
     void simInputFromLoad();
@@ -2423,6 +2424,51 @@ void CoreTest::saamiColumnMigration()
     QCOMPARE(freshCols.indexOf(u"PmaxSAAMI"_s), freshCols.indexOf(u"Pmax"_s) + 1);
     const QStringList bulletCols = fresh.columns(csr::Table::Projectile);
     QCOMPARE(bulletCols.indexOf(u"gValid"_s), bulletCols.indexOf(u"glen"_s) + 1);  // the length's "measured" flag
+}
+
+// A manufacturer's bullet file: the header fills in the maker and the source, bad bullets are reported and left out, and the written file reads back.
+void CoreTest::bulletFile()
+{
+    QTemporaryDir dir;
+    QVERIFY(dir.isValid());
+    csr::Database db;
+    QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
+    const auto schema = db.schema(csr::Table::Projectile);
+
+    QFile f(QStringLiteral(CSR_FIXTURE_DIR "/example.csrbullets"));
+    QVERIFY(f.open(QIODevice::ReadOnly));
+    const csr::projectdata::BulletFile file = csr::projectdata::readBulletFile(f.readAll(), schema);
+    QVERIFY2(file.errors.isEmpty(), qPrintable(file.errors.join(u'\n')));
+    QCOMPARE(file.bullets.size(), std::size_t{2});
+    QCOMPARE(file.manufacturer, u"Acme Bullets"_s);
+    QCOMPARE(file.bullets[0].value(u"mname"_s).toString(), u"Acme Bullets"_s);  // from the header
+    QVERIFY(file.bullets[0].value(u"origin"_s).toString().startsWith(u"https://www.acme-bullets.example"_s));
+    QCOMPARE(file.bullets[0].value(u"gtailtype"_s).toInt(), 2);
+
+    // the written file reads back the same; a bullet of the header's manufacturer has no mname of its own in the file
+    const QByteArray text = csr::projectdata::toBulletFile(file, schema);
+    QVERIFY(!text.contains("\"mname\""));
+    const csr::projectdata::BulletFile again = csr::projectdata::readBulletFile(text, schema);
+    QVERIFY(again.errors.isEmpty());
+    QCOMPARE(again.bullets.size(), file.bullets.size());
+    QCOMPARE(again.bullets[1].value(u"gmass"_s).toDouble(), 150.0);
+
+    // problems: a bullet is left out, the others stay; a validated flag is dropped; a plain record is read as well
+    const auto read = [&](const QByteArray &json) { return csr::projectdata::readBulletFile(json, schema); };
+    const auto mixed = read(R"({"format": "ChamberSimReloaded bullets", "version": 1, "manufacturer": "Acme", "bullets": [
+        {"pname": "Good", "gdia": 7.82, "glen": 30, "gmass": 150, "gValid": true},
+        {"pname": "Bad", "gdia": "wide", "glen": 30, "gmass": 150},
+        {"gdia": 7.82, "glen": 30, "gmass": 150},
+        {"pname": "Odd", "gdia": 7.82, "glen": 30, "gmass": 150, "colour": "red"}]})");
+    QCOMPARE(mixed.bullets.size(), std::size_t{1});
+    QVERIFY(!mixed.bullets[0].contains(u"gValid"_s));
+    QVERIFY(mixed.errors.size() >= 3);  // one or more problems for each of the three bad bullets
+    QVERIFY2(mixed.errors.join(u'\n').contains(u"bullet 2 (Bad): \"gdia\" must be a number"_s), qPrintable(mixed.errors.join(u'\n')));
+    QVERIFY(mixed.errors.join(u'\n').contains(u"unknown column \"colour\""_s));
+    QCOMPARE(read(R"([{"mname": "Acme", "pname": "Plain", "gdia": 7.82, "glen": 30, "gmass": 150}])").bullets.size(), std::size_t{1});
+    QVERIFY(!read(R"({"format": "ChamberSimReloaded bullets", "version": 2, "bullets": []})").errors.isEmpty());  // a newer version
+    QVERIFY(!read(R"({"format": "something else"})").errors.isEmpty());
+    QVERIFY(!read("not json").errors.isEmpty());
 }
 
 // Measurements fitted for both models: the original's Ba and the physical values (velocities simulated with the physical model);

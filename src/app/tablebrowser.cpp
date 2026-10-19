@@ -57,13 +57,14 @@ public:
             if (code == QLatin1String(csr::Database::kSourceProject)) return TableBrowser::tr("Project");
             return TableBrowser::tr("Original GRT");
         }
-        if (index.column() == validColumn())  // projectiles: a green check mark where the record was validated by hand
+        if (index.column() ==
+            validColumn())  // projectiles: a green check mark where the record was validated by hand, a red cross where not
         {
             const bool valid = QSqlTableModel::data(index, Qt::DisplayRole).toInt() != 0;
             switch (role)
             {
-            case Qt::DisplayRole: return valid ? QString(QChar(0x2714)) : QString();
-            case Qt::ForegroundRole: return QColor(valid ? QColor(0x2e, 0xa0, 0x43) : QColor(Qt::gray));
+            case Qt::DisplayRole: return QString(QChar(valid ? 0x2714 : 0x2718));
+            case Qt::ForegroundRole: return QColor(valid ? QColor(0x2e, 0xa0, 0x43) : QColor(0xd1, 0x24, 0x2f));
             case Qt::TextAlignmentRole: return int(Qt::AlignCenter);
             case Qt::ToolTipRole:
                 return valid ? TableBrowser::tr("Validated by hand: measured on a bullet or checked against the original database")

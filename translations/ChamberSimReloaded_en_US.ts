@@ -332,18 +332,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-750"/>
-        <source>Select Caliber…</source>
+        <location line="-890"/>
+        <location line="+140"/>
+        <source>Select Caliber</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Select Projectile…</source>
+        <location line="-140"/>
+        <location line="+140"/>
+        <source>Select Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Select Propellant…</source>
+        <location line="-140"/>
+        <location line="+140"/>
+        <source>Select Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -514,22 +517,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-345"/>
-        <source>Select Caliber</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Select Projectile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Select Propellant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+419"/>
+        <location line="+74"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -750,12 +738,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+405"/>
+        <location filename="../src/app/mainwindow.cpp" line="+413"/>
         <source>ChamberSim Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-324"/>
+        <location filename="../src/app/mainwindow.cpp" line="-329"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -771,17 +759,17 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+11"/>
-        <source>New…</source>
+        <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Copy…</source>
+        <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Edit…</source>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -791,7 +779,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+1"/>
-        <source>Export…</source>
+        <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -800,21 +788,21 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+5"/>
         <source>Add a new record to the database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+42"/>
         <location line="+336"/>
-        <location line="+177"/>
+        <location line="+179"/>
         <location line="+14"/>
         <location line="+26"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-514"/>
+        <location line="-516"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -829,33 +817,45 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+272"/>
-        <location line="+339"/>
+        <location line="-70"/>
+        <location line="+342"/>
+        <location line="+404"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-610"/>
+        <location line="-675"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-76"/>
-        <source>New load…</source>
+        <location line="-93"/>
+        <location line="+651"/>
+        <location line="+7"/>
+        <location line="+27"/>
+        <location line="+3"/>
+        <location line="+9"/>
+        <source>Import bullets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-696"/>
+        <source>Add the bullets of a manufacturer&apos;s bullet file (*.%1) to your own records</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <location line="+760"/>
+        <source>New load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-758"/>
         <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Open load…</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+10"/>
         <source>Open a load file (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -897,12 +897,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+9"/>
-        <location line="+485"/>
+        <location line="+487"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-462"/>
+        <location line="-464"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -999,7 +999,7 @@ The original GordonsReloadingTool.db is encrypted; choose a decrypted copy (Gord
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+110"/>
         <source>Change the selected record</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1039,7 +1039,70 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+52"/>
+        <source>Bullet files (*.%1 *.json);;All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Cannot read %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+17"/>
+        <source>%n bullet(s) can be added</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source> (manufacturer: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Source: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+1"/>
+        <source>%n bullet(s) are already in the database and are left out.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>%n problem(s) in the file, those bullets are left out:</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Add them to your own records?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>A bullet could not be stored:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+6"/>
+        <source>%n bullet(s) imported.</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+50"/>
         <source>Saved as your own record: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1054,7 +1117,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-624"/>
+        <location line="-689"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1125,17 +1188,17 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-228"/>
+        <location line="-230"/>
         <source>Add a changed copy of the selected record (a double click shows a record and offers this)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+698"/>
+        <location line="+765"/>
         <source>Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-450"/>
+        <location line="-515"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1146,13 +1209,13 @@ Load files that use it keep their values.</source>
     </message>
     <message>
         <location line="+108"/>
-        <location line="+305"/>
+        <location line="+370"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-155"/>
+        <location line="-218"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1182,7 +1245,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+24"/>
+        <location line="+87"/>
         <location line="+8"/>
         <location line="+4"/>
         <source>Reference</source>
@@ -1199,12 +1262,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
-        <source>New load</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+47"/>
         <source>Untitled %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1360,12 +1418,14 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Import chronograph file…</source>
+        <location line="+480"/>
+        <location line="+12"/>
+        <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Fit to measurements…</source>
+        <location line="-491"/>
+        <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1563,13 +1623,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+152"/>
-        <location line="+12"/>
-        <source>Import chronograph file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-11"/>
+        <location line="+153"/>
         <source>Chronograph files (*.fit *.FIT *.csv *.CSV);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1741,7 +1795,7 @@ Export it anyway?</source>
     <message>
         <location line="+1"/>
         <location line="+98"/>
-        <source>Save as own propellant…</source>
+        <source>Save as own propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1987,7 +2041,7 @@ pressure Δ</source>
 <context>
     <name>RecordDialog</name>
     <message>
-        <location filename="../src/app/recorddialog.cpp" line="+101"/>
+        <location filename="../src/app/recorddialog.cpp" line="+102"/>
         <source>caliber</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2040,7 +2094,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+33"/>
         <source>– not set –</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2106,7 +2160,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Choose file…</source>
+        <source>Choose file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2173,18 +2227,18 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+45"/>
         <source>Quality of the fit of the powder model: 1 = very good, 0 = unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+23"/>
-        <source>Edit…</source>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <source>Copy…</source>
+        <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2230,37 +2284,33 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+5"/>
-        <source>Edit template…</source>
+        <source>Edit template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Print preview…</source>
+        <source>Print preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Print…</source>
+        <source>Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Export PDF…</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Scale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
+        <location line="+21"/>
         <location line="+1"/>
         <source>Export PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="-18"/>
+        <source>Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>PDF documents (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2414,7 +2464,7 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+2"/>
-        <source>Browse…</source>
+        <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2529,7 +2579,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>Validated by hand: measured on a bullet or checked against the original database</source>
         <translation type="unfinished"></translation>
     </message>

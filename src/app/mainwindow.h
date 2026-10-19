@@ -86,6 +86,8 @@ public:
     bool deleteRecord(bool ask = true);
     // Writes the selected own record as a project data file (to contribute it); empty `path`: asks for one.
     bool exportRecord(const QString &path = {});
+    // Adds the bullets of a manufacturer's bullet file (docs/BULLET_FILE.md) to the own database; returns how many were added.
+    int importBullets(const QString &path = {});
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -128,6 +130,7 @@ private:
     QPushButton *m_editRecord{nullptr};
     QPushButton *m_deleteRecord{nullptr};
     QPushButton *m_exportRecord{nullptr};
+    QPushButton *m_importBullets{nullptr};
     std::array<TableBrowser *, 3> m_browsers{};
     csr::Database m_db;
     int m_untitled{0};
