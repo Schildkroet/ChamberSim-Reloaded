@@ -47,24 +47,12 @@ def _page_markdown(page: Page) -> tuple[str, markdown.Markdown]:
     return content, parser
 
 
-def _is_pdf_page(page: Page) -> bool:
+def _page_toc(page: Page) -> str:
     _, parser = _page_markdown(page)
-    pdf_values = parser.Meta.get("pdf", ["false"])
-    is_pdf_page = bool(pdf_values) and pdf_values[0].strip().lower() == "true"
-    return is_pdf_page
-
-
-def _page_toc(page: Page, include_non_pdf: bool = False) -> tuple[bool, str]:
-    _, parser = _page_markdown(page)
-    pdf_values = parser.Meta.get("pdf", ["false"])
-    is_pdf_page = bool(pdf_values) and pdf_values[0].strip().lower() == "true"
-    if not is_pdf_page and not include_non_pdf:
-        return False, ""
-
     page_url = posixpath.relpath(page.file.url, "generated_site_toc/")
     page_url = quote(page_url, safe="/")
     toc = parser.toc.replace('href="#', f'href="{page_url}#')
-    return True, toc
+    return toc
 
 
 def _nav_pages(items: list) -> list[Page]:
@@ -130,10 +118,10 @@ def _demote_headings(content: str) -> str:
     return "\n".join(output)
 
 
-def _merged_manual(pages: list[Page], always_include_paths: set[str]) -> str:
+def _merged_manual(pages: list[Page], user_guide_paths: set[str]) -> str:
     chapters = []
     for page in pages:
-        if page.file.src_path not in always_include_paths and not _is_pdf_page(page):
+        if page.file.src_path not in user_guide_paths:
             continue
 
         content, _ = _page_markdown(page)
@@ -156,16 +144,16 @@ def _merged_manual(pages: list[Page], always_include_paths: set[str]) -> str:
     )
 
 
-def _nav_to_html(items: list, include_non_pdf: bool = False) -> tuple[str, int]:
+def _nav_to_html(items: list, in_user_guide: bool = False) -> tuple[str, int]:
     output = []
     included_pages = 0
 
     for item in items:
         if isinstance(item, Page):
-            include, page_toc = _page_toc(item, include_non_pdf)
-            if not include:
+            if not in_user_guide:
                 continue
 
+            page_toc = _page_toc(item)
             title = item.title or item.file.src_path
             page_url = quote(
                 posixpath.relpath(item.file.url, "generated_site_toc/"),
@@ -179,7 +167,7 @@ def _nav_to_html(items: list, include_non_pdf: bool = False) -> tuple[str, int]:
         elif isinstance(item, Section):
             children, child_pages = _nav_to_html(
                 item.children,
-                include_non_pdf or item.title == "User Guide",
+                in_user_guide or item.title == "User Guide",
             )
             if child_pages:
                 output.append(

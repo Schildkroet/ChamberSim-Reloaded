@@ -23,7 +23,8 @@ SECTION_FILES = {
 }
 
 HEADING_RE = re.compile(r"^# (.+?)\s*$")
-FRONTMATTER = "---\npdf: true\n---\n\n"
+## FRONTMATTER = "---\npdf: true\n---\n\n"
+FRONTMATTER = ""
 
 
 def split_sections(markdown: str) -> dict[str, str]:
