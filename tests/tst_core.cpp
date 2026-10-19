@@ -147,6 +147,7 @@ private slots:
 void CoreTest::initTestCase()
 {
     QStandardPaths::setTestModeEnabled(true);  // the own database must not be the user's
+    QCoreApplication::setApplicationVersion(u"9.9"_s);
 }
 
 // The shell, wad and primer a shotshell load names scale the model (data/shotshell/parts.json); nothing named, or an unknown id: no change.
@@ -2310,6 +2311,8 @@ void CoreTest::reportDataFromALoad()
 
     QCOMPARE(text("file.caption"), u"my load"_s);
     QCOMPARE(text("file.name"), u"my load.grtload"_s);
+    QCOMPARE(text("app.version"), u"9.9"_s);  // the report says which version made it
+    QVERIFY(csr::report::defaultTemplate().contains(u"~~app.version~~"_s));
     QCOMPARE(text("work.CaliberName"), u"8 x 57 IS (8 x 57 JS)"_s);
     QCOMPARE(text("work.PropellantName"), u"Vihtavuori N150"_s);
     QCOMPARE(number("work.Dbul"), 8.2);

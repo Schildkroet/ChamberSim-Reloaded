@@ -23,6 +23,7 @@
 #include "numeric.h"
 #include "reportformat.h"
 
+#include <QCoreApplication>
 #include <QFileInfo>
 #include <QRegularExpression>
 
@@ -138,6 +139,7 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
     txt(u"file.caption"_s, file.path.isEmpty() ? lf.title : fi.completeBaseName());
     txt(u"file.name"_s, file.path.isEmpty() ? QString() : fi.fileName());
     txt(u"file.path"_s, file.path);
+    txt(u"app.version"_s, QCoreApplication::applicationVersion());  // the program that made the report
     // measurement results: a whole report section (heading, table, chart) filled in by the application, which
     // knows the user's units; empty when the load has no measurements
     txt(u"measurement.section"_s, QString());
@@ -273,7 +275,8 @@ QString defaultTemplate()
 
 ----
 <size 80%>The results are calculated and can differ considerably from reality. Compare every load with the current
-loading tables of the component manufacturers. Use at your own risk.</size>
+loading tables of the component manufacturers. Use at your own risk.
+Created with ChamberSim Reloaded ~~app.version~~.</size>
 )"_s;
 }
 
