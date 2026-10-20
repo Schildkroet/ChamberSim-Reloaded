@@ -3,6 +3,32 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.10
+
+### Added and changed
+
+- **Bullet file for manufacturers (`.csrbullets`).** Makers can publish the data of their projectiles as one
+  JSON file; *Database ▸ Projectiles ▸ Import bullets* adds them to the user's own records (nothing is sent
+  anywhere). Format and an example: `docs/BULLET_FILE.md`, `docs/examples/example.csrbullets`.
+  `bul_to_json.py` converts QuickLOAD bullet files.
+- **Projectiles: "Validated" column.** A new boolean field marks bullets whose length was measured on the
+  bullet or checked against the original's database (420 records); it is shown as a green check mark (yes) or
+  a red cross (no).
+- **Projectile database: 3,010 bullets from 51 makers.** New: 52 Hasler monolithic copper bullets, 230 Styria
+  Arms AERO and 33 Balistix bullets (from the makers' bullet files), 214 bullets of the grauwolf.net listing that
+  were missing (15 new makers). The lengths of the estimated records (Barnes, Brenneke, Hornady, Lapua, LOS, PPU,
+  RWS, Sierra) were recalculated, and 142 more bullets got a base type.
+- **Physical Model: burn-rate factor per rifle caliber.** 71 rifle calibers with at least 60 published loads now
+  carry a factor on the powder's burn rate (0.92 to 1.21) like the pistol and revolver calibers did. On powders
+  left out of the fit: rifle velocity 3.79 to 3.29 % rms, peak pressure 13.1 to 12.6 %. Pistol and revolver
+  figures are unchanged. A higher start pressure and a factor on the case volume were tested and not adopted
+  (`docs/ACCURACY.md`).
+- **The report footer shows the program version** (key `app.version` in the default template).
+- **No ellipsis on button labels** (for example "Import bullets", "Export").
+- **User manual as a web site.** The manual chapters (`docs/manual/ug_*.md`) are built with MkDocs into a web
+  site and a PDF; the site is published to GitHub Pages when a version tag is pushed
+  (`docs/build/README.md`).
+
 ## 0.9
 
 ### Added and changed

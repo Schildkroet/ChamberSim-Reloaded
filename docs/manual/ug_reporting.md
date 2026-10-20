@@ -19,3 +19,6 @@ is text with placeholders of the form `~~source.property~~` or
 to pick a placeholder and Reset to default to restore the standard
 template. The report of the Measurements tab includes only the selected
 series.
+
+The default template ends with a footer that names the program version
+(placeholder `~~app.version~~`).

@@ -120,8 +120,20 @@ removes the selected record. Load files that use it keep their values.
 Export…  
 saves the record as a file, to contribute it to the project’s database.
 
+Import bullets  
+(Projectiles only) adds the bullets of a manufacturer's bullet file
+(`.csrbullets`, or a plain `.json` file) to your own records after
+asking for confirmation. The format is described in
+`docs/BULLET_FILE.md`.
+
 Only your own records can be edited or deleted. To change a project or
 original record, make a copy.
 
 For propellants you can attach an overview photo and a detail photo
 (Choose file…, with the scale in px/mm if you know it).
+
+The Projectiles list has a **Validated** column. A green check mark
+means that the bullet's length was measured on the bullet or checked
+against the original's database; a red cross means it has not been validated
+by hand (the length may be taken from the manufacturer's data or be an
+estimate; see the record's description).
