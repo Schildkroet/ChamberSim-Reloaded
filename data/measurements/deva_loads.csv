@@ -1,0 +1,9 @@
+powder,caliber,pmax_bar,bullet,bullet_gr,bullet_dia_mm,bullet_len_mm,len_source,tail_type,col_mm,barrel_mm,twist_mm,kind,charge_g,velocity_ms,pressure_bar,velocity_sd,pressure_sd,weight,source
+Vihtavuori N340,9 mm Luger,2350,TM RN,124.0,9.02,15.15,estimate:fmj,0,28.4,150.0,,measured,0.2786,325.8,1811,4.9,79.6,10,DEVA 2020-11-25 no. 1 (Geco case CCI 500 10 shots)
+Vihtavuori N340,9 mm Luger,2350,TM HS,124.0,9.02,14.84,estimate:hollow,0,28.0,150.0,,measured,0.2786,325.2,1780,3.0,85.3,10,DEVA 2020-11-25 no. 2 (Geco case CCI 500 10 shots)
+Vihtavuori N340,9 mm Luger,2350,TM HS,124.0,9.02,14.84,estimate:hollow,0,28.4,150.0,,measured,0.2786,322.9,1705,2.5,63.6,10,DEVA 2020-11-25 no. 3 (Geco case CCI 500 10 shots)
+Vihtavuori N133,223 Rem.,4300,PPU FMJ BT B-212,55.0,5.69,18.80,database,2,57.0,600.0,,measured,1.5098,991.4,3870,5.8,100.3,10,DEVA 2020-12-15 no. 4 (S&B case CCI 400 10 shots)
+Vihtavuori N133,223 Rem.,4300,Hornady Match 2249,52.0,5.69,18.10,database,2,57.0,600.0,,measured,1.5876,1035.0,4082,3.1,66.1,10,DEVA 2020-12-15 no. 5 (S&B case CCI 400 10 shots)
+ReloadSwiss RS40,223 Rem.,4300,Speer Varmint Soft Point 19-1047,55.0,5.69,17.40,database,0,57.4,600.0,,measured,1.6070,975.4,3348,7.4,83.1,7,DEVA 2019-07-31 no. 1 (S&B case CCI 400 7 shots 3 misfires)
+ReloadSwiss RS40,223 Rem.,4300,Speer Varmint Soft Point 19-1047,55.0,5.69,17.40,database,0,57.4,600.0,,measured,1.6589,1005.6,3680,13.1,244.0,8,DEVA 2019-07-31 no. 2 (S&B case CCI 400 8 shots 2 misfires)
+ReloadSwiss RS20,40 S.& W.,2250,H&N HP HS .401,180.0,10.17,17.04,estimate:lead,0,28.83,150.0,,measured,0.3823,296.8,,6.0,,10,DEVA 2019-08-01 no. 3 (Geco case CCI 500 10 shots; pressure 1216 bar left out: 35 % under the published 1873 bar of the same charge and 37 % under the model)

@@ -1570,7 +1570,10 @@
     "gmass": 300.0,
     "gpressure": 350.0,
     "gtailtype": 2,
-    "gtaildiaA": 11.63
+    "gtaildiaA": 11.63,
+    "gtaildiaB": 10.2,
+    "gtailh": 4.3,
+    "descr": "Length 31.4 mm checked by the user; boat tail estimated (base 0.88 x diameter over 0.37 x diameter, the median of the Barnes records with a measured tail)"
   },
   {
     "mname": "Barnes",

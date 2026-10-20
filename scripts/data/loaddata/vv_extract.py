@@ -81,7 +81,8 @@ def main() -> int:
         if r["PowderType"] != args.powder:
             continue
         cart = carts[r["CartridgeID"]]
-        cal = calibers.get(norm(cart["Cartridge"]))
+        # "9 mm Luger / 9x19 mm": the whole name, else one of the names separated by "/"
+        cal = next((calibers[n] for n in map(norm, [cart["Cartridge"], *cart["Cartridge"].split("/")]) if n in calibers), None)
         if not cal:
             miss_cart[cart["Cartridge"]] = miss_cart.get(cart["Cartridge"], 0) + 1
             continue

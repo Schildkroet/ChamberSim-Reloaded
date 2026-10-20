@@ -1,0 +1,2 @@
+powder,caliber,pmax_bar,bullet,bullet_gr,bullet_dia_mm,bullet_len_mm,len_source,tail_type,col_mm,barrel_mm,twist_mm,kind,charge_g,velocity_ms,pressure_bar,velocity_sd,pressure_sd,weight,source
+Vihtavuori N120,.458 SOCOM,2413,Barnes TTSX 30642,300.0,11.63,31.4,database,2,56.9,600.0,,measured,2.2032,551.2,1840,3.9,78.8,5,Beschussamt Muenchen 2026-02-20 EE26/035 (Starline case CCI 350 5 shots; Kistler 6213B at 17.5 mm; velocity at 2.5 m)

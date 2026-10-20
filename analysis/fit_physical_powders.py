@@ -18,6 +18,7 @@ tried and dropped: they trade velocity against pressure and leave the elasticity
 --limit-pressure: for samples without measured pressures (Vihtavuori publishes only the C.I.P. maximum of the cartridge, column pmax_bar) the
 maximum loads count as loads at that limit, so the form function is determined as well (2026-10-14: the 16 Vihtavuori rifle powders; the maximum loads
 come out at 0.98 of the limit instead of 1.07 (with --limit-margin 50, i.e. the limit minus 50 bar, as in the data file: 0.98 over all 3,996 max loads of the 16 rifle powders; the 10 pistol powders 1.24 -> 0.93, velocity 12.9 -> 8.0 % rms), loads more than 20 % over it 166 instead of 670 of 3,755, velocity error 3.2 % as before).
+An optional column weight makes a row count as that many rows (sources/samples/deva_samples.csv: a measured series of 10 shots has weight 10).
 The file keeps the record values the burn values belong to: they apply only to the unchanged record (physicalpowders.h)."""
 import argparse, csv, glob, json, os, subprocess, sys, tempfile
 import numpy as np
@@ -122,9 +123,10 @@ def unpack(x, form):
 
 def fit(powder, subset, x0, form):
     name = powder.replace(" ", "_").replace("/", "_")
+    w = np.sqrt([float(r.get("weight") or 1) for r in subset])  # column weight: a row counts as that many rows (own measured series)
     def fun(x):
         rv, rp, _, _, v, mv = residuals(name, powder, unpack(x, form), subset)
-        parts = [rv, args.pressure_weight * rp]
+        parts = [w * rv, args.pressure_weight * w * rp]
         if args.slope_weight > 0:
             sg, pg = gains(subset, v, mv)
             # fixed length: a pair that fails to simulate at some trial values must not change the residual vector's size
@@ -135,6 +137,7 @@ def fit(powder, subset, x0, form):
     lo, hi = ([0.05, -3.0, 0.05, 0.05], [20.0, 10.0, 0.8, 0.95]) if len(x0) == 4 else ([0.05], [20.0])
     sol = least_squares(fun, np.clip(x0, np.array(lo) + 1e-6, np.array(hi) - 1e-6), bounds=(lo, hi), loss="soft_l1", f_scale=0.1,
                         diff_step=1e-3, x_scale=np.maximum(np.abs(x0), 0.1), max_nfev=60)
+    print(f"cost {powder}: {sol.cost:.6g}", flush=True)  # compare fits of one powder from different start values
     return unpack(sol.x, form)
 
 def stats(powder, burn, subset):
