@@ -1,0 +1,100 @@
+# Documentation build and maintenance
+
+This folder contains the MkDocs configuration, build dependencies, and small
+helpers used to publish the project documentation. The published documentation
+has two outputs: a browsable site and a combined user-manual PDF.
+
+The documentation build uses [MkDocs](https://www.mkdocs.org/), the
+[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme,
+[MkDocs Exporter](https://github.com/ImranR98/mkdocs-exporter) for PDF output,
+and [PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/)
+for Markdown features. PDF rendering uses
+[Playwright](https://playwright.dev/python/).
+
+
+## How the documentation is organized
+
+- The maintained user-guide chapters are `ug_*.md` in `docs/manual/`. Edit
+  these Markdown files directly.
+- [`../manual/index.md`](../manual/index.md) is the documentation site home
+  page. The supporting Markdown pages in `docs/` (for example `ACCURACY.md`
+  and `CONTRIBUTING.md`) are also maintained directly.
+- [`mkdocs.yml`](mkdocs.yml) defines the site navigation, theme, extensions,
+  styles, and PDF output name.
+- [`hooks/generate_toc.py`](hooks/generate_toc.py) creates the site contents
+  page and combines the manual chapters for the PDF-only build.
+- [`gfm_to_mkdocs.py`](gfm_to_mkdocs.py) converts GitHub Markdown alerts to
+  MkDocs admonitions and adjusts image paths in the prepared copy.
+- [`requirements.txt`](requirements.txt) pins the Python packages used by CI.
+
+The Markdown sources use GitHub Flavored Markdown (GFM) so they are easy to
+read and render well when viewed directly on GitHub. Before MkDocs builds the
+site or PDF, the preparation step applies the small conversions needed for the
+MkDocs staging layout: GitHub-style NOTE/WARNING alerts become MkDocs
+admonitions, and manual image paths are adjusted. These changes are made to
+the staged copy, not the maintained source files; write and review the source
+Markdown as GFM.
+
+The CI preparation step stages the maintained manual chapters and images plus
+the supporting `docs/*.md` pages in `docs/build/docs/`. That directory is
+generated input for MkDocs: update the source files instead of editing its
+contents. The legacy `manual.md` may be copied as part of the wildcard, but it
+is not listed in the MkDocs navigation or used for the deployed PDF.
+
+## Add or update documentation pages
+
+For a new user-guide chapter, create a Markdown file in `docs/manual/` and add
+its title and filename to the User Guide navigation in [`mkdocs.yml`](mkdocs.yml).
+Keep its images in `docs/manual/images/` and link them using paths that work
+from the chapter (for example, `images/example.png`).
+
+For a supporting page outside the user guide:
+
+1. Add or edit a Markdown file directly in `docs/`.
+2. Add its title and filename to the `nav` section in `mkdocs.yml`.
+
+The User Guide pages are always included in the combined manual PDF. Other
+pages are excluded regardless of page front matter. To include a page in the
+combined PDF, make it a child of the `User Guide` section in the MkDocs
+navigation. Check image links and relative paths from the staged location: the
+preparation workflow copies the source pages into `docs/build/docs/` and
+converts manual image paths for that layout.
+
+## CI build and deployment
+
+The deployment is implemented by
+[`deploy-manual-mkdocs.yml`](../../.github/workflows/deploy-manual-mkdocs.yml).
+On pushes to `main`, it prepares one shared input artifact and builds the site
+and combined PDF in parallel:
+
+1. `prepare-manual-folder.yml` checks out the documentation sources, reads `CSR_VERSION` from `CMakeLists.txt`, stages them for MkDocs, converts Markdown alerts, and uploads the prepared folder.
+2. `build-manual-site.yml` takes the folder output and runs `mkdocs build`. It uploads the generated site as artifact.
+3. `build-manual-pdf.yml` takes the folder output and version, passes it to MkDocs, and the `generate_toc.py` hook inserts it into the PDF cover. MkDocs and MkDocs Exporter then create the PDF, uploaded as `ChamberSimReloaded-UserManual.pdf`.
+4. The deploy job combines the site and PDF artifacts, then publishes them to
+   GitHub Pages. The PDF is at the site root, matching the download link in
+   `docs/manual/index.md`.
+
+Pull requests run the preparation and both builds for validation, but the
+workflow deploys only when the ref is `main`. A manual dispatch can also run
+the workflow; it deploys only when dispatched from `main`.
+
+The separate [`build.yml`](../../.github/workflows/build.yml) workflow also
+uses the MkDocs PDF output for tagged application releases.
+
+## Old documentation tooling
+
+The following files belong to the former TeX-to-Markdown authoring workflow.
+They are retained for reference, but are not part of the current MkDocs site
+or deployed PDF process. Maintain the published user guide in the `ug_*.md`
+files instead.
+
+- [`../manual/manual.tex`](../manual/manual.tex) was the TeX source.
+- [`../manual/manual.md`](../manual/manual.md) was generated by Pandoc from
+  that source.
+- [`../manual/build.sh`](../manual/build.sh) builds the legacy standalone
+  TeX PDF.
+- [`mkdocs.lua`](mkdocs.lua) and [`split_manual.py`](split_manual.py) convert
+  and split the TeX-derived Markdown.
+- [`build-doc.yml`](../../.github/workflows/build-doc.yml) is a manually
+  dispatched workflow that runs the conversion and uploads the generated
+  Markdown and images as an artifact.

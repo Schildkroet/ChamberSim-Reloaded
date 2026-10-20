@@ -1,0 +1,13 @@
+default: true
+
+MD033: 
+  allowed_elements:
+    - 'figure'
+    - 'img'
+    - 'figcaption'
+    - 'a'
+
+MD013: false ##line length check
+MD026: false ## trailing dots in headings
+MD030: false ##list marker spaces
+MD045: false ## Images should have alternate text (alt text)

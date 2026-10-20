@@ -48,6 +48,8 @@ jobs:
     name: Linux AppImage
     needs: [manual]
     runs-on: ubuntu-24.04
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@v7
 
@@ -62,13 +64,13 @@ jobs:
       # the manual built by the manual job replaces the tracked PDF that cmake --install packages
       - uses: actions/download-artifact@v8
         with:
-          pattern: "*-manual.pdf"
+          artifact-ids: ${{ needs.manual.outputs.pdf_artifact_id }}
           path: manual-dl
           merge-multiple: true
           skip-decompress: true
       - name: Use the freshly built manual
         shell: bash
-        run: cp manual-dl/*-manual.pdf docs/manual/manual.pdf
+        run: cp manual-dl/ChamberSimReloaded-UserManual.pdf docs/manual/manual.pdf
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4.4.1
@@ -116,6 +118,7 @@ jobs:
 
       # the AppImage as it is (not wrapped in a zip)
       - uses: actions/upload-artifact@v7
+        id: upload
         with:
           path: "*.AppImage"
           archive: false
@@ -125,19 +128,21 @@ jobs:
     name: Windows
     needs: [manual]
     runs-on: windows-2022
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@v7
 
       # the manual built by the manual job replaces the tracked PDF that cmake --install packages
       - uses: actions/download-artifact@v8
         with:
-          pattern: "*-manual.pdf"
+          artifact-ids: ${{ needs.manual.outputs.pdf_artifact_id }}
           path: manual-dl
           merge-multiple: true
           skip-decompress: true
       - name: Use the freshly built manual
         shell: bash
-        run: cp manual-dl/*-manual.pdf docs/manual/manual.pdf
+        run: cp manual-dl/ChamberSimReloaded-UserManual.pdf docs/manual/manual.pdf
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4.4.1
@@ -199,51 +204,40 @@ jobs:
 
       # upload the zip as it is: zipped again by upload-artifact, the download would be a zip inside a zip
       - uses: actions/upload-artifact@v7
+        id: upload
         with:
           path: "*.zip"
           archive: false
           if-no-files-found: error
 
+  prep-folder:
+    uses: ./.github/workflows/prepare-manual-folder.yml
+  
   manual:
-    name: User manual (PDF)
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v7
-
-      # a plain install, not cache-apt-pkgs-action: a cache restore only copies the files and skips the TeX Live triggers
-      # (formats, file database, font maps), pdflatex then fails
-      - name: System packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
-
-      # docs/manual/build.sh takes the program version from CMakeLists.txt
-      - name: Build the manual
-        run: |
-          docs/manual/build.sh
-          version=$(sed -n 's/^set(CSR_VERSION "\(.*\)")/\1/p' CMakeLists.txt)
-          cp docs/manual/manual.pdf "ChamberSimReloaded-${version}-manual.pdf"
-
-      # the PDF as it is (not wrapped in a zip)
-      - uses: actions/upload-artifact@v7
-        with:
-          path: "*.pdf"
-          archive: false
-          if-no-files-found: error
+    needs: prep-folder
+    uses: ./.github/workflows/build-manual-pdf.yml
+    with:
+      artifact_id: ${{ needs.prep-folder.outputs.artifact_id}}
+      version: ${{ needs.prep-folder.outputs.version }}
 
   release:
     name: Release (tags only)
-    if: startsWith(github.ref, 'refs/tags/v')
     needs: [tests, linux, windows, manual]
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
       - uses: actions/download-artifact@v8
         with:
+          artifact-ids: ${{ needs.linux.outputs.artifact_id }}, ${{ needs.windows.outputs.artifact_id}}, ${{ needs.manual.outputs.pdf_artifact_id}}
           path: artifacts
           merge-multiple: true
           skip-decompress: true     # the Windows zip stays a zip (it would be unpacked into a folder, which the upload skips)
+      
+      - name: show files
+        run: ls -alR
+
       - uses: softprops/action-gh-release@v3
         with:
           name: ChamberSim Reloaded ${{ github.ref_name }}
