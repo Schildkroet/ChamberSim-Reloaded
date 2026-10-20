@@ -355,6 +355,8 @@ void MainWindow::createActions()
     // Help
     QMenu *help = m_menuBar->addMenu(tr("&Help"));
     help->addAction(tr("&User manual"), QKeySequence::HelpContents, this, [this] { openManual(); });
+    help->addAction(tr("&Online documentation"), this,
+                    [] { QDesktopServices::openUrl(QUrl(u"https://schildkroet.github.io/ChamberSim-Reloaded/"_s)); });
     help->addAction(tr("&About ChamberSim Reloaded…"), this,
                     [this]
                     {

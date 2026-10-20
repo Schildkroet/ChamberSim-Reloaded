@@ -11,6 +11,9 @@ with the `*.grtload` filter exports a load for the original, without the data of
 > **Not affiliated.** This is an independent project. It is not affiliated with, endorsed or supported by
 > Gordon's Reloading Tool or its author.
 
+📖 **Documentation:** [online user manual](https://schildkroet.github.io/ChamberSim-Reloaded/) (also as PDF there; the
+program opens the same manual with *Help ▸ User manual*, F1; *Help ▸ Online documentation* opens the web site).
+
 ## ⚠️ Safety and disclaimer
 
 The results are **calculated** and can differ considerably from reality. Compare every load with the current

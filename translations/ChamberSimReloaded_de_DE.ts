@@ -742,12 +742,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+413"/>
+        <location filename="../src/app/mainwindow.cpp" line="+415"/>
         <source>ChamberSim Reloaded</source>
         <translation>ChamberSim Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-329"/>
+        <location filename="../src/app/mainwindow.cpp" line="-331"/>
         <source>Calibers</source>
         <translation>Kaliber</translation>
     </message>
@@ -803,7 +803,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+41"/>
-        <location line="+336"/>
+        <location line="+338"/>
         <location line="+179"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -811,7 +811,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Datenbank</translation>
     </message>
     <message>
-        <location line="-516"/>
+        <location line="-518"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -827,7 +827,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="-70"/>
-        <location line="+342"/>
+        <location line="+344"/>
         <location line="+404"/>
         <source>Open load</source>
         <translation>Ladung öffnen</translation>
@@ -838,13 +838,13 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>Ladungen (*.csrload *.grtload);;ChamberSim-Reloaded-Ladungen (*.csrload);;Original-GRT-Ladungen (*.grtload);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location line="-676"/>
+        <location line="-678"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
         <location line="-93"/>
-        <location line="+651"/>
+        <location line="+653"/>
         <location line="+7"/>
         <location line="+27"/>
         <location line="+3"/>
@@ -853,18 +853,18 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-696"/>
+        <location line="-698"/>
         <source>Add the bullets of a manufacturer&apos;s bullet file (*.%1) to your own records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+760"/>
+        <location line="+762"/>
         <source>New load</source>
         <translation>Neue Ladung</translation>
     </message>
     <message>
-        <location line="-758"/>
+        <location line="-760"/>
         <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
         <translation>Eine Ladung aus Kaliber, Geschoss und Pulver erstellen (%1)</translation>
     </message>
@@ -911,12 +911,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+9"/>
-        <location line="+487"/>
+        <location line="+489"/>
         <source>Cannot write %1</source>
         <translation>%1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location line="-483"/>
+        <location line="-485"/>
         <source>Overlay &amp;reference result…</source>
         <translation>&amp;Referenzergebnis überlagern…</translation>
     </message>
@@ -952,18 +952,18 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+1"/>
-        <location line="+147"/>
+        <location line="+149"/>
         <source>&amp;Undo</source>
         <translation>&amp;Rückgängig</translation>
     </message>
     <message>
-        <location line="-141"/>
-        <location line="+146"/>
+        <location line="-143"/>
+        <location line="+148"/>
         <source>&amp;Redo</source>
         <translation>Wieder&amp;herstellen</translation>
     </message>
     <message>
-        <location line="-138"/>
+        <location line="-140"/>
         <source>&amp;View</source>
         <translation>&amp;Ansicht</translation>
     </message>
@@ -1030,6 +1030,11 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+1"/>
+        <source>&amp;Online documentation</source>
+        <translation>&amp;Online-Dokumentation</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>&amp;About ChamberSim Reloaded…</source>
         <translation>Ü&amp;ber ChamberSim Reloaded…</translation>
     </message>
