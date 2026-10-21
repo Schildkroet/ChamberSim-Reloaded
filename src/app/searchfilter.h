@@ -21,6 +21,7 @@
 
 #include <algorithm>
 
+#include <QHash>
 #include <QRegularExpression>
 #include <QSortFilterProxyModel>
 #include <QString>
@@ -76,6 +77,24 @@ namespace searchfilter
                                { return normalized(w).isEmpty() || normalized(w) == QLatin1String("x") || found(w); });
 }
 
+// How well a text cell fits the query, for ranking the rows: 4000 = the whole cell, 3000 = its beginning, 2000 = somewhere in it (plus up to 999 for the share
+// of the cell the query covers; either spelling of the "x"), 0 = not at all. The number columns of a record (a diameter of 11.63 for ".458") only count as 1 where they contain it.
+[[nodiscard]] inline int cellScore(const QString &query, const QString &cell, bool isText)
+{
+    const QString qd = normalized(query), qk = normalized(query, false);
+    if (qd.isEmpty()) return 0;
+    const QString cd = normalized(cell), ck = normalized(cell, false);
+    int best = 0;
+    for (const auto &[q, c] : {std::pair{qd, cd}, std::pair{qk, ck}})
+    {
+        const int fill = static_cast<int>(999 * q.size() / std::max<qsizetype>(c.size(), 1));  // the shorter cell fits better
+        if (c == q) best = std::max(best, 4000 + fill);
+        else if (c.startsWith(q)) best = std::max(best, 3000 + fill);
+        else if (c.contains(q)) best = std::max(best, 2000 + fill);
+    }
+    return best == 0 ? 0 : isText ? best : 1;
+}
+
 }  // namespace searchfilter
 
 // Proxy model that filters with searchfilter::matches over one column or, with the key column -1, over all columns.
@@ -87,21 +106,47 @@ public:
     void setQuery(const QString &query)
     {
         m_query = query.trimmed();
-        invalidateFilter();
+        m_scores.clear();
+        invalidate();  // filter and order: the rows that fit best first
     }
+
+    // While a query is entered and the table is sorted by this column (the default order, -1: never), the rows whose text fits the query
+    // best come first (a cell that is the query, then one that starts with it, then one that contains it); the column sorts within them.
+    void setRankedColumn(int column) { m_rankedColumn = column; }
 
 protected:
     [[nodiscard]] bool filterAcceptsRow(int row, const QModelIndex &parent) const override
     {
         if (m_query.isEmpty() || !sourceModel()) return true;
         QStringList cells;
+        int score = 0;
         const int key = filterKeyColumn();
         const int columns = sourceModel()->columnCount(parent);
         for (int c = 0; c < columns; ++c)
-            if (key < 0 || key == c) cells += sourceModel()->index(row, c, parent).data(filterRole()).toString();
-        return searchfilter::matches(m_query, cells);
+        {
+            if (key >= 0 && key != c) continue;
+            const QVariant v = sourceModel()->index(row, c, parent).data(filterRole());
+            cells += v.toString();
+            score = std::max(score, searchfilter::cellScore(m_query, cells.back(), v.typeId() == QMetaType::QString));
+        }
+        const bool ok = searchfilter::matches(m_query, cells);
+        if (ok) m_scores.insert(row, score);
+        return ok;
+    }
+
+    [[nodiscard]] bool lessThan(const QModelIndex &left, const QModelIndex &right) const override
+    {
+        if (!m_query.isEmpty() && m_rankedColumn >= 0 && sortColumn() == m_rankedColumn)
+        {
+            const int a = m_scores.value(left.row()), b = m_scores.value(right.row());
+            // the better fit first in either sort order (a descending sort turns the result around)
+            if (a != b) return sortOrder() == Qt::AscendingOrder ? a > b : a < b;
+        }
+        return QSortFilterProxyModel::lessThan(left, right);
     }
 
 private:
     QString m_query;
+    int m_rankedColumn = -1;
+    mutable QHash<int, int> m_scores;  // source row -> how well it fits the query (filled by the filter)
 };

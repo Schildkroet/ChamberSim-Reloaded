@@ -151,6 +151,7 @@ void TableBrowser::setDatabase(const csr::Database *db)
     selectAll();
     m_proxy->setSourceModel(m_model);
     const int idColumn = m_model->fieldIndex(QStringLiteral("id"));
+    m_proxy->setRankedColumn(idColumn);
     m_view->sortByColumn(idColumn, Qt::AscendingOrder);  // the view would sort by its first column (the source)
     for (const char *hidden : {"geloescht"}) m_view->setColumnHidden(m_model->fieldIndex(QLatin1String(hidden)), true);
     if (const int quality = m_model->fieldIndex(QStringLiteral("Qlty")); quality >= 0)  // propellants: the fit quality as a bar
