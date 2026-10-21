@@ -111,6 +111,9 @@ public:
     [[nodiscard]] std::optional<QVariantMap> record(Table t, int id) const;
     // The usual primer (column primer) of the caliber records named `cipname`, own records first; nullopt when none names one.
     [[nodiscard]] std::optional<QString> caliberPrimer(const QString &cipname) const;
+    // The caliber record whose name (cipname or altname, ignoring case and a leading dot) is `name`: own records first, then the
+    // project's, then the original's; nullopt when there is none.
+    [[nodiscard]] std::optional<QVariantMap> caliberByName(const QString &name) const;
 
     // A picture of the image table (propellant photos): the encoded file (JPEG/PNG) and its scale.
     struct Image

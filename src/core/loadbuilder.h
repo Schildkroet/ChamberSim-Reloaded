@@ -63,6 +63,9 @@ bool followCaseLength(EntryList &caliber, EntryList &projectile, double previous
 // (the original's export and the solver read ps). A load without the entries (an older file, the original's *.grtload) gets them:
 // the usual primer of its caliber record and the part of its ps the primer does not give. Returns whether they were added.
 bool ensurePrimer(LoadFile &load);
+// A load without a <caliberfile> block (a *.grtload from another tool) gets the record of the caliber it names (CaliberName), which the
+// cartridge drawing, the primer and the pistol calibration need. Returns whether a record was attached.
+bool attachCaliberRecord(LoadFile &load, const QVariantMap &record);
 // A Sebert factor outside 0..1 (or not a number) is invalid and becomes 0.5; every value in 0..1 is kept. Returns whether it changed.
 bool ensureSebert(LoadFile &load);
 // Changes the primer and keeps the load's start pressure (the additional start pressure takes the difference): for a better guess of

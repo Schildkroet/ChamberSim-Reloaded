@@ -462,6 +462,7 @@ bool MainWindow::openLoad(const QString &path)
         }
     }
     auto owned = std::make_unique<LoadView>();
+    owned->setDatabase(m_db.isOpen() ? &m_db : nullptr);  // before loading: a load without a caliber record looks it up
     QString error;
     if (!owned->load(path, &error))
     {

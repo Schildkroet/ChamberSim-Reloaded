@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<GordonsReloadingTool version='2020.1658 (beta)'>
+  <InnerBallistikInput>
+    <title></title>
+    <config name="CurveFocusIdx" value="0" unit="" type="integer" descr="selected ladder curve for display" />
+    <caliber>
+      <input name="CaliberName" value=".357%20SIG" unit="" type="string" descr="caliber name" />
+      <input name="oal" value="28.960000000000001" unit="mm" type="decimal" descr="cartridge overall length" />
+      <input name="caselen" value="21.969999999999999" unit="mm" type="decimal" descr="case length" />
+      <input name="casevol" value="1.272615320592245" unit="cm3" type="decimal" descr="case volume" />
+      <input name="Dz" value="9.02" unit="mm" type="decimal" descr="groove caliber" />
+      <input name="Aeff" value="62.570000000000007" unit="mm2" type="decimal" descr="effektive area" />
+      <input name="pMaxZul" value="3050" unit="bar" type="decimal" descr="maximum allowed pressure" />
+      <input name="method" value="Piezo CIP" unit="" type="string" descr="cartridge test method" />
+      <input name="sebert" value="0.5" unit="" type="decimal" descr="Sebert factor" />
+      <input name="ps" value="150" unit="bar" type="decimal" descr="initial gas pressure" />
+      <input name="shotshell" value="false" unit="" type="boolean" descr="true if shotshell" />
+    </caliber>
+    <gun>
+      <input name="xe" value="102" unit="mm" type="decimal" descr="barrel length" />
+      <input name="mgun" value="0" unit="kg" type="decimal" descr="gun weight" />
+    </gun>
+    <projectile>
+      <input name="ProjectileName" value="Hornady%2C%20HP%2FXTP%2035571%2C%200.355%2C%20124.00%20grain" unit="" type="string" descr="projectile name" />
+      <input name="mname" value="Hornady" unit="" type="string" descr="projectile manufacturer" />
+      <input name="pname" value="HP%2FXTP%2035571" unit="" type="string" descr="projectile product name" />
+      <input name="lotid" value="" unit="" type="string" descr="projectile lot-id" />
+      <input name="Dbul" value="9.02" unit="mm" type="decimal" descr="projectile diameter" />
+      <input name="mp" value="8.035064839969506" unit="g" type="decimal" descr="projectile weight" />
+      <input name="gdepth" value="7.710000000000002" unit="mm" type="decimal" descr="bullet seating depth" />
+      <input name="glen" value="14.699999999999999" unit="mm" type="decimal" descr="projectile overall length" />
+      <input name="gtailh" value="0" unit="mm" type="decimal" descr="projectile tail length" />
+      <input name="gTailDiaA" value="0" unit="mm" type="decimal" descr="projectile tail diameter A" />
+      <input name="gTailDiaB" value="0" unit="mm" type="decimal" descr="projectile tail diameter B" />
+      <input name="gTailType" value="0" unit="" type="decimal" descr="projectile base type" />
+      <input name="gmaterial" value="0" unit="" type="decimal" descr="projectile material and gas sealing/losses" />
+      <input name="g1bc" value="0.145" unit="" type="decimal" descr="G1 ballistic coefficient" />
+      <input name="g7bc" value="0.145" unit="" type="decimal" descr="G7 ballistic coefficient" />
+      <input name="gUBCS" value="" unit="" type="string" descr="UBCS-Code (Universal Bullet Classification Scheme)" />
+    </projectile>
+    <propellant>
+      <input name="mname" value="Vihtavuori" unit="" type="string" descr="propellant manufacturer" />
+      <input name="pname" value="N340" unit="" type="string" descr="propellant product name" />
+      <input name="lotid" value="2019-11-22" unit="" type="string" descr="propellant lot-id" />
+      <input name="Ba" value="2.9203" unit="" type="decimal" descr="vivacity coefficient" />
+      <input name="Qex" value="4100" unit="kJ/kg" type="decimal" descr="specific explosive heat" />
+      <input name="k" value="1.2245" unit="" type="decimal" descr="ratio of the specific heat of the powder gases" />
+      <input name="a0" value="0.9701" unit="" type="decimal" descr="prog/deg coefficient" />
+      <input name="z1" value="0.3563" unit="" type="decimal" descr="burn-up limit z1" />
+      <input name="z2" value="0.8148" unit="" type="decimal" descr="burn-up limit z2" />
+      <input name="eta" value="1" unit="cm3/g" type="decimal" descr="covolume of the powder gases" />
+      <input name="pc" value="1690" unit="kg/m3" type="decimal" descr="material density" />
+      <input name="pcd" value="620" unit="kg/m3" type="decimal" descr="bulk density" />
+      <input name="pt" value="21" unit="Cel" type="decimal" descr="temperature normal" />
+      <input name="tcc" value="0" unit="" type="decimal" descr="cold temperature coefficient" />
+      <input name="tch" value="0" unit="" type="decimal" descr="hot temperature coefficient" />
+      <input name="po" value="98066.5" unit="Pa" type="decimal" descr="technical atmosphere pressure" />
+      <input name="mc" value="0.460072260998254" unit="g" type="decimal" descr="propellant mass" />
+      <input name="laddercnt" value="1" unit="" type="decimal" descr="ladder steps (1 to 10, below 2: disabled)" />
+      <input name="laddermc" value="0.019439672999926" unit="g" type="decimal" descr="ladder step propellant mass" />
+    </propellant>
+    <appendix>
+    </appendix>
+  </InnerBallistikInput>
+</GordonsReloadingTool>

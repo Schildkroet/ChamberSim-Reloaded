@@ -512,6 +512,22 @@ std::optional<QString> Database::caliberPrimer(const QString &cipname) const
     return q.value(0).toString();
 }
 
+std::optional<QVariantMap> Database::caliberByName(const QString &name) const
+{
+    QString key = name.trimmed();
+    if (key.startsWith(u'.')) key.remove(0, 1);
+    if (key.isEmpty() || !m_db.isOpen()) return std::nullopt;
+    QSqlQuery q(m_db);
+    q.prepare(u"SELECT id FROM caliber WHERE geloescht = 0 AND (LTRIM(cipname, '.') = ?1 COLLATE NOCASE OR LTRIM(altname, '.') = ?1 "
+              u"COLLATE NOCASE) "
+              "ORDER BY CASE source WHEN '%1' THEN 0 WHEN '%2' THEN 1 ELSE 2 END, id DESC LIMIT 1"_s.arg(QLatin1String(kSourceOwn),
+                                                                                                         QLatin1String(kSourceProject)));
+    q.addBindValue(key);
+    q.addBindValue(key);
+    if (!q.exec() || !q.next()) return std::nullopt;
+    return record(Table::Caliber, q.value(0).toInt());
+}
+
 std::optional<Database::Image> Database::image(const QString &uuid) const
 {
     if (uuid.isEmpty() || !m_db.isOpen()) return std::nullopt;

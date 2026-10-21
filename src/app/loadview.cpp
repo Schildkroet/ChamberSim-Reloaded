@@ -417,6 +417,10 @@ bool LoadView::load(const QString &path, QString *error)
     if (csr::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
     csr::ensureShotParts(m_file.caliber);  // a shotshell load of an older file: the entries for shell, wad and primer (not chosen)
     if (csr::ensureSebert(m_file)) LOG_Info() << "Sebert factor of" << path << "outside 0..1, set to 0.5";
+    // a load without the caliber's record (from another tool): the record of the caliber it names
+    if (m_db && m_db->isOpen() && m_file.caliberFile.entries().empty() && !m_file.caliber.flag(u"shotshell"))
+        if (const auto rec = m_db->caliberByName(m_file.caliber.text(u"CaliberName")); rec && csr::attachCaliberRecord(m_file, *rec))
+            LOG_Info() << "Caliber record of" << m_file.caliber.text(u"CaliberName") << "added to" << path;
     // a load of an older version or of the original: the primer and the additional start pressure (its start pressure is kept)
     if (csr::ensurePrimer(m_file))
     {

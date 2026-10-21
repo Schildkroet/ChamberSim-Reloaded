@@ -317,6 +317,13 @@ bool ensurePrimer(LoadFile &lf)
     return true;
 }
 
+bool attachCaliberRecord(LoadFile &lf, const QVariantMap &record)
+{
+    if (!lf.caliberFile.entries().empty() || record.isEmpty()) return false;
+    fillCaliberFile(lf, record, {});
+    return !lf.caliberFile.entries().empty();
+}
+
 bool ensureSebert(LoadFile &lf)
 {
     if (!lf.caliber.find(u"sebert")) return false;
