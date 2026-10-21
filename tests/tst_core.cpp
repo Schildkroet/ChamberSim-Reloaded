@@ -87,6 +87,7 @@ private slots:
     void shotshellModel();
     void databaseImages();
     void ownRecordsKeepTheirPhotos();
+    void loadWithoutCaliberRecord();
     void burnFactorsFollowTheModel();
     void calibrationProfiles();
     void physicalModel();
@@ -638,6 +639,53 @@ void CoreTest::ownRecordsKeepTheirPhotos()
     QCOMPARE(alone.addImage(fresh), id);
     QCOMPARE(alone.image(*id)->scale, 80.0);
     QVERIFY(!alone.addImage({}));  // no data
+}
+
+// A *.grtload without a <caliberfile> block (from another tool): the caliber record is looked up by its name (the case is drawn, the
+// primer is the caliber's, the pistol calibration applies), and with the project powder's values the Physical Model gives the load's
+// pressure (GitHub issue 6: a proven .357 SIG load with N340, about 2800 bar).
+void CoreTest::loadWithoutCaliberRecord()
+{
+    QTemporaryDir dir;
+    csr::Database::setProjectDataLocation(QStringLiteral(CSR_SOURCE_DIR "/data"));
+    csr::setPhysicalBurnFile(QStringLiteral(CSR_SOURCE_DIR "/data/physical/propellants.json"));
+    csr::setPrimerFile(QStringLiteral(CSR_SOURCE_DIR "/data/physical/primers.json"));
+    const auto restore = qScopeGuard(
+        []
+        {
+            csr::Database::setProjectDataLocation(u":/data"_s);
+            csr::setPrimerFile(QStringLiteral(":/data/physical/primers.json"));
+            csr::setPhysicalBurnFile(QStringLiteral(":/data/physical/propellants.json"));
+        });
+    csr::Database db;
+    QVERIFY(db.open({}, dir.filePath(u"own.db"_s)));
+    auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/357sig_no_caliberfile.grtload"));
+    QVERIFY(lf);
+    QVERIFY(lf->caliberFile.entries().empty());
+    const auto caliber = db.caliberByName(lf->caliber.text(u"CaliberName"));  // ".357 SIG": the leading dot does not matter
+    QVERIFY(caliber);
+    QVERIFY(csr::attachCaliberRecord(*lf, *caliber));
+    QVERIFY(!csr::attachCaliberRecord(*lf, *caliber));  // only once
+    QCOMPARE(lf->caliberFile.text(u"cipname"), u"357 SIG"_s);
+    QVERIFY(lf->caliberFile.number(u"P1") > 0.0);
+    QVERIFY(csr::ensurePrimer(*lf));
+    csr::setPrimerKeepingStart(*lf, *db.caliberPrimer(lf->caliberFile.text(u"cipname")));
+    QCOMPARE(lf->caliber.text(u"primer"), u"SP"_s);
+
+    // the powder of the project: "use the database values" and "use the physical values"
+    QSqlQuery q(db.handle());
+    QVERIFY(q.exec(u"SELECT id FROM propellant WHERE mname = 'Vihtavuori' AND pname = 'N340' AND source = '%1' LIMIT 1"_s.arg(
+                QLatin1String(csr::Database::kSourceProject))) &&
+            q.next());
+    const auto powder = db.record(csr::Table::Propellant, q.value(0).toInt());
+    QVERIFY(powder);
+    csr::applyPropellant(*lf, *powder);
+    const auto burn = csr::findPhysicalBurn(lf->propellant.text(u"mname"), lf->propellant.text(u"pname"));
+    QVERIFY(burn);
+    csr::writePhysicalBurn(lf->propellant, burn);
+    const csr::SimResult r = csr::simulate(csr::SimInput::fromLoad(*lf), csr::calibrationFor(csr::CalibrationProfile::Physical));
+    QVERIFY(r.ok());
+    QVERIFY2(r.maxPressure_bar > 2600.0 && r.maxPressure_bar < 3100.0, qPrintable(QString::number(r.maxPressure_bar)));
 }
 
 // Br, Bp, Brp of the original's N150 record (Br and Brp follow from the documented formulas, Bp uses an approximated phi(z1)).

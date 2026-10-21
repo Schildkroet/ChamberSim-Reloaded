@@ -92,6 +92,7 @@
 #include "propertypanel.h"
 #include "recentfiles.h"
 #include "searchfilter.h"
+#include <QStandardItemModel>
 #include "reportview.h"
 #include "qualityrow.h"
 #include "screenfit.h"
@@ -1271,6 +1272,37 @@ void GuiTest::searchToleratesSpellings()
     QVERIFY(searchfilter::matches(u"9mm"_s, {u"9 mm Luger"_s}));
     QVERIFY(searchfilter::matches(u"nobel"_s, {u"Nöbel Sport"_s}));
     QVERIFY(searchfilter::matches({}, irs));
+    // ranking: the name that is the query, then one that starts with it, then one that contains it, numbers last
+    using searchfilter::cellScore;
+    QVERIFY(cellScore(u".458"_s, u".458 SOCOM"_s, true) > cellScore(u".458"_s, u"9.458 Magnum"_s, true));
+    QVERIFY(cellScore(u".458"_s, u"458"_s, true) > cellScore(u".458"_s, u".458 SOCOM"_s, true));
+    QVERIFY(cellScore(u".458"_s, u"9.458 Magnum"_s, true) > cellScore(u".458"_s, u"11.458"_s, false));
+    QCOMPARE(cellScore(u".458"_s, u"6.5 Creedmoor"_s, true), 0);
+    // the proxy lists the best fit first while sorted by the ranked column, in either order; another column sorts as usual
+    QStandardItemModel model;
+    const std::vector<std::pair<int, QString>> rows{
+        {1, u"9.3 x 62 (diameter .458)"_s}, {2, u".458 Winchester Magnum"_s}, {3, u".458 SOCOM"_s}, {4, u"7 x 57"_s}, {5, u"458"_s}};
+    for (const auto &[id, name] : rows) model.appendRow({new QStandardItem(QString::number(id)), new QStandardItem(name)});
+    SearchFilterProxy proxy;
+    proxy.setSourceModel(&model);
+    proxy.setFilterKeyColumn(-1);
+    proxy.setRankedColumn(0);
+    proxy.setQuery(u".458"_s);
+    const auto order = [&]
+    {
+        QList<int> ids;
+        for (int r = 0; r < proxy.rowCount(); ++r) ids << proxy.index(r, 0).data().toInt();
+        return ids;
+    };
+    proxy.sort(0, Qt::AscendingOrder);
+    QCOMPARE(order(), (QList<int>{5, 3, 2, 1}));
+    proxy.sort(0, Qt::DescendingOrder);
+    QCOMPARE(order(), (QList<int>{5, 3, 2, 1}));
+    proxy.sort(1, Qt::AscendingOrder);
+    QCOMPARE(order(), (QList<int>{3, 2, 5, 1}));
+    proxy.setQuery({});
+    proxy.sort(0, Qt::AscendingOrder);
+    QCOMPARE(order(), (QList<int>{1, 2, 3, 4, 5}));
     QVERIFY(!searchfilter::matches(u"8x58"_s, irs));
     QVERIFY(!searchfilter::matches(u"7x57"_s, irs));
     QVERIFY(!searchfilter::matches(u"lapua 8x57"_s, irs));
