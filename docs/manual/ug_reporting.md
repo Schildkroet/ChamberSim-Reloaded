@@ -20,5 +20,9 @@ to pick a placeholder and Reset to default to restore the standard
 template. The report of the Measurements tab includes only the selected
 series.
 
+The twist length and the bullet jump (the free run before the lands) are
+available as `~~work.twistlen~~` and `~~work.gjump~~`; the default template
+shows them next to the barrel length.
+
 The default template ends with a footer that names the program version
 (placeholder `~~app.version~~`).

@@ -117,6 +117,7 @@ python3 scripts/data/loaddata/vv_to_json.py vv_fits.csv --work vv_work
 # physical burn values of all project powders -> data/physical/propellants.json
 .venv/bin/python analysis/fit_physical_powders.py build/release/csr_eval \
     hod_samples.csv west_samples.csv lovex_samples.csv rs_samples.csv vv_*.csv [--split train] [--fit form|ba]
+# measured pressure loads (data/measurements/*.csv, e.g. deva_loads.csv, beschussamt_loads.csv) may carry a weight column (a row counts as that many rows); the fit prints the cost per powder
 # only new records (Ba only, the other powders of the file stay): add --fit ba --form a0,z1,z2 --only N110,N120 --merge
 # burn rate factor of the pistol / revolver calibers -> data/physical/calibers.json  (--holdout: fit on half of the powders, test on the rest;
 # --rifles --keep-existing --min-samples 60 adds the rifle calibers and keeps the existing entries)

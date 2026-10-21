@@ -11,6 +11,12 @@ effective area, maximum permitted pressure, barrel length, twist length,
 seating depth and more. Below the table the drawings show the cartridge,
 the chamber and (when available) the powder.
 
+The Sebert factor (0 to 1) is kept as the file has it, 0 included, and
+all models use it as it is (the Physical model no longer replaces 0 by
+0.5 in the propellant impulse and the recoil). A value outside 0 to 1
+becomes 0.5 when the load is opened; the panel accepts only 0 to 1. The
+report shows the value the simulation used.
+
 ### Primer and start pressure.
 
 The Primer (a drop-down: small or large, pistol or rifle, standard or

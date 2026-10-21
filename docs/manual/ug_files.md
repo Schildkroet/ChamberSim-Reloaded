@@ -71,6 +71,9 @@ and pictures of its appendix. Because the program saves only in its own
 format, Save on such a load works like Save as…: it suggests the same
 name with the extension `.csrload`. The original file is never changed.
 
+Record export in the database (Export…) likewise adds `.json` to a name
+without a suffix.
+
 ### Exporting for the original program
 
 In Save as… choose the filter *Original GRT loads, without the data of

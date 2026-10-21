@@ -3,6 +3,29 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.11
+
+### Added and changed
+
+- **Primer per load.** The Primer (small or large, pistol or rifle, standard or magnum, .50 BMG) of the
+  *Cartridge & gun* tab gives the start pressure; the old start pressure value is now the *Additional Start Pressure*
+  (-400 to 400 bar) on top. A new load takes the usual primer of the caliber (484 caliber records have one) and its
+  additional start pressure from the bullet record; loads of earlier versions keep their start pressure. Fitted to
+  14,547 Hodgdon loads: Large Rifle 250 bar, the others 230 to 450 bar. Rifle pressure rms over all published loads
+  12.62 to 12.54 %, velocity unchanged; pistol and revolver loads start at 0.3 x Pmax at least, so there is no change.
+  Files exported as `.grtload` contain only the sum.
+- **Measured pressure loads.** Eight DEVA protocols and one Beschussamt Muenchen test (.458 SOCOM) are used in the
+  powder fit. N340 was refitted with its 9 mm Luger loads, N120 with a better starting shape (.458 SOCOM peak pressure
+  +72 % to +17 %), and the form functions of 27 powders without published pressures were refitted from several start
+  shapes. Velocity rms over all published loads: rifle 3.48 to 3.46 %, pistol 7.14 to 7.10 %.
+- **Report: twist length and bullet jump.** New placeholders `work.twistlen` and `work.gjump`, shown next to the
+  barrel length in the default template.
+- **Sebert factor.** Every value from 0 to 1 (0 included) is kept as loaded and used as it is by all models; the
+  Physical Model no longer takes 0.5 for 0 in propellant impulse and recoil. Values outside 0 to 1 become 0.5, the
+  property panel accepts 0 to 1 only.
+- **File names.** *Export report as PDF* adds `.pdf` and the record export `.json` to a name without that suffix.
+- Barnes TTSX 30642 got an estimated boat tail.
+
 ## 0.10
 
 ### Added and changed
