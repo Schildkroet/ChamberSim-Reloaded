@@ -313,30 +313,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+205"/>
-        <location line="+955"/>
+        <location filename="../src/app/loadview.cpp" line="+206"/>
+        <location line="+975"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-955"/>
-        <location line="+956"/>
+        <location line="-975"/>
+        <location line="+976"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-956"/>
+        <location line="-976"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+957"/>
+        <location line="+977"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-956"/>
+        <location line="-976"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -388,12 +388,12 @@
     </message>
     <message>
         <location line="+39"/>
-        <location line="+799"/>
+        <location line="+819"/>
         <source>Charge</source>
         <translation>Ladung</translation>
     </message>
     <message>
-        <location line="-799"/>
+        <location line="-819"/>
         <source>Max. pressure</source>
         <translation>Max. Druck</translation>
     </message>
@@ -429,20 +429,20 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+173"/>
-        <location line="+577"/>
+        <location line="+183"/>
+        <location line="+587"/>
         <source>Projectile</source>
         <translation>Geschoss</translation>
     </message>
     <message>
-        <location line="-750"/>
-        <location line="+174"/>
-        <location line="+577"/>
+        <location line="-770"/>
+        <location line="+184"/>
+        <location line="+587"/>
         <source>Propellant</source>
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="-890"/>
+        <location line="-910"/>
         <location line="+140"/>
         <source>Select Caliber</source>
         <translation>Kaliber wählen</translation>
@@ -461,12 +461,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+191"/>
+        <location line="+201"/>
         <source>No database available</source>
         <translation>Keine Datenbank verfügbar</translation>
     </message>
     <message>
-        <location line="-175"/>
+        <location line="-185"/>
         <source>Cartridge</source>
         <translation>Patrone</translation>
     </message>
@@ -487,17 +487,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+614"/>
+        <location line="+634"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-633"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+135"/>
         <source>Caliber / cartridge</source>
         <translation>Kaliber / Patrone</translation>
     </message>
@@ -512,7 +512,7 @@
         <translation>Diese Komponente durch einen anderen Datensatz der Datenbank ersetzen</translation>
     </message>
     <message>
-        <location line="+546"/>
+        <location line="+556"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -537,7 +537,7 @@
         <translation></translation>
     </message>
     <message>
-        <location line="-476"/>
+        <location line="-486"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Auch Lauflänge, Setztiefe und Ladung auf die Vorgaben des neuen Kalibers setzen</translation>
     </message>
@@ -572,7 +572,7 @@
         <translation>Wert ändern</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+102"/>
         <location line="+18"/>
         <source>Fit to measurements</source>
         <translation>An Messungen anpassen</translation>
@@ -1972,7 +1972,7 @@ Druck Δ</translation>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+72"/>
+        <location filename="../src/app/propertypanel.cpp" line="+73"/>
         <source>not specified (average)</source>
         <translation>nicht angegeben (Durchschnitt)</translation>
     </message>
@@ -2017,7 +2017,12 @@ Druck Δ</translation>
         <translation>ja</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+17"/>
+        <source>not specified</source>
+        <translation>nicht angegeben</translation>
+    </message>
+    <message>
+        <location line="+38"/>
         <source>type %1</source>
         <translation>Typ %1</translation>
     </message>
@@ -2037,7 +2042,7 @@ Druck Δ</translation>
         <translation>Einheit</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+93"/>
         <source>Click to choose another unit for this field</source>
         <translation>Klicken, um eine andere Einheit für dieses Feld zu wählen</translation>
     </message>
@@ -2928,7 +2933,7 @@ Druck Δ</translation>
 <context>
     <name>csr::LoadFile</name>
     <message>
-        <location filename="../src/core/loadfile.cpp" line="+212"/>
+        <location filename="../src/core/loadfile.cpp" line="+218"/>
         <source>Not a ChamberSim Reloaded or GRT load file</source>
         <translation>Keine ChamberSim-Reloaded- oder GRT-Ladungsdatei</translation>
     </message>
@@ -2941,16 +2946,21 @@ Druck Δ</translation>
 <context>
     <name>csr::dbfields</name>
     <message>
-        <location filename="../src/core/dbfields.cpp" line="+53"/>
-        <location line="+50"/>
+        <location filename="../src/core/dbfields.cpp" line="+54"/>
+        <location line="+52"/>
         <location line="+21"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location line="-70"/>
+        <location line="-72"/>
         <source>Case dimensions (CIP)</source>
         <translation>Hülsenmaße (CIP)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>from the case dimensions</source>
+        <translation>aus den Hülsenmaßen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3046,6 +3056,11 @@ Druck Δ</translation>
         <location line="+1"/>
         <source>Case type</source>
         <translation>Hülsentyp</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Usual primer</source>
+        <translation>Übliches Zündhütchen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3554,6 +3569,16 @@ Druck Δ</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>primer</source>
+        <translation>Zündhütchen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>additional start pressure (bullet, crimp, case; -400 to 400 bar)</source>
+        <translation>Zusätzlicher Startdruck (Geschoss, Crimp, Hülse; -400 bis 400 bar)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>shotshell wad</source>
         <translation>Schrotpatronen-Pfropfen</translation>
     </message>
@@ -3621,6 +3646,54 @@ Druck Δ</translation>
         <location line="+1"/>
         <source>physical model: burn-up limit z2</source>
         <translation>Physikalisches Modell: Abbrandgrenze z2</translation>
+    </message>
+</context>
+<context>
+    <name>csr::primer</name>
+    <message>
+        <location filename="../src/core/primer.cpp" line="+45"/>
+        <source>Small Pistol</source>
+        <translation>Pistole klein</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Small Pistol Magnum</source>
+        <translation>Pistole klein Magnum</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large Pistol</source>
+        <translation>Pistole groß</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Large Pistol Magnum</source>
+        <translation>Pistole groß Magnum</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Small Rifle</source>
+        <translation>Büchse klein</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Small Rifle Magnum</source>
+        <translation>Büchse klein Magnum</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large Rifle</source>
+        <translation>Büchse groß</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Large Rifle Magnum</source>
+        <translation>Büchse groß Magnum</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>.50 BMG</source>
+        <translation>.50 BMG</translation>
     </message>
 </context>
 <context>

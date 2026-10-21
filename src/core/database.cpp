@@ -56,7 +56,7 @@ struct TableSchema
 constexpr std::array<TableSchema, 5> kSchema{{
     {"caliber",
      "id INTEGER PRIMARY KEY AUTOINCREMENT, cipname TEXT NOT NULL, altname TEXT NOT NULL, "
-     "standard TEXT NOT NULL, ciporigin TEXT NOT NULL, ciptype TEXT NOT NULL, cipdate DATE NOT NULL, "
+     "standard TEXT NOT NULL, ciporigin TEXT NOT NULL, ciptype TEXT NOT NULL, primer TEXT NOT NULL DEFAULT '', cipdate DATE NOT NULL, "
      "ciprevdate DATE NOT NULL, cippdf TEXT NOT NULL, L0 FLOAT NOT NULL, L1 FLOAT NOT NULL, "
      "L2 FLOAT NOT NULL, L3 FLOAT NOT NULL, L4 FLOAT NOT NULL, L5 FLOAT NOT NULL, L6 FLOAT NOT NULL, "
      "R FLOAT NOT NULL, R1 FLOAT NOT NULL, R3 FLOAT NOT NULL, E FLOAT NOT NULL, E1 FLOAT NOT NULL, "
@@ -117,8 +117,10 @@ struct AddedColumn
     const char *declaration;
     const char *after;
 };
-constexpr std::array<AddedColumn, 2> kAddedColumns{{
+constexpr std::array<AddedColumn, 3> kAddedColumns{{
     {"caliber", "PmaxSAAMI", "FLOAT NOT NULL DEFAULT 0", "Pmax"},  // SAAMI maximum average pressure [bar]; Pmax is the C.I.P. one
+    {"caliber", "primer", "TEXT NOT NULL DEFAULT ''",
+     "ciptype"},  // usual primer type (primer.h), preset in a new load; empty: from the case
     {"projectile", "gValid", "BOOLEAN NOT NULL DEFAULT 0",
      "glen"},  // true: the record was validated by hand (measured on a bullet, checked against the original database), false: not
 }};
@@ -496,6 +498,18 @@ std::optional<QVariantMap> Database::record(Table t, int id) const
     QVariantMap out;
     for (int i = 0; i < r.count(); ++i) out.insert(r.fieldName(i), q.value(i));
     return out;
+}
+
+std::optional<QString> Database::caliberPrimer(const QString &cipname) const
+{
+    if (cipname.isEmpty() || !m_db.isOpen()) return std::nullopt;
+    QSqlQuery q(m_db);
+    q.prepare(u"SELECT primer FROM caliber WHERE cipname = ? AND primer IS NOT NULL AND primer <> '' AND geloescht = 0 "
+              "ORDER BY CASE source WHEN '%1' THEN 0 WHEN '%2' THEN 1 ELSE 2 END LIMIT 1"_s.arg(QLatin1String(kSourceOwn),
+                                                                                                QLatin1String(kSourceProject)));
+    q.addBindValue(cipname);
+    if (!q.exec() || !q.next()) return std::nullopt;
+    return q.value(0).toString();
 }
 
 std::optional<Database::Image> Database::image(const QString &uuid) const

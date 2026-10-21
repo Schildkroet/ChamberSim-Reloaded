@@ -52,5 +52,6 @@
   "c_Q": 52.4,
   "c_Fe": 0.15,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); bullet diameter 8.30 mm (Wikipedia) (checked against the original database, 2026-10-10)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1); bullet diameter 8.30 mm (Wikipedia) (checked against the original database, 2026-10-10)",
+  "primer": "LR"
 }

@@ -21,6 +21,7 @@
 #include "log.h"
 #include "photoview.h"
 #include "physicalpowders.h"
+#include "primer.h"
 #include "shotparts.h"
 #include "solverprefs.h"
 
@@ -415,6 +416,15 @@ bool LoadView::load(const QString &path, QString *error)
     // a load saved before the physical burn values existed gets those of its (unchanged) project powder; they are saved with it next time
     if (csr::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
     csr::ensureShotParts(m_file.caliber);  // a shotshell load of an older file: the entries for shell, wad and primer (not chosen)
+    // a load of an older version or of the original: the primer and the additional start pressure (its start pressure is kept)
+    if (csr::ensurePrimer(m_file))
+    {
+        // the caliber's record names its usual primer (the file's copy of the record is older than that column)
+        if (const auto primer = m_db ? m_db->caliberPrimer(m_file.caliberFile.text(u"cipname")) : std::nullopt;
+            primer && csr::isPrimerCode(*primer) && !m_file.caliber.flag(u"shotshell"))
+            csr::setPrimerKeepingStart(m_file, *primer);
+        LOG_Info() << "Primer" << m_file.caliber.text(u"primer") << "added to" << path;
+    }
     rebuildPanels();
     loadMeasurement();
     recompute();
@@ -427,6 +437,7 @@ void LoadView::setNewLoad(csr::LoadFile file)
 {
     m_file = std::move(file);
     csr::ensureShotParts(m_file.caliber);
+    csr::ensurePrimer(m_file);
     m_path.clear();
     rebuildPanels();
     loadMeasurement();
@@ -594,9 +605,12 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     const double previousDiameter = m_file.projectile.number(u"Dbul");
     const double previousCaseLength = m_file.caliber.number(u"caselen");
     section(sectionId).set(key, text);
-    // a cartridge that becomes a shotshell gets the choices of its shell, wad and primer
-    if (sectionId == Caliber && key == u"shotshell" && csr::ensureShotParts(m_file.caliber))
+    // a cartridge that becomes a shotshell gets the choices of its shell, wad and primer (and loses the metallic primer's rows)
+    if (sectionId == Caliber && key == u"shotshell")
+    {
+        csr::ensureShotParts(m_file.caliber);
         QTimer::singleShot(0, this, &LoadView::rebuildPanels);  // after the edit is finished
+    }
     // The cartridge overall length is the case length plus the projectile length minus the seating depth; the solver uses the seating
     // depth. Editing either of them (or the case or projectile length) keeps the other one in step.
     csr::EntryList &cal = m_file.caliber, &prj = m_file.projectile;
@@ -606,8 +620,15 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     // a new case length: the bullet stays (overall length kept), seating depth and case volume follow
     else if (sectionId == Caliber && key == u"caselen") csr::followCaseLength(cal, prj, previousCaseLength);
     // The initial gas pressure is in both sections (the solver reads the caliber's, the projectile window of the original shows the
-    // projectile's): editing either one sets both.
-    if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
+    // projectile's). With a primer it is the primer's start pressure plus the additional one: editing the total sets the additional one.
+    if (cal.find(u"psadd"))
+    {
+        const double primerStart = csr::loadStartPressure_bar(cal) - csr::clampAdditionalStartPressure(cal.number(u"psadd"));
+        if (sectionId == Caliber && key == u"ps") cal.set(u"psadd", cal.number(u"ps") - primerStart);
+        else if (sectionId == Projectile && key == u"gpressure") cal.set(u"psadd", prj.number(u"gpressure") - primerStart);
+        csr::updateStartPressure(m_file);  // also after a new primer, case volume or an additional start pressure beyond +-400 bar
+    }
+    else if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
     else if (sectionId == Projectile && key == u"gpressure") cal.set(u"ps", prj.number(u"gpressure"));
     // a boat tail or hollow base without tail dimensions would have no effect: typical ones are filled in (editable)
     if (sectionId == Projectile && key == u"gTailType") csr::completeTail(prj);

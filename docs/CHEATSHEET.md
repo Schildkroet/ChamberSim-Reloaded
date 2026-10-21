@@ -122,6 +122,10 @@ python3 scripts/data/loaddata/vv_to_json.py vv_fits.csv --work vv_work
 # --rifles --keep-existing --min-samples 60 adds the rifle calibers and keeps the existing entries)
 .venv/bin/python analysis/fit_caliber_scales.py build/release/csr_eval hod_samples.csv west_samples.csv adi_pistol_samples.csv [--holdout] [--shrink 0.75]
 
+# primers: usual primer of the caliber records (Hodgdon / Alliant / Vihtavuori tables, else from the case) and the start pressure per type
+python3 scripts/data/cipdata/caliber_primers.py [--write]
+.venv/bin/python analysis/fit_primers.py build/release/csr_eval hod_samples.csv [--split train] [--size volume] [--write]   # -> data/physical/primers.json
+
 # bullet lengths from product photos (needs opencv-python-headless in the venv)
 python3 scripts/data/bulletdata/hunting_sport_fetch.py [--out DIR]          # hunting-sport.com handgun bullets: photos + manifest.csv
 python3 scripts/data/bulletdata/hn_photos_fetch.py [--out DIR]              # hn-sport.de: single (einzeln) and two-bullet (doppelt) photos

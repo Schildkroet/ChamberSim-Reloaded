@@ -313,26 +313,26 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+467"/>
+        <location filename="../src/app/loadview.cpp" line="+478"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-172"/>
-        <location line="+173"/>
-        <location line="+577"/>
+        <location line="-182"/>
+        <location line="+183"/>
+        <location line="+587"/>
         <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-750"/>
-        <location line="+174"/>
-        <location line="+577"/>
+        <location line="-770"/>
+        <location line="+184"/>
+        <location line="+587"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-890"/>
+        <location line="-910"/>
         <location line="+140"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
@@ -351,35 +351,35 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+191"/>
+        <location line="+201"/>
         <source>No database available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+583"/>
+        <location line="+593"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-879"/>
-        <location line="+955"/>
+        <location line="-899"/>
+        <location line="+975"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-955"/>
-        <location line="+956"/>
+        <location line="-975"/>
+        <location line="+976"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-956"/>
-        <location line="+957"/>
+        <location line="-976"/>
+        <location line="+977"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-957"/>
+        <location line="-977"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -436,12 +436,12 @@
     </message>
     <message>
         <location line="+39"/>
-        <location line="+799"/>
+        <location line="+819"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-799"/>
+        <location line="-819"/>
         <source>Max. pressure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -497,17 +497,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+614"/>
+        <location line="+634"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-633"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+135"/>
         <source>Caliber / cartridge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -552,7 +552,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+102"/>
         <location line="+18"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
@@ -1948,7 +1948,7 @@ pressure Δ</source>
 <context>
     <name>PropertyPanel</name>
     <message>
-        <location filename="../src/app/propertypanel.cpp" line="+72"/>
+        <location filename="../src/app/propertypanel.cpp" line="+73"/>
         <source>not specified (average)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1993,7 +1993,12 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+17"/>
+        <source>not specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
         <source>type %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2013,7 +2018,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+93"/>
         <source>Click to choose another unit for this field</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2904,7 +2909,7 @@ pressure Δ</source>
 <context>
     <name>csr::LoadFile</name>
     <message>
-        <location filename="../src/core/loadfile.cpp" line="+212"/>
+        <location filename="../src/core/loadfile.cpp" line="+218"/>
         <source>Not a ChamberSim Reloaded or GRT load file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2917,15 +2922,20 @@ pressure Δ</source>
 <context>
     <name>csr::dbfields</name>
     <message>
-        <location filename="../src/core/dbfields.cpp" line="+53"/>
-        <location line="+50"/>
+        <location filename="../src/core/dbfields.cpp" line="+54"/>
+        <location line="+52"/>
         <location line="+21"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-70"/>
+        <location line="-72"/>
         <source>Case dimensions (CIP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>from the case dimensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3021,6 +3031,11 @@ pressure Δ</source>
     <message>
         <location line="+1"/>
         <source>Case type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Usual primer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3530,6 +3545,16 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>primer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>additional start pressure (bullet, crimp, case; -400 to 400 bar)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>shotshell wad</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3596,6 +3621,54 @@ pressure Δ</source>
     <message>
         <location line="+1"/>
         <source>physical model: burn-up limit z2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>csr::primer</name>
+    <message>
+        <location filename="../src/core/primer.cpp" line="+45"/>
+        <source>Small Pistol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Small Pistol Magnum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large Pistol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Large Pistol Magnum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Small Rifle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Small Rifle Magnum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Large Rifle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Large Rifle Magnum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>.50 BMG</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

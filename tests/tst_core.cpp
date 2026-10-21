@@ -25,6 +25,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QStandardPaths>
+#include <QScopeGuard>
 #include <QTemporaryDir>
 #include <QtTest>
 
@@ -41,6 +42,7 @@
 #include "measurement.h"
 #include "numeric.h"
 #include "physicalpowders.h"
+#include "primer.h"
 #include "projectdata.h"
 #include "powderfit.h"
 #include "reference.h"
@@ -142,6 +144,7 @@ private slots:
     void replacingThePowderKeepsTheRest();
     void replacingTheBulletUpdatesGeometry();
     void replacingTheCaliberCanResetDependentValues();
+    void primerGivesTheStartPressure();
 };
 
 void CoreTest::initTestCase()
@@ -1822,10 +1825,13 @@ void CoreTest::loadBuilderMatchesOriginal()
     for (const char16_t *k : {u"Ba", u"Qex", u"k", u"a0", u"z1", u"z2", u"pc", u"pcd", u"mc", u"laddermc"})
         QCOMPARE(built.propellant.number(k), orig->propellant.number(k));
 
-    // same set and order of fields as the original program writes
+    // same set and order of fields as the original program writes (the primer and the additional start pressure are this program's,
+    // left out of the export)
+    QCOMPARE(built.caliber.text(u"primer"), u"LR"_s);
     for (const auto sel : {&csr::LoadFile::caliber, &csr::LoadFile::gun, &csr::LoadFile::projectile, &csr::LoadFile::propellant})
     {
-        const auto &a = (built.*sel).entries();
+        std::vector<csr::Entry> a = (built.*sel).entries();
+        std::erase_if(a, [](const csr::Entry &e) { return e.name == u"primer" || e.name == u"psadd"; });
         const auto &b = ((*orig).*sel).entries();
         QCOMPARE(a.size(), b.size());
         for (std::size_t i = 0; i < a.size(); ++i)
@@ -2537,6 +2543,96 @@ void CoreTest::powderFitPhysicalValues()
     csr::powderfit::apply(lf->propellant, physOnly);
     QVERIFY(csr::readPhysicalBurn(lf->propellant));
     QCOMPARE_LT(physOnly.velocityRmsAfter, 0.01);  // another form function (the load's a0, z1, z2): Ba alone gets close, not exact
+}
+
+// The primer of a load (primer.h, loadbuilder.h): the caliber's usual one, start pressure = primer's + additional (-400..400 bar); a load
+// without primer keeps its start pressure; the export leaves primer and psadd out.
+void CoreTest::primerGivesTheStartPressure()
+{
+    // the usual primer: the record's, else from the case
+    QCOMPARE(csr::primerOfCaliber({{u"primer"_s, u"LPM"_s}, {u"P1"_s, 9.6}}), u"LPM"_s);
+    QCOMPARE(csr::primerOfCaliber({{u"ciptype"_s, u"4 pistol/revolver"_s}, {u"P1"_s, 9.93}}), u"SP"_s);   // 9 mm Luger
+    QCOMPARE(csr::primerOfCaliber({{u"ciptype"_s, u"4 pistol/revolver"_s}, {u"P1"_s, 12.09}}), u"LP"_s);  // 45 Auto
+    QCOMPARE(csr::primerOfCaliber({{u"ciptype"_s, u"1 rimless"_s}, {u"P1"_s, 9.58}}), u"SR"_s);           // 223 Rem.
+    QCOMPARE(csr::primerOfCaliber({{u"ciptype"_s, u"1 rimless"_s}, {u"P1"_s, 11.96}}), u"LR"_s);          // 308 Win.
+    QCOMPARE(csr::primerOfCaliber({{u"ciptype"_s, u"3 belted"_s}, {u"P1"_s, 13.0}}), u"LRM"_s);           // 300 Win. Mag.
+    QCOMPARE(csr::primerOfCaliber({{u"cipname"_s, u"12.7 x 99 (50 BMG)"_s}, {u"P1"_s, 20.4}}), u"BMG"_s);
+    QCOMPARE(csr::primerOfCaliber({{u"ciptype"_s, u"5 rimfire"_s}}), QString());
+    QCOMPARE(csr::primerOfCaliber({{u"primer"_s, u"XYZ"_s}, {u"ciptype"_s, u"1 rimless"_s}, {u"P1"_s, 9.58}}), u"SR"_s);  // unknown code
+
+    // start pressures from a file: LR 300 bar, SR 200 bar and a dependence on the case volume
+    QTemporaryDir dir;
+    const QString file = dir.filePath(u"primers.json"_s);
+    {
+        QFile f(file);
+        QVERIFY(f.open(QIODevice::WriteOnly));
+        f.write(R"({"primers": {"LR": 300, "SR": 200}, "volumeExponent": 0, "referenceVolume_cm3": 3})");
+    }
+    csr::setPrimerFile(file);
+    const auto restore = qScopeGuard([] { csr::setPrimerFile(QStringLiteral(":/data/physical/primers.json")); });
+    QCOMPARE(csr::primerStartPressure_bar(u"LR"_s, 3.6), 300.0);
+    QCOMPARE(csr::primerStartPressure_bar(u"SPM"_s, 3.6), csr::kReferenceStartPressure_bar);   // not in the file
+    QCOMPARE(csr::primerStartPressure_bar(QString(), 3.6), csr::kReferenceStartPressure_bar);  // no primer
+    QCOMPARE(csr::clampAdditionalStartPressure(650.0), 400.0);
+    QCOMPARE(csr::clampAdditionalStartPressure(-650.0), -400.0);
+
+    // a new load: the caliber's primer, the bullet's start pressure above the 250 bar reference is the additional one
+    const QVariantMap caliber{{u"cipname"_s, u"308 Win."_s},
+                              {u"ciptype"_s, u"1 rimless"_s},
+                              {u"P1"_s, 11.96},
+                              {u"L3"_s, 51.18},
+                              {u"V"_s, 56.0},
+                              {u"c_Z"_s, 7.82},
+                              {u"c_Q"_s, 47.5},
+                              {u"Pmax"_s, 4150.0},
+                              {u"G1"_s, 7.85}};
+    const QVariantMap bullet{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"FMJ"_s}, {u"gdia"_s, 7.82},
+                             {u"glen"_s, 30.0},       {u"gmass"_s, 150.0},    {u"gpressure"_s, 330.0}};
+    const QVariantMap powder{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"P"_s}, {u"Ba"_s, 0.5},   {u"Qex"_s, 3800.0},
+                             {u"k"_s, 1.24},          {u"pc"_s, 1600.0},    {u"pcd"_s, 900.0}};
+    csr::LoadFile lf = csr::buildLoad(caliber, bullet, powder);
+    QCOMPARE(lf.caliber.text(u"primer"), u"LR"_s);
+    QCOMPARE(lf.caliber.number(u"psadd"), 80.0);
+    QCOMPARE(lf.caliber.number(u"ps"), 380.0);  // 300 + 80
+    QCOMPARE(lf.projectile.number(u"gpressure"), 380.0);
+    QCOMPARE(csr::SimInput::fromLoad(lf).startPressure_bar, 380.0);
+    lf.caliber.set(u"primer", u"SR"_s);  // another primer: the start pressure follows
+    csr::updateStartPressure(lf);
+    QCOMPARE(lf.caliber.number(u"ps"), 280.0);
+    lf.caliber.set(u"psadd", 900.0);  // limited
+    csr::updateStartPressure(lf);
+    QCOMPARE(lf.caliber.number(u"psadd"), 400.0);
+    QCOMPARE(lf.caliber.number(u"ps"), 600.0);
+
+    // the export leaves primer and psadd out (its ps has the sum); the own format keeps them
+    const auto exported = csr::LoadFile::parse(lf.toXml(csr::FileFormat::Original));
+    QVERIFY(exported);
+    QVERIFY(!exported->caliber.find(u"primer") && !exported->caliber.find(u"psadd"));
+    QCOMPARE(exported->caliber.number(u"ps"), 600.0);
+    const auto own = csr::LoadFile::parse(lf.toXml(csr::FileFormat::Reload));
+    QVERIFY(own);
+    QCOMPARE(own->caliber.text(u"primer"), u"SR"_s);
+    QCOMPARE(own->caliber.number(u"psadd"), 400.0);
+
+    // an older load (the export read back): the caliber's primer is added and the start pressure kept
+    csr::LoadFile old = *exported;
+    QVERIFY(csr::ensurePrimer(old));
+    QCOMPARE(old.caliber.text(u"primer"), u"LR"_s);  // from the record copy in <caliberfile>
+    QCOMPARE(old.caliber.number(u"psadd"), 300.0);   // 600 - 300
+    QCOMPARE(old.caliber.number(u"ps"), 600.0);
+    QVERIFY(!csr::ensurePrimer(old));  // only once
+    csr::setPrimerKeepingStart(old, u"SR"_s);
+    QCOMPARE(old.caliber.number(u"psadd"), 400.0);  // 600 - 200
+    QCOMPARE(old.caliber.number(u"ps"), 600.0);
+
+    // the case volume dependence: start pressure * (V / 3 cm3)^-k
+    {
+        QFile f(file);
+        QVERIFY(f.open(QIODevice::WriteOnly | QIODevice::Truncate));
+        f.write(R"({"primers": {"LR": 300}, "volumeExponent": 0.5, "referenceVolume_cm3": 3})");
+    }
+    csr::setPrimerFile(file);
+    QVERIFY(std::abs(csr::primerStartPressure_bar(u"LR"_s, 12.0) - 150.0) < 1e-9);
 }
 
 QTEST_APPLESS_MAIN(CoreTest)

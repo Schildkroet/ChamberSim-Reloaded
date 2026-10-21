@@ -107,6 +107,8 @@ powder numbers. R906 (1 load) is not written.
 - `hodgdon_extract.py manual.pdf` reads the rifle tables of the Hodgdon Reloading Manual 2024 (two columns per page; the right column starts
   at the page's second "Powder" heading): per cartridge barrel, twist, per bullet maker code, weight, type, cartridge length, per powder start
   and maximum load with velocity and pressure. Pressures in CUP are not comparable to PSI: those rows keep only their velocities.
+  The primer of the test cartridge is the column `primer` (the table's text, e.g. "WIN LR Magnum"; `scripts/data/primers.py` gives the
+  type), used by `analysis/fit_primers.py`.
   14,000 samples of about 100 powders.
 - `west_extract.py guide.pdf` reads the Western Powders Handloading Guide 8.0 (Accurate and Ramshot powders). Its text layer has a space
   between all characters of a data row, so a row is read with all spaces removed. 5,500 samples.

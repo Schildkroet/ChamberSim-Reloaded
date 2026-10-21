@@ -1,0 +1,16 @@
+{
+ "note": "Start pressure [bar] of the primer types (src/core/primer.h), fitted with analysis/fit_primers.py to published loads that name their primer (velocities and pressures, physical model, powders' burn values kept). A load's start pressure is this plus its additional start pressure. Anchor LR=250. Generated - do not edit by hand.",
+ "primers": {
+  "SP": 446.4,
+  "SPM": 299.4,
+  "LP": 232.4,
+  "LPM": 250.0,
+  "SR": 260.3,
+  "SRM": 275.5,
+  "LR": 250.0,
+  "LRM": 237.8,
+  "BMG": 250.0
+ },
+ "volumeExponent": 0.0,
+ "referenceVolume_cm3": 3.0
+}

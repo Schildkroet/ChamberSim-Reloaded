@@ -39,5 +39,6 @@
   "c_Q": 70.88,
   "c_Fe": 0.15,
   "origin": "cip-bobp.org",
-  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)"
+  "descr": "V estimated from the sheet geometry (wall 0.45 mm, head 0.50 x P1)",
+  "primer": "LR"
 }

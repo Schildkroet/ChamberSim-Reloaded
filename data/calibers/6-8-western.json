@@ -14,5 +14,6 @@
   "c_Q": 38.93,
   "origin": "en.wikipedia.org",
   "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter",
-  "PmaxSAAMI": 4482
+  "PmaxSAAMI": 4482,
+  "primer": "LRM"
 }

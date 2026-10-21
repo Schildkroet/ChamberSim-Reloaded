@@ -61,6 +61,7 @@ Units are those of the database columns, **not** the units shown in the program:
 | | `standard` | `CIP`, `SAAMI` or `WildCat` | |
 | | `ciporigin` | country (ISO code, e.g. `DE`) | |
 | | `ciptype` | `1 rimless`, `2 rimmed`, `3 belted`, `3 magnum`, `4 pistol/revolver`, `5 rimfire`, `7 shotshell`, `10 other` | |
+| | `primer` | usual primer: `SP`, `SPM`, `LP`, `LPM` (small / large pistol, magnum), `SR`, `SRM`, `LR`, `LRM` (rifle), `BMG`; preset in a new load (empty: from the case) | |
 | | `L1` … `L6`, `R`, `R1`, `P1`, `P2`, `H1`, `H2`, `G1`, … | CIP case dimensions | mm |
 | | `V` | case capacity | **grain H₂O** |
 | | `Pmax`, `PK`, `PE` | maximum pressures | bar |

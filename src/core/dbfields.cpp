@@ -20,6 +20,7 @@
 #include "dbfields.h"
 
 #include "numeric.h"
+#include "primer.h"
 
 #include <QCoreApplication>
 #include <QLocale>
@@ -52,6 +53,7 @@ struct Spec
 // groups
 constexpr const char *kName = QT_TRANSLATE_NOOP("csr::dbfields", "Name");
 constexpr const char *kCase = QT_TRANSLATE_NOOP("csr::dbfields", "Case dimensions (CIP)");
+constexpr const char *kPrimerFromCase = QT_TRANSLATE_NOOP("csr::dbfields", "from the case dimensions");  // no primer in the record
 constexpr const char *kPressure = QT_TRANSLATE_NOOP("csr::dbfields", "Pressures");
 constexpr const char *kChamber = QT_TRANSLATE_NOOP("csr::dbfields", "Chamber and barrel (CIP)");
 constexpr const char *kBullet = QT_TRANSLATE_NOOP("csr::dbfields", "Projectile");
@@ -76,6 +78,7 @@ constexpr Spec kCaliber[] = {
     {"standard", QT_TRANSLATE_NOOP("csr::dbfields", "Standard"), kName, Quantity::None, 1, Kind::Choice, ""},
     {"ciporigin", QT_TRANSLATE_NOOP("csr::dbfields", "Country of origin"), kName, Quantity::None, 1, Kind::Choice, ""},
     {"ciptype", QT_TRANSLATE_NOOP("csr::dbfields", "Case type"), kName, Quantity::None, 1, Kind::Choice, ""},
+    {"primer", QT_TRANSLATE_NOOP("csr::dbfields", "Usual primer"), kName, Quantity::None, 1, Kind::Choice, ""},
     {"cipdate", QT_TRANSLATE_NOOP("csr::dbfields", "Standard date"), kName, Quantity::None, 1, Kind::Date, ""},
     {"ciprevdate", QT_TRANSLATE_NOOP("csr::dbfields", "Revision date"), kName, Quantity::None, 1, Kind::Date, ""},
     {"cippdf", QT_TRANSLATE_NOOP("csr::dbfields", "Data sheet (link)"), kName, Quantity::None, 1, Kind::Text, ""},
@@ -253,6 +256,13 @@ std::vector<std::pair<QString, QString>> choices(Table t, const QString &column)
     if (t == Table::Projectile && column == u"gValid")
         return {{u"0"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "no"))}, {u"1"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "yes"))}};
     if (t != Table::Caliber) return {};
+    if (column == u"primer")  // the type a new load of the caliber starts with (primer.h); empty: from the case
+    {
+        std::vector<std::pair<QString, QString>> out{{QString(), tr(kPrimerFromCase)}};
+        for (const PrimerType &type : kPrimerTypes)
+            out.emplace_back(QString::fromLatin1(type.code), primerName(QString::fromLatin1(type.code)));
+        return out;
+    }
     if (column == u"ciporigin")
     {
         std::vector<std::pair<QString, QString>> out;

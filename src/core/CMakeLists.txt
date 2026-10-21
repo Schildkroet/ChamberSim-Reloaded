@@ -46,6 +46,8 @@ add_library(csrcore STATIC
     physicalpowders.cpp
     shotparts.h
     shotparts.cpp
+    primer.h
+    primer.cpp
 )
 
 target_include_directories(csrcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

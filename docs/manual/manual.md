@@ -482,18 +482,36 @@ effective area, maximum permitted pressure, barrel length, twist length,
 seating depth and more. Below the table the drawings show the cartridge,
 the chamber and (when available) the powder.
 
+### Primer and start pressure.
+
+The Primer (a drop-down: small or large, pistol or rifle, standard or
+magnum, .50 BMG) starts with the usual primer of the caliber. Its type
+gives the start pressure, the gas pressure at which the bullet starts to
+move; the values are fitted to Hodgdon’s published loads (Large Rifle
+250 bar, the others 230 to 450 bar). The Additional Start Pressure
+($-400$ to $400$ bar) is added for the bullet, the crimp and the case; a
+new load takes it from the bullet record (its start pressure minus
+250 bar). For pistol and revolver cartridges the physical model starts at
+no less than 0.3 times the maximum permitted pressure, so there the
+primer usually has no effect. Loads of earlier versions keep their start
+pressure.
+
 ### Replacing the caliber.
 
 After you choose another caliber, the program can also set barrel
 length, seating depth and charge to the defaults of the new caliber
-(tick the corresponding option in the selection dialog).
+(tick the corresponding option in the selection dialog). The primer
+becomes the usual primer of the new caliber; the additional start
+pressure stays.
 
 ## Projectile
 
 Mass, diameter, length and the other bullet data. Select Projectile…
 replaces the bullet; tick Show only bullets that fit the caliber to
 narrow the list. The Initial Gas Pressure is the pressure at which the
-bullet starts to move and engraves. The Bullet friction is an extra
+bullet starts to move and engraves. It is the primer’s start pressure plus the
+Additional Start Pressure of the Cartridge & gun tab; editing it changes
+the additional one. The Bullet friction is an extra
 resistance in bar that acts all along the barrel; it is always applied.
 Negative values are possible and describe low-friction bullets (the
 original’s database has values down to $-100$ bar). For 362 rifle

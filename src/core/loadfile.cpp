@@ -126,6 +126,12 @@ bool isShotPart(const Entry &e)
     return e.name == u"shothull" || e.name == u"shotwad" || e.name == u"shotprimer";
 }
 
+// The primer and the additional start pressure (loadbuilder.h): in the caliber section of a *.csrload, not in the export (its ps has the sum).
+bool isPrimerEntry(const Entry &e)
+{
+    return e.name == u"primer" || e.name == u"psadd";
+}
+
 // The entries of `list` for which `wanted` is true, as <tag> with <childTag> children; no element when there are none and `optional`.
 template <class Pred>
 void writeList(QXmlStreamWriter &w, const QString &tag, const EntryList &list, const QString &childTag, Pred wanted, bool optional = false)
@@ -321,7 +327,7 @@ QByteArray LoadFile::toXml(FileFormat format) const
     w.writeStartElement(original ? u"InnerBallistikInput"_s : u"load"_s);
     w.writeTextElement(u"title"_s, percentEncode(title));
     for (const Entry &e : config.entries()) writeEntry(w, u"config"_s, e);
-    writeList(w, u"caliber"_s, caliber, u"input"_s, std::not_fn(isShotPart));
+    writeList(w, u"caliber"_s, caliber, u"input"_s, [&](const Entry &e) { return !isShotPart(e) && !(original && isPrimerEntry(e)); });
     writeList(w, u"caliberfile"_s, caliberFile, u"var"_s);
     writeList(w, u"gun"_s, gun, u"input"_s);
     EntryList prj = projectile;

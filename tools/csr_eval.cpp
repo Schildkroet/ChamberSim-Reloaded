@@ -23,8 +23,10 @@
 //   csr_eval samples.csv [--profile original|published|physical] [--data DIR] [--set name=value]... [--ba "Maker Name=value"]... [--steps n]
 //            [--physical FILE] [--phys "Maker Name=Ba,a0,z1,z2[,shape,ld,hole,amp]"]... [--list-params]
 //
-// Optional CSV columns per row: ba_scale (factor on the powder's physical Ba), case_scale (factor on the case volume), gpressure (start pressure of the bullet [bar]),
-// gfriction (extra bullet friction [bar]).
+// Optional CSV columns per row: ba_scale (factor on the powder's physical Ba), case_scale (factor on the case volume), gpressure (start pressure of the bullet [bar],
+// relative to the 250 bar reference like a bullet record), gfriction (extra bullet friction [bar]), primer_type (SP, LRM, ...: the primer of the load;
+// default: the caliber's, primer.h).
+// --primers is the file of the primers' start pressures (default: the project data's).
 // --physical is the file of the physical burn values (default: the project data's); --phys sets those of one powder (fits).
 // --profile chooses the starting constants (and with them the model: physical = the own physical model); --set changes single ones.
 //
@@ -35,6 +37,7 @@
 #include "database.h"
 #include "loadbuilder.h"
 #include "physicalpowders.h"
+#include "primer.h"
 #include "projectdata.h"
 #include "simconfig.h"
 #include "solver.h"
@@ -106,6 +109,7 @@ int main(int argc, char *argv[])
          {u"steps"_s, u"solver steps"_s, u"n"_s, u"2000"_s},
          {u"profile"_s, u"starting constants: original, published or physical"_s, u"name"_s, u"original"_s},
          {u"physical"_s, u"physical burn values file"_s, u"file"_s},
+         {u"primers"_s, u"start pressures of the primer types (default: <data>/physical/primers.json)"_s, u"file"_s},
          {u"phys"_s, u"physical burn values of a powder: \"Maker Name=Ba,a0,z1,z2\" (repeatable)"_s, u"nv"_s},
          {u"ps-handgun"_s, u"initial gas pressure [bar] of the bullets in pistol and revolver cartridges (C.I.P. table IV)"_s, u"bar"_s},
          {u"list-params"_s, u"print the calibration names and values"_s}});
@@ -133,6 +137,7 @@ int main(int argc, char *argv[])
         *it->value = nv.section(u'=', 1).toDouble();
     }
     csr::setPhysicalBurnFile(cli.isSet(u"physical"_s) ? cli.value(u"physical"_s) : cli.value(u"data"_s) + u"/physical/propellants.json"_s);
+    csr::setPrimerFile(cli.isSet(u"primers"_s) ? cli.value(u"primers"_s) : cli.value(u"data"_s) + u"/physical/primers.json"_s);
     QMap<QString, csr::PhysicalBurn> phys;
     for (const QString &nv : cli.values(u"phys"_s))
     {
@@ -164,6 +169,12 @@ int main(int argc, char *argv[])
     const auto withJump = [](csr::LoadFile lf, const QMap<QString, QString> &row)
     {
         if (!row.value(u"jump_mm"_s).isEmpty()) lf.gun.set(u"gjump", row.value(u"jump_mm"_s).toDouble());
+        // optional column primer_type: the load's primer instead of the caliber's usual one
+        if (const QString primer = row.value(u"primer_type"_s); csr::isPrimerCode(primer))
+        {
+            lf.caliber.set(u"primer", primer);
+            csr::updateStartPressure(lf);
+        }
         return lf;
     };
     // the load of a row: the physical burn values of --phys replace the file's
@@ -229,6 +240,7 @@ int main(int argc, char *argv[])
                 row.contains(u"shot_density"_s) ? row.value(u"shot_density"_s).toDouble() : 11.34;  // g/cm3 (lead; steel 7.87)
             const double column_mm = shot / (density * 0.62) * 1000.0 / g->second.area_mm2 + 25.0;  // shot (packing 0.62) + wad 25 mm
             const QVariantMap caliber{{u"cipname"_s, u"%1/%2"_s.arg(g->first).arg(hull)},
+                                      {u"ciptype"_s, u"7 shotshell"_s},  // no metallic primer: the start pressure stays the bullet's
                                       {u"L3"_s, hull == 70 ? 69.8 : double(hull)},
                                       {u"V"_s, volume->second},
                                       {u"c_Z"_s, g->second.bore_mm},

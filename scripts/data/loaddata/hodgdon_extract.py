@@ -31,6 +31,7 @@ ROW_MAX = re.compile(rf"^(?P<p>[A-Za-z][\w()&.\- ]*?)\s{{3,}}{NUM}(C?)\*?\s+{NUM
 BARREL = re.compile(r"Barrel:\s*([\d.]+)\S*(?:\s+Twist:\s*1:\s*([\d.]+))?")
 BULLET = re.compile(r"Bullet:\s*(\d+)\s*GR\.?\s*(\S+)\s*(.*?)\s+Dia:\s*([\d.]+)")
 CASE = re.compile(r"Col:\s*([\d.]+)")
+PRIMER = re.compile(r"Primer:\s*(.*?)\s{2,}Col:")
 
 
 def n(s: str) -> float:
@@ -70,6 +71,7 @@ def main() -> int:
     records = Records(args.data)
     rows, miss, codes = [], {}, {}
     title = barrel = twist = bullet = None
+    primer = ""
     cal = None
     col = None
     prev = ""
@@ -100,6 +102,8 @@ def main() -> int:
             m = CASE.search(line)
             if m and line.startswith("Case:"):
                 col = float(m[1]) * IN
+                pm = PRIMER.search(line)
+                primer = pm[1].strip() if pm else ""
                 prev = line
                 continue
             r = ROW.match(line)
@@ -124,7 +128,7 @@ def main() -> int:
                                  "bullet_len_mm": f"{length:.2f}", "len_source": source, "tail_type": tail, "col_mm": f"{col:.2f}",
                                  "barrel_mm": f"{barrel:.0f}", "twist_mm": f"{twist:.0f}" if twist else "", "kind": kind,
                                  "charge_g": round(v[0] * GRAIN_G, 4), "velocity_ms": round(v[1] * 0.3048, 1),
-                                 "pressure_bar": f"{pressure:.0f}" if pressure != "" else ""})
+                                 "pressure_bar": f"{pressure:.0f}" if pressure != "" else "", "primer": primer})
                 continue
             if not r:
                 prev = line

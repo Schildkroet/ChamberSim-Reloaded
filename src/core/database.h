@@ -109,6 +109,8 @@ public:
 
     // One row as column-name -> value (with "source"), or nullopt if the id does not exist.
     [[nodiscard]] std::optional<QVariantMap> record(Table t, int id) const;
+    // The usual primer (column primer) of the caliber records named `cipname`, own records first; nullopt when none names one.
+    [[nodiscard]] std::optional<QString> caliberPrimer(const QString &cipname) const;
 
     // A picture of the image table (propellant photos): the encoded file (JPEG/PNG) and its scale.
     struct Image
