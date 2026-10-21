@@ -721,9 +721,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
                               .e_J = 0.5 * mp * v * v,
                               .t_ms = lerp(a.t, b.t) * 1e3});
     }
-    SimInput used = in;  // the derived outputs (propellant impulse, recoil) with the Sebert factor of the dynamics
-    if (used.sebert <= 0.0) used.sebert = 0.5;
-    summarize(res, used, cal, freeVolume_cm3);
+    summarize(res, in, cal, freeVolume_cm3);  // propellant impulse and recoil with the load's Sebert factor (0..1, 0 included)
     res.frictionForce_N = m.slideForce + m.extraForce;
     // The work of that force alone: y[4] also holds the work against the engraving and the air, and the sliding friction only acts once
     // the bullet has crossed the free run, which the reported travel still includes.

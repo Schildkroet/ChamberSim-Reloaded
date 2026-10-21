@@ -238,9 +238,9 @@ void MainWindow::createActions()
                                 {
                                     auto *v = currentLoad();
                                     if (!v) return;
-                                    const QString path =
-                                        QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
+                                    QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
                                     if (path.isEmpty()) return;
+                                    path = ReportView::withPdfSuffix(path);
                                     if (v->report()->exportPdf(path))
                                     {
                                         LOG_Info() << "Report exported:" << path;
@@ -734,6 +734,7 @@ bool MainWindow::exportRecord(const QString &path)
         file = QFileDialog::getSaveFileName(this, tr("Export record"), csr::projectdata::fileName(table, *record),
                                             tr("Record files (*.json)"));
     if (file.isEmpty()) return false;
+    if (QFileInfo(file).suffix().isEmpty()) file += u".json"_s;  // a name typed without the suffix
     QFile out(file);
     if (!out.open(QIODevice::WriteOnly) || out.write(csr::projectdata::toJson(*record, schema)) < 0)
     {

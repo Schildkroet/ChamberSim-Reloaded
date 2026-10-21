@@ -67,6 +67,8 @@ public:
 
     // Output
     bool exportPdf(const QString &path);
+    // The path with ".pdf" added when it has another or no suffix (a name typed without one in the save dialog).
+    [[nodiscard]] static QString withPdfSuffix(const QString &path);
     void print(QPrinter *printer);
     void showPrintPreview(QWidget *parent);
     void showPrintDialog(QWidget *parent);

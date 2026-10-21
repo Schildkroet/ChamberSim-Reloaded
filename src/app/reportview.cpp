@@ -88,7 +88,8 @@ ReportView::ReportView(QWidget *parent)
     connect(pdf, &QPushButton::clicked, this,
             [this]
             {
-                const QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
+                QString path = QFileDialog::getSaveFileName(this, tr("Export PDF"), {}, tr("PDF documents (*.pdf)"));
+                if (!path.isEmpty()) path = withPdfSuffix(path);
                 if (!path.isEmpty() && !exportPdf(path)) QMessageBox::warning(this, tr("Export PDF"), tr("Cannot write %1").arg(path));
             });
     connect(m_scale, &QSpinBox::valueChanged, this, [this](int v) { setScale(v); });
@@ -211,6 +212,11 @@ void ReportView::print(QPrinter *printer)
 {
     if (!m_provider) return;
     makePrintDocument(QSizeF(printer->pageRect(QPrinter::Point).size()))->print(printer);
+}
+
+QString ReportView::withPdfSuffix(const QString &path)
+{
+    return QFileInfo(path).suffix().compare(QLatin1String("pdf"), Qt::CaseInsensitive) == 0 ? path : path + QStringLiteral(".pdf");
 }
 
 bool ReportView::exportPdf(const QString &path)

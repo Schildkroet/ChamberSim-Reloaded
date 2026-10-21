@@ -145,6 +145,7 @@ private slots:
     void replacingTheBulletUpdatesGeometry();
     void replacingTheCaliberCanResetDependentValues();
     void primerGivesTheStartPressure();
+    void sebertBetweenZeroAndOneIsKept();
 };
 
 void CoreTest::initTestCase()
@@ -2334,6 +2335,10 @@ void CoreTest::reportDataFromALoad()
     QCOMPARE(number("work.Dbul"), 8.2);
     QCOMPARE(number("work.xe"), 600.0);
     QCOMPARE(number("work.xeEff"), 600.0 - 46.6);  // the projectile path
+    QCOMPARE(number("work.twistlen"), 240.0);
+    QCOMPARE(number("work.gjump"), 0.0);
+    QVERIFY(csr::report::defaultTemplate().contains(u"~~work.twistlen~~"_s) &&
+            csr::report::defaultTemplate().contains(u"~~work.gjump~~"_s));
     QCOMPARE(text("work.gtailtype"), u"boattail"_s);
     QVERIFY(std::abs(number("work.gdepthc") - (10.4 - 5.1)) < 1e-9);  // guided seating depth: depth minus the boat tail
     QVERIFY(std::abs(number("work.Vb") - r.effectiveCaseVolume_cm3) < 1e-12);
@@ -2633,6 +2638,41 @@ void CoreTest::primerGivesTheStartPressure()
     }
     csr::setPrimerFile(file);
     QVERIFY(std::abs(csr::primerStartPressure_bar(u"LR"_s, 12.0) - 150.0) < 1e-9);
+}
+
+// Every Sebert factor in 0..1 (0 included) is kept when a load is opened and used as it is; values outside become 0.5. A new load of a
+// record without a factor gets 0.5.
+void CoreTest::sebertBetweenZeroAndOneIsKept()
+{
+    const QVariantMap caliber{{u"cipname"_s, u"308 Win."_s},
+                              {u"ciptype"_s, u"1 rimless"_s},
+                              {u"P1"_s, 11.96},
+                              {u"L3"_s, 51.18},
+                              {u"V"_s, 56.0},
+                              {u"c_Z"_s, 7.82},
+                              {u"c_Q"_s, 47.5},
+                              {u"Pmax"_s, 4150.0},
+                              {u"G1"_s, 7.85}};
+    const QVariantMap bullet{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"FMJ"_s}, {u"gdia"_s, 7.82}, {u"glen"_s, 30.0}, {u"gmass"_s, 150.0}};
+    const QVariantMap powder{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"P"_s}, {u"Ba"_s, 0.5},   {u"Qex"_s, 3800.0},
+                             {u"k"_s, 1.24},          {u"pc"_s, 1600.0},    {u"pcd"_s, 900.0}};
+    csr::LoadFile lf = csr::buildLoad(caliber, bullet, powder);
+    QCOMPARE(lf.caliber.number(u"sebert"), 0.5);  // the record has none
+    for (const double v : {0.0, 0.33, 1.0})
+    {
+        lf.caliber.set(u"sebert", v);
+        QVERIFY(!csr::ensureSebert(lf));
+        QCOMPARE(lf.caliber.number(u"sebert"), v);
+        const csr::SimInput in = csr::SimInput::fromLoad(lf);
+        QCOMPARE(in.sebert, v);
+        QCOMPARE(csr::report::buildData(lf, in, csr::SimResult{}, {}).find(u"work.sebert"_s)->number, v);
+    }
+    for (const char16_t *bad : {u"1.5", u"-0.2", u"x"})
+    {
+        lf.caliber.set(u"sebert", QString::fromUtf16(bad));
+        QVERIFY(csr::ensureSebert(lf));
+        QCOMPARE(lf.caliber.number(u"sebert"), 0.5);
+    }
 }
 
 QTEST_APPLESS_MAIN(CoreTest)

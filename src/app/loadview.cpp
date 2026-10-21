@@ -416,6 +416,7 @@ bool LoadView::load(const QString &path, QString *error)
     // a load saved before the physical burn values existed gets those of its (unchanged) project powder; they are saved with it next time
     if (csr::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
     csr::ensureShotParts(m_file.caliber);  // a shotshell load of an older file: the entries for shell, wad and primer (not chosen)
+    if (csr::ensureSebert(m_file)) LOG_Info() << "Sebert factor of" << path << "outside 0..1, set to 0.5";
     // a load of an older version or of the original: the primer and the additional start pressure (its start pressure is kept)
     if (csr::ensurePrimer(m_file))
     {
@@ -630,6 +631,7 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     }
     else if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
     else if (sectionId == Projectile && key == u"gpressure") cal.set(u"ps", prj.number(u"gpressure"));
+    if (sectionId == Caliber && key == u"sebert") cal.set(u"sebert", std::clamp(cal.number(u"sebert"), 0.0, 1.0));  // 0..1 are valid
     // a boat tail or hollow base without tail dimensions would have no effect: typical ones are filled in (editable)
     if (sectionId == Projectile && key == u"gTailType") csr::completeTail(prj);
     else if (sectionId == Projectile && key == u"Dbul") csr::completeTail(prj, previousDiameter);

@@ -317,6 +317,15 @@ bool ensurePrimer(LoadFile &lf)
     return true;
 }
 
+bool ensureSebert(LoadFile &lf)
+{
+    if (!lf.caliber.find(u"sebert")) return false;
+    const double v = lf.caliber.number(u"sebert", -1.0);
+    if (v >= 0.0 && v <= 1.0) return false;
+    lf.caliber.set(u"sebert", fmt(0.5));
+    return true;
+}
+
 void setPrimerKeepingStart(LoadFile &lf, const QString &primer)
 {
     const double ps = loadStartPressure_bar(lf.caliber);

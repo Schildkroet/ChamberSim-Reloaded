@@ -1685,6 +1685,9 @@ void GuiTest::reportExportsAPdf()
     QTemporaryDir dir;
     const QString pdf = dir.filePath(u"report.pdf"_s);
     QVERIFY(view.report()->exportPdf(pdf));
+    QCOMPARE(ReportView::withPdfSuffix(u"/tmp/report"_s), u"/tmp/report.pdf"_s);  // a name typed without the suffix
+    QCOMPARE(ReportView::withPdfSuffix(u"/tmp/report.PDF"_s), u"/tmp/report.PDF"_s);
+    QCOMPARE(ReportView::withPdfSuffix(u"/tmp/8x57.v2"_s), u"/tmp/8x57.v2.pdf"_s);
     QFile f(pdf);
     QVERIFY(f.open(QIODevice::ReadOnly));
     const QByteArray data = f.readAll();
