@@ -4,7 +4,7 @@
     compare_physical_published.py <csr_eval> [--baseline <csr_eval of the older build>] [--profile physical] [--min-samples 60] [--top 8]
                                   [--drop-inconsistent 0.15] [samples.csv ...]
 
-Every published load (scripts/data/loaddata/sources/samples: Hodgdon, Lovex, Reload Swiss, ADI, Vihtavuori, ... default: all that exist) is simulated
+Every published load (scripts/data/loaddata/sources/samples/by_maker, made by by_maker.py: Hodgdon, Lovex, Reload Swiss, ADI, Vihtavuori, ... default: all that exist) is simulated
 with the powder record of the build's own data (csr_eval reads the data of the tree it was built from; --profile physical = the default model, the
 physical burn values are NOT refitted here) and compared with the published velocity and peak pressure. Reported per class (rifle, pistol and
 revolver = C.I.P. table IV) and publisher: velocity / pressure rms and mean error of all loads and of the held-out cartridges (every 4th cartridge
@@ -35,7 +35,7 @@ ap.add_argument("--projectiles", default="", help="directory of projectile recor
 ap.add_argument("--worst", type=int, default=0, help="also list the loads whose pressure changed most between the builds")
 args = ap.parse_args()
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-SDIR = os.path.join(ROOT, "scripts", "data", "loaddata", "sources", "samples")
+SDIR = os.path.join(ROOT, "scripts", "data", "loaddata", "sources", "samples", "by_maker")  # by_maker.py: one file per powder maker, loads once
 files = args.samples or sorted(f for f in glob.glob(os.path.join(SDIR, "*.csv")) if "shot" not in os.path.basename(f) and "vectan_ocr" not in f)
 cal = {}
 for f in glob.glob(os.path.join(ROOT, "data", "calibers", "*.json")):

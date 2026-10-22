@@ -26,7 +26,7 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   `apply_hunting_sport_lengths.py` writes them into the records. Federal publishes the length and BC of its component bullets (`federal_fetch.py`,
   `apply_csv_lengths.py`); Berger's bullet reference chart gives the length of 111 bullets (`berger_chart.py`, all marked validated); the 195 estimated Hornady lengths were
   replaced by 167 measured on the side-view illustrations of hornady.com (`hornady_images.py`, `measure_side_photos.py`, `apply_hornady_images.py`: 1 % too long, 5 % rms against the
-  54 validated records; a picture more than 30 % from the estimate is ignored); the table of the Brenneke reloading bullets gives the BC (`brenneke_table.py`, no lengths). Fiocchi's site refuses
+  54 validated records; a picture more than 30 % from the estimate is ignored); the 127 estimated Sierra lengths were replaced by lengths measured on the product photos of sierrabullets.com (`sierra_images.py`; the brand banner is cut off; +1 % and 3 % rms against the 110 validated records) and 51 Norma lengths by measurements on the renderings of norma-ammunition.com (`norma_images.py`; `apply_measured_lengths.py` writes them, `apply_hornady_images.py` was generalised into it); the table of the Brenneke reloading bullets gives the BC (`brenneke_table.py`, no lengths). Fiocchi's site refuses
   automated requests and is not included.
   The initial gas pressure (`gpressure`, the pressure at which the bullet starts and engraves) is an estimate from the construction
   (`start_pressure.py`): lead (cast, plated) 150 bar, jacketed 250 bar, brass monolithic 290 bar, copper monolithic (Barnes TSX/TTSX/LRX,

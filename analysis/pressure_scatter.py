@@ -22,7 +22,7 @@ from collections import defaultdict
 import numpy as np
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--samples", default="scripts/data/loaddata/sources/samples")
+ap.add_argument("--samples", default="scripts/data/loaddata/sources/samples/by_maker")
 ap.add_argument("--data", default="data")
 ap.add_argument("--min-group", type=int, default=12)
 args = ap.parse_args()

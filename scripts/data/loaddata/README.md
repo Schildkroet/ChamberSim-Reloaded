@@ -74,6 +74,14 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   the maximum load with velocity (no pressures; two layouts, the older one with a picture of each bullet). The picture's silhouette gives the bullet
   length (`barnes_lengths.csv`, the widest section is the diameter). 3,904 samples of 56 cartridges; the muzzleloader PDF and 10 cartridges that are
   not in the records (22 / 25 Creedmoor, 28 Nosler, 338-06, ...) are skipped. Bullets that share a table get its loads once.
+- `hn_extract.py catalogue.pdf` reads the load tables of the H&N bullet catalogue (H&N Geschossprogramm, 15th edition, lhs-germany.de; pages 10-13 handgun "ideal loads",
+  16-17 reduced rifle loads): one load per row with powder, charge, cartridge length, primer and V0, but **no barrel length** (only the test weapon's name; assumed 120 mm
+  handgun, 600 mm rifle) and no pressures; the rows count as start loads. 139 samples of 35 powders, bullets of H&N (measured lengths from the project records). Too few
+  samples per powder for new records (the largest: N110 24, HP-38 14); they add to the caliber and primer fits.
+- `by_maker.py` sorts all sample files by the maker of the powder and writes `sources/samples/by_maker/<maker>.csv` (Hodgdon, IMR, Winchester, Accurate, Ramshot, Alliant, ADI,
+  Vectan, Vihtavuori, Lovex, Reload Swiss, RWS-Rottweil, Norma): the loads of every source for the maker's powders, identical loads once, a column `source` names the file.
+  A source that lists powders of many makers (the H&N catalogue, a bullet maker's PDF such as Barnes) is split among the makers' files; run the script again after
+  extracting a new source to `sources/samples/<name>_samples.csv`. 51,788 loads of 37 files.
 - `samples_common.py`: matches cartridges (with the table's spelling variants) to `data/calibers` and bullets to `data/projectiles`,
   else an estimated length (`estimate_length.py`).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
