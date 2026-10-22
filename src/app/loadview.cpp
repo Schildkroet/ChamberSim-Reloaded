@@ -203,11 +203,13 @@ LoadView::LoadView(QWidget *parent)
     m_status->setWordWrap(true);
     m_comparison->setTextFormat(Qt::RichText);
 
-    const std::array labels = {tr("Maximum pressure"),     tr("Muzzle pressure"),     tr("Projectile energy"),    tr("Muzzle velocity"),
-                               tr("Barrel time (BT)"),     tr("Burnout pressure"),    tr("Gas outflow velocity"), tr("Projectile speed"),
-                               tr("Recoil energy"),        tr("IPSC / MIP factor"),   tr("Load ratio"),           tr("Burnt propellant"),
-                               tr("Effective efficiency"), tr("Heat / friction loss")};
-    for (std::size_t i = 0; i < labels.size(); ++i) m_resultCols[i / 5]->addRow(labels[i] + u':', valueLabel());
+    const std::array labels = {tr("Maximum pressure"),         tr("Muzzle pressure"),      tr("Projectile energy"),
+                               tr("Muzzle velocity"),          tr("Barrel time (BT)"),     tr("Burnout pressure"),
+                               tr("Gas outflow velocity"),     tr("Projectile speed"),     tr("Recoil energy"),
+                               tr("IPSC / MIP factor"),        tr("Load ratio"),           tr("Burnt propellant"),
+                               tr("Effective efficiency"),     tr("Heat / friction loss"), tr("Bullet lead time (BLT)"),
+                               tr("Optimal barrel time (OBT)")};
+    for (std::size_t i = 0; i < labels.size(); ++i) m_resultCols[std::min<std::size_t>(i / 5, 2)]->addRow(labels[i] + u':', valueLabel());
     auto *results = new QHBoxLayout;
     for (QFormLayout *col : m_resultCols)
     {
@@ -1144,7 +1146,7 @@ void LoadView::showResult()
 
     const csr::SimResult &r = m_result;
     using csr::units::Quantity;
-    const auto put = [this](int i, const QString &text) { setRow(m_resultCols[i / 5], i % 5, text); };
+    const auto put = [this](int i, const QString &text) { setRow(m_resultCols[std::min(i / 5, 2)], i - 5 * std::min(i / 5, 2), text); };
     put(0, shown(r.maxPressure_bar, Quantity::Pressure));
     if (const double permitted = m_input.maxPressure_bar; permitted > 0.0 && r.maxPressure_bar > permitted)
     {
@@ -1172,6 +1174,14 @@ void LoadView::showResult()
     put(13, r.heatLoss_J > 0.0
                 ? QStringLiteral("%1, %2").arg(shown(r.heatLoss_J, Quantity::Energy), shown(r.muzzleFrictionEnergy_J, Quantity::Energy))
                 : tr("–, %1").arg(shown(r.muzzleFrictionEnergy_J, Quantity::Energy)));
+    put(14, tr("%1 ms").arg(num(r.bulletLeadTime_ms, 4)));
+    if (r.optimalBarrelNode >= 0.0)
+    {
+        const int whole = static_cast<int>(r.optimalBarrelNode);
+        const QString node = r.optimalBarrelNode > whole ? tr("#%1 ½").arg(whole) : tr("#%1").arg(whole);
+        put(15, tr("%1 ms, node %2").arg(num(r.optimalBarrelTime_ms, 4), node));
+    }
+    else put(15, QStringLiteral("–"));
 
     if (!m_reference) return;
     struct Row
@@ -1189,6 +1199,8 @@ void LoadView::showResult()
         Row{tr("Muzzle velocity"), r.muzzleVelocity_ms, Quantity::Velocity, {}, -1, "MuzzleVelocity"},
         Row{tr("Muzzle energy"), r.muzzleEnergy_J, Quantity::Energy, {}, -1, "MuzzleEnergy"},
         Row{tr("Bullet time"), r.muzzleTime_ms, Quantity::None, tr("ms"), 3, "MuzzleTime"},
+        Row{tr("Bullet lead time"), r.bulletLeadTime_ms, Quantity::None, tr("ms"), 3, "BulletLeadTime10Pmax"},
+        Row{tr("Optimal barrel time"), r.optimalBarrelTime_ms, Quantity::None, tr("ms"), 3, "OptimalBarrelTime"},
         Row{tr("Recoil impulse"), r.recoilImpulse_Ns, Quantity::Impulse, {}, -1, "RecoilImpulse"},
     };
     QString html = tr("<table cellspacing='3'><tr><th></th><th align='right'>this</th><th align='right'>original</th>"

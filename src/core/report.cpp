@@ -204,6 +204,18 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
         num(u"result.MuzzleEnergy"_s, r.muzzleEnergy_J, Quantity::Energy);
         num(u"result.MuzzleVelocity"_s, r.muzzleVelocity_ms, Quantity::Velocity);
         num(u"result.MuzzleTime"_s, r.muzzleTime_ms, Quantity::Time);
+        num(u"result.BulletLeadTime"_s, r.bulletLeadTime_ms, Quantity::Time);
+        if (r.optimalBarrelNode >= 0.0)
+        {
+            const int whole = static_cast<int>(r.optimalBarrelNode);
+            num(u"result.OptimalBarrelTime"_s, r.optimalBarrelTime_ms, Quantity::Time);
+            txt(u"result.OptimalBarrelNode"_s, u"#%1%2"_s.arg(whole).arg(r.optimalBarrelNode > whole ? u" ½"_s : QString()));
+        }
+        else
+        {
+            txt(u"result.OptimalBarrelTime"_s, u"–"_s);
+            txt(u"result.OptimalBarrelNode"_s, u"–"_s);
+        }
         d.set(u"result.LoadRatio"_s, Value::ofFraction(r.loadRatio));
         d.set(u"result.BurnRatio"_s, Value::ofFraction(r.burntFraction));
         if (r.burnoutInBarrel)
@@ -267,6 +279,7 @@ QString defaultTemplate()
 | Load ratio | ~~result.LoadRatio~~ | Recoil impulse | ~~result.Impulse~~ |
 | Burnt propellant | ~~result.BurnRatio~~ | Recoil energy | ~~result.RecoilEnergy~~ |
 | Efficiency | ~~result.Efficiency~~ | Gas outflow velocity | ~~result.OutflowVelocity~~ |
+| Bullet lead time (BLT) | ~~result.BulletLeadTime~~ | Optimal barrel time (OBT) | ~~result.OptimalBarrelTime~~, node ~~result.OptimalBarrelNode~~ |
 
 <pagebreak>
 ===== Diagrams =====

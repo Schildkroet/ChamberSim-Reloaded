@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+206"/>
-        <location line="+981"/>
+        <location line="+991"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-981"/>
-        <location line="+982"/>
+        <location line="-991"/>
+        <location line="+992"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-982"/>
+        <location line="-992"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+983"/>
+        <location line="+1"/>
+        <location line="+992"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-982"/>
+        <location line="-992"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -346,7 +346,7 @@
         <translation>Pression fin de combustion</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Gas outflow velocity</source>
         <translation>Vitesse d’éjection des gaz</translation>
     </message>
@@ -356,23 +356,23 @@
         <translation>Rotation du projectile</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Recoil energy</source>
         <translation>Énergie de recul</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>IPSC / MIP factor</source>
         <translation>Facteur IPSC / MIP</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Load ratio</source>
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="-41"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
@@ -387,7 +387,7 @@
         <translation>Pertes chaleur / frottement</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+40"/>
         <location line="+825"/>
         <source>Charge</source>
         <translation>Charge</translation>
@@ -442,20 +442,20 @@
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-916"/>
-        <location line="+140"/>
+        <location line="-918"/>
+        <location line="+142"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Projectile</source>
         <translation>Choisir le projectile</translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Propellant</source>
         <translation>Choisir la poudre</translation>
     </message>
@@ -542,7 +542,17 @@
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-383"/>
+        <source>Bullet lead time (BLT)</source>
+        <translation>Temps d&apos;avance du projectile (BLT)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time (OBT)</source>
+        <translation>Temps de tube optimal (OBT)</translation>
+    </message>
+    <message>
+        <location line="+387"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Afficher uniquement les balles adaptées au calibre</translation>
     </message>
@@ -689,11 +699,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+10"/>
+        <location line="+14"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-13"/>
         <source>not burnt out</source>
         <translation>combustion incomplète</translation>
     </message>
@@ -713,7 +724,22 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>–, %1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+5"/>
+        <source>#%1 ½</source>
+        <translation>#%1 ½</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>#%1</source>
+        <translation>#%1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 ms, node %2</source>
+        <translation>%1 ms, nœud %2</translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Muzzle energy</source>
         <translation>Énergie à la bouche</translation>
     </message>
@@ -724,8 +750,20 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+0"/>
+        <location line="+1"/>
+        <location line="+1"/>
         <source>ms</source>
         <translation>ms</translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>Bullet lead time</source>
+        <translation>Temps d&apos;avance du projectile</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time</source>
+        <translation>Temps de tube optimal</translation>
     </message>
     <message>
         <location line="+1"/>

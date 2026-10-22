@@ -50,6 +50,7 @@
 #include "reportformat.h"
 #include "wiki.h"
 #include "units.h"
+#include "obt.h"
 #include "solver.h"
 
 #include <algorithm>
@@ -105,6 +106,7 @@ private slots:
     void temperatureCoefficients();
     void fastPowdersAndCovolume();
     void solverMatchesMomentumRule();
+    void optimalBarrelTimeNodes();
     void derivedOutputsMatchReference_data();
     void derivedOutputsMatchReference();
     void chargeRuleMatchesTheOriginal();
@@ -1249,6 +1251,33 @@ void CoreTest::solverMatchesMomentumRule()
     // sanity: monotonic travel, bounded burn fraction
     QVERIFY(std::ranges::is_sorted(r.points, {}, &csr::SimPoint::x_mm));
     QVERIFY(std::ranges::all_of(r.points, [](const csr::SimPoint &p) { return p.z >= 0.0 && p.z <= 1.0; }));
+}
+
+void CoreTest::optimalBarrelTimeNodes()
+{
+    // Long's worked example: 24 inch, node 4 -> 1.101 ms; values of the original's results (barrel 600 mm and 150 mm)
+    QVERIFY(std::abs(csr::obtTime_ms(4.0, 24.0 * 25.4) - 1.101) < 1e-3);
+    QVERIFY(std::abs(csr::obtTime_ms(2.0, 600.0) - 0.881322233646457) < 1e-6);
+    QVERIFY(std::abs(csr::obtTime_ms(2.5, 600.0) - 0.932184707044095) < 1e-6);
+    QVERIFY(std::abs(csr::obtTime_ms(9.5, 150.0) - 0.41544) < 1e-5);
+    // nearest node, half nodes optional, none without a barrel
+    const auto node = csr::nearestObtNode(0.8889, 600.0);
+    QVERIFY(node);
+    QCOMPARE(node->node, 2.0);
+    const auto whole = csr::nearestObtNode(0.9322, 600.0, false);
+    QVERIFY(whole);
+    QCOMPARE(whole->node, 2.0);
+    QVERIFY(!csr::nearestObtNode(0.9, 0.0));
+    const auto top = csr::nearestObtNode(9.0, 600.0);
+    QVERIFY(top);
+    QCOMPARE(top->node, csr::kObtMaxNode);
+    // the load's results carry the bullet lead time and the node
+    const auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    const csr::SimResult r = csr::simulate(csr::SimInput::fromLoad(*lf));
+    QVERIFY(r.ok());
+    QVERIFY(r.bulletLeadTime_ms > 0.0 && r.bulletLeadTime_ms < 1.1 * r.muzzleTime_ms);
+    QVERIFY(r.optimalBarrelNode >= 0.0 && r.optimalBarrelTime_ms > 0.0);
 }
 
 void CoreTest::derivedOutputsMatchReference_data()

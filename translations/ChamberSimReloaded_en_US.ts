@@ -313,7 +313,7 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+483"/>
+        <location filename="../src/app/loadview.cpp" line="+485"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -332,20 +332,20 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-916"/>
-        <location line="+140"/>
+        <location line="-918"/>
+        <location line="+142"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -361,25 +361,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-905"/>
-        <location line="+981"/>
+        <location line="-907"/>
+        <location line="+991"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-981"/>
-        <location line="+982"/>
+        <location line="-991"/>
+        <location line="+992"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-982"/>
-        <location line="+983"/>
+        <location line="-991"/>
+        <location line="+992"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-983"/>
+        <location line="-993"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -394,7 +394,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Gas outflow velocity</source>
         <translation type="unfinished"></translation>
     </message>
@@ -404,23 +404,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Recoil energy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>IPSC / MIP factor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Load ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="-41"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -432,6 +432,16 @@
     <message>
         <location line="+0"/>
         <source>Heat / friction loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Bullet lead time (BLT)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time (OBT)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -685,11 +695,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+10"/>
+        <location line="+14"/>
         <source>%1 ms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-13"/>
         <source>not burnt out</source>
         <translation type="unfinished"></translation>
     </message>
@@ -709,7 +720,22 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+5"/>
+        <source>#%1 ½</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>#%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 ms, node %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Muzzle energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -720,7 +746,19 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+0"/>
+        <location line="+1"/>
+        <location line="+1"/>
         <source>ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>Bullet lead time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

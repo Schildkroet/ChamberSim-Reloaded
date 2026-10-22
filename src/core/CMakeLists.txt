@@ -3,6 +3,8 @@ add_library(csrcore STATIC
     loadfile.h
     numeric.h
     loadfile.cpp
+    obt.h
+    obt.cpp
     solver.h
     solver.cpp
     simconfig.h

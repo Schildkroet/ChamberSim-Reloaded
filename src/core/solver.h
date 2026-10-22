@@ -48,18 +48,30 @@ enum class SimStatus
 };
 
 // Curves and summary values of one simulation. Only meaningful when ok().
+// Pressure of the time before the bullet moves (physical model; t <= 0, the bullet starts at 0)
+struct RestPoint
+{
+    double t_ms{};
+    double p_bar{};
+};
+
 struct SimResult
 {
     SimStatus status{SimStatus::InvalidInput};
     std::vector<SimPoint> points;
+    std::vector<RestPoint> restPhase;  // physical model: the pressure rise before the curve starts (the bullet waits at the start)
 
     double maxPressure_bar{};
     double muzzlePressure_bar{};
     double muzzleVelocity_ms{};
     double muzzleEnergy_J{};
     double muzzleTime_ms{};
-    double burntFraction{};  // z at the muzzle
-    double efficiency{};     // muzzle energy / total chemical energy of the charge
+    double pmax10Time_ms{};          // time at which the pressure first reaches 10 % of the maximum
+    double optimalBarrelTime_ms{};   // OBT: time of the nearest node (see obt.h), 0 without one
+    double optimalBarrelNode{-1.0};  // its number (0, 0.5, ... 24.5), -1 without one
+    double bulletLeadTime_ms{};      // BLT: muzzle time minus that (the original's BulletLeadTime10Pmax)
+    double burntFraction{};          // z at the muzzle
+    double efficiency{};             // muzzle energy / total chemical energy of the charge
     std::size_t indexPmax{};
     std::size_t indexBurnout{};  // first point with z == 1, or last point if not burnt out
     bool burnoutInBarrel{};

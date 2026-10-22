@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+206"/>
-        <location line="+981"/>
+        <location line="+991"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-981"/>
-        <location line="+982"/>
+        <location line="-991"/>
+        <location line="+992"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-982"/>
+        <location line="-992"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+983"/>
+        <location line="+1"/>
+        <location line="+992"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-982"/>
+        <location line="-992"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -346,7 +346,7 @@
         <translation>Druck bei Brennschluss</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Gas outflow velocity</source>
         <translation>Gasausströmgeschwindigkeit</translation>
     </message>
@@ -356,23 +356,23 @@
         <translation>Geschossdrehzahl</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Recoil energy</source>
         <translation>Rückstoßenergie</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>IPSC / MIP factor</source>
         <translation>IPSC- / MIP-Faktor</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Load ratio</source>
         <translation>Füllgrad</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="-41"/>
         <source>Burnt propellant</source>
         <translation>Verbranntes Pulver</translation>
     </message>
@@ -387,7 +387,7 @@
         <translation>Wärme-/Reibungsverlust</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+40"/>
         <location line="+825"/>
         <source>Charge</source>
         <translation>Ladung</translation>
@@ -442,20 +442,20 @@
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="-916"/>
-        <location line="+140"/>
+        <location line="-918"/>
+        <location line="+142"/>
         <source>Select Caliber</source>
         <translation>Kaliber wählen</translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Projectile</source>
         <translation>Geschoss wählen</translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Propellant</source>
         <translation>Pulver wählen</translation>
     </message>
@@ -542,7 +542,17 @@
         <translation>Auch Lauflänge, Setztiefe und Ladung auf die Vorgaben des neuen Kalibers setzen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-383"/>
+        <source>Bullet lead time (BLT)</source>
+        <translation>Geschossvorlaufzeit (BLT)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time (OBT)</source>
+        <translation>Optimale Laufzeit (OBT)</translation>
+    </message>
+    <message>
+        <location line="+387"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Nur Geschosse anzeigen, die zum Kaliber passen</translation>
     </message>
@@ -689,11 +699,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+10"/>
+        <location line="+14"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-13"/>
         <source>not burnt out</source>
         <translation>nicht ausgebrannt</translation>
     </message>
@@ -713,7 +724,22 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>–, %1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+5"/>
+        <source>#%1 ½</source>
+        <translation>#%1 ½</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>#%1</source>
+        <translation>#%1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 ms, node %2</source>
+        <translation>%1 ms, Knoten %2</translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Muzzle energy</source>
         <translation>Mündungsenergie</translation>
     </message>
@@ -724,8 +750,20 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+0"/>
+        <location line="+1"/>
+        <location line="+1"/>
         <source>ms</source>
         <translation>ms</translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>Bullet lead time</source>
+        <translation>Geschossvorlaufzeit</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time</source>
+        <translation>Optimale Laufzeit</translation>
     </message>
     <message>
         <location line="+1"/>

@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+206"/>
-        <location line="+981"/>
+        <location line="+991"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-981"/>
-        <location line="+982"/>
+        <location line="-991"/>
+        <location line="+992"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-982"/>
+        <location line="-992"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+983"/>
+        <location line="+1"/>
+        <location line="+992"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-982"/>
+        <location line="-992"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -346,7 +346,7 @@
         <translation>Pressione fine combustione</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Gas outflow velocity</source>
         <translation>Velocità di efflusso dei gas</translation>
     </message>
@@ -356,23 +356,23 @@
         <translation>Rotazione del proiettile</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Recoil energy</source>
         <translation>Energia di rinculo</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>IPSC / MIP factor</source>
         <translation>Fattore IPSC / MIP</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>Load ratio</source>
         <translation>Grado di riempimento</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="-41"/>
         <source>Burnt propellant</source>
         <translation>Polvere bruciata</translation>
     </message>
@@ -387,7 +387,7 @@
         <translation>Perdite calore / attrito</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+40"/>
         <location line="+825"/>
         <source>Charge</source>
         <translation>Carica</translation>
@@ -442,20 +442,20 @@
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="-916"/>
-        <location line="+140"/>
+        <location line="-918"/>
+        <location line="+142"/>
         <source>Select Caliber</source>
         <translation>Scegli il calibro</translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Projectile</source>
         <translation>Scegli il proiettile</translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-142"/>
+        <location line="+142"/>
         <source>Select Propellant</source>
         <translation>Scegli la polvere</translation>
     </message>
@@ -542,7 +542,17 @@
         <translation>Imposta anche lunghezza della canna, profondità di inserimento e carica ai valori predefiniti del nuovo calibro</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-383"/>
+        <source>Bullet lead time (BLT)</source>
+        <translation>Tempo di anticipo del proiettile (BLT)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time (OBT)</source>
+        <translation>Tempo di canna ottimale (OBT)</translation>
+    </message>
+    <message>
+        <location line="+387"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Mostra solo le palle adatte al calibro</translation>
     </message>
@@ -689,11 +699,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+10"/>
+        <location line="+14"/>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-13"/>
         <source>not burnt out</source>
         <translation>combustione incompleta</translation>
     </message>
@@ -713,7 +724,22 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>–, %1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+5"/>
+        <source>#%1 ½</source>
+        <translation>#%1 ½</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>#%1</source>
+        <translation>#%1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 ms, node %2</source>
+        <translation>%1 ms, nodo %2</translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Muzzle energy</source>
         <translation>Energia alla volata</translation>
     </message>
@@ -724,8 +750,20 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+0"/>
+        <location line="+1"/>
+        <location line="+1"/>
         <source>ms</source>
         <translation>ms</translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>Bullet lead time</source>
+        <translation>Tempo di anticipo del proiettile</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Optimal barrel time</source>
+        <translation>Tempo di canna ottimale</translation>
     </message>
     <message>
         <location line="+1"/>

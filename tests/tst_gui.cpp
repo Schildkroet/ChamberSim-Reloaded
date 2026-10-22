@@ -869,7 +869,7 @@ void GuiTest::resultsFollowTheUnitSystem()
     QVERIFY2(imperial.contains(u" psi"_s), qPrintable(imperial));
     QVERIFY(imperial.contains(u" ft/s"_s));
     QVERIFY(imperial.contains(u" ft·lbf"_s));
-    QVERIFY(!imperial.contains(u" bar"_s));
+    QVERIFY(!imperial.contains(QRegularExpression(u"\\bbar\\b"_s)));  // not "barrel"
     UnitPreferences::instance().setSystem(System::Original);
 }
 
@@ -1487,7 +1487,7 @@ void GuiTest::reportTabRendersTheLoad()
     // the unit system applies to the report too
     UnitPreferences::instance().setSystem(csr::units::System::Imperial);
     QVERIFY(report->html().contains(u" psi"_s) && report->html().contains(u" ft/s"_s));
-    QVERIFY(!report->html().contains(u" bar"_s));
+    QVERIFY(!report->html().contains(QRegularExpression(u"\\bbar\\b"_s)));
     UnitPreferences::instance().setSystem(csr::units::System::Original);
 
     // editing the load changes the report

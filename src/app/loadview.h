@@ -207,7 +207,7 @@ private:
     QWidget *m_outdatedNotice;  // orange banner: the powder values of the load differ from the database record of that powder
     QLabel *m_outdatedNoticeText;
     int m_outdatedRecordId{0};
-    std::array<QFormLayout *, 3> m_resultCols;  // the results in three columns (5 + 5 + 4 rows)
+    std::array<QFormLayout *, 3> m_resultCols;  // the results in three columns (5 + 5 + 6 rows)
     QLabel *m_comparison;
     VivacityChart *m_vivacity;
     CurveChart *m_chart;

@@ -53,6 +53,7 @@
 #include "solver.h"
 
 #include "numeric.h"
+#include "obt.h"
 
 #include <algorithm>
 #include <cmath>
@@ -340,6 +341,38 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
     res.muzzleVelocity_ms = last.v_ms;
     res.muzzleEnergy_J = last.e_J;
     res.muzzleTime_ms = last.t_ms;
+    // first rise through 10 % of the maximum pressure (linear between the two points around it)
+    const double p10 = 0.1 * res.maxPressure_bar;
+    const auto rise = std::ranges::find_if(pts, [p10](const SimPoint &q) { return q.p_bar >= p10; });
+    if (rise != pts.end())
+    {
+        res.pmax10Time_ms = rise->t_ms;
+        if (rise == pts.begin() && !res.restPhase.empty())
+        {
+            // already above 10 % when the bullet starts to move: the crossing lies in the time before
+            const auto before = std::ranges::find_if(res.restPhase, [p10](const RestPoint &q) { return q.p_bar >= p10; });
+            if (before != res.restPhase.end())
+            {
+                res.pmax10Time_ms = before->t_ms;
+                if (before != res.restPhase.begin() && before->p_bar > (before - 1)->p_bar)
+                {
+                    const RestPoint &lower = *(before - 1);
+                    res.pmax10Time_ms = lower.t_ms + (p10 - lower.p_bar) / (before->p_bar - lower.p_bar) * (before->t_ms - lower.t_ms);
+                }
+            }
+        }
+        else if (rise != pts.begin() && rise->p_bar > (rise - 1)->p_bar)
+        {
+            const SimPoint &before = *(rise - 1);
+            res.pmax10Time_ms = before.t_ms + (p10 - before.p_bar) / (rise->p_bar - before.p_bar) * (rise->t_ms - before.t_ms);
+        }
+    }
+    res.bulletLeadTime_ms = res.muzzleTime_ms - res.pmax10Time_ms;
+    if (const auto obt = nearestObtNode(res.bulletLeadTime_ms, in.barrelLength_mm))
+    {
+        res.optimalBarrelTime_ms = obt->time_ms;
+        res.optimalBarrelNode = obt->node;
+    }
     res.burntFraction = last.z;
     res.efficiency = last.e_J / (in.charge_g * 1e-3 * in.heatQex_kJkg * 1e3);
     const auto burnout = std::ranges::find_if(pts, [](const SimPoint &q) { return q.z >= 1.0; });
@@ -695,6 +728,9 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     // time begin when it moves (the last sample at rest).
     std::size_t first = 0;
     while (first + 1 < samples.size() && samples[first + 1].v <= 0.0) ++first;
+    // the pressure rise before that (time before the motion is negative): the bullet lead time starts at 10 % of the maximum pressure
+    for (std::size_t i = 0; i <= first; ++i)
+        res.restPhase.push_back({.t_ms = (samples[i].t - samples[first].t) * 1e3, .p_bar = samples[i].p / kBar});
     if (first > 0)
     {
         samples.erase(samples.begin(), samples.begin() + static_cast<std::ptrdiff_t>(first));
