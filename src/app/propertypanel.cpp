@@ -300,6 +300,16 @@ PropertyPanel::PropertyPanel(QWidget *parent)
     connect(&UnitPreferences::instance(), &UnitPreferences::changed, this, &PropertyPanel::refreshValues);
 }
 
+// the category rows carry a brush of the palette at the time they were built: renew it when the theme changes
+void PropertyPanel::changeEvent(QEvent *event)
+{
+    QWidget::changeEvent(event);
+    if (event->type() != QEvent::PaletteChange || !m_table) return;
+    for (int r = 0; r < m_table->rowCount(); ++r)
+        if (m_table->columnSpan(r, 0) > 1)
+            if (auto *item = m_table->item(r, 0)) item->setBackground(palette().alternateBase());
+}
+
 void PropertyPanel::setSections(const std::vector<Section> &sections)
 {
     m_sections = sections;

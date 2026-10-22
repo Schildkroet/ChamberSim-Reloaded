@@ -33,7 +33,9 @@
 #include <QSettings>
 #include <QStyle>
 #include <QStyleFactory>
+#include <QStyleHints>
 #include <QStyleOption>
+#include <QtGlobal>
 
 namespace theme
 {
@@ -49,6 +51,8 @@ struct Scheme
     QRgb window, base, alt, text, link, highlight, highlightedText, placeholder, disabled;
 };
 
+// Fusion's classic light colors, fixed: Fusion's standardPalette() follows the system color scheme (dark on a dark desktop)
+constexpr Scheme kLight{0xefefef, 0xffffff, 0xf7f7f7, 0x000000, 0x0000ff, 0x308cc6, 0xffffff, 0x808080, 0xbebebe};
 constexpr Scheme kDark{0x2b313b, 0x222730, 0x2f3641, 0xdde3ea, 0x6cb0f0, 0x3b6ea8, 0xffffff, 0x8a94a0, 0x6a727c};
 constexpr Scheme kGruvboxDark{0x282828, 0x1d2021, 0x3c3836, 0xebdbb2, 0x83a598, 0x458588, 0xebdbb2, 0x928374, 0x7c6f64};
 constexpr Scheme kGruvboxLight{0xebdbb2, 0xfbf1c7, 0xf2e5bc, 0x3c3836, 0x076678, 0x458588, 0xfbf1c7, 0x928374, 0xa89984};
@@ -61,6 +65,7 @@ constexpr Scheme kCatppuccinFrappe{0x303446, 0x292c3c, 0x414559, 0xc6d0f5, 0x8ca
 {
     switch (mode)
     {
+    case Mode::Light: return &kLight;
     case Mode::Dark: return &kDark;
     case Mode::GruvboxDark: return &kGruvboxDark;
     case Mode::GruvboxLight: return &kGruvboxLight;
@@ -68,8 +73,7 @@ constexpr Scheme kCatppuccinFrappe{0x303446, 0x292c3c, 0x414559, 0xc6d0f5, 0x8ca
     case Mode::Dracula: return &kDracula;
     case Mode::CatppuccinLatte: return &kCatppuccinLatte;
     case Mode::CatppuccinFrappe: return &kCatppuccinFrappe;
-    case Mode::System:
-    case Mode::Light: break;
+    case Mode::System: break;
     }
     return nullptr;
 }
@@ -258,13 +262,23 @@ void apply(QApplication &app, Mode mode)
     switch (mode)
     {
     case Mode::System:
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+        // Some platform styles ignore the OS dark/light setting (e.g. the Windows styles of older Qt 6 versions): then the
+        // palette disagrees with the reported color scheme and the matching built-in scheme is used instead
+        const Qt::ColorScheme scheme = app.styleHints()->colorScheme();
+        const bool paletteDark = systemPalette.color(QPalette::Window).lightness() < 128;
+        if (scheme != Qt::ColorScheme::Unknown && paletteDark != (scheme == Qt::ColorScheme::Dark))
+        {
+            setStyle(app, QStringLiteral("Fusion"));
+            app.setPalette(schemePalette(scheme == Qt::ColorScheme::Dark ? kDark : kLight));
+            break;
+        }
+#endif
         setStyle(app, systemStyle);
         app.setPalette(systemPalette);
         break;
-    case Mode::Light:
-        setStyle(app, QStringLiteral("Fusion"));
-        app.setPalette(app.style()->standardPalette());
-        break;
+    }
     default:
         setStyle(app, QStringLiteral("Fusion"));
         app.setPalette(schemePalette(*schemeFor(mode)));
