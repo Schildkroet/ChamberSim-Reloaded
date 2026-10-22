@@ -290,8 +290,15 @@ void MainWindow::createActions()
     QMenu *themeMenu = view->addMenu(tr("&Theme"));
     auto *themeGroup = new QActionGroup(this);
     const theme::Mode currentTheme = theme::storedMode();
-    const std::array<std::pair<QString, theme::Mode>, 3> themes{
-        {{tr("System default"), theme::Mode::System}, {tr("Light"), theme::Mode::Light}, {tr("Dark"), theme::Mode::Dark}}};
+    const std::array<std::pair<QString, theme::Mode>, 9> themes{{{tr("System default"), theme::Mode::System},
+                                                                 {tr("Light"), theme::Mode::Light},
+                                                                 {tr("Dark"), theme::Mode::Dark},
+                                                                 {tr("Gruvbox Light"), theme::Mode::GruvboxLight},
+                                                                 {tr("Gruvbox Dark"), theme::Mode::GruvboxDark},
+                                                                 {tr("Nord"), theme::Mode::Nord},
+                                                                 {tr("Dracula"), theme::Mode::Dracula},
+                                                                 {tr("Catppuccin Latte"), theme::Mode::CatppuccinLatte},
+                                                                 {tr("Catppuccin Frappé"), theme::Mode::CatppuccinFrappe}}};
     for (const auto &[label, mode] : themes)
     {
         QAction *a = themeMenu->addAction(label);

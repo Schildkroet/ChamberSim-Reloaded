@@ -124,6 +124,12 @@ QString html(const std::optional<DatabaseInfo> &database)
                                          "<a href=\"https://www.gnu.org/licenses/\">GNU General Public License</a> for details.</p>"
                                          "<p>The records of the built-in database are licensed under "
                                          "<a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</p>");
+    text += QApplication::translate("about", "<p>The color themes use the palettes of "
+                                             "<a href=\"https://github.com/morhetz/gruvbox\">Gruvbox</a> (Pavel Pertsev), "
+                                             "<a href=\"https://www.nordtheme.com\">Nord</a> (Sven Greb), "
+                                             "<a href=\"https://draculatheme.com\">Dracula</a> (Zeno Rocha) and "
+                                             "<a href=\"https://catppuccin.com\">Catppuccin</a> (the Catppuccin contributors), "
+                                             "all under the MIT license.</p>");
     text += QApplication::translate("about", "<hr><p><small>Qt %1 (built with %2) · %3 · language %4</small></p>")
                 .arg(QString::fromLatin1(qVersion()), QStringLiteral(QT_VERSION_STR), QSysInfo::prettyProductName().toHtmlEscaped(),
                      QLocale().name());

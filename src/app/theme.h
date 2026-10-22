@@ -23,7 +23,7 @@
 
 class QApplication;
 
-// Light / dark appearance. "System" keeps the platform's palette.
+// Light / dark appearance and a few named color schemes. "System" keeps the platform's palette.
 namespace theme
 {
 
@@ -31,8 +31,18 @@ enum class Mode
 {
     System,
     Light,
-    Dark
+    Dark,
+    GruvboxLight,
+    GruvboxDark,
+    Nord,
+    Dracula,
+    CatppuccinLatte,
+    CatppuccinFrappe
 };
+
+// Stable name of a mode (settings value, --theme), "system" for an unknown one
+[[nodiscard]] QString modeKey(Mode mode);
+[[nodiscard]] Mode modeFromKey(const QString &key);
 
 [[nodiscard]] Mode storedMode();
 void storeMode(Mode mode);

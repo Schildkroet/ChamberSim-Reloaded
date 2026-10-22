@@ -63,8 +63,11 @@ int main(int argc, char *argv[])
         QStringLiteral("index"));
     const QCommandLineOption langOpt(QStringLiteral("language"), QStringLiteral("user interface language, e.g. en_US or de_DE"),
                                      QStringLiteral("lang"));
-    const QCommandLineOption themeOpt(QStringLiteral("theme"), QStringLiteral("light or dark (overrides the saved choice)"),
-                                      QStringLiteral("mode"));
+    const QCommandLineOption themeOpt(
+        QStringLiteral("theme"),
+        QStringLiteral(
+            "light, dark, gruvbox-light, gruvbox-dark, nord, dracula, catppuccin-latte or catppuccin-frappe (overrides the saved choice)"),
+        QStringLiteral("mode"));
     const QCommandLineOption unitsOpt(QStringLiteral("units"), QStringLiteral("unit system: metric, imperial or original (saved)"),
                                       QStringLiteral("system"));
     const QCommandLineOption calibrationOpt(
@@ -84,8 +87,9 @@ int main(int argc, char *argv[])
     LOG_Info() << "ChamberSim Reloaded" << CSR_VERSION << "started";
     appfont::apply(a, appfont::storedSize());  // the platform font is remembered before the first change
     translation::install(a, cli.value(langOpt));
-    theme::apply(a, cli.isSet(themeOpt) ? (cli.value(themeOpt) == QLatin1String("dark") ? theme::Mode::Dark : theme::Mode::Light)
-                                        : theme::storedMode());
+    // --theme: a known name, anything else (as before) means light
+    const theme::Mode cliTheme = theme::modeFromKey(cli.value(themeOpt));
+    theme::apply(a, !cli.isSet(themeOpt) ? theme::storedMode() : cliTheme == theme::Mode::System ? theme::Mode::Light : cliTheme);
 
     if (cli.isSet(unitsOpt))
     {

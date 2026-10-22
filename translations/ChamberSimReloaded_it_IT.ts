@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+206"/>
-        <location line="+975"/>
+        <location line="+981"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-975"/>
-        <location line="+976"/>
+        <location line="-981"/>
+        <location line="+982"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-976"/>
+        <location line="-982"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+977"/>
+        <location line="+983"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-976"/>
+        <location line="-982"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
@@ -388,12 +388,12 @@
     </message>
     <message>
         <location line="+39"/>
-        <location line="+819"/>
+        <location line="+825"/>
         <source>Charge</source>
         <translation>Carica</translation>
     </message>
     <message>
-        <location line="-819"/>
+        <location line="-825"/>
         <source>Max. pressure</source>
         <translation>Pressione max.</translation>
     </message>
@@ -429,20 +429,20 @@
     </message>
     <message>
         <location line="+0"/>
-        <location line="+183"/>
-        <location line="+587"/>
+        <location line="+188"/>
+        <location line="+588"/>
         <source>Projectile</source>
         <translation>Proiettile</translation>
     </message>
     <message>
-        <location line="-770"/>
-        <location line="+184"/>
-        <location line="+587"/>
+        <location line="-776"/>
+        <location line="+189"/>
+        <location line="+588"/>
         <source>Propellant</source>
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="-910"/>
+        <location line="-916"/>
         <location line="+140"/>
         <source>Select Caliber</source>
         <translation>Scegli il calibro</translation>
@@ -461,12 +461,12 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+201"/>
+        <location line="+206"/>
         <source>No database available</source>
         <translation>Nessuna banca dati disponibile</translation>
     </message>
     <message>
-        <location line="-185"/>
+        <location line="-190"/>
         <source>Cartridge</source>
         <translation>Cartuccia</translation>
     </message>
@@ -487,17 +487,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+634"/>
+        <location line="+640"/>
         <source>Measurements</source>
         <translation>Misure</translation>
     </message>
     <message>
-        <location line="-633"/>
+        <location line="-639"/>
         <source>Report</source>
         <translation>Rapporto</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+140"/>
         <source>Caliber / cartridge</source>
         <translation>Calibro / cartuccia</translation>
     </message>
@@ -512,7 +512,7 @@
         <translation>Sostituisci questo componente con un altro record della banca dati</translation>
     </message>
     <message>
-        <location line="+556"/>
+        <location line="+557"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -534,10 +534,10 @@
     <message>
         <location line="+1"/>
         <source>Projectile length</source>
-        <translation></translation>
+        <translation>Lunghezza del proiettile</translation>
     </message>
     <message>
-        <location line="-486"/>
+        <location line="-487"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Imposta anche lunghezza della canna, profondità di inserimento e carica ai valori predefiniti del nuovo calibro</translation>
     </message>
@@ -572,7 +572,7 @@
         <translation>Modifica valore</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+103"/>
         <location line="+18"/>
         <source>Fit to measurements</source>
         <translation>Adatta alle misure</translation>
@@ -742,12 +742,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+415"/>
+        <location filename="../src/app/mainwindow.cpp" line="+422"/>
         <source>ChamberSim Reloaded</source>
         <translation>ChamberSim Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-331"/>
+        <location filename="../src/app/mainwindow.cpp" line="-338"/>
         <source>Calibers</source>
         <translation>Calibri</translation>
     </message>
@@ -803,7 +803,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+41"/>
-        <location line="+338"/>
+        <location line="+346"/>
         <location line="+179"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -811,7 +811,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Banca dati</translation>
     </message>
     <message>
-        <location line="-518"/>
+        <location line="-526"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
@@ -827,8 +827,8 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="-70"/>
-        <location line="+344"/>
-        <location line="+404"/>
+        <location line="+352"/>
+        <location line="+405"/>
         <source>Open load</source>
         <translation>Apri caricamento</translation>
     </message>
@@ -838,33 +838,33 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Caricamenti (*.csrload *.grtload);;Caricamenti ChamberSim Reloaded (*.csrload);;Caricamenti GRT originali (*.grtload);;Tutti i file (*)</translation>
     </message>
     <message>
-        <location line="-678"/>
+        <location line="-687"/>
         <source>&amp;Save</source>
         <translation>&amp;Salva</translation>
     </message>
     <message>
         <location line="-93"/>
-        <location line="+653"/>
+        <location line="+662"/>
         <location line="+7"/>
         <location line="+27"/>
         <location line="+3"/>
         <location line="+9"/>
         <source>Import bullets</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa proiettili</translation>
     </message>
     <message>
-        <location line="-698"/>
+        <location line="-707"/>
         <source>Add the bullets of a manufacturer&apos;s bullet file (*.%1) to your own records</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi i proiettili di un file di proiettili di un produttore (*.%1) ai propri record</translation>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+762"/>
+        <location line="+771"/>
         <source>New load</source>
         <translation>Nuovo caricamento</translation>
     </message>
     <message>
-        <location line="-760"/>
+        <location line="-769"/>
         <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
         <translation>Crea un caricamento da un calibro, un proiettile e una polvere (%1)</translation>
     </message>
@@ -899,24 +899,24 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>Esporta il rapporto come P&amp;DF…</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <location line="+9"/>
+        <location line="+5"/>
+        <location line="+10"/>
         <source>Export PDF</source>
         <translation>Esporta PDF</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-10"/>
         <source>PDF documents (*.pdf)</source>
         <translation>Documenti PDF (*.pdf)</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <location line="+489"/>
+        <location line="+10"/>
+        <location line="+498"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
     <message>
-        <location line="-485"/>
+        <location line="-494"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Sovrapponi un &amp;risultato di riferimento…</translation>
     </message>
@@ -952,18 +952,18 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+1"/>
-        <location line="+149"/>
+        <location line="+156"/>
         <source>&amp;Undo</source>
         <translation>&amp;Annulla</translation>
     </message>
     <message>
-        <location line="-143"/>
-        <location line="+148"/>
+        <location line="-150"/>
+        <location line="+155"/>
         <source>&amp;Redo</source>
         <translation>&amp;Ripeti</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-147"/>
         <source>&amp;View</source>
         <translation>&amp;Visualizza</translation>
     </message>
@@ -973,20 +973,50 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>&amp;Tema</translation>
     </message>
     <message>
-        <location line="+4"/>
-        <location line="+42"/>
+        <location line="+3"/>
+        <location line="+50"/>
         <source>System default</source>
         <translation>Predefinito di sistema</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-49"/>
         <source>Light</source>
         <translation>Chiaro</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Dark</source>
         <translation>Scuro</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Gruvbox Light</source>
+        <translation>Gruvbox chiaro</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Gruvbox Dark</source>
+        <translation>Gruvbox scuro</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Nord</source>
+        <translation>Nord</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Dracula</source>
+        <translation>Dracula</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Catppuccin Latte</source>
+        <translation>Catppuccin Latte</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Catppuccin Frappé</source>
+        <translation>Catppuccin Frappé</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -1065,15 +1095,15 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>&amp;Ripeti: %1</translation>
     </message>
     <message>
-        <location line="+39"/>
-        <location line="+370"/>
+        <location line="+40"/>
+        <location line="+371"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossibile leggere %1:
 %2</translation>
     </message>
     <message>
-        <location line="-353"/>
+        <location line="-354"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossibile aprire la banca dati %1:
@@ -1163,12 +1193,12 @@ I file di caricamento che lo usano mantengono i loro valori.</translation>
     <message>
         <location line="+23"/>
         <location line="+7"/>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Export record</source>
         <translation>Esporta record</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-13"/>
         <source>This record is not complete for the project&apos;s database:
 %1
 
@@ -1184,71 +1214,72 @@ Esportarlo comunque?</translation>
         <translation>File di record (*.json)</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Saved %1: add it to data/%2/ in the project to contribute it.</source>
         <translation>%1 salvato: aggiungilo a data/%2/ nel progetto per contribuirlo.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Bullet files (*.%1 *.json);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>File di proiettili (*.%1 *.json);;Tutti i file (*)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Cannot read %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile leggere %1</translation>
     </message>
     <message numerus="yes">
         <location line="+17"/>
         <source>%n bullet(s) can be added</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Si può aggiungere %n proiettile</numerusform>
+            <numerusform>Si possono aggiungere %n proiettili</numerusform>
         </translation>
     </message>
     <message>
         <location line="+1"/>
         <source> (manufacturer: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation> (produttore: %1)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Source: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonte: %1</translation>
     </message>
     <message numerus="yes">
         <location line="+1"/>
         <source>%n bullet(s) are already in the database and are left out.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n proiettile è già nella banca dati e viene tralasciato.</numerusform>
+            <numerusform>%n proiettili sono già nella banca dati e vengono tralasciati.</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
         <source>%n problem(s) in the file, those bullets are left out:</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n problema nel file, questi proiettili vengono tralasciati:</numerusform>
+            <numerusform>%n problemi nel file, questi proiettili vengono tralasciati:</numerusform>
         </translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Add them to your own records?</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungerli ai propri record?</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>A bullet could not be stored:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile salvare un proiettile:
+%1</translation>
     </message>
     <message numerus="yes">
         <location line="+6"/>
         <source>%n bullet(s) imported.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n proiettile importato.</numerusform>
+            <numerusform>%n proiettili importati.</numerusform>
         </translation>
     </message>
     <message>
@@ -2334,12 +2365,12 @@ pressione Δ</translation>
     <message>
         <location line="+1"/>
         <location line="+21"/>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export PDF</source>
         <translation>Esporta PDF</translation>
     </message>
     <message>
-        <location line="-18"/>
+        <location line="-19"/>
         <source>Scale</source>
         <translation>Scala</translation>
     </message>
@@ -2349,7 +2380,7 @@ pressione Δ</translation>
         <translation>Documenti PDF (*.pdf)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
@@ -2615,12 +2646,12 @@ pressione Δ</translation>
     <message>
         <location line="+12"/>
         <source>Validated by hand: measured on a bullet or checked against the original database</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificato a mano: misurato su un proiettile o confrontato con la banca dati originale</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Not validated: the length is estimated or taken from a photo</source>
-        <translation type="unfinished"></translation>
+        <translation>Non verificato: la lunghezza è stimata o ricavata da una foto</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -2630,7 +2661,7 @@ pressione Δ</translation>
     <message>
         <location line="+1"/>
         <source>Validated</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificato</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -2638,7 +2669,7 @@ pressione Δ</translation>
         <translation>Filtro (tutte le colonne)…</translation>
     </message>
     <message numerus="yes">
-        <location line="+146"/>
+        <location line="+147"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n voce</numerusform>
@@ -2847,6 +2878,11 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+11"/>
+        <source>&lt;p&gt;The color themes use the palettes of &lt;a href=&quot;https://github.com/morhetz/gruvbox&quot;&gt;Gruvbox&lt;/a&gt; (Pavel Pertsev), &lt;a href=&quot;https://www.nordtheme.com&quot;&gt;Nord&lt;/a&gt; (Sven Greb), &lt;a href=&quot;https://draculatheme.com&quot;&gt;Dracula&lt;/a&gt; (Zeno Rocha) and &lt;a href=&quot;https://catppuccin.com&quot;&gt;Catppuccin&lt;/a&gt; (the Catppuccin contributors), all under the MIT license.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;I temi di colore usano le palette di &lt;a href=&quot;https://github.com/morhetz/gruvbox&quot;&gt;Gruvbox&lt;/a&gt; (Pavel Pertsev), &lt;a href=&quot;https://www.nordtheme.com&quot;&gt;Nord&lt;/a&gt; (Sven Greb), &lt;a href=&quot;https://draculatheme.com&quot;&gt;Dracula&lt;/a&gt; (Zeno Rocha) e &lt;a href=&quot;https://catppuccin.com&quot;&gt;Catppuccin&lt;/a&gt; (i collaboratori di Catppuccin), tutte con licenza MIT.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>&lt;hr&gt;&lt;p&gt;&lt;small&gt;Qt %1 (built with %2) · %3 · language %4&lt;/small&gt;&lt;/p&gt;</source>
         <translation>&lt;hr&gt;&lt;p&gt;&lt;small&gt;Qt %1 (compilato con %2) · %3 · lingua %4&lt;/small&gt;&lt;/p&gt;</translation>
     </message>
@@ -3177,7 +3213,7 @@ pressione Δ</translation>
     <message>
         <location line="+1"/>
         <source>Validated</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificato</translation>
     </message>
     <message>
         <location line="+1"/>

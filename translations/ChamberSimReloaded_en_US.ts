@@ -313,26 +313,26 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+478"/>
+        <location filename="../src/app/loadview.cpp" line="+483"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+183"/>
-        <location line="+587"/>
+        <location line="-187"/>
+        <location line="+188"/>
+        <location line="+588"/>
         <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-770"/>
-        <location line="+184"/>
-        <location line="+587"/>
+        <location line="-776"/>
+        <location line="+189"/>
+        <location line="+588"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-910"/>
+        <location line="-916"/>
         <location line="+140"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
@@ -351,35 +351,35 @@
     </message>
     <message>
         <location line="+14"/>
-        <location line="+201"/>
+        <location line="+206"/>
         <source>No database available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+593"/>
+        <location line="+594"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-899"/>
-        <location line="+975"/>
+        <location line="-905"/>
+        <location line="+981"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-975"/>
-        <location line="+976"/>
+        <location line="-981"/>
+        <location line="+982"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-976"/>
-        <location line="+977"/>
+        <location line="-982"/>
+        <location line="+983"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-977"/>
+        <location line="-983"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -436,12 +436,12 @@
     </message>
     <message>
         <location line="+39"/>
-        <location line="+819"/>
+        <location line="+825"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-819"/>
+        <location line="-825"/>
         <source>Max. pressure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -497,17 +497,17 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+634"/>
+        <location line="+640"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-633"/>
+        <location line="-639"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+140"/>
         <source>Caliber / cartridge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -552,7 +552,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+103"/>
         <location line="+18"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
@@ -738,12 +738,12 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+415"/>
+        <location filename="../src/app/mainwindow.cpp" line="+422"/>
         <source>ChamberSim Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-331"/>
+        <location filename="../src/app/mainwindow.cpp" line="-338"/>
         <source>Calibers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -794,7 +794,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="+42"/>
-        <location line="+338"/>
+        <location line="+346"/>
         <location line="+179"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -802,7 +802,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-518"/>
+        <location line="-526"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -818,19 +818,19 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
     </message>
     <message>
         <location line="-70"/>
-        <location line="+344"/>
-        <location line="+404"/>
+        <location line="+352"/>
+        <location line="+405"/>
         <source>Open load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-677"/>
+        <location line="-686"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-93"/>
-        <location line="+653"/>
+        <location line="+662"/>
         <location line="+7"/>
         <location line="+27"/>
         <location line="+3"/>
@@ -839,18 +839,18 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-698"/>
+        <location line="-707"/>
         <source>Add the bullets of a manufacturer&apos;s bullet file (*.%1) to your own records</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+762"/>
+        <location line="+771"/>
         <source>New load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-760"/>
+        <location line="-769"/>
         <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -885,41 +885,71 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
-        <location line="+9"/>
+        <location line="+5"/>
+        <location line="+10"/>
         <source>Export PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-10"/>
         <source>PDF documents (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <location line="+489"/>
+        <location line="+10"/>
+        <location line="+498"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-466"/>
+        <location line="-475"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+149"/>
+        <location line="+156"/>
         <source>&amp;Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-143"/>
-        <location line="+148"/>
+        <location line="-150"/>
+        <location line="+155"/>
         <source>&amp;Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-140"/>
+        <source>Gruvbox Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Gruvbox Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Nord</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Dracula</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Catppuccin Latte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Catppuccin Frappé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>&amp;Tools</source>
         <translation type="unfinished"></translation>
     </message>
@@ -970,7 +1000,7 @@ Burn rate %2, form function a0 %3, z1 %4, z2 %5. They replace the scaled burn ra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+57"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation type="unfinished"></translation>
@@ -1044,7 +1074,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+53"/>
         <source>Bullet files (*.%1 *.json);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1122,7 +1152,7 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-691"/>
+        <location line="-700"/>
         <source>Overlay &amp;reference result…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1167,12 +1197,12 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
         <source>Dark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+22"/>
         <source>&amp;Language</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1187,23 +1217,23 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-39"/>
-        <location line="+42"/>
+        <location line="-47"/>
+        <location line="+50"/>
         <source>System default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-230"/>
+        <location line="-237"/>
         <source>Add a changed copy of the selected record (a double click shows a record and offers this)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+767"/>
+        <location line="+776"/>
         <source>Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-517"/>
+        <location line="-519"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1213,26 +1243,26 @@ Load files that use it keep their values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
-        <location line="+370"/>
+        <location line="+109"/>
+        <location line="+371"/>
         <source>Cannot read %1:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-219"/>
         <source>Only your own records can be changed: make a copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+107"/>
         <location line="+7"/>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Export record</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="-13"/>
         <source>This record is not complete for the project&apos;s database:
 %1
 
@@ -1245,7 +1275,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Saved %1: add it to data/%2/ in the project to contribute it.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2310,12 +2340,12 @@ pressure Δ</source>
     <message>
         <location line="+1"/>
         <location line="+21"/>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Export PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-18"/>
+        <location line="-19"/>
         <source>Scale</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2325,7 +2355,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Cannot write %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2614,7 +2644,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+146"/>
+        <location line="+147"/>
         <source>%n entries</source>
         <translation>
             <numerusform>%n entry</numerusform>
@@ -2823,6 +2853,11 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+11"/>
+        <source>&lt;p&gt;The color themes use the palettes of &lt;a href=&quot;https://github.com/morhetz/gruvbox&quot;&gt;Gruvbox&lt;/a&gt; (Pavel Pertsev), &lt;a href=&quot;https://www.nordtheme.com&quot;&gt;Nord&lt;/a&gt; (Sven Greb), &lt;a href=&quot;https://draculatheme.com&quot;&gt;Dracula&lt;/a&gt; (Zeno Rocha) and &lt;a href=&quot;https://catppuccin.com&quot;&gt;Catppuccin&lt;/a&gt; (the Catppuccin contributors), all under the MIT license.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>&lt;hr&gt;&lt;p&gt;&lt;small&gt;Qt %1 (built with %2) · %3 · language %4&lt;/small&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
