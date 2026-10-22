@@ -1,97 +1,147 @@
 [
   {
     "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.224 40 gr",
+    "caliber": ".224",
+    "gdia": 5.69,
+    "glen": 15.49,
+    "gmass": 40.0,
+    "g1bc": 0.151,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
+    "gpressure": 350.0,
+    "gValid": true
+  },
+  {
+    "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.224 45 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 18.1,
+    "glen": 19.0,
     "gmass": 45.0,
+    "g1bc": 0.167,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.224 50 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 19.4,
+    "glen": 20.5,
     "gmass": 50.0,
+    "g1bc": 0.175,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.224 55 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 20.6,
+    "glen": 22.1,
     "gmass": 55.0,
+    "g1bc": 0.185,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.224 60 gr",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 22.3,
+    "glen": 24.0,
     "gmass": 60.0,
+    "g1bc": 0.192,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.228 50 gr",
+    "caliber": ".228",
+    "gdia": 5.79,
+    "glen": 18.49,
+    "gmass": 50.0,
+    "g1bc": 0.17,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
+    "gpressure": 350.0,
+    "gValid": true
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.243 100 gr",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 30.0,
+    "gmass": 100.0,
+    "g1bc": 0.348,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.243 80 gr",
     "caliber": ".243",
     "gdia": 6.17,
-    "glen": 25.9,
+    "glen": 27.41,
     "gmass": 80.0,
+    "g1bc": 0.292,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.257 100 gr",
     "caliber": ".257",
     "gdia": 6.53,
-    "glen": 28.6,
+    "glen": 30.2,
     "gmass": 100.0,
-    "gtailtype": 2,
-    "gtaildiaA": 6.5,
-    "gtaildiaB": 3.9,
-    "gtailh": 3.9,
+    "g1bc": 0.315,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.264 100 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 27.6,
+    "glen": 29.31,
     "gmass": 100.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
-    "gpressure": 250.0
+    "g1bc": 0.305,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
+    "gpressure": 250.0,
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.264 123 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 31.8,
+    "glen": 34.19,
     "gmass": 123.0,
+    "g1bc": 0.397,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.264 139 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 37.7,
+    "glen": 37.19,
     "gmass": 139.0,
+    "g1bc": 0.425,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.18, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gValid": true
   },
   {
     "mname": "Fox",
@@ -108,112 +158,120 @@
     "pname": "Classic Hunter Bleifrei 0.277 130 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 30.8,
+    "glen": 32.41,
     "gmass": 130.0,
-    "gtailtype": 2,
-    "gtaildiaA": 7.0,
-    "gtaildiaB": 5.3,
-    "gtailh": 5.7,
+    "g1bc": 0.339,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.277 145 gr",
     "caliber": ".277",
     "gdia": 7.04,
-    "glen": 33.6,
+    "glen": 35.74,
     "gmass": 145.0,
+    "g1bc": 0.382,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.284 130 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 30.0,
+    "glen": 31.39,
     "gmass": 130.0,
-    "gtailtype": 2,
-    "gtaildiaA": 7.2,
-    "gtaildiaB": 5.1,
-    "gtailh": 3.4,
+    "g1bc": 0.33,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.284 145 gr",
     "caliber": ".284",
     "gdia": 7.21,
-    "glen": 32.6,
+    "glen": 34.29,
     "gmass": 145.0,
+    "g1bc": 0.362,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.306 155 gr",
     "caliber": ".306",
     "gdia": 7.77,
-    "glen": 31.3,
+    "glen": 32.94,
     "gmass": 155.0,
+    "g1bc": 0.314,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.18, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.308 110 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 21.9,
+    "glen": 24.89,
     "gmass": 110.0,
+    "g1bc": 0.229,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.18, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.308 130 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 28.0,
+    "glen": 28.6,
     "gmass": 130.0,
+    "g1bc": 0.259,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.308 150 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 30.4,
+    "glen": 32.0,
     "gmass": 150.0,
+    "g1bc": 0.307,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.308 165 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 32.8,
+    "glen": 34.49,
     "gmass": 165.0,
-    "gtailtype": 2,
-    "gtaildiaA": 7.8,
-    "gtaildiaB": 6.5,
-    "gtailh": 2.6,
+    "g1bc": 0.359,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.18, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.308 180 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 34.4,
+    "glen": 36.75,
     "gmass": 180.0,
+    "g1bc": 0.405,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
@@ -240,100 +298,132 @@
     "pname": "Classic Hunter Bleifrei 0.318 150 gr",
     "caliber": ".318",
     "gdia": 8.08,
-    "glen": 28.0,
+    "glen": 30.96,
     "gmass": 150.0,
+    "g1bc": 0.281,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.18, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.323 160 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 30.5,
+    "glen": 31.8,
     "gmass": 160.0,
+    "g1bc": 0.292,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.323 180 gr",
     "caliber": ".323",
     "gdia": 8.2,
-    "glen": 33.0,
+    "glen": 34.8,
     "gmass": 180.0,
+    "g1bc": 0.305,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.338 185 gr",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 32.0,
+    "glen": 33.76,
     "gmass": 185.0,
+    "g1bc": 0.315,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.338 210 gr",
     "caliber": ".338",
     "gdia": 8.59,
-    "glen": 35.1,
+    "glen": 37.01,
     "gmass": 210.0,
+    "g1bc": 0.391,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.358 200 gr",
-    "caliber": ".358",
+    "caliber": ".357",
     "gdia": 9.09,
-    "glen": 30.6,
+    "glen": 32.79,
     "gmass": 200.0,
+    "g1bc": 0.29,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
+  },
+  {
+    "mname": "Fox",
+    "pname": "Classic Hunter Bleifrei 0.366 200 gr",
+    "caliber": ".366",
+    "gdia": 9.3,
+    "glen": 30.48,
+    "gmass": 200.0,
+    "g1bc": 0.276,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.366 220 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 32.9,
+    "glen": 34.49,
     "gmass": 220.0,
+    "g1bc": 0.291,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.366 250 gr",
     "caliber": ".366",
     "gdia": 9.3,
-    "glen": 36.2,
+    "glen": 37.85,
     "gmass": 250.0,
+    "g1bc": 0.332,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.375 250 gr",
     "caliber": ".375",
     "gdia": 9.52,
-    "glen": 34.4,
+    "glen": 35.99,
     "gmass": 250.0,
+    "g1bc": 0.335,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "gValid": true
   },
   {
     "mname": "Fox",
     "pname": "Classic Hunter Bleifrei 0.413 200 gr",
     "caliber": ".413",
     "gdia": 10.49,
-    "glen": 22.1,
+    "glen": 28.35,
     "gmass": 200.0,
+    "g1bc": 0.29,
+    "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file of FOX bullets (www.foxbullets.eu), 06-Jun-25",
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.18, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "gValid": true
   },
   {
     "mname": "Fox",
