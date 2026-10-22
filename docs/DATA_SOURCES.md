@@ -23,7 +23,10 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   The lengths of the 64 H&N bullets (hn-sport.de) are measured on the product photo of the single standing bullet (`hn_photos_fetch.py`,
   `measure_standing_bullet.py`: camera elevation 10 degrees, scale fixed with the caliper-measured 20.0 mm of the TC .458 300 gr HS, about 4 % uncertain; table
   `bullets_hn_photos.csv`), those of LOS bullets on the two-bullet photos of hunting-sport.com (`hunting_sport_fetch.py`, table `bullets_hunting_sport.csv`);
-  `apply_hunting_sport_lengths.py` writes them into the records. Fiocchi's site refuses
+  `apply_hunting_sport_lengths.py` writes them into the records. Federal publishes the length and BC of its component bullets (`federal_fetch.py`,
+  `apply_csv_lengths.py`); Berger's bullet reference chart gives the length of 111 bullets (`berger_chart.py`, all marked validated); the 195 estimated Hornady lengths were
+  replaced by 167 measured on the side-view illustrations of hornady.com (`hornady_images.py`, `measure_side_photos.py`, `apply_hornady_images.py`: 1 % too long, 5 % rms against the
+  54 validated records; a picture more than 30 % from the estimate is ignored); the table of the Brenneke reloading bullets gives the BC (`brenneke_table.py`, no lengths). Fiocchi's site refuses
   automated requests and is not included.
   The initial gas pressure (`gpressure`, the pressure at which the bullet starts and engraves) is an estimate from the construction
   (`start_pressure.py`): lead (cast, plated) 150 bar, jacketed 250 bar, brass monolithic 290 bar, copper monolithic (Barnes TSX/TTSX/LRX,

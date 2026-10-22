@@ -7,7 +7,8 @@
     "glen": 29.3,
     "gmass": 185.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.37
   },
   {
     "mname": "Brenneke",
@@ -17,7 +18,8 @@
     "glen": 29.3,
     "gmass": 200.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.351
   },
   {
     "mname": "Brenneke",
@@ -27,7 +29,8 @@
     "glen": 24.7,
     "gmass": 139.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.21
   },
   {
     "mname": "Brenneke",
@@ -37,7 +40,8 @@
     "glen": 29.9,
     "gmass": 130.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.243
   },
   {
     "mname": "Brenneke",
@@ -47,7 +51,8 @@
     "glen": 32.5,
     "gmass": 130.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.236
   },
   {
     "mname": "Brenneke",
@@ -57,7 +62,8 @@
     "glen": 32.3,
     "gmass": 160.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.242
   },
   {
     "mname": "Brenneke",
@@ -67,7 +73,8 @@
     "glen": 30.6,
     "gmass": 155.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.2
   },
   {
     "mname": "Brenneke",
@@ -77,7 +84,20 @@
     "glen": 27.9,
     "gmass": 175.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.182
+  },
+  {
+    "mname": "Brenneke",
+    "pname": "TAG 0.338 190 gr",
+    "caliber": ".338",
+    "gdia": 8.59,
+    "glen": 30.4,
+    "gmass": 190.0,
+    "gtailtype": 2,
+    "gtaildiaA": 8.59,
+    "g1bc": 0.236,
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
   },
   {
     "mname": "Brenneke",
@@ -87,7 +107,8 @@
     "glen": 26.9,
     "gmass": 225.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.187
   },
   {
     "mname": "Brenneke",
@@ -97,7 +118,8 @@
     "glen": 30.9,
     "gmass": 145.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.356
   },
   {
     "mname": "Brenneke",
@@ -107,7 +129,8 @@
     "glen": 37.7,
     "gmass": 177.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.356
   },
   {
     "mname": "Brenneke",
@@ -117,7 +140,8 @@
     "glen": 26.6,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.302
   },
   {
     "mname": "Brenneke",
@@ -127,7 +151,8 @@
     "glen": 31.5,
     "gmass": 198.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.361
   },
   {
     "mname": "Brenneke",
@@ -137,7 +162,8 @@
     "glen": 26.2,
     "gmass": 95.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.304
   },
   {
     "mname": "Brenneke",
@@ -147,7 +173,8 @@
     "glen": 32.8,
     "gmass": 139.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.375
   },
   {
     "mname": "Brenneke",
@@ -157,7 +184,8 @@
     "glen": 33.8,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.419
   },
   {
     "mname": "Brenneke",
@@ -167,7 +195,8 @@
     "glen": 30.7,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.428
   },
   {
     "mname": "Brenneke",
@@ -177,7 +206,8 @@
     "glen": 29.6,
     "gmass": 165.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.42
   },
   {
     "mname": "Brenneke",
@@ -187,7 +217,8 @@
     "glen": 30.6,
     "gmass": 180.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.285
   },
   {
     "mname": "Brenneke",
@@ -197,7 +228,8 @@
     "glen": 35.0,
     "gmass": 220.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.406
   },
   {
     "mname": "Brenneke",
@@ -207,7 +239,8 @@
     "glen": 32.3,
     "gmass": 225.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.346
   },
   {
     "mname": "Brenneke",
@@ -217,7 +250,8 @@
     "glen": 29.5,
     "gmass": 247.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.425
   },
   {
     "mname": "Brenneke",
@@ -227,7 +261,8 @@
     "glen": 31.2,
     "gmass": 270.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.419
   },
   {
     "mname": "Brenneke",
@@ -241,13 +276,26 @@
   },
   {
     "mname": "Brenneke",
+    "pname": "TOG 0.413 235 gr",
+    "caliber": ".413",
+    "gdia": 10.49,
+    "glen": 25.8,
+    "gmass": 235.0,
+    "gtailtype": 2,
+    "gtaildiaA": 10.49,
+    "g1bc": 0.177,
+    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+  },
+  {
+    "mname": "Brenneke",
     "pname": "TUG 0.308 181 gr",
     "caliber": ".308",
     "gdia": 7.82,
     "glen": 31.2,
     "gmass": 181.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.352
   },
   {
     "mname": "Brenneke",
@@ -257,7 +305,8 @@
     "glen": 35.0,
     "gmass": 293.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.03, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain",
+    "g1bc": 0.465
   },
   {
     "mname": "Brenneke",
@@ -271,7 +320,8 @@
     "gtaildiaA": 7.8,
     "gtaildiaB": 1.0,
     "gtailh": 3.4,
-    "gpressure": 250.0
+    "gpressure": 250.0,
+    "g1bc": 0.236
   },
   {
     "mname": "Brenneke",
@@ -285,7 +335,8 @@
     "gtaildiaA": 8.2,
     "gtaildiaB": 2.0,
     "gtailh": 3.5,
-    "gpressure": 250.0
+    "gpressure": 250.0,
+    "g1bc": 0.233
   },
   {
     "mname": "Brenneke",
@@ -299,7 +350,8 @@
     "gtaildiaA": 9.3,
     "gtaildiaB": 2.5,
     "gtailh": 3.5,
-    "gpressure": 250.0
+    "gpressure": 250.0,
+    "g1bc": 0.286
   },
   {
     "mname": "Brenneke",
@@ -309,6 +361,7 @@
     "glen": 27.7,
     "gmass": 128.0,
     "gpressure": 250.0,
-    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
+    "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)",
+    "g1bc": 0.278
   }
 ]

@@ -11,7 +11,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 2.8,
     "g1bc": 0.409,
-    "g7bc": 0.21
+    "g7bc": 0.21,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -25,7 +26,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 5.5,
     "g1bc": 0.494,
-    "g7bc": 0.253
+    "g7bc": 0.253,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -39,7 +41,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 5.5,
     "g1bc": 0.522,
-    "g7bc": 0.268
+    "g7bc": 0.268,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -53,7 +56,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 5.8,
     "g1bc": 0.593,
-    "g7bc": 0.304
+    "g7bc": 0.304,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -67,7 +71,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 4.7,
     "g1bc": 0.512,
-    "g7bc": 0.262
+    "g7bc": 0.262,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -81,7 +86,8 @@
     "gtaildiaA": 5.18,
     "gtailh": 2.8,
     "g1bc": 0.227,
-    "g7bc": 0.116
+    "g7bc": 0.116,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -96,7 +102,8 @@
     "gtailh": 4.2,
     "g1bc": 0.434,
     "g7bc": 0.223,
-    "gfriction": 20.0
+    "gfriction": 20.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -110,7 +117,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 4.8,
     "g1bc": 0.584,
-    "g7bc": 0.303
+    "g7bc": 0.303,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -124,7 +132,8 @@
     "gtaildiaA": 7.04,
     "gtailh": 6.2,
     "g1bc": 0.49,
-    "g7bc": 0.251
+    "g7bc": 0.251,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -138,7 +147,8 @@
     "gtaildiaA": 7.04,
     "gtailh": 5.2,
     "g1bc": 0.528,
-    "g7bc": 0.271
+    "g7bc": 0.271,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -152,7 +162,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 6.4,
     "g1bc": 0.566,
-    "g7bc": 0.29
+    "g7bc": 0.29,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -166,7 +177,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 5.2,
     "g1bc": 0.505,
-    "g7bc": 0.258
+    "g7bc": 0.258,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -180,7 +192,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.5,
     "g1bc": 0.489,
-    "g7bc": 0.251
+    "g7bc": 0.251,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -194,7 +207,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 6.1,
     "g1bc": 0.533,
-    "g7bc": 0.273
+    "g7bc": 0.273,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -208,7 +222,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 4.7,
     "g1bc": 0.559,
-    "g7bc": 0.287
+    "g7bc": 0.287,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -222,7 +237,8 @@
     "gtaildiaA": 6.53,
     "gtailh": 5.4,
     "g1bc": 0.613,
-    "g7bc": 0.315
+    "g7bc": 0.315,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -236,7 +252,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 4.8,
     "g1bc": 0.679,
-    "g7bc": 0.347
+    "g7bc": 0.347,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -250,7 +267,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 4.8,
     "g1bc": 0.606,
-    "g7bc": 0.31
+    "g7bc": 0.31,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -264,7 +282,8 @@
     "gtaildiaA": 7.04,
     "gtailh": 6.5,
     "g1bc": 0.662,
-    "g7bc": 0.339
+    "g7bc": 0.339,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -278,7 +297,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 6.3,
     "g1bc": 0.755,
-    "g7bc": 0.387
+    "g7bc": 0.387,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -292,7 +312,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 5.3,
     "g1bc": 0.656,
-    "g7bc": 0.336
+    "g7bc": 0.336,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -320,7 +341,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.1,
     "g1bc": 0.576,
-    "g7bc": 0.295
+    "g7bc": 0.295,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -334,7 +356,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.8,
     "g1bc": 0.631,
-    "g7bc": 0.324
+    "g7bc": 0.324,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -349,7 +372,8 @@
     "gtailh": 5.8,
     "g1bc": 0.807,
     "g7bc": 0.413,
-    "gfriction": -40.0
+    "gfriction": -40.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -363,7 +387,8 @@
     "gtaildiaA": 8.59,
     "gtailh": 8.3,
     "g1bc": 0.685,
-    "g7bc": 0.351
+    "g7bc": 0.351,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -378,7 +403,8 @@
     "gtailh": 7.7,
     "g1bc": 0.814,
     "g7bc": 0.417,
-    "gfriction": -100.0
+    "gfriction": -100.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -393,7 +419,8 @@
     "gtailh": 1.5,
     "gpressure": 250.0,
     "g1bc": 0.235,
-    "gfriction": 25.0
+    "gfriction": 25.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -403,7 +430,8 @@
     "glen": 19.0,
     "gmass": 55.0,
     "gpressure": 250.0,
-    "g1bc": 0.254
+    "g1bc": 0.254,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -413,7 +441,8 @@
     "glen": 20.6,
     "gmass": 64.0,
     "gpressure": 250.0,
-    "g1bc": 0.231
+    "g1bc": 0.231,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -423,7 +452,8 @@
     "glen": 21.2,
     "gmass": 68.0,
     "gpressure": 250.0,
-    "g1bc": 0.255
+    "g1bc": 0.255,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -433,7 +463,8 @@
     "glen": 29.3,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "g1bc": 0.393
+    "g1bc": 0.393,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -444,7 +475,8 @@
     "gmass": 115.0,
     "gpressure": 290.0,
     "g1bc": 0.289,
-    "gfriction": -10.0
+    "gfriction": -10.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -454,7 +486,8 @@
     "glen": 15.1,
     "gmass": 35.0,
     "gpressure": 250.0,
-    "g1bc": 0.179
+    "g1bc": 0.179,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -464,7 +497,8 @@
     "glen": 15.5,
     "gmass": 40.0,
     "gpressure": 250.0,
-    "g1bc": 0.151
+    "g1bc": 0.151,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -474,7 +508,8 @@
     "glen": 19.1,
     "gmass": 55.0,
     "gpressure": 250.0,
-    "g1bc": 0.209
+    "g1bc": 0.209,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -484,19 +519,23 @@
     "glen": 20.6,
     "gmass": 60.0,
     "gpressure": 250.0,
-    "g1bc": 0.271
+    "g1bc": 0.271,
+    "gValid": true
   },
   {
     "mname": "Berger",
     "pname": "HPBT (Target) 0.264 120 gr",
     "caliber": ".264",
     "gdia": 6.71,
-    "glen": 30.7,
+    "glen": 31.0,
     "gmass": 120.0,
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "descr": "Length estimated from mass, diameter and bullet type (match), about 10 % uncertain"
+    "gValid": true,
+    "g1bc": 0.468,
+    "g7bc": 0.24,
+    "gtailh": 3.5
   },
   {
     "mname": "Berger",
@@ -510,7 +549,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 5.4,
     "g1bc": 0.536,
-    "g7bc": 0.275
+    "g7bc": 0.275,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -524,7 +564,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 5.7,
     "g1bc": 0.607,
-    "g7bc": 0.311
+    "g7bc": 0.311,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -538,7 +579,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 6.2,
     "g1bc": 0.68,
-    "g7bc": 0.349
+    "g7bc": 0.349,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -552,7 +594,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 5.7,
     "g1bc": 0.695,
-    "g7bc": 0.356
+    "g7bc": 0.356,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -566,7 +609,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.8,
     "g1bc": 0.64,
-    "g7bc": 0.328
+    "g7bc": 0.328,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -580,7 +624,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 6.1,
     "g1bc": 0.576,
-    "g7bc": 0.295
+    "g7bc": 0.295,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -594,7 +639,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.7,
     "g1bc": 0.515,
-    "g7bc": 0.264
+    "g7bc": 0.264,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -608,7 +654,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.6,
     "g1bc": 0.478,
-    "g7bc": 0.245
+    "g7bc": 0.245,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -622,7 +669,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 6.2,
     "g1bc": 0.616,
-    "g7bc": 0.316
+    "g7bc": 0.316,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -637,7 +685,8 @@
     "gtailh": 6.7,
     "g1bc": 0.691,
     "g7bc": 0.354,
-    "gfriction": -100.0
+    "gfriction": -100.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -651,7 +700,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 7.1,
     "g1bc": 0.717,
-    "g7bc": 0.368
+    "g7bc": 0.368,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -665,7 +715,8 @@
     "gtaildiaA": 9.52,
     "gtailh": 7.9,
     "g1bc": 0.928,
-    "g7bc": 0.475
+    "g7bc": 0.475,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -689,7 +740,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 4.2,
     "g1bc": 0.524,
-    "g7bc": 0.268
+    "g7bc": 0.268,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -703,7 +755,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 4.3,
     "g1bc": 0.568,
-    "g7bc": 0.292
+    "g7bc": 0.292,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -730,7 +783,8 @@
     "gtaildiaA": 6.53,
     "gtailh": 5.5,
     "g1bc": 0.65,
-    "g7bc": 0.334
+    "g7bc": 0.334,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -744,7 +798,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 4.8,
     "g1bc": 0.655,
-    "g7bc": 0.336
+    "g7bc": 0.336,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -758,7 +813,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 4.7,
     "g1bc": 0.694,
-    "g7bc": 0.356
+    "g7bc": 0.356,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -771,7 +827,9 @@
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "g1bc": 0.552,
-    "g7bc": 0.283
+    "g7bc": 0.283,
+    "gValid": true,
+    "gtailh": 5.0
   },
   {
     "mname": "Berger",
@@ -789,6 +847,20 @@
   },
   {
     "mname": "Berger",
+    "pname": "Long Range Hybrid Target 28487",
+    "caliber": ".284",
+    "gdia": 7.21,
+    "glen": 40.7,
+    "gmass": 190.0,
+    "gtailtype": 2,
+    "gtaildiaA": 7.21,
+    "gtailh": 5.3,
+    "g1bc": 0.751,
+    "g7bc": 0.384,
+    "gValid": true
+  },
+  {
+    "mname": "Berger",
     "pname": "Long Range Hybrid Target 30485",
     "caliber": ".308",
     "gdia": 7.82,
@@ -799,7 +871,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.5,
     "g1bc": 0.689,
-    "g7bc": 0.354
+    "g7bc": 0.354,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -813,7 +886,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.4,
     "g1bc": 0.717,
-    "g7bc": 0.369
+    "g7bc": 0.369,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -827,7 +901,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.8,
     "g1bc": 0.846,
-    "g7bc": 0.433
+    "g7bc": 0.433,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -841,7 +916,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 3.4,
     "g1bc": 0.374,
-    "g7bc": 0.192
+    "g7bc": 0.192,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -855,7 +931,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 5.8,
     "g1bc": 0.56,
-    "g7bc": 0.287
+    "g7bc": 0.287,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -869,7 +946,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.5,
     "g1bc": 0.512,
-    "g7bc": 0.263
+    "g7bc": 0.263,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -883,7 +961,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.7,
     "g1bc": 0.552,
-    "g7bc": 0.283
+    "g7bc": 0.283,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -898,7 +977,8 @@
     "gtailh": 6.9,
     "g1bc": 0.71,
     "g7bc": 0.364,
-    "gfriction": -100.0
+    "gfriction": -100.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -912,7 +992,8 @@
     "gtaildiaA": 8.59,
     "gtailh": 8.1,
     "g1bc": 0.682,
-    "g7bc": 0.349
+    "g7bc": 0.349,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -926,7 +1007,8 @@
     "gtaildiaA": 8.59,
     "gtailh": 7.9,
     "g1bc": 0.822,
-    "g7bc": 0.421
+    "g7bc": 0.421,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -954,7 +1036,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 3.6,
     "g1bc": 0.348,
-    "g7bc": 0.178
+    "g7bc": 0.178,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -982,7 +1065,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 4.7,
     "g1bc": 0.441,
-    "g7bc": 0.226
+    "g7bc": 0.226,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -996,7 +1080,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 2.9,
     "g1bc": 0.281,
-    "g7bc": 0.144
+    "g7bc": 0.144,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1010,7 +1095,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 4.6,
     "g1bc": 0.473,
-    "g7bc": 0.242
+    "g7bc": 0.242,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1024,7 +1110,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.6,
     "g1bc": 0.555,
-    "g7bc": 0.284
+    "g7bc": 0.284,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1049,7 +1136,8 @@
     "gmass": 25.0,
     "gpressure": 285.0,
     "g1bc": 0.152,
-    "gfriction": 10.0
+    "gfriction": 10.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1073,7 +1161,8 @@
     "glen": 18.2,
     "gmass": 52.0,
     "gpressure": 250.0,
-    "g1bc": 0.201
+    "g1bc": 0.201,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1103,7 +1192,8 @@
     "glen": 23.2,
     "gmass": 80.0,
     "gpressure": 250.0,
-    "g1bc": 0.3
+    "g1bc": 0.3,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1113,7 +1203,8 @@
     "glen": 26.9,
     "gmass": 88.0,
     "gpressure": 250.0,
-    "g1bc": 0.38
+    "g1bc": 0.38,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1127,7 +1218,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 4.0,
     "g1bc": 0.427,
-    "g7bc": 0.219
+    "g7bc": 0.219,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1141,7 +1233,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 5.3,
     "g1bc": 0.467,
-    "g7bc": 0.239
+    "g7bc": 0.239,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1156,7 +1249,8 @@
     "gtailh": 5.0,
     "g1bc": 0.568,
     "g7bc": 0.291,
-    "gfriction": -50.0
+    "gfriction": -50.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1170,7 +1264,8 @@
     "gtaildiaA": 6.53,
     "gtailh": 3.8,
     "g1bc": 0.483,
-    "g7bc": 0.247
+    "g7bc": 0.247,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1185,7 +1280,8 @@
     "gtailh": 5.7,
     "g1bc": 0.562,
     "g7bc": 0.288,
-    "gfriction": 5.0
+    "gfriction": 5.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1199,7 +1295,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 5.7,
     "g1bc": 0.6,
-    "g7bc": 0.307
+    "g7bc": 0.307,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1213,7 +1310,8 @@
     "gtaildiaA": 7.04,
     "gtailh": 6.2,
     "g1bc": 0.462,
-    "g7bc": 0.236
+    "g7bc": 0.236,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1228,7 +1326,8 @@
     "gtailh": 6.0,
     "g1bc": 0.504,
     "g7bc": 0.258,
-    "gfriction": -20.0
+    "gfriction": -20.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1242,7 +1341,8 @@
     "gtaildiaA": 7.04,
     "gtailh": 5.8,
     "g1bc": 0.518,
-    "g7bc": 0.265
+    "g7bc": 0.265,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1257,7 +1357,8 @@
     "gtailh": 6.2,
     "g1bc": 0.618,
     "g7bc": 0.316,
-    "gfriction": -50.0
+    "gfriction": -50.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1272,7 +1373,8 @@
     "gtailh": 6.2,
     "g1bc": 0.673,
     "g7bc": 0.345,
-    "gfriction": -85.0
+    "gfriction": -85.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1286,7 +1388,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 6.2,
     "g1bc": 0.5,
-    "g7bc": 0.256
+    "g7bc": 0.256,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1300,7 +1403,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 4.5,
     "g1bc": 0.464,
-    "g7bc": 0.238
+    "g7bc": 0.238,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1314,7 +1418,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 4.6,
     "g1bc": 0.498,
-    "g7bc": 0.255
+    "g7bc": 0.255,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1328,7 +1433,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 4.7,
     "g1bc": 0.518,
-    "g7bc": 0.265
+    "g7bc": 0.265,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1343,7 +1449,8 @@
     "gtailh": 5.4,
     "g1bc": 0.558,
     "g7bc": 0.286,
-    "gfriction": -25.0
+    "gfriction": -25.0,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1357,7 +1464,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.5,
     "g1bc": 0.566,
-    "g7bc": 0.29
+    "g7bc": 0.29,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1371,7 +1479,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.3,
     "g1bc": 0.625,
-    "g7bc": 0.32
+    "g7bc": 0.32,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1385,7 +1494,8 @@
     "gtaildiaA": 9.52,
     "gtailh": 7.8,
     "g1bc": 0.951,
-    "g7bc": 0.487
+    "g7bc": 0.487,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1399,7 +1509,8 @@
     "gtaildiaA": 9.52,
     "gtailh": 7.6,
     "g1bc": 1.022,
-    "g7bc": 0.523
+    "g7bc": 0.523,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1413,7 +1524,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 4.9,
     "g1bc": 0.374,
-    "g7bc": 0.191
+    "g7bc": 0.191,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1427,7 +1539,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 4.9,
     "g1bc": 0.421,
-    "g7bc": 0.216
+    "g7bc": 0.216,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1441,7 +1554,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 4.9,
     "g1bc": 0.455,
-    "g7bc": 0.233
+    "g7bc": 0.233,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1455,7 +1569,8 @@
     "gtaildiaA": 5.69,
     "gtailh": 5.0,
     "g1bc": 0.534,
-    "g7bc": 0.274
+    "g7bc": 0.274,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1469,7 +1584,22 @@
     "gtaildiaA": 6.17,
     "gtailh": 5.3,
     "g1bc": 0.467,
-    "g7bc": 0.24
+    "g7bc": 0.24,
+    "gValid": true
+  },
+  {
+    "mname": "Berger",
+    "pname": "VLD Target 24429",
+    "caliber": ".243",
+    "gdia": 6.17,
+    "glen": 31.0,
+    "gmass": 105.0,
+    "gtailtype": 2,
+    "gtaildiaA": 6.17,
+    "gtailh": 5.5,
+    "g1bc": 0.517,
+    "g7bc": 0.265,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1483,7 +1613,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 5.5,
     "g1bc": 0.563,
-    "g7bc": 0.289
+    "g7bc": 0.289,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1497,7 +1628,8 @@
     "gtaildiaA": 6.17,
     "gtailh": 4.8,
     "g1bc": 0.545,
-    "g7bc": 0.278
+    "g7bc": 0.278,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1511,7 +1643,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 5.9,
     "g1bc": 0.593,
-    "g7bc": 0.304
+    "g7bc": 0.304,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1525,7 +1658,8 @@
     "gtaildiaA": 6.71,
     "gtailh": 5.7,
     "g1bc": 0.562,
-    "g7bc": 0.288
+    "g7bc": 0.288,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1539,7 +1673,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 6.2,
     "g1bc": 0.628,
-    "g7bc": 0.322
+    "g7bc": 0.322,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1553,7 +1688,8 @@
     "gtaildiaA": 7.21,
     "gtailh": 6.2,
     "g1bc": 0.683,
-    "g7bc": 0.35
+    "g7bc": 0.35,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1581,7 +1717,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 4.3,
     "g1bc": 0.507,
-    "g7bc": 0.26
+    "g7bc": 0.26,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1595,7 +1732,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 4.6,
     "g1bc": 0.512,
-    "g7bc": 0.262
+    "g7bc": 0.262,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1609,7 +1747,8 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.6,
     "g1bc": 0.543,
-    "g7bc": 0.278
+    "g7bc": 0.278,
+    "gValid": true
   },
   {
     "mname": "Berger",
@@ -1623,6 +1762,7 @@
     "gtaildiaA": 7.82,
     "gtailh": 5.3,
     "g1bc": 0.621,
-    "g7bc": 0.318
+    "g7bc": 0.318,
+    "gValid": true
   }
 ]
