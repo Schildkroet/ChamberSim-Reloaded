@@ -16,6 +16,9 @@ program opens the same manual with *Help ▸ User manual*, F1; *Help ▸ Online 
 
 ## ⚠️ Safety and disclaimer
 
+**This program is still in beta.** It may contain bugs, and its results can be completely wrong, in pressure as well as
+in velocity. Never rely on them for a real load.
+
 The results are **calculated** and can differ considerably from reality. Compare every load with the current
 loading tables of the component manufacturers and start low.
 
