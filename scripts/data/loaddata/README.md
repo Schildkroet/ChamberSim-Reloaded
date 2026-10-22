@@ -69,6 +69,11 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   tables, older rows without pressures or start load). 3,092 samples, 14 powders; the web page and the guide overlap in about 760 loads (the
   velocities and pressures agree), the rest is new (calibers such as 45 ACP, 9 mm, 6 BR Norma, 7 x 64). Both files are merged without
   duplicates into `sources/samples/rs_samples.csv` (3,933 samples) and fitted together (2026-10-10).
+- `barnes_pdf_extract.py dir` reads the load data PDFs of barnesbullets.com/load-data (download them first, one per cartridge; `pip install pymupdf
+  opencv-python-headless`): per cartridge case, primer, barrel and twist, per bullet weight, type and cartridge length, per powder the starting and
+  the maximum load with velocity (no pressures; two layouts, the older one with a picture of each bullet). The picture's silhouette gives the bullet
+  length (`barnes_lengths.csv`, the widest section is the diameter). 3,904 samples of 56 cartridges; the muzzleloader PDF and 10 cartridges that are
+  not in the records (22 / 25 Creedmoor, 28 Nosler, 338-06, ...) are skipped. Bullets that share a table get its loads once.
 - `samples_common.py`: matches cartridges (with the table's spelling variants) to `data/calibers` and bullets to `data/projectiles`,
   else an estimated length (`estimate_length.py`).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)

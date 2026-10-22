@@ -50,7 +50,7 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   Vihtavuori: explosion heat (the "energy content") and bulk density are taken from its published powder table; the burn rate
   Ba was fitted to its published load data (start and maximum loads, about 4,000 samples), which contain no pressures. Lovex
   (Explosia's Reloading Guide 2019), Reload Swiss (online loading data of Nitrochemie), the Hodgdon Reloading Manual 2024 and the
-  Western Powders Handloading Guide 8.0 publish pressures as well; the fit uses velocities and pressures (velocity error 3-6 % rms,
+  Western Powders Handloading Guide 8.0 publish pressures as well (the Barnes Bullets load data PDFs, 3,904 start and maximum loads of 56 cartridges, give velocities only: H414, Supreme 780, IMR 4007 SSC and IMR 7977 were added from them together with the Hodgdon manual); the fit uses velocities and pressures (velocity error 3-6 % rms,
   pressure error 10-20 % rms; each record's `descr` states its numbers). None of them publishes the explosion heat or the bulk
   density: Qex is a typical value of a single-base (3800 kJ/kg) or double-base (4300 kJ/kg) powder (Lovex: S = single, D = double
   base by name; the others: the type that fits the velocities better), pcd is 900 kg/m3.

@@ -72,6 +72,7 @@ The sample CSVs are local only (not in the repository); make them again from the
 cd scripts/data/loaddata
 python3 hodgdon_extract.py manual.pdf -o hod_samples.csv [--pressure psi|all]
 python3 west_extract.py guide.pdf -o west_samples.csv
+python3 barnes_pdf_extract.py dir_with_pdfs -o barnes_samples.csv --lengths barnes_lengths.csv --images barnes_images   # PyMuPDF, OpenCV; PDFs of barnesbullets.com/load-data
 python3 lovex_extract.py guide.pdf -o lovex_samples.csv          # needs pdftotext
 python3 rs_extract.py -o rs_samples.csv [--html page.html]
 python3 vv_extract.py N150 -o vv_N150.csv [--cache dir]
