@@ -60,7 +60,10 @@
 #include <QWindow>
 #include <QMessageBox>
 #include <QScopeGuard>
+#include <QSet>
 #include <QSettings>
+#include <QSqlDatabase>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QStatusBar>
 #include <QTabBar>
@@ -742,7 +745,8 @@ bool MainWindow::exportRecord(const QString &path)
         file = QFileDialog::getSaveFileName(this, tr("Export record"), csr::projectdata::fileName(table, *record),
                                             tr("Record files (*.json)"));
     if (file.isEmpty()) return false;
-    if (QFileInfo(file).suffix().isEmpty()) file += u".json"_s;  // a name typed without the suffix
+    // a name typed without the suffix ("9.3x62" has the suffix "3x62")
+    if (QFileInfo(file).suffix().compare(u"json"_s, Qt::CaseInsensitive) != 0) file += u".json"_s;
     QFile out(file);
     if (!out.open(QIODevice::WriteOnly) || out.write(csr::projectdata::toJson(*record, schema)) < 0)
     {
@@ -772,11 +776,21 @@ int MainWindow::importBullets(const QString &path)
         return 0;
     }
     const csr::projectdata::BulletFile bullets = csr::projectdata::readBulletFile(in.readAll(), m_db.schema(csr::Table::Projectile));
-    // bullets the database has already (same manufacturer, name and lot) are left out
+    // bullets the database has already (same manufacturer, name and lot) are left out, and so are repeats within the file
     std::vector<QVariantMap> fresh;
+    QSet<QString> seen;
     int known = 0;
     for (const QVariantMap &b : bullets.bullets)
     {
+        const QString key = QStringList{b.value(u"mname"_s).toString(), b.value(u"pname"_s).toString(), b.value(u"lotid"_s).toString()}
+                                .join(u'\n')
+                                .toLower();
+        if (seen.contains(key))
+        {
+            ++known;
+            continue;
+        }
+        seen.insert(key);
         QSqlQuery q(m_db.handle());
         q.prepare(u"SELECT count(*) FROM projectile WHERE geloescht = 0 AND mname = ? AND pname = ? AND lotid = ?"_s);
         q.addBindValue(b.value(u"mname"_s));
@@ -800,6 +814,9 @@ int MainWindow::importBullets(const QString &path)
     }
     if (QMessageBox::question(this, tr("Import bullets"), text + u"\n\n"_s + tr("Add them to your own records?")) != QMessageBox::Yes)
         return 0;
+    // all or none: a bullet that cannot be stored leaves the database as it was
+    QSqlDatabase handle = m_db.handle();
+    const bool transaction = handle.transaction();
     int added = 0;
     QString error;
     for (const QVariantMap &b : fresh)
@@ -807,9 +824,20 @@ int MainWindow::importBullets(const QString &path)
         if (m_db.insert(csr::Table::Projectile, b, &error)) ++added;
         else
         {
-            QMessageBox::warning(this, tr("Import bullets"), tr("A bullet could not be stored:\n%1").arg(error));
+            if (transaction)
+            {
+                handle.rollback();
+                added = 0;
+            }
+            QMessageBox::warning(this, tr("Import bullets"), tr("A bullet could not be stored, none were imported:\n%1").arg(error));
             break;
         }
+    }
+    if (transaction && added > 0 && !handle.commit())
+    {
+        QMessageBox::warning(this, tr("Import bullets"), tr("The bullets could not be stored:\n%1").arg(handle.lastError().text()));
+        handle.rollback();
+        added = 0;
     }
     currentBrowser()->refresh();
     updateRecordButtons();

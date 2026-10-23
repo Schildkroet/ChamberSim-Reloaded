@@ -313,45 +313,45 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+206"/>
-        <location line="+991"/>
+        <location filename="../src/app/loadview.cpp" line="+228"/>
+        <location line="+1055"/>
         <source>Maximum pressure</source>
         <translation>Pressione massima</translation>
     </message>
     <message>
-        <location line="-991"/>
-        <location line="+992"/>
+        <location line="-1047"/>
+        <location line="+1048"/>
         <source>Muzzle pressure</source>
         <translation>Pressione alla volata</translation>
     </message>
     <message>
-        <location line="-992"/>
+        <location line="-1055"/>
         <source>Projectile energy</source>
         <translation>Energia del proiettile</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location line="+992"/>
+        <location line="-1"/>
+        <location line="+1057"/>
         <source>Muzzle velocity</source>
         <translation>Velocità alla volata</translation>
     </message>
     <message>
-        <location line="-992"/>
+        <location line="-1056"/>
         <source>Barrel time (BT)</source>
         <translation>Tempo di canna (BT)</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+7"/>
         <source>Burnout pressure</source>
         <translation>Pressione fine combustione</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Gas outflow velocity</source>
         <translation>Velocità di efflusso dei gas</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-3"/>
         <source>Projectile speed</source>
         <translation>Rotazione del proiettile</translation>
     </message>
@@ -361,23 +361,23 @@
         <translation>Energia di rinculo</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>IPSC / MIP factor</source>
         <translation>Fattore IPSC / MIP</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+41"/>
+        <location line="+2"/>
+        <location line="+89"/>
         <source>Load ratio</source>
         <translation>Grado di riempimento</translation>
     </message>
     <message>
-        <location line="-41"/>
+        <location line="-89"/>
         <source>Burnt propellant</source>
         <translation>Polvere bruciata</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Effective efficiency</source>
         <translation>Rendimento effettivo</translation>
     </message>
@@ -387,7 +387,7 @@
         <translation>Perdite calore / attrito</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+89"/>
         <location line="+825"/>
         <source>Charge</source>
         <translation>Carica</translation>
@@ -428,34 +428,36 @@
         <translation>Cartuccia &amp;&amp; arma</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-139"/>
+        <location line="+139"/>
         <location line="+188"/>
         <location line="+588"/>
         <source>Projectile</source>
         <translation>Proiettile</translation>
     </message>
     <message>
-        <location line="-776"/>
+        <location line="-914"/>
+        <location line="+138"/>
         <location line="+189"/>
         <location line="+588"/>
         <source>Propellant</source>
         <translation>Polvere</translation>
     </message>
     <message>
-        <location line="-918"/>
-        <location line="+142"/>
+        <location line="-979"/>
+        <location line="+203"/>
         <source>Select Caliber</source>
         <translation>Scegli il calibro</translation>
     </message>
     <message>
-        <location line="-142"/>
-        <location line="+142"/>
+        <location line="-203"/>
+        <location line="+203"/>
         <source>Select Projectile</source>
         <translation>Scegli il proiettile</translation>
     </message>
     <message>
-        <location line="-142"/>
-        <location line="+142"/>
+        <location line="-203"/>
+        <location line="+203"/>
         <source>Select Propellant</source>
         <translation>Scegli la polvere</translation>
     </message>
@@ -542,17 +544,22 @@
         <translation>Imposta anche lunghezza della canna, profondità di inserimento e carica ai valori predefiniti del nuovo calibro</translation>
     </message>
     <message>
-        <location line="-383"/>
+        <location line="-435"/>
         <source>Bullet lead time (BLT)</source>
         <translation>Tempo di anticipo del proiettile (BLT)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Optimal barrel time (OBT)</source>
         <translation>Tempo di canna ottimale (OBT)</translation>
     </message>
     <message>
-        <location line="+387"/>
+        <location line="+0"/>
+        <source>Barrel</source>
+        <translation>Canna</translation>
+    </message>
+    <message>
+        <location line="+440"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Mostra solo le palle adatte al calibro</translation>
     </message>
@@ -653,7 +660,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>^ Carica ^ Nome ^ Colpi ^ Velocità ^ DS ^ ES ^ Simulato ^ Δ ^ Pressione ^ Simulato ^ Δ ^</translation>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+153"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Carica troppo alta:&lt;/b&gt; la carica di polvere non entra nel bossolo dietro la palla.</translation>
     </message>
@@ -693,7 +700,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
         <translation>&lt;b&gt;Cartuccia a pallini:&lt;/b&gt; borra e colonna di pallini come proiettile (massa pallini + borra, lunghezza della colonna, inserita nel bossolo, pressione iniziale = apertura della bordatura circa 20 bar). Adattato a cariche per fucile pubblicate: velocità tipicamente 5-7 % troppo bassa; pressione corretta in media ma fino al 30 % di scarto a seconda della polvere - confrontare con i dati del produttore della polvere.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+21"/>
         <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
         <translation>&lt;b&gt;Sovrapressione!&lt;/b&gt; La pressione massima %1 supera del %2 % quella ammessa %3. Non caricare questa carica.</translation>
     </message>
@@ -780,7 +787,7 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+422"/>
+        <location filename="../src/app/mainwindow.cpp" line="+425"/>
         <source>ChamberSim Reloaded</source>
         <translation>ChamberSim Reloaded</translation>
     </message>
@@ -866,43 +873,58 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     <message>
         <location line="-70"/>
         <location line="+352"/>
-        <location line="+405"/>
+        <location line="+430"/>
         <source>Open load</source>
         <translation>Apri caricamento</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-77"/>
+        <source>A bullet could not be stored, none were imported:
+%1</source>
+        <translation>Non è stato possibile salvare una palla, nessuna è stata importata:
+%1</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The bullets could not be stored:
+%1</source>
+        <translation>Non è stato possibile salvare le palle:
+%1</translation>
+    </message>
+    <message>
+        <location line="+72"/>
         <source>Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation>Caricamenti (*.csrload *.grtload);;Caricamenti ChamberSim Reloaded (*.csrload);;Caricamenti GRT originali (*.grtload);;Tutti i file (*)</translation>
     </message>
     <message>
-        <location line="-687"/>
+        <location line="-712"/>
         <source>&amp;Save</source>
         <translation>&amp;Salva</translation>
     </message>
     <message>
         <location line="-93"/>
-        <location line="+662"/>
+        <location line="+663"/>
         <location line="+7"/>
-        <location line="+27"/>
+        <location line="+37"/>
         <location line="+3"/>
-        <location line="+9"/>
+        <location line="+17"/>
+        <location line="+6"/>
         <source>Import bullets</source>
         <translation>Importa proiettili</translation>
     </message>
     <message>
-        <location line="-707"/>
+        <location line="-732"/>
         <source>Add the bullets of a manufacturer&apos;s bullet file (*.%1) to your own records</source>
         <translation>Aggiungi i proiettili di un file di proiettili di un produttore (*.%1) ai propri record</translation>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+771"/>
+        <location line="+796"/>
         <source>New load</source>
         <translation>Nuovo caricamento</translation>
     </message>
     <message>
-        <location line="-769"/>
+        <location line="-794"/>
         <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
         <translation>Crea un caricamento da un calibro, un proiettile e una polvere (%1)</translation>
     </message>
@@ -949,12 +971,12 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+10"/>
-        <location line="+498"/>
+        <location line="+499"/>
         <source>Cannot write %1</source>
         <translation>Impossibile scrivere %1</translation>
     </message>
     <message>
-        <location line="-494"/>
+        <location line="-495"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Sovrapponi un &amp;risultato di riferimento…</translation>
     </message>
@@ -1134,14 +1156,14 @@ Vivacità %2, funzione di forma a0 %3, z1 %4, z2 %5. Sostituiscono la vivacità 
     </message>
     <message>
         <location line="+40"/>
-        <location line="+371"/>
+        <location line="+396"/>
         <source>Cannot read %1:
 %2</source>
         <translation>Impossibile leggere %1:
 %2</translation>
     </message>
     <message>
-        <location line="-354"/>
+        <location line="-379"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Impossibile aprire la banca dati %1:
@@ -1231,12 +1253,12 @@ I file di caricamento che lo usano mantengono i loro valori.</translation>
     <message>
         <location line="+23"/>
         <location line="+7"/>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Export record</source>
         <translation>Esporta record</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-14"/>
         <source>This record is not complete for the project&apos;s database:
 %1
 
@@ -1252,7 +1274,7 @@ Esportarlo comunque?</translation>
         <translation>File di record (*.json)</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Saved %1: add it to data/%2/ in the project to contribute it.</source>
         <translation>%1 salvato: aggiungilo a data/%2/ nel progetto per contribuirlo.</translation>
     </message>
@@ -1267,7 +1289,7 @@ Esportarlo comunque?</translation>
         <translation>Impossibile leggere %1</translation>
     </message>
     <message numerus="yes">
-        <location line="+17"/>
+        <location line="+27"/>
         <source>%n bullet(s) can be added</source>
         <translation>
             <numerusform>Si può aggiungere %n proiettile</numerusform>
@@ -1305,15 +1327,8 @@ Esportarlo comunque?</translation>
         <source>Add them to your own records?</source>
         <translation>Aggiungerli ai propri record?</translation>
     </message>
-    <message>
-        <location line="+9"/>
-        <source>A bullet could not be stored:
-%1</source>
-        <translation>Impossibile salvare un proiettile:
-%1</translation>
-    </message>
     <message numerus="yes">
-        <location line="+6"/>
+        <location line="+29"/>
         <source>%n bullet(s) imported.</source>
         <translation>
             <numerusform>%n proiettile importato.</numerusform>
@@ -2111,7 +2126,7 @@ pressione Δ</translation>
         <translation>Unità</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+103"/>
         <source>Click to choose another unit for this field</source>
         <translation>Fai clic per scegliere un&apos;altra unità per questo campo</translation>
     </message>
@@ -3648,8 +3663,8 @@ pressione Δ</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>additional start pressure (bullet, crimp, case; -400 to 400 bar)</source>
-        <translation>Pressione di partenza aggiuntiva (palla, crimpatura, bossolo; da -400 a 400 bar)</translation>
+        <source>additional start pressure (bullet, crimp, case)</source>
+        <translation>Pressione di partenza aggiuntiva (palla, crimpatura, bossolo)</translation>
     </message>
     <message>
         <location line="+1"/>

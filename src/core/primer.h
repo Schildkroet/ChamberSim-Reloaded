@@ -17,14 +17,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// The primer of a (metallic) cartridge load. The load names a primer type; the type gives the start pressure of the bullet (the
-// solver's initial gas pressure), the load adds its own "additional start pressure" (-400..400 bar) for the bullet, crimp and case:
+// The primer of a (metallic) cartridge load. The load names a primer type and has its own "additional start pressure" (psadd) for the
+// bullet, crimp and case on top of the reference 250 bar:
 //
-//   ps = start pressure of the primer type + additional start pressure
+//   ps = 250 bar + additional start pressure                                 (the load's start pressure, as in the original program)
+//   physical model: ps + (start pressure of the primer type - 250 bar)
 //
-// The start pressures of the types are fitted to published loads (data/physical/primers.json, analysis/fit_primers.py); without the
-// file every type starts at the reference 250 bar, the solver's value before primers existed. A bullet record's start pressure
-// (gpressure) is relative to the same reference: a load gets gpressure - 250 bar as its additional start pressure.
+// Only the physical model uses the primer: its start pressures are fitted with that model to published loads
+// (data/physical/primers.json, analysis/fit_primers.py); the Original and Published models are calibrated with the original's
+// ps and get it unchanged. Without the file every type starts at the reference 250 bar. A bullet record's start pressure (gpressure)
+// and the ps of an original *.grtload are relative to the same reference: a load gets ps - 250 bar as its additional start pressure.
 // A caliber record names its usual primer (column primer); records without one get it from the case (primerOfCaliber).
 // Shotshells have their own primer choice (shotparts.h).
 #pragma once
@@ -54,7 +56,6 @@ inline constexpr std::array<PrimerType, 9> kPrimerTypes{{{"SP", "Small Pistol"},
                                                          {"BMG", ".50 BMG"}}};
 
 inline constexpr double kReferenceStartPressure_bar = 250.0;  // the start pressure of a load without primer; gpressure is relative to it
-inline constexpr double kMaxAdditionalStartPressure_bar = 400.0;  // the additional start pressure is limited to +-this
 
 [[nodiscard]] bool isPrimerCode(const QString &code);
 // The translated name of a type ("Small Rifle Magnum"); an unknown code is returned as it is.
@@ -65,7 +66,6 @@ inline constexpr double kMaxAdditionalStartPressure_bar = 400.0;  // the additio
 [[nodiscard]] QString primerOfCaliber(const QVariantMap &caliber);
 // The start pressure [bar] of a primer type in a case of the given volume [cm3]; an empty or unknown code: the reference 250 bar.
 [[nodiscard]] double primerStartPressure_bar(const QString &code, double caseVolume_cm3);
-[[nodiscard]] double clampAdditionalStartPressure(double bar) noexcept;
 
 // The file the start pressures are read from (default ":/data/physical/primers.json", read once on first use); tools and tests set another.
 void setPrimerFile(const QString &path);

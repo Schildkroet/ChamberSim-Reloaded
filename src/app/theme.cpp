@@ -78,10 +78,25 @@ constexpr Scheme kCatppuccinFrappe{0x303446, 0x292c3c, 0x414559, 0xc6d0f5, 0x8ca
     return nullptr;
 }
 
+// `part` (0..1) of the way from color `from` to color `to`
+QColor mixed(const QColor &from, const QColor &to, double part)
+{
+    return QColor::fromRgbF(from.redF() + (to.redF() - from.redF()) * part, from.greenF() + (to.greenF() - from.greenF()) * part,
+                            from.blueF() + (to.blueF() - from.blueF()) * part);
+}
+
 QPalette schemePalette(const Scheme &c)
 {
-    QPalette p;
+    // every role from the scheme: a default QPalette would carry the bevel roles (Light, Mid, Dark, Shadow) of the palette before
     const QColor window(c.window), base(c.base), alt(c.alt), text(c.text);
+    QPalette p(window, window);
+    const auto mix = [&](double part) { return mixed(window, text, part); };
+    const bool dark = window.lightness() < 128;
+    p.setColor(QPalette::Light, dark ? mix(0.25) : window.lighter(150));
+    p.setColor(QPalette::Midlight, dark ? mix(0.15) : window.lighter(125));
+    p.setColor(QPalette::Mid, mix(0.3));
+    p.setColor(QPalette::Dark, dark ? window.darker(150) : mix(0.45));
+    p.setColor(QPalette::Shadow, dark ? QColor(0, 0, 0) : mix(0.7));
     p.setColor(QPalette::Window, window);
     p.setColor(QPalette::WindowText, text);
     p.setColor(QPalette::Base, base);
@@ -108,9 +123,7 @@ QPalette schemePalette(const Scheme &c)
 // `part` (0..1) of the way from the window color to the text color
 QColor towardsText(const QPalette &palette, double part)
 {
-    const QColor w = palette.color(QPalette::Window), t = palette.color(QPalette::WindowText);
-    return QColor::fromRgbF(w.redF() + (t.redF() - w.redF()) * part, w.greenF() + (t.greenF() - w.greenF()) * part,
-                            w.blueF() + (t.blueF() - w.blueF()) * part);
+    return mixed(palette.color(QPalette::Window), palette.color(QPalette::WindowText), part);
 }
 
 // Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the

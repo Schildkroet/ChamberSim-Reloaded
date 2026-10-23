@@ -157,7 +157,7 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
     num(u"work.oal"_s, c.number(u"oal"), Quantity::Length);
     const double effVolume = r.ok() ? r.effectiveCaseVolume_cm3 : in.caseVolume_cm3 - bulletIntrusion_m3(in) * 1e6;
     num(u"work.Vb"_s, effVolume, Quantity::Volume);
-    num(u"work.sebert"_s, in.sebert);  // the value the simulation used
+    num(u"work.sebert"_s, in.sebert);  // the load's value (the physical model uses it only for recoil and propellant impulse)
     num(u"work.xe"_s, lf.gun.number(u"xe"), Quantity::Length);
     num(u"work.xeEff"_s, lf.gun.number(u"xe") - in.startPosition_mm(), Quantity::Length);
     num(u"work.twistlen"_s, lf.gun.number(u"twistlen"), Quantity::Length);

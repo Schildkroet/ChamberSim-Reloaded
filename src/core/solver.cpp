@@ -783,6 +783,14 @@ double chamberVolume_m3(const SimInput &in, const Calibration &calibration)
 SimResult simulate(const SimInput &in, const Calibration &calibration, int steps)
 {
     const Calibration &cal = effectiveCalibration(in, calibration);
+    // the primer's start pressure belongs to the physical model (fitted with it); the other models keep the load's start pressure
+    if (in.primerOffset_bar != 0.0)
+    {
+        SimInput adjusted = in;
+        adjusted.primerOffset_bar = 0.0;
+        if (cal.model == SolverModel::Physical && !in.shotshell) adjusted.startPressure_bar += in.primerOffset_bar;
+        return simulate(adjusted, calibration, steps);
+    }
     if (in.handgun && !in.shotshell && in.barrelLength_mm < cal.handgunMaxBarrel_mm &&
         cal.handgunStartFraction * in.maxPressure_bar > in.startPressure_bar)
     {

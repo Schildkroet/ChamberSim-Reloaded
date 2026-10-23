@@ -302,16 +302,16 @@ bool followCaseLength(EntryList &caliber, EntryList &projectile, double previous
 
 bool ensurePrimer(LoadFile &lf)
 {
+    // the description of psadd named a limit of -400..400 bar, which no longer exists: the label follows the specification
+    if (Entry *e = lf.caliber.find(u"psadd"))
+        for (const spec::Field &f : spec::kCaliber)
+            if (e->name == QLatin1String(f.name)) e->descr = QString::fromLatin1(f.descr);
     if (lf.caliber.find(u"primer") && lf.caliber.find(u"psadd")) return false;
     const QString primer = lf.caliber.find(u"primer") ? lf.caliber.text(u"primer") : primerOfCaliber(caliberRecordOf(lf));
-    // the load keeps its start pressure: what its primer does not give is the additional start pressure
+    // the load keeps its start pressure exactly: what the reference does not give is the additional start pressure
     const double ps = lf.caliber.number(u"ps", lf.projectile.number(u"gpressure", kReferenceStartPressure_bar));
-    const double add = ps - primerStartPressure_bar(primer, lf.caliber.number(u"casevol"));
-    if (clampAdditionalStartPressure(add) != add)
-        LOG_Warn() << "Load: start pressure" << ps << "bar is beyond the primer's start pressure +-" << kMaxAdditionalStartPressure_bar
-                   << "bar, limited";
     setAfter(lf.caliber, u"ps", u"primer", primer);
-    setAfter(lf.caliber, u"primer", u"psadd", fmt(clampAdditionalStartPressure(add)));
+    setAfter(lf.caliber, u"primer", u"psadd", fmt(ps - kReferenceStartPressure_bar));
     updateStartPressure(lf);
     LOG_Debug() << "Load: primer" << primer << "and additional start pressure" << lf.caliber.text(u"psadd") << "added";
     return true;
@@ -333,26 +333,21 @@ bool ensureSebert(LoadFile &lf)
     return true;
 }
 
-void setPrimerKeepingStart(LoadFile &lf, const QString &primer)
-{
-    const double ps = loadStartPressure_bar(lf.caliber);
-    lf.caliber.set(u"primer", primer);
-    lf.caliber.set(u"psadd", fmt(clampAdditionalStartPressure(ps - primerStartPressure_bar(primer, lf.caliber.number(u"casevol")))));
-    updateStartPressure(lf);
-}
-
 double loadStartPressure_bar(const EntryList &caliber)
 {
     if (!caliber.find(u"psadd")) return caliber.number(u"ps", kReferenceStartPressure_bar);
-    return primerStartPressure_bar(caliber.text(u"primer"), caliber.number(u"casevol")) +
-           clampAdditionalStartPressure(caliber.number(u"psadd"));
+    return kReferenceStartPressure_bar + caliber.number(u"psadd");
+}
+
+double primerOffset_bar(const EntryList &caliber)
+{
+    if (!caliber.find(u"psadd") || caliber.flag(u"shotshell")) return 0.0;
+    return primerStartPressure_bar(caliber.text(u"primer"), caliber.number(u"casevol")) - kReferenceStartPressure_bar;
 }
 
 void updateStartPressure(LoadFile &lf)
 {
     if (!lf.caliber.find(u"psadd")) return;
-    const double add = lf.caliber.number(u"psadd");
-    if (clampAdditionalStartPressure(add) != add) lf.caliber.set(u"psadd", fmt(clampAdditionalStartPressure(add)));
     const QString ps = fmt(loadStartPressure_bar(lf.caliber));
     lf.caliber.set(u"ps", ps);
     lf.projectile.set(u"gpressure", ps);  // the original shows it in both sections
@@ -365,7 +360,7 @@ void applyCaliber(LoadFile &lf, const QVariantMap &caliber, const QStringList &c
     setFields(lf.caliber, caliberFields(caliber));
     fillCaliberFile(lf, caliber, caliberColumns);
     ensurePrimer(lf);
-    lf.caliber.set(u"primer", primerOfCaliber(caliber));  // the new cartridge's usual primer; the additional start pressure stays
+    lf.caliber.set(u"primer", primerOfCaliber(caliber));  // the new cartridge's usual primer; the start pressure stays
     if (resetDependent)
     {
         lf.gun.set(u"xe", defaultBarrelLength_mm(caliber));
@@ -381,7 +376,7 @@ void applyProjectile(LoadFile &lf, const QVariantMap &projectile, bool resetDepe
     setFields(lf.projectile, projectileFields(projectile));
     completeTail(lf.projectile);
     ensurePrimer(lf);
-    lf.caliber.set(u"psadd", fmt(clampAdditionalStartPressure(startPressureOf(projectile) - kReferenceStartPressure_bar)));
+    lf.caliber.set(u"psadd", fmt(startPressureOf(projectile) - kReferenceStartPressure_bar));
     if (resetDependent && caliber) lf.projectile.set(u"gdepth", defaultSeatingDepth_mm(*caliber, projectile));
     else if (lf.projectile.number(u"gdepth") <= 0.0 && caliber) lf.projectile.set(u"gdepth", defaultSeatingDepth_mm(*caliber, projectile));
     refreshTitleAndLength(lf);
@@ -426,7 +421,7 @@ LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, co
     cal.insert(u"oal"_s, fmt(num(caliber, "L3") + num(projectile, "glen") - p.seatingDepth_mm));
     cal.insert(u"ps"_s, fmt(startPressureOf(projectile)));
     cal.insert(u"primer"_s, primerOfCaliber(caliber));
-    cal.insert(u"psadd"_s, fmt(clampAdditionalStartPressure(startPressureOf(projectile) - kReferenceStartPressure_bar)));
+    cal.insert(u"psadd"_s, fmt(startPressureOf(projectile) - kReferenceStartPressure_bar));
     fill(lf.caliber, spec::kCaliber, cal);
     fillCaliberFile(lf, caliber, caliberColumns);
 

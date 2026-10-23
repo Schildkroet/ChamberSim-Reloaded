@@ -722,8 +722,8 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
     QVERIFY(std::abs(lf->projectile.number(u"gdepth"_s) - 8.4) < 1e-6);
     QVERIFY(lf->caliber.number(u"casevol"_s) < volume);
 
-    // the initial gas pressure exists in two sections; the solver uses the caliber's. With a primer it is the primer's start pressure
-    // plus the additional one: editing the total sets the additional one, editing that one the total.
+    // the initial gas pressure exists in two sections; the solver uses the caliber's. With a primer it is 250 bar plus the additional
+    // one (the primer's offset is the physical model's): editing the total sets the additional one, editing that one the total.
     edit(u"gpressure"_s, u"400"_s);
     lf = saved();
     QVERIFY(lf);
@@ -739,15 +739,14 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
     lf = savedOwn();
     QVERIFY(lf);
     QVERIFY(lf->caliber.find(u"psadd"_s));
-    const double primerStart = csr::primerStartPressure_bar(lf->caliber.text(u"primer"_s), lf->caliber.number(u"casevol"_s));
-    QVERIFY(std::abs(lf->caliber.number(u"psadd"_s) - (400.0 - primerStart)) < 1e-6);
+    QVERIFY(std::abs(lf->caliber.number(u"psadd"_s) - 150.0) < 1e-6);
     edit(u"psadd"_s, u"30"_s);
     lf = saved();
     QVERIFY(lf);
-    QVERIFY(std::abs(lf->projectile.number(u"gpressure"_s) - (primerStart + 30.0)) < 1e-6);
-    QVERIFY(std::abs(lf->caliber.number(u"ps"_s) - (primerStart + 30.0)) < 1e-6);
+    QVERIFY(std::abs(lf->projectile.number(u"gpressure"_s) - 280.0) < 1e-6);
+    QVERIFY(std::abs(lf->caliber.number(u"ps"_s) - 280.0) < 1e-6);
     QVERIFY(!lf->caliber.find(u"psadd"_s));  // not in the export
-    // the primer is shown by its name (a drop-down), ps is not shown: it is the primer's start pressure plus the additional one
+    // the primer is shown by its name (a drop-down), ps is not shown: it is 250 bar plus the additional one
     bool primerShown = false;
     for (PropertyPanel *panel : view.findChildren<PropertyPanel *>())
     {
@@ -762,10 +761,11 @@ void GuiTest::overallLengthAndSeatingDepthStayInStep()
         }
     }
     QVERIFY(primerShown);
-    edit(u"psadd"_s, u"900"_s);  // limited to +-400 bar
+    edit(u"psadd"_s, u"900"_s);  // not limited
     lf = savedOwn();
     QVERIFY(lf);
-    QCOMPARE(lf->caliber.number(u"psadd"_s), 400.0);
+    QCOMPARE(lf->caliber.number(u"psadd"_s), 900.0);
+    QCOMPARE(lf->caliber.number(u"ps"_s), 1150.0);
 }
 
 void GuiTest::panelShowsAndEditsInTheChosenUnit()

@@ -45,7 +45,7 @@ inline constexpr Field kCaliber[] = {
     {"ps", "bar", "decimal", "initial gas pressure"},
     // this program's (not in the original's sample load, left out of the *.grtload export): primer type and the start pressure on top of it
     {"primer", "", "string", "primer"},
-    {"psadd", "bar", "decimal", "additional start pressure (bullet, crimp, case; -400 to 400 bar)"},
+    {"psadd", "bar", "decimal", "additional start pressure (bullet, crimp, case)"},
     {"shotshell", "", "boolean", "true if shotshell"},
 };
 

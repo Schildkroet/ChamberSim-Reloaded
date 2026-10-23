@@ -20,6 +20,7 @@
 #pragma once
 
 #include <algorithm>
+#include <vector>
 
 #include <QHash>
 #include <QRegularExpression>
@@ -49,50 +50,69 @@ namespace searchfilter
     return out;
 }
 
-// All words of the query (or the whole query) are found in the cells of one row.
-[[nodiscard]] inline bool matches(const QString &query, const QStringList &cells)
+// Cells (or a query) in both normalized spellings: without the "x" between digits and with it.
+struct Normalized
 {
-    if (normalized(query).isEmpty()) return true;
-    QStringList dropped, kept;
-    for (const QString &c : cells)
+    QString dropped, kept;
+    explicit Normalized(const QString &text = {})
+        : dropped(normalized(text))
+        , kept(normalized(text, false))
     {
-        dropped += normalized(c);
-        kept += normalized(c, false);
     }
+};
+
+// All words of the query (or the whole query) are found in the cells of one row (the cells normalized).
+[[nodiscard]] inline bool matches(const QString &query, const std::vector<Normalized> &cells)
+{
+    const Normalized whole(query);
+    if (whole.dropped.isEmpty()) return true;
     // the text in either spelling of the "x" ("8x" is found in "8x57is", "857" in "857is")
-    const auto found = [&](const QString &text)
+    const auto found = [&](const Normalized &text)
     {
-        const QString d = normalized(text), k = normalized(text, false);
-        return std::ranges::any_of(dropped, [&](const QString &c) { return c.contains(d); }) ||
-               std::ranges::any_of(kept, [&](const QString &c) { return c.contains(k); });
+        return std::ranges::any_of(cells, [&](const Normalized &c) { return c.dropped.contains(text.dropped); }) ||
+               std::ranges::any_of(cells, [&](const Normalized &c) { return c.kept.contains(text.kept); });
     };
-    if (found(query)) return true;
+    if (found(whole)) return true;
     // several words: every word in some cell ("lovex s020", "hornady 115")
     const QStringList words = query.split(QRegularExpression(QStringLiteral("\\s+")), Qt::SkipEmptyParts);
     // not for numbers only ("8 x 57" is one cartridge name, "8" and "57" would match anywhere)
     const auto isName = [](const QString &w)
     { return std::ranges::any_of(w, [](QChar c) { return c.isLetter() && c.toLower() != QLatin1Char('x'); }); };
     if (words.size() < 2 || !std::ranges::any_of(words, isName)) return false;
-    return std::ranges::all_of(words, [&](const QString &w)
-                               { return normalized(w).isEmpty() || normalized(w) == QLatin1String("x") || found(w); });
+    return std::ranges::all_of(words,
+                               [&](const QString &w)
+                               {
+                                   const Normalized word(w);
+                                   return word.dropped.isEmpty() || word.dropped == QLatin1String("x") || found(word);
+                               });
+}
+
+[[nodiscard]] inline bool matches(const QString &query, const QStringList &cells)
+{
+    std::vector<Normalized> normalizedCells;
+    for (const QString &c : cells) normalizedCells.emplace_back(c);
+    return matches(query, normalizedCells);
 }
 
 // How well a text cell fits the query, for ranking the rows: 4000 = the whole cell, 3000 = its beginning, 2000 = somewhere in it (plus up to 999 for the share
 // of the cell the query covers; either spelling of the "x"), 0 = not at all. The number columns of a record (a diameter of 11.63 for ".458") only count as 1 where they contain it.
-[[nodiscard]] inline int cellScore(const QString &query, const QString &cell, bool isText)
+[[nodiscard]] inline int cellScore(const Normalized &query, const Normalized &cell, bool isText)
 {
-    const QString qd = normalized(query), qk = normalized(query, false);
-    if (qd.isEmpty()) return 0;
-    const QString cd = normalized(cell), ck = normalized(cell, false);
+    if (query.dropped.isEmpty()) return 0;
     int best = 0;
-    for (const auto &[q, c] : {std::pair{qd, cd}, std::pair{qk, ck}})
+    for (const auto &[q, c] : {std::pair{&query.dropped, &cell.dropped}, std::pair{&query.kept, &cell.kept}})
     {
-        const int fill = static_cast<int>(999 * q.size() / std::max<qsizetype>(c.size(), 1));  // the shorter cell fits better
-        if (c == q) best = std::max(best, 4000 + fill);
-        else if (c.startsWith(q)) best = std::max(best, 3000 + fill);
-        else if (c.contains(q)) best = std::max(best, 2000 + fill);
+        const int fill = static_cast<int>(999 * q->size() / std::max<qsizetype>(c->size(), 1));  // the shorter cell fits better
+        if (*c == *q) best = std::max(best, 4000 + fill);
+        else if (c->startsWith(*q)) best = std::max(best, 3000 + fill);
+        else if (c->contains(*q)) best = std::max(best, 2000 + fill);
     }
     return best == 0 ? 0 : isText ? best : 1;
+}
+
+[[nodiscard]] inline int cellScore(const QString &query, const QString &cell, bool isText)
+{
+    return cellScore(Normalized(query), Normalized(cell), isText);
 }
 
 }  // namespace searchfilter
@@ -106,6 +126,7 @@ public:
     void setQuery(const QString &query)
     {
         m_query = query.trimmed();
+        m_normalizedQuery = searchfilter::Normalized(m_query);
         m_scores.clear();
         invalidate();  // filter and order: the rows that fit best first
     }
@@ -118,7 +139,7 @@ protected:
     [[nodiscard]] bool filterAcceptsRow(int row, const QModelIndex &parent) const override
     {
         if (m_query.isEmpty() || !sourceModel()) return true;
-        QStringList cells;
+        std::vector<searchfilter::Normalized> cells;  // each cell normalized once, for the filter and the ranking
         int score = 0;
         const int key = filterKeyColumn();
         const int columns = sourceModel()->columnCount(parent);
@@ -126,8 +147,8 @@ protected:
         {
             if (key >= 0 && key != c) continue;
             const QVariant v = sourceModel()->index(row, c, parent).data(filterRole());
-            cells += v.toString();
-            score = std::max(score, searchfilter::cellScore(m_query, cells.back(), v.typeId() == QMetaType::QString));
+            cells.emplace_back(v.toString());
+            score = std::max(score, searchfilter::cellScore(m_normalizedQuery, cells.back(), v.typeId() == QMetaType::QString));
         }
         const bool ok = searchfilter::matches(m_query, cells);
         if (ok) m_scores.insert(row, score);
@@ -147,6 +168,7 @@ protected:
 
 private:
     QString m_query;
+    searchfilter::Normalized m_normalizedQuery;
     int m_rankedColumn = -1;
     mutable QHash<int, int> m_scores;  // source row -> how well it fits the query (filled by the filter)
 };

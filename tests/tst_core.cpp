@@ -671,7 +671,7 @@ void CoreTest::loadWithoutCaliberRecord()
     QCOMPARE(lf->caliberFile.text(u"cipname"), u"357 SIG"_s);
     QVERIFY(lf->caliberFile.number(u"P1") > 0.0);
     QVERIFY(csr::ensurePrimer(*lf));
-    csr::setPrimerKeepingStart(*lf, *db.caliberPrimer(lf->caliberFile.text(u"cipname")));
+    lf->caliber.set(u"primer", *db.caliberPrimer(lf->caliberFile.text(u"cipname")));
     QCOMPARE(lf->caliber.text(u"primer"), u"SP"_s);
 
     // the powder of the project: "use the database values" and "use the physical values"
@@ -2627,8 +2627,8 @@ void CoreTest::powderFitPhysicalValues()
     QCOMPARE_LT(physOnly.velocityRmsAfter, 0.01);  // another form function (the load's a0, z1, z2): Ba alone gets close, not exact
 }
 
-// The primer of a load (primer.h, loadbuilder.h): the caliber's usual one, start pressure = primer's + additional (-400..400 bar); a load
-// without primer keeps its start pressure; the export leaves primer and psadd out.
+// The primer of a load (primer.h, loadbuilder.h): the caliber's usual one; start pressure = 250 bar + additional, the physical model adds the
+// primer's offset; a load without primer keeps its start pressure exactly; the export leaves primer and psadd out.
 void CoreTest::primerGivesTheStartPressure()
 {
     // the usual primer: the record's, else from the case
@@ -2655,8 +2655,6 @@ void CoreTest::primerGivesTheStartPressure()
     QCOMPARE(csr::primerStartPressure_bar(u"LR"_s, 3.6), 300.0);
     QCOMPARE(csr::primerStartPressure_bar(u"SPM"_s, 3.6), csr::kReferenceStartPressure_bar);   // not in the file
     QCOMPARE(csr::primerStartPressure_bar(QString(), 3.6), csr::kReferenceStartPressure_bar);  // no primer
-    QCOMPARE(csr::clampAdditionalStartPressure(650.0), 400.0);
-    QCOMPARE(csr::clampAdditionalStartPressure(-650.0), -400.0);
 
     // a new load: the caliber's primer, the bullet's start pressure above the 250 bar reference is the additional one
     const QVariantMap caliber{{u"cipname"_s, u"308 Win."_s},
@@ -2675,37 +2673,59 @@ void CoreTest::primerGivesTheStartPressure()
     csr::LoadFile lf = csr::buildLoad(caliber, bullet, powder);
     QCOMPARE(lf.caliber.text(u"primer"), u"LR"_s);
     QCOMPARE(lf.caliber.number(u"psadd"), 80.0);
-    QCOMPARE(lf.caliber.number(u"ps"), 380.0);  // 300 + 80
-    QCOMPARE(lf.projectile.number(u"gpressure"), 380.0);
-    QCOMPARE(csr::SimInput::fromLoad(lf).startPressure_bar, 380.0);
-    lf.caliber.set(u"primer", u"SR"_s);  // another primer: the start pressure follows
+    QCOMPARE(lf.caliber.number(u"ps"), 330.0);  // the bullet's, as in the original
+    QCOMPARE(lf.projectile.number(u"gpressure"), 330.0);
+    QCOMPARE(csr::SimInput::fromLoad(lf).startPressure_bar, 330.0);
+    QCOMPARE(csr::SimInput::fromLoad(lf).primerOffset_bar, 50.0);  // LR 300 - 250, physical model only
+    lf.caliber.set(u"primer", u"SR"_s);                            // another primer: only the physical offset follows
     csr::updateStartPressure(lf);
-    QCOMPARE(lf.caliber.number(u"ps"), 280.0);
-    lf.caliber.set(u"psadd", 900.0);  // limited
+    QCOMPARE(lf.caliber.number(u"ps"), 330.0);
+    QCOMPARE(csr::SimInput::fromLoad(lf).primerOffset_bar, -50.0);
+    lf.caliber.set(u"psadd", 900.0);  // not limited
     csr::updateStartPressure(lf);
-    QCOMPARE(lf.caliber.number(u"psadd"), 400.0);
-    QCOMPARE(lf.caliber.number(u"ps"), 600.0);
+    QCOMPARE(lf.caliber.number(u"psadd"), 900.0);
+    QCOMPARE(lf.caliber.number(u"ps"), 1150.0);
 
     // the export leaves primer and psadd out (its ps has the sum); the own format keeps them
     const auto exported = csr::LoadFile::parse(lf.toXml(csr::FileFormat::Original));
     QVERIFY(exported);
     QVERIFY(!exported->caliber.find(u"primer") && !exported->caliber.find(u"psadd"));
-    QCOMPARE(exported->caliber.number(u"ps"), 600.0);
+    QCOMPARE(exported->caliber.number(u"ps"), 1150.0);
     const auto own = csr::LoadFile::parse(lf.toXml(csr::FileFormat::Reload));
     QVERIFY(own);
     QCOMPARE(own->caliber.text(u"primer"), u"SR"_s);
-    QCOMPARE(own->caliber.number(u"psadd"), 400.0);
+    QCOMPARE(own->caliber.number(u"psadd"), 900.0);
 
-    // an older load (the export read back): the caliber's primer is added and the start pressure kept
-    csr::LoadFile old = *exported;
-    QVERIFY(csr::ensurePrimer(old));
-    QCOMPARE(old.caliber.text(u"primer"), u"LR"_s);  // from the record copy in <caliberfile>
-    QCOMPARE(old.caliber.number(u"psadd"), 300.0);   // 600 - 300
-    QCOMPARE(old.caliber.number(u"ps"), 600.0);
-    QVERIFY(!csr::ensurePrimer(old));  // only once
-    csr::setPrimerKeepingStart(old, u"SR"_s);
-    QCOMPARE(old.caliber.number(u"psadd"), 400.0);  // 600 - 200
-    QCOMPARE(old.caliber.number(u"ps"), 600.0);
+    // an older load (the export read back): the caliber's primer is added and the start pressure kept exactly, however far it is from
+    // the reference (the original's records go from 20 to 950 bar)
+    for (const double ps : {1150.0, 20.0, 950.0})
+    {
+        csr::LoadFile old = *exported;
+        old.caliber.set(u"ps", ps);
+        QVERIFY(csr::ensurePrimer(old));
+        QCOMPARE(old.caliber.text(u"primer"), u"LR"_s);  // from the record copy in <caliberfile>
+        QCOMPARE(old.caliber.number(u"psadd"), ps - 250.0);
+        QCOMPARE(old.caliber.number(u"ps"), ps);
+        QCOMPARE(csr::SimInput::fromLoad(old).startPressure_bar, ps);
+        QVERIFY(!csr::ensurePrimer(old));  // only once
+    }
+
+    // the Original model gets the load's start pressure, the physical one adds the primer's offset
+    {
+        csr::LoadFile old = *exported;
+        old.caliber.set(u"ps", 330.0);
+        QVERIFY(csr::ensurePrimer(old));
+        csr::SimInput in = csr::SimInput::fromLoad(old);
+        const csr::Calibration original = csr::calibrationFor(csr::CalibrationProfile::Original);
+        const csr::Calibration physical = csr::calibrationFor(csr::CalibrationProfile::Physical);
+        csr::SimInput plain = in;
+        plain.primerOffset_bar = 0.0;
+        QCOMPARE(csr::simulate(in, original).maxPressure_bar, csr::simulate(plain, original).maxPressure_bar);
+        csr::SimInput shifted = plain;
+        shifted.startPressure_bar += in.primerOffset_bar;
+        QCOMPARE(csr::simulate(in, physical).maxPressure_bar, csr::simulate(shifted, physical).maxPressure_bar);
+        QVERIFY(csr::simulate(in, physical).maxPressure_bar != csr::simulate(plain, physical).maxPressure_bar);
+    }
 
     // the case volume dependence: start pressure * (V / 3 cm3)^-k
     {

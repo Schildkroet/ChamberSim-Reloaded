@@ -313,45 +313,45 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+206"/>
-        <location line="+991"/>
+        <location filename="../src/app/loadview.cpp" line="+228"/>
+        <location line="+1055"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-991"/>
-        <location line="+992"/>
+        <location line="-1047"/>
+        <location line="+1048"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-992"/>
+        <location line="-1055"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location line="+992"/>
+        <location line="-1"/>
+        <location line="+1057"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-992"/>
+        <location line="-1056"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+7"/>
         <source>Burnout pressure</source>
         <translation>Druck bei Brennschluss</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+4"/>
         <source>Gas outflow velocity</source>
         <translation>Gasausströmgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-3"/>
         <source>Projectile speed</source>
         <translation>Geschossdrehzahl</translation>
     </message>
@@ -361,23 +361,23 @@
         <translation>Rückstoßenergie</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>IPSC / MIP factor</source>
         <translation>IPSC- / MIP-Faktor</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+41"/>
+        <location line="+2"/>
+        <location line="+89"/>
         <source>Load ratio</source>
         <translation>Füllgrad</translation>
     </message>
     <message>
-        <location line="-41"/>
+        <location line="-89"/>
         <source>Burnt propellant</source>
         <translation>Verbranntes Pulver</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Effective efficiency</source>
         <translation>Wirkungsgrad</translation>
     </message>
@@ -387,7 +387,7 @@
         <translation>Wärme-/Reibungsverlust</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+89"/>
         <location line="+825"/>
         <source>Charge</source>
         <translation>Ladung</translation>
@@ -428,34 +428,36 @@
         <translation>Patrone &amp;&amp; Waffe</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-139"/>
+        <location line="+139"/>
         <location line="+188"/>
         <location line="+588"/>
         <source>Projectile</source>
         <translation>Geschoss</translation>
     </message>
     <message>
-        <location line="-776"/>
+        <location line="-914"/>
+        <location line="+138"/>
         <location line="+189"/>
         <location line="+588"/>
         <source>Propellant</source>
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="-918"/>
-        <location line="+142"/>
+        <location line="-979"/>
+        <location line="+203"/>
         <source>Select Caliber</source>
         <translation>Kaliber wählen</translation>
     </message>
     <message>
-        <location line="-142"/>
-        <location line="+142"/>
+        <location line="-203"/>
+        <location line="+203"/>
         <source>Select Projectile</source>
         <translation>Geschoss wählen</translation>
     </message>
     <message>
-        <location line="-142"/>
-        <location line="+142"/>
+        <location line="-203"/>
+        <location line="+203"/>
         <source>Select Propellant</source>
         <translation>Pulver wählen</translation>
     </message>
@@ -542,17 +544,22 @@
         <translation>Auch Lauflänge, Setztiefe und Ladung auf die Vorgaben des neuen Kalibers setzen</translation>
     </message>
     <message>
-        <location line="-383"/>
+        <location line="-435"/>
         <source>Bullet lead time (BLT)</source>
         <translation>Geschossvorlaufzeit (BLT)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+0"/>
         <source>Optimal barrel time (OBT)</source>
         <translation>Optimale Laufzeit (OBT)</translation>
     </message>
     <message>
-        <location line="+387"/>
+        <location line="+0"/>
+        <source>Barrel</source>
+        <translation>Lauf</translation>
+    </message>
+    <message>
+        <location line="+440"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Nur Geschosse anzeigen, die zum Kaliber passen</translation>
     </message>
@@ -653,7 +660,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>^ Ladung ^ Name ^ Schüsse ^ Geschwindigkeit ^ SD ^ ES ^ Simuliert ^ Δ ^ Druck ^ Simuliert ^ Δ ^</translation>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+153"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Ladung zu hoch:&lt;/b&gt; die Pulverladung passt nicht hinter dem Geschoss in die Hülse.</translation>
     </message>
@@ -693,7 +700,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
         <translation>&lt;b&gt;Schrotpatrone:&lt;/b&gt; Pfropfen und Schrotsäule als Geschoss (Masse Schrot + Pfropfen, Säulenlänge, in der Hülse sitzend, Anfangsdruck = Öffnen der Bördelung etwa 20 bar). An veröffentlichte Schrotladungen angepasst: Geschwindigkeit typisch 5-7 % zu niedrig; Druck im Mittel richtig, je nach Pulver aber bis zu 30 % daneben - mit den Daten des Pulverherstellers vergleichen.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+21"/>
         <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
         <translation>&lt;b&gt;Überdruck!&lt;/b&gt; Der Maximaldruck %1 liegt %2 % über dem zulässigen Wert %3. Diese Ladung nicht laden.</translation>
     </message>
@@ -780,7 +787,7 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+422"/>
+        <location filename="../src/app/mainwindow.cpp" line="+425"/>
         <source>ChamberSim Reloaded</source>
         <translation>ChamberSim Reloaded</translation>
     </message>
@@ -866,43 +873,58 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     <message>
         <location line="-70"/>
         <location line="+352"/>
-        <location line="+405"/>
+        <location line="+430"/>
         <source>Open load</source>
         <translation>Ladung öffnen</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-77"/>
+        <source>A bullet could not be stored, none were imported:
+%1</source>
+        <translation>Ein Geschoss konnte nicht gespeichert werden, keines wurde importiert:
+%1</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The bullets could not be stored:
+%1</source>
+        <translation>Die Geschosse konnten nicht gespeichert werden:
+%1</translation>
+    </message>
+    <message>
+        <location line="+72"/>
         <source>Loads (*.csrload *.grtload);;ChamberSim Reloaded loads (*.csrload);;Original GRT loads (*.grtload);;All files (*)</source>
         <translation>Ladungen (*.csrload *.grtload);;ChamberSim-Reloaded-Ladungen (*.csrload);;Original-GRT-Ladungen (*.grtload);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location line="-687"/>
+        <location line="-712"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
         <location line="-93"/>
-        <location line="+662"/>
+        <location line="+663"/>
         <location line="+7"/>
-        <location line="+27"/>
+        <location line="+37"/>
         <location line="+3"/>
-        <location line="+9"/>
+        <location line="+17"/>
+        <location line="+6"/>
         <source>Import bullets</source>
         <translation>Geschosse importieren</translation>
     </message>
     <message>
-        <location line="-707"/>
+        <location line="-732"/>
         <source>Add the bullets of a manufacturer&apos;s bullet file (*.%1) to your own records</source>
         <translation>Die Geschosse aus der Geschossdatei eines Herstellers (*.%1) zu den eigenen Datensätzen hinzufügen</translation>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+771"/>
+        <location line="+796"/>
         <source>New load</source>
         <translation>Neue Ladung</translation>
     </message>
     <message>
-        <location line="-769"/>
+        <location line="-794"/>
         <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
         <translation>Eine Ladung aus Kaliber, Geschoss und Pulver erstellen (%1)</translation>
     </message>
@@ -949,12 +971,12 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+10"/>
-        <location line="+498"/>
+        <location line="+499"/>
         <source>Cannot write %1</source>
         <translation>%1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location line="-494"/>
+        <location line="-495"/>
         <source>Overlay &amp;reference result…</source>
         <translation>&amp;Referenzergebnis überlagern…</translation>
     </message>
@@ -1134,14 +1156,14 @@ Abbrandrate %2, Formfunktion a0 %3, z1 %4, z2 %5. Sie ersetzen die skalierte Abb
     </message>
     <message>
         <location line="+40"/>
-        <location line="+371"/>
+        <location line="+396"/>
         <source>Cannot read %1:
 %2</source>
         <translation>%1 kann nicht gelesen werden:
 %2</translation>
     </message>
     <message>
-        <location line="-354"/>
+        <location line="-379"/>
         <source>Cannot open the database %1:
 %2</source>
         <translation>Die Datenbank %1 kann nicht geöffnet werden:
@@ -1231,12 +1253,12 @@ Ladungsdateien, die ihn verwenden, behalten ihre Werte.</translation>
     <message>
         <location line="+23"/>
         <location line="+7"/>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Export record</source>
         <translation>Datensatz exportieren</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="-14"/>
         <source>This record is not complete for the project&apos;s database:
 %1
 
@@ -1252,7 +1274,7 @@ Trotzdem exportieren?</translation>
         <translation>Datensatzdateien (*.json)</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Saved %1: add it to data/%2/ in the project to contribute it.</source>
         <translation>%1 gespeichert: zum Beitragen in data/%2/ des Projekts ablegen.</translation>
     </message>
@@ -1267,7 +1289,7 @@ Trotzdem exportieren?</translation>
         <translation>%1 kann nicht gelesen werden</translation>
     </message>
     <message numerus="yes">
-        <location line="+17"/>
+        <location line="+27"/>
         <source>%n bullet(s) can be added</source>
         <translation>
             <numerusform>%n Geschoss kann hinzugefügt werden</numerusform>
@@ -1305,15 +1327,8 @@ Trotzdem exportieren?</translation>
         <source>Add them to your own records?</source>
         <translation>Zu den eigenen Datensätzen hinzufügen?</translation>
     </message>
-    <message>
-        <location line="+9"/>
-        <source>A bullet could not be stored:
-%1</source>
-        <translation>Ein Geschoss konnte nicht gespeichert werden:
-%1</translation>
-    </message>
     <message numerus="yes">
-        <location line="+6"/>
+        <location line="+29"/>
         <source>%n bullet(s) imported.</source>
         <translation>
             <numerusform>%n Geschoss importiert.</numerusform>
@@ -2111,7 +2126,7 @@ Druck Δ</translation>
         <translation>Einheit</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+103"/>
         <source>Click to choose another unit for this field</source>
         <translation>Klicken, um eine andere Einheit für dieses Feld zu wählen</translation>
     </message>
@@ -3648,8 +3663,8 @@ Druck Δ</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>additional start pressure (bullet, crimp, case; -400 to 400 bar)</source>
-        <translation>Zusätzlicher Startdruck (Geschoss, Crimp, Hülse; -400 bis 400 bar)</translation>
+        <source>additional start pressure (bullet, crimp, case)</source>
+        <translation>Zusätzlicher Startdruck (Geschoss, Crimp, Hülse)</translation>
     </message>
     <message>
         <location line="+1"/>

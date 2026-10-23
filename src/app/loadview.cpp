@@ -501,13 +501,13 @@ bool LoadView::load(const QString &path, QString *error)
     if (m_db && m_db->isOpen() && m_file.caliberFile.entries().empty() && !m_file.caliber.flag(u"shotshell"))
         if (const auto rec = m_db->caliberByName(m_file.caliber.text(u"CaliberName")); rec && csr::attachCaliberRecord(m_file, *rec))
             LOG_Info() << "Caliber record of" << m_file.caliber.text(u"CaliberName") << "added to" << path;
-    // a load of an older version or of the original: the primer and the additional start pressure (its start pressure is kept)
+    // a load of an older version or of the original: the primer and the additional start pressure (its start pressure is kept exactly)
     if (csr::ensurePrimer(m_file))
     {
         // the caliber's record names its usual primer (the file's copy of the record is older than that column)
         if (const auto primer = m_db ? m_db->caliberPrimer(m_file.caliberFile.text(u"cipname")) : std::nullopt;
             primer && csr::isPrimerCode(*primer) && !m_file.caliber.flag(u"shotshell"))
-            csr::setPrimerKeepingStart(m_file, *primer);
+            m_file.caliber.set(u"primer", *primer);
         LOG_Info() << "Primer" << m_file.caliber.text(u"primer") << "added to" << path;
     }
     rebuildPanels();
@@ -705,13 +705,13 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     // a new case length: the bullet stays (overall length kept), seating depth and case volume follow
     else if (sectionId == Caliber && key == u"caselen") csr::followCaseLength(cal, prj, previousCaseLength);
     // The initial gas pressure is in both sections (the solver reads the caliber's, the projectile window of the original shows the
-    // projectile's). With a primer it is the primer's start pressure plus the additional one: editing the total sets the additional one.
+    // projectile's). With a primer it is 250 bar plus the additional one: editing the total sets the additional one.
     if (cal.find(u"psadd"))
     {
-        const double primerStart = csr::loadStartPressure_bar(cal) - csr::clampAdditionalStartPressure(cal.number(u"psadd"));
-        if (sectionId == Caliber && key == u"ps") cal.set(u"psadd", cal.number(u"ps") - primerStart);
-        else if (sectionId == Projectile && key == u"gpressure") cal.set(u"psadd", prj.number(u"gpressure") - primerStart);
-        csr::updateStartPressure(m_file);  // also after a new primer, case volume or an additional start pressure beyond +-400 bar
+        if (sectionId == Caliber && key == u"ps") cal.set(u"psadd", cal.number(u"ps") - csr::kReferenceStartPressure_bar);
+        else if (sectionId == Projectile && key == u"gpressure")
+            cal.set(u"psadd", prj.number(u"gpressure") - csr::kReferenceStartPressure_bar);
+        csr::updateStartPressure(m_file);
     }
     else if (sectionId == Caliber && key == u"ps") prj.set(u"gpressure", cal.number(u"ps"));
     else if (sectionId == Projectile && key == u"gpressure") cal.set(u"ps", prj.number(u"gpressure"));

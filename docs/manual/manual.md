@@ -485,16 +485,17 @@ the chamber and (when available) the powder.
 ### Primer and start pressure.
 
 The Primer (a drop-down: small or large, pistol or rifle, standard or
-magnum, .50 BMG) starts with the usual primer of the caliber. Its type
-gives the start pressure, the gas pressure at which the bullet starts to
-move; the values are fitted to Hodgdon’s published loads (Large Rifle
-250 bar, the others 230 to 450 bar). The Additional Start Pressure
-($-400$ to $400$ bar) is added for the bullet, the crimp and the case; a
-new load takes it from the bullet record (its start pressure minus
-250 bar). For pistol and revolver cartridges the physical model starts at
-no less than 0.3 times the maximum permitted pressure, so there the
-primer usually has no effect. Loads of earlier versions keep their start
-pressure.
+magnum, .50 BMG) starts with the usual primer of the caliber. The start
+pressure, the gas pressure at which the bullet starts to move, is 250 bar
+plus the Additional Start Pressure for the bullet, the crimp and the case,
+as in the original program; a new load takes it from the bullet record
+(its start pressure minus 250 bar). Only the physical model uses the
+primer: it adds the difference between the primer type's start pressure
+and 250 bar (fitted to Hodgdon's published loads: Large Rifle 250 bar,
+the others 230 to 450 bar). For pistol and revolver cartridges the
+physical model starts at no less than 0.3 times the maximum permitted
+pressure, so there the primer usually has no effect. Loads of earlier
+versions and of the original keep their start pressure exactly.
 
 ### Replacing the caliber.
 

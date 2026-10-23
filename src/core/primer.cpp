@@ -133,12 +133,6 @@ double primerStartPressure_bar(const QString &code, double caseVolume_cm3)
     return it->second * std::pow(caseVolume_cm3 / s.referenceVolume_cm3, -s.volumeExponent);
 }
 
-double clampAdditionalStartPressure(double bar) noexcept
-{
-    if (!std::isfinite(bar)) return 0.0;
-    return std::clamp(bar, -kMaxAdditionalStartPressure_bar, kMaxAdditionalStartPressure_bar);
-}
-
 void setPrimerFile(const QString &path)
 {
     Store &s = store();

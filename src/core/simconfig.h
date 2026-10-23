@@ -39,7 +39,8 @@ struct SimInput
     double caliberBurnScale{1.0};  // factor on the physical burn rate for this caliber (data/physical/calibers.json)
     double sebert{0.5};
     double startPressure_bar{250.0};
-    double maxPressure_bar{};  // permitted maximum (CIP), informative only
+    double primerOffset_bar{};  // start pressure of the load's primer type - 250 bar: added by the physical model only (primer.h)
+    double maxPressure_bar{};   // permitted maximum (CIP), informative only
     double shotCapacityScale{
         1.0};  // factors of the shell, wad and primer named in the caliber on the shotshell model (shotparts.h; 1: none chosen)
     double shotEnergyScale{1.0};

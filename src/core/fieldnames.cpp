@@ -80,7 +80,7 @@ namespace
     QT_TRANSLATE_NOOP("csr::fields", "shotshell hull"),
     QT_TRANSLATE_NOOP("csr::fields", "shotshell primer"),
     QT_TRANSLATE_NOOP("csr::fields", "primer"),
-    QT_TRANSLATE_NOOP("csr::fields", "additional start pressure (bullet, crimp, case; -400 to 400 bar)"),
+    QT_TRANSLATE_NOOP("csr::fields", "additional start pressure (bullet, crimp, case)"),
     QT_TRANSLATE_NOOP("csr::fields", "shotshell wad"),
     QT_TRANSLATE_NOOP("csr::fields", "special bullet resistance inside the barrel"),
     QT_TRANSLATE_NOOP("csr::fields", "specific explosive heat"),
