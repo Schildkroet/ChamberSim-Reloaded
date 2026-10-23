@@ -59,6 +59,7 @@ def records(path: Path, maker: str, source: str, pressure, calibers: dict[str, t
         rec["g7bc" if row[6] == "G7" else "g1bc"] = number(row[9])
         rec["descr"] = f"Dimensions and ballistic coefficient (ICAO, {row[6]}) from the manufacturer's {source}"
         rec["gpressure"] = pressure(line)
+        rec["gValid"] = True  # dimensions of the maker's own bullet file
         out.append(rec)
     return out
 

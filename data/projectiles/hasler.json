@@ -11,7 +11,8 @@
     "gtailh": 2.79,
     "g1bc": 0.36,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -25,7 +26,8 @@
     "gtailh": 3.35,
     "g1bc": 0.37,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -39,7 +41,8 @@
     "gtailh": 3.35,
     "g1bc": 0.36,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -53,7 +56,8 @@
     "gtailh": 3.1,
     "g1bc": 0.44,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -67,7 +71,8 @@
     "gtailh": 3.1,
     "g1bc": 0.355,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -81,7 +86,8 @@
     "gtailh": 3.51,
     "g1bc": 0.37,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -95,7 +101,8 @@
     "gtailh": 3.56,
     "g1bc": 0.385,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -109,7 +116,8 @@
     "gtailh": 3.55,
     "g1bc": 0.365,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -123,7 +131,8 @@
     "gtailh": 5.28,
     "g1bc": 0.36,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -137,7 +146,8 @@
     "gtailh": 5.4,
     "g1bc": 0.41,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -151,7 +161,8 @@
     "gtailh": 6.79,
     "g1bc": 0.435,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -165,7 +176,8 @@
     "gtailh": 5.9,
     "g1bc": 0.5,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting: HPBT with 3-4 internal grooves for even expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -179,7 +191,8 @@
     "gtailh": 5.114,
     "g1bc": 0.46,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Hunting Special: HPBT with internal grooves. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -193,7 +206,8 @@
     "gtailh": 3.0,
     "g1bc": 0.365,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -207,7 +221,8 @@
     "gtailh": 3.37,
     "g1bc": 0.37,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -221,7 +236,8 @@
     "gtailh": 3.35,
     "g1bc": 0.365,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -235,7 +251,8 @@
     "gtailh": 3.35,
     "g1bc": 0.445,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -249,7 +266,8 @@
     "gtailh": 3.1,
     "g1bc": 0.36,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -263,7 +281,8 @@
     "gtailh": 3.5,
     "g1bc": 0.375,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -277,7 +296,8 @@
     "gtailh": 3.56,
     "g1bc": 0.37,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -291,7 +311,8 @@
     "gtailh": 4.34,
     "g1bc": 0.43,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -305,7 +326,8 @@
     "gtailh": 4.34,
     "g1bc": 0.435,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -319,7 +341,8 @@
     "gtailh": 4.46,
     "g1bc": 0.43,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -333,7 +356,8 @@
     "gtailh": 5.59,
     "g1bc": 0.38,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -347,7 +371,8 @@
     "gtailh": 5.4,
     "g1bc": 0.415,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -361,7 +386,8 @@
     "gtailh": 5.9,
     "g1bc": 0.435,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -375,7 +401,8 @@
     "gtailh": 5.16,
     "g1bc": 0.495,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -389,7 +416,8 @@
     "gtailh": 5.41,
     "g1bc": 0.5,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -403,7 +431,8 @@
     "gtailh": 5.84,
     "g1bc": 0.37,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -417,7 +446,8 @@
     "gtailh": 6.35,
     "g1bc": 0.385,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -431,7 +461,8 @@
     "gtailh": 5.84,
     "g1bc": 0.5,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -445,7 +476,8 @@
     "gtailh": 5.84,
     "g7bc": 0.5,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -459,7 +491,8 @@
     "gtailh": 5.84,
     "g7bc": 0.55,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -473,7 +506,8 @@
     "gtailh": 3.38,
     "g1bc": 0.345,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -487,7 +521,8 @@
     "gtailh": 3.71,
     "g1bc": 0.24,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -501,7 +536,8 @@
     "gtailh": 3.7,
     "g1bc": 0.24,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -515,7 +551,8 @@
     "gtailh": 5.16,
     "g1bc": 0.43,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Ariete: hollow point with a double-section cavity for terminal effect. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -529,7 +566,8 @@
     "gtailh": 1.59,
     "g1bc": 0.39,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Bull: further development of the Ariete with greater expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -542,7 +580,8 @@
     "gtaildiaA": 6.53,
     "gtailh": 1.75,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Bull: further development of the Ariete with greater expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -556,7 +595,8 @@
     "gtailh": 3.16,
     "g1bc": 0.48,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Bull: further development of the Ariete with greater expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -570,7 +610,8 @@
     "gtailh": 3.16,
     "g1bc": 0.51,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Bull: further development of the Ariete with greater expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -584,7 +625,8 @@
     "gtailh": 5.89,
     "g1bc": 0.5,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Bull: further development of the Ariete with greater expansion. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -598,7 +640,8 @@
     "gtailh": 1.98,
     "g1bc": 0.365,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -612,7 +655,8 @@
     "gtailh": 1.98,
     "g1bc": 0.445,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -626,7 +670,8 @@
     "gtailh": 4.47,
     "g1bc": 0.55,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -640,7 +685,8 @@
     "gtailh": 6.12,
     "g1bc": 0.55,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -654,7 +700,8 @@
     "gtailh": 5.84,
     "g7bc": 0.65,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -667,7 +714,8 @@
     "gtaildiaA": 9.27,
     "gtailh": 6.3,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -681,7 +729,8 @@
     "gtailh": 8.69,
     "g1bc": 0.8,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -695,7 +744,8 @@
     "gtailh": 6.3,
     "g1bc": 0.5,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Long Range: spitzer boat tail. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -709,7 +759,8 @@
     "gtailh": 5.79,
     "g1bc": 0.44,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Sport: HPBT for the range. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   },
   {
     "mname": "Hasler",
@@ -723,6 +774,7 @@
     "gtailh": 5.3,
     "g1bc": 0.442,
     "descr": "Monolithic copper alloy, ringed body slightly under bore diameter (only the rings engrave); Hasler Sport: HPBT for the range. Dimensions and BC from the manufacturer's bullet file (haslerbullets.com, 18-Apr-2019)",
-    "gpressure": 350.0
+    "gpressure": 350.0,
+    "gValid": true
   }
 ]
