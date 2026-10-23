@@ -3,6 +3,44 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.12
+
+### Added and changed
+
+- **Bullet lead time (BLT) and optimal barrel time (OBT).** The results, the report (`result.BulletLeadTime`,
+  `result.OptimalBarrelTime`, `result.OptimalBarrelNode`) and `csr_sim` show the time from 10 % of the peak pressure
+  to the muzzle and the nearest node of Chris Long's OBT master model (nodes 0 to 24.5 with the original's half
+  nodes); it reproduces the original program's values.
+- **Result panel.** Maximum pressure, muzzle velocity, projectile energy and barrel time as large cards, the other
+  results in three groups (Barrel, Projectile, Propellant); the overpressure warning stands above the results.
+- **Themes.** New color schemes Gruvbox Light and Dark, Nord, Dracula, Catppuccin Latte and Frappé
+  (*View ▸ Theme*, `--theme`). *Light* is now a fixed light scheme on a dark desktop too, *System default* follows
+  the color scheme of the operating system (Qt 6.5 and later), and the category rows of the property tables follow a
+  theme change.
+- **Start pressure and primer.** The start pressure of a load is again the original's value: 250 bar plus the
+  *Additional Start Pressure*, without the -400 to 400 bar limit of 0.11. Only the Physical Model adds the
+  difference between the primer type's start pressure and 250 bar; the Original and Published models get the
+  load's start pressure unchanged. A `.grtload` keeps its start pressure exactly (0.11 changed it for bullets far
+  from 250 bar, the original's records go from 20 to 950 bar). A load of 0.11 that was converted from an older file
+  can show a different start pressure in the Original model (Small Pistol: 196 bar less).
+- **Loads without a caliber record.** A `.grtload` from another tool that has no `<caliberfile>` block gets the
+  caliber record it names (*CaliberName*) from the database: cartridge drawing, primer and the pistol calibration
+  work for it (issue 6).
+- **Table search.** The records that match the query best are listed first: the whole cell, then its beginning,
+  then somewhere in it.
+- **Projectile data.** 593 validated bullets (was 420): the Berger reference chart (111), Federal's published
+  lengths (29) and Fox's bullet file (33 Classic Hunter, with BC). Lengths measured on the makers' product pictures
+  for Sierra (127), Norma (51), Lapua (30) and Hornady; Federal BCs and a Brenneke BC table. New: Hornady XTP 35571
+  and 5 GECO bullets of the maker's reloading list (Hexagon .357/.431/.451, JHP and FMJ .451).
+- **Propellants.** New records with physical burn values: Hodgdon H414, IMR 4007 SSC, IMR 7977 and Supreme 780. The
+  powder fit now also uses Barnes' load data (3,904 loads) and the H&N load tables; a search over several start
+  shapes changed the burn values of Alliant 4000-MR, Reloder 26, TS 15.5 and IMR 7977, the other powders were
+  already close to their best values.
+- **Caliber.** 375 XLR (9.52 x 70).
+- **Import bullets.** A bullet that is listed twice in a file is imported once, and a file is imported completely or
+  not at all.
+- The record export adds `.json` also to names with a dot (`9.3x62`); the search is faster in large tables.
+
 ## 0.11
 
 ### Added and changed
