@@ -78,6 +78,13 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   16-17 reduced rifle loads): one load per row with powder, charge, cartridge length, primer and V0, but **no barrel length** (only the test weapon's name; assumed 120 mm
   handgun, 600 mm rifle) and no pressures; the rows count as start loads. 139 samples of 35 powders, bullets of H&N (measured lengths from the project records). Too few
   samples per powder for new records (the largest: N110 24, HP-38 14); they add to the caliber and primer fits.
+- `geco_extract.py rifle.pdf handgun.pdf` reads the reloading data of GECO (geco-ammunition.com > Service > Downloads, `GECO_Reloading-Data_CFR_DE_23.pdf` and `GECO_Reloading-Data_P_R_DE.pdf`):
+  numbered loads with cartridge, GECO bullet, powder (Rottweil, Vihtavuori, Reload Swiss), maximum and minimum charge, primer, case, cartridge length and the velocity v3 at
+  the maximum charge (3 m in front of the muzzle, taken as V0). No barrel length (assumed 120 mm handgun, 600 mm rifle) and no pressures; only the maximum load has a
+  velocity, so every load is one `max` sample. The words are read by their position (`pdftotext -bbox`), the text order of the PDF is scrambled; the rifle table repeats
+  some loads (rows 75-87 = 51-67). 103 samples of 13 powders (83 rifle loads of R901-R907, 20 handgun and rifle loads of N110, N320-N340, RS20-RS30); bullets of GECO
+  (lengths from the project records). The current powder values reproduce the rifle loads with 4.0 % rms (bias +1.8 %, 83 loads), the handgun loads that can be simulated
+  with 6.0 % rms (bias -5.1 %, 7 loads).
 - `by_maker.py` sorts all sample files by the maker of the powder and writes `sources/samples/by_maker/<maker>.csv` (Hodgdon, IMR, Winchester, Accurate, Ramshot, Alliant, ADI,
   Vectan, Vihtavuori, Lovex, Reload Swiss, RWS-Rottweil, Norma): the loads of every source for the maker's powders, identical loads once, a column `source` names the file.
   A source that lists powders of many makers (the H&N catalogue, a bullet maker's PDF such as Barnes) is split among the makers' files; run the script again after
