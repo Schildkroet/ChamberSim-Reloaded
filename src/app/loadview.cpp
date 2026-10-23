@@ -130,6 +130,23 @@ QImage renderOffscreen(QWidget &w, QSize size)
     return img;
 }
 
+// A rounded panel painted from the current palette (a style sheet with palette() would not follow a theme change).
+class ResultCard : public QFrame
+{
+public:
+    using QFrame::QFrame;
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        QPainter p(this);
+        p.setRenderHint(QPainter::Antialiasing);
+        p.setBrush(palette().brush(QPalette::AlternateBase));
+        p.setPen(palette().color(QPalette::Mid));
+        p.drawRoundedRect(QRectF(rect()).adjusted(0.5, 0.5, -0.5, -0.5), 6, 6);
+    }
+};
+
 // A notice above the results in fixed colours (the same in every theme): an icon and a rich-text label; hidden until shown.
 void setupBanner(QWidget *banner, QLabel *text, const QColor &background, const QColor &foreground, QStyle::StandardPixmap icon)
 {
@@ -190,7 +207,6 @@ LoadView::LoadView(QWidget *parent)
     , m_burnNoticeText(new QLabel)
     , m_outdatedNotice(new QWidget)
     , m_outdatedNoticeText(new QLabel)
-    , m_resultCols{new QFormLayout, new QFormLayout, new QFormLayout}
     , m_comparison(new QLabel)
     , m_vivacity(new VivacityChart)
     , m_chart(new CurveChart)
@@ -203,21 +219,83 @@ LoadView::LoadView(QWidget *parent)
     m_status->setWordWrap(true);
     m_comparison->setTextFormat(Qt::RichText);
 
-    const std::array labels = {tr("Maximum pressure"),         tr("Muzzle pressure"),      tr("Projectile energy"),
-                               tr("Muzzle velocity"),          tr("Barrel time (BT)"),     tr("Burnout pressure"),
-                               tr("Gas outflow velocity"),     tr("Projectile speed"),     tr("Recoil energy"),
-                               tr("IPSC / MIP factor"),        tr("Load ratio"),           tr("Burnt propellant"),
-                               tr("Effective efficiency"),     tr("Heat / friction loss"), tr("Bullet lead time (BLT)"),
-                               tr("Optimal barrel time (OBT)")};
-    for (std::size_t i = 0; i < labels.size(); ++i) m_resultCols[std::min<std::size_t>(i / 5, 2)]->addRow(labels[i] + u':', valueLabel());
-    auto *results = new QHBoxLayout;
-    for (QFormLayout *col : m_resultCols)
+    // The four key results as large cards, the rest in three captioned groups (index = position in m_values).
+    struct Entry
     {
-        col->setLabelAlignment(Qt::AlignLeft);
-        if (col != m_resultCols.front()) results->addSpacing(24);
-        results->addLayout(col);
+        QString label;
+        QString tip;
+    };
+    const std::array<Entry, 4> cards = {Entry{tr("Maximum pressure"), {}}, Entry{tr("Muzzle velocity"), {}},
+                                        Entry{tr("Projectile energy"), {}}, Entry{tr("Barrel time (BT)"), {}}};
+    struct Group
+    {
+        QString title;
+        std::vector<QString> labels;
+    };
+    const std::array<Group, 3> groups = {
+        Group{tr("Barrel"), {tr("Muzzle pressure"), tr("Burnout pressure"), tr("Bullet lead time (BLT)"), tr("Optimal barrel time (OBT)")}},
+        Group{tr("Projectile"), {tr("Projectile speed"), tr("Recoil energy"), tr("IPSC / MIP factor")}},
+        Group{tr("Propellant"),
+              {tr("Load ratio"), tr("Burnt propellant"), tr("Effective efficiency"), tr("Heat / friction loss"),
+               tr("Gas outflow velocity")}}};
+
+    auto *cardRow = new QHBoxLayout;
+    cardRow->setSpacing(8);
+    for (std::size_t i = 0; i < cards.size(); ++i)
+    {
+        auto *card = new ResultCard;
+        auto *caption = new QLabel(cards[i].label);
+        QLabel *value = valueLabel();
+        value->setTextFormat(Qt::RichText);
+        auto *cl = new QVBoxLayout(card);
+        cl->setContentsMargins(10, 6, 10, 8);
+        cl->setSpacing(2);
+        cl->addWidget(caption);
+        cl->addWidget(value);
+        m_values[i] = value;
+        cardRow->addWidget(card, 1);
     }
-    results->addStretch(1);
+
+    auto *details = new QHBoxLayout;
+    details->setSpacing(28);
+    std::size_t next = cards.size();
+    for (const Group &g : groups)
+    {
+        auto *col = new QVBoxLayout;
+        col->setSpacing(4);
+        auto *title = new QLabel(g.title.toUpper());
+        QFont tf = title->font();
+        tf.setBold(true);
+        tf.setPointSizeF(tf.pointSizeF() * 0.85);
+        tf.setLetterSpacing(QFont::PercentageSpacing, 108);
+        title->setFont(tf);
+        auto *line = new QFrame;
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Plain);
+        line->setForegroundRole(QPalette::Mid);
+        line->setFixedHeight(2);
+        auto *form = new QFormLayout;
+        form->setLabelAlignment(Qt::AlignLeft);
+        form->setHorizontalSpacing(14);
+        form->setVerticalSpacing(5);
+        for (const QString &label : g.labels)
+        {
+            auto *name = new QLabel(label);
+            QLabel *value = valueLabel();
+            m_values[next++] = value;
+            form->addRow(name, value);
+        }
+        col->addWidget(title);
+        col->addWidget(line);
+        col->addLayout(form);
+        col->addStretch(1);
+        details->addLayout(col);
+    }
+    details->addStretch(1);
+    auto *results = new QVBoxLayout;
+    results->setSpacing(10);
+    results->addLayout(cardRow);
+    results->addLayout(details);
 
     auto *infoCol = new QVBoxLayout;
     infoCol->addWidget(m_heading);
@@ -227,6 +305,8 @@ LoadView::LoadView(QWidget *parent)
     separator->setFrameShadow(QFrame::Plain);
     separator->setForegroundRole(QPalette::PlaceholderText);  // visible in the light and the dark theme
     infoCol->addWidget(separator);
+    infoCol->addWidget(m_overpressure);  // the warning stands above the results it is about
+    infoCol->addLayout(results);
     // white on red: the maximum pressure is above the permitted one
     m_overpressure->setObjectName(u"overpressureWarning"_s);
     setupBanner(m_overpressure, m_overpressureText, QColor(0xc4, 0x2b, 0x1c), Qt::white, QStyle::SP_MessageBoxWarning);
@@ -242,11 +322,9 @@ LoadView::LoadView(QWidget *parent)
                 QStyle::SP_MessageBoxInformation);
     m_outdatedNoticeText->setTextInteractionFlags(Qt::LinksAccessibleByMouse | Qt::TextSelectableByMouse);
     connect(m_outdatedNoticeText, &QLabel::linkActivated, this, [this] { offerPowderUpdate(); });
-    infoCol->addWidget(m_overpressure);
     infoCol->addWidget(m_burnNotice);
     infoCol->addWidget(m_outdatedNotice);
     infoCol->addWidget(m_status);
-    infoCol->addLayout(results);
     m_ladderTable->setHorizontalHeaderLabels({tr("Charge"), tr("Max. pressure"), tr("Velocity"), tr("Energy"), tr("Load ratio")});
     m_ladderTable->verticalHeader()->hide();
     m_ladderTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -291,7 +369,7 @@ LoadView::LoadView(QWidget *parent)
     right->addWidget(chartArea);
     right->setStretchFactor(0, 0);
     right->setStretchFactor(1, 1);
-    right->setSizes({430, 440});
+    right->setSizes({520, 380});
     rememberSplitter(right, QStringLiteral("results"));
 
     // input tabs: each page shows the current item with a button to pick another record from the database
@@ -1097,11 +1175,10 @@ void LoadView::showResult()
     m_overpressure->hide();
     m_burnNotice->hide();
     updateOutdatedNotice();
-    if (auto *item = m_resultCols[0]->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet({});
+    m_values[0]->setStyleSheet({});
     const auto clearAll = [&]
     {
-        for (QFormLayout *f : m_resultCols)
-            for (int r = 0; r < f->rowCount(); ++r) setRow(f, r, QStringLiteral("–"));
+        for (QLabel *l : m_values) l->setText(QStringLiteral("–"));
     };
     if (!m_result.ok())
     {
@@ -1146,7 +1223,16 @@ void LoadView::showResult()
 
     const csr::SimResult &r = m_result;
     using csr::units::Quantity;
-    const auto put = [this](int i, const QString &text) { setRow(m_resultCols[std::min(i / 5, 2)], i - 5 * std::min(i / 5, 2), text); };
+    // the cards (0-3) show the unit small behind the number
+    const auto put = [this](int i, const QString &text)
+    {
+        if (i >= 4) return m_values[static_cast<std::size_t>(i)]->setText(text);
+        const qsizetype sp = text.lastIndexOf(u' ');
+        m_values[static_cast<std::size_t>(i)]->setText(
+            sp < 0 ? u"<span style='font-size:xx-large'>%1</span>"_s.arg(text.toHtmlEscaped())
+                   : u"<span style='font-size:xx-large'>%1</span> <span style='font-size:large; font-weight:normal'>%2</span>"_s.arg(
+                         text.left(sp).toHtmlEscaped(), text.mid(sp + 1).toHtmlEscaped()));
+    };
     put(0, shown(r.maxPressure_bar, Quantity::Pressure));
     if (const double permitted = m_input.maxPressure_bar; permitted > 0.0 && r.maxPressure_bar > permitted)
     {
@@ -1155,33 +1241,33 @@ void LoadView::showResult()
                                         .arg(shown(r.maxPressure_bar, Quantity::Pressure),
                                              num(100.0 * (r.maxPressure_bar / permitted - 1.0), 1), shown(permitted, Quantity::Pressure)));
         m_overpressure->show();
-        if (auto *item = m_resultCols[0]->itemAt(0, QFormLayout::FieldRole)) item->widget()->setStyleSheet(u"color: #e0453a;"_s);
+        m_values[0]->setStyleSheet(u"color: #e0453a;"_s);
     }
-    put(1, shown(r.muzzlePressure_bar, Quantity::Pressure));
+    put(4, shown(r.muzzlePressure_bar, Quantity::Pressure));
     put(2, shown(r.muzzleEnergy_J, Quantity::Energy));
-    put(3, shown(r.muzzleVelocity_ms, Quantity::Velocity));
-    put(4, tr("%1 ms").arg(num(r.muzzleTime_ms, 4)));
+    put(1, shown(r.muzzleVelocity_ms, Quantity::Velocity));
+    put(3, tr("%1 ms").arg(num(r.muzzleTime_ms, 4)));
     put(5, r.burnoutInBarrel ? shown(r.burnoutPressure_bar, Quantity::Pressure) : tr("not burnt out"));
     // mean velocity of the powder gases leaving the muzzle (gas impulse / charge mass), as in the report
-    put(6, m_input.charge_g > 0.0 ? shown(r.gasImpulse_Ns / (m_input.charge_g * 1e-3), Quantity::Velocity) : QStringLiteral("–"));
-    put(7, r.muzzleRpm > 0 ? tr("%1 k/min").arg(num(r.muzzleRpm / 1000.0, 1)) : QStringLiteral("–"));
-    put(8, r.recoilEnergy_J > 0 ? shown(r.recoilEnergy_J, Quantity::Energy) : tr("– (gun weight 0)"));
-    put(9, QStringLiteral("%1, %2").arg(num(r.ipscFactor, 0), num(r.mipFactor, 0)));
-    put(10, QStringLiteral("%1 %").arg(num(100.0 * r.loadRatio, 1)));
-    put(11, QStringLiteral("%1 %").arg(num(100.0 * r.burntFraction, 1)));
-    put(12, QStringLiteral("%1 %").arg(num(100.0 * r.efficiency, 1)));
+    put(15, m_input.charge_g > 0.0 ? shown(r.gasImpulse_Ns / (m_input.charge_g * 1e-3), Quantity::Velocity) : QStringLiteral("–"));
+    put(8, r.muzzleRpm > 0 ? tr("%1 k/min").arg(num(r.muzzleRpm / 1000.0, 1)) : QStringLiteral("–"));
+    put(9, r.recoilEnergy_J > 0 ? shown(r.recoilEnergy_J, Quantity::Energy) : tr("– (gun weight 0)"));
+    put(10, QStringLiteral("%1, %2").arg(num(r.ipscFactor, 0), num(r.mipFactor, 0)));
+    put(11, QStringLiteral("%1 %").arg(num(100.0 * r.loadRatio, 1)));
+    put(12, QStringLiteral("%1 %").arg(num(100.0 * r.burntFraction, 1)));
+    put(13, QStringLiteral("%1 %").arg(num(100.0 * r.efficiency, 1)));
     // the physical model computes both; the original's model has no heat loss and its friction is only an estimate
-    put(13, r.heatLoss_J > 0.0
+    put(14, r.heatLoss_J > 0.0
                 ? QStringLiteral("%1, %2").arg(shown(r.heatLoss_J, Quantity::Energy), shown(r.muzzleFrictionEnergy_J, Quantity::Energy))
                 : tr("–, %1").arg(shown(r.muzzleFrictionEnergy_J, Quantity::Energy)));
-    put(14, tr("%1 ms").arg(num(r.bulletLeadTime_ms, 4)));
+    put(6, tr("%1 ms").arg(num(r.bulletLeadTime_ms, 4)));
     if (r.optimalBarrelNode >= 0.0)
     {
         const int whole = static_cast<int>(r.optimalBarrelNode);
         const QString node = r.optimalBarrelNode > whole ? tr("#%1 ½").arg(whole) : tr("#%1").arg(whole);
-        put(15, tr("%1 ms, node %2").arg(num(r.optimalBarrelTime_ms, 4), node));
+        put(7, tr("%1 ms, node %2").arg(num(r.optimalBarrelTime_ms, 4), node));
     }
-    else put(15, QStringLiteral("–"));
+    else put(7, QStringLiteral("–"));
 
     if (!m_reference) return;
     struct Row
