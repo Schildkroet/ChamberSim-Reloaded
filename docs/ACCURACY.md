@@ -159,7 +159,7 @@ is inside it (not corrected yet). The velocity shortfall of lead bullets (-4.5 %
 | Other | 1 | 17.6 % | 17.6 % | 4.3 % | 4.3 % | 24.5 % |
 | **All runs** | 348 | 39.5 % | 136.5 % | 5.4 % | 26.9 % | 26.2 % |
 
-_Absolute deviations against 349 runs of the original program; updated 2026-10-21 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute deviations against 349 runs of the original program; updated 2026-10-23 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is

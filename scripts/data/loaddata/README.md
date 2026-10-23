@@ -332,3 +332,22 @@ mean error):
 
 Open: heavy, large-bore bullets (.45 Auto / Colt / GAP, 10 mm, 38 Special) still come out 9-25 % too fast; .44 Rem. Mag. (-40 % velocity) and 9 mm Makarov
 (-20 %) look like record problems.
+
+## Refit with the new sources (2026-10-23)
+
+Barnes (3,904 loads) and H&N (139) were added to the samples (`by_maker.py`, files per powder maker). Refit of the physical burn values of all powders with the
+current solver, judged on all published loads of the cleaned samples (`filter_published_outliers.py`; 81 new loads dropped), rifle / pistol, with the bullet
+start pressures of the records:
+
+| Values | Rifle v / p rms | Pistol v / p rms |
+|---|---|---|
+| shipped | 3.64 % / 11.76 % | 7.20 % / 16.66 % |
+| Ba refitted, forms kept (167 of 197 powders, mean -1.9 %) | 3.60 % / 11.40 % | 7.28 % / 16.63 % |
+| shipped + 4 powders from the multi-start form search (adopted) | 3.63 % / 11.76 % | 7.20 % / 16.66 % |
+
+A free refit of Ba, a0, z1, z2 of the powders with pressures is clearly worse (rifle velocity 10 %). The Ba refit is neutral (rifle +-0.05, pistol +0.08 points): not adopted.
+`analysis/fit_physical_multistart.py` (8 starts: current, 6 k-medoid form shapes of the pressure-fitted powders, H4198) found a start with at least 1 % lower cost for 13 of
+the 52 powders without pressures; adopted where the velocity error of their own loads fell by 0.1 point or more: Alliant 4000-MR (3.17 -> 1.90 %), Reloder 26 (4.70 -> 3.28 %),
+TS 15.5 (3.18 -> 2.60 %), IMR 7977 (7.03 -> 3.77 %). Not adopted: N120 (the 458 SOCOM pressure goes from 1703 to 2384 bar, measured 1840) and N340 (DEVA 9 mm 1826 -> 1928 bar, measured ~1800)
+and the others, which fit their cost better but not their velocities.
+Pitfall: `csr_eval --physical X.json` needs `calibers.json` next to X.json (see above); without it every comparison is biased (rifle +0.3, pistol +0.9 points).
