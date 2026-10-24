@@ -429,9 +429,9 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 //   M dv/dt = A p - F,   M = mp (1 + spin inertia) + gasMassShare * mc
 //   p_burn = p + (1/2 - gasMassShare) * mc * a / A      the breech pressure (Lagrange gradient, linear profile)
 //   dQ/dt = h S (T - Tw),   dW/dt = F v
-// The classical Lagrange pair for a linear gas profile is gasMassShare = 1/4: the volume-average pressure then drives the
-// momentum and the breech pressure is p + mc a / (4 A). The powder burns at the breech pressure; the energy balance uses the
-// mean pressure. The Original model keeps the load's Sebert factor instead.
+// For a linear gas gradient the volume-average pressure drives the momentum with gasMassShare = 1/4 and the breech pressure is
+// p + mc a / (4 A). (The gas kinetic energy of a linear velocity profile is a share of 1/3; the energy balance uses the same 1/4
+// anyway: a separate 1/3 changes no fit result.) The powder burns at the breech pressure. The Original model keeps the load's Sebert factor.
 // The bullet stays at x0 until the gas pressure reaches the start pressure ps; until then the powder burns in the closed case, lit by
 // the primer gas (primerEnergy_J, released over primerTime_ms). The resistance F: start resistance (engravingShare * ps * A, or an
 // absolute engravingPressure_bar * A when that is set; once the bullet has crossed the free run gjump, decaying over

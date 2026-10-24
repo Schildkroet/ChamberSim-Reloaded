@@ -217,7 +217,7 @@ struct Calibration
     double heatTransferFactor{0.5};  // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
     double heatVelocity_ms{0.0};     // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
     // Share of the charge that moves with the bullet in the physical model's mean-pressure momentum and kinetic-energy equations
-    // (the classical Lagrange value for a linear gas profile is 1/4). The Original model uses the load's Sebert factor instead.
+    // (1/4 is the Lagrange value for the volume-average pressure of a linear gas gradient). The Original model uses the load's Sebert factor instead.
     double gasMassShare{0.25};
     double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
     double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
