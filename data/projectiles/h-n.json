@@ -38,10 +38,11 @@
     "pname": "HP HS .356 145 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 17.2,
+    "glen": 16.7,
     "gmass": 145.0,
     "gpressure": 150.0,
-    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
+    "descr": "Length measured with a caliper on the bullet (mean of the measured range), validated",
+    "gValid": true
   },
   {
     "mname": "H&N",
@@ -68,14 +69,15 @@
     "pname": "HP HS .357 158 gr",
     "caliber": ".357",
     "gdia": 9.07,
-    "glen": 17.8,
+    "glen": 17.4,
     "gmass": 158.0,
     "gtailtype": 1,
     "gtaildiaA": 8.0,
     "gtaildiaB": 3.0,
     "gtailh": 0.5,
     "gpressure": 150.0,
-    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
+    "descr": "Length measured with a caliper on the bullet (mean of the measured range), validated",
+    "gValid": true
   },
   {
     "mname": "H&N",
@@ -162,10 +164,11 @@
     "pname": "RN HS .308 110 gr",
     "caliber": ".308",
     "gdia": 7.82,
-    "glen": 17.3,
+    "glen": 17.0,
     "gmass": 110.0,
     "gpressure": 150.0,
-    "descr": "Length measured on the product photo of hn-sport.de (standing bullet; camera elevation and scale fixed with a caliper measurement of one bullet), about 4 % uncertain"
+    "descr": "Length measured with a caliper on the bullet (mean of the measured range), validated",
+    "gValid": true
   },
   {
     "mname": "H&N",

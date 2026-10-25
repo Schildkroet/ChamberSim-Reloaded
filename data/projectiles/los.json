@@ -34,10 +34,11 @@
     "pname": "HP 0.356 123 gr",
     "caliber": ".356",
     "gdia": 9.04,
-    "glen": 14.5,
+    "glen": 14.2,
     "gmass": 123.0,
     "gpressure": 250.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured with a caliper on the bullet (mean of the measured range), validated",
+    "gValid": true
   },
   {
     "mname": "LOS",
@@ -54,10 +55,11 @@
     "pname": "HP verk. Blei 0.358 158 gr",
     "caliber": ".358",
     "gdia": 9.09,
-    "glen": 17.9,
+    "glen": 16.5,
     "gmass": 158.0,
     "gpressure": 250.0,
-    "descr": "Length measured on a product photo of hunting-sport.com (standing bullet, camera elevation corrected), about 5 % uncertain"
+    "descr": "Length measured with a caliper on the bullet (mean of the measured range), validated",
+    "gValid": true
   },
   {
     "mname": "LOS",
@@ -249,10 +251,11 @@
     "pname": "RNFP verk. Blei 0.401 180 gr",
     "caliber": ".401",
     "gdia": 10.19,
-    "glen": 11.8,
+    "glen": 14.8,
     "gmass": 180.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type and scaled by 0.85, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
+    "descr": "Length measured with a caliper on the bullet (mean of the measured range), validated",
+    "gValid": true
   },
   {
     "mname": "LOS",
