@@ -68,7 +68,10 @@ Store &store()
 
 QString keyOf(const QString &maker, const QString &name)
 {
-    return (maker.trimmed() + u' ' + name.trimmed()).toLower();
+    // The original DB writes "RS 40", the project data "RS40": spaces do not count.
+    QString key = (maker.trimmed() + u' ' + name.trimmed()).toLower();
+    key.remove(u' ');
+    return key;
 }
 
 [[nodiscard]] bool same(double a, double b) noexcept

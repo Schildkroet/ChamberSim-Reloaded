@@ -822,7 +822,10 @@ void LoadView::updateOutdatedNotice()
     m_outdatedRecordId = 0;
     if (!m_db || !m_db->isOpen() || m_input.shotshell) return;
     QSqlQuery q(m_db->handle());
-    q.prepare(u"SELECT id FROM propellant WHERE geloescht = 0 AND mname = ? AND pname = ? ORDER BY id DESC"_s);
+    // spaces do not count: the original writes "RS 40", the project data "RS40"
+    q.prepare(
+        u"SELECT id FROM propellant WHERE geloescht = 0 AND mname = ? AND REPLACE(pname, ' ', '') = REPLACE(?, ' ', '') COLLATE NOCASE "
+        "ORDER BY id DESC"_s);
     q.addBindValue(m_file.propellant.text(u"mname"));
     q.addBindValue(m_file.propellant.text(u"pname"));
     if (!q.exec()) return;
