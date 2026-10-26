@@ -11,14 +11,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 635.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.05,
     "cdate": "2026-10-08",
     "origin": "ADI Powders rifle and handgun data, adiworldclass.com.au (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 32 start and maximum loads of the manufacturer's published load data (10 cartridges), velocity error 15.6 % rms, pressure error 38 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 32 start and maximum loads of the manufacturer's published load data (10 cartridges), velocity error 15.6 % rms, pressure error 38 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 635 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "ADI",
@@ -32,14 +32,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 536.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.05,
     "cdate": "2026-10-08",
     "origin": "ADI Powders rifle and handgun data, adiworldclass.com.au (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 58 start and maximum loads of the manufacturer's published load data (11 cartridges), velocity error 14.5 % rms, pressure error 42 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 58 start and maximum loads of the manufacturer's published load data (11 cartridges), velocity error 14.5 % rms, pressure error 42 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 536 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "ADI",
@@ -53,14 +53,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 655.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.05,
     "cdate": "2026-10-08",
     "origin": "ADI Powders rifle and handgun data, adiworldclass.com.au (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 373 start and maximum loads of the manufacturer's published load data (29 cartridges), velocity error 11.5 % rms, pressure error 41 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 373 start and maximum loads of the manufacturer's published load data (29 cartridges), velocity error 11.5 % rms, pressure error 41 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 655 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "ADI",
@@ -158,14 +158,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 890.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.2,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 207 start and maximum loads of the manufacturer's published load data (25 cartridges), velocity error 6.4 % rms, pressure error 27 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Fewer data or a poorer fit than most other records: use with more caution."
+    "descr": "Burn rate Ba fitted to 207 start and maximum loads of the manufacturer's published load data (25 cartridges), velocity error 6.4 % rms, pressure error 27 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Fewer data or a poorer fit than most other records: use with more caution. Bulk density 890 kg/m3 of the original program's record."
   },
   {
     "mname": "ADI",
@@ -179,14 +179,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 908.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.05,
     "cdate": "2026-10-08",
     "origin": "ADI Powders rifle and handgun data, adiworldclass.com.au (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 36 start and maximum loads of the manufacturer's published load data (7 cartridges), velocity error 7.9 % rms, pressure error 26 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 36 start and maximum loads of the manufacturer's published load data (7 cartridges), velocity error 7.9 % rms, pressure error 26 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 908 kg/m3: Lee Precision, table « Powder VMD's » du 2024-01-08 (lue le 2026-10-17) : « ADI AR2206 » 0.0714 cm³ par grain, mesure au doseur. Pas une valeur du fabricant de la poudre : Lee mesure 2,7 % plus bas que les fabricants qui publient la leur, en médiane.."
   },
   {
     "mname": "ADI",
@@ -200,14 +200,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 930.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.25,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 1035 start and maximum loads of the manufacturer's published load data (86 cartridges), velocity error 5.4 % rms, pressure error 23 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 1035 start and maximum loads of the manufacturer's published load data (86 cartridges), velocity error 5.4 % rms, pressure error 23 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 930 kg/m3 of the original program's record."
   },
   {
     "mname": "ADI",
@@ -221,14 +221,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 860.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.25,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 356 start and maximum loads of the manufacturer's published load data (38 cartridges), velocity error 4.9 % rms, pressure error 23 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 356 start and maximum loads of the manufacturer's published load data (38 cartridges), velocity error 4.9 % rms, pressure error 23 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 860 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "ADI",
@@ -249,7 +249,7 @@
     "Qlty": 0.25,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 965 start and maximum loads of the manufacturer's published load data (74 cartridges), velocity error 5.3 % rms, pressure error 22 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 965 start and maximum loads of the manufacturer's published load data (74 cartridges), velocity error 5.3 % rms, pressure error 22 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 900 kg/m3 of the original program's record."
   },
   {
     "mname": "ADI",
@@ -263,14 +263,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 990.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.45,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 953 start and maximum loads of the manufacturer's published load data (72 cartridges), velocity error 4.5 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 953 start and maximum loads of the manufacturer's published load data (72 cartridges), velocity error 4.5 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 990 kg/m3 of the original program's record."
   },
   {
     "mname": "ADI",
@@ -284,14 +284,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 930.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.45,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 790 start and maximum loads of the manufacturer's published load data (66 cartridges), velocity error 4.2 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 790 start and maximum loads of the manufacturer's published load data (66 cartridges), velocity error 4.2 % rms, pressure error 13 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 930 kg/m3 of the original program's record."
   },
   {
     "mname": "ADI",
@@ -305,14 +305,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 920.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.4,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 543 start and maximum loads of the manufacturer's published load data (44 cartridges), velocity error 4.5 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 543 start and maximum loads of the manufacturer's published load data (44 cartridges), velocity error 4.5 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 920 kg/m3 of the original program's record."
   },
   {
     "mname": "ADI",
@@ -326,14 +326,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 980.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.4,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 94 start and maximum loads of the manufacturer's published load data (9 cartridges), velocity error 4.3 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 94 start and maximum loads of the manufacturer's published load data (9 cartridges), velocity error 4.3 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 980 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "ADI",
@@ -347,14 +347,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 940.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.3,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 435 start and maximum loads of the manufacturer's published load data (41 cartridges), velocity error 4.5 % rms, pressure error 18 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 435 start and maximum loads of the manufacturer's published load data (41 cartridges), velocity error 4.5 % rms, pressure error 18 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 940 kg/m3 of the original program's record."
   },
   {
     "mname": "ADI",
@@ -368,14 +368,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 925.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.35,
     "cdate": "2026-10-04",
     "origin": "ADI Powders rifle data, adiworldclass.com.au/data-rifle (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 285 start and maximum loads of the manufacturer's published load data (22 cartridges), velocity error 4.8 % rms, pressure error 16 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type."
+    "descr": "Burn rate Ba fitted to 285 start and maximum loads of the manufacturer's published load data (22 cartridges), velocity error 4.8 % rms, pressure error 16 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bullet lengths of bullets not in the project's records are estimated from mass, diameter and type. Bulk density 925 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "ADI",
@@ -389,14 +389,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 475.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.1,
     "cdate": "2026-10-08",
     "origin": "ADI Powders rifle and handgun data, adiworldclass.com.au (scripts/data/loaddata/adi_extract.py)",
-    "descr": "Burn rate Ba fitted to 177 start and maximum loads of the manufacturer's published load data (20 cartridges), velocity error 8.3 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 177 start and maximum loads of the manufacturer's published load data (20 cartridges), velocity error 8.3 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Handgun or shotgun powder: the model is made for rifle pressures, so the errors are larger than for rifle powders. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 475 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "ADI",

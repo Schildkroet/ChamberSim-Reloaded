@@ -11,14 +11,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 616.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.2,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 242 start and maximum loads of the manufacturer's published load data (12 cartridges), velocity error 9.6 % rms, pressure error 37 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 242 start and maximum loads of the manufacturer's published load data (12 cartridges), velocity error 9.6 % rms, pressure error 37 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 616 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -53,14 +53,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 617.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.05,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 212 start and maximum loads of the manufacturer's published load data (19 cartridges), velocity error 13.2 % rms, pressure error 34 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 212 start and maximum loads of the manufacturer's published load data (19 cartridges), velocity error 13.2 % rms, pressure error 34 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 617 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -74,14 +74,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 825.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.2,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 143 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 9.5 % rms, pressure error 37 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 143 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 9.5 % rms, pressure error 37 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 825 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -95,14 +95,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 810.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.25,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 125 start and maximum loads of the manufacturer's published load data (20 cartridges), velocity error 7.8 % rms, pressure error 33 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 125 start and maximum loads of the manufacturer's published load data (20 cartridges), velocity error 7.8 % rms, pressure error 33 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 810 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -116,14 +116,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 895.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.3,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 117 start and maximum loads of the manufacturer's published load data (16 cartridges), velocity error 8.8 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 117 start and maximum loads of the manufacturer's published load data (16 cartridges), velocity error 8.8 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 895 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -137,14 +137,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 938.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.3,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 298 start and maximum loads of the manufacturer's published load data (28 cartridges), velocity error 8.3 % rms, pressure error 26 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 298 start and maximum loads of the manufacturer's published load data (28 cartridges), velocity error 8.3 % rms, pressure error 26 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 938 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -158,14 +158,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 957.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.5,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 331 start and maximum loads of the manufacturer's published load data (28 cartridges), velocity error 5.3 % rms, pressure error 20 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
+    "descr": "Burn rate Ba fitted to 331 start and maximum loads of the manufacturer's published load data (28 cartridges), velocity error 5.3 % rms, pressure error 20 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bulk density 957 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -179,14 +179,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 950.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.5,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 468 start and maximum loads of the manufacturer's published load data (39 cartridges), velocity error 5.8 % rms, pressure error 19 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 468 start and maximum loads of the manufacturer's published load data (39 cartridges), velocity error 5.8 % rms, pressure error 19 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 950 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -200,14 +200,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 995.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.55,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 628 start and maximum loads of the manufacturer's published load data (48 cartridges), velocity error 5.4 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
+    "descr": "Burn rate Ba fitted to 628 start and maximum loads of the manufacturer's published load data (48 cartridges), velocity error 5.4 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bulk density 995 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -221,14 +221,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 964.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.45,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 444 start and maximum loads of the manufacturer's published load data (31 cartridges), velocity error 5.9 % rms, pressure error 21 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 444 start and maximum loads of the manufacturer's published load data (31 cartridges), velocity error 5.9 % rms, pressure error 21 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 964 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -242,14 +242,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 980.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.6,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 404 start and maximum loads of the manufacturer's published load data (41 cartridges), velocity error 4.8 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
+    "descr": "Burn rate Ba fitted to 404 start and maximum loads of the manufacturer's published load data (41 cartridges), velocity error 4.8 % rms, pressure error 15 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bulk density 980 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -263,14 +263,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 990.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.6,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 146 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 5.3 % rms, pressure error 14 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data."
+    "descr": "Burn rate Ba fitted to 146 start and maximum loads of the manufacturer's published load data (17 cartridges), velocity error 5.3 % rms, pressure error 14 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Bulk density 990 kg/m3 of the original program's record."
   },
   {
     "mname": "ReloadSwiss",
@@ -284,13 +284,13 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 998.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.25,
     "cdate": "2026-10-10",
     "origin": "Reload Swiss online loading data and loading data guide 2025 (Nitrochemie; loads, V5 velocities, pressures; scripts/data/loaddata)",
-    "descr": "Burn rate Ba fitted to 126 start and maximum loads of the manufacturer's published load data (14 cartridges), velocity error 10.5 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 126 start and maximum loads of the manufacturer's published load data (14 cartridges), velocity error 10.5 % rms, pressure error 25 % rms (published pressures). Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 998 kg/m3 of the original program's record."
   }
 ]

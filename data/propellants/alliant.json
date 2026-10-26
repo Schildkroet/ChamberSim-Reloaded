@@ -11,14 +11,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 885.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.1,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 12 maximum loads of the manufacturer's published load data (5 cartridges), velocity error 3.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 12 maximum loads of the manufacturer's published load data (5 cartridges), velocity error 3.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 885 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -53,14 +53,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 1050.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.45,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 59 maximum loads of the manufacturer's published load data (21 cartridges), velocity error 3.5 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 59 maximum loads of the manufacturer's published load data (21 cartridges), velocity error 3.5 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 1050 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -74,14 +74,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 845.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.2,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 39 maximum loads of the manufacturer's published load data (16 cartridges), velocity error 8.0 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 39 maximum loads of the manufacturer's published load data (16 cartridges), velocity error 8.0 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 845 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -137,14 +137,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 483.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.1,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 15 maximum loads of the manufacturer's published load data (5 cartridges), velocity error 3.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 15 maximum loads of the manufacturer's published load data (5 cartridges), velocity error 3.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 483 kg/m3: Lee Precision, table « Powder VMD's » du 2024-01-08 (lue le 2026-10-17) : « AMER-SELECT » 0.1341 cm³ par grain, mesure au doseur. Pas une valeur du fabricant de la poudre : Lee mesure 2,7 % plus bas que les fabricants qui publient la leur, en médiane.."
   },
   {
     "mname": "Alliant",
@@ -158,14 +158,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 932.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.45,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 53 maximum loads of the manufacturer's published load data (9 cartridges), velocity error 2.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 53 maximum loads of the manufacturer's published load data (9 cartridges), velocity error 2.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 932 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -221,14 +221,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 775.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.1,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 22 maximum loads of the manufacturer's published load data (10 cartridges), velocity error 8.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 22 maximum loads of the manufacturer's published load data (10 cartridges), velocity error 8.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 775 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -242,14 +242,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 615.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.15,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 46 maximum loads of the manufacturer's published load data (16 cartridges), velocity error 10.9 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 46 maximum loads of the manufacturer's published load data (16 cartridges), velocity error 10.9 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 615 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -326,14 +326,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 756.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.35,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 56 maximum loads of the manufacturer's published load data (18 cartridges), velocity error 5.5 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 56 maximum loads of the manufacturer's published load data (18 cartridges), velocity error 5.5 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 756 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -410,14 +410,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 500.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.05,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 10 maximum loads of the manufacturer's published load data (5 cartridges), velocity error 3.9 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 10 maximum loads of the manufacturer's published load data (5 cartridges), velocity error 3.9 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 500 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "Alliant",
@@ -431,14 +431,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 885.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.2,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 34 maximum loads of the manufacturer's published load data (13 cartridges), velocity error 5.6 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 34 maximum loads of the manufacturer's published load data (13 cartridges), velocity error 5.6 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 885 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -452,14 +452,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 935.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.75,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 102 maximum loads of the manufacturer's published load data (38 cartridges), velocity error 3.7 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 102 maximum loads of the manufacturer's published load data (38 cartridges), velocity error 3.7 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 935 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -480,7 +480,7 @@
     "Qlty": 0.85,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 147 maximum loads of the manufacturer's published load data (18 cartridges), velocity error 2.2 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 147 maximum loads of the manufacturer's published load data (18 cartridges), velocity error 2.2 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 900 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -494,14 +494,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 995.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.6,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 71 maximum loads of the manufacturer's published load data (21 cartridges), velocity error 2.2 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 71 maximum loads of the manufacturer's published load data (21 cartridges), velocity error 2.2 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 995 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -515,14 +515,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 940.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.8,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 128 maximum loads of the manufacturer's published load data (39 cartridges), velocity error 3.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 128 maximum loads of the manufacturer's published load data (39 cartridges), velocity error 3.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 940 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -536,14 +536,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 940.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.75,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 99 maximum loads of the manufacturer's published load data (34 cartridges), velocity error 3.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 99 maximum loads of the manufacturer's published load data (34 cartridges), velocity error 3.4 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 940 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -557,14 +557,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 920.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.8,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 96 maximum loads of the manufacturer's published load data (14 cartridges), velocity error 2.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 96 maximum loads of the manufacturer's published load data (14 cartridges), velocity error 2.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 920 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -578,14 +578,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 915.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.3,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 37 maximum loads of the manufacturer's published load data (17 cartridges), velocity error 3.1 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 37 maximum loads of the manufacturer's published load data (17 cartridges), velocity error 3.1 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 915 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "Alliant",
@@ -599,14 +599,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 994.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.65,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 77 maximum loads of the manufacturer's published load data (12 cartridges), velocity error 2.6 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 77 maximum loads of the manufacturer's published load data (12 cartridges), velocity error 2.6 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 994 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -620,14 +620,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 980.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.05,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 9 maximum loads of the manufacturer's published load data (4 cartridges), velocity error 4.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 9 maximum loads of the manufacturer's published load data (4 cartridges), velocity error 4.3 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 980 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -641,14 +641,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 890.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.25,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 41 maximum loads of the manufacturer's published load data (20 cartridges), velocity error 5.2 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe."
+    "descr": "Burn rate Ba fitted to 41 maximum loads of the manufacturer's published load data (20 cartridges), velocity error 5.2 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Bulk density 890 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -662,14 +662,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 680.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.55,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 92 maximum loads of the manufacturer's published load data (7 cartridges), velocity error 5.7 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 92 maximum loads of the manufacturer's published load data (7 cartridges), velocity error 5.7 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 680 kg/m3 as listed by tireur.org (original program's records, ammoreference.com)."
   },
   {
     "mname": "Alliant",
@@ -725,14 +725,14 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1580.0,
-    "pcd": 900.0,
+    "pcd": 593.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.35,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 61 maximum loads of the manufacturer's published load data (18 cartridges), velocity error 6.0 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 61 maximum loads of the manufacturer's published load data (18 cartridges), velocity error 6.0 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, single-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 593 kg/m3 of the original program's record."
   },
   {
     "mname": "Alliant",
@@ -746,13 +746,13 @@
     "z1": 0.3,
     "z2": 0.6,
     "pc": 1620.0,
-    "pcd": 900.0,
+    "pcd": 996.0,
     "pt": 21.0,
     "tcc": 0.0,
     "tch": 0.0,
     "Qlty": 0.2,
     "cdate": "2026-10-14",
     "origin": "Alliant Powder's online Reloader's Guide (alliantpowder.com/reloaders, pistol / revolver and rifle recipes; scripts/data/loaddata/alliant_web_extract.py)",
-    "descr": "Burn rate Ba fitted to 31 maximum loads of the manufacturer's published load data (10 cartridges), velocity error 5.5 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution."
+    "descr": "Burn rate Ba fitted to 31 maximum loads of the manufacturer's published load data (10 cartridges), velocity error 5.5 % rms. Not published and therefore only typical or chosen values: Qex (the type (single/double base) is not published, double-base assumed because it fits the velocities better), k, material density pc, bulk density pcd, and the form function (a0, z1, z2: the data hardly determine it). Check every load against the manufacturer's current load data. Alliant publishes the velocity of its maximum loads (every charge is to be reduced by 10 % for a start load) and no pressures; the test barrel is the one listed with each recipe. Fewer data or a poorer fit than most other records (see the quality Qlty): use with more caution. Bulk density 996 kg/m3 of the original program's record."
   }
 ]
