@@ -28,8 +28,8 @@ MAKERS = ["Ballistix Academy", "Cutting Edge", "North Fork", "Sellier & Bellot",
           "Fiocchi", "Woodleigh", "Missouri Bullet Co.", "Bloodsport", "Buffalo Arms", "Balleurope", "Sierra Pro-Hunter", "BA"]
 # makers with their own fetch script (or no records wanted): the rows stay in the CSV with valid = no
 OWN = {"Hornady", "Sierra", "Nosler", "Barnes", "Speer", "Berger", "Lapua", "Norma", "RWS", "Sako", "Federal", "Winchester", "Remington", "H&N",
-       "PPU", "Sellier & Bellot"}
-KEEP = {"Degol", "Sax", "Fox", "LOS", "Brenneke", "GECO", "Magtech", "CopperBear", "Frontier", "DK Bullets", "GPA", "Cutting Edge",
+       "PPU", "Sellier & Bellot", "Sax"}
+KEEP = {"Degol", "Fox", "LOS", "Brenneke", "GECO", "Magtech", "CopperBear", "Frontier", "DK Bullets", "GPA", "Cutting Edge",
         "Ballistix Academy", "North Fork", "Leader", "Wi-La-Tech"}
 # rows whose bullet the database already has are marked valid = no (see --data); muzzle-loader bullets are not wanted
 CARTRIDGE_PREFIX = r"^(?:g|Hornet|\.45/70|\.50 Action Express|\.50|Action Express|9,3x72R|10,75x68|350 Legend|\.25 ACP|Browning|TAC)\s+(?=[A-Z])"
