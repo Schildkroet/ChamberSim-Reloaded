@@ -75,6 +75,16 @@ exactly the values of the load. With the Physical Model only the
 project’s records are compared, because the original database is not
 updated; with the other models all records count.
 
+Loads saved by the original program name a powder slightly differently
+(`RS 40` instead of `RS40`); spaces and capitals are ignored when a load
+is matched with the records, so the project’s record and its physical
+burn values are found for such a load too. The two banners are
+independent: *Use the database values…* replaces the powder values of
+the load (heat of explosion, gas properties, densities and the burn
+values), *Use the physical values…* only adds the physical burn values
+and keeps the load’s own values. To get the same result as selecting the
+powder again from the database, use the database values first.
+
 ## Editing values
 
 Click a value in a property table to edit it. Values with a unit have a

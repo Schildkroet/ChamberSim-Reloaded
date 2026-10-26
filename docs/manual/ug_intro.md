@@ -47,7 +47,10 @@ deviate much more. Unusual loads, other powders and other cartridges
 than the ones tested can deviate more again; slow powders at low
 pressure, pistol and revolver cartridges (about 8 % in velocity and 19 %
 in pressure) and shotgun loads (about 3 % in velocity and 16 % in
-pressure, with their own constants) are known weak spots. Powders
+pressure, with their own constants) are known weak spots. The velocity
+gain with the barrel length is slightly too steep: against published
+cut-down series the model loses about 1 % more velocity at 16 than at 24
+inches than was measured. Powders
 without physical burn values, such as your own records, are less
 accurate than the project’s powders. The GRT Original model reproduces
 the results of the original program to about 1 % in velocity and 3 % in

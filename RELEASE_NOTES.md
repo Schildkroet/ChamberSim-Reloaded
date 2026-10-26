@@ -3,6 +3,28 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.13
+
+### Added and changed
+
+- **Powder names without spaces.** A file saved by the original program names a powder `RS 40`, the project data
+  `RS40`: the physical burn values and the notice "Powder values differ from the database" now find the project's
+  record of such a load (affects the ReloadSwiss RS series, ADI AR 22xx, Vectan Ba 9 / 10, Reloder 10X, StaBALL 6.5).
+- **Refitted physical powder values**, and the gas share wording: 1/4 is the volume-average share (1/3 for the kinetic
+  energy changes no fit result).
+- **Bulk densities.** 152 propellant records have a sourced bulk density instead of the 900 kg/m3 default: the
+  maker's guides (Vihtavuori, Shooters World, Lee, Nosler) or the original program's record, collected by
+  github.com/fbastin/tireur_reloaded. The source is in the record's description. The solver uses the bulk density
+  only for the load ratio and the charge-too-high check, not for velocity or pressure.
+- **Projectile data.** Sax: all 89 bullets of the maker's own listing (sax-munition.de) with part number, length, BC
+  and diameter, validated; they replace the 64 estimated ones. Lapua: lengths, base data and BC of 126 bullets from
+  the maker's bullet file. Seven bullets of LOS, GECO and H&N measured with a caliper. Hornady ELD Match 26177: length
+  33.274 mm as Hornady lists it, was 32.8 (issue 8).
+- **Caliber.** 375 XLR is a C.I.P. cartridge.
+- **Barrel length.** Checked against 11 published cut-down series (docs/ACCURACY.md): the Physical Model loses about
+  1 % more velocity at 16 than at 24 inches than measured. More heat loss would fix it but worsens the fit to the
+  published loads, so the model is unchanged.
+
 ## 0.12
 
 ### Added and changed

@@ -112,6 +112,16 @@ fixed): peak pressure bias -8.5 % -> +10 %, velocity unchanged (-4.5 %), and 77 
 overshoots the pressure of deeply seated bullets: it counts everything seated in the case as a full cylinder, although the narrower nose of the bullet
 is inside it (not corrected yet). The velocity shortfall of lead bullets (-4.5 %) is not a length effect.
 
+*Velocity against barrel length (2026-10-26):* 11 published cut-down series with a known powder and charge (three 7 mm Rem. Mag. and two .338 Lapua Mag. of
+Rifleshooter.com, six .223 Rem. of Hodgdon's 2026 laboratory test; 16 or 17 to 24 or 30 inches; collected by github.com/fbastin/tireur_reloaded, bullet lengths
+estimated) give a measured exponent of v on barrel length of 0.211 on average; the Physical Model has 0.242, so it loses about 1 % more velocity at 16 than at 24 inches
+(median error of v(L) / v(longest) 0.97 %, a fixed exponent of 0.167 gives 0.88 %). Absolute velocity at the longest barrel: -1 to +7.5 % (the .223 loads too fast). The
+exponent is controlled by `heatTransferFactor` (more heat loss on a longer barrel flattens the gain): 1.0 gives 0.203 and 0.49 %. Compensated with `impetusFactor` and
+with the burn rate refitted per powder on 24,000 published rifle and pistol loads it makes the fit worse: velocity rms 4.48 % -> 4.89 %, pressure bias +1.5 % -> +4.9 %,
+start-load velocity bias +0.05 % -> -1.4 % (0.75: 4.79 % / +4.3 %). The published loads keep 0.5, so it stays; `kineticFactor` and `burnRateScale` have no effect in the
+Physical Model, friction and spin none on the exponent. The simulated peak pressure does not change with the barrel length (Hodgdon's measured pressures scatter by 3-4 %
+without a trend). Open: a heat loss that depends on time or gas temperature.
+
 ## Against the original program's runs
 
 <!-- accuracy:start -->

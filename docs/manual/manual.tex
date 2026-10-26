@@ -94,7 +94,7 @@ fit, the muzzle velocity is typically within 3--6\,\% (root mean square; Vihtavu
 within about 15\,\% where the tables publish it. The scatter of the published tables themselves (lots, barrels, components) is of that size.
 Single loads can deviate much more. Unusual loads, other powders and other cartridges than the ones tested can deviate more again; slow powders
 at low pressure, pistol and revolver cartridges (about 8\,\% in velocity and 19\,\% in pressure) and shotgun loads (about 3\,\% in velocity and 16\,\%
-in pressure, with their own constants) are known weak spots. Powders without physical burn values, such as your own records, are less accurate than
+in pressure, with their own constants) are known weak spots. The velocity gain with the barrel length is slightly too steep: against published cut-down series the model loses about 1\,\% more velocity at 16 than at 24 inches than was measured. Powders without physical burn values, such as your own records, are less accurate than
 the project's powders. The \ui{GRT Original} model reproduces the results of the original program to about 1\,\% in velocity and 3\,\% in pressure.
 The files \file{README.md} and \file{docs/ACCURACY.md} of the project contain the current accuracy tables.
 
@@ -392,6 +392,12 @@ values in the load, a second orange banner says \emph{Powder values differ from 
 values. \ui{Use the database values\dots} replaces them with those of the closest record (the charge and all other settings stay; \ui{Undo}
 takes it back). A powder can have several records, so the banner appears only if no record has exactly the values of the load. With the
 Physical Model only the project's records are compared, because the original database is not updated; with the other models all records count.
+
+Loads saved by the original program name a powder slightly differently (\texttt{RS 40} instead of \texttt{RS40}); spaces and capitals are ignored when a load is
+matched with the records, so the project's record and its physical burn values are found for such a load too. The two banners are independent:
+\ui{Use the database values\dots} replaces the powder values of the load (heat of explosion, gas properties, densities and the burn values),
+\ui{Use the physical values\dots} only adds the physical burn values and keeps the load's own values. To get the same result as selecting the powder
+again from the database, use the database values first.
 
 \subsection{Editing values}
 Click a value in a property table to edit it. Values with a unit have a drop-down menu for the unit; the choice applies to this field only.

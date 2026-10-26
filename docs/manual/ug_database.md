@@ -133,7 +133,8 @@ For propellants you can attach an overview photo and a detail photo
 (Choose file…, with the scale in px/mm if you know it).
 
 The Projectiles list has a **Validated** column. A green check mark
-means that the bullet's length was measured on the bullet or checked
-against the original's database; a red cross means it has not been validated
-by hand (the length may be taken from the manufacturer's data or be an
-estimate; see the record's description).
+means that the bullet's length was measured on the bullet, published by
+the manufacturer (bullet file or product list, e.g. Sax, Lapua, Berger) or
+checked against the original's database; a red cross means it has not been
+validated (the length may be measured on a product photo or be an estimate;
+see the record's description).

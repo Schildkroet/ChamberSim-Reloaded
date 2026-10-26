@@ -11,7 +11,7 @@
   number of curve points); the primer lights the powder, the burning spreads over the grains (flame spread, about 0.1 ms) and the bullet
   starts at the start pressure; covolume of the gas (x eta) and volume of the unburnt powder (1 / pc); engraving, friction of the bearing
   surface (bullet length; the sliding stress rises with the bullet's oversize over the groove diameter, +1.5 % per percent), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
-  and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. Results show the heat loss and
+  and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. The velocity gain with the barrel length (exponent about 0.24 between 16 and 24 inches) is slightly steeper than measured cut-down series (0.21), see docs/ACCURACY.md. Results show the heat loss and
   the work of the sliding friction (the engraving and the air act on the bullet but are not part of that value); a bullet that cannot leave
   the barrel is reported. The gas moves with a Lagrange share of the charge of 1/4 (the share for the space-averaged pressure of a linear gas gradient) and the powder burns at the breech pressure
   (the mean pressure plus the gas-column term), so the momentum, energy and reported pressure use one consistent gradient model. The energy balance uses the same 1/4 for
