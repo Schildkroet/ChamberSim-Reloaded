@@ -1646,7 +1646,7 @@ void GuiTest::reportScaleChangesTheLayout()
         const QString path = dir.filePath(u"r%1.pdf"_s.arg(scale));
         if (!report->exportPdf(path)) return -1;
         QFile f(path);
-        f.open(QIODevice::ReadOnly);
+        if (!f.open(QIODevice::ReadOnly)) return -1;
         const QByteArray data = f.readAll();
         int count = 0;
         for (qsizetype i = data.indexOf("/Type /Page\n"); i >= 0; i = data.indexOf("/Type /Page\n", i + 1)) ++count;
