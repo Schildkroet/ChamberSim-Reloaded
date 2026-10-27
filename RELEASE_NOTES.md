@@ -21,9 +21,6 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
   the maker's bullet file. Seven bullets of LOS, GECO and H&N measured with a caliper. Hornady ELD Match 26177: length
   33.274 mm as Hornady lists it, was 32.8 (issue 8).
 - **Caliber.** 375 XLR is a C.I.P. cartridge.
-- **Barrel length.** Checked against 11 published cut-down series (docs/ACCURACY.md): the Physical Model loses about
-  1 % more velocity at 16 than at 24 inches than measured. More heat loss would fix it but worsens the fit to the
-  published loads, so the model is unchanged.
 
 ## 0.12
 

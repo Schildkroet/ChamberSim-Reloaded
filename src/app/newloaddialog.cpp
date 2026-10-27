@@ -90,6 +90,7 @@ NewLoadDialog::NewLoadDialog(const csr::Database &db, QWidget *parent)
     , m_barrel(spin(Quantity::Length, 0.0, 2000.0, this))
     , m_depth(spin(Quantity::Length, 0.0, 100.0, this))
     , m_twist(spin(Quantity::Length, 0.0, 2000.0, this))
+    , m_gunWeight(spin(Quantity::GunMass, 0.0, 100.0, this))
     , m_temperature(spin(Quantity::Temperature, -40.0, 80.0, this))
     , m_chargeGrains(new QLabel)
     , m_buttons(new QDialogButtonBox(QDialogButtonBox::Cancel))
@@ -136,6 +137,7 @@ NewLoadDialog::NewLoadDialog(const csr::Database &db, QWidget *parent)
     form->addRow(tr("Barrel length"), m_barrel);
     form->addRow(tr("Bullet seating depth"), m_depth);
     form->addRow(tr("Twist length"), m_twist);
+    form->addRow(tr("Gun weight"), m_gunWeight);
     form->addRow(tr("Propellant temperature"), m_temperature);
     auto *reset = new QPushButton(tr("Reset to defaults"));
     form->addRow(reset);
@@ -308,6 +310,7 @@ csr::LoadFile NewLoadDialog::result() const
     p.barrelLength_mm = base(m_barrel);
     p.seatingDepth_mm = base(m_depth);
     p.twistLength_mm = base(m_twist);
+    p.gunWeight_kg = base(m_gunWeight);
     p.powderTemperature_C = base(m_temperature);
     return csr::buildLoad(*m_caliber, *m_projectile, *m_propellant, p, m_db.columns(csr::Table::Caliber));
 }

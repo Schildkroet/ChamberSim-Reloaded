@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+228"/>
-        <location line="+1055"/>
+        <location line="+1058"/>
         <source>Maximum pressure</source>
         <translation>Maximaldruck</translation>
     </message>
     <message>
-        <location line="-1047"/>
-        <location line="+1048"/>
+        <location line="-1050"/>
+        <location line="+1051"/>
         <source>Muzzle pressure</source>
         <translation>Mündungsdruck</translation>
     </message>
     <message>
-        <location line="-1055"/>
+        <location line="-1058"/>
         <source>Projectile energy</source>
         <translation>Geschossenergie</translation>
     </message>
     <message>
         <location line="-1"/>
-        <location line="+1057"/>
+        <location line="+1060"/>
         <source>Muzzle velocity</source>
         <translation>Mündungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location line="-1056"/>
+        <location line="-1059"/>
         <source>Barrel time (BT)</source>
         <translation>Laufzeit (BT)</translation>
     </message>
@@ -388,12 +388,12 @@
     </message>
     <message>
         <location line="+89"/>
-        <location line="+825"/>
+        <location line="+828"/>
         <source>Charge</source>
         <translation>Ladung</translation>
     </message>
     <message>
-        <location line="-825"/>
+        <location line="-828"/>
         <source>Max. pressure</source>
         <translation>Max. Druck</translation>
     </message>
@@ -431,20 +431,20 @@
         <location line="-139"/>
         <location line="+139"/>
         <location line="+188"/>
-        <location line="+588"/>
+        <location line="+591"/>
         <source>Projectile</source>
         <translation>Geschoss</translation>
     </message>
     <message>
-        <location line="-914"/>
+        <location line="-917"/>
         <location line="+138"/>
         <location line="+189"/>
-        <location line="+588"/>
+        <location line="+591"/>
         <source>Propellant</source>
         <translation>Pulver</translation>
     </message>
     <message>
-        <location line="-979"/>
+        <location line="-982"/>
         <location line="+203"/>
         <source>Select Caliber</source>
         <translation>Kaliber wählen</translation>
@@ -489,12 +489,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+640"/>
+        <location line="+643"/>
         <source>Measurements</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location line="-639"/>
+        <location line="-642"/>
         <source>Report</source>
         <translation>Bericht</translation>
     </message>
@@ -514,7 +514,7 @@
         <translation>Diese Komponente durch einen anderen Datensatz der Datenbank ersetzen</translation>
     </message>
     <message>
-        <location line="+557"/>
+        <location line="+560"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -539,7 +539,7 @@
         <translation>Geschosslänge</translation>
     </message>
     <message>
-        <location line="-487"/>
+        <location line="-490"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Auch Lauflänge, Setztiefe und Ladung auf die Vorgaben des neuen Kalibers setzen</translation>
     </message>
@@ -605,7 +605,7 @@
         <translation> (angepasst)</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+48"/>
         <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
         <translation>&lt;b&gt;Pulverwerte weichen von der Datenbank ab.&lt;/b&gt; Die Ladung verwendet eigene Werte für %1. &lt;a href=&quot;powder&quot;&gt;Datenbankwerte verwenden…&lt;/a&gt;</translation>
     </message>
@@ -1748,7 +1748,7 @@ Trotzdem exportieren?</translation>
         <translation>Nur Geschosse anzeigen, die zum Kaliber passen</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>New load</source>
         <translation>Neue Ladung</translation>
     </message>
@@ -1791,6 +1791,11 @@ Trotzdem exportieren?</translation>
         <location line="+1"/>
         <source>Twist length</source>
         <translation>Dralllänge</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Gun weight</source>
+        <translation>Waffengewicht</translation>
     </message>
     <message>
         <location line="+1"/>

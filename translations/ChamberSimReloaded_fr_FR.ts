@@ -314,29 +314,29 @@
     <name>LoadView</name>
     <message>
         <location filename="../src/app/loadview.cpp" line="+228"/>
-        <location line="+1055"/>
+        <location line="+1058"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-1047"/>
-        <location line="+1048"/>
+        <location line="-1050"/>
+        <location line="+1051"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-1055"/>
+        <location line="-1058"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="-1"/>
-        <location line="+1057"/>
+        <location line="+1060"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-1056"/>
+        <location line="-1059"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -388,12 +388,12 @@
     </message>
     <message>
         <location line="+89"/>
-        <location line="+825"/>
+        <location line="+828"/>
         <source>Charge</source>
         <translation>Charge</translation>
     </message>
     <message>
-        <location line="-825"/>
+        <location line="-828"/>
         <source>Max. pressure</source>
         <translation>Pression max.</translation>
     </message>
@@ -431,20 +431,20 @@
         <location line="-139"/>
         <location line="+139"/>
         <location line="+188"/>
-        <location line="+588"/>
+        <location line="+591"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-914"/>
+        <location line="-917"/>
         <location line="+138"/>
         <location line="+189"/>
-        <location line="+588"/>
+        <location line="+591"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-979"/>
+        <location line="-982"/>
         <location line="+203"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
@@ -489,12 +489,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+640"/>
+        <location line="+643"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-639"/>
+        <location line="-642"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
@@ -514,7 +514,7 @@
         <translation>Remplacer ce composant par un autre enregistrement de la base de données</translation>
     </message>
     <message>
-        <location line="+557"/>
+        <location line="+560"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -539,7 +539,7 @@
         <translation>Longueur du projectile</translation>
     </message>
     <message>
-        <location line="-487"/>
+        <location line="-490"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
@@ -605,7 +605,7 @@
         <translation> (ajustée)</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+48"/>
         <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
         <translation>&lt;b&gt;Les valeurs de la poudre diffèrent de la base de données.&lt;/b&gt; Le chargement utilise ses propres valeurs pour %1. &lt;a href=&quot;powder&quot;&gt;Utiliser les valeurs de la base de données…&lt;/a&gt;</translation>
     </message>
@@ -1748,7 +1748,7 @@ L&apos;exporter quand même ?</translation>
         <translation>Afficher uniquement les balles adaptées au calibre</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>New load</source>
         <translation>Nouveau chargement</translation>
     </message>
@@ -1791,6 +1791,11 @@ L&apos;exporter quand même ?</translation>
         <location line="+1"/>
         <source>Twist length</source>
         <translation>Pas de rayure</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Gun weight</source>
+        <translation>Poids de l’arme</translation>
     </message>
     <message>
         <location line="+1"/>

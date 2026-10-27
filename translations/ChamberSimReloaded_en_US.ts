@@ -321,20 +321,20 @@
         <location line="-326"/>
         <location line="+139"/>
         <location line="+188"/>
-        <location line="+588"/>
+        <location line="+591"/>
         <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-914"/>
+        <location line="-917"/>
         <location line="+138"/>
         <location line="+189"/>
-        <location line="+588"/>
+        <location line="+591"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-979"/>
+        <location line="-982"/>
         <location line="+203"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
@@ -358,30 +358,30 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+593"/>
+        <location line="+596"/>
         <source>&lt;b&gt;Invalid input:&lt;/b&gt; the simulation cannot run with these values.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-962"/>
-        <location line="+1055"/>
+        <location line="-965"/>
+        <location line="+1058"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1047"/>
-        <location line="+1048"/>
+        <location line="-1050"/>
+        <location line="+1051"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1056"/>
-        <location line="+1057"/>
+        <location line="-1059"/>
+        <location line="+1060"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1056"/>
+        <location line="-1059"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -453,12 +453,12 @@
     </message>
     <message>
         <location line="+92"/>
-        <location line="+825"/>
+        <location line="+828"/>
         <source>Charge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-825"/>
+        <location line="-828"/>
         <source>Max. pressure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -514,12 +514,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+640"/>
+        <location line="+643"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-639"/>
+        <location line="-642"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
@@ -585,7 +585,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+48"/>
         <source>&lt;b&gt;Powder values differ from the database.&lt;/b&gt; The load uses its own values of %1. &lt;a href=&quot;powder&quot;&gt;Use the database values…&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1728,7 +1728,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>New load</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1770,6 +1770,11 @@ Export it anyway?</source>
     <message>
         <location line="+1"/>
         <source>Twist length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Gun weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

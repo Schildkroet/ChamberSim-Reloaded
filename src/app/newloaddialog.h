@@ -67,6 +67,7 @@ private:
     QDoubleSpinBox *m_barrel;
     QDoubleSpinBox *m_depth;
     QDoubleSpinBox *m_twist;
+    QDoubleSpinBox *m_gunWeight;
     QDoubleSpinBox *m_temperature;
     std::array<QLabel *, 3> m_summary{};    // second step: what was selected (caliber, projectile, propellant)
     std::array<QLabel *, 3> m_selection{};  // first step: the same, below the lists
