@@ -328,8 +328,22 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
         m_table->setItem(head, 0, h);
         m_table->setSpan(head, 0, 1, 3);
 
-        for (const csr::Entry &e : s.entries->entries())
+        // propellant: the charge and the ladder come right below the powder's name, before its burn data
+        std::vector<const csr::Entry *> order;
+        for (const csr::Entry &e : s.entries->entries()) order.push_back(&e);
+        if (s.key == u"propellant")
         {
+            const auto charge = [](const csr::Entry *e) { return e->name == u"mc" || e->name == u"laddercnt" || e->name == u"laddermc"; };
+            const auto name = std::ranges::find_if(order, [](const csr::Entry *e) { return e->name == u"pname"; });
+            if (name != order.end())
+            {
+                std::stable_partition(name + 1, order.end(), charge);
+                // stable_partition keeps the relative order; the three fields now follow pname
+            }
+        }
+        for (const csr::Entry *entry : order)
+        {
+            const csr::Entry &e = *entry;
             if (hiddenField(e.name)) continue;  // kept in the file, written back unchanged
             // the start pressure of a load with a primer is primer + additional start pressure (shown); a shotshell has its own primer
             if (e.name == u"ps" && s.entries->find(u"psadd") && !s.entries->flag(u"shotshell")) continue;

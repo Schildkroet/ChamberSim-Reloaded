@@ -1158,7 +1158,10 @@ QString LoadView::headingHtml() const
         cell(tr("L3/CL"), shown(in.caseLength_mm, Quantity::Length)) +
             cell(tr("L6/OAL"), shown(m_file.caliber.number(u"oal"), Quantity::Length)) +
             cell(tr("Seating depth"), shown(in.seatingDepth_mm, Quantity::Length)),
-        cell(tr("Projectile length"), shown(in.bulletLength_mm, Quantity::Length)),
+        cell(tr("Projectile length"), shown(in.bulletLength_mm, Quantity::Length)) +
+            cell(tr("Case volume with bullet"),
+                 shown(m_result.ok() ? m_result.effectiveCaseVolume_cm3 : in.caseVolume_cm3 - csr::bulletIntrusion_m3(in) * 1e6,
+                       Quantity::Volume)),
     };
     QString html = u"<span style='font-size:large'><b>%1</b></span><table cellspacing='0' cellpadding='1'>"_s.arg(
         m_file.caliber.text(u"CaliberName").toHtmlEscaped());
