@@ -115,7 +115,9 @@ TitleBar::TitleBar(QMenuBar *menu, QWidget *window)
     , m_close(new WindowButton(WindowButton::Kind::Close))
 {
     setObjectName(QStringLiteral("titleBar"));
+#ifndef Q_OS_MACOS
     m_menu->setNativeMenuBar(false);  // it lives in this row, not in a global menu
+#endif
     m_title->setAlignment(Qt::AlignCenter);
     m_title->setTextFormat(Qt::PlainText);
     m_title->setMinimumWidth(40);
@@ -162,6 +164,9 @@ void TitleBar::store(bool on)
 void TitleBar::setDecorated(bool on)
 {
     m_decorated = on;
+#ifdef Q_OS_MACOS
+    m_menu->setNativeMenuBar(!on);  // macOS: the menu is the global one at the top of the screen, unless the own title bar holds it
+#endif
     for (QWidget *w : std::initializer_list<QWidget *>{m_icon, m_title, m_minimize, m_maximize, m_close}) w->setVisible(on);
     updateSizes();
     updateState();

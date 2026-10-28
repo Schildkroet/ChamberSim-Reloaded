@@ -161,6 +161,7 @@ public:
         if (const auto *list = choicesFor(key))
         {
             auto *box = new QComboBox(parent);
+            box->setAutoFillBackground(true);
             for (const Choice &c : *list)
             {
                 box->addItem(c.label, c.code);
@@ -209,6 +210,7 @@ public:
         const auto list = csr::units::unitsOf(q);
         if (list.empty()) return nullptr;
         auto *box = new QComboBox(parent);
+        box->setAutoFillBackground(true);  // macOS draws the box transparent: the cell's own text shows through
         for (const csr::units::Unit &u : list) box->addItem(QString::fromUtf8(u.symbol), QString::fromLatin1(u.id));
         connect(box, &QComboBox::activated, box, [box] { box->clearFocus(); });
         return box;
