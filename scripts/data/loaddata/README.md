@@ -32,6 +32,20 @@ published velocities contradict their weights): `analysis/scan_physical.py --dro
 `scripts/data/bulletdata/estimate_length.py` (lead bullets by shape, measured on product photos); the length decides the seating depth and with it the powder
 space, so it matters most for pistol cartridges (+1.5 mm = +16 % peak pressure of a 9 mm Luger).
 
+### Implausible loads (`analysis/check_published_loads.py`)
+
+Independent of the solver, the script flags loads that cannot be right: velocity, charge, bullet mass or lengths out of range; muzzle energy per powder energy
+(Qex 4000 J/g) above 0.55 or far below a working load; start load above the maximum load of the same bullet and powder; the same load twice with velocities
+more than 10 % apart; velocity off the trend of its table (`sample_filter.py`). Result on the 52,775 rifle and handgun loads of `sources/samples/by_maker`
+(2026-10-27): 341 flagged (0.6 %). Most of them (136) are charges that the table gives in grains and the extraction read as grams (Bullseye 7.0 "g" in a .45 Colt,
+N110 17.0 "g" in a .303 British): divided by 15.4324 they sit on the velocity trend of their table (135 of 136 within 15 %), and the solver, which rejects all 136 as
+"charge too high", simulates 102 of them with a median velocity error of 5.6 %. The script converts these instead of dropping them and drops 8 loads it cannot
+repair; `--apply-hard` writes the copies to `--out` (e.g. `sources/samples_checked`; the sample files stay untouched) and `flagged.csv` lists every flag.
+"Start load above maximum" (106 loads) is only a soft flag: such loads simulate as well as the rest, only the table is odd. The trend flags (95 loads) are real
+problems (handgun loads: 61 % more than 25 % off the physical model, rifle 8 %). A published pressure far above the permitted one is not a flag: hot handgun
+loads reach 1.9 x the C.I.P. value (.45 Colt for Ruger guns), rifle tables stay within 1.11 x. The pressure filter against the simulation is
+`analysis/filter_published_outliers.py`.
+
 ## Independent values for the powder record
 
 Vihtavuori publishes a technical table per powder (industrial products brochure 2022, `vv_powder_data.csv`): relative burn rate
@@ -85,6 +99,28 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   some loads (rows 75-87 = 51-67). 103 samples of 13 powders (83 rifle loads of R901-R907, 20 handgun and rifle loads of N110, N320-N340, RS20-RS30); bullets of GECO
   (lengths from the project records). The current powder values reproduce the rifle loads with 4.0 % rms (bias +1.8 %, 83 loads), the handgun loads that can be simulated
   with 6.0 % rms (bias -5.1 %, 7 loads).
+- `federal_fetch.py` downloads and `federal_extract.py dir` reads the reloading data PDFs of Federal Premium (federalpremium.com > Reloading Data > Rifle / Handgun; the pages
+  load an iframe whose JSON lists the PDFs): one PDF per cartridge and bullet (Trophy Bonded Tip, Edge TLR, Terminal Ascent, Syntech TSJ), header with barrel length (24 in
+  rifle; 4 / 5 in handgun), tested cartridge length, per powder the start and the maximum load with velocity (Federal case and primer), no pressures, no twist. Two layouts, powder names that
+  wrap onto a second line or are misspelled are normalised. 1,160 samples of 58 PDFs (55 rifle cartridge / bullet tables, 3 handgun: 9 mm Luger, .40 S&W, .45 ACP; 67 powders); the
+  pages list no more. Bullets of Federal (lengths from the project records, Syntech TSJ estimated).
+- `winchester_extract.py manual.pdf` reads the Winchester Reloader's Manual (15th edition, 1997; `pdftotext -layout`; tables of rifle, handgun and shotshell data): rifle rows (bullet, powder, charge, velocity,
+  pressure in C.U.P. or psi), the Fail Safe table (Winchester .270 / .308 / .300 Win. Mag. / .338 with Accurate, Hodgdon and Reloder powders, primer named), the handgun lists and the
+  multi-powder matrices (two to three rows per bullet: the first load of a powder is the `start`, the last the `max` sample; the middle rows are dropped), the cowboy action loads and the shotshell
+  tables (shot, primer, wad, hull). Cartridge lengths from the manual's maximum-length tables (C.I.P. L6 where it lacks the cartridge: .300 H&H, 6.5 x 55, .300 Weatherby, .357 Maximum),
+  handgun barrels from its SAAMI barrel table, **rifle barrel assumed 24 in** (not named); Winchester bullets (lengths from the records), no twist. C.U.P. and LUP pressures are left out, psi are
+  used (601 of the 782 bullet loads and 318 of the 362 shot loads have a psi pressure). 782 bullet loads (powders W231, W296, W540, W571, W748, W760, WMR,
+  WSL, WSF, WAP, WST) and 362 shot loads (12 gauge 70 / 76 mm, 20, 16, 28 gauge, .410; WST, WSL, WSF, WAAP, 571, 296). Not read: 9 x 23 Winchester (4 loads) and .38 Auto (1), which are not in the
+  records. Accuracy of the shipped powder records (`analysis/compare_physical_published.py`-style evaluation, 2026-10-23): rifle 5.4 % velocity rms (bias 0.0 %, 171 loads, W748 / W760 3.2 %),
+  pistol 7.7 % (bias +0.1 %, 151 loads; W231 7.1 %, WST 8.4 %), pressure of the pistol loads 29.8 % rms (bias +17.5 %; 40 S&W +41 %, 45 Auto +15 %, 10 mm +17 %, 9 mm Luger -3 %). Only 322 of the 782
+  loads are simulated: W540, WSL, WSF, WAP, W571 and WMR (420 loads) have no powder record, and about 60 loads of W231 / W296 / WST / W748 / W760 fail (very low velocities, magnum revolver charges).
+  Shotgun: WST 94 loads 2.1 % velocity, 11.7 % pressure (bias -3.7 %).
+- `speer_extract.py dir` reads the reloading data PDFs of Speer (speer.com > Reloading > Rifle Data / Handgun Data; the pages load an iframe at reloadingdata.speer.com whose
+  `recipeJson` lists the PDFs, field `pdf_url`; 204 rifle and 8 handgun PDFs, downloaded into `sources/pdf/speer`): one PDF per cartridge and bullet (Hot-Cor, BTSP, TNT, Grand Slam,
+  Gold Dot, ...), header with barrel (24 in; blank in a few PDFs, taken as 24 in), a table of the Speer bullets that share the data (the title's bullet is used, tested cartridge
+  length of the table's first row), per powder the start and the maximum load with velocity, case and primer; no pressures, no twist. 4,757 samples of 212 PDFs (65 cartridges,
+  Accurate, Alliant, Hodgdon, IMR, Ramshot, Vihtavuori and Winchester powders). The shipped powder records reproduce the rifle loads (4,285 simulated) with 5.2 % velocity rms
+  (bias +1.2 %); only 41 handgun loads can be simulated (powders without records: BE-86, Sport Pistol, CFE Pistol, AutoComp) with 6.5 %.
 - `by_maker.py` sorts all sample files by the maker of the powder and writes `sources/samples/by_maker/<maker>.csv` (Hodgdon, IMR, Winchester, Accurate, Ramshot, Alliant, ADI,
   Vectan, Vihtavuori, Lovex, Reload Swiss, RWS-Rottweil, Norma): the loads of every source for the maker's powders, identical loads once, a column `source` names the file.
   A source that lists powders of many makers (the H&N catalogue, a bullet maker's PDF such as Barnes) is split among the makers' files; run the script again after
@@ -358,3 +394,7 @@ the 52 powders without pressures; adopted where the velocity error of their own 
 TS 15.5 (3.18 -> 2.60 %), IMR 7977 (7.03 -> 3.77 %). Not adopted: N120 (the 458 SOCOM pressure goes from 1703 to 2384 bar, measured 1840) and N340 (DEVA 9 mm 1826 -> 1928 bar, measured ~1800)
 and the others, which fit their cost better but not their velocities.
 Pitfall: `csr_eval --physical X.json` needs `calibers.json` next to X.json (see above); without it every comparison is biased (rifle +0.3, pistol +0.9 points).
+
+Reproduce: `analysis/refit_powders.sh build/release/csr_eval <scratch dir>` (Release csr_eval, venv with numpy + scipy via `PYTHON=`; 1 sort by maker, 2 cleaned copies, 3 Ba refit
+of both groups, 4 multi-start, 5 comparison of every candidate with the shipped values and the measured loads; the data tree is not changed). The powders with pressures are those with
+at least 10 measured pressures, the others (at least 20 loads) get the C.I.P. limit minus 50 bar for their maximum loads. Adoption is by hand with the rule above.

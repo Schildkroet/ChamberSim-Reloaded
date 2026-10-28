@@ -28,6 +28,7 @@ GROUPS = [  # (label, name regex)
     ("Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm)", r"^j[a-d]_"),
     ("Powder and start-pressure variations of the 8x57 (shotshell batch, flag off)", r"^sh_.*_off$"),
     ("Loading density (charge, case volume, powder density, Qex)", r"^ld"),
+    ("Slow powders, barrel 150 ... 7620 mm, load ratio 0.6 / 0.95 (burnout batch)", r"^bo_"),
 ]
 line = re.compile(r"^(\S+)\s+pmax\s+([+-]?[\d.]+) %\s+vmuz\s+([+-]?[\d.]+) %\s+curve rms\s+([\d.]+) %")
 def parse(out):

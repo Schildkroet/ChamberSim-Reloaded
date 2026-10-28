@@ -1027,6 +1027,17 @@ std::vector<double> vivacityCurve(const SimInput &in, const Calibration &calibra
 Calibration calibrationFor(CalibrationProfile profile)
 {
     Calibration cal;  // the member defaults are the original's calibration
+    // The burn-law constants of the Original profile were refitted on 2026-10-27 (burnout batch, z weight 2); the other profiles keep the
+    // earlier ones, which their own fits are based on.
+    if (profile != CalibrationProfile::Original)
+    {
+        cal.burnIntercept = 1.09171;
+        cal.burnSlopeA0 = 0.434982;
+        cal.burnSlopeOffset = 0.00638254;
+        cal.burnExponent = -0.00810765;
+        cal.phase2 = {-0.0867208, -0.0659705, -0.461006};
+        cal.phase3 = {-0.103524, -0.0695024, 0.00958064};
+    }
     if (profile == CalibrationProfile::Published)
     {
         // fitted to the published rifle and handgun loads of Hodgdon and Western Powders (analysis/calibrate_published.py, burn rates of the

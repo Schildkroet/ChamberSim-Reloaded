@@ -229,10 +229,10 @@ struct Calibration
     //   phase 3 (z > z2):   phi = phi(z1) * poly3(t),  t = (z - z2) / (1 - z2),   poly3(0) = poly2(1)
     // The polynomials are cubic; the coefficients are listed from the highest power down WITHOUT the constant term,
     // which follows from the continuity of phi at z1 and z2 (the original's curve has no jumps).
-    double burnIntercept{1.09171};
-    double burnSlopeA0{0.434982};
-    double burnSlopeOffset{0.00638254};
-    double burnExponent{-0.00810765};  // about 0: the rate is linear in p (measured: 200..1500 bar within 2 %)
+    double burnIntercept{1.14476};
+    double burnSlopeA0{0.380336};
+    double burnSlopeOffset{-0.237782};
+    double burnExponent{-0.00120751};  // about 0: the rate is linear in p (measured: 200..1500 bar within 2 %)
     // ---- start of the shot ----
     double initialGasFactor{0.536312};  // weight of the initial-gas energy offset (1 = reproduces ps exactly)
     // Pistol and revolver cartridges (C.I.P. table IV): the start pressure is at least this fraction of the permitted pressure (0: the load's
@@ -246,9 +246,9 @@ struct Calibration
     double ignitionRate{0.132};
     double ignitionLead{7.17663};  // steps the ramp is ahead (the gas has energy before the first step)
     // shape of the form function in phases 2 and 3 (see above); held at t = phase3Limit beyond it
-    std::array<double, 3> phase2{-0.0867208, -0.0659705, -0.461006};
+    std::array<double, 3> phase2{-0.478611, 0.25453, -0.536076};
     double phase3Limit{1.0};  // the phase-3 shape is held constant beyond this t = (z - z2)/(1 - z2) (1: not at all)
-    std::array<double, 3> phase3{-0.103524, -0.0695024, 0.00958064};
+    std::array<double, 3> phase3{0.115942, -0.394165, 0.683927};
 };
 
 // Which constants (and model) the solver uses.

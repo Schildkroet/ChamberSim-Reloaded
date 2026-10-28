@@ -32,6 +32,7 @@ ap.add_argument("--max-pressure-dev", type=float, default=0.0, help="leave out l
 ap.add_argument("--exclude-by", choices=["baseline", "both", "either", "current"], default="baseline", help="which build decides (the same loads are left out of both)")
 ap.add_argument("--projectiles", default="", help="directory of projectile record files (data/projectiles): every load gets the start pressure gpressure and the extra friction "
                 "gfriction of the bullet record it matches, as in the program (default: none, the solver's default start pressure of 250 bar and no extra friction)")
+ap.add_argument("--dump", default="", help="write one line per load (published and simulated velocity / pressure of every build) to this CSV, e.g. for scatter charts")
 ap.add_argument("--worst", type=int, default=0, help="also list the loads whose pressure changed most between the builds")
 args = ap.parse_args()
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
@@ -115,6 +116,11 @@ if args.max_pressure_dev > 0:
             "either": np.logical_or.reduce(list(far.values()))}[args.exclude_by if len(runs) > 1 else "current"]
     print(f"{int(pick.sum())} loads with a pressure more than {args.max_pressure_dev:g} % off the published one left out ({args.exclude_by})")
     for k in runs: runs[k][0][pick] = np.nan; runs[k][1][pick] = np.nan
+if args.dump:
+    with open(args.dump, "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["powder", "caliber", "cls", "src", "charge_g", "pub_v", "pub_p", "bullet", "bullet_gr", "col_mm", "barrel_mm", "kind", "primer"] + [f"{k}_{q}" for k in runs for q in ("v", "p")])
+        for i, r in enumerate(rows):
+            w.writerow([r["powder"], r["caliber"], cls[i], src[i], r["charge_g"], mv[i], mp[i]] + [r.get(k, "") for k in ("bullet", "bullet_gr", "col_mm", "barrel_mm", "kind", "primer")] + [x for k in runs for x in (runs[k][0][i], runs[k][1][i])])
 for k in runs: print(f"{k}: {int(np.sum(~np.isnan(runs[k][0])))} of {len(rows)} loads simulated")
 
 

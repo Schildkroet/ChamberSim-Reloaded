@@ -1050,7 +1050,9 @@ void CoreTest::burnRateCurveIsContinuous()
         for (std::size_t i = 1; i < curve.size(); ++i) biggestStep = std::max(biggestStep, std::abs(curve[i] - curve[i - 1]));
         QVERIFY2(biggestStep < 0.01 * start, file);  // a jump of 1 % of the start value within 0.05 % of z
         QVERIFY(curve.back() > 0.0);
-        QVERIFY(curve.back() < 0.5 * start);  // it burns out slowly at the end
+        // below the start value; since the refit of 2026-10-27 (burnout batch) not below half of it: the original's rate per bar, measured on
+        // the reference runs, does not fall towards z = 1
+        QVERIFY(curve.back() < start);
         // the curve peaks within the first phases and then falls (apart from a tiny bend where phase 3 starts)
         const auto peak = std::ranges::max_element(curve);
         for (auto it = peak + 1; it != curve.end(); ++it) QVERIFY2(*it <= *(it - 1) + 0.005 * start, file);
