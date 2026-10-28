@@ -775,7 +775,8 @@ void CoreTest::physicalModel()
     QVERIFY(rel(r.muzzleFrictionEnergy_J, r.frictionForce_N * (r.points.back().x_mm - r.points.front().x_mm - in.bulletJump_mm) * 1e-3) <
             1e-9);
     const csr::SimResult coarse = csr::simulate(in, cal, 200);
-    QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-6);
+    QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) <
+            5e-6);  // (the fixture's Sebert factor 0.5 is not the calibrated 0.25: the grids differ by 1.4e-6)
     QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 0.005);  // only the sampling of the peak
     csr::Calibration fine = cal;
     fine.integrationTolerance = 1e-9;
@@ -837,10 +838,13 @@ void CoreTest::physicalModel()
     QVERIFY(qAbs(cylinderCurve[50] - ballCurve[1]) > 1e-3);
     QVERIFY(csr::simulate(ball, cal).ok());
 
-    csr::Calibration otherShare = cal;  // the Lagrange share is used by the model
+    csr::Calibration otherShare = cal;  // the calibration's share is the fallback of a load without a Sebert factor
     otherShare.gasMassShare = 0.10;
-    QVERIFY(csr::simulate(in, otherShare).maxPressure_bar != r.maxPressure_bar);
-    csr::Calibration instantPrimer = cal;  // a finite primer release changes the start
+    csr::SimInput noSebert = in;
+    noSebert.sebert = 0.0;
+    QVERIFY(csr::simulate(noSebert, otherShare).maxPressure_bar != csr::simulate(noSebert, cal).maxPressure_bar);
+    QCOMPARE(csr::simulate(in, otherShare).maxPressure_bar, r.maxPressure_bar);  // a load's own factor wins
+    csr::Calibration instantPrimer = cal;                                        // a finite primer release changes the start
     instantPrimer.primerTime_ms = 0.0;
     QVERIFY(csr::simulate(in, instantPrimer).maxPressure_bar != r.maxPressure_bar);
     csr::Calibration noPrimer = cal;  // no primer energy: the powder never reaches the start pressure, reported cleanly
@@ -1892,8 +1896,9 @@ void CoreTest::loadBuilderMatchesOriginal()
     // (the sample's bullet is spelled "FMJ-BT #2910", the database has "FMJ-BT 2910")
     QCOMPARE(QString(built.title).remove(u'#'), QString(orig->title).remove(u'#'));
     QCOMPARE(built.caliber.text(u"CaliberName"), orig->caliber.text(u"CaliberName"));
-    for (const char16_t *k : {u"oal", u"caselen", u"Dz", u"Aeff", u"pMaxZul", u"sebert", u"ps"})
+    for (const char16_t *k : {u"oal", u"caselen", u"Dz", u"Aeff", u"pMaxZul", u"ps"})
         QCOMPARE(built.caliber.number(k), orig->caliber.number(k));
+    QCOMPARE(built.caliber.number(u"sebert"), csr::kDefaultSebert);  // new loads start with the physical model's factor, not the record's
     QCOMPARE(built.caliber.text(u"method"), orig->caliber.text(u"method"));
     // the original's case volume was entered by hand (4.1100 cm3); the database says 4.1017 cm3
     QVERIFY(std::abs(built.caliber.number(u"casevol") / orig->caliber.number(u"casevol") - 1.0) < 0.003);
@@ -2470,8 +2475,8 @@ void CoreTest::defaultReportRendersEverything()
     QVERIFY(html.contains(u"page-break-before"_s));  // the diagrams start on a new page
 }
 
-// A caliber record without Sebert factor (the project's records) gives 0.5 in the load, not 0; the physical model treats a 0 of older
-// loads as 0.5, the Original model keeps it (the original program computes with 0).
+// A new load gets the default Sebert factor 0.25 whatever the caliber record holds (the project's records have none); the physical
+// model treats a 0 of older loads as 0.25, the Original model keeps it (the original program computes with 0).
 void CoreTest::sebertDefault()
 {
     const QString dbPath = QStringLiteral(CSR_SOURCE_DIR "/tools/GordonsReloadingTool.plain.db");
@@ -2483,17 +2488,23 @@ void CoreTest::sebertDefault()
     const auto pro = findRecord(db, csr::Table::Propellant, u"mname = 'Vihtavuori' AND pname = 'N150' AND lotid = '2021-11-13'"_s);
     QVERIFY(cal && prj && pro);
     cal->insert(u"sebert"_s, 0.0);
-    QCOMPARE(csr::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}).caliber.number(u"sebert"), 0.5);
+    QCOMPARE(csr::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}).caliber.number(u"sebert"), csr::kDefaultSebert);
+    cal->insert(u"sebert"_s, 0.7);
+    QCOMPARE(csr::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}).caliber.number(u"sebert"), csr::kDefaultSebert);
     cal->remove(u"sebert"_s);
-    QCOMPARE(csr::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}).caliber.number(u"sebert"), 0.5);
+    QCOMPARE(csr::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}).caliber.number(u"sebert"), csr::kDefaultSebert);
 
     csr::SimInput zero = csr::SimInput::fromLoad(csr::buildLoad(*cal, *prj, *pro, {.charge_g = 2.7}));
-    const csr::SimInput half = zero;
+    const csr::SimInput half = zero;  // the default factor
     zero.sebert = 0.0;
     const csr::Calibration physical = csr::calibrationFor(csr::CalibrationProfile::Physical);
     QCOMPARE(csr::simulate(zero, physical).maxPressure_bar, csr::simulate(half, physical).maxPressure_bar);
     const csr::Calibration original = csr::calibrationFor(csr::CalibrationProfile::Original);
     QVERIFY(csr::simulate(zero, original).maxPressure_bar != csr::simulate(half, original).maxPressure_bar);
+    // the physical model uses the load's factor
+    csr::SimInput heavy = half;
+    heavy.sebert = 0.6;
+    QVERIFY(csr::simulate(heavy, physical).maxPressure_bar != csr::simulate(half, physical).maxPressure_bar);
 }
 
 // An own database of an older version (caliber table without the SAAMI pressure) gets the column when it is opened; the project's
@@ -2739,8 +2750,8 @@ void CoreTest::primerGivesTheStartPressure()
     QVERIFY(std::abs(csr::primerStartPressure_bar(u"LR"_s, 12.0) - 150.0) < 1e-9);
 }
 
-// Every Sebert factor in 0..1 (0 included) is kept when a load is opened and used as it is; values outside become 0.5. A new load of a
-// record without a factor gets 0.5.
+// Every Sebert factor in 0..1 (0 included) is kept when a load is opened and used as it is; values outside become 0.25. A new load of a
+// record without a factor gets 0.25.
 void CoreTest::sebertBetweenZeroAndOneIsKept()
 {
     const QVariantMap caliber{{u"cipname"_s, u"308 Win."_s},
@@ -2756,7 +2767,7 @@ void CoreTest::sebertBetweenZeroAndOneIsKept()
     const QVariantMap powder{{u"mname"_s, u"Test"_s}, {u"pname"_s, u"P"_s}, {u"Ba"_s, 0.5},   {u"Qex"_s, 3800.0},
                              {u"k"_s, 1.24},          {u"pc"_s, 1600.0},    {u"pcd"_s, 900.0}};
     csr::LoadFile lf = csr::buildLoad(caliber, bullet, powder);
-    QCOMPARE(lf.caliber.number(u"sebert"), 0.5);  // the record has none
+    QCOMPARE(lf.caliber.number(u"sebert"), csr::kDefaultSebert);  // the record has none
     for (const double v : {0.0, 0.33, 1.0})
     {
         lf.caliber.set(u"sebert", v);
@@ -2770,7 +2781,7 @@ void CoreTest::sebertBetweenZeroAndOneIsKept()
     {
         lf.caliber.set(u"sebert", QString::fromUtf16(bad));
         QVERIFY(csr::ensureSebert(lf));
-        QCOMPARE(lf.caliber.number(u"sebert"), 0.5);
+        QCOMPARE(lf.caliber.number(u"sebert"), csr::kDefaultSebert);
     }
 }
 

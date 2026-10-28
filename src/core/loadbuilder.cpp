@@ -134,8 +134,8 @@ QVariantMap caliberFields(const QVariantMap &caliber)
             {u"Aeff"_s, fmt(num(caliber, "c_Q"))},
             {u"pMaxZul"_s, fmt(num(caliber, "Pmax"))},
             {u"method"_s, method},
-            // the project's records have no Sebert factor (the database then gives 0): 0 is never right, the original's records use 0.4-0.9
-            {u"sebert"_s, fmt(num(caliber, "sebert") > 0.0 ? num(caliber, "sebert") : 0.5)},
+            // new loads start with the physical model's value, whatever the caliber record holds (the original's records use 0.4-0.9)
+            {u"sebert"_s, fmt(kDefaultSebert)},
             {u"shotshell"_s, u"false"_s}};
 }
 
@@ -329,7 +329,7 @@ bool ensureSebert(LoadFile &lf)
     if (!lf.caliber.find(u"sebert")) return false;
     const double v = lf.caliber.number(u"sebert", -1.0);
     if (v >= 0.0 && v <= 1.0) return false;
-    lf.caliber.set(u"sebert", fmt(0.5));
+    lf.caliber.set(u"sebert", fmt(kDefaultSebert));
     return true;
 }
 

@@ -31,6 +31,10 @@ namespace csr
 // Grams per grain, the exact factor of the original program (also cm3 of water per grain H2O, the unit of case capacities).
 inline constexpr double kGrainToGram = 0.06479890999975;
 
+// Share of the powder charge that moves with the bullet (Sebert factor) of new loads: the Lagrange value for the
+// space-averaged pressure of a linear gas gradient, the physical model's calibration.
+inline constexpr double kDefaultSebert = 0.25;
+
 inline constexpr double kMmPerInch = 25.4;
 inline constexpr double kMetersPerFoot = 0.3048;
 inline constexpr double kFeetPerMeter = 1.0 / kMetersPerFoot;

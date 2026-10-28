@@ -38,7 +38,7 @@ struct SimInput
     double boreArea_mm2{};
     double grooveDiameter_mm{};    // 0: unknown
     double caliberBurnScale{1.0};  // factor on the physical burn rate for this caliber (data/physical/calibers.json)
-    double sebert{0.5};
+    double sebert{kDefaultSebert};
     double startPressure_bar{250.0};
     double primerOffset_bar{};  // start pressure of the load's primer type - 250 bar: added by the physical model only (primer.h)
     double maxPressure_bar{};   // permitted maximum (CIP), informative only
