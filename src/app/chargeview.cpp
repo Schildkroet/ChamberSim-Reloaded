@@ -22,9 +22,11 @@
 #include <QButtonGroup>
 #include <QDoubleSpinBox>
 #include <QHBoxLayout>
-#include <QFormLayout>
+#include <QFrame>
+#include <QGridLayout>
 #include <QHeaderView>
 #include <QLabel>
+#include <QPainter>
 #include <QPushButton>
 #include <QSignalBlocker>
 #include <QSpinBox>
@@ -41,13 +43,42 @@ namespace
 const QString kChargeField = QStringLiteral("propellant/mc");
 const QString kStepField = QStringLiteral("propellant/laddermc");
 
+// A rounded panel painted from the current palette (like the result cards of the load view).
+class Card : public QFrame
+{
+public:
+    using QFrame::QFrame;
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        QPainter p(this);
+        p.setRenderHint(QPainter::Antialiasing);
+        p.setBrush(palette().brush(QPalette::AlternateBase));
+        p.setPen(palette().color(QPalette::Mid));
+        p.drawRoundedRect(QRectF(rect()).adjusted(0.5, 0.5, -0.5, -0.5), 8, 8);
+    }
+};
+
+// A small bold heading in capitals, like the groups of the results.
+QLabel *caption(const QString &text)
+{
+    auto *l = new QLabel(text.toUpper());
+    QFont f = l->font();
+    f.setBold(true);
+    f.setPointSizeF(f.pointSizeF() * 0.85);
+    f.setLetterSpacing(QFont::PercentageSpacing, 108);
+    l->setFont(f);
+    return l;
+}
+
 void enlarge(QWidget *w)
 {
     QFont f = w->font();
-    f.setPointSizeF(f.pointSizeF() * 1.8);
+    f.setPointSizeF(f.pointSizeF() * 2.0);
     w->setFont(f);
-    w->setMinimumHeight(static_cast<int>(QFontMetrics(f).height() * 1.7));
-    w->setMinimumWidth(220);
+    w->setMinimumHeight(static_cast<int>(QFontMetrics(f).height() * 1.53));
+    w->setMinimumWidth(150);
 }
 
 void setRange(QDoubleSpinBox *s, const csr::units::Unit &u, double maxBase)
@@ -74,7 +105,8 @@ ChargeView::ChargeView(QWidget *parent)
     , m_steps(new QSpinBox)
     , m_step(new QDoubleSpinBox)
     , m_unitGroup(new QButtonGroup(this))
-    , m_hint(new QLabel)
+    , m_chargeOther(new QLabel)
+    , m_ladderSummary(new QLabel)
     , m_table(new QTableWidget(0, 3))
 {
     m_charge->setKeyboardTracking(false);
@@ -84,32 +116,22 @@ ChargeView::ChargeView(QWidget *parent)
     m_steps->setSpecialValueText(tr("1 (no ladder)"));
     for (QWidget *w : {static_cast<QWidget *>(m_charge), static_cast<QWidget *>(m_steps), static_cast<QWidget *>(m_step)}) enlarge(w);
 
-    auto *form = new QFormLayout;
-    form->setVerticalSpacing(14);
-    form->setHorizontalSpacing(20);
-    auto label = [](const QString &text)
-    {
-        auto *l = new QLabel(text);
-        QFont f = l->font();
-        f.setPointSizeF(f.pointSizeF() * 1.2);
-        l->setFont(f);
-        return l;
-    };
-    form->addRow(label(tr("Propellant charge")), m_charge);
-    form->addRow(label(tr("Ladder steps")), m_steps);
-    form->addRow(label(tr("Charge step")), m_step);
-
-    m_hint->setWordWrap(true);
-    m_hint->setForegroundRole(QPalette::PlaceholderText);
-    m_hint->setText(tr("The charge is the highest of the ladder; every further step has one charge step less powder. "
-                       "Click a row to show its curve."));
+    m_chargeOther->setForegroundRole(QPalette::PlaceholderText);
+    m_ladderSummary->setForegroundRole(QPalette::PlaceholderText);
+    m_ladderSummary->setWordWrap(true);
+    m_table->setToolTip(tr("The charge is the highest of the ladder; every further step has one charge step less powder. "
+                           "Click a row to show its curve."));
 
     m_table->setHorizontalHeaderLabels({tr("Charge"), tr("Max. pressure"), tr("Velocity")});
     m_table->verticalHeader()->hide();
     m_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_table->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_table->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_table->setAlternatingRowColors(true);
+    m_table->setShowGrid(false);
+    m_table->setFrameShape(QFrame::NoFrame);
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_table->horizontalHeader()->setHighlightSections(false);
 
     // grain / gram: the unit of the charge and of the charge step together (the same per-field units as in the propellant table)
     const std::array<std::pair<const char *, QString>, 2> units{{{"grain", tr("grain")}, {"g", tr("gram")}}};
@@ -119,25 +141,67 @@ ChargeView::ChargeView(QWidget *parent)
     {
         auto *b = new QPushButton(units[i].second);
         b->setCheckable(true);
-        b->setMinimumHeight(36);
-        b->setMinimumWidth(90);
+        b->setCursor(Qt::PointingHandCursor);
         b->setProperty("unitId", QString::fromLatin1(units[i].first));
         b->setToolTip(tr("Show the charge and the charge step in %1").arg(units[i].second));
+        // a segmented switch: the chosen unit is filled with the accent color, the two buttons share their inner edge
+        const QString radius = i == 0 ? QStringLiteral("border-top-left-radius: 6px; border-bottom-left-radius: 6px;")
+                                      : QStringLiteral("border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-left: none;");
+        b->setStyleSheet(QStringLiteral("QPushButton { padding: 6px 22px; border: 1px solid palette(mid); background: palette(button);") +
+                         radius +
+                         QStringLiteral(" }"
+                                        "QPushButton:hover { background: palette(midlight); }"
+                                        "QPushButton:checked { background: palette(highlight); color: palette(highlighted-text);"
+                                        "                      border-color: palette(highlight); font-weight: bold; }"));
         m_unitGroup->addButton(b);
         m_unitButtons[i] = b;
         unitRow->addWidget(b);
         connect(b, &QPushButton::clicked, this, [this, b] { chooseUnit(b->property("unitId").toString()); });
     }
     m_unitGroup->setExclusive(true);
-    unitRow->addStretch(1);
+
+    // the charge: one big field and its value in the other unit
+    auto *chargeCard = new Card;
+    auto *cc = new QVBoxLayout(chargeCard);
+    cc->setContentsMargins(16, 12, 16, 14);
+    cc->setSpacing(6);
+    auto *chargeHead = new QHBoxLayout;
+    chargeHead->addWidget(caption(tr("Propellant charge")), 1);
+    chargeHead->addLayout(unitRow);
+    cc->addLayout(chargeHead);
+    cc->addWidget(m_charge);
+    cc->addWidget(m_chargeOther);
+
+    // the ladder: number of steps and the powder removed per step
+    auto *ladderCard = new Card;
+    auto *lc = new QVBoxLayout(ladderCard);
+    lc->setContentsMargins(16, 12, 16, 14);
+    lc->setSpacing(6);
+    lc->addWidget(caption(tr("Load development ladder")));
+    auto *fields = new QGridLayout;
+    fields->setHorizontalSpacing(16);
+    fields->addWidget(new QLabel(tr("Steps")), 0, 0);
+    fields->addWidget(new QLabel(tr("Charge step")), 0, 1);
+    fields->addWidget(m_steps, 1, 0);
+    fields->addWidget(m_step, 1, 1);
+    fields->setColumnStretch(0, 1);
+    fields->setColumnStretch(1, 1);
+    lc->addLayout(fields);
+    lc->addWidget(m_ladderSummary);
+
+    auto *tableCard = new Card;
+    auto *tc = new QVBoxLayout(tableCard);
+    tc->setContentsMargins(10, 10, 10, 8);
+    tc->setSpacing(4);
+    tc->addWidget(caption(tr("Ladder results")));
+    tc->addWidget(m_table, 1);
 
     auto *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(8, 12, 8, 8);
-    layout->setSpacing(12);
-    layout->addLayout(unitRow);
-    layout->addLayout(form);
-    layout->addWidget(m_hint);
-    layout->addWidget(m_table, 1);
+    layout->setContentsMargins(8, 10, 8, 8);
+    layout->setSpacing(10);
+    layout->addWidget(chargeCard);
+    layout->addWidget(ladderCard);
+    layout->addWidget(tableCard, 1);
 
     applyUnits();
     connect(&UnitPreferences::instance(), &UnitPreferences::changed, this, [this] { applyUnits(); });
@@ -204,6 +268,19 @@ void ChargeView::showValues()
     m_step->setValue(csr::units::toDisplay(m_step_g, prefs.unitForField(kStepField, Quantity::BulletMass)));
     m_steps->setValue(std::clamp(m_stepCount, 1, csr::kMaxLadderSteps));
     m_step->setEnabled(m_stepCount >= 2);
+    // the charge in the other unit, and what the ladder covers
+    const csr::units::Unit &u = prefs.unitForField(kChargeField, Quantity::BulletMass);
+    const csr::units::Unit &other = u.id == QLatin1String("grain") ? *csr::units::findUnit(Quantity::BulletMass, QStringLiteral("g"))
+                                                                   : *csr::units::findUnit(Quantity::BulletMass, QStringLiteral("grain"));
+    m_chargeOther->setText(QStringLiteral("= %1 %2").arg(csr::units::format(m_charge_g, other), QString::fromUtf8(other.symbol)));
+    if (m_stepCount >= 2 && m_step_g > 0.0)
+    {
+        const double lowest = std::max(0.0, m_charge_g - (m_stepCount - 1) * m_step_g);
+        m_ladderSummary->setText(
+            tr("%n steps: %1 down to %2", nullptr, m_stepCount)
+                .arg(shown(m_charge_g, Quantity::BulletMass, kChargeField), shown(lowest, Quantity::BulletMass, kChargeField)));
+    }
+    else m_ladderSummary->setText(tr("No ladder: only the charge above is simulated."));
 }
 
 void ChargeView::setValues(double charge_g, int steps, double step_g)

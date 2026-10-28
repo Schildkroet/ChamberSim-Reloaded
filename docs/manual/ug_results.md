@@ -41,8 +41,8 @@ overlay removes it.
 ## Load development ladder
 
 With a ladder, the program simulates several charges at once. Set the
-number of steps and the charge difference in the load’s ladder fields;
-up to ten steps are possible. The selected charge is the maximum, the
+number of steps and the charge difference on the Charge tab (or in the
+load’s ladder fields); up to ten steps are possible. The selected charge is the maximum, the
 further steps go down from there. A table (charge, maximum pressure,
 velocity, energy and load ratio) and a row of tabs above the chart show
 the steps; click one to display its curve.

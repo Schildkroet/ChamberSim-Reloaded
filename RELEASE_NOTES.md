@@ -3,6 +3,24 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.14
+
+### Added and changed
+
+- **Charge tab.** A fourth input tab after *Propellant* with large fields for the propellant charge, the number of
+  ladder steps and the charge step, a grain/gram switch for the charge and the step, and a table of the ladder's
+  charges, maximum pressures and velocities (click a row to show its curve). It edits the same fields as the
+  propellant table.
+- **Gun weight in the New load dialog**, so a new load has recoil figures without editing the file afterwards.
+
+### Fixed
+
+- **macOS:** the menu bar (File, Edit, View, Tools, Help) was missing; it is now the native menu at the top of the
+  screen (the own title bar, if switched on, still holds it). The unit drop-downs in the property tables no longer
+  show the cell's text through the box (issue 9).
+- **Tests on Qt 6.12:** `tst_core` crashed because it ran without an application object; `tools/build.sh` works on
+  macOS (no `nproc`).
+
 ## 0.13
 
 ### Added and changed

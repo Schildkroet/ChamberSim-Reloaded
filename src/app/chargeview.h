@@ -59,7 +59,8 @@ private:
     QDoubleSpinBox *m_step;
     QButtonGroup *m_unitGroup;
     std::array<QPushButton *, 2> m_unitButtons{};  // grain, gram
-    QLabel *m_hint;
+    QLabel *m_chargeOther;                         // the charge in the other unit
+    QLabel *m_ladderSummary;                       // the range the ladder covers
     QTableWidget *m_table;
     double m_charge_g{};
     int m_stepCount{1};

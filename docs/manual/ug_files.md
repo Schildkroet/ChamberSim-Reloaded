@@ -16,8 +16,8 @@ chosen.
 ### Step 2: check the load data
 
 The dialog shows the chosen components and the Load data: propellant
-charge, barrel length, bullet seating depth, twist length and propellant
-temperature. They are filled with defaults for your selection (barrel
+charge, barrel length, bullet seating depth, twist length, gun weight and
+propellant temperature. They are filled with defaults for your selection (barrel
 length of the caliber, the cartridge at its maximum length, a charge of
 70 % of the case capacity) and you can change them freely. The charge is
 also shown in the other mass unit (grams or grains). Reset to defaults

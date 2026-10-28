@@ -142,27 +142,22 @@
 <context>
     <name>ChargeView</name>
     <message>
-        <location filename="../src/app/chargeview.cpp" line="+84"/>
+        <location filename="../src/app/chargeview.cpp" line="+116"/>
         <source>1 (no ladder)</source>
         <translation>1 (nessuna scala)</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+53"/>
         <source>Propellant charge</source>
         <translation>Carica di polvere</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Ladder steps</source>
-        <translation>Passi della scala</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+15"/>
         <source>Charge step</source>
         <translation>Passo di carica</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-62"/>
         <source>The charge is the highest of the ladder; every further step has one charge step less powder. Click a row to show its curve.</source>
         <translation>La carica è la più alta della scala; ogni passo successivo ha un passo di carica di polvere in meno. Fare clic su una riga per mostrarne la curva.</translation>
     </message>
@@ -182,7 +177,7 @@
         <translation>Velocità</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+12"/>
         <source>grain</source>
         <translation>grano</translation>
     </message>
@@ -192,12 +187,40 @@
         <translation>grammo</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+9"/>
         <source>Show the charge and the charge step in %1</source>
         <translation>Mostra la carica e il passo di carica in %1</translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+34"/>
+        <source>Load development ladder</source>
+        <translation>Scala di cariche</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Steps</source>
+        <translation>Passi</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Ladder results</source>
+        <translation>Risultati della scala</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+84"/>
+        <source>%n steps: %1 down to %2</source>
+        <translation>
+            <numerusform>%n passo: %1 fino a %2</numerusform>
+            <numerusform>%n passi: %1 fino a %2</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>No ladder: only the charge above is simulated.</source>
+        <translation>Nessuna scala: viene simulata solo la carica sopra.</translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>Above the permitted maximum pressure %1</source>
         <translation>Oltre la pressione massima ammessa %1</translation>
     </message>
