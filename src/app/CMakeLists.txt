@@ -27,6 +27,8 @@ add_library(csrui STATIC
     measurementchart.cpp
     measurementview.h
     measurementview.cpp
+    chargeview.h
+    chargeview.cpp
     photoview.h
     photoview.cpp
     chronographimportdialog.h

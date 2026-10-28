@@ -894,10 +894,8 @@ void GuiTest::ladderCurvesAndFocus()
     QVERIFY(std::abs(view.focusCharge_g() - mc) < 1e-12);
 
     // a tab per charge above the chart and a row per charge in the comparison table
-    QTabBar *bar = nullptr;
-    for (QTabBar *b : view.findChildren<QTabBar *>())
-        if (b->count() == 4) bar = b;
-    QVERIFY(bar && bar->isVisible());
+    QTabBar *bar = view.findChild<QTabBar *>(u"ladderTabs"_s);
+    QVERIFY(bar && bar->isVisible() && bar->count() == 4);
     QTableWidget *table = nullptr;
     for (QTableWidget *w : view.findChildren<QTableWidget *>())
         if (w->columnCount() == 5 && w->rowCount() == 4) table = w;
@@ -1737,10 +1735,11 @@ void GuiTest::inputsAreGroupedInThreeTabs()
     const auto tabs = view.findChildren<QTabWidget *>();
     QTabWidget *inputs = nullptr;
     for (QTabWidget *t : tabs)
-        if (t->count() == 3) inputs = t;
+        if (t->count() == 4 && t->tabText(1) == u"Projectile"_s) inputs = t;
     QVERIFY(inputs);
     QCOMPARE(inputs->tabText(1), u"Projectile"_s);
     QCOMPARE(inputs->tabText(2), u"Propellant"_s);
+    QVERIFY(inputs->tabText(3).startsWith(u"Charge"_s));
     // every tab has a "Select <component>" button; it is off until a database is available
     const auto buttons = view.findChildren<QPushButton *>();
     int selectButtons = 0;

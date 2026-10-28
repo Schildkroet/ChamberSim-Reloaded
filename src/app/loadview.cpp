@@ -26,6 +26,7 @@
 #include "solverprefs.h"
 
 #include "cartridgeview.h"
+#include "chargeview.h"
 #include "chamberview.h"
 #include "curvechart.h"
 #include "loadbuilder.h"
@@ -34,6 +35,7 @@
 #include "measurementview.h"
 #include "powderfitdialog.h"
 #include "buttonstyle.h"
+#include "chargeview.h"
 #include "propertypanel.h"
 #include "reportview.h"
 #include "selectrecorddialog.h"
@@ -344,6 +346,7 @@ LoadView::LoadView(QWidget *parent)
     m_xAxis->addItem(tr("Time axis"), static_cast<int>(CurveChart::XAxis::Time));
     m_xAxis->addItem(tr("Position axis"), static_cast<int>(CurveChart::XAxis::Position));
     auto *chartBar = new QHBoxLayout;
+    m_ladderTabs->setObjectName(u"ladderTabs"_s);
     m_ladderTabs->setExpanding(false);
     m_ladderTabs->setDrawBase(false);
     m_ladderTabs->setToolTip(tr("Load development ladder: click a charge to select its curve"));
@@ -400,6 +403,12 @@ LoadView::LoadView(QWidget *parent)
         m_inputTabs->addTab(page, tabTitles[i]);
         connect(m_selectButtons[i], &QPushButton::clicked, this, [this, i] { chooseRecord(static_cast<Component>(i)); });
     }
+
+    m_chargeView = new ChargeView;
+    m_inputTabs->addTab(m_chargeView, tr("Charge"));
+    connect(m_chargeView, &ChargeView::edited, this,
+            [this](const QString &key, const QString &base) { onValueEdited(Propellant, key, base); });
+    connect(m_chargeView, &ChargeView::stepSelected, this, [this](int i) { setFocus(i); });
 
     auto *leftColumn = new QSplitter(Qt::Vertical);
     leftColumn->addWidget(m_inputTabs);
@@ -563,6 +572,8 @@ void LoadView::rebuildPanels()
         {{Caliber, u"caliber"_s, tr("Caliber / cartridge"), &m_file.caliber}, {Gun, u"gun"_s, tr("Gun"), &m_file.gun}});
     m_projectilePanel->setSections({{Projectile, u"projectile"_s, tr("Projectile"), &m_file.projectile}});
     m_propellantPanel->setSections({{Propellant, u"propellant"_s, tr("Propellant"), &m_file.propellant}});
+    m_chargeView->setValues(m_file.propellant.number(u"mc"), csr::toIntClamped(m_file.propellant.number(u"laddercnt", 1.0), 1, 1000),
+                            m_file.propellant.number(u"laddermc"));
 }
 
 namespace
@@ -721,6 +732,9 @@ void LoadView::onValueEdited(int sectionId, const QString &key, const QString &t
     else if (sectionId == Projectile && key == u"Dbul") csr::completeTail(prj, previousDiameter);
     m_cartridgePanel->syncValues();
     m_projectilePanel->syncValues();
+    m_propellantPanel->syncValues();
+    m_chargeView->setValues(m_file.propellant.number(u"mc"), csr::toIntClamped(m_file.propellant.number(u"laddercnt", 1.0), 1, 1000),
+                            m_file.propellant.number(u"laddermc"));
     setModified(true);
     recompute();
 }
@@ -755,6 +769,7 @@ void LoadView::recompute()
         if (std::abs(step.charge_g - m_focusInput.charge_g) > 1e-9) charges.push_back(step.charge_g);
     m_measurements->setSuggestedCharges(std::move(charges));
     updateLadderUi();
+    m_chargeView->setLadder(m_ladder, m_focus, m_input.maxPressure_bar);
     showResult();
     m_report->invalidate();
 }

@@ -43,6 +43,7 @@ class QPushButton;
 class QTabBar;
 class ReportView;
 class QTableWidget;
+class ChargeView;
 class QTabWidget;
 class QFormLayout;
 class QLabel;
@@ -196,6 +197,7 @@ private:
     ChamberView *m_chamber;
     PropertyPanel *m_projectilePanel;
     PropertyPanel *m_propellantPanel;
+    ChargeView *m_chargeView;  // fourth input tab: charge and ladder in large fields
     PhotoView *m_photo;
     int m_photoTab{-1};
     QLabel *m_heading;

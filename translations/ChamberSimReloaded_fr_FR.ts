@@ -140,6 +140,74 @@
     </message>
 </context>
 <context>
+    <name>ChargeView</name>
+    <message>
+        <location filename="../src/app/chargeview.cpp" line="+84"/>
+        <source>1 (no ladder)</source>
+        <translation>1 (pas d’échelle)</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Propellant charge</source>
+        <translation>Charge de poudre</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Ladder steps</source>
+        <translation>Étapes de l’échelle</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Charge step</source>
+        <translation>Pas de charge</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The charge is the highest of the ladder; every further step has one charge step less powder. Click a row to show its curve.</source>
+        <translation>La charge est la plus haute de l’échelle ; chaque étape suivante a un pas de charge de poudre en moins. Cliquez sur une ligne pour afficher sa courbe.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Charge</source>
+        <translation>Charge</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Max. pressure</source>
+        <translation>Pression max.</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Velocity</source>
+        <translation>Vitesse</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>grain</source>
+        <translation>grain</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>gram</source>
+        <translation>gramme</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Show the charge and the charge step in %1</source>
+        <translation>Afficher la charge et le pas de charge en %1</translation>
+    </message>
+    <message>
+        <location line="+116"/>
+        <source>Above the permitted maximum pressure %1</source>
+        <translation>Au-dessus de la pression maximale admissible %1</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>charge too high</source>
+        <translation>charge trop élevée</translation>
+    </message>
+</context>
+<context>
     <name>ChronographImportDialog</name>
     <message>
         <location filename="../src/app/chronographimportdialog.cpp" line="+70"/>
@@ -313,30 +381,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+228"/>
-        <location line="+1058"/>
+        <location filename="../src/app/loadview.cpp" line="+230"/>
+        <location line="+1074"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-1050"/>
-        <location line="+1051"/>
+        <location line="-1066"/>
+        <location line="+1067"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-1058"/>
+        <location line="-1074"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="-1"/>
-        <location line="+1060"/>
+        <location line="+1076"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-1059"/>
+        <location line="-1075"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -388,12 +456,13 @@
     </message>
     <message>
         <location line="+89"/>
-        <location line="+828"/>
+        <location line="+78"/>
+        <location line="+763"/>
         <source>Charge</source>
         <translation>Charge</translation>
     </message>
     <message>
-        <location line="-828"/>
+        <location line="-841"/>
         <source>Max. pressure</source>
         <translation>Pression max.</translation>
     </message>
@@ -418,7 +487,7 @@
         <translation>Axe de position</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Load development ladder: click a charge to select its curve</source>
         <translation>Échelle de chargement : cliquez sur une charge pour choisir sa courbe</translation>
     </message>
@@ -428,47 +497,47 @@
         <translation>Cartouche &amp;&amp; arme</translation>
     </message>
     <message>
-        <location line="-139"/>
-        <location line="+139"/>
-        <location line="+188"/>
-        <location line="+591"/>
+        <location line="-140"/>
+        <location line="+140"/>
+        <location line="+194"/>
+        <location line="+597"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-917"/>
-        <location line="+138"/>
-        <location line="+189"/>
-        <location line="+591"/>
+        <location line="-930"/>
+        <location line="+139"/>
+        <location line="+195"/>
+        <location line="+597"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-982"/>
-        <location line="+203"/>
+        <location line="-995"/>
+        <location line="+204"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
     <message>
-        <location line="-203"/>
-        <location line="+203"/>
+        <location line="-204"/>
+        <location line="+204"/>
         <source>Select Projectile</source>
         <translation>Choisir le projectile</translation>
     </message>
     <message>
-        <location line="-203"/>
-        <location line="+203"/>
+        <location line="-204"/>
+        <location line="+204"/>
         <source>Select Propellant</source>
         <translation>Choisir la poudre</translation>
     </message>
     <message>
         <location line="+14"/>
-        <location line="+206"/>
+        <location line="+214"/>
         <source>No database available</source>
         <translation>Aucune base de données disponible</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-192"/>
         <source>Cartridge</source>
         <translation>Cartouche</translation>
     </message>
@@ -489,12 +558,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <location line="+643"/>
+        <location line="+649"/>
         <source>Measurements</source>
         <translation>Mesures</translation>
     </message>
     <message>
-        <location line="-642"/>
+        <location line="-648"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
@@ -509,12 +578,12 @@
         <translation>Arme</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+36"/>
         <source>Replace this component by another record of the database</source>
         <translation>Remplacer ce composant par un autre enregistrement de la base de données</translation>
     </message>
     <message>
-        <location line="+560"/>
+        <location line="+564"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -539,12 +608,12 @@
         <translation>Longueur du projectile</translation>
     </message>
     <message>
-        <location line="-490"/>
+        <location line="-494"/>
         <source>Also set barrel length, seating depth and charge to the defaults of the new caliber</source>
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
     <message>
-        <location line="-435"/>
+        <location line="-444"/>
         <source>Bullet lead time (BLT)</source>
         <translation>Temps d&apos;avance du projectile (BLT)</translation>
     </message>
@@ -559,7 +628,7 @@
         <translation>Canon</translation>
     </message>
     <message>
-        <location line="+440"/>
+        <location line="+449"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Afficher uniquement les balles adaptées au calibre</translation>
     </message>
@@ -589,7 +658,7 @@
         <translation>Modifier la valeur</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+107"/>
         <location line="+18"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
@@ -660,7 +729,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>^ Charge ^ Nom ^ Tirs ^ Vitesse ^ Écart type ^ Dispersion ^ Simulé ^ Δ ^ Pression ^ Simulé ^ Δ ^</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+126"/>
+        <source>Case volume with bullet</source>
+        <translation>Volume de la douille avec ogive</translation>
+    </message>
+    <message>
+        <location line="+30"/>
         <source>&lt;b&gt;Charge too high:&lt;/b&gt; the propellant charge does not fit into the case behind the bullet.</source>
         <translation>&lt;b&gt;Charge trop élevée :&lt;/b&gt; la charge de poudre ne tient pas dans l&apos;étui derrière la balle.</translation>
     </message>
@@ -2116,7 +2190,7 @@ pression Δ</translation>
         <translation>type %1</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+124"/>
         <source>Property</source>
         <translation>Propriété</translation>
     </message>
@@ -2131,7 +2205,7 @@ pression Δ</translation>
         <translation>Unité</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+117"/>
         <source>Click to choose another unit for this field</source>
         <translation>Cliquez pour choisir une autre unité pour ce champ</translation>
     </message>
@@ -2746,7 +2820,7 @@ pression Δ</translation>
 <context>
     <name>TitleBar</name>
     <message>
-        <location filename="../src/app/titlebar.cpp" line="+123"/>
+        <location filename="../src/app/titlebar.cpp" line="+125"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
@@ -2756,7 +2830,7 @@ pression Δ</translation>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+73"/>
         <source>Restore</source>
         <translation>Restaurer</translation>
     </message>
