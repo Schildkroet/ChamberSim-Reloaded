@@ -21,6 +21,7 @@
 
 #include "numeric.h"
 #include "dimensionlabel.h"
+#include "drawingmath.h"
 #include "hovermeasure.h"
 #include "unitprefs.h"
 
@@ -36,11 +37,6 @@
 
 namespace
 {
-
-double dim(const QMap<QString, double> &d, const char *key)
-{
-    return d.value(QLatin1String(key), 0.0);
-}
 
 // Outer silhouette of the case (right half), from the CIP dimensions. Zero values mean "not applicable".
 std::vector<QPointF> outerProfile(const QMap<QString, double> &d)
@@ -76,20 +72,6 @@ std::vector<QPointF> outerProfile(const QMap<QString, double> &d)
         pts.push_back({(H2 > 0.0 ? H2 : bodyStartR * 2.0) / 2.0, L3});
     }
     return pts;
-}
-
-double radiusAt(const std::vector<QPointF> &outer, double y)
-{
-    for (std::size_t i = 1; i < outer.size(); ++i)
-    {
-        const QPointF &a = outer[i - 1], &b = outer[i];
-        if (y >= a.y() && y <= b.y())
-        {
-            if (b.y() == a.y()) return std::max(a.x(), b.x());
-            return a.x() + (b.x() - a.x()) * (y - a.y()) / (b.y() - a.y());
-        }
-    }
-    return outer.empty() ? 0.0 : outer.back().x();
 }
 
 // Interior volume [mm3] between y = wall and `yTop` for a given wall thickness.

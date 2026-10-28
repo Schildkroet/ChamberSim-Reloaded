@@ -20,6 +20,7 @@
 #include "powderfitdialog.h"
 
 #include "screenfit.h"
+#include "displayformat.h"
 #include "unitprefs.h"
 
 #include <QApplication>
@@ -42,13 +43,7 @@ namespace
 QString shown(double base, Quantity q, int decimals)
 {
     const csr::units::Unit &u = UnitPreferences::instance().unitFor(q);
-    return base > 0.0 ? csr::units::format(base, u, decimals) : QStringLiteral("–");
-}
-
-QString percent(double value, double reference)
-{
-    if (value <= 0.0 || reference <= 0.0) return QStringLiteral("–");
-    return QStringLiteral("%1 %").arg(QLocale().toString(100.0 * (value / reference - 1.0), 'f', 1));
+    return base > 0.0 ? csr::units::format(base, u, decimals) : noValueText();
 }
 
 QTableWidgetItem *cell(const QString &text)
@@ -196,9 +191,9 @@ void PowderFitDialog::showResult()
         {
             const csr::powderfit::Result *res = resultOf(m);
             const csr::powderfit::SampleResult *r = res && i < res->samples.size() ? &res->samples[i] : nullptr;
-            m_table->setItem(row, col++, cell(r ? percent(r->velocityBefore, s.velocity_ms) : QString()));
-            m_table->setItem(row, col++, cell(r ? percent(r->velocityAfter, s.velocity_ms) : QString()));
-            m_table->setItem(row, col++, cell(r && s.pressureShots > 0 ? percent(r->pressureAfter, s.pressure_bar) : QString()));
+            m_table->setItem(row, col++, cell(r ? percentDifference(r->velocityBefore, s.velocity_ms) : QString()));
+            m_table->setItem(row, col++, cell(r ? percentDifference(r->velocityAfter, s.velocity_ms) : QString()));
+            m_table->setItem(row, col++, cell(r && s.pressureShots > 0 ? percentDifference(r->pressureAfter, s.pressure_bar) : QString()));
         }
     }
     m_table->setColumnHidden(6, !anyPressure);

@@ -50,7 +50,6 @@ public:
 
     // All measurement series of the load (the original has one <Measurement> block per series); `current` is shown.
     void setMeasurements(std::vector<csr::Measurement> series, int current = 0);
-    void setMeasurement(const csr::Measurement &m);  // a single series
     [[nodiscard]] const std::vector<csr::Measurement> &allMeasurements() const noexcept { return m_series; }
     // The shown series.
     [[nodiscard]] const csr::Measurement &measurement() const noexcept { return m_series[static_cast<std::size_t>(m_index)]; }

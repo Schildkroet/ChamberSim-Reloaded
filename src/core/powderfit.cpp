@@ -468,7 +468,8 @@ QVariantMap toRecord(const EntryList &propellant, const Result &result, const pr
             continue;  // the photos stay (saving the record copies them into the own database)
         record.insert(column, type == u"FLOAT" || type == u"INTEGER" ? QVariant(fitted.number(column)) : QVariant(e->value));
     }
-    record.insert(u"pt"_s, 21.0);  // the fitted Ba refers to 21 degC (the loads' powder temperatures are converted)
+    record.insert(u"pt"_s,
+                  kPowderReferenceTemperature_C);  // the fitted Ba refers to 21 degC (the loads' powder temperatures are converted)
     record.insert(u"Qlty"_s, fitQuality(result));
     record.insert(u"origin"_s, u"own measurements"_s);
     record.insert(u"cdate"_s, QDate::currentDate().toString(Qt::ISODate));

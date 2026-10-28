@@ -165,7 +165,7 @@ Data buildData(const LoadFile &lf, const SimInput &in, const SimResult &r, const
     num(u"work.ps"_s, c.number(u"ps"), Quantity::Pressure);
 
     txt(u"work.ProjectileName"_s, p.text(u"ProjectileName"));
-    num(u"work.caliber"_s, p.number(u"Dbul") / 25.4);  // numeric designation in inches
+    num(u"work.caliber"_s, p.number(u"Dbul") / kMmPerInch);  // numeric designation in inches
     num(u"work.Dbul"_s, p.number(u"Dbul"), Quantity::Length);
     num(u"work.mp"_s, p.number(u"mp"), Quantity::BulletMass);
     num(u"work.glen"_s, p.number(u"glen"), Quantity::Length);

@@ -20,6 +20,7 @@
 #include "chamberview.h"
 
 #include "dimensionlabel.h"
+#include "drawingmath.h"
 #include "hovermeasure.h"
 #include "numeric.h"
 #include "unitprefs.h"
@@ -37,26 +38,6 @@ using namespace Qt::StringLiterals;
 
 namespace
 {
-
-double dim(const QMap<QString, double> &d, const char *key)
-{
-    return d.value(QLatin1String(key), 0.0);
-}
-
-// Radius of a polyline of (radius, y) points at height y.
-double radiusAt(const std::vector<QPointF> &pts, double y)
-{
-    for (std::size_t i = 1; i < pts.size(); ++i)
-    {
-        const QPointF &a = pts[i - 1], &b = pts[i];
-        if (y >= a.y() && y <= b.y())
-        {
-            if (b.y() == a.y()) return std::max(a.x(), b.x());
-            return a.x() + (b.x() - a.x()) * (y - a.y()) / (b.y() - a.y());
-        }
-    }
-    return pts.empty() ? 0.0 : pts.back().x();
-}
 
 }  // namespace
 

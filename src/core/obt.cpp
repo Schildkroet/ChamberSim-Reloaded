@@ -19,6 +19,8 @@
 
 #include "obt.h"
 
+#include "numeric.h"
+
 #include <cmath>
 
 namespace csr
@@ -26,7 +28,6 @@ namespace csr
 
 namespace
 {
-constexpr double kMmPerInch = 25.4;
 
 struct Constants
 {

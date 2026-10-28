@@ -59,7 +59,6 @@ public:
     void setUnits(const csr::units::Unit &pressure, const csr::units::Unit &energy, const csr::units::Unit &velocity,
                   const csr::units::Unit &length);
     void setXAxis(XAxis axis);
-    [[nodiscard]] XAxis xAxis() const noexcept { return m_xAxis; }
 
     // The curves' values at `x` (time or position, as on the x axis), interpolated; none outside the curves.
     [[nodiscard]] std::optional<csr::SimPoint> pointAt(double x) const;

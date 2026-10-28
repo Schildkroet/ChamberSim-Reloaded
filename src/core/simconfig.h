@@ -20,6 +20,7 @@
 #pragma once
 
 #include "loadfile.h"
+#include "numeric.h"
 #include "physicalpowders.h"
 
 #include <optional>
@@ -76,7 +77,7 @@ struct SimInput
     double covolumeEta{1.0};
     double density_kgm3{1600.0};
     double bulkDensity_kgm3{900.0};
-    double temperature_C{21.0};
+    double temperature_C{kPowderReferenceTemperature_C};
     double coldCoeff{};
     double hotCoeff{};
     double charge_g{};

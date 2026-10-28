@@ -73,11 +73,6 @@ QString labelText(const csr::dbfields::Field &f)
     return (unit.isEmpty() ? f.label : QStringLiteral("%1 [%2]").arg(f.label, unit)) + (f.required ? u" *"_s : u""_s) + u':';
 }
 
-QString shownNumber(const csr::dbfields::Field &f, double stored)
-{
-    return recordfields::shownNumber(f, stored);
-}
-
 std::optional<double> parseNumber(const csr::dbfields::Field &f, const QString &text)
 {
     const QString t = text.trimmed();
@@ -198,7 +193,7 @@ RecordDialog::RecordDialog(const csr::Database &db, csr::Table table, Mode mode,
                 }
                 else if (f.kind == Kind::Number)
                 {
-                    edit->setText(stored.isValid() ? shownNumber(f, stored.toDouble()) : QString());
+                    edit->setText(stored.isValid() ? recordfields::shownNumber(f, stored.toDouble()) : QString());
                 }
                 else
                 {
@@ -284,7 +279,7 @@ void RecordDialog::calculateBoreCrossSection()
     }
     // the fields hold the stored (base) unit values of their columns: mm for the lengths, mm² for Q
     if (const Editor *q = editor(u"c_Q"_s))
-        setText(u"c_Q"_s, shownNumber(q->field, csr::boreCrossSection_mm2(*bore, *groove, *count, *width)));
+        setText(u"c_Q"_s, recordfields::shownNumber(q->field, csr::boreCrossSection_mm2(*bore, *groove, *count, *width)));
 }
 
 const RecordDialog::Editor *RecordDialog::editor(const QString &column) const

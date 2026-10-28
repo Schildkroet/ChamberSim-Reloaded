@@ -60,7 +60,6 @@ public:
     [[nodiscard]] QMenuBar *mainMenu() const noexcept { return m_menuBar; }
     // Draws the window's own title bar and border (frameless window) instead of the system's.
     void setCustomTitleBar(bool on);
-    [[nodiscard]] bool customTitleBar() const noexcept { return m_customTitleBar; }
     // Opens the own database and attaches the original one (empty: none); `complain` shows a message on errors.
     bool openDatabase(const QString &originalPath, bool complain = true);
     // Applies a reference-runner result (*.json) to the current load.

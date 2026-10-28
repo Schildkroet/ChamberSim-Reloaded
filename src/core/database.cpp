@@ -220,11 +220,6 @@ void Database::setProjectDataLocation(const QString &location)
     projectLocation() = location;
 }
 
-QString Database::projectDataLocation()
-{
-    return projectLocation();
-}
-
 Database::~Database()
 {
     close();

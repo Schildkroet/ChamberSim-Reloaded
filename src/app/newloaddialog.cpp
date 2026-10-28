@@ -19,6 +19,7 @@
 
 #include "newloaddialog.h"
 
+#include "numeric.h"
 #include "qualityrow.h"
 #include "screenfit.h"
 #include "buttonstyle.h"
@@ -254,7 +255,7 @@ void NewLoadDialog::applyDefaults()
     if (m_twist->value() == 0.0) setBase(m_twist, 240.0);
     if (!m_temperatureSet)
     {
-        setBase(m_temperature, 21.0);
+        setBase(m_temperature, csr::kPowderReferenceTemperature_C);
         m_temperatureSet = true;
     }
 }

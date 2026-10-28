@@ -33,18 +33,17 @@ namespace
 {
 
 constexpr double kGrain = kGrainToGram;
-constexpr double kInch = 25.4;
 constexpr double kLbf = 4.4482216152605;
 constexpr double kFtLbf = 1.3558179483314004;
 
-constexpr Unit kLength[] = {{"mm", "mm", 1.0, 0, 2}, {"cm", "cm", 10.0, 0, 3}, {"in", "in", kInch, 0, 3}};
+constexpr Unit kLength[] = {{"mm", "mm", 1.0, 0, 2}, {"cm", "cm", 10.0, 0, 3}, {"in", "in", kMmPerInch, 0, 3}};
 constexpr Unit kBulletMass[] = {{"g", "g", 1.0, 0, 3}, {"grain", "grain", kGrain, 0, 2}, {"oz", "oz", 28.349523125, 0, 4}};
 constexpr Unit kGunMass[] = {{"kg", "kg", 1.0, 0, 2}, {"lb", "lb", 0.45359237, 0, 2}, {"g", "g", 0.001, 0, 0}};
 constexpr Unit kPressure[] = {{"bar", "bar", 1.0, 0, 0},
                               {"psi", "psi", 0.0689475729316836, 0, 0},
                               {"mpa", "MPa", 10.0, 0, 1},
                               {"kpsi", "kpsi", 68.9475729316836, 0, 2}};
-constexpr Unit kVelocity[] = {{"ms", "m/s", 1.0, 0, 1}, {"fps", "ft/s", 0.3048, 0, 0}, {"kmh", "km/h", 1.0 / 3.6, 0, 1}};
+constexpr Unit kVelocity[] = {{"ms", "m/s", 1.0, 0, 1}, {"fps", "ft/s", kMetersPerFoot, 0, 0}, {"kmh", "km/h", 1.0 / 3.6, 0, 1}};
 constexpr Unit kArea[] = {{"mm2", "mm²", 1.0, 0, 3}, {"cm2", "cm²", 100.0, 0, 4}, {"in2", "in²", 645.16, 0, 5}};
 constexpr Unit kVolume[] = {
     {"cm3", "cm³", 1.0, 0, 3}, {"grh2o", "grain H₂O", kGrain, 0, 2}, {"in3", "in³", 16.387064, 0, 4}, {"mm3", "mm³", 0.001, 0, 0}};

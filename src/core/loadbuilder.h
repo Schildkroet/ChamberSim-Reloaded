@@ -36,7 +36,7 @@ struct LoadParams
     double seatingDepth_mm{};  // default: overall length = the cartridge's maximum length
     double twistLength_mm{240.0};
     double gunWeight_kg{};
-    double powderTemperature_C{21.0};
+    double powderTemperature_C{kPowderReferenceTemperature_C};
 };
 
 // Case capacity in cm^3 (the database stores grains of water).

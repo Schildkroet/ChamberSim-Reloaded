@@ -21,6 +21,7 @@
 
 #include "screenfit.h"
 #include "measurement.h"
+#include "displayformat.h"
 #include "unitprefs.h"
 
 #include <QDialogButtonBox>
@@ -88,7 +89,7 @@ ChronographImportDialog::ChronographImportDialog(csr::ChronographFile file, doub
         m_table->item(row, Name)->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         m_table->setItem(row, Shots, readOnly(QString::number(s.velocities_ms.size())));
         m_table->setItem(row, Mean, readOnly(csr::units::format(st.mean, unitOf(Quantity::Velocity), 1)));
-        m_table->setItem(row, Sd, readOnly(st.count > 1 ? csr::units::format(st.sd, unitOf(Quantity::Velocity), 1) : QStringLiteral("–")));
+        m_table->setItem(row, Sd, readOnly(st.count > 1 ? csr::units::format(st.sd, unitOf(Quantity::Velocity), 1) : noValueText()));
         auto *charge = new QTableWidgetItem(csr::units::format(m_default, unitOf(Quantity::BulletMass)));
         charge->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         m_table->setItem(row, Charge, charge);
@@ -129,9 +130,4 @@ std::vector<ImportedCharge> ChronographImportDialog::selected() const
 void ChronographImportDialog::setChecked(int row, bool on)
 {
     m_table->item(row, Use)->setCheckState(on ? Qt::Checked : Qt::Unchecked);
-}
-
-void ChronographImportDialog::setChargeText(int row, const QString &text)
-{
-    m_table->item(row, Charge)->setText(text);
 }

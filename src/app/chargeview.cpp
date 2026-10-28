@@ -18,6 +18,7 @@
  */
 
 #include "chargeview.h"
+#include "displayformat.h"
 #include "unitprefs.h"
 #include <QButtonGroup>
 #include <QDoubleSpinBox>
@@ -322,7 +323,7 @@ void ChargeView::setLadder(const std::vector<csr::LadderStep> &ladder, int focus
         else
         {
             cell(1, tr("charge too high"));
-            cell(2, QStringLiteral("–"));
+            cell(2, noValueText());
         }
     }
     m_table->selectRow(std::clamp(focus, 0, std::max(0, m_table->rowCount() - 1)));

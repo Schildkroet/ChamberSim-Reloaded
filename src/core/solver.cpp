@@ -65,7 +65,7 @@ namespace csr
 namespace
 {
 
-constexpr double kBar = 1.0e5;              // Pa per bar
+constexpr double kBar = kPaPerBar;
 constexpr double kReferenceSteps = 2000.0;  // position steps of the original program
 
 // The pressure part of the burn law for a pressure in bar: p * (p / 1000 bar)^exponent.
@@ -203,14 +203,8 @@ struct Model
     // dz/dt at the burnt fraction z and the pressure p [Pa]; 0 once everything has burnt.
     [[nodiscard]] double burnRate(double z, double p_Pa) const noexcept { return burnRateAt(z, pressureTerm(p_Pa / kBar)); }
 
-    // z after a time step dt: trapezoid rule between the rate at the start (zPrev, pPrev) and at the end (z, pNew),
-    // iterated because the end rate depends on the new z. Clamped at 1.
-    [[nodiscard]] double advanceBurn(double zPrev, double pPrev, double pNew, double dt) const noexcept
-    {
-        return advanceBurnFrom(zPrev, burnRate(zPrev, pPrev), pNew, dt);
-    }
-
-    // The same with the rate at the start of the step given (it does not change between the trials of a step).
+    // z after a time step dt: trapezoid rule between the rate r0 at the start (zPrev) and at the end (z, pNew), iterated
+    // because the end rate depends on the new z. r0 does not change between the trials of a step. Clamped at 1.
     [[nodiscard]] double advanceBurnFrom(double zPrev, double r0, double pNew, double dt) const noexcept
     {
         const double term = pressureTerm(pNew / kBar);  // the same in all iterations: the pressure is given
@@ -224,7 +218,7 @@ struct Model
 // `Ba` is the vivacity at 21 degC to use (default: the load's, times burnRateScale).
 [[nodiscard]] double burnCoefficient(const SimInput &in, const Calibration &cal, double Ba = 0.0) noexcept
 {
-    const double dT = in.temperature_C - 21.0;
+    const double dT = in.temperature_C - kPowderReferenceTemperature_C;
     if (Ba <= 0.0) Ba = in.vivacityBa * cal.burnRateScale;
     if (dT == 0.0) return Ba;
     // Measured on the original: with both coefficients 0 the built-in defaults apply. Otherwise each side uses its
@@ -394,13 +388,12 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
     if (in.twistLength_mm > 0.0) res.muzzleRpm = last.v_ms / (in.twistLength_mm * 1e-3) * 60.0;
 
     // ---- derived quantities (formulas identified from the original's results) ----
-    constexpr double kFtPerM = 3.280839895;
     const double mc = in.charge_g * 1e-3, mp = in.bulletMass_g * 1e-3;
     res.burnoutPressure_bar = pts[res.indexBurnout].p_bar;
     res.propellantEnergy_J = in.heatQex_kJkg * 1e3 * mc * last.z;
     res.frictionForce_N = cal.frictionStress_MPa * std::numbers::pi * in.bulletDiameter_mm * in.bulletLength_mm;
     res.muzzleFrictionEnergy_J = res.frictionForce_N * (last.x_mm - pts.front().x_mm) * 1e-3;
-    res.ipscFactor = in.bulletMass_g / kGrainToGram * last.v_ms * kFtPerM / 1000.0;
+    res.ipscFactor = in.bulletMass_g / kGrainToGram * last.v_ms * kFeetPerMeter / 1000.0;
     res.mipFactor = cal.mipFactor * res.ipscFactor;
     res.projectileImpulse_Ns = mp * last.v_ms;
     res.propellantImpulse_Ns = in.sebert * mc * last.v_ms;
@@ -611,7 +604,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     const auto perClass = [&](double rifle, double handgun) { return in.handgun && handgun >= 0.0 ? handgun : rifle; };
     m.engravingLength = std::max(perClass(cal.engravingLength_mm, cal.engravingLengthHandgun_mm) * 1e-3, 0.0);
     m.primerTime = std::max(cal.primerTime_ms * 1e-3, 0.0);
-    m.wallTemperature = in.temperature_C + 273.15;
+    m.wallTemperature = in.temperature_C + kKelvinOffset;
     // The free run is not part of the gas volume at rest: the bullet base starts at x0 and gasVolume() adds A (x - x0) while it
     // travels the jump. Adding A * jump here counted the freebore twice.
     m.V0 = cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - bulletIntrusionPhysical_m3(in);

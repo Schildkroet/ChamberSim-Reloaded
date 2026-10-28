@@ -47,7 +47,6 @@ public:
 
     // Test access: tick state and charge text of a row.
     void setChecked(int row, bool on);
-    void setChargeText(int row, const QString &text);
 
 private:
     csr::ChronographFile m_file;

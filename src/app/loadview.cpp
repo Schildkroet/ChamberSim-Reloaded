@@ -39,6 +39,7 @@
 #include "propertypanel.h"
 #include "reportview.h"
 #include "selectrecorddialog.h"
+#include "displayformat.h"
 #include "unitprefs.h"
 #include "vivacitychart.h"
 
@@ -75,23 +76,12 @@ namespace
 
 QLabel *valueLabel()
 {
-    auto *l = new QLabel(QStringLiteral("–"));
+    auto *l = new QLabel(noValueText());
     l->setTextInteractionFlags(Qt::TextSelectableByMouse);
     QFont f = l->font();
     f.setBold(true);
     l->setFont(f);
     return l;
-}
-
-void setRow(QFormLayout *form, int row, const QString &text)
-{
-    if (auto *item = form->itemAt(row, QFormLayout::FieldRole))
-        if (auto *l = qobject_cast<QLabel *>(item->widget())) l->setText(text);
-}
-
-void setTip(QFormLayout *form, int row, const QString &tip)
-{
-    if (auto *item = form->itemAt(row, QFormLayout::FieldRole)) item->widget()->setToolTip(tip);
 }
 
 QString num(double v, int decimals)
@@ -986,7 +976,7 @@ void LoadView::updateLadderUi()
         else
         {
             cell(1, tr("charge too high"));
-            for (int c = 2; c < 5; ++c) cell(c, QStringLiteral("–"));
+            for (int c = 2; c < 5; ++c) cell(c, noValueText());
         }
     }
     m_ladderTabs->setCurrentIndex(m_focus);
@@ -1199,7 +1189,7 @@ void LoadView::showResult()
     m_values[0]->setStyleSheet({});
     const auto clearAll = [&]
     {
-        for (QLabel *l : m_values) l->setText(QStringLiteral("–"));
+        for (QLabel *l : m_values) l->setText(noValueText());
     };
     if (!m_result.ok())
     {
@@ -1270,8 +1260,8 @@ void LoadView::showResult()
     put(3, tr("%1 ms").arg(num(r.muzzleTime_ms, 4)));
     put(5, r.burnoutInBarrel ? shown(r.burnoutPressure_bar, Quantity::Pressure) : tr("not burnt out"));
     // mean velocity of the powder gases leaving the muzzle (gas impulse / charge mass), as in the report
-    put(15, m_input.charge_g > 0.0 ? shown(r.gasImpulse_Ns / (m_input.charge_g * 1e-3), Quantity::Velocity) : QStringLiteral("–"));
-    put(8, r.muzzleRpm > 0 ? tr("%1 k/min").arg(num(r.muzzleRpm / 1000.0, 1)) : QStringLiteral("–"));
+    put(15, m_input.charge_g > 0.0 ? shown(r.gasImpulse_Ns / (m_input.charge_g * 1e-3), Quantity::Velocity) : noValueText());
+    put(8, r.muzzleRpm > 0 ? tr("%1 k/min").arg(num(r.muzzleRpm / 1000.0, 1)) : noValueText());
     put(9, r.recoilEnergy_J > 0 ? shown(r.recoilEnergy_J, Quantity::Energy) : tr("– (gun weight 0)"));
     put(10, QStringLiteral("%1, %2").arg(num(r.ipscFactor, 0), num(r.mipFactor, 0)));
     put(11, QStringLiteral("%1 %").arg(num(100.0 * r.loadRatio, 1)));
@@ -1288,7 +1278,7 @@ void LoadView::showResult()
         const QString node = r.optimalBarrelNode > whole ? tr("#%1 ½").arg(whole) : tr("#%1").arg(whole);
         put(7, tr("%1 ms, node %2").arg(num(r.optimalBarrelTime_ms, 4), node));
     }
-    else put(7, QStringLiteral("–"));
+    else put(7, noValueText());
 
     if (!m_reference) return;
     struct Row

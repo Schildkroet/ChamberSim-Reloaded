@@ -92,7 +92,6 @@ public:
     // Where the project's records are read from (default ":/data", the files built into the program); a directory
     // works as well. Takes effect with the next open().
     static void setProjectDataLocation(const QString &location);
-    [[nodiscard]] static QString projectDataLocation();
     // Number of project records and the problems of files that could not be used (one line each).
     [[nodiscard]] int projectCount(Table t) const;
     [[nodiscard]] const QStringList &projectErrors() const noexcept { return m_projectErrors; }

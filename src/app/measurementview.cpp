@@ -22,6 +22,7 @@
 #include "buttonstyle.h"
 #include "layoutstate.h"
 #include "log.h"
+#include "displayformat.h"
 #include "unitprefs.h"
 
 #include <QApplication>
@@ -112,12 +113,6 @@ QString chargeName(double charge_g)
 bool isListed(const csr::Measurement &m, double charge_g)
 {
     return std::ranges::any_of(m.charges, [&](const csr::MeasuredCharge &c) { return std::abs(c.charge_g() - charge_g) < 1e-6; });
-}
-
-QString percent(double value, double reference)
-{
-    if (reference <= 0.0 || value <= 0.0) return QStringLiteral("–");
-    return QStringLiteral("%1 %").arg(QLocale().toString(100.0 * (value / reference - 1.0), 'f', 1));
 }
 
 }  // namespace
@@ -289,11 +284,6 @@ void MeasurementView::setMeasurements(std::vector<csr::Measurement> series, int 
     if (!data().charges.empty()) selectCharge(0);
 }
 
-void MeasurementView::setMeasurement(const csr::Measurement &m)
-{
-    setMeasurements({m});
-}
-
 csr::Measurement MeasurementView::emptySeries(int number)
 {
     return {.title = number > 1 ? tr("MEASUREMENTS %1").arg(number) : u"MEASUREMENTS"_s, .charges = {}, .attributes = {}};
@@ -429,7 +419,7 @@ void MeasurementView::refreshCharges()
         const csr::ShotStatistics v = csr::velocityStatistics(c);
         const csr::ShotStatistics p = csr::pressureStatistics(c);
         const Simulated sim = simulated(c.charge_g());
-        const auto opt = [](bool ok, const QString &text) { return ok ? text : QStringLiteral("–"); };
+        const auto opt = [](bool ok, const QString &text) { return ok ? text : noValueText(); };
         m_charges->setItem(row, Name, editable(c.name, false));
         m_charges->setItem(row, Charge, editable(shownValue(c.charge_g(), Quantity::BulletMass)));
         m_charges->setItem(row, Shots, readOnly(QString::number(c.shots.size())));
@@ -437,10 +427,10 @@ void MeasurementView::refreshCharges()
         m_charges->setItem(row, VelocitySd, readOnly(opt(v.count > 1, shownValue(v.sd, Quantity::Velocity, 1))));
         m_charges->setItem(row, VelocityEs, readOnly(opt(v.count > 1, shownValue(v.extremeSpread(), Quantity::Velocity, 1))));
         m_charges->setItem(row, SimVelocity, readOnly(opt(sim.ok, shownValue(sim.velocity_ms, Quantity::Velocity, 1))));
-        m_charges->setItem(row, VelocityDelta, readOnly(sim.ok ? percent(sim.velocity_ms, v.mean) : QStringLiteral("–")));
+        m_charges->setItem(row, VelocityDelta, readOnly(sim.ok ? percentDifference(sim.velocity_ms, v.mean) : noValueText()));
         m_charges->setItem(row, Pressure, readOnly(opt(p.count > 0, shownValue(p.mean, Quantity::Pressure, 0))));
         m_charges->setItem(row, SimPressure, readOnly(opt(sim.ok, shownValue(sim.pressure_bar, Quantity::Pressure, 0))));
-        m_charges->setItem(row, PressureDelta, readOnly(sim.ok ? percent(sim.pressure_bar, p.mean) : QStringLiteral("–")));
+        m_charges->setItem(row, PressureDelta, readOnly(sim.ok ? percentDifference(sim.pressure_bar, p.mean) : noValueText()));
         if (!sim.ok && m_predictor)
             for (int col : {SimVelocity, SimPressure})
                 m_charges->item(row, col)->setToolTip(tr("This charge cannot be simulated (does not fit into the case?)"));

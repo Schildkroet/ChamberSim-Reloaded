@@ -31,6 +31,14 @@ namespace csr
 // Grams per grain, the exact factor of the original program (also cm3 of water per grain H2O, the unit of case capacities).
 inline constexpr double kGrainToGram = 0.06479890999975;
 
+inline constexpr double kMmPerInch = 25.4;
+inline constexpr double kMetersPerFoot = 0.3048;
+inline constexpr double kFeetPerMeter = 1.0 / kMetersPerFoot;
+inline constexpr double kPaPerBar = 1.0e5;
+inline constexpr double kKelvinOffset = 273.15;  // 0 degC in K
+// The temperature the powder data (Ba, ...) and the loads' defaults refer to.
+inline constexpr double kPowderReferenceTemperature_C = 21.0;
+
 // A finite number from text, or nullopt. QString::toDouble also accepts "nan" and "inf": those are rejected,
 // they would pass every "> 0" check of the model and end up in the results.
 [[nodiscard]] inline std::optional<double> parseFinite(const QString &text)
