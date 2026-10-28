@@ -24,6 +24,7 @@
 #include "barrel.h"
 #include "numeric.h"
 #include "recordfields.h"
+#include "theme.h"
 #include "unitprefs.h"
 
 #include <QBuffer>
@@ -492,7 +493,7 @@ void RecordDialog::accept()
     for (const Editor &e : m_editors)
     {
         const bool bad = (e.field.required && text(e.field.column).trimmed().isEmpty()) || !valueOf(e);
-        e.widget->setStyleSheet(bad ? u"background: #f6c6c6; color: black;"_s : QString());
+        e.widget->setStyleSheet(bad ? u"background: %1; color: black;"_s.arg(QLatin1String(theme::kBadFill)) : QString());
     }
     if (!wrong.isEmpty())
     {

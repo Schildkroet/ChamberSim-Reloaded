@@ -39,6 +39,7 @@
 #include "propertypanel.h"
 #include "reportview.h"
 #include "selectrecorddialog.h"
+#include "theme.h"
 #include "displayformat.h"
 #include "unitprefs.h"
 #include "vivacitychart.h"
@@ -856,7 +857,7 @@ void LoadView::updateOutdatedNotice()
     QString text = tr("<b>Powder values differ from the database.</b> The load uses its own values of %1. "
                       "<a href=\"powder\">Use the database values…</a>")
                        .arg(propellantName().toHtmlEscaped());
-    text.replace(u"<a href=\"powder\">"_s, u"<a href=\"powder\" style=\"color:#2b1a00\">"_s);
+    text.replace(u"<a href=\"powder\">"_s, u"<a href=\"powder\" style=\"color:%1\">"_s.arg(QLatin1String(theme::kTextOnOrange)));
     m_outdatedNoticeText->setText(text);
     m_outdatedNotice->show();
 }
@@ -1219,7 +1220,8 @@ void LoadView::showResult()
                 : tr("<b>No physical burn values</b> for this propellant (or its burn values were changed): the load's burn rate is "
                      "scaled, "
                      "the results are less accurate than for the powders of the Physical Model.");
-        text.replace(u"<a href=\"physical\">"_s, u"<a href=\"physical\" style=\"color:#2b1a00\">"_s);  // dark on the orange in every theme
+        text.replace(u"<a href=\"physical\">"_s, u"<a href=\"physical\" style=\"color:%1\">"_s.arg(
+                                                     QLatin1String(theme::kTextOnOrange)));  // dark on the orange in every theme
         m_burnNoticeText->setText(text);
         m_burnNotice->show();
     }
@@ -1252,7 +1254,7 @@ void LoadView::showResult()
                                         .arg(shown(r.maxPressure_bar, Quantity::Pressure),
                                              num(100.0 * (r.maxPressure_bar / permitted - 1.0), 1), shown(permitted, Quantity::Pressure)));
         m_overpressure->show();
-        m_values[0]->setStyleSheet(u"color: #e0453a;"_s);
+        m_values[0]->setStyleSheet(u"color: %1;"_s.arg(QLatin1String(theme::kOverpressureColor)));
     }
     put(4, shown(r.muzzlePressure_bar, Quantity::Pressure));
     put(2, shown(r.muzzleEnergy_J, Quantity::Energy));

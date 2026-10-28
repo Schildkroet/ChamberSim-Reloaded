@@ -68,6 +68,22 @@ namespace
 constexpr double kBar = kPaPerBar;
 constexpr double kReferenceSteps = 2000.0;  // position steps of the original program
 
+// Physical model
+constexpr double kMinBearingDiameters = 0.3;  // shortest bearing surface of a bullet, in calibers
+constexpr double kPrimerGasTemperature_K = 2500.0;
+constexpr double kMinFitFactor = 0.25;    // lowest factor an interference oversize may give the engraving and sliding force
+constexpr double kGasConductivity = 0.2;  // W/(m K)
+constexpr double kGasViscosity = 8e-5;    // Pa s
+constexpr double kGasPrandtl = 0.7;
+constexpr double kDittusBoelter = 0.023;     // Nusselt prefactor of turbulent pipe flow
+constexpr double kInitialStep_s = 1e-7;      // first integration step in the closed case
+constexpr double kBoreInitialStep_s = 1e-8;  // first integration step in the bore
+constexpr int kMaxSteps = 2000000;           // integration guard
+constexpr double kMaxTime_s = 0.1;           // a bullet that has not left the barrel by then is stuck
+constexpr double kDefaultTolerance = 1e-7;   // error per step of the integrator
+constexpr double kMinStepError = 1e-12;
+constexpr double kStepSafety = 0.9, kStepShrink = 0.2, kStepGrowth = 5.0;  // step size controller (order 5: exponent -1/5)
+
 // The pressure part of the burn law for a pressure in bar: p * (p / 1000 bar)^exponent.
 [[nodiscard]] double burnPressureTerm(double pBar, double exponent) noexcept
 {
@@ -285,7 +301,7 @@ double bulletIntrusionPhysical_m3(const SimInput &in)
     if (D <= 0.0 || L <= 0.0 || depth <= 0.0) return inside;
 
     const double tail = in.tailType == 2 ? in.tailLength_mm * 1e-3 : 0.0;
-    const double bearing = std::max(L - tail - D, 0.3 * D);  // the same bearing length as the physical model uses
+    const double bearing = std::max(L - tail - D, kMinBearingDiameters * D);  // the same bearing length as the physical model uses
     const double nose = std::max(L - tail - bearing, 0.0);
     const double noseStart = tail + bearing;
     if (nose <= 1e-12 || depth <= noseStart) return inside;
@@ -617,23 +633,24 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     const double vg0 = m.gasVolume(m.x0, 0.0);
     if (m.V0 <= 0.0 || vg0 <= 0.0 || m.x0 <= 0.0) return res;
     m.ePrimer = cal.primerEnergy_J;
-    m.mPrimerGas = cal.primerEnergy_J * m.theta / (m.gasR * 2500.0);  // primer gas at about 2500 K
+    m.mPrimerGas = cal.primerEnergy_J * m.theta / (m.gasR * kPrimerGasTemperature_K);  // primer gas at about 2500 K
     // bearing surface: the bullet's length without the boat tail and about one calibre of nose (one calibre if the length is unknown)
     const double tail = in.tailType == 2 ? in.tailLength_mm * 1e-3 : 0.0;
-    m.bearing = std::max(in.bulletLength_mm > 0.0 ? in.bulletLength_mm * 1e-3 - tail - bulletDia : bulletDia, 0.3 * bulletDia);
+    m.bearing =
+        std::max(in.bulletLength_mm > 0.0 ? in.bulletLength_mm * 1e-3 - tail - bulletDia : bulletDia, kMinBearingDiameters * bulletDia);
     // relative oversize of the bullet over the groove diameter in percent (0 when the caliber has no groove diameter)
     const double oversize = in.grooveDiameter_mm > 0.0 && in.bulletDiameter_mm > 0.0
                                 ? 100.0 * (in.bulletDiameter_mm - in.grooveDiameter_mm) / in.grooveDiameter_mm
                                 : 0.0;
-    const auto fit = [oversize](double k) { return std::max(1.0 + k * oversize, 0.25); };
+    const auto fit = [oversize](double k) { return std::max(1.0 + k * oversize, kMinFitFactor); };
     // absolute engraving pressure of the bullet in the rifling, else the empirical share of the start pressure
     const double engravePressure = cal.engravingPressure_bar > 0.0 ? cal.engravingPressure_bar * kBar
                                                                    : perClass(cal.engravingShare, cal.engravingShareHandgun) * m.startP;
     m.engraveForce = fit(cal.engravingInterference) * engravePressure * m.A;
     m.slideForce = cal.slideStress_MPa * fit(cal.slideInterference) * 1e6 * n::pi * bulletDia * m.bearing;
     m.extraForce = in.extraFriction_bar * kBar * m.A;
-    // gas: lambda 0.2 W/(m K), mu 8e-5 Pa s, Pr 0.7
-    m.heatCoeff = cal.heatTransferFactor * 0.023 * 0.2 * std::pow(0.7, 0.4) * std::pow(8e-5, -0.8) * std::pow(m.D, -0.2);
+    m.heatCoeff = cal.heatTransferFactor * kDittusBoelter * kGasConductivity * std::pow(kGasPrandtl, 0.4) * std::pow(kGasViscosity, -0.8) *
+                  std::pow(m.D, -0.2);
     const double rc = std::sqrt(m.V0 / (n::pi * m.x0));
     m.chamberSurface = 2.0 * n::pi * rc * m.x0 + 2.0 * n::pi * rc * rc;
     // the powder's physical burn values when the load has them, else the load's (original model's) values with the scaled burn rate
@@ -645,8 +662,9 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.phi = formFunction(in, cal, pb);
 
     const double xe = in.barrelLength_mm * 1e-3;
-    const double tol = cal.integrationTolerance > 0.0 ? cal.integrationTolerance : 1e-7;
-    const auto grow = [](double err) { return std::clamp(0.9 * std::pow(std::max(err, 1e-12), -0.2), 0.2, 5.0); };
+    const double tol = cal.integrationTolerance > 0.0 ? cal.integrationTolerance : kDefaultTolerance;
+    const auto grow = [](double err)
+    { return std::clamp(kStepSafety * std::pow(std::max(err, kMinStepError), -0.2), kStepShrink, kStepGrowth); };
     PhysState y{m.x0, 0.0, 0.0, 0.0, 0.0, 0.0};
     PhysState yn{};
     const auto stuck = [&]
@@ -656,7 +674,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     };
 
     // ---- the powder burns in the closed case until the pressure reaches the start pressure ----
-    double h = 1e-7;
+    double h = kInitialStep_s;
     bool released = m.gasPressure(y) >= m.startP;
     for (int guard = 0; !released; ++guard)
     {
@@ -690,11 +708,11 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     { samples.push_back({t, s[0], s[1], s[2], m.breechPressure(m.rates(s, true), true)}); };
     const double dxOut = (xe - m.x0) / (steps - 1);
     double t = 0.0;
-    h = 1e-8;
+    h = kBoreInitialStep_s;
     sample(t, y);
     for (int guard = 0;; ++guard)
     {
-        if (guard > 2000000 || t > 0.1) return stuck();
+        if (guard > kMaxSteps || t > kMaxTime_s) return stuck();
         h = std::min(h, dxOut / std::max(y[1], 1.0));  // at least one sample per output step
         const double err = dopriStep(m, true, y, h, tol, yn);
         if (err > 1.0)

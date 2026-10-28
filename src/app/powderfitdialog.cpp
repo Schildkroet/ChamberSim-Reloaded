@@ -20,6 +20,7 @@
 #include "powderfitdialog.h"
 
 #include "screenfit.h"
+#include "theme.h"
 #include "displayformat.h"
 #include "unitprefs.h"
 
@@ -94,7 +95,7 @@ PowderFitDialog::PowderFitDialog(std::vector<csr::powderfit::Sample> samples, QS
     warn->setVisible(!warnings.isEmpty());
     QStringList escaped;
     for (const QString &w : warnings) escaped << w.toHtmlEscaped();
-    warn->setText(u"<span style='color:#c0392b'>"_s + escaped.join(u"<br>"_s) + u"</span>"_s);
+    warn->setText(u"<span style='color:"_s + QLatin1String(theme::kWarningColor) + u"'>"_s + escaped.join(u"<br>"_s) + u"</span>"_s);
 
     const auto sym = [](Quantity q) { return QString::fromUtf8(UnitPreferences::instance().unitFor(q).symbol); };
     m_table->setHorizontalHeaderLabels({tr("Load"), tr("Charge [%1]").arg(sym(Quantity::BulletMass)), tr("Shots"),
@@ -228,7 +229,7 @@ void PowderFitDialog::showResult()
     }
     QString text = blocks.join(u"<br>"_s);
     if (m_samples.size() < m_results.front().params.size())
-        text += u"<br><span style='color:#c0392b'>"_s + tr("Fewer measured charges than values: the result is not well determined.") +
-                u"</span>"_s;
+        text += u"<br><span style='color:"_s + QLatin1String(theme::kWarningColor) + u"'>"_s +
+                tr("Fewer measured charges than values: the result is not well determined.") + u"</span>"_s;
     m_summary->setText(text);
 }

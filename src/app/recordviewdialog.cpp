@@ -22,6 +22,7 @@
 #include "dates.h"
 #include "qualitydelegate.h"
 #include "recordfields.h"
+#include "theme.h"
 #include "screenfit.h"
 
 #include <QCoreApplication>
@@ -129,7 +130,7 @@ RecordViewDialog::RecordViewDialog(const csr::Database &db, csr::Table table, in
             {
                 const bool valid = stored.toInt() != 0;
                 value->setText(QString(QChar(valid ? 0x2714 : 0x2718)) + u' ' + value->text());
-                value->setStyleSheet(valid ? u"color: #2ea043; font-weight: bold;"_s : u"color: #d1242f; font-weight: bold;"_s);
+                value->setStyleSheet(u"color: %1; font-weight: bold;"_s.arg(QLatin1String(valid ? theme::kGoodColor : theme::kBadColor)));
             }
             if (f.alignRight) value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
             const bool wide = f.kind == Kind::Text && stored.toString().size() > 24;  // long texts (origin, description) use the full row

@@ -40,6 +40,14 @@ enum class Mode
     CatppuccinFrappe
 };
 
+// Status colors that read on light and dark backgrounds (CSS hex).
+inline constexpr auto kGoodColor = "#2ea043";  // valid value
+inline constexpr auto kBadColor = "#d1242f";   // invalid value
+inline constexpr auto kBadFill = "#f6c6c6";    // background of an invalid input (with black text)
+inline constexpr auto kOverpressureColor = "#e0453a";
+inline constexpr auto kWarningColor = "#c0392b";  // fit warnings
+inline constexpr auto kTextOnOrange = "#2b1a00";  // links on the orange notice boxes
+
 // Stable name of a mode (settings value, --theme), "system" for an unknown one
 [[nodiscard]] QString modeKey(Mode mode);
 [[nodiscard]] Mode modeFromKey(const QString &key);
