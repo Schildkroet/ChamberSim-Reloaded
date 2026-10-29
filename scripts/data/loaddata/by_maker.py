@@ -35,7 +35,7 @@ ALIASES = {"Hodgdon Suprform": "Hodgdon Superformance", "Hodgdon SUPRFORM": "Hod
            "H-4831SC": "Hodgdon H4831SC", "HP-38": "Hodgdon HP-38", "Lil'Gun": "Hodgdon Lil'Gun", "IMR SR-4756": "IMR SR 4756", "IMR SR-4759": "IMR SR 4759",
            "IMR-4320": "IMR 4320", "NORMA URP": "Norma URP", "NORMA MRP": "Norma MRP", "NORMA 200": "Norma 200", "NORMA 201": "Norma 201",
            "NORMA 202": "Norma 202", "NORMA 203 B": "Norma 203-B", "IMR 800 X": "IMR 800-X", "IMR 700 X": "IMR 700-X",
-           "Hodgdon HP-38": "Hodgdon HP-38", "Alliant 300-MP": "Alliant Power Pro 300-MP"}
+           "Hodgdon HP-38": "Hodgdon HP-38", "Winchester WSF": "Hodgdon WSF", "Alliant 300-MP": "Alliant Power Pro 300-MP"}
 
 
 def maker(powder: str) -> str:
