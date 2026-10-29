@@ -4,7 +4,7 @@
     build_loads.py [--samples sources/samples] [--out sources/loads] [--simulate <csr_eval>] [--max-dev 45] [--trend 0.15] [--data data]
 
 1. combine   every `*.csv` of --samples (the files of the extractors: `hodgdon_samples.csv`, `lyman_samples.csv`, `vv_N150.csv`, ...) is read; a load that several
-             files hold (same powder, cartridge, bullet weight, kind, charge, velocity, cartridge length, shot mass) is kept once, with the first file as `source`.
+             files hold (same powder, cartridge, bullet weight, kind, charge, velocity, cartridge length, shot mass; shotshell: gauge, shot, primer, wad, pressure) is kept once, with the first file as `source`.
              The class comes from the cartridge record (C.I.P. table IV = pistol and revolver, otherwise rifle); loads of the shotshell files (`*shot*`) are shotshell
              loads. Loads of a cartridge the project does not have are dropped (nothing to simulate them with).
 2. check     analysis/check_published_loads.py with --apply-hard on the rifle and the pistol file: range (velocity, charge, bullet mass, lengths), energy (muzzle energy
@@ -35,6 +35,7 @@ from by_maker import ALIASES  # noqa: E402
 from samples_common import Records  # noqa: E402
 
 KEY = ("powder", "caliber", "bullet_gr", "kind", "charge_g", "velocity_ms", "col_mm", "shot_mass_g")
+SHOT_KEY = ("gauge", "shot_g", "primer", "wad", "pressure_bar")  # shotshell loads of one charge and velocity differ in these (the files have no caliber or bullet columns)
 SHOT_RANGE = {"velocity_ms": (100, 600), "charge_g": (0.3, 6.0), "shot_g": (5, 100), "pressure_bar": (100, 1500)}
 
 
@@ -99,7 +100,7 @@ def main() -> int:
                 n_in += 1
                 row["powder"] = ALIASES.get(row["powder"], row["powder"])
                 row["source"] = path.stem
-                key = tuple((row.get(k) or "").upper() if k == "powder" else row.get(k) or "" for k in KEY)
+                key = tuple((row.get(k) or "").upper() if k == "powder" else row.get(k) or "" for k in KEY + (SHOT_KEY if "shot" in path.stem else ()))
                 if key in seen:
                     continue
                 seen.add(key)
