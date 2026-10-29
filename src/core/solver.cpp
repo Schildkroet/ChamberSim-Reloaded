@@ -440,7 +440,7 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 //   dQ/dt = h S (T - Tw),   dW/dt = F v
 // For a linear gas gradient the volume-average pressure drives the momentum with gasMassShare = 1/4 and the breech pressure is
 // p + mc a / (4 A). (The gas kinetic energy of a linear velocity profile is a share of 1/3; the energy balance uses the same 1/4
-// anyway: a separate 1/3 changes no fit result.) The powder burns at the breech pressure. The physical model takes the load's Sebert factor for gasMassShare; the Original model uses it as well.
+// anyway: a separate 1/3 changes no fit result.) The powder burns at the breech pressure. The Original model keeps the load's Sebert factor.
 // The bullet stays at x0 until the gas pressure reaches the start pressure ps; until then the powder burns in the closed case, lit by
 // the primer gas (primerEnergy_J, released over primerTime_ms). The resistance F: start resistance (engravingShare * ps * A, or an
 // absolute engravingPressure_bar * A when that is set; once the bullet has crossed the free run gjump, decaying over
@@ -609,11 +609,10 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
                                                 : 0.0;
     m.mBullet = mp * (1.0 + spin);
     m.mc = in.charge_g * 1e-3;
-    // the load's Sebert factor is the moving share of the charge; a moving powder charge without kinetic energy is not physical, so
-    // 0 (loads built from the project's caliber records by earlier versions, which have none) takes the calibration's value instead
-    // (the Original model keeps 0, the original program does)
-    m.gasMassShare = in.sebert > 0.0 ? in.sebert : cal.gasMassShare;
-    m.mMove = m.mBullet + m.gasMassShare * m.mc;
+    // the moving share of the charge is the calibration's (the Lagrange value), whatever Sebert factor the load holds: the powder burn
+    // values are fitted with it; the Original model uses the load's factor (0 included, as the original program does)
+    m.mMove = m.mBullet + cal.gasMassShare * m.mc;
+    m.gasMassShare = cal.gasMassShare;
     m.x0 = in.startPosition_mm() * 1e-3;
     m.jump = in.bulletJump_mm * 1e-3;
     m.neckLength = std::max(in.seatingDepth_mm * 1e-3, 0.0);
@@ -1106,7 +1105,7 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.heatTransferFactor = 0.0618079;
         cal.heatVelocity_ms = 169.199;
         cal.burnExponent = -0.05;
-        cal.gasMassShare = kDefaultSebert;  // classical Lagrange value; used for loads without a Sebert factor
+        cal.gasMassShare = 0.25;  // classical Lagrange value for the mean-pressure momentum and energy equations
     }
     return cal;
 }

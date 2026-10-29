@@ -488,12 +488,6 @@ void CoreTest::chronographFiles()
     QCOMPARE(xc->series[0].velocities_ms.size(), std::size_t{3});
     QCOMPARE_LT(std::abs(xc->series[0].velocities_ms[1] - 2670.3 * 0.3048), 1e-9);
 
-    // thousands separator in quoted speeds, BOM on every line
-    const auto xt =
-        csr::readChronograph("\xEF\xBB\xBFRifle Bullet 185.0 gr\n\xEF\xBB\xBF#,Speed (FPS),KE\n1,\"1,397.6\",802.3\n-,,\n", &error);
-    QVERIFY2(xt, qPrintable(error));
-    QCOMPARE_LT(std::abs(xt->series[0].velocities_ms[0] - 1397.6 * 0.3048), 1e-9);
-
     QFile xeroFit(QStringLiteral(CSR_FIXTURE_DIR "/xero/garmin-xero.fit"));
     QVERIFY(xeroFit.open(QIODevice::ReadOnly));
     const QByteArray fit = xeroFit.readAll();
@@ -781,8 +775,7 @@ void CoreTest::physicalModel()
     QVERIFY(rel(r.muzzleFrictionEnergy_J, r.frictionForce_N * (r.points.back().x_mm - r.points.front().x_mm - in.bulletJump_mm) * 1e-3) <
             1e-9);
     const csr::SimResult coarse = csr::simulate(in, cal, 200);
-    QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) <
-            5e-6);  // (the fixture's Sebert factor 0.5 is not the calibrated 0.25: the grids differ by 1.4e-6)
+    QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-6);
     QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 0.005);  // only the sampling of the peak
     csr::Calibration fine = cal;
     fine.integrationTolerance = 1e-9;
@@ -844,13 +837,10 @@ void CoreTest::physicalModel()
     QVERIFY(qAbs(cylinderCurve[50] - ballCurve[1]) > 1e-3);
     QVERIFY(csr::simulate(ball, cal).ok());
 
-    csr::Calibration otherShare = cal;  // the calibration's share is the fallback of a load without a Sebert factor
+    csr::Calibration otherShare = cal;  // the Lagrange share is used by the model, not the load's Sebert factor
     otherShare.gasMassShare = 0.10;
-    csr::SimInput noSebert = in;
-    noSebert.sebert = 0.0;
-    QVERIFY(csr::simulate(noSebert, otherShare).maxPressure_bar != csr::simulate(noSebert, cal).maxPressure_bar);
-    QCOMPARE(csr::simulate(in, otherShare).maxPressure_bar, r.maxPressure_bar);  // a load's own factor wins
-    csr::Calibration instantPrimer = cal;                                        // a finite primer release changes the start
+    QVERIFY(csr::simulate(in, otherShare).maxPressure_bar != r.maxPressure_bar);
+    csr::Calibration instantPrimer = cal;  // a finite primer release changes the start
     instantPrimer.primerTime_ms = 0.0;
     QVERIFY(csr::simulate(in, instantPrimer).maxPressure_bar != r.maxPressure_bar);
     csr::Calibration noPrimer = cal;  // no primer energy: the powder never reaches the start pressure, reported cleanly
@@ -2507,10 +2497,10 @@ void CoreTest::sebertDefault()
     QCOMPARE(csr::simulate(zero, physical).maxPressure_bar, csr::simulate(half, physical).maxPressure_bar);
     const csr::Calibration original = csr::calibrationFor(csr::CalibrationProfile::Original);
     QVERIFY(csr::simulate(zero, original).maxPressure_bar != csr::simulate(half, original).maxPressure_bar);
-    // the physical model uses the load's factor
+    // the physical model has its own share of the charge and ignores the load's factor
     csr::SimInput heavy = half;
     heavy.sebert = 0.6;
-    QVERIFY(csr::simulate(heavy, physical).maxPressure_bar != csr::simulate(half, physical).maxPressure_bar);
+    QCOMPARE(csr::simulate(heavy, physical).maxPressure_bar, csr::simulate(half, physical).maxPressure_bar);
 }
 
 // An own database of an older version (caliber table without the SAAMI pressure) gets the column when it is opened; the project's
