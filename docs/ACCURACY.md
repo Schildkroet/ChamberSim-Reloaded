@@ -194,7 +194,9 @@ models were made for rifles and handguns; Universal and RS12 come out high, W244
 would still be 12 % off in pressure: it varies with them, which the model does not know. Almost all of these loads are 12 gauge 2 3/4"; the few 20 gauge loads come out 16 % low in pressure, the 16 gauge ones 26 % high. For comparison,
 the original program with the same 50 Vihtavuori loads: velocity +3 % on average (typically 4.8 % off) - closer - but
 pressures of the maximum loads up to 1800 bar, where the guide's loads are pressure-tested within the CIP limit of
-1050 bar (its shotshell setting changes little). Always check a shotgun load against the powder maker's data. Enter a shotgun load like this, the fit depends on it:
+1050 bar (its shotshell setting changes little). Always check a shotgun load against the powder maker's data.
+
+*2026-10-29, shotshell refit:* with the IMR Reloader's Guide (2004) and the 2017 Alliant guide the shotshell load file has 6,587 loads (the load pipeline had merged loads that differ only in wad, primer or shot weight; fixed). IMR 700-X, 800-X, SR 4756, Winchester WSL, Hodgdon WSF and Alliant e3 got their own shotshell records (their rifle records were 10-30 % low in velocity and 35-60 % low in pressure on shotshell loads). Over the 6,472 loads that can be simulated (12, 16, 20 and 28 gauge and 10 gauge, no .410): velocity 3.5 % rms, peak pressure 16.4 % rms (before: 7.7 % / 27.7 %, nearly all of it from those six powders; the other records are unchanged). Winchester W571 (42 loads, 10 % low in velocity) has no shotshell record yet. Enter a shotgun load like this, the fit depends on it:
 
 - *Projectile*: mass = shot + wad (about 2.5 g for a plastic wad), length = height of the shot column
   (shot weight / (shot density x 0.62) / bore area) + height of the wad, diameter = bore diameter;
