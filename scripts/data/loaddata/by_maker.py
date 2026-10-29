@@ -26,7 +26,16 @@ PATTERNS = [(r"^(\d*N\d+\w*)$", "Vihtavuori"), (r"^[SD]\d{3}(\.\d)?$", "Lovex"),
             (r"^(XMP|XMR|LT-\d+)", "Accurate"), (r"^(MRP|URP)\b", "Norma")]  # Barnes' PDFs name some powders without their maker
 
 
-ALIASES = {"Hodgdon Suprform": "Hodgdon Superformance", "Hodgdon SUPRFORM": "Hodgdon Superformance"}  # the manual's own abbreviation
+ALIASES = {"Hodgdon Suprform": "Hodgdon Superformance", "Hodgdon SUPRFORM": "Hodgdon Superformance",  # the manual's own abbreviation
+           # the spelling of the Lyman and Hornady handbooks and of the Western / Winchester tables -> the project's record
+           "Winchester 231": "Winchester W231", "Winchester 296": "Winchester W296", "Winchester 748": "Winchester W748", "Winchester 760": "Winchester W760",
+           "LEVERevolution": "Hodgdon LVR", "BL-C (2)": "Hodgdon BL-C(2)", "CFE223": "Hodgdon CFE 223", "Hodgdon MAGPRO": "Accurate Magpro",
+           "Accurate No.9": "Accurate No. 9", "Hodgdon NO. 11FS": "Accurate No. 11 FS", "Accurate No. 11FS": "Accurate No. 11 FS",
+           "Accurate 2015 Cup": "Accurate 2015", "Alliant Reloder 10": "Alliant Reloder 10X", "IMR 5744": "Accurate 5744",
+           "H-4831SC": "Hodgdon H4831SC", "HP-38": "Hodgdon HP-38", "Lil'Gun": "Hodgdon Lil'Gun", "IMR SR-4756": "IMR SR 4756", "IMR SR-4759": "IMR SR 4759",
+           "IMR-4320": "IMR 4320", "NORMA URP": "Norma URP", "NORMA MRP": "Norma MRP", "NORMA 200": "Norma 200", "NORMA 201": "Norma 201",
+           "NORMA 202": "Norma 202", "NORMA 203 B": "Norma 203-B", "IMR 800 X": "IMR 800-X", "IMR 700 X": "IMR 700-X",
+           "Hodgdon HP-38": "Hodgdon HP-38", "Alliant 300-MP": "Alliant Power Pro 300-MP"}
 
 
 def maker(powder: str) -> str:
