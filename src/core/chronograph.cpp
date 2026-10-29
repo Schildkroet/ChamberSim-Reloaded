@@ -50,11 +50,14 @@ double velocityFactor(QString unit)
     return 0.0;
 }
 
-// A decimal number with '.' or ',' as separator.
+// A decimal number with '.' or ',' as separator; with both ("1,397.6", "1.397,6") the last one is the decimal separator and the other
+// one groups thousands.
 std::optional<double> number(QString text)
 {
     text = text.trimmed();
     if (text.isEmpty()) return std::nullopt;
+    const qsizetype lastComma = text.lastIndexOf(u','), lastDot = text.lastIndexOf(u'.');
+    if (lastComma >= 0 && lastDot >= 0) text.remove(lastComma < lastDot ? u',' : u'.');
     text.replace(u',', u'.');
     bool ok = false;
     const double v = text.toDouble(&ok);

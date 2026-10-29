@@ -488,6 +488,12 @@ void CoreTest::chronographFiles()
     QCOMPARE(xc->series[0].velocities_ms.size(), std::size_t{3});
     QCOMPARE_LT(std::abs(xc->series[0].velocities_ms[1] - 2670.3 * 0.3048), 1e-9);
 
+    // thousands separator in quoted speeds, BOM on every line
+    const auto xt =
+        csr::readChronograph("\xEF\xBB\xBFRifle Bullet 185.0 gr\n\xEF\xBB\xBF#,Speed (FPS),KE\n1,\"1,397.6\",802.3\n-,,\n", &error);
+    QVERIFY2(xt, qPrintable(error));
+    QCOMPARE_LT(std::abs(xt->series[0].velocities_ms[0] - 1397.6 * 0.3048), 1e-9);
+
     QFile xeroFit(QStringLiteral(CSR_FIXTURE_DIR "/xero/garmin-xero.fit"));
     QVERIFY(xeroFit.open(QIODevice::ReadOnly));
     const QByteArray fit = xeroFit.readAll();
