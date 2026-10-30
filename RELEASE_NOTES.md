@@ -11,7 +11,8 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
   15" and a 16" barrel a .357 Magnum load fell from about 54,000 to 36,000 psi (issue 11). The higher start pressure
   of these cartridges now holds in every barrel; the carbine loads of the manuals (.357 Magnum, .44 Rem. Mag. and
   .45 Colt at 16" to 20") need it as well. Pistol and revolver loads overall: 7.94 % to 7.83 % velocity and 16.1 % to
-  16.0 % peak pressure rms against the published data.
+  16.0 % peak pressure rms against the published data. The burn rates of ADI AR2205, IMR 4227, Vihtavuori N105,
+  Winchester W540 and W571 and Accurate 8700 were refitted with the new rule (1.6 to 3.5 % lower).
 
 ## 0.14
 
