@@ -12,6 +12,21 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
   charges, maximum pressures and velocities (click a row to show its curve). It edits the same fields as the
   propellant table.
 - **Gun weight in the New load dialog**, so a new load has recoil figures without editing the file afterwards.
+- **Sebert factor.** New loads start with 0.25. The Physical Model keeps its calibrated share of 1/4 for the gas whatever
+  factor the load holds (the older files' 0.5 would have given 14 % less peak pressure, issue 10); the Original and
+  Tuned profiles and the recoil figures use the load's factor.
+- **Chronograph import** accepts thousands separators in speeds (Xero CSV `1,397.6`).
+- **New records.** Nine calibers (.22 BR Rem, .22 K-Hornet, .338-06, 6.5-06, 6.5-284 Win, 6.5 mm TCU, 7 mm TCU,
+  7.7x58 Arisaka, 8mm-06) and 22 propellants (among them Hodgdon H450 and H870, Accurate 8700 and the Norma
+  powders) from the Hornady, Lyman and wildcat handbooks and the maker guides; the dimensions of the calibers are
+  read from the books' drawings.
+- **Refitted physical powder values** with the Hornady, Lyman and Lee loads: 69 powders adopted, 32 powders have
+  their first physical entry. Against about 92,700 published loads: rifle 4.53 % to 4.18 % velocity and 12.6 % to 11.9 %
+  peak pressure rms, pistol and revolver 8.20 % to 7.93 % and 16.4 % to 16.1 %. The Original profile and the
+  accuracy table are not affected.
+- **Shotshell powders.** IMR 700-X, 800-X and SR 4756, Winchester WSL, Hodgdon WSF and Alliant e3 have shotshell
+  records (before, a shotgun load with them was 10 to 30 % low in velocity and up to 60 % low in pressure). Over
+  6,472 published shotshell loads the error is 3.5 % in velocity and 16.4 % in peak pressure (was 7.7 % and 27.7 %).
 
 ### Fixed
 
