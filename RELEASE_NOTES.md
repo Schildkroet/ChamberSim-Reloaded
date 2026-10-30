@@ -3,6 +3,16 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.15
+
+### Fixed
+
+- **Peak pressure jumped with the barrel length** for pistol and revolver cartridges in the Physical Model: between a
+  15" and a 16" barrel a .357 Magnum load fell from about 54,000 to 36,000 psi (issue 11). The higher start pressure
+  of these cartridges now holds in every barrel; the carbine loads of the manuals (.357 Magnum, .44 Rem. Mag. and
+  .45 Colt at 16" to 20") need it as well. Pistol and revolver loads overall: 7.94 % to 7.83 % velocity and 16.1 % to
+  16.0 % peak pressure rms against the published data.
+
 ## 0.14
 
 ### Added and changed

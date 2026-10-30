@@ -865,6 +865,18 @@ void CoreTest::physicalModel()
     sameForBoth.engravingLengthHandgun_mm = -1.0;
     QVERIFY(csr::simulate(pistol, cal).maxPressure_bar != csr::simulate(pistol, sameForBoth).maxPressure_bar);
     QCOMPARE(csr::simulate(in, cal).maxPressure_bar, csr::simulate(in, sameForBoth).maxPressure_bar);  // rifles are not affected
+    // the handgun start pressure holds in every barrel: the peak pressure must not jump with the barrel length (issue #11, 15" -> 16")
+    for (const auto [shorter, longer] : {std::pair{381.0, 406.4}, std::pair{254.0, 610.0}})
+    {
+        csr::SimInput a = pistol, b = pistol;
+        a.barrelLength_mm = shorter;
+        b.barrelLength_mm = longer;
+        const csr::SimResult ra = csr::simulate(a, cal), rb = csr::simulate(b, cal);
+        QVERIFY(ra.ok() && rb.ok());
+        QVERIFY2(qAbs(rb.maxPressure_bar / ra.maxPressure_bar - 1.0) < 0.01,
+                 qPrintable(u"%1 / %2 bar"_s.arg(ra.maxPressure_bar).arg(rb.maxPressure_bar)));
+        QVERIFY(rb.muzzleVelocity_ms > ra.muzzleVelocity_ms);
+    }
     csr::SimInput jump = in;
     jump.bulletJump_mm = 1.0;
     QVERIFY(csr::simulate(jump, cal).ok());

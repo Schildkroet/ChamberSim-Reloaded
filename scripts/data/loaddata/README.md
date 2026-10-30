@@ -376,6 +376,12 @@ mean error):
 Open: heavy, large-bore bullets (.45 Auto / Colt / GAP, 10 mm, 38 Special) still come out 9-25 % too fast; .44 Rem. Mag. (-40 % velocity) and 9 mm Makarov
 (-20 %) look like record problems.
 
+*2026-10-30, no barrel limit (issue 11):* the 400 mm limit made the peak pressure of a .357 Magnum jump by half between a 15" and a 16" barrel. On the
+loads of 2026-10-29 (build_loads.py, 11,567 pistol loads) the carbine loads need the higher start pressure too: .357 Magnum at 406-508 mm -13..-9 % -> -3 %
+velocity, .44 Rem. Mag. at 457-508 mm -9..-5 % -> -1 %, its 508 mm pressures -22 % -> +9 %; only the .221 Rem. Fireball from 610 mm rifles gets faster
+(+0.2 -> +6.7 %, while its 273 and 356 mm loads need the rule). The limit is gone: pistol 7.94 -> 7.83 % velocity, 16.08 -> 15.95 % pressure rms. A linear taper
+between 460 and 700 mm scored the same (7.81 / 15.92 %) but lets the velocity fall with a longer barrel, so it was not adopted.
+
 ## Refit with the new sources (2026-10-23)
 
 Barnes (3,904 loads) and H&N (139) were added to the samples (`by_maker.py`, files per powder maker). Refit of the physical burn values of all powders with the

@@ -39,8 +39,8 @@ rebuilt and checked. Records made from estimates say so in their `descr` field.
   Rifle bullets with at least 8 published loads (362 records) then got their own `gpressure` and `gfriction` (-100..150 bar, 5 bar steps) from
   `analysis/fit_bullet_start_values.py`: loads more than 5 % off in velocity or pressure are swept over both, the record gets the median. Checked on
   held-out powders: velocity error 3.9 -> 3.5 %, pressure 25.1 -> 23.7 %. Handgun bullets are not fitted (the solver sets their start pressure).
-  The physical model starts pistol and revolver cartridges (C.I.P. table IV) with at least 0.3 x the permitted pressure when the barrel is shorter than 400 mm
-  (`handgunStartFraction`, `handgunMaxBarrel_mm`): the published loads of the 9 mm Luger, .40 S&W and .357 Magnum need about 600 bar. The handgun powders'
+  The physical model starts pistol and revolver cartridges (C.I.P. table IV) with at least 0.3 x the permitted pressure in every barrel
+  (`handgunStartFraction`; until 0.14 only below 400 mm, which made the peak pressure jump at that length, issue 11): the published loads of the 9 mm Luger, .40 S&W and .357 Magnum need about 600 bar. The handgun powders'
   pressure bias went from -17 % to +6 % (rms 30 -> 24 %), rifle cartridges are unchanged.
 - **Propellants (245)**: Vihtavuori N130-N170, N530-N570 and, with a low `Qlty`, the pistol and double-base powders N105-N120, N320-N350, 3N37, 3N38 and 24N41 (26), Lovex S040, S053, D063, S060-S071 and D073.4-D073.6 (11), Reload Swiss RS50-RS76 (6), ADI AR2205-AR2225 and Bench Mark (13: ADI Powders' rifle data with test barrel, velocities and pressures), Vectan Tubal 3000-8000 (4: from the Nobel Sport catalogue, which publishes no test barrel and no pressures, so a 600 mm barrel is assumed; its handgun powders fit too poorly and are not included), and
   55 rifle powders of Hodgdon, IMR, Winchester, Accurate and Ramshot (the Hodgdon and Western Powders manuals; Accurate 4100, Enforcer, H110 and W296 fit

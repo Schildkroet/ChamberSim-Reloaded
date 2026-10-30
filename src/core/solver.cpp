@@ -802,8 +802,7 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
         if (cal.model == SolverModel::Physical && !in.shotshell) adjusted.startPressure_bar += in.primerOffset_bar;
         return simulate(adjusted, calibration, steps);
     }
-    if (in.handgun && !in.shotshell && in.barrelLength_mm < cal.handgunMaxBarrel_mm &&
-        cal.handgunStartFraction * in.maxPressure_bar > in.startPressure_bar)
+    if (in.handgun && !in.shotshell && cal.handgunStartFraction * in.maxPressure_bar > in.startPressure_bar)
     {
         SimInput adjusted = in;
         adjusted.startPressure_bar = cal.handgunStartFraction * in.maxPressure_bar;
@@ -1153,7 +1152,6 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"burnZ0Factor", &cal.burnZ0Factor},
             {"initialGasFactor", &cal.initialGasFactor},
             {"handgunStartFraction", &cal.handgunStartFraction},
-            {"handgunMaxBarrel_mm", &cal.handgunMaxBarrel_mm},
             {"shotCapacityFactor", &cal.shotCapacityFactor},
             {"shotFrictionShare", &cal.shotFrictionShare},
             {"shotEnergyFactor", &cal.shotEnergyFactor},
