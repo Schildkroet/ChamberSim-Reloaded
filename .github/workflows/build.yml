@@ -110,9 +110,13 @@ jobs:
           curl -fsSL -o linuxdeploy https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
           curl -fsSL -o linuxdeploy-plugin-qt https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy linuxdeploy-plugin-qt
+          # current appimagetool wants a PNG at the AppDir top level (.DirIcon); linuxdeploy links the 256 px one there
+          # (the file must be named like the Icon= entry)
+          cp resources/icons/chambersimreloaded-256.png "$RUNNER_TEMP/chambersimreloaded.png"
           ./linuxdeploy --appdir AppDir --plugin qt \
             --desktop-file packaging/linux/chambersimreloaded.desktop \
             --icon-file packaging/linux/chambersimreloaded.svg \
+            --icon-file "$RUNNER_TEMP/chambersimreloaded.png" \
             --output appimage
           ls -l *.AppImage
 
