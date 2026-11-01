@@ -178,6 +178,7 @@ tools/build.sh release && python3 tools/update_accuracy.py build/release/grt_com
 
 ```bash
 python3 tools/GRTRef/make_jobs_<kind>.py       # writes tools/GRTRef/jobs/exp_*.grtload
+tools/GRTRef/make_all_jobs.sh [out]            # regenerates all batches and packs the plugin folder for the VM (needs a Release grt_compare)
 # copy the jobs to the shared folder /home/patrick/Vorlagen/GRTRef, run the original with the plugin
 # tools/GRTRef/grtref.py (com.grt.plugin.xml) on the VM, copy its results/*.json back into reference/results/
 build/release/grt_compare --include '^exp_new_'  # compare
