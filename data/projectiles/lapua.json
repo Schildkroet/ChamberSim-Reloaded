@@ -751,6 +751,7 @@
     "gdia": 9.14,
     "glen": 17.5,
     "gmass": 146.0,
+    "gmaterial": "lead",
     "g1bc": 0.163,
     "gpressure": 350.0,
     "gValid": true
@@ -762,6 +763,7 @@
     "gdia": 8.0,
     "glen": 16.51,
     "gmass": 98.0,
+    "gmaterial": "lead",
     "g1bc": 0.0982,
     "gpressure": 350.0,
     "gValid": true
@@ -773,6 +775,7 @@
     "gdia": 9.12,
     "glen": 19.2,
     "gmass": 159.0,
+    "gmaterial": "lead",
     "g1bc": 0.158,
     "gpressure": 350.0,
     "gValid": true
@@ -784,6 +787,7 @@
     "gdia": 9.12,
     "glen": 17.6,
     "gmass": 159.0,
+    "gmaterial": "lead",
     "g1bc": 0.12,
     "gpressure": 350.0,
     "gValid": true
@@ -795,6 +799,7 @@
     "gdia": 9.09,
     "glen": 16.0,
     "gmass": 148.0,
+    "gmaterial": "lead",
     "g1bc": 0.057,
     "gpressure": 350.0,
     "gValid": true
@@ -806,6 +811,7 @@
     "gdia": 7.98,
     "glen": 14.71,
     "gmass": 98.0,
+    "gmaterial": "lead",
     "g1bc": 0.041,
     "gpressure": 350.0,
     "gValid": true
@@ -817,6 +823,7 @@
     "gdia": 7.99,
     "glen": 14.7,
     "gmass": 98.0,
+    "gmaterial": "lead",
     "gpressure": 250.0,
     "g1bc": 0.041
   },
@@ -827,6 +834,7 @@
     "gdia": 7.98,
     "glen": 12.8,
     "gmass": 83.0,
+    "gmaterial": "lead",
     "g1bc": 0.029,
     "gpressure": 350.0,
     "gValid": true
@@ -838,6 +846,7 @@
     "gdia": 7.99,
     "glen": 12.8,
     "gmass": 83.0,
+    "gmaterial": "lead",
     "gpressure": 250.0,
     "g1bc": 0.029
   },
@@ -848,6 +857,7 @@
     "gdia": 7.95,
     "glen": 13.97,
     "gmass": 93.0,
+    "gmaterial": "lead",
     "g1bc": 0.0373,
     "gpressure": 350.0,
     "gValid": true

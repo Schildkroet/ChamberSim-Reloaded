@@ -55,6 +55,7 @@ Units are those of the database columns, **not** the units shown in the program:
 | | `gdia`, `glen` | diameter, length | mm |
 | | `gmass` | mass | **grain** |
 | | `gtailtype` | base: 0 flat, 1 hollow, 2 boat tail | |
+| | `gmaterial` | `lead` = cast or swaged lead without a jacket (less sliding friction in rifle cartridges); missing = jacketed | |
 | | `gtaildiaA`, `gtaildiaB`, `gtailh` | base diameters, boat-tail / cavity length | mm |
 | | `g1bc`, `g7bc` | ballistic coefficients | |
 | calibers | `cipname`, `altname` | name, other names | |

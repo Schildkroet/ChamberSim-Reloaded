@@ -497,6 +497,7 @@ bool LoadView::load(const QString &path, QString *error)
     if (csr::attachPhysicalBurn(m_file.propellant)) LOG_Info() << "Physical burn values added to" << path;
     csr::ensureShotParts(m_file.caliber);  // a shotshell load of an older file: the entries for shell, wad and primer (not chosen)
     if (csr::ensureSebert(m_file)) LOG_Info() << "Sebert factor of" << path << "outside 0..1, set to 0.5";
+    csr::ensureBulletMaterial(m_file);  // a load of an older version or of the original: the material entry (empty: jacketed)
     // a load without the caliber's record (from another tool): the record of the caliber it names
     if (m_db && m_db->isOpen() && m_file.caliberFile.entries().empty() && !m_file.caliber.flag(u"shotshell"))
         if (const auto rec = m_db->caliberByName(m_file.caliber.text(u"CaliberName")); rec && csr::attachCaliberRecord(m_file, *rec))
@@ -523,6 +524,7 @@ void LoadView::setNewLoad(csr::LoadFile file)
     m_file = std::move(file);
     csr::ensureShotParts(m_file.caliber);
     csr::ensurePrimer(m_file);
+    csr::ensureBulletMaterial(m_file);
     m_path.clear();
     rebuildPanels();
     loadMeasurement();

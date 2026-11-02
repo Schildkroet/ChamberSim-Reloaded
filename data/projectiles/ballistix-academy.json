@@ -26,6 +26,7 @@
     "gdia": 11.2,
     "glen": 20.1,
     "gmass": 260.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.21, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
@@ -36,6 +37,7 @@
     "gdia": 11.2,
     "glen": 24.0,
     "gmass": 290.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -46,6 +48,7 @@
     "gdia": 11.2,
     "glen": 24.0,
     "gmass": 320.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -56,6 +59,7 @@
     "gdia": 11.2,
     "glen": 24.0,
     "gmass": 350.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -66,6 +70,7 @@
     "gdia": 11.2,
     "glen": 28.7,
     "gmass": 370.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.21, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
@@ -76,6 +81,7 @@
     "gdia": 11.33,
     "glen": 19.7,
     "gmass": 260.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.21, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },
@@ -86,6 +92,7 @@
     "gdia": 11.33,
     "glen": 24.2,
     "gmass": 290.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -96,6 +103,7 @@
     "gdia": 11.33,
     "glen": 24.2,
     "gmass": 320.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -106,6 +114,7 @@
     "gdia": 11.33,
     "glen": 24.2,
     "gmass": 350.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -116,6 +125,7 @@
     "gdia": 11.33,
     "glen": 29.4,
     "gmass": 370.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead), about 10 % uncertain"
   },

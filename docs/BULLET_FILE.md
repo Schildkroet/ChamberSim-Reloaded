@@ -60,6 +60,7 @@ the text). Keys that are left out stay empty (0 or empty text).
 | `glen` | yes | overall length [mm] (> 0) |
 | `gmass` | yes | mass [gr] (> 0) |
 | `gtailtype` | recommended | base: `0` flat, `1` hollow base, `2` boat tail |
+| `gmaterial` | no | `lead` for a cast or swaged lead bullet without a jacket (plated and jacketed bullets: leave it out). The physical model gives it 0.45 x the sliding friction in rifle cartridges |
 | `gtaildiaA` | for a boat tail | diameter where the taper starts [mm] (the bullet diameter, smaller for a rebated boat tail) |
 | `gtaildiaB` | for a boat tail | base diameter [mm] |
 | `gtailh` | for a boat tail | length of the taper (or the depth of the hollow base) [mm] |

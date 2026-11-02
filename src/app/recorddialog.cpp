@@ -140,7 +140,8 @@ RecordDialog::RecordDialog(const csr::Database &db, csr::Table table, Mode mode,
             {
                 // a fixed list: no free text, so the values stay consistent (the program reads some of them)
                 auto *combo = new QComboBox;
-                if (f.column != u"gValid") combo->addItem(tr("– not specified –"), QString());  // a yes/no column always has a value
+                // a yes/no column always has a value; the material's empty value is a choice of its own (jacketed)
+                if (f.column != u"gValid" && f.column != u"gmaterial") combo->addItem(tr("– not specified –"), QString());
                 for (const auto &[value, text] : csr::dbfields::choices(table, f.column))
                 {
                     if (f.column != u"gValid")

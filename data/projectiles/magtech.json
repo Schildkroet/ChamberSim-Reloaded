@@ -7,6 +7,7 @@
     "glen": 18.0,
     "gmass": 158.0,
     "gtailtype": 1,
+    "gmaterial": "lead",
     "gtaildiaA": 8.0,
     "gtaildiaB": 2.0,
     "gtailh": 0.5,
@@ -20,6 +21,7 @@
     "gdia": 7.98,
     "glen": 14.7,
     "gmass": 98.0,
+    "gmaterial": "lead",
     "gpressure": 250.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -30,6 +32,7 @@
     "gdia": 7.98,
     "glen": 15.3,
     "gmass": 98.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -40,6 +43,7 @@
     "gdia": 9.09,
     "glen": 17.5,
     "gmass": 148.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -160,6 +164,7 @@
     "gdia": 11.48,
     "glen": 19.0,
     "gmass": 250.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -170,6 +175,7 @@
     "gdia": 10.9,
     "glen": 19.0,
     "gmass": 240.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -180,6 +186,7 @@
     "gdia": 9.02,
     "glen": 15.9,
     "gmass": 124.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -190,6 +197,7 @@
     "gdia": 10.16,
     "glen": 16.6,
     "gmass": 160.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length measured on the product photo (length / width x diameter, about 5 % uncertain)"
   },
@@ -200,6 +208,7 @@
     "gdia": 11.48,
     "glen": 15.1,
     "gmass": 200.0,
+    "gmaterial": "lead",
     "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type and scaled by 1.24, the median photo / estimate ratio of the maker's bullets, about 10 % uncertain"
   },

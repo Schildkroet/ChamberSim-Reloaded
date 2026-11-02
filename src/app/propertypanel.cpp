@@ -90,6 +90,8 @@ const QList<Choice> *choicesFor(const QString &key)
     static const QList<Choice> tail{
         {u"0"_s, PropertyPanel::tr("flat base")}, {u"1"_s, PropertyPanel::tr("hollow base")}, {u"2"_s, PropertyPanel::tr("boat tail")}};
     static const QList<Choice> yesNo{{u"false"_s, PropertyPanel::tr("no")}, {u"true"_s, PropertyPanel::tr("yes")}};
+    // the bullet material (simconfig.h): empty = jacketed, "lead" = cast or swaged lead (the physical model's sliding friction)
+    static const QList<Choice> material{{QString(), PropertyPanel::tr("jacketed")}, {u"lead"_s, PropertyPanel::tr("lead (cast, swaged)")}};
     static const QList<Choice> ladder = []
     {
         QList<Choice> l;
@@ -116,6 +118,7 @@ const QList<Choice> *choicesFor(const QString &key)
     }
     if (key == u"laddercnt") return &ladder;
     if (key == u"gTailType") return &tail;
+    if (key == u"gmaterial") return &material;
     if (key == u"shotshell") return &yesNo;
     // the shell, wad and primer of a shotshell load: the parts of the data file (their factors correct the model), or none
     for (const csr::ShotPart part : csr::kShotParts)
@@ -317,6 +320,8 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
     m_sections = sections;
     m_rebuilding = true;
     m_table->setRowCount(0);
+    // a shotshell load (the flag is in its caliber section): its "projectile" is the shot column, which has no bullet material
+    const bool shotshell = std::ranges::any_of(sections, [](const Section &s) { return s.entries && s.entries->flag(u"shotshell"); });
     for (const Section &s : sections)
     {
         const int head = m_table->rowCount();
@@ -350,6 +355,7 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
             // the start pressure of a load with a primer is primer + additional start pressure (shown); a shotshell has its own primer
             if (e.name == u"ps" && s.entries->find(u"psadd") && !s.entries->flag(u"shotshell")) continue;
             if ((e.name == u"primer" || e.name == u"psadd") && s.entries->flag(u"shotshell")) continue;
+            if (e.name == u"gmaterial" && shotshell) continue;
             const int r = m_table->rowCount();
             m_table->insertRow(r);
             // a translated description is the finished label; the English one is tidied up here

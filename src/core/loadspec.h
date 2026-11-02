@@ -77,6 +77,8 @@ inline constexpr Field kProjectile[] = {
     {"gUBCS", "", "string", "UBCS-Code (Universal Bullet Classification Scheme)"},
     {"gfriction", "bar", "decimal", "special bullet resistance inside the barrel"},
     {"gfrictionUnlock", "", "boolean", "unlocked friction"},
+    // this program's (left out of the *.grtload export): empty = jacketed, "lead" = cast or swaged lead without a jacket
+    {"gmaterial", "", "string", "bullet material (jacketed or lead: cast, swaged)"},
     {"mode", "", "string", ""},
 };
 

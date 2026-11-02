@@ -132,6 +132,12 @@ bool isPrimerEntry(const Entry &e)
     return e.name == u"primer" || e.name == u"psadd";
 }
 
+// The bullet material (loadspec.h): in the projectile section of a *.csrload, not in the export (the original has no such input).
+bool isMaterialEntry(const Entry &e)
+{
+    return e.name == u"gmaterial";
+}
+
 // The entries of `list` for which `wanted` is true, as <tag> with <childTag> children; no element when there are none and `optional`.
 template <class Pred>
 void writeList(QXmlStreamWriter &w, const QString &tag, const EntryList &list, const QString &childTag, Pred wanted, bool optional = false)
@@ -332,7 +338,7 @@ QByteArray LoadFile::toXml(FileFormat format) const
     writeList(w, u"gun"_s, gun, u"input"_s);
     EntryList prj = projectile;
     if (original) prj.set(u"gfrictionUnlock"_s, u"true"_s);  // the original applies gfriction only when this is on; here it always applies
-    writeList(w, u"projectile"_s, prj, u"input"_s);
+    writeList(w, u"projectile"_s, prj, u"input"_s, [&](const Entry &e) { return !(original && isMaterialEntry(e)); });
     writeList(w, u"propellant"_s, propellant, u"input"_s, std::not_fn(isPhysical));
     if (!original)
     {

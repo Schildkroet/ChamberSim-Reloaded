@@ -28,6 +28,14 @@
 namespace csr
 {
 
+// The bullet material of a projectile record and a load (gmaterial): empty = jacketed (the default), "lead" = cast or swaged lead
+// without a jacket. Only the physical model distinguishes them (Calibration::leadSlideFactor).
+inline constexpr QStringView kLeadMaterial = u"lead";
+[[nodiscard]] inline bool isLeadBullet(QStringView material)
+{
+    return material.trimmed().compare(kLeadMaterial, Qt::CaseInsensitive) == 0;
+}
+
 // All inputs of one interior-ballistics simulation. Units are those of the
 // *.grtload file and are part of the member names.
 struct SimInput
@@ -65,6 +73,7 @@ struct SimInput
     double tailDiameterB_mm{};
     int tailType{};  // 0 flat base, 1 hollow base, 2 boat tail
     double extraFriction_bar{};
+    bool leadBullet{};  // no jacket: cast or swaged lead (gmaterial "lead"); the physical model's own sliding friction
 
     // propellant
     double vivacityBa{};

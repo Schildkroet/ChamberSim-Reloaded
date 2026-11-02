@@ -616,6 +616,29 @@ void GuiTest::codedFieldsShowReadableText()
     PropertyPanel panel2;
     panel2.setSections({{0, u"projectile"_s, u"Projectile"_s, &odd}});
     QCOMPARE(tableOf(panel2)->item(rowOf(tableOf(panel2), u"gTailType"_s), 1)->text(), u"type 3"_s);
+
+    // the bullet material: empty is "jacketed", "lead" the cast or swaged lead bullet; a shotshell's shot column has none
+    csr::EntryList bullet;
+    bullet.entries().push_back({.name = u"gmaterial"_s,
+                                .value = {},
+                                .unit = {},
+                                .type = u"string"_s,
+                                .descr = u"bullet material (jacketed or lead: cast, swaged)"_s});
+    PropertyPanel panel3;
+    panel3.setSections({{0, u"projectile"_s, u"Projectile"_s, &bullet}});
+    QTableWidget *t3 = tableOf(panel3);
+    const int rMaterial = rowOf(t3, u"gmaterial"_s);
+    QCOMPARE(t3->item(rMaterial, 0)->text(), u"Bullet Material"_s);
+    QCOMPARE(t3->item(rMaterial, 1)->text(), u"jacketed"_s);
+    QSignalSpy materialSpy(&panel3, &PropertyPanel::valueEdited);
+    t3->item(rMaterial, 1)->setText(u"lead (cast, swaged)"_s);
+    QCOMPARE(materialSpy.count(), 1);
+    QCOMPARE(materialSpy.at(0).at(2).toString(), u"lead"_s);
+    csr::EntryList shell;
+    shell.set(u"shotshell", u"true"_s);
+    PropertyPanel panel4;
+    panel4.setSections({{0, u"caliber"_s, u"Caliber"_s, &shell}, {1, u"projectile"_s, u"Projectile"_s, &bullet}});
+    QCOMPARE(rowOf(tableOf(panel4), u"gmaterial"_s), -1);
 }
 
 // The solver uses the seating depth; the cartridge overall length is derived from it, so editing the length must change the depth.

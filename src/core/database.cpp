@@ -80,7 +80,7 @@ constexpr std::array<TableSchema, 5> kSchema{{
                    "pname TEXT COLLATE NOCASE NOT NULL, lotid TEXT COLLATE NOCASE NOT NULL, "
                    "caliber TEXT COLLATE NOCASE NOT NULL, gdia FLOAT NOT NULL, glen FLOAT NOT NULL, gValid BOOLEAN NOT NULL DEFAULT 0, "
                    "gmass FLOAT NOT NULL, gpressure FLOAT NOT NULL, gfriction FLOAT NOT NULL, gtaildiaA FLOAT NOT NULL, "
-                   "gtaildiaB FLOAT NOT NULL, gtailh FLOAT NOT NULL, gtailtype INTEGER NOT NULL, "
+                   "gtaildiaB FLOAT NOT NULL, gtailh FLOAT NOT NULL, gtailtype INTEGER NOT NULL, gmaterial TEXT NOT NULL DEFAULT '', "
                    "gdepthmax FLOAT NOT NULL, g1bc FLOAT NOT NULL, g7bc FLOAT NOT NULL, "
                    "gUBCS TEXT COLLATE NOCASE NOT NULL, cdate DATE NOT NULL, cby TEXT COLLATE NOCASE NOT NULL, "
                    "mdate DATE NOT NULL, mby TEXT COLLATE NOCASE NOT NULL, type TEXT COLLATE NOCASE NOT NULL, "
@@ -117,12 +117,14 @@ struct AddedColumn
     const char *declaration;
     const char *after;
 };
-constexpr std::array<AddedColumn, 3> kAddedColumns{{
+constexpr std::array<AddedColumn, 4> kAddedColumns{{
     {"caliber", "PmaxSAAMI", "FLOAT NOT NULL DEFAULT 0", "Pmax"},  // SAAMI maximum average pressure [bar]; Pmax is the C.I.P. one
     {"caliber", "primer", "TEXT NOT NULL DEFAULT ''",
      "ciptype"},  // usual primer type (primer.h), preset in a new load; empty: from the case
     {"projectile", "gValid", "BOOLEAN NOT NULL DEFAULT 0",
      "glen"},  // true: the record was validated by hand (measured on a bullet, checked against the original database), false: not
+    {"projectile", "gmaterial", "TEXT NOT NULL DEFAULT ''",
+     "gtailtype"},  // bullet material (simconfig.h): empty = jacketed, "lead" = cast or swaged lead without a jacket
 }};
 
 QString lastError(const QSqlQuery &q)

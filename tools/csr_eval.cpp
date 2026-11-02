@@ -24,7 +24,8 @@
 //            [--physical FILE] [--phys "Maker Name=Ba,a0,z1,z2[,shape,ld,hole,amp]"]... [--list-params]
 //
 // Optional CSV columns per row: ba_scale (factor on the powder's physical Ba), case_scale (factor on the case volume), gpressure (start pressure of the bullet [bar],
-// relative to the 250 bar reference like a bullet record), gfriction (extra bullet friction [bar]), primer_type (SP, LRM, ...: the primer of the load;
+// relative to the 250 bar reference like a bullet record), gfriction (extra bullet friction [bar]), gmaterial (bullet material: "lead" = cast or
+// swaged lead without a jacket, empty = jacketed), primer_type (SP, LRM, ...: the primer of the load;
 // default: the caliber's, primer.h).
 // --primers is the file of the primers' start pressures (default: the project data's).
 // --physical is the file of the physical burn values (default: the project data's); --phys sets those of one powder (fits).
@@ -281,6 +282,7 @@ int main(int argc, char *argv[])
                            {u"gmass"_s, row.value(u"bullet_gr"_s).toDouble()},
                            {u"gtailtype"_s, row.value(u"tail_type"_s).toInt()}};
         if (!row.value(u"gpressure"_s).isEmpty()) bullet.insert(u"gpressure"_s, row.value(u"gpressure"_s).toDouble());  // per load
+        if (!row.value(u"gmaterial"_s).isEmpty()) bullet.insert(u"gmaterial"_s, row.value(u"gmaterial"_s));  // "lead": cast or swaged
         // pistol and revolver cartridges (C.I.P. table IV): another initial gas pressure (GRT: about 150 bar, rifles 250)
         if (cli.isSet(u"ps-handgun"_s) && cal0->value(u"cippdf"_s).toString().contains(u"/tab-iv/"_s))
             bullet.insert(u"gpressure"_s, cli.value(u"ps-handgun"_s).toDouble());

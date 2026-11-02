@@ -212,6 +212,10 @@ struct Calibration
     // the engraving resistance and the sliding stress by max(1 + k e, 0.25); 0: the bullet's fit does not matter
     double engravingInterference{0.0};
     double slideInterference{0.0};
+    // Lead bullets without a jacket (cast or swaged, projectile gmaterial "lead"): factor on the sliding friction stress (lubricated
+    // lead slides more easily than a jacket). Pistol and revolver cartridges have their own (< 0: the rifle value applies).
+    double leadSlideFactor{1.0};
+    double leadSlideFactorHandgun{-1.0};
     double caliberBurnScaling{
         1.0};  // 1: the physical burn rates are scaled per caliber (physicalCaliberScale), 0: not (fits of the scales)
     double heatTransferFactor{0.5};  // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)

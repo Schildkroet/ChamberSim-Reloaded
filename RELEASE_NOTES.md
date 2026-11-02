@@ -3,6 +3,22 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.16
+
+### Added and changed
+
+- **Bullet material.** Projectile records and loads have a *Material* field: jacketed (the default) or lead (cast,
+  swaged). In the Physical Model a lead bullet in a rifle cartridge slides with 0.45 times the friction of a jacket;
+  against the loads of the Lyman Cast Bullet Handbook (3rd and 4th edition) the rifle cast loads improve from 7.24 %
+  to 6.12 % velocity rms (pressure median +15.6 % to +10.3 %). Pistol and revolver cast loads gain nothing and keep
+  the full friction; shotgun loads are not concerned. Older loads open as jacketed and give the same results; the
+  field is left out of the *.grtload export. 61 project records of unplated lead bullets are marked.
+- **Refit with the Speer Reloading Manual #14** (9,360 loads): the physical burn values of IMR SR 4759, Alliant
+  Green Dot, Hodgdon H870 and Universal, IMR 4198, Accurate 1680 and No. 7 and Vihtavuori N340 are 2 to 14 % lower.
+  Rifle 4.30 % to 4.27 % velocity rms against the published loads, on Speer's web data (not used by the fit)
+  5.08 % to 4.87 %; pistol and revolver unchanged at 7.89 %. The Original profile and the accuracy table are not
+  affected.
+
 ## 0.15
 
 ### Fixed

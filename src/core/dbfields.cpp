@@ -21,6 +21,7 @@
 
 #include "numeric.h"
 #include "primer.h"
+#include "simconfig.h"
 
 #include <QCoreApplication>
 #include <QLocale>
@@ -111,6 +112,7 @@ constexpr Spec kProjectile[] = {
     {"gValid", QT_TRANSLATE_NOOP("csr::dbfields", "Validated"), kBullet, Quantity::None, 1, Kind::Choice, ""},
     {"gmass", QT_TRANSLATE_NOOP("csr::dbfields", "Mass"), kBullet, Quantity::BulletMass, kGrain, Kind::Number, ""},
     {"gtailtype", QT_TRANSLATE_NOOP("csr::dbfields", "Base type"), kBullet, Quantity::None, 1, Kind::BaseType, ""},
+    {"gmaterial", QT_TRANSLATE_NOOP("csr::dbfields", "Material"), kBullet, Quantity::None, 1, Kind::Choice, ""},
     {"gtaildiaA", QT_TRANSLATE_NOOP("csr::dbfields", "Base diameter A"), kBullet, Quantity::Length, 1, Kind::Number, ""},
     {"gtaildiaB", QT_TRANSLATE_NOOP("csr::dbfields", "Base diameter B"), kBullet, Quantity::Length, 1, Kind::Number, ""},
     {"gtailh", QT_TRANSLATE_NOOP("csr::dbfields", "Boat-tail / cavity length"), kBullet, Quantity::Length, 1, Kind::Number, ""},
@@ -255,6 +257,9 @@ std::vector<std::pair<QString, QString>> choices(Table t, const QString &column)
 {
     if (t == Table::Projectile && column == u"gValid")
         return {{u"0"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "no"))}, {u"1"_s, tr(QT_TRANSLATE_NOOP("csr::dbfields", "yes"))}};
+    if (t == Table::Projectile && column == u"gmaterial")  // simconfig.h: empty = jacketed (the default), "lead" = cast or swaged lead
+        return {{QString(), tr(QT_TRANSLATE_NOOP("csr::dbfields", "jacketed"))},
+                {kLeadMaterial.toString(), tr(QT_TRANSLATE_NOOP("csr::dbfields", "lead (cast, swaged)"))}};
     if (t != Table::Caliber) return {};
     if (column == u"primer")  // the type a new load of the caliber starts with (primer.h); empty: from the case
     {

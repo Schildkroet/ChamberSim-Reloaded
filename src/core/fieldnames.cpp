@@ -83,6 +83,7 @@ namespace
     QT_TRANSLATE_NOOP("csr::fields", "additional start pressure (bullet, crimp, case)"),
     QT_TRANSLATE_NOOP("csr::fields", "shotshell wad"),
     QT_TRANSLATE_NOOP("csr::fields", "special bullet resistance inside the barrel"),
+    QT_TRANSLATE_NOOP("csr::fields", "bullet material (jacketed or lead: cast, swaged)"),
     QT_TRANSLATE_NOOP("csr::fields", "specific explosive heat"),
     QT_TRANSLATE_NOOP("csr::fields", "technical atmosphere pressure"),
     QT_TRANSLATE_NOOP("csr::fields", "temperature normal"),

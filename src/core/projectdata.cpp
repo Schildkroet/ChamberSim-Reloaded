@@ -20,6 +20,7 @@
 #include "projectdata.h"
 
 #include "dates.h"
+#include "simconfig.h"
 
 #include <QDir>
 #include <QFile>
@@ -112,6 +113,9 @@ QStringList check(Table t, const QVariantMap &record, const Schema &schema)
                 problems << u"\"%1\" must be a date in the form yyyy-MM-dd (or empty)"_s.arg(it.key());
         }
     }
+    if (t == Table::Projectile && record.contains(u"gmaterial"_s) && !record.value(u"gmaterial"_s).toString().isEmpty() &&
+        !isLeadBullet(record.value(u"gmaterial"_s).toString()))
+        problems << u"\"gmaterial\" must be empty (jacketed) or \"lead\""_s;
     const QString name = t == Table::Caliber ? u"cipname"_s : u"pname"_s;
     if (record.value(name).toString().trimmed().isEmpty()) problems << u"\"%1\" (the name) is missing"_s.arg(name);
     for (const QString &c : positiveColumns(t))

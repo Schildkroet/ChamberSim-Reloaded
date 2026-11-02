@@ -648,6 +648,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
                                                                    : perClass(cal.engravingShare, cal.engravingShareHandgun) * m.startP;
     m.engraveForce = fit(cal.engravingInterference) * engravePressure * m.A;
     m.slideForce = cal.slideStress_MPa * fit(cal.slideInterference) * 1e6 * n::pi * bulletDia * m.bearing;
+    if (in.leadBullet) m.slideForce *= std::max(perClass(cal.leadSlideFactor, cal.leadSlideFactorHandgun), 0.0);
     m.extraForce = in.extraFriction_bar * kBar * m.A;
     m.heatCoeff = cal.heatTransferFactor * kDittusBoelter * kGasConductivity * std::pow(kGasPrandtl, 0.4) * std::pow(kGasViscosity, -0.8) *
                   std::pow(m.D, -0.2);
@@ -1101,6 +1102,11 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.engravingLengthHandgun_mm = 0.0;
         cal.slideStress_MPa = 0.700469;
         cal.slideInterference = 1.5;  // 2026-10-11: sliding stress +1.5 % per percent of bullet oversize over the groove (scan_physical.py)
+        // 2026-11-02: lead bullets (gmaterial "lead") slide with 0.45 x the stress, fitted on the cast-bullet rifle loads of the Lyman Cast
+        // Bullet Handbook (3rd and 4th ed., powders' Ba from the jacketed loads; held-out cartridges 7.1 -> 6.3 % velocity rms); the pistol
+        // and revolver loads gain nothing from any factor (the two halves of the cartridges disagree): 1
+        cal.leadSlideFactor = 0.45;
+        cal.leadSlideFactorHandgun = 1.0;
         cal.heatTransferFactor = 0.0618079;
         cal.heatVelocity_ms = 169.199;
         cal.burnExponent = -0.05;
@@ -1177,6 +1183,8 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"slideStress_MPa", &cal.slideStress_MPa},
             {"engravingInterference", &cal.engravingInterference},
             {"slideInterference", &cal.slideInterference},
+            {"leadSlideFactor", &cal.leadSlideFactor},
+            {"leadSlideFactorHandgun", &cal.leadSlideFactorHandgun},
             {"caliberBurnScaling", &cal.caliberBurnScaling},
             {"heatTransferFactor", &cal.heatTransferFactor},
             {"heatVelocity_ms", &cal.heatVelocity_ms},
