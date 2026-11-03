@@ -606,7 +606,12 @@
         <translation>Diese Komponente durch einen anderen Datensatz der Datenbank ersetzen</translation>
     </message>
     <message>
-        <location line="+564"/>
+        <location line="+80"/>
+        <source>Set default seating depth (maximum cartridge length)</source>
+        <translation>Setztiefe auf die Vorgabe setzen (maximale Patronenlänge)</translation>
+    </message>
+    <message>
+        <location line="+484"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -656,12 +661,7 @@
         <translation>Nur Geschosse anzeigen, die zum Kaliber passen</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Also set the seating depth to the default (maximum cartridge length)</source>
-        <translation>Auch die Setztiefe auf die Vorgabe setzen (maximale Patronenlänge)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Also set the charge to the default (70 % of the case capacity)</source>
         <translation>Auch die Ladung auf die Vorgabe setzen (70 % des Hülsenvolumens)</translation>
     </message>

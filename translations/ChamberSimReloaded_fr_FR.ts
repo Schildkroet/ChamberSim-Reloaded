@@ -606,7 +606,12 @@
         <translation>Remplacer ce composant par un autre enregistrement de la base de données</translation>
     </message>
     <message>
-        <location line="+564"/>
+        <location line="+80"/>
+        <source>Set default seating depth (maximum cartridge length)</source>
+        <translation>Régler la profondeur d&apos;enfoncement sur la valeur par défaut (longueur maximale de la cartouche)</translation>
+    </message>
+    <message>
+        <location line="+484"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -656,12 +661,7 @@
         <translation>Afficher uniquement les balles adaptées au calibre</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Also set the seating depth to the default (maximum cartridge length)</source>
-        <translation>Régler aussi la profondeur d&apos;enfoncement sur la valeur par défaut (longueur maximale de la cartouche)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Also set the charge to the default (70 % of the case capacity)</source>
         <translation>Régler aussi la charge sur la valeur par défaut (70 % du volume de l&apos;étui)</translation>
     </message>

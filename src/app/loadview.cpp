@@ -678,7 +678,7 @@ void LoadView::chooseRecord(Component component)
     {
         const double dz = m_file.caliber.number(u"Dz");
         if (dz > 0.0) dlg.setRestriction(QStringLiteral("ABS(gdia - %1) < 0.25").arg(dz), tr("Show only bullets that fit the caliber"));
-        dlg.setResetOption(tr("Also set the seating depth to the default (maximum cartridge length)"), false);
+        dlg.setResetOption(tr("Set default seating depth (maximum cartridge length)"), false);
         break;
     }
     case Component::Propellant: dlg.setResetOption(tr("Also set the charge to the default (70 % of the case capacity)"), false); break;

@@ -606,7 +606,12 @@
         <translation>Sostituisci questo componente con un altro record della banca dati</translation>
     </message>
     <message>
-        <location line="+564"/>
+        <location line="+80"/>
+        <source>Set default seating depth (maximum cartridge length)</source>
+        <translation>Imposta la profondità di inserimento al valore predefinito (lunghezza massima della cartuccia)</translation>
+    </message>
+    <message>
+        <location line="+484"/>
         <source>Case volume</source>
         <translation></translation>
     </message>
@@ -656,12 +661,7 @@
         <translation>Mostra solo le palle adatte al calibro</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Also set the seating depth to the default (maximum cartridge length)</source>
-        <translation>Imposta anche la profondità di inserimento al valore predefinito (lunghezza massima della cartuccia)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Also set the charge to the default (70 % of the case capacity)</source>
         <translation>Imposta anche la carica al valore predefinito (70 % del volume del bossolo)</translation>
     </message>
