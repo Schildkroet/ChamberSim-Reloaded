@@ -140,6 +140,75 @@ protected:
     }
 };
 
+// A small line icon for a result card, painted in the palette's text colour (follows the theme, no image files).
+class CardGlyph : public QWidget
+{
+public:
+    enum class Kind
+    {
+        Pressure,
+        Velocity,
+        Energy,
+        Time
+    };
+
+    explicit CardGlyph(Kind kind, QWidget *parent = nullptr)
+        : QWidget(parent)
+        , m_kind(kind)
+    {
+        setFixedSize(18, 18);
+    }
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        QPainter p(this);
+        p.setRenderHint(QPainter::Antialiasing);
+        QColor c = palette().color(QPalette::WindowText);
+        c.setAlphaF(0.75);
+        QPen pen(c, 1.6, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+        p.setPen(pen);
+        p.setBrush(Qt::NoBrush);
+        p.scale(width() / 18.0, height() / 18.0);
+        switch (m_kind)
+        {
+        case Kind::Pressure:  // gauge: dial arc with a needle
+        {
+            p.drawArc(QRectF(2, 3, 14, 14), -30 * 16, 240 * 16);
+            p.drawLine(QPointF(9, 10), QPointF(13, 6));
+            p.drawPoint(QPointF(9, 10));
+            break;
+        }
+        case Kind::Velocity:  // arrow with speed lines
+        {
+            p.drawLine(QPointF(6, 9), QPointF(16, 9));
+            p.drawLine(QPointF(12.5, 5.5), QPointF(16, 9));
+            p.drawLine(QPointF(12.5, 12.5), QPointF(16, 9));
+            p.drawLine(QPointF(2, 5.5), QPointF(7, 5.5));
+            p.drawLine(QPointF(2, 12.5), QPointF(7, 12.5));
+            break;
+        }
+        case Kind::Energy:  // lightning bolt
+        {
+            QPolygonF bolt;
+            bolt << QPointF(10.5, 1.5) << QPointF(4, 10) << QPointF(8.5, 10) << QPointF(7.5, 16.5) << QPointF(14, 7.5) << QPointF(9.5, 7.5);
+            p.drawPolygon(bolt);
+            break;
+        }
+        case Kind::Time:  // clock
+        {
+            p.drawEllipse(QRectF(2, 2, 14, 14));
+            p.drawLine(QPointF(9, 9), QPointF(9, 5));
+            p.drawLine(QPointF(9, 9), QPointF(12, 10.5));
+            break;
+        }
+        }
+    }
+
+private:
+    Kind m_kind;
+};
+
 // A notice above the results in fixed colours (the same in every theme): an icon and a rich-text label; hidden until shown.
 void setupBanner(QWidget *banner, QLabel *text, const QColor &background, const QColor &foreground, QStyle::StandardPixmap icon)
 {
@@ -232,6 +301,8 @@ LoadView::LoadView(QWidget *parent)
               {tr("Load ratio"), tr("Burnt propellant"), tr("Effective efficiency"), tr("Heat / friction loss"),
                tr("Gas outflow velocity")}}};
 
+    constexpr std::array<CardGlyph::Kind, 4> glyphs = {CardGlyph::Kind::Pressure, CardGlyph::Kind::Velocity, CardGlyph::Kind::Energy,
+                                                       CardGlyph::Kind::Time};
     auto *cardRow = new QHBoxLayout;
     cardRow->setSpacing(8);
     for (std::size_t i = 0; i < cards.size(); ++i)
@@ -243,7 +314,11 @@ LoadView::LoadView(QWidget *parent)
         auto *cl = new QVBoxLayout(card);
         cl->setContentsMargins(10, 6, 10, 8);
         cl->setSpacing(2);
-        cl->addWidget(caption);
+        auto *captionRow = new QHBoxLayout;
+        captionRow->setSpacing(6);
+        captionRow->addWidget(new CardGlyph(glyphs[i]));
+        captionRow->addWidget(caption, 1);
+        cl->addLayout(captionRow);
         cl->addWidget(value);
         m_values[i] = value;
         cardRow->addWidget(card, 1);
