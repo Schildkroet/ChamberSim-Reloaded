@@ -7,3 +7,6 @@ Vihtavuori N133,223 Rem.,4300,Hornady Match 2249,52.0,5.69,18.10,database,2,57.0
 ReloadSwiss RS40,223 Rem.,4300,Speer Varmint Soft Point 19-1047,55.0,5.69,17.40,database,0,57.4,600.0,,measured,1.6070,975.4,3348,7.4,83.1,7,DEVA 2019-07-31 no. 1 (S&B case CCI 400 7 shots 3 misfires)
 ReloadSwiss RS40,223 Rem.,4300,Speer Varmint Soft Point 19-1047,55.0,5.69,17.40,database,0,57.4,600.0,,measured,1.6589,1005.6,3680,13.1,244.0,8,DEVA 2019-07-31 no. 2 (S&B case CCI 400 8 shots 2 misfires)
 ReloadSwiss RS20,40 S.& W.,2250,H&N HP HS .401,180.0,10.17,17.04,estimate:lead,0,28.83,150.0,,measured,0.3823,296.8,,6.0,,10,DEVA 2019-08-01 no. 3 (Geco case CCI 500 10 shots; pressure 1216 bar left out: 35 % under the published 1873 bar of the same charge and 37 % under the model)
+Vihtavuori N320,9 mm Luger,2350,GECO Hexagon 0.355 124 gr,124.0,9.02,15.3,database,0,28.4,150.0,,measured,0.2333,302.7,1687,4.8,79.9,9,DEVA 2026-10-27 no. 1 (Geco case CCI 500 9 shots + 1 warm-up)
+Vihtavuori N140,308 Win.,4150,Hornady Match 30501 BTHP,168.0,7.82,31.0,database,2,71.0,600.0,,measured,2.8512,800.7,3797,5.0,96.9,9,DEVA 2026-10-27 no. 2 (S&B case Federal GM210M 9 shots + 1 warm-up)
+Vihtavuori N140,308 Win.,4150,Hornady ELD Match 30506,168.0,7.82,32.3,database,2,71.0,600.0,,measured,2.7864,783.7,3540,4.7,87.1,10,DEVA 2026-10-27 no. 3 (S&B case Federal GM210M 10 shots)

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Combines every published-load file into one load file per class (rifle, pistol, shotshell), checks the loads and drops the invalid ones.
 
-    build_loads.py [--samples sources/samples] [--out sources/loads] [--simulate <csr_eval>] [--max-dev 45] [--trend 0.15] [--data data]
+    build_loads.py [--samples sources/samples] [--out sources/loads] [--simulate <csr_eval>] [--max-dev 45] [--trend 0.15] [--data data] [--measured data/measurements]
 
 1. combine   every `*.csv` of --samples (the files of the extractors: `hodgdon_samples.csv`, `lyman_samples.csv`, `vv_N150.csv`, ...) is read; a load that several
              files hold (same powder, cartridge, bullet weight, kind, charge, velocity, cartridge length, shot mass; shotshell: gauge, shot, primer, wad, pressure) is kept once, with the first file as `source`.
+             Also read are the own measured series of --measured (`data/measurements/*.csv` with a `powder` and a `kind` column: DEVA and Beschussamt protocols, the
+             column `weight` = number of shots is kept, fit_physical_powders.py counts a row that many times); a source stem `deva_loads` etc. They go through the same steps.
              The class comes from the cartridge record (C.I.P. table IV = pistol and revolver, otherwise rifle); loads of the shotshell files (`*shot*`) are shotshell
              loads. Loads of a cartridge the project does not have are dropped (nothing to simulate them with).
 2. check     analysis/check_published_loads.py with --apply-hard on the rifle and the pistol file: range (velocity, charge, bullet mass, lengths), energy (muzzle energy
@@ -78,6 +80,7 @@ def main() -> int:
     ap.add_argument("--max-dev", type=float, default=45.0)
     ap.add_argument("--trend", type=float, default=0.15)
     ap.add_argument("--data", type=Path, default=ROOT / "data")
+    ap.add_argument("--measured", type=Path, default=ROOT / "data" / "measurements", help="directory of the own measured series (empty or missing: none)")
     ap.add_argument("--python", default=sys.executable)
     args = ap.parse_args()
     records = Records(args.data)
@@ -90,12 +93,14 @@ def main() -> int:
     seen: set[tuple] = set()
     by_class: dict[str, list[dict]] = {"rifle": [], "pistol": [], "shot": []}
     files = sorted(p for p in args.samples.glob("*.csv") if "lengths" not in p.name)
+    if args.measured.is_dir():
+        files = sorted(args.measured.glob("*.csv")) + files  # first: a measured load wins over a published duplicate
     n_in = 0
     for path in files:
         with path.open(newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f)
-            if not reader.fieldnames or "powder" not in reader.fieldnames:
-                continue
+            if not reader.fieldnames or "powder" not in reader.fieldnames or (path.parent == args.measured and "kind" not in reader.fieldnames):
+                continue  # (data/measurements/own_chrono_loads.csv is a velocity-only file in another format)
             for row in reader:
                 n_in += 1
                 row["powder"] = ALIASES.get(row["powder"], row["powder"])
