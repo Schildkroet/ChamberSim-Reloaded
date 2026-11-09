@@ -18,6 +18,13 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
   Rifle 4.30 % to 4.27 % velocity rms against the published loads, on Speer's web data (not used by the fit)
   5.08 % to 4.87 %; pistol and revolver unchanged at 7.89 %. The Original profile and the accuracy table are not
   affected.
+- **Line icons** on the four result cards.
+
+### Fixed
+
+- **.416 Barrett case dimensions.** The record had only the Wikipedia values and some were wrong (overall length,
+  case head dimension). It now carries the full C.I.P. Tab I sheet (revision 2025-05-13): body and shoulder lengths,
+  angles, pressures and all chamber dimensions, so the cartridge and chamber drawings are complete.
 
 ## 0.15
 
