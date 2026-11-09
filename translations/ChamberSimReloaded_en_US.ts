@@ -404,41 +404,41 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+565"/>
+        <location filename="../src/app/loadview.cpp" line="+640"/>
         <source>Gun</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-335"/>
-        <location line="+140"/>
+        <location line="-341"/>
+        <location line="+146"/>
         <location line="+196"/>
         <location line="+597"/>
         <source>Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-932"/>
-        <location line="+139"/>
+        <location line="-938"/>
+        <location line="+145"/>
         <location line="+197"/>
         <location line="+597"/>
         <source>Propellant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-997"/>
-        <location line="+204"/>
+        <location line="-1003"/>
+        <location line="+210"/>
         <source>Select Caliber</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-204"/>
-        <location line="+204"/>
+        <location line="-210"/>
+        <location line="+210"/>
         <source>Select Projectile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-204"/>
-        <location line="+204"/>
+        <location line="-210"/>
+        <location line="+210"/>
         <source>Select Propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -459,25 +459,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-983"/>
-        <location line="+1077"/>
+        <location line="-989"/>
+        <location line="+1083"/>
         <source>Maximum pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1069"/>
-        <location line="+1070"/>
+        <location line="-1075"/>
+        <location line="+1076"/>
         <source>Muzzle pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1078"/>
-        <location line="+1079"/>
+        <location line="-1084"/>
+        <location line="+1085"/>
         <source>Muzzle velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1078"/>
+        <location line="-1084"/>
         <source>Projectile energy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -513,12 +513,12 @@
     </message>
     <message>
         <location line="+2"/>
-        <location line="+89"/>
+        <location line="+95"/>
         <source>Load ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-95"/>
         <source>Burnt propellant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -548,7 +548,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+98"/>
         <location line="+78"/>
         <location line="+765"/>
         <source>Charge</source>

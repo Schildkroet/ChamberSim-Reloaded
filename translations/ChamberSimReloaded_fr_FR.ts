@@ -404,30 +404,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+221"/>
-        <location line="+1077"/>
+        <location filename="../src/app/loadview.cpp" line="+290"/>
+        <location line="+1083"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-1069"/>
-        <location line="+1070"/>
+        <location line="-1075"/>
+        <location line="+1076"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-1077"/>
+        <location line="-1083"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="-1"/>
-        <location line="+1079"/>
+        <location line="+1085"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-1078"/>
+        <location line="-1084"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -458,12 +458,12 @@
     </message>
     <message>
         <location line="+2"/>
-        <location line="+89"/>
+        <location line="+95"/>
         <source>Load ratio</source>
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-95"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
@@ -478,7 +478,7 @@
         <translation>Pertes chaleur / frottement</translation>
     </message>
     <message>
-        <location line="+89"/>
+        <location line="+95"/>
         <location line="+78"/>
         <location line="+765"/>
         <source>Charge</source>
@@ -520,36 +520,36 @@
         <translation>Cartouche &amp;&amp; arme</translation>
     </message>
     <message>
-        <location line="-140"/>
-        <location line="+140"/>
+        <location line="-146"/>
+        <location line="+146"/>
         <location line="+196"/>
         <location line="+597"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-932"/>
-        <location line="+139"/>
+        <location line="-938"/>
+        <location line="+145"/>
         <location line="+197"/>
         <location line="+597"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-997"/>
-        <location line="+204"/>
+        <location line="-1003"/>
+        <location line="+210"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
     <message>
-        <location line="-204"/>
-        <location line="+204"/>
+        <location line="-210"/>
+        <location line="+210"/>
         <source>Select Projectile</source>
         <translation>Choisir le projectile</translation>
     </message>
     <message>
-        <location line="-204"/>
-        <location line="+204"/>
+        <location line="-210"/>
+        <location line="+210"/>
         <source>Select Propellant</source>
         <translation>Choisir la poudre</translation>
     </message>
@@ -641,7 +641,7 @@
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
     <message>
-        <location line="-446"/>
+        <location line="-452"/>
         <source>Bullet lead time (BLT)</source>
         <translation>Temps d&apos;avance du projectile (BLT)</translation>
     </message>
@@ -656,7 +656,7 @@
         <translation>Canon</translation>
     </message>
     <message>
-        <location line="+451"/>
+        <location line="+457"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Afficher uniquement les balles adaptées au calibre</translation>
     </message>
