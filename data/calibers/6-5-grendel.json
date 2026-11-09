@@ -8,7 +8,7 @@
   "L3": 38.7,
   "L6": 57.5,
   "R1": 11.2,
-  "E": 1.5,
+  "E": 5.08,
   "P1": 11.15,
   "P2": 10.87,
   "H1": 7.44,
@@ -18,5 +18,10 @@
   "V": 35.5,
   "c_Q": 35.36,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; Pmax 360 MPa (52,000 psi, Alexander Arms via Wikipedia) (checked against the original database, 2026-10-10)"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; Pmax 360 MPa (52,000 psi, Alexander Arms via Wikipedia) (checked against the original database, 2026-10-10); L1, L2, shoulder angle, extractor groove and rim thickness from the SAAMI Z299.4 cartridge drawing",
+  "L1": 29.227,
+  "L2": 32.242,
+  "alpha": "60.0",
+  "E1": 9.6,
+  "Emin": 1.5
 }

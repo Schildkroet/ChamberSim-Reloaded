@@ -18,5 +18,8 @@
   "V": 82,
   "c_Q": 35.36,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; L1, L2, shoulder angle from the SAAMI Z299.4 cartridge drawing",
+  "L1": 51.818,
+  "L2": 57.047,
+  "alpha": "50.0"
 }

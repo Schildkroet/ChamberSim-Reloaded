@@ -8,7 +8,7 @@
   "L3": 65.79,
   "L6": 84.84,
   "R1": 13.56,
-  "E": 1.27,
+  "E": 5.08,
   "P1": 13.97,
   "P2": 13.42,
   "H1": 7.98,
@@ -17,5 +17,10 @@
   "V": 98.4,
   "c_Q": 39.15,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; L1, L2, shoulder angle, extractor groove and rim thickness from the SAAMI Z299.4 cartridge drawing",
+  "L1": 53.562,
+  "L2": 57.447,
+  "alpha": "70.0",
+  "E1": 12.07,
+  "Emin": 1.27
 }

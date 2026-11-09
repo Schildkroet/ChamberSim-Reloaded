@@ -67,6 +67,11 @@ std::vector<QPointF> outerProfile(const QMap<QString, double> &d)
         pts.push_back({H1 / 2.0, L2});
         pts.push_back({(H2 > 0.0 ? H2 : H1) / 2.0, L3});
     }
+    else if (L1 <= 0.0 && P2 <= 0.0 && L2 > bodyStartY && L2 < L3 && H1 > 0.0 && H1 < 2.0 * bodyStartR - 0.3)
+    {  // tapered case without a separate shoulder (L1 and P2 are blank on the C.I.P. sheet): the cone from the head ends at L2, then the neck
+        pts.push_back({H1 / 2.0, L2});
+        pts.push_back({(H2 > 0.0 ? H2 : H1) / 2.0, L3});
+    }
     else
     {  // straight wall
         pts.push_back({(H2 > 0.0 ? H2 : bodyStartR * 2.0) / 2.0, L3});

@@ -16,5 +16,11 @@
   "V": 32,
   "c_Q": 25.43,
   "origin": "en.wikipedia.org",
-  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline"
+  "descr": "Dimensions from the Wikipedia infobox (published cartridge drawing values); bore area from the bullet diameter; case capacity estimated from the outline; L1, L2, shoulder angle, extractor groove and rim thickness from the SAAMI Z299.4 cartridge drawing",
+  "L1": 37.176,
+  "L2": 40.289,
+  "alpha": "46.0",
+  "E": 5.08,
+  "E1": 8.43,
+  "Emin": 1.14
 }

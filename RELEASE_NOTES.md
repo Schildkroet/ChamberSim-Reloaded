@@ -25,6 +25,12 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
 - **.416 Barrett case dimensions.** The record had only the Wikipedia values and some were wrong (overall length,
   case head dimension). It now carries the full C.I.P. Tab I sheet (revision 2025-05-13): body and shoulder lengths,
   angles, pressures and all chamber dimensions, so the cartridge and chamber drawings are complete.
+- **Cartridge drawings of 16 Wikipedia-sourced rifle calibers** (6 mm Creedmoor and Rem., 6.5 Grendel, 6.8 Western,
+  22 / 26 / 27 / 30 / 33 Nosler, .222 Rem. Mag., .224 Valkyrie, .264 Win. Mag., 277 SIG Fury, .280 Ackley Improved,
+  .30 Rem. AR, .35 Whelen) had no shoulder: the body and shoulder lengths, shoulder angle, extractor groove and rim
+  thickness are now taken from the SAAMI Z299.4 drawings.
+- **Tapered C.I.P. cases without a shoulder** (6.5 x 70 R, 6.5 x 58 R, 8 x 72 R, .32-40 and others) are drawn as the
+  cone up to L2 instead of a straight wall.
 
 ## 0.15
 

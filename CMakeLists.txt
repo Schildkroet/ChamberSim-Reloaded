@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # The application version: the single place to change it (shown in Help > About, bundle info, ...).
-set(CSR_VERSION "0.16")
+set(CSR_VERSION "0.17")
 
 project(ChamberSimReloaded VERSION ${CSR_VERSION} LANGUAGES CXX)
 
@@ -160,6 +160,11 @@ if(CSR_PROJECT_DATA)  # the physical burn values and caliber factors as in the p
     qt_add_resources(csr_sim "projectdata" PREFIX "/" FILES ${CSR_PROJECT_DATA})
 endif()
 install(TARGETS csr_sim RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+# draws the cartridge of every caliber record to PNG files for a visual check: csr_cartridges --help
+add_executable(csr_cartridges tools/csr_cartridges.cpp)
+target_link_libraries(csr_cartridges PRIVATE csrui)
+target_compile_definitions(csr_cartridges PRIVATE CSR_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
 add_executable(grt_compare tools/grt_compare.cpp)
 target_link_libraries(grt_compare PRIVATE csrcore)
