@@ -401,7 +401,6 @@ std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *
     const QStringList lines = QString::fromUtf8(bytes).remove(u'\uFEFF').split(u'\n');
     const bool xero = std::ranges::any_of(lines, [](const QString &l) { return xeroHeaderFactor(splitQuoted(l)) > 0.0; });
     if (xero) return readGarminCsv(lines, error);
-    const bool labradar = std::ranges::any_of(lines, [](const QString &l) { return l.trimmed().startsWith(u"Shot ID;"); });
     if (const QChar separator = labradarSeparator(lines); !separator.isNull()) return readLabradar(lines, separator, error);
     const bool magneto = std::ranges::any_of(lines, [](const QString &l)
                                              { return l.contains(u"Shots:", Qt::CaseInsensitive) && l.trimmed().startsWith(u"Series"); });

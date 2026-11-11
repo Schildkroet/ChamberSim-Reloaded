@@ -481,7 +481,7 @@ void CoreTest::chronographFiles()
     // the Labradar LX, two variants of the same series: "Series13.csv" with ';' (named series, unit in the row below the table header)
     // and with ',' ("Shot Number", "V0.00m", degree sign in UTF-8); neither has a "Units velocity" line
     static const QByteArray kLabradarLxSemicolon =
-        "sep=;\r\nDevice ID;Labradar Florian;;\r\n\r\n"
+        "sep=;\r\nDevice ID;Labradar;;\r\n\r\n"
         "Series No;013 G11 7,5x55 42gr N150 L6=75,8 Hornady HPBT168;;\r\nTotal number of shots;0011;;\r\n\r\n"
         "Projectile Weight;168.00;grain;\r\nTemperature;15.00;degC;\r\n\r\n"
         "Stats - Average;760.57;m/s;\r\nStats - Max;762.25;m/s;\r\nStats - Min;758.11;m/s;\r\n\r\n"
@@ -497,23 +497,23 @@ void CoreTest::chronographFiles()
         "0009;758.11;754.67;3128.28;3099.99;415.96;0.776;0.391;2026-10-20;18:15;\r\n"
         "0010;761.65;756.83;3157.63;3117.78;417.15;0.554;0.279;2026-10-20;18:16;\r\n"
         "0011;761.59;756.61;3157.08;3115.97;417.03;0.538;0.271;2026-10-20;18:17;\r\n";
-    static const QByteArray kLabradarLxComma =
-        "Device ID,LLXA001Y6HF\r\n\r\nSeries Number,13\r\nShot Count,11\r\n\r\nMode,Standard\r\n\r\n"
-        "Caliber,0.308,in\r\nProjectile Weight,168.000,gr\r\n"
-        "Temperature,15.0,\xC2\xB0" "C\r\nStation Pressure,1020.3,mbar\r\n\r\n"
-        "Stats - Average,760.57,m/s\r\nStats - Max,762.25,m/s\r\nStats - Min,758.11,m/s\r\n\r\n"
-        "Shot Number,V0.00m,V9.00m,KE9.00m,PF9.00m,BC G1,BC G7,Date,Time\r\n,m/s,m/s,J,,,,\r\n"
-        "1,761.86,756.58,3115.73,417.01,0.507,0.255,2026-10-20,18:07:20\r\n"
-        "2,760.85,755.24,3104.64,416.27,0.476,0.240,2026-10-20,18:07:40\r\n"
-        "3,762.25,757.65,3124.49,417.60,0.581,0.293,2026-10-20,18:11:37\r\n"
-        "4,760.33,756.18,3112.41,416.79,0.644,0.324,2026-10-20,18:12:11\r\n"
-        "5,761.06,756.51,3115.12,416.97,0.587,0.296,2026-10-20,18:12:33\r\n"
-        "6,758.59,753.64,3091.50,415.39,0.538,0.271,2026-10-20,18:13:11\r\n"
-        "7,759.12,754.98,3102.53,416.13,0.644,0.324,2026-10-20,18:13:29\r\n"
-        "8,760.82,755.66,3108.11,416.50,0.517,0.261,2026-10-20,18:15:13\r\n"
-        "9,758.11,754.67,3099.99,415.96,0.776,0.391,2026-10-20,18:15:44\r\n"
-        "10,761.65,756.83,3117.78,417.15,0.554,0.279,2026-10-20,18:16:25\r\n"
-        "11,761.59,756.61,3115.97,417.03,0.538,0.271,2026-10-20,18:17:12\r\n";
+    static const QByteArray kLabradarLxComma = "Device ID,LLXA001Y6HF\r\n\r\nSeries Number,13\r\nShot Count,11\r\n\r\nMode,Standard\r\n\r\n"
+                                               "Caliber,0.308,in\r\nProjectile Weight,168.000,gr\r\n"
+                                               "Temperature,15.0,\xC2\xB0"
+                                               "C\r\nStation Pressure,1020.3,mbar\r\n\r\n"
+                                               "Stats - Average,760.57,m/s\r\nStats - Max,762.25,m/s\r\nStats - Min,758.11,m/s\r\n\r\n"
+                                               "Shot Number,V0.00m,V9.00m,KE9.00m,PF9.00m,BC G1,BC G7,Date,Time\r\n,m/s,m/s,J,,,,\r\n"
+                                               "1,761.86,756.58,3115.73,417.01,0.507,0.255,2026-10-20,18:07:20\r\n"
+                                               "2,760.85,755.24,3104.64,416.27,0.476,0.240,2026-10-20,18:07:40\r\n"
+                                               "3,762.25,757.65,3124.49,417.60,0.581,0.293,2026-10-20,18:11:37\r\n"
+                                               "4,760.33,756.18,3112.41,416.79,0.644,0.324,2026-10-20,18:12:11\r\n"
+                                               "5,761.06,756.51,3115.12,416.97,0.587,0.296,2026-10-20,18:12:33\r\n"
+                                               "6,758.59,753.64,3091.50,415.39,0.538,0.271,2026-10-20,18:13:11\r\n"
+                                               "7,759.12,754.98,3102.53,416.13,0.644,0.324,2026-10-20,18:13:29\r\n"
+                                               "8,760.82,755.66,3108.11,416.50,0.517,0.261,2026-10-20,18:15:13\r\n"
+                                               "9,758.11,754.67,3099.99,415.96,0.776,0.391,2026-10-20,18:15:44\r\n"
+                                               "10,761.65,756.83,3117.78,417.15,0.554,0.279,2026-10-20,18:16:25\r\n"
+                                               "11,761.59,756.61,3115.97,417.03,0.538,0.271,2026-10-20,18:17:12\r\n";
     const std::vector<double> lxVelocities{761.86, 760.85, 762.25, 760.33, 761.06, 758.59, 759.12, 760.82, 758.11, 761.65, 761.59};  // m/s
     const auto checkLx = [&](const QByteArray &data, const QString &name)
     {

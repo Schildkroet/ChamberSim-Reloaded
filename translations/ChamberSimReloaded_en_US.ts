@@ -95,7 +95,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+466"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+471"/>
         <source>No cartridge data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3060,14 +3060,19 @@ pressure Δ</source>
     </message>
     <message>
         <location line="+15"/>
-        <location line="+35"/>
+        <location line="+79"/>
         <location line="+120"/>
         <location line="+73"/>
         <source>The file contains no shots.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-198"/>
+        <location line="-218"/>
+        <source>The file has no V0 column.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
         <location line="+193"/>
         <source>The velocity unit of the file is unknown.</source>
         <translation type="unfinished"></translation>
@@ -3100,7 +3105,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+107"/>
         <source>Not a Garmin Xero, MagnetoSpeed or Labradar file.</source>
         <translation type="unfinished"></translation>
     </message>

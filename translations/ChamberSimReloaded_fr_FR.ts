@@ -95,7 +95,7 @@
 <context>
     <name>CartridgeView</name>
     <message>
-        <location filename="../src/app/cartridgeview.cpp" line="+466"/>
+        <location filename="../src/app/cartridgeview.cpp" line="+471"/>
         <source>No cartridge data</source>
         <translation>Aucune donnée de cartouche</translation>
     </message>
@@ -3086,14 +3086,19 @@ pression Δ</translation>
     </message>
     <message>
         <location line="+15"/>
-        <location line="+35"/>
+        <location line="+79"/>
         <location line="+120"/>
         <location line="+73"/>
         <source>The file contains no shots.</source>
         <translation>Le fichier ne contient aucun tir.</translation>
     </message>
     <message>
-        <location line="-198"/>
+        <location line="-218"/>
+        <source>The file has no V0 column.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
         <location line="+193"/>
         <source>The velocity unit of the file is unknown.</source>
         <translation>L&apos;unité de vitesse du fichier est inconnue.</translation>
@@ -3126,7 +3131,7 @@ pression Δ</translation>
         <translation>Ce fichier FIT n’est pas une session de tir d’un chronographe.</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+107"/>
         <source>Not a Garmin Xero, MagnetoSpeed or Labradar file.</source>
         <translation>Ce n’est pas un fichier Garmin Xero, MagnetoSpeed ou Labradar.</translation>
     </message>
