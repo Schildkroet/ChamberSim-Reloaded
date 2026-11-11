@@ -33,7 +33,8 @@ enum class ChronographFormat
     Unknown,
     MagnetoSpeed,
     Labradar,
-    GarminXero
+    GarminXero,
+    LabradarLX
 };
 
 // One series of a chronograph file: the velocities in m/s in shot order (missed shots are left out).
@@ -53,8 +54,8 @@ struct ChronographFile
 
 // Reads a chronograph export. Recognised: the Garmin Xero C1 Pro's FIT shot session file (binary; chrono shot data messages) and the
 // CSV the Garmin Xero app exports ("#,SPEED (MPS),..." table), MagnetoSpeed CSV ("Series, n, Shots:, count" blocks with one
-// "series, shot, speed, unit" line per shot; one file can hold several series) and the Labradar "Report.csv"
-// ("Series No", "Units velocity" and a "Shot ID;V0;..." table, V0 = muzzle velocity). nullopt with `error` set if
+// "series, shot, speed, unit" line per shot; one file can hold several series), the Labradar "Report.csv"
+// ("Series No", "Units velocity" and a "Shot ID;V0;..." table, V0 = muzzle velocity) and Labradar LX CSV ("Shot Number,Series Number,...,V0,..." with a unit row below the header). nullopt with `error` set if
 // the text is none of them or has no shots.
 [[nodiscard]] std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *error = nullptr);
 

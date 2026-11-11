@@ -142,7 +142,58 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QString *e
     file.series.push_back(std::move(series));
     return file;
 }
-
+// The Labradar LX CSV: a header "Shot Number,Series Number,Dx1,V0,Vx1,...", a unit row below it (",,m,m/s,m/s,J,,gr") and one line
+// per shot. V0 is the muzzle velocity; the series number is in every line, so one file can hold several series.
+std::optional<ChronographFile> readLabradarLX(const QStringList &lines, QString *error)
+{
+    ChronographFile file{.format = ChronographFormat::LabradarLX, .series = {}};
+    int v0 = -1, seriesCol = -1, currentSeries = -1;
+    bool unitRowDone = false;
+    double factor = 0.0;
+    for (const QString &line : lines)
+    {
+        if (line.trimmed().isEmpty()) continue;
+        const QStringList f = splitLine(line, u',');
+        if (v0 < 0)
+        {
+            if (f[0] == u"Shot Number")
+            {
+                v0 = static_cast<int>(f.indexOf(u"V0"_s));
+                seriesCol = static_cast<int>(f.indexOf(u"Series Number"_s));
+            }
+            continue;
+        }
+        if (!unitRowDone)
+        {
+            unitRowDone = true;
+            if (v0 < f.size()) factor = velocityFactor(f[v0]);
+            continue;
+        }
+        bool shotOk = false;
+        f[0].toInt(&shotOk);
+        if (!shotOk || v0 >= f.size()) continue;
+        int seriesNo = 0;
+        if (seriesCol >= 0 && seriesCol < f.size()) seriesNo = f[seriesCol].toInt();
+        if (file.series.empty() || seriesNo != currentSeries)
+        {
+            currentSeries = seriesNo;
+            file.series.push_back({.name = tr("Series %1").arg(seriesNo), .velocities_ms = {}});
+        }
+        if (const auto v = number(f[v0]); v && *v > 0.0 && factor > 0.0) file.series.back().velocities_ms.push_back(*v * factor);
+    }
+    if (factor <= 0.0)
+    {
+        if (error) *error = tr("The velocity unit of the file is unknown.");
+        return std::nullopt;
+    }
+    std::erase_if(file.series, [](const ChronographSeries &s) { return s.velocities_ms.empty(); });
+    if (file.series.empty())
+    {
+        if (error) *error = tr("The file contains no shots.");
+        return std::nullopt;
+    }
+    return file;
+}
 // ---- Garmin Xero ----------------------------------------------------------------------------------------------------------------------
 
 // The Xero C1 Pro writes a FIT file (file type 54, "shot session"): a header, definition and data messages, a CRC. Only the messages
@@ -344,6 +395,7 @@ QString formatName(ChronographFormat f)
     case ChronographFormat::MagnetoSpeed: return u"MagnetoSpeed"_s;
     case ChronographFormat::Labradar: return u"Labradar"_s;
     case ChronographFormat::GarminXero: return u"Garmin Xero"_s;
+    case ChronographFormat::LabradarLX: return u"Labradar LX"_s;
     default: return {};
     }
 }
@@ -357,6 +409,8 @@ std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *
     const QStringList lines = QString::fromUtf8(bytes).remove(u'\uFEFF').split(u'\n');
     const bool xero = std::ranges::any_of(lines, [](const QString &l) { return xeroHeaderFactor(splitQuoted(l)) > 0.0; });
     if (xero) return readGarminCsv(lines, error);
+    const bool labradarLx = std::ranges::any_of(lines, [](const QString &l) { return l.trimmed().startsWith(u"Shot Number,"); });
+    if (labradarLx) return readLabradarLX(lines, error);
     const bool labradar = std::ranges::any_of(lines, [](const QString &l) { return l.trimmed().startsWith(u"Shot ID;"); });
     if (labradar) return readLabradar(lines, error);
     const bool magneto = std::ranges::any_of(lines, [](const QString &l)
