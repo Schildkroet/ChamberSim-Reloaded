@@ -106,26 +106,70 @@ std::optional<ChronographFile> readMagnetoSpeed(const QStringList &lines, QStrin
     return file;
 }
 
-std::optional<ChronographFile> readLabradar(const QStringList &lines, QString *error)
+// The column of the muzzle velocity in the header of a Labradar table: "V0" (Report.csv) or "V0.00m" (LX); -1 if there is none.
+int labradarVelocityColumn(const QStringList &header)
+{
+    for (qsizetype i = 0; i < header.size(); ++i)
+        if (header[i] == u"V0" || header[i].startsWith(u"V0.")) return static_cast<int>(i);
+    return -1;
+}
+
+// "0013" -> "SR0013"; a name the shooter gave the series stays as it is.
+QString labradarSeriesName(const QString &value)
+{
+    const bool number = !value.isEmpty() && std::all_of(value.begin(), value.end(), [](QChar c) { return c.isDigit(); });
+    return number ? u"SR"_s + value : value;
+}
+
+// The separator of a Labradar file, found by its table header: "Shot ID;V0;..." (Report.csv, LX with ';') or
+// "Shot Number,V0.00m,..." (LX with ','). A null QChar if the lines have no such table.
+QChar labradarSeparator(const QStringList &lines)
+{
+    for (const QString &l : lines)
+    {
+        const QString t = l.trimmed();
+        if (t.startsWith(u"Shot ID;")) return u';';
+        if (t.startsWith(u"Shot Number,")) return u',';
+    }
+    return {};
+}
+
+std::optional<ChronographFile> readLabradar(const QStringList &lines, QChar separator, QString *error)
 {
     ChronographFile file{.format = ChronographFormat::Labradar, .series = {}};
     ChronographSeries series;
     double factor = 0.0;
     int v0 = -1;
+    bool inTable = false;
     for (const QString &line : lines)
     {
-        const QStringList f = splitLine(line, u';');
+        const QStringList f = splitLine(line, separator);
         if (f.isEmpty()) continue;
-        if (v0 < 0)
+        if (!inTable)
         {
-            if (f[0] == u"Series No" && f.size() > 1) series.name = u"SR"_s + f[1];
+            if ((f[0] == u"Series No" || f[0] == u"Series Number") && f.size() > 1) series.name = labradarSeriesName(f[1]);
             else if (f[0] == u"Units velocity" && f.size() > 1) factor = velocityFactor(f[1]);
-            else if (f[0] == u"Shot ID") v0 = static_cast<int>(f.indexOf(u"V0"_s));
+            else if (f[0] == u"Shot ID" || f[0] == u"Shot Number")
+            {
+                v0 = labradarVelocityColumn(f);
+                if (v0 < 0)
+                {
+                    if (error) *error = tr("The file has no V0 column.");
+                    return std::nullopt;
+                }
+                inTable = true;
+            }
             continue;
         }
         bool idOk = false;
         f[0].toInt(&idOk);
-        if (!idOk || v0 >= f.size()) continue;
+        if (!idOk)
+        {
+            // The unit row below the header (";m/s;m/s;...") gives the unit if there is no "Units velocity" line.
+            if (f[0].isEmpty() && factor <= 0.0 && v0 < f.size()) factor = velocityFactor(f[v0]);
+            continue;
+        }
+        if (v0 >= f.size()) continue;
         if (const auto v = number(f[v0]); v && *v > 0.0) series.velocities_ms.push_back(*v * factor);
     }
     if (factor <= 0.0)
@@ -358,7 +402,7 @@ std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *
     const bool xero = std::ranges::any_of(lines, [](const QString &l) { return xeroHeaderFactor(splitQuoted(l)) > 0.0; });
     if (xero) return readGarminCsv(lines, error);
     const bool labradar = std::ranges::any_of(lines, [](const QString &l) { return l.trimmed().startsWith(u"Shot ID;"); });
-    if (labradar) return readLabradar(lines, error);
+    if (const QChar separator = labradarSeparator(lines); !separator.isNull()) return readLabradar(lines, separator, error);
     const bool magneto = std::ranges::any_of(lines, [](const QString &l)
                                              { return l.contains(u"Shots:", Qt::CaseInsensitive) && l.trimmed().startsWith(u"Series"); });
     if (magneto) return readMagnetoSpeed(lines, error);
