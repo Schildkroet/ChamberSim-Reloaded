@@ -30,8 +30,14 @@ primer: it adds the difference between the primer type's start pressure
 and 250 bar (fitted to Hodgdon's published loads: Large Rifle 250 bar,
 the others 230 to 450 bar). For pistol and revolver cartridges the
 physical model starts at no less than 0.3 times the maximum permitted
-pressure, so there the primer usually has no effect. Loads of earlier
-versions and of the original keep their start pressure exactly.
+pressure (the floor). Changes of the Additional Start Pressure and of the
+primer type against the load as it was made or opened are added on top of
+the floor, bar for bar: with 50 bar more additional start pressure the
+bullet starts 50 bar higher. A load that you have not changed gives the
+same result as without this rule. Selecting another projectile makes its
+start pressure the new reference. Loads of earlier versions and of the
+original keep their start pressure exactly: the start pressure they have
+when opened is their reference.
 
 ### Replacing the caliber.
 

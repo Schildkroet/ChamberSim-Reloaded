@@ -22,7 +22,7 @@
   (neutral against the published loads: 0.00-0.01 points).
 
   **The start resistance is a fitted term, not an engraving force** (2026-10-17). It is `engravingShare x start pressure x bore area`,
-  decaying over the **bearing length**; the start pressure is the model's release threshold and is `0.3 x pMax` for handguns, so the term
+  decaying over the **bearing length**; the start pressure is the model's release threshold and is `0.3 x pMax` for handguns (changes of psadd and primer against the load's reference `psref` are added to it, `handgunStartGain` 1), so the term
   gives pistols 2-4 times the start resistance of rifles. That scaling is what the published loads are fitted with. Replacing it with a
   physical engraving (absolute 150-300 bar x bore area, decaying over 0.2-2 mm) or adding case-neck friction (stress x pi x D x the
   remaining seating depth) does not improve the fit: with the Ba of every powder refitted for each variant (all published loads, fit
@@ -51,7 +51,7 @@
   the bullet (gas *and* unburnt grains), only its phase changes, so the burnt fraction is not the moving mass; and with a growing mass the
   momentum equation would need the influx term `-alpha * dm/dt * v` as well.
   Its constants and the **physical burn values** of 193 project powders (Ba, a0, z1, z2 fitted to each powder's published loads with
-  pressures (Hodgdon, Western, Lovex, ReloadSwiss, ADI; Vihtavuori, Vectan, RWS and Alliant publish none: their maximum loads count as the C.I.P. limit minus 50 bar;
+  pressures (Hodgdon, Western, Lovex, ReloadSwiss, ADI; Vihtavuori, Vectan, RWS and Alliant publish none: their maximum loads count as the C.I.P. limit minus 50 bar, except the 18 Vihtavuori powders of `analysis/form_references.json`, which take the burn form of a powder with pressures (the limit rule gave 16 to 50 % too much pressure on measured loads);
   4 Alliant powders with too few loads have the median form function of the others) come from `analysis/calibrate_published.py --profile physical` and
   `analysis/fit_physical_powders.py` (file `data/physical/propellants.json`). A powder also carries an optional **effective grain geometry**
   (ball or single-perforated cylinder, fitted to its form function by `analysis/fit_grain_geometry.py`); where the geometric surface

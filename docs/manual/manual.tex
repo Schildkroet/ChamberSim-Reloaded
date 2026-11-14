@@ -304,7 +304,7 @@ When you close a tab or quit with unsaved changes the program asks whether to \u
   \bottomrule
 \end{tabular}
 \end{center}
-The format is chosen by the file name's extension.
+The format is chosen by the file name's extension. A \texttt{.csrload} carries a format number (now 2); files of an earlier format open as before and are saved in the current one.
 
 \paragraph{Opening an original file.} A \file{.grtload} file is read completely, including the measurements, notes and pictures of its appendix. Because the program
 saves only in its own format, \ui{Save} on such a load works like \ui{Save as\dots}: it suggests the same name with the extension \file{.csrload}. The original file
@@ -368,8 +368,11 @@ usual primer of the caliber. The start pressure, the gas pressure at which the b
 Pressure} for the bullet, the crimp and the case, as in the original program; a new load takes it from the bullet record (its start pressure
 minus 250\,bar). Only the physical model uses the primer: it adds the difference between the primer type's start pressure and 250\,bar (fitted to
 Hodgdon's published loads: Large Rifle 250\,bar, the others 230 to 450\,bar). For pistol and revolver cartridges the physical model starts at no
-less than 0.3 times the maximum permitted pressure, so there the primer usually has no effect. Loads of earlier versions and of the original keep
-their start pressure exactly.
+less than 0.3 times the maximum permitted pressure (the floor). Changes of the \ui{Additional Start Pressure} and of the primer type against the
+load as it was made or opened are added on top of the floor, bar for bar: with 50\,bar more additional start pressure the bullet starts 50\,bar
+higher. A load that you have not changed gives the same result as without this rule. Selecting another projectile makes its start pressure the new
+reference. Loads of earlier versions and of the original keep their start pressure exactly: the start pressure they have when opened is their
+reference.
 
 \paragraph{Replacing the caliber.} After you choose another caliber, the program can also set barrel length, seating depth and charge to the defaults
 of the new caliber (tick the corresponding option in the selection dialog). The primer becomes the usual primer of the new caliber; the additional start

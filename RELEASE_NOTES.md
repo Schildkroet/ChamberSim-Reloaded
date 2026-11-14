@@ -3,6 +3,30 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.17
+
+### Added and changed
+
+- **Start pressure of pistol and revolver loads: your changes count.** For these cartridges the Physical Model starts
+  the bullet at no less than 0.3 times the permitted pressure, and that floor swallowed every change of the
+  *Additional Start Pressure* or the *Primer* below it. The changes are now added on top of the floor, bar for bar
+  (+50 bar additional start pressure: the bullet starts 50 bar higher). A load that you have not changed gives exactly
+  the old result, so the published-load accuracy is unchanged (pistol and revolver 7.81 % velocity and 16.21 % peak
+  pressure rms). Selecting another projectile makes its start pressure the new reference.
+- **Pressure of Vihtavuori powders.** Vihtavuori publishes no pressures, so the burn form of its powders was fitted
+  with the C.I.P. limit as the pressure of the maximum loads. Against measured pressures that came out 16 to 50 % too
+  high at the right velocity (DEVA N140 +16 / +22 %, N320 +18 %, a .357 Magnum load with N110 +50 %). 18 Vihtavuori
+  powders now take the burn form of a similar powder with measured pressures and only their burn rate is fitted to the
+  published velocities: N110 +50 % to +15 %, N140 +16 / +22 % to +7 / +12 %, N320 +18 % to +3 %. The published loads
+  stay as they were (rifle 4.03 % / 11.84 %, pistol and revolver 7.81 % / 16.21 % velocity / pressure rms). The list
+  and the references are in `analysis/form_references.json` and are used by every refit.
+- **File format 2.** `.csrload` files carry the hidden reference of the additional start pressure (`psref`).
+  Loads of format 1 and of the original open as before: the start pressure they have when opened is the reference.
+  The reference is left out of the *.grtload export.
+- **Labradar LX.** Report files of the Labradar LX, from the device and from the iOS app, are imported.
+- **Measured load.** The Measurements data now include a .357 Magnum N110 load from a proof house (150 mm
+  manometer barrel, 2174 bar) and the refit scripts check it.
+
 ## 0.16
 
 ### Added and changed
