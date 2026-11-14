@@ -41,9 +41,14 @@ ap.add_argument("--merge", action="store_true", help="keep the other powders of 
 ap.add_argument("--limit-pressure", action="store_true",
                 help="rows without a measured pressure: the maximum loads get the caliber's C.I.P. limit (column pmax_bar) as pressure (Vihtavuori)")
 ap.add_argument("--limit-margin", type=float, default=0.0, help="with --limit-pressure: the maximum loads count as this many bar below the limit")
+ap.add_argument("--form-reference", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "form_references.json"),
+                help="JSON of powders that take the burn form (a0, z1, z2, grain geometry) of a powder with measured pressures and fit only Ba, "
+                     "without pseudo-pressures (default: analysis/form_references.json; \"none\": off)")
 ap.add_argument("--eval-arg", action="append", default=[], help="extra option for csr_eval (repeatable), e.g. --eval-arg=--ps-handgun=150")
 args = ap.parse_args()
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
+
+REFMAP = {} if args.form_reference == "none" else {k.lower(): v.lower() for k, v in json.load(open(args.form_reference))["references"].items()}
 
 # ---- samples (identical rows and misread pressures dropped, like calibrate_published.py) and the project's powder records
 records = {}
@@ -58,8 +63,10 @@ rows, seen = [], set()
 for f in args.samples:
     for r in csv.DictReader(open(f)):
         r.setdefault("pressure_bar", "")  # files without pressures (Vihtavuori)
-        if args.limit_pressure and not r["pressure_bar"] and r["kind"] == "max" and r.get("pmax_bar"): r["pressure_bar"] = str(float(r["pmax_bar"]) - args.limit_margin)
         if r["powder"].lower() not in records and len(by_name.get(r["powder"].lower(), [])) == 1: r["powder"] = by_name[r["powder"].lower()][0]
+        # a powder with a form reference has no pseudo-pressure of the C.I.P. limit (its form comes from the reference)
+        if (args.limit_pressure and not r["pressure_bar"] and r["kind"] == "max" and r.get("pmax_bar") and r["powder"].lower() not in REFMAP):
+            r["pressure_bar"] = str(float(r["pmax_bar"]) - args.limit_margin)
         if r.get("pressure_bar") and not 500 <= float(r["pressure_bar"]) <= 9000: r["pressure_bar"] = ""
         key = (r["powder"].upper(), r["caliber"], r["bullet_gr"], r["kind"], r["charge_g"], r["velocity_ms"], r["col_mm"])
         if key not in seen: seen.add(key); rows.append(r)
@@ -70,6 +77,18 @@ for r in rows:
 start = {(p["mname"] + " " + p["pname"]).lower(): p for p in json.load(open(args.start))["propellants"]} if args.start else {}
 # The grain geometry of a powder is independent of the Ba fit: csr_eval takes it from this file when --phys replaces Ba, a0, z1, z2.
 PHYS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "physical", "propellants.json")
+
+def _entries(path):
+    return {(p["mname"] + " " + p["pname"]).lower(): p for p in json.load(open(path))["propellants"]}
+_shipped = _entries(PHYS_FILE)
+def _grain_arg(entry):
+    g = entry.get("grain")
+    return f"{g['shape']},{g['ld']},{g['hole']},{g['amplitude']}" if g else "fitted,0,0,1"  # "fitted": the cubic form, overrides the powder's own geometry
+REF_FORM, REF_GRAIN, REF_ENTRY = {}, {}, {}
+for _k, _ref in REFMAP.items():
+    _e = start.get(_ref) or _shipped.get(_ref)
+    if _e is None: sys.exit(f"form reference {_ref} of {_k} has no burn values (--start or data/physical/propellants.json)")
+    REF_FORM[_k] = (_e["a0"], _e["z1"], _e["z2"]); REF_GRAIN[_k] = _grain_arg(_e); REF_ENTRY[_k] = _e
 # rifle / pistol class of a caliber (C.I.P. table IV is pistol and revolver)
 CAL_CLASS = {}
 for _f in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "calibers", "*.json")):
@@ -85,7 +104,7 @@ def simulate(name, powder, burn, subset):
     with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, header, extrasaction="ignore"); w.writeheader(); w.writerows(subset)
     cmd = [args.eval_exe, path, "--profile", "physical", "--physical", PHYS_FILE,
-           "--phys", f"{powder}=" + ",".join(f"{v:.8g}" for v in burn)] + args.eval_arg
+           "--phys", f"{powder}=" + ",".join(f"{v:.8g}" for v in burn) + (f",{REF_GRAIN[powder]}" if powder in REF_GRAIN else "")] + args.eval_arg
     out = subprocess.run(cmd, capture_output=True, text=True).stdout
     v = np.full(len(subset), np.nan); p = np.full(len(subset), np.nan)
     for line in out.splitlines():
@@ -171,14 +190,15 @@ def run(powder, with_form, form=(0.0, 0.3, 0.6)):
     train = [r for r in data if args.split == "all" or r["caliber"] not in held_out]
     test = [r for r in data if args.split == "train" and r["caliber"] in held_out]
     x0 = start_of(powder)
-    if not with_form and args.keep_form:
+    if powder in REF_FORM: form = REF_FORM[powder]
+    elif not with_form and args.keep_form:
         form = (x0[1], x0[2], x0[2] + x0[3] * (1 - x0[2]))
     burn = fit(powder, train, x0 if with_form else x0[:1], form)
     return powder, burn, stats(powder, burn, train), stats(powder, burn, test)
 
 only = {o.strip().lower() for o in args.only.split(",")} if args.only else None
 candidates = [p for p, rs in by_powder.items() if len(rs) >= args.min_samples and (only is None or p in only or records[p]["pname"].lower() in only)]
-with_p = [p for p in candidates if sum(1 for r in by_powder[p] if r["pressure_bar"]) >= 20] if args.fit == "form" else []
+with_p = [p for p in candidates if p not in REF_FORM and sum(1 for r in by_powder[p] if r["pressure_bar"]) >= 20] if args.fit == "form" else []
 without_p = [p for p in candidates if p not in with_p]
 print(f"{len(candidates)} powders ({len(with_p)} with pressures), held-out cartridges: {len(held_out)}", flush=True)
 results = {}
@@ -231,10 +251,13 @@ for powder in sorted(results):
     entry = {"mname": rec["mname"], "pname": rec["pname"],
              "record": {k: rec[k] for k in ("Ba", "a0", "z1", "z2")},
              "Ba": round(burn[0], 6), "a0": round(burn[1], 6), "z1": round(burn[2], 6), "z2": round(burn[3], 6),
-             "form": "kept" if args.fit == "ba" and args.keep_form else ("fitted" if powder in with_p else "median"),
+             "form": "reference" if powder in REF_FORM else ("kept" if args.fit == "ba" and args.keep_form else ("fitted" if powder in with_p else "median")),
              "fit": tr, **({"heldOut": te} if te else {})}
     key = (rec["mname"] + " " + rec["pname"]).lower()
-    if key in old_grain: entry["grain"] = old_grain[key]  # keep the effective grain geometry (fit_grain_geometry.py)
+    if powder in REF_FORM:
+        entry["formFrom"] = REF_ENTRY[powder]["mname"] + " " + REF_ENTRY[powder]["pname"]
+        if "grain" in REF_ENTRY[powder]: entry["grain"] = REF_ENTRY[powder]["grain"]
+    elif key in old_grain: entry["grain"] = old_grain[key]  # keep the effective grain geometry (fit_grain_geometry.py)
     out["propellants"].append(entry)
 if args.merge and os.path.exists(args.out):
     kept = {(p["mname"] + " " + p["pname"]).lower(): p for p in json.load(open(args.out))["propellants"]}

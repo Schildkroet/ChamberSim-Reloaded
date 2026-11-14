@@ -155,7 +155,7 @@ build/release/csr_eval hod_samples.csv --profile physical [--set name=value] [--
 # effective grain geometry (ball / single-perforated cylinder) of the physical form functions, then Ba-only refit keeping the form
 python3 analysis/fit_grain_geometry.py build/release/csr_eval --threshold 0.08 --write
 .venv/bin/python analysis/fit_physical_powders.py build/release/csr_eval hod_samples.csv west_samples.csv \
-    --split all --fit ba --keep-form --start data/physical/propellants.json --merge   # --limit-pressure for the VV limits
+    --split all --fit ba --keep-form --start data/physical/propellants.json --merge   # --limit-pressure for the VV limits (powders of analysis/form_references.json take the form of their reference instead)
 # published loads against the shipped powder records, rifle / pistol / publisher, optionally against an older build (--baseline) or other burn values
 .venv/bin/python analysis/compare_physical_published.py build/release/csr_eval [samples.csv ...] [--baseline older/csr_eval] [--eval-arg=--physical=DIR/propellants.json] [--max-pressure-dev 45] [--worst 6]
 # loads whose simulated pressure is >45 % off the published one are probably invalid: copies without them (-> sources/samples_clean), or --apply

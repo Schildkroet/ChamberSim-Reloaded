@@ -1,0 +1,23 @@
+{
+ "note": "Burn form references for powders without measured pressures (analysis/fit_physical_powders.py, --form-reference). Key: the powder, value: a powder WITH measured pressures whose burn form (a0, z1, z2 and grain geometry, as in the --start file or data/physical/propellants.json) the key powder takes; only its Ba is fitted, to the published velocities. Without a reference such powders get the C.I.P. limit (minus --limit-margin) as the pressure of their maximum loads, which came out 16 to 50 % too high on measured pressures (DEVA N140 +16/+22 %, N320 +18 %, proof house .357 Magnum N110 +50 %, data/measurements). References were the nearest Ba among the powders with pressures (the one with most pressures of the three nearest), N110 chosen from 40 candidates on the proof house load (Alliant Unique: +15 % instead of +50 %, velocity -2 %). N120 (shipped fit is good: -7 % on the .458 SOCOM row) and N570 (grain geometry) are deliberately not listed. A reference is not refitted from this list: put only powders into P (>= 10 measured pressures) as references.",
+ "references": {
+  "vihtavuori 20n29": "hodgdon h1000",
+  "vihtavuori 3n37": "reloadswiss rs50",
+  "vihtavuori n105": "accurate no. 5",
+  "vihtavuori n110": "alliant unique",
+  "vihtavuori n130": "hodgdon grand",
+  "vihtavuori n133": "adi ar2208",
+  "vihtavuori n140": "ramshot tac",
+  "vihtavuori n310": "ramshot true blue",
+  "vihtavuori n320": "hodgdon wsf",
+  "vihtavuori n330": "reloadswiss rs12",
+  "vihtavuori n350": "reloadswiss rs12",
+  "vihtavuori n530": "adi ar2208",
+  "vihtavuori n540": "adi ar2217",
+  "vihtavuori n550": "hodgdon h1000",
+  "vihtavuori n555": "ramshot big game",
+  "vihtavuori n560": "ramshot big game",
+  "vihtavuori n565": "ramshot big game",
+  "vihtavuori n568": "ramshot magnum"
+ }
+}

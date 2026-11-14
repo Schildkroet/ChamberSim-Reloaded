@@ -14,6 +14,9 @@
 # compare    the candidates against the shipped values (rifle / pistol), per powder (adopt_report.py: velocity rms of its own loads -0.1 point or more, pressure not worse),
 #            and on the measured loads of data/measurements. <work dir>/phys has copies of calibers.json and primers.json (csr_eval reads them next to --physical; without
 #            them every comparison is biased) and the check "shipped file as --physical" must give zero change.
+# Q = powders without measured pressures: those listed in analysis/form_references.json (Vihtavuori; fit_physical_powders.py applies it by default) take the burn form
+#            of a powder with pressures and fit only Ba to the velocities, the others get the C.I.P. limit as the pressure of their maximum loads. Without a
+#            reference the limit rule came out 16 to 50 % too high in pressure on measured loads (data/measurements); check those after every refit.
 # A step only writes its own file (ba.json, ms.json): the others stay, so a step can be rerun alone. Adopted powders: <work dir>/phys/adopted_<candidate>.json.
 set -euo pipefail
 EVAL=$(realpath "$1"); WORK=$(realpath -m "$2"); STEPS=${3:-build groups ba compare}
@@ -54,7 +57,14 @@ if has ba; then
       --min-samples 20 --only "$(cat $WORK/Q.txt)" > "$WORK/fitQ.log"
 fi
 if has multistart; then
-  $PY analysis/fit_physical_multistart.py "$EVAL" $FILES --powders "$(cat $WORK/Q.txt)" --keep "$KEEP" --start "$PHYS/base.json" --out "$PHYS/ms.json" --work "$WORK/ms" | tee "$WORK/ms.log"
+  # the powders of analysis/form_references.json take the form of their reference: not multi-started
+  QMS=$($PY - "$WORK/Q.txt" <<'PYEOF2'
+import json, sys
+refs = {k.lower() for k in json.load(open("analysis/form_references.json"))["references"]}
+print(",".join(p for p in open(sys.argv[1]).read().split(",") if p not in refs))
+PYEOF2
+)
+  $PY analysis/fit_physical_multistart.py "$EVAL" $FILES --powders "$QMS" --keep "$KEEP" --start "$PHYS/base.json" --out "$PHYS/ms.json" --work "$WORK/ms" | tee "$WORK/ms.log"
 fi
 if has compare; then
   echo "== shipped file as --physical (must be zero change)"
@@ -65,9 +75,9 @@ if has compare; then
     $PY analysis/compare_physical_published.py "$EVAL" $FILES --projectiles data/projectiles --eval-arg=--physical="$PHYS/$c.json" --baseline "$EVAL" \
         --dump "$WORK/dump_$c.csv" | grep -E "^(Rifle|Pistol)" | tail -2
     $PY analysis/adopt_report.py "$WORK/dump_$c.csv" "$PHYS/base.json" "$PHYS/$c.json" --out "$PHYS/adopted_$c.json"
-    for m in beschussamt deva; do echo "measured $m ($c): $("$EVAL" data/measurements/${m}_loads.csv --profile physical --physical "$PHYS/adopted_$c.json" | tr '\n' ' ')"; done
+    for m in beschussamt deva proofhouse; do echo "measured $m ($c): $("$EVAL" data/measurements/${m}_loads.csv --profile physical --physical "$PHYS/adopted_$c.json" | tr '\n' ' ')"; done
   done
-  for m in beschussamt deva; do echo "measured $m (shipped): $("$EVAL" data/measurements/${m}_loads.csv --profile physical --physical "$PHYS/base.json" | tr '\n' ' ')"; done
+  for m in beschussamt deva proofhouse; do echo "measured $m (shipped): $("$EVAL" data/measurements/${m}_loads.csv --profile physical --physical "$PHYS/base.json" | tr '\n' ' ')"; done
   cat <<'TXT'
 
 Adopt by hand after the measured loads (458 SOCOM N120, DEVA N340) have not got worse: write the entries of <work dir>/phys/adopted_<candidate>.json into data/physical/propellants.json
