@@ -243,6 +243,10 @@ struct Calibration
     // own value). The published handgun loads of high-pressure cartridges (9 mm Luger, .40 S&W, .357 Magnum) need about 600 bar, low-pressure ones less.
     // It holds in every barrel: the barrel length cannot change the shot start, and the carbine loads (.357, .44 Mag. at 406-510 mm) need it too.
     double handgunStartFraction{0.0};
+    // Changes of the load's start pressure (additional start pressure psadd, primer type) against the neutral load (SimInput::neutralStartPressure_bar)
+    // are added to the floor of the handgun start pressure with this gain, so that they are not swallowed by it (0: the floor swallows them
+    // while it is above the load's start pressure, 1: they count in full).
+    double handgunStartGain{0.0};
     double burnZ0Factor{0.0};  // the form function sees z + burnZ0Factor * z0 (initial gas counts as burnt)
     // Measured on the original with fast powders: the energy of the burnt powder reaches the gas only by the fraction
     // 1 - exp(-ignitionRate * (step + ignitionLead)), counted in steps of the original's 2000 point position grid

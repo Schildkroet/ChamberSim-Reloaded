@@ -130,8 +130,9 @@ const QList<Choice> *choicesFor(const QString &key)
 // the original uses the distance either way (measured, batch 10).
 bool hiddenField(const QString &key)
 {
-    return key == u"gjumpUnlock" || key == u"gfrictionUnlock" ||
-           key == u"physRef";  // gfrictionUnlock: the friction always applies; physRef: the burn values the physical ones belong to
+    return key == u"gjumpUnlock" || key == u"gfrictionUnlock" || key == u"physRef" ||
+           key ==
+               u"psref";  // psref: the reference of the additional start pressure; gfrictionUnlock: the friction always applies; physRef: the burn values the physical ones belong to
 }
 
 QString tipFor(const QList<Choice> &list, const QString &code)

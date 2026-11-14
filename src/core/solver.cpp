@@ -803,11 +803,21 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
         if (cal.model == SolverModel::Physical && !in.shotshell) adjusted.startPressure_bar += in.primerOffset_bar;
         return simulate(adjusted, calibration, steps);
     }
-    if (in.handgun && !in.shotshell && cal.handgunStartFraction * in.maxPressure_bar > in.startPressure_bar)
+    if (in.handgun && !in.shotshell && !in.handgunStartApplied && cal.handgunStartFraction > 0.0)
     {
+        // the floor, plus the changes of the start pressure against the neutral load (a load below the floor keeps them; a start above the floor stays)
+        const double floor = cal.handgunStartFraction * in.maxPressure_bar;
+        const double neutral = in.neutralStartPressure_bar;
+        const double target = cal.handgunStartGain > 0.0 && neutral > 0.0
+                                  ? std::max(floor, neutral) + cal.handgunStartGain * (in.startPressure_bar - neutral)
+                                  : std::max(floor, in.startPressure_bar);
         SimInput adjusted = in;
-        adjusted.startPressure_bar = cal.handgunStartFraction * in.maxPressure_bar;
-        return simulate(adjusted, calibration, steps);
+        adjusted.handgunStartApplied = true;
+        if (target != in.startPressure_bar)
+        {
+            adjusted.startPressure_bar = target;
+            return simulate(adjusted, calibration, steps);
+        }
     }
     SimResult res;
     const double x0 = in.startPosition_mm() * 1e-3;
@@ -1082,6 +1092,12 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.model = SolverModel::Physical;
         cal.handgunStartFraction =
             0.3;  // 2026-10-08: pistol and revolver cartridges start at 0.3 x the permitted pressure (>= the load's own value)
+        // 2026-11-14: changes of the load's start pressure (psadd, primer) against the neutral load count in full on top of that floor instead of being
+        // swallowed by it; a load made or opened without changes gives exactly the old result (published loads unchanged)
+        cal.handgunStartGain = 1.0;
+        // 2026-11-14: the changes of the load's start pressure (psadd, primer) count in full on top of that floor instead of being swallowed by it
+        // (a new handgun load starts with psadd 0, so the published-load fits do not change: 7.77 / 16.22 % pistol velocity / pressure rms either way)
+        cal.handgunStartGain = 1.0;
         // 2026-10-17: the physical model uses the classical Lagrange pair (gasMassShare 1/4, breech burn pressure), the
         // ogive-corrected bullet intrusion and no double-counted jump volume. The per-powder Ba were refitted to the published
         // samples with these equations; the global constants keep the 2026-10-11 values (a joint fit on a subset improved the
@@ -1158,6 +1174,7 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"burnZ0Factor", &cal.burnZ0Factor},
             {"initialGasFactor", &cal.initialGasFactor},
             {"handgunStartFraction", &cal.handgunStartFraction},
+            {"handgunStartGain", &cal.handgunStartGain},
             {"shotCapacityFactor", &cal.shotCapacityFactor},
             {"shotFrictionShare", &cal.shotFrictionShare},
             {"shotEnergyFactor", &cal.shotEnergyFactor},

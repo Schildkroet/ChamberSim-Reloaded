@@ -50,6 +50,10 @@ struct SimInput
     double startPressure_bar{250.0};
     double primerOffset_bar{};  // start pressure of the load's primer type - 250 bar: added by the physical model only (primer.h)
     double maxPressure_bar{};   // permitted maximum (CIP), informative only
+    // Start pressure of the same load without the user's changes (psadd 0, the caliber's usual primer), primer offset included; 0: unknown. The
+    // handgun start pressure floor (Calibration::handgunStartFraction) keeps the changes of the load's start pressure from being swallowed.
+    double neutralStartPressure_bar{};
+    bool handgunStartApplied{};  // set by the solver: the handgun start pressure is resolved, do not apply the floor again
     double shotCapacityScale{
         1.0};  // factors of the shell, wad and primer named in the caliber on the shotshell model (shotparts.h; 1: none chosen)
     double shotEnergyScale{1.0};

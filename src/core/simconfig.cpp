@@ -21,6 +21,7 @@
 
 #include "loadbuilder.h"
 #include "numeric.h"
+#include "primer.h"
 #include "shotparts.h"
 
 #include <algorithm>
@@ -44,6 +45,14 @@ SimInput SimInput::fromLoad(const LoadFile &lf)
     in.startPressure_bar = loadStartPressure_bar(c);
     in.primerOffset_bar = csr::primerOffset_bar(c);  // physical model only
     in.maxPressure_bar = c.number(u"pMaxZul");
+    if (lf.caliber.find(u"psref") && !lf.caliber.flag(u"shotshell"))
+    {
+        // the load without the user's changes: the caliber's usual primer (its record's column, kept in the load's caliberfile block; without it the
+        // load's own primer counts) and the additional start pressure it was made or opened with
+        const QString usual = lf.caliberFile.text(u"primer").trimmed();
+        const QString primer = isPrimerCode(usual) ? usual : lf.caliber.text(u"primer");
+        in.neutralStartPressure_bar = primerStartPressure_bar(primer, c.number(u"casevol")) + c.number(u"psref");
+    }
     in.handgun = lf.caliberFile.text(u"cippdf").contains(u"/tab-iv/") || lf.caliberFile.text(u"ciptype").contains(u"pistol");
     in.shotshell = c.flag(u"shotshell");
     if (in.shotshell)

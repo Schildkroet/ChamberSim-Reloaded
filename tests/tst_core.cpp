@@ -278,7 +278,7 @@ void CoreTest::loadFileFormats()
 
     // this program's format: its own root element (the original does not open it), the same content
     const QByteArray own = original->toXml();
-    QVERIFY(own.contains("<ChamberSimReloaded format=\"1\""));
+    QVERIFY(own.contains("<ChamberSimReloaded format=\"2\""));
     QVERIFY(own.contains("<load>"));
     QVERIFY(!own.contains("GordonsReloadingTool"));
     QVERIFY(!own.contains("InnerBallistikInput"));
@@ -1982,7 +1982,8 @@ void CoreTest::loadBuilderMatchesOriginal()
     for (const auto sel : {&csr::LoadFile::caliber, &csr::LoadFile::gun, &csr::LoadFile::projectile, &csr::LoadFile::propellant})
     {
         std::vector<csr::Entry> a = (built.*sel).entries();
-        std::erase_if(a, [](const csr::Entry &e) { return e.name == u"primer" || e.name == u"psadd" || e.name == u"gmaterial"; });
+        std::erase_if(a, [](const csr::Entry &e)
+                      { return e.name == u"primer" || e.name == u"psadd" || e.name == u"psref" || e.name == u"gmaterial"; });
         const auto &b = ((*orig).*sel).entries();
         QCOMPARE(a.size(), b.size());
         for (std::size_t i = 0; i < a.size(); ++i)
@@ -2799,6 +2800,31 @@ void CoreTest::primerGivesTheStartPressure()
         QVERIFY(!csr::ensurePrimer(old));  // only once
     }
 
+    // the reference of the additional start pressure (psref): set with the load, kept in the own format only, added to a load of format 1 and to the export
+    {
+        csr::LoadFile fresh = csr::buildLoad(caliber, bullet, powder);
+        QCOMPARE(fresh.caliber.number(u"psref"), 80.0);
+        QCOMPARE(fresh.formatVersion, csr::kLoadFormatVersion);
+        fresh.caliber.set(u"psadd", 120.0);  // a change of the user: the reference stays
+        QCOMPARE(fresh.caliber.number(u"psref"), 80.0);
+        const auto back = csr::LoadFile::parse(fresh.toXml(csr::FileFormat::Reload));
+        QVERIFY(back);
+        QCOMPARE(back->formatVersion, 2);
+        QCOMPARE(back->caliber.number(u"psref"), 80.0);
+        QVERIFY(!csr::LoadFile::parse(fresh.toXml(csr::FileFormat::Original))->caliber.find(u"psref"));
+        QByteArray xml = fresh.toXml(csr::FileFormat::Reload);
+        xml.replace("format=\"2\"", "format=\"1\"");
+        auto v1 = csr::LoadFile::parse(xml);
+        QVERIFY(v1);
+        QCOMPARE(v1->formatVersion, 1);
+        v1->caliber.entries().erase(std::ranges::find_if(v1->caliber.entries(), [](const csr::Entry &e) { return e.name == u"psref"; }));
+        QVERIFY(!csr::ensurePrimer(*v1));               // it had primer and psadd already
+        QCOMPARE(v1->caliber.number(u"psref"), 120.0);  // its additional start pressure is the reference: the results stay the same
+        csr::LoadFile fromExport = *exported;
+        QVERIFY(csr::ensurePrimer(fromExport));
+        QCOMPARE(fromExport.caliber.number(u"psref"), fromExport.caliber.number(u"psadd"));
+    }
+
     // the Original model gets the load's start pressure, the physical one adds the primer's offset
     {
         csr::LoadFile old = *exported;
@@ -2814,6 +2840,31 @@ void CoreTest::primerGivesTheStartPressure()
         shifted.startPressure_bar += in.primerOffset_bar;
         QCOMPARE(csr::simulate(in, physical).maxPressure_bar, csr::simulate(shifted, physical).maxPressure_bar);
         QVERIFY(csr::simulate(in, physical).maxPressure_bar != csr::simulate(plain, physical).maxPressure_bar);
+    }
+
+    // pistol and revolver cartridges: the floor of the start pressure (handgunStartFraction) does not swallow the changes of the load
+    {
+        auto pl = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/357sig_no_caliberfile.grtload"));  // .357 SIG, ps 150 bar
+        QVERIFY(pl);
+        pl->caliberFile.entries().push_back({.name = u"ciptype"_s, .value = u"4 pistol/revolver"_s, .unit = {}, .type = {}, .descr = {}});
+        QVERIFY(csr::ensurePrimer(*pl));
+        QCOMPARE(pl->caliber.number(u"psref"), pl->caliber.number(u"psadd"));
+        const csr::Calibration physical = csr::calibrationFor(csr::CalibrationProfile::Physical);
+        csr::Calibration swallowed = physical;
+        swallowed.handgunStartGain = 0.0;  // the floor alone
+        QVERIFY(physical.handgunStartGain > 0.0);
+        const csr::SimResult base = csr::simulate(csr::SimInput::fromLoad(*pl), physical);
+        QVERIFY(base.ok());
+        // a load as it was opened gives the result of the floor alone
+        QCOMPARE(base.maxPressure_bar, csr::simulate(csr::SimInput::fromLoad(*pl), swallowed).maxPressure_bar);
+        pl->caliber.set(u"psadd", pl->caliber.number(u"psref") + 60.0);  // +60 bar start pressure
+        csr::updateStartPressure(*pl);
+        const csr::SimInput changed = csr::SimInput::fromLoad(*pl);
+        QVERIFY(csr::simulate(changed, physical).maxPressure_bar > base.maxPressure_bar);
+        QCOMPARE(csr::simulate(changed, swallowed).maxPressure_bar, base.maxPressure_bar);  // what the floor alone did: nothing
+        pl->caliber.set(u"psadd", pl->caliber.number(u"psref") - 60.0);
+        csr::updateStartPressure(*pl);
+        QVERIFY(csr::simulate(csr::SimInput::fromLoad(*pl), physical).maxPressure_bar < base.maxPressure_bar);
     }
 
     // the case volume dependence: start pressure * (V / 3 cm3)^-k

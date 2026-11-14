@@ -65,10 +65,14 @@ private:
     std::vector<Entry> m_entries;
 };
 
-// The two file formats of a load. *.csrload is this program's own (<ChamberSimReloaded format="1"><load>), *.grtload is the
+// The two file formats of a load. *.csrload is this program's own (<ChamberSimReloaded format="2"><load>), *.grtload is the
 // original program's (<GordonsReloadingTool><InnerBallistikInput>): both are read, the original's is only written as an export.
 // This program's data that the original does not know (physical burn values, shotshell parts) has its own sections
 // (<physical>, <shotshell>) in *.csrload; the export leaves it out. In memory it is in the propellant / caliber entries.
+// Version of this program's own format (the format attribute): 2 = the caliber section has the hidden reference start pressure psref (loadbuilder.h);
+// a load of version 1 (and one of the original) gets it when it is opened (ensurePrimer), so its results stay exactly the same.
+inline constexpr int kLoadFormatVersion = 2;
+
 enum class FileFormat
 {
     Reload,
@@ -86,6 +90,8 @@ struct LoadFile
 {
     QString appVersion;
     FileFormat source = FileFormat::Reload;  // the format it was read from (a new load is in this program's)
+    int formatVersion =
+        kLoadFormatVersion;  // format attribute of a *.csrload that was read (1: before psref); a new load has the current one
     QString title;
     EntryList config;
     EntryList caliber;

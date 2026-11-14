@@ -126,10 +126,10 @@ bool isShotPart(const Entry &e)
     return e.name == u"shothull" || e.name == u"shotwad" || e.name == u"shotprimer";
 }
 
-// The primer and the additional start pressure (loadbuilder.h): in the caliber section of a *.csrload, not in the export (its ps has the sum).
+// The primer, the additional start pressure and its reference (loadbuilder.h): in the caliber section of a *.csrload, not in the export (its ps has the sum).
 bool isPrimerEntry(const Entry &e)
 {
-    return e.name == u"primer" || e.name == u"psadd";
+    return e.name == u"primer" || e.name == u"psadd" || e.name == u"psref";
 }
 
 // The bullet material (loadspec.h): in the projectile section of a *.csrload, not in the export (the original has no such input).
@@ -227,6 +227,7 @@ std::optional<LoadFile> LoadFile::parse(const QByteArray &xml, QString *error)
     lf.source = r.name() == u"ChamberSimReloaded" ? FileFormat::Reload : FileFormat::Original;
     const QStringView loadTag = lf.source == FileFormat::Reload ? u"load" : u"InnerBallistikInput";
     lf.appVersion = r.attributes().value(u"version"_s).toString();
+    if (lf.source == FileFormat::Reload) lf.formatVersion = std::max(r.attributes().value(u"format"_s).toInt(), 1);
 
     while (r.readNextStartElement())
     {
@@ -327,7 +328,7 @@ QByteArray LoadFile::toXml(FileFormat format) const
     else
     {
         w.writeStartElement(u"ChamberSimReloaded"_s);
-        w.writeAttribute(u"format"_s, u"1"_s);
+        w.writeAttribute(u"format"_s, QString::number(kLoadFormatVersion));
         if (const QString v = QCoreApplication::applicationVersion(); !v.isEmpty()) w.writeAttribute(u"version"_s, v);
     }
     w.writeStartElement(original ? u"InnerBallistikInput"_s : u"load"_s);

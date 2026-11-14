@@ -46,6 +46,8 @@ inline constexpr Field kCaliber[] = {
     // this program's (not in the original's sample load, left out of the *.grtload export): primer type and the start pressure on top of it
     {"primer", "", "string", "primer"},
     {"psadd", "bar", "decimal", "additional start pressure (bullet, crimp, case)"},
+    // psadd of the load as it was made or opened (hidden): the handgun start pressure counts changes of psadd and primer against it (solver.h)
+    {"psref", "bar", "decimal", "reference additional start pressure"},
     {"shotshell", "", "boolean", "true if shotshell"},
 };
 
