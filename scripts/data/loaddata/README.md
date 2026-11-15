@@ -126,7 +126,14 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   A source that lists powders of many makers (the H&N catalogue, a bullet maker's PDF such as Barnes) is split among the makers' files; run the script again after
   extracting a new source to `sources/samples/<name>_samples.csv`. 51,788 loads of 37 files.
 - `samples_common.py`: matches cartridges (with the table's spelling variants) to `data/calibers` and bullets to `data/projectiles`,
-  else an estimated length (`estimate_length.py`).
+  else an estimated length (`estimate_length.py`). A bullet is the record of the same maker, weight and diameter whose name shares the most words with the
+  table's type; the tables' abbreviations (SMK, AB, BT, CC, BTSP, HOTCOR, GS, ...) are expanded per maker (`BULLET_WORDS`), and among records that share
+  nothing (or equally much) the one closest to the estimated length wins. Until 2026-11-15 the first record of the weight was taken: Hornady 190 gr BTSP .308
+  got the 42 mm CX (real about 33 mm; 7 loads "charge too high", +40 % pressure), Sierra 180 gr SMK the 28 mm RN Pro-Hunter.
+- `rematch_lengths.py sources/samples/*.csv [--write]` looks up the lengths of existing sample files again with the current matcher (only rows whose length
+  is one of the matcher's candidates; product-number matches, photo lengths and estimates stay; originals to `sources/samples_prematch`). Run 2026-11-15:
+  4,278 rows of 35 files changed. On these rows the shipped powder values gave pressure 11.9 -> 11.3 % rms rifle (3,090 loads), 18.0 -> 14.1 % pistol
+  (bias +9.2 -> -0.4 %, 452 loads); velocity 3.79 -> 3.77 % rifle, 6.90 -> 7.22 % pistol (the powders were fitted with the old lengths).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
   and writes the records of the powders with at least 40 samples and at most 6 % (Reload Swiss: 6.5 %) velocity error.
   Results: `lovex_fits.csv`, `rs_fits.csv`.
@@ -166,6 +173,18 @@ powder numbers. R906 (1 load) is not written.
   The primer of the test cartridge is the column `primer` (the table's text, e.g. "WIN LR Magnum"; `scripts/data/primers.py` gives the
   type), used by `analysis/fit_primers.py`.
   14,000 samples of about 100 powders.
+- `hodgdon_rldc_extract.py export.pdf...` reads PDF exports of Hodgdon's Reloading Data Center (the search result of one cartridge, "Print" ->
+  PDF; saved in `sources/pdf/hodgdon_rldc/`): one comma-separated row per load with bullet (weight, maker code, type), case, primer, powder maker
+  and powder, cartridge length, start and maximum load (grains, ft/s, PSI or CUP); twist and barrel from the header. CUP rows keep only their velocities.
+  308 Winchester (2026-11-15): 586 loads, 1,130 samples, 702 of them also in the manual (velocities within 4.6 %), new are e.g. IMR 4166, IMR 4320, H414.
+  Shipped values on it (physical model): velocity 2.3 % rms (bias -0.7 %, 1,093 rifle loads), pressure 13.6 % (+4.2 %, 955 loads); the 37 subsonic
+  loads (Trail Boss, Titegroup, A5744, No. 2) 9.4 %. Pressure by lab: the Accurate / Ramshot rows (Winchester LR primer) have no bias, the Hodgdon / IMR /
+  Winchester rows (Federal 210M) +10 to +20 % (CFE 223, BL-C(2), IMR 4166 / 4320, StaBALL) with velocities within 1-2 %.
+  Not a powder problem: on all cartridges of the Hodgdon manual the same 16 powders are at -1.6 % pressure bias (Lee, Lyman +2.5 %), but 308 Win. runs high
+  in most sources (Hodgdon +2.8 %, Lee +5.1 %, ADI +11.3 %, Lyman +12.8 %; 30-06 and 6.5 Creedmoor about 0): a cartridge effect, which only a rifle caliber
+  factor could take (open). A Ba refit cannot: IMR 4166 fitted on its pressures goes 21.7 -> 10.4 % pressure but 2.9 -> 4.5 % velocity.
+  Ba refit with these loads and the rematched lengths (`analysis/refit.sh ... "build groups ba compare"`, 2026-11-15): totals unchanged (rifle 4.26 % v,
+  12.36 -> 12.14 % p; pistol 7.92 -> 7.93 %, 15.87 -> 15.89 %), adopted Accurate LT-32 (Ba 0.507 -> 0.514) and Vihtavuori 3N37 (3.65 -> 3.89).
 - `west_extract.py guide.pdf` reads the Western Powders Handloading Guide 8.0 (Accurate and Ramshot powders). Its text layer has a space
   between all characters of a data row, so a row is read with all spaces removed. 5,500 samples.
 - `published_fit.py a.csv b.csv --source "..." --fits fits.csv --write` merges the files (identical samples count once), fits Ba per

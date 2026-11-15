@@ -30,6 +30,36 @@ ALIASES = {".32 Smith & Wesson Long": "32 S.&W. Long", ".40 Smith & Wesson": "40
            "8.5 x 63": "8.5 x 63 R", "6 x 47 Lapua": "6 x 47 SM"}  # 8.5 x 63: the rimless twin of the 8.5 x 63 R (same body)
 
 
+# Abbreviations of the load tables (Hodgdon's RLDC and manual, Lyman, ...) -> words of the record names, per bullet maker.
+BULLET_WORDS = {
+    "nosler": {"bt": "ballistic tip", "ab": "accubond", "ablr": "accubond long range", "cc": "custom competition", "part": "partition", "pt": "partition",
+               "e-tip": "e-tip", "rdf": "rdf"},
+    "sierra": {"smk": "matchking", "sgk": "gameking", "tgk": "tipped gameking", "tmk": "tipped matchking", "spt": "pro-hunter", "bk": "blitzking",
+               "sfire": "matchking"},
+    "speer": {"gs": "grand slam", "hotcor": "hot cor", "hot-cor": "hot cor", "gd": "gold dot", "gdhp": "gold dot", "tnt": "tnt", "dgx": "dgx"},
+    "hornady": {"i-lock": "interlock", "btsp": "interlock", "sp": "interlock", "bthp-m": "match", "eld-m": "eld match", "eld-vt": "eld-vt",
+                "a-max": "a-max", "v-max": "v-max", "fmj-bt": "fmj"},
+    "barnes": {"tsx-bt": "tsx bt", "tsx-fb": "tsx fb", "ttsx-bt": "ttsx bt", "ttsx-fb": "ttsx fb"},
+    "berger": {"vld-ht": "vld hunting", "vld-tgt": "vld target", "hyb-tgt": "hybrid target", "bt-tgt": "bt target", "tgt-fb": "fb target", "fbt": "flat base"},
+    "swift": {"aframe": "a-frame"},
+}
+# maker codes of the tables, never part of a record name
+MAKER_CODES = {"hdy", "hrn", "sie", "nos", "spr", "bar", "ber", "sft", "sfi", "lap", "swi", "win", "rem", "nor", "ceb"}
+
+
+def bullet_words(maker: str, name: str) -> set:
+    """The words of a table's bullet type that can be looked for in the record names (at least two letters, abbreviations expanded)."""
+    words = set()
+    expand = BULLET_WORDS.get(maker.lower(), {})
+    for token in re.findall(r"[a-z0-9][a-z0-9/-]*", name.lower()):
+        for t in {token, *token.split("-"), *token.split("/")}:
+            if t in expand:
+                words.update(re.findall(r"[a-z0-9-]+", expand[t]))
+            if len(t) > 1 and t not in MAKER_CODES and re.fullmatch(r"[a-z0-9]+", t):
+                words.add(t)
+    return words
+
+
 class Records:
     """The project's calibers and projectiles (data/) with the lookups the extractors need."""
 
@@ -48,13 +78,23 @@ class Records:
                 return rec
         return None
 
+    def candidates(self, maker: str, grains: float, dia_mm: float):
+        """The records of the maker with this weight and diameter."""
+        return [p for p in self.projectiles if p["mname"].lower() == maker.lower() and abs(p["gmass"] - grains) < 0.8
+                and abs(p["gdia"] - dia_mm) < 0.06]
+
     def bullet(self, maker: str, btype: str, grains: float, dia_mm: float):
-        """(length mm, source, tail type): a record with the same maker, weight and diameter, else an estimated length."""
-        match = [p for p in self.projectiles if p["mname"].lower() == maker.lower() and abs(p["gmass"] - grains) < 0.8
-                 and abs(p["gdia"] - dia_mm) < 0.06]
+        """(length mm, source, tail type): the record with the same maker, weight and diameter whose name shares the most words with the type
+        (the tables' abbreviations expanded, BULLET_WORDS), else an estimated length. When no record shares a word, the one closest to the
+        estimated length is taken: the first one was a guess (Hornady 190 gr BTSP .308 got the 42 mm CX instead of the 33 mm Sub-X)."""
+        match = self.candidates(maker, grains, dia_mm)
         name = btype.lower()
-        if match:
-            best = max(match, key=lambda p: sum(w in p["pname"].lower() for w in re.findall(r"[a-z0-9]+", name)))
-            return best["glen"], "database", best.get("gtailtype", 0)
+        words = bullet_words(maker, name)
         est, kind = length_in(grains, dia_mm / IN, f"{name} {maker}")
+        if match:
+            def score(p):
+                return sum(w in p["pname"].lower() for w in words)
+            top = max(map(score, match))
+            best = min((p for p in match if score(p) == top), key=lambda p: abs(p["glen"] - est * IN))
+            return best["glen"], "database", best.get("gtailtype", 0)
         return est * IN, "estimate:" + kind, 2 if re.search(r"bt|boat|a-?max|match|scenar|hpbt|otm|vld|smk", name) else 0
