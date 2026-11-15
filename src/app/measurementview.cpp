@@ -74,6 +74,15 @@ enum ChargeColumn
     ColumnCount
 };
 
+enum ShotColumn
+{
+    ShotVelocity,
+    ShotPressure,
+    ShotIgnored,
+    ShotRemark,
+    ShotColumnCount
+};
+
 const csr::units::Unit &unitOf(Quantity q)
 {
     return UnitPreferences::instance().unitFor(q);
@@ -124,7 +133,7 @@ MeasurementView::MeasurementView(QWidget *parent)
     , m_removeSeries(new QPushButton(tr("Remove series")))
     , m_title(new QLineEdit)
     , m_charges(new QTableWidget(0, ColumnCount))
-    , m_shots(new QTableWidget(0, 2))
+    , m_shots(new QTableWidget(0, ShotColumnCount))
     , m_note(new QLineEdit)
     , m_shotsCaption(new QLabel)
     , m_hint(new QLabel)
@@ -164,7 +173,8 @@ MeasurementView::MeasurementView(QWidget *parent)
     m_charges->horizontalHeader()->setSectionResizeMode(Name, QHeaderView::Stretch);
     m_charges->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
     m_shots->setSelectionBehavior(QAbstractItemView::SelectRows);
-    m_shots->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_shots->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    m_shots->horizontalHeader()->setSectionResizeMode(ShotRemark, QHeaderView::Stretch);
     m_shots->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
     m_note->setPlaceholderText(tr("Note (rifle, chronograph, conditions, …)"));
     m_hint->setWordWrap(true);
@@ -399,8 +409,11 @@ void MeasurementView::refreshAll()
     m_charges->horizontalHeaderItem(Pressure)->setToolTip(tr("Mean measured peak pressure"));
     m_charges->horizontalHeaderItem(SimPressure)->setToolTip(tr("Peak pressure simulated for this charge"));
     m_charges->horizontalHeaderItem(PressureDelta)->setToolTip(tr("Simulated pressure relative to the measured mean"));
-    m_shots->setHorizontalHeaderLabels(
-        {tr("Velocity [%1]").arg(symbol(Quantity::Velocity)), tr("Pressure [%1]").arg(symbol(Quantity::Pressure))});
+    m_shots->setHorizontalHeaderLabels({tr("Velocity [%1]").arg(symbol(Quantity::Velocity)),
+                                        tr("Pressure [%1]").arg(symbol(Quantity::Pressure)), tr("Ignore"), tr("Remark")});
+    m_shots->horizontalHeaderItem(ShotIgnored)
+        ->setToolTip(tr("Ignored shots stay in the series but do not count in the statistics, the chart's mean and the fit"));
+    m_shots->horizontalHeaderItem(ShotRemark)->setToolTip(tr("A remark on the shot (flyer, cold bore, …)"));
     m_chart->setUnits(unitOf(Quantity::BulletMass), unitOf(Quantity::Velocity), unitOf(Quantity::Pressure));
     refreshCharges();
     refreshShots();
@@ -422,7 +435,11 @@ void MeasurementView::refreshCharges()
         const auto opt = [](bool ok, const QString &text) { return ok ? text : noValueText(); };
         m_charges->setItem(row, Name, editable(c.name, false));
         m_charges->setItem(row, Charge, editable(shownValue(c.charge_g(), Quantity::BulletMass)));
-        m_charges->setItem(row, Shots, readOnly(QString::number(c.shots.size())));
+        const auto used = std::ranges::count_if(c.shots, [](const csr::Shot &s) { return !s.ignored; });
+        m_charges->setItem(row, Shots,
+                           readOnly(used == std::ssize(c.shots) ? QString::number(used) : u"%1 / %2"_s.arg(used).arg(c.shots.size())));
+        if (used != std::ssize(c.shots))
+            m_charges->item(row, Shots)->setToolTip(tr("%n shot(s) ignored", nullptr, static_cast<int>(std::ssize(c.shots) - used)));
         m_charges->setItem(row, Velocity, readOnly(opt(v.count > 0, shownValue(v.mean, Quantity::Velocity, 1))));
         m_charges->setItem(row, VelocitySd, readOnly(opt(v.count > 1, shownValue(v.sd, Quantity::Velocity, 1))));
         m_charges->setItem(row, VelocityEs, readOnly(opt(v.count > 1, shownValue(v.extremeSpread(), Quantity::Velocity, 1))));
@@ -449,8 +466,23 @@ void MeasurementView::refreshShots()
     for (int row = 0; c && row < m_shots->rowCount(); ++row)
     {
         const csr::Shot &s = c->shots[static_cast<std::size_t>(row)];
-        m_shots->setItem(row, 0, editable(s.velocity_ms > 0.0 ? shownValue(s.velocity_ms, Quantity::Velocity, 1) : QString()));
-        m_shots->setItem(row, 1, editable(s.pressure_bar > 0.0 ? shownValue(s.pressure_bar, Quantity::Pressure, 0) : QString()));
+        m_shots->setItem(row, ShotVelocity, editable(s.velocity_ms > 0.0 ? shownValue(s.velocity_ms, Quantity::Velocity, 1) : QString()));
+        m_shots->setItem(row, ShotPressure, editable(s.pressure_bar > 0.0 ? shownValue(s.pressure_bar, Quantity::Pressure, 0) : QString()));
+        auto *ignored = new QTableWidgetItem;
+        ignored->setFlags((ignored->flags() | Qt::ItemIsUserCheckable) & ~Qt::ItemIsEditable);
+        ignored->setCheckState(s.ignored ? Qt::Checked : Qt::Unchecked);
+        m_shots->setItem(row, ShotIgnored, ignored);
+        m_shots->setItem(row, ShotRemark, editable(s.name, false));
+        m_shots->item(row, ShotRemark)->setToolTip(s.name);  // the column is narrow in a narrow panel
+        if (s.ignored)                                       // greyed out and struck through, like a crossed-out line in a notebook
+            for (int col : {ShotVelocity, ShotPressure, ShotRemark})
+            {
+                QTableWidgetItem *item = m_shots->item(row, col);
+                QFont font = item->font();
+                font.setStrikeOut(col != ShotRemark);
+                item->setFont(font);
+                item->setForeground(palette().brush(QPalette::Disabled, QPalette::Text));
+            }
     }
     m_note->setText(c ? c->note : QString());
     m_note->setEnabled(c != nullptr);
@@ -672,14 +704,29 @@ void MeasurementView::onShotChanged(int row, int column)
     if (m_updating || i < 0) return;
     auto &shots = data().charges[static_cast<std::size_t>(i)].shots;
     if (row < 0 || row >= static_cast<int>(shots.size())) return;
+    csr::Shot &shot = shots[static_cast<std::size_t>(row)];
+    if (column == ShotIgnored)
+    {
+        const bool ignored = m_shots->item(row, column)->checkState() == Qt::Checked;
+        if (ignored == shot.ignored) return;
+        shot.ignored = ignored;
+        changed();
+        return;
+    }
+    if (column == ShotRemark)
+    {
+        shot.name = m_shots->item(row, column)->text().trimmed();
+        changed();
+        return;
+    }
     const QString text = m_shots->item(row, column)->text().trimmed();
-    const Quantity q = column == 0 ? Quantity::Velocity : Quantity::Pressure;
+    const Quantity q = column == ShotVelocity ? Quantity::Velocity : Quantity::Pressure;
     double value = 0.0;
     if (!text.isEmpty())
     {
         const auto parsed = csr::units::parseToBase(text, unitOf(q));
         if (parsed && *parsed >= 0.0) value = *parsed;
     }
-    (column == 0 ? shots[static_cast<std::size_t>(row)].velocity_ms : shots[static_cast<std::size_t>(row)].pressure_bar) = value;
+    (column == ShotVelocity ? shot.velocity_ms : shot.pressure_bar) = value;
     changed();
 }

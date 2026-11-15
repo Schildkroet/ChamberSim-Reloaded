@@ -1476,7 +1476,7 @@ Export it anyway?</source>
 <context>
     <name>MeasurementChart</name>
     <message>
-        <location filename="../src/app/measurementchart.cpp" line="+74"/>
+        <location filename="../src/app/measurementchart.cpp" line="+76"/>
         <source>Velocity (sim.)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1501,7 +1501,13 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+1"/>
+        <location line="+1"/>
+        <source>Ignored</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+139"/>
         <source>Charge [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1516,7 +1522,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+103"/>
         <source>Charge: %1 %2</source>
         <translation>Charge: %1 %2</translation>
     </message>
@@ -1545,12 +1551,12 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+11"/>
+        <location line="+8"/>
         <source>Deviation from sim.: %1 %</source>
         <translation>Deviation from sim.: %1 %</translation>
     </message>
     <message numerus="yes">
-        <location line="-2"/>
+        <location line="-3"/>
         <source>Pressure: %1 %2 (%n shot(s))</source>
         <translation>
             <numerusform>Pressure: %1 %2 (%n shot)</numerusform>
@@ -1561,7 +1567,7 @@ Export it anyway?</source>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+123"/>
+        <location filename="../src/app/measurementview.cpp" line="+132"/>
         <source>New series</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1602,13 +1608,13 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+475"/>
+        <location line="+497"/>
         <location line="+12"/>
         <source>Import chronograph file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-486"/>
+        <location line="-508"/>
         <source>Fit to measurements</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1673,7 +1679,7 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+15"/>
         <source>Note (rifle, chronograph, conditions, …)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1719,12 +1725,12 @@ Export it anyway?</source>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+11"/>
+        <location line="+10"/>
         <source>Velocity [%1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-10"/>
         <source>SD</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1792,12 +1798,40 @@ Export it anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+2"/>
+        <source>Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Remark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Ignored shots stay in the series but do not count in the statistics, the chart&apos;s mean and the fit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A remark on the shot (flyer, cold bore, …)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+26"/>
+        <source>%n shot(s) ignored</source>
+        <translation>
+            <numerusform>%n shot ignored</numerusform>
+            <numerusform>%n shots ignored</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>This charge cannot be simulated (does not fit into the case?)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+36"/>
         <source>&lt;b&gt;Shots of %1&lt;/b&gt; (%2 %3)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2192,7 +2226,7 @@ pressure Δ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+40"/>
         <source>type %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3113,12 +3147,12 @@ pressure Δ</source>
 <context>
     <name>csr::LoadFile</name>
     <message>
-        <location filename="../src/core/loadfile.cpp" line="+224"/>
+        <location filename="../src/core/loadfile.cpp" line="+225"/>
         <source>Not a ChamberSim Reloaded or GRT load file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+79"/>
         <source>The file contains no load data (&lt;%1&gt; is missing)</source>
         <translation type="unfinished"></translation>
     </message>

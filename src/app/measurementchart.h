@@ -75,6 +75,8 @@ private:
     QScatterSeries *m_shotVelocity;
     QScatterSeries *m_meanVelocity;
     QScatterSeries *m_shotPressure;
+    QScatterSeries *m_ignoredVelocity;  // ignored shots: hollow markers
+    QScatterSeries *m_ignoredPressure;
     std::vector<QLineSeries *> m_errorBars;
     QValueAxis *m_axisX;
     QValueAxis *m_axisV;

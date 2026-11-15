@@ -19,6 +19,7 @@
 
 #include "loadfile.h"
 
+#include "measurement.h"
 #include "numeric.h"
 
 #include <QCoreApplication>
@@ -350,7 +351,7 @@ QByteArray LoadFile::toXml(FileFormat format) const
     if (!appendixXml.isEmpty())
     {
         // appendix content is already well-formed XML: splice it in verbatim
-        QXmlStreamReader ar(u"<a>"_s + appendixXml + u"</a>"_s);
+        QXmlStreamReader ar(u"<a>"_s + (original ? withoutIgnoredShots(appendixXml) : appendixXml) + u"</a>"_s);
         ar.readNextStartElement();
         copyChildren(ar, w);
     }

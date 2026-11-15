@@ -1496,7 +1496,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>MeasurementChart</name>
     <message>
-        <location filename="../src/app/measurementchart.cpp" line="+74"/>
+        <location filename="../src/app/measurementchart.cpp" line="+76"/>
         <source>Velocity (sim.)</source>
         <translation>Velocità (sim.)</translation>
     </message>
@@ -1521,7 +1521,13 @@ Esportarlo comunque?</translation>
         <translation>Pressione</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+1"/>
+        <location line="+1"/>
+        <source>Ignored</source>
+        <translation>Ignorati</translation>
+    </message>
+    <message>
+        <location line="+139"/>
         <source>Charge [%1]</source>
         <translation>Carica [%1]</translation>
     </message>
@@ -1536,7 +1542,7 @@ Esportarlo comunque?</translation>
         <translation>Pressione massima [%1]</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+103"/>
         <source>Charge: %1 %2</source>
         <translation>Carica: %1 %2</translation>
     </message>
@@ -1565,12 +1571,12 @@ Esportarlo comunque?</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+11"/>
+        <location line="+8"/>
         <source>Deviation from sim.: %1 %</source>
         <translation>Scarto dalla sim.: %1 %</translation>
     </message>
     <message numerus="yes">
-        <location line="-2"/>
+        <location line="-3"/>
         <source>Pressure: %1 %2 (%n shot(s))</source>
         <translation>
             <numerusform>Pressione: %1 %2 (%n colpo)</numerusform>
@@ -1581,7 +1587,7 @@ Esportarlo comunque?</translation>
 <context>
     <name>MeasurementView</name>
     <message>
-        <location filename="../src/app/measurementview.cpp" line="+123"/>
+        <location filename="../src/app/measurementview.cpp" line="+132"/>
         <source>New series</source>
         <translation>Nuova serie</translation>
     </message>
@@ -1622,13 +1628,13 @@ Esportarlo comunque?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+475"/>
+        <location line="+497"/>
         <location line="+12"/>
         <source>Import chronograph file</source>
         <translation>Importa file del cronografo</translation>
     </message>
     <message>
-        <location line="-486"/>
+        <location line="-508"/>
         <source>Fit to measurements</source>
         <translation>Adatta alle misure</translation>
     </message>
@@ -1693,7 +1699,7 @@ Esportarlo comunque?</translation>
         <translation>Legge i colpi di un file Garmin Xero (FIT o CSV), MagnetoSpeed o Labradar (Labradar: il «Report.csv» di una serie)</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+15"/>
         <source>Note (rifle, chronograph, conditions, …)</source>
         <translation>Nota (arma, cronografo, condizioni, …)</translation>
     </message>
@@ -1739,12 +1745,12 @@ Esportarlo comunque?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+11"/>
+        <location line="+10"/>
         <source>Velocity [%1]</source>
         <translation>Velocità [%1]</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-10"/>
         <source>SD</source>
         <translation>DS</translation>
     </message>
@@ -1812,12 +1818,40 @@ Esportarlo comunque?</translation>
         <translation>Pressione simulata rispetto alla media misurata</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+2"/>
+        <source>Ignore</source>
+        <translation>Ignora</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Remark</source>
+        <translation>Nota</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Ignored shots stay in the series but do not count in the statistics, the chart&apos;s mean and the fit</source>
+        <translation>I colpi ignorati restano nella serie ma non contano nelle statistiche, nella media del grafico e nell&apos;adattamento</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A remark on the shot (flyer, cold bore, …)</source>
+        <translation>Una nota sul colpo (anomalo, canna fredda, …)</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+26"/>
+        <source>%n shot(s) ignored</source>
+        <translation>
+            <numerusform>%n colpo ignorato</numerusform>
+            <numerusform>%n colpi ignorati</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>This charge cannot be simulated (does not fit into the case?)</source>
         <translation>Questa carica non può essere simulata (non entra nel bossolo?)</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+36"/>
         <source>&lt;b&gt;Shots of %1&lt;/b&gt; (%2 %3)</source>
         <translation>&lt;b&gt;Colpi di %1&lt;/b&gt; (%2 %3)</translation>
     </message>
@@ -2218,7 +2252,7 @@ pressione Δ</translation>
         <translation>non specificato</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+40"/>
         <source>type %1</source>
         <translation>tipo %1</translation>
     </message>
@@ -3139,12 +3173,12 @@ pressione Δ</translation>
 <context>
     <name>csr::LoadFile</name>
     <message>
-        <location filename="../src/core/loadfile.cpp" line="+224"/>
+        <location filename="../src/core/loadfile.cpp" line="+225"/>
         <source>Not a ChamberSim Reloaded or GRT load file</source>
         <translation>Non è un file di caricamento ChamberSim Reloaded o GRT</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+79"/>
         <source>The file contains no load data (&lt;%1&gt; is missing)</source>
         <translation>Il file non contiene dati di caricamento (manca &lt;%1&gt;)</translation>
     </message>

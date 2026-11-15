@@ -32,12 +32,15 @@ namespace csr
 // Attributes in file order with their raw (still percent-encoded) values.
 using RawAttributes = std::vector<std::pair<QString, QString>>;
 
-// One shot of a measured charge: chronograph velocity and peak pressure (0 = not measured).
+// One shot of a measured charge: chronograph velocity and peak pressure (0 = not measured). `name` is the shot's
+// remark (the original program writes the attribute but leaves it empty). An ignored shot stays in the series but is
+// left out of the statistics (and of a *.grtload export, the original does not know the flag).
 struct Shot
 {
     QString name;
     double velocity_ms{};
     double pressure_bar{};
+    bool ignored{};
 };
 
 // One charge of the <Measurement> block of a load file's appendix. The file stores the charge in kg, velocities in
@@ -78,7 +81,7 @@ struct ShotStatistics
     [[nodiscard]] double extremeSpread() const noexcept { return max - min; }
 };
 
-// Statistics over the values above 0 (0 means "not measured").
+// Statistics over the values above 0 (0 means "not measured"); the charge overloads skip ignored shots.
 [[nodiscard]] ShotStatistics statistics(std::span<const double> values);
 [[nodiscard]] ShotStatistics velocityStatistics(const MeasuredCharge &charge);
 [[nodiscard]] ShotStatistics pressureStatistics(const MeasuredCharge &charge);
@@ -94,5 +97,8 @@ struct ShotStatistics
 // there was none) and the other blocks kept.
 [[nodiscard]] std::optional<Measurement> readMeasurement(const QString &appendixXml);
 [[nodiscard]] QString writeMeasurement(const QString &appendixXml, const Measurement &m);
+
+// The appendix without the ignored shots (for the *.grtload export); unchanged if there are none.
+[[nodiscard]] QString withoutIgnoredShots(const QString &appendixXml);
 
 }  // namespace csr

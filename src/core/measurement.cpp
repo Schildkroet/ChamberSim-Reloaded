@@ -94,7 +94,8 @@ MeasuredCharge readCharge(QXmlStreamReader &r)
             const RawAttributes a = rawAttributes(r.attributes());
             c.shots.push_back({.name = percentDecode(attribute(a, u"name")),
                                .velocity_ms = attribute(a, u"velocity").toDouble(),
-                               .pressure_bar = attribute(a, u"pressure").toDouble()});
+                               .pressure_bar = attribute(a, u"pressure").toDouble(),
+                               .ignored = attribute(a, u"ignored") == u"true"});
             r.skipCurrentElement();
         }
         else
@@ -120,6 +121,7 @@ void writeBlock(QXmlStreamWriter &w, const Measurement &m)
             w.writeAttribute(u"name"_s, percentEncode(s.name));
             w.writeAttribute(u"velocity"_s, number(s.velocity_ms));
             w.writeAttribute(u"pressure"_s, number(s.pressure_bar));
+            if (s.ignored) w.writeAttribute(u"ignored"_s, u"true"_s);
         }
         if (!c.extraXml.isEmpty())
         {
@@ -180,14 +182,16 @@ ShotStatistics statistics(std::span<const double> values)
 ShotStatistics velocityStatistics(const MeasuredCharge &charge)
 {
     std::vector<double> v;
-    for (const Shot &s : charge.shots) v.push_back(s.velocity_ms);
+    for (const Shot &s : charge.shots)
+        if (!s.ignored) v.push_back(s.velocity_ms);
     return statistics(v);
 }
 
 ShotStatistics pressureStatistics(const MeasuredCharge &charge)
 {
     std::vector<double> v;
-    for (const Shot &s : charge.shots) v.push_back(s.pressure_bar);
+    for (const Shot &s : charge.shots)
+        if (!s.ignored) v.push_back(s.pressure_bar);
     return statistics(v);
 }
 
@@ -272,6 +276,15 @@ QString writeMeasurement(const QString &appendixXml, const Measurement &m)
     if (all.empty()) all.push_back(m);
     else all.front() = m;
     return writeMeasurements(appendixXml, all);
+}
+
+QString withoutIgnoredShots(const QString &appendixXml)
+{
+    std::vector<Measurement> series = readMeasurements(appendixXml);
+    bool any = false;
+    for (Measurement &m : series)
+        for (MeasuredCharge &c : m.charges) any |= std::erase_if(c.shots, [](const Shot &s) { return s.ignored; }) > 0;
+    return any ? writeMeasurements(appendixXml, series) : appendixXml;
 }
 
 }  // namespace csr

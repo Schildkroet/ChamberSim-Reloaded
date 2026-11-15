@@ -101,6 +101,7 @@ private slots:
     void bulletFile();
     void physicalCaliberScale();
     void measurementStatistics();
+    void measurementIgnoredShotsAndRemarks();
     void simInputFromLoad();
     void chargeTooHighIsRejected();
     void temperatureCoefficients();
@@ -1217,6 +1218,45 @@ void CoreTest::measurementStatistics()
     QCOMPARE_LT(std::abs(s.sd - 2.67255), 1e-4);
     QCOMPARE(csr::statistics(std::array{0.0}).count, 0);
     QCOMPARE(csr::statistics(std::array{900.0}).sd, 0.0);
+}
+
+// An ignored shot stays in the series (own format) but not in the statistics; the *.grtload export leaves it out.
+// The remark is the shot's name attribute, which the original writes empty.
+void CoreTest::measurementIgnoredShotsAndRemarks()
+{
+    csr::Measurement m{.title = u"M"_s, .charges = {csr::MeasuredCharge::create(u"A"_s, 2.5)}, .attributes = {}};
+    m.charges[0].shots = {{.name = u"cold bore"_s, .velocity_ms = 800.0},
+                          {.name = u"flyer & co"_s, .velocity_ms = 700.0, .pressure_bar = 2000.0, .ignored = true},
+                          {.velocity_ms = 810.0, .pressure_bar = 3000.0}};
+    const csr::ShotStatistics v = csr::velocityStatistics(m.charges[0]);
+    QCOMPARE(v.count, 2);
+    QCOMPARE(v.mean, 805.0);
+    QCOMPARE(csr::pressureStatistics(m.charges[0]).count, 1);
+
+    const QString appendix = csr::writeMeasurement(u"<note index=\"1\" title=\"N\" />"_s, m);
+    QCOMPARE(appendix.count(u"ignored=\"true\""_s), 1);
+    const auto back = csr::readMeasurement(appendix);
+    QVERIFY(back);
+    QCOMPARE(back->charges[0].shots.size(), std::size_t{3});
+    QVERIFY(back->charges[0].shots[1].ignored);
+    QVERIFY(!back->charges[0].shots[0].ignored);
+    QCOMPARE(back->charges[0].shots[0].name, u"cold bore"_s);
+    QCOMPARE(back->charges[0].shots[1].name, u"flyer & co"_s);
+
+    auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
+    QVERIFY(lf);
+    lf->appendixXml = appendix;
+    const auto own = csr::LoadFile::parse(lf->toXml(csr::FileFormat::Reload));
+    QVERIFY(own);
+    QCOMPARE(csr::readMeasurement(own->appendixXml)->charges[0].shots.size(), std::size_t{3});
+    const auto exported = csr::LoadFile::parse(lf->toXml(csr::FileFormat::Original));
+    QVERIFY(exported);
+    QVERIFY(!exported->appendixXml.contains(u"ignored"_s));
+    QVERIFY(exported->appendixXml.contains(u"<note"_s));
+    const auto shots = csr::readMeasurement(exported->appendixXml)->charges[0].shots;
+    QCOMPARE(shots.size(), std::size_t{2});
+    QCOMPARE(shots[1].velocity_ms, 810.0);
+    QCOMPARE(csr::withoutIgnoredShots(u"<note index=\"1\" />"_s), u"<note index=\"1\" />"_s);  // nothing to drop: unchanged
 }
 
 void CoreTest::simInputFromLoad()

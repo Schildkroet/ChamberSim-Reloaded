@@ -64,6 +64,8 @@ MeasurementChart::MeasurementChart(QWidget *parent)
     , m_shotVelocity(new QScatterSeries)
     , m_meanVelocity(new QScatterSeries)
     , m_shotPressure(new QScatterSeries)
+    , m_ignoredVelocity(new QScatterSeries)
+    , m_ignoredPressure(new QScatterSeries)
     , m_axisX(new QValueAxis)
     , m_axisV(new QValueAxis)
     , m_axisP(new QValueAxis)
@@ -76,6 +78,8 @@ MeasurementChart::MeasurementChart(QWidget *parent)
     m_meanVelocity->setName(tr("Mean ± SD"));  // not in the legend (the squares with bars explain themselves)
     m_simPressure->setName(tr("Pressure (sim.)"));
     m_shotPressure->setName(tr("Pressure"));
+    m_ignoredVelocity->setName(tr("Ignored"));
+    m_ignoredPressure->setName(tr("Ignored"));  // not in the legend (the velocity's marker stands for both)
     m_axisX->setTickCount(6);
     m_axisV->setLabelFormat("%.0f");
     m_axisP->setLabelFormat("%.0f");
@@ -85,13 +89,13 @@ MeasurementChart::MeasurementChart(QWidget *parent)
     chart->addAxis(m_axisX, Qt::AlignBottom);
     chart->addAxis(m_axisV, Qt::AlignLeft);
     chart->addAxis(m_axisP, Qt::AlignRight);
-    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simVelocity, m_shotVelocity, m_meanVelocity})
+    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simVelocity, m_shotVelocity, m_ignoredVelocity, m_meanVelocity})
     {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
         s->attachAxis(m_axisV);
     }
-    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simPressure, m_shotPressure})
+    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_simPressure, m_shotPressure, m_ignoredPressure})
     {
         chart->addSeries(s);
         s->attachAxis(m_axisX);
@@ -101,7 +105,10 @@ MeasurementChart::MeasurementChart(QWidget *parent)
     m_meanVelocity->setMarkerSize(12);
     m_meanVelocity->setMarkerShape(QScatterSeries::MarkerShapeRectangle);
     m_shotPressure->setMarkerSize(7);
-    for (QLegendMarker *mk : chart->legend()->markers(m_meanVelocity)) mk->setVisible(false);
+    m_ignoredVelocity->setMarkerSize(7);
+    m_ignoredPressure->setMarkerSize(7);
+    for (QXYSeries *s : std::initializer_list<QXYSeries *>{m_meanVelocity, m_ignoredPressure})
+        for (QLegendMarker *mk : chart->legend()->markers(s)) mk->setVisible(false);
     setChart(chart);
     viewport()->setMouseTracking(true);  // the cursor follows the mouse without a pressed button
     setRenderHint(QPainter::Antialiasing);
@@ -141,7 +148,7 @@ void MeasurementChart::rebuild()
     m_errorBars.clear();
 
     Range rx, rv, rp;
-    QList<QPointF> simV, simP, shotV, meanV, shotP;
+    QList<QPointF> simV, simP, shotV, meanV, shotP, ignoredV, ignoredP;
     for (const Prediction &p : m_simulated)
     {
         simV.append({cx(p.charge_g), cv(p.velocity_ms)});
@@ -158,13 +165,13 @@ void MeasurementChart::rebuild()
         {
             if (s.velocity_ms > 0.0)
             {
-                shotV.append({x, cv(s.velocity_ms)});
+                (s.ignored ? ignoredV : shotV).append({x, cv(s.velocity_ms)});
                 rv.add(cv(s.velocity_ms));
                 any = true;
             }
             if (s.pressure_bar > 0.0)
             {
-                shotP.append({x, cp(s.pressure_bar)});
+                (s.ignored ? ignoredP : shotP).append({x, cp(s.pressure_bar)});
                 rp.add(cp(s.pressure_bar));
                 any = true;
             }
@@ -191,6 +198,9 @@ void MeasurementChart::rebuild()
     m_shotVelocity->replace(shotV);
     m_meanVelocity->replace(meanV);
     m_shotPressure->replace(shotP);
+    m_ignoredVelocity->replace(ignoredV);
+    m_ignoredPressure->replace(ignoredP);
+    for (QLegendMarker *mk : chart()->legend()->markers(m_ignoredVelocity)) mk->setVisible(!ignoredV.isEmpty() || !ignoredP.isEmpty());
     // the pressure only appears in the legend when there is something to show
     for (QLegendMarker *mk : chart()->legend()->markers(m_shotPressure)) mk->setVisible(!shotP.isEmpty());
 
@@ -226,6 +236,10 @@ void MeasurementChart::applyTheme()
     m_meanVelocity->setBorderColor(palette().color(QPalette::Text));
     m_shotPressure->setColor(kPressure.lighter(120));
     m_shotPressure->setBorderColor(kPressure);
+    m_ignoredVelocity->setColor(Qt::transparent);
+    m_ignoredVelocity->setPen(QPen(kVelocity, 1.5));
+    m_ignoredPressure->setColor(Qt::transparent);
+    m_ignoredPressure->setPen(QPen(kPressure, 1.5));
     for (QLineSeries *s : m_errorBars) s->setPen(QPen(kVelocity, 2));
 }
 
@@ -334,15 +348,12 @@ void MeasurementChart::drawForeground(QPainter *painter, const QRectF &rect)
                 add(tr("Deviation from sim.: %1 %").arg(QLocale().toString(100.0 * (st.mean / pred->velocity_ms - 1.0), 'f', 1)),
                     kVelocity);
         }
-        double sum = 0.0;
-        int n = 0;
-        for (const csr::Shot &s : near->shots)
-            if (s.pressure_bar > 0.0) sum += s.pressure_bar, ++n;
-        if (n > 0)
+        if (const csr::ShotStatistics p = csr::pressureStatistics(*near); p.count > 0)
         {
-            add(tr("Pressure: %1 %2 (%n shot(s))", nullptr, n).arg(format(sum / n, *m_pressureUnit), unit(*m_pressureUnit)), kPressure);
+            add(tr("Pressure: %1 %2 (%n shot(s))", nullptr, p.count).arg(format(p.mean, *m_pressureUnit), unit(*m_pressureUnit)),
+                kPressure);
             if (pred)
-                add(tr("Deviation from sim.: %1 %").arg(QLocale().toString(100.0 * (sum / n / pred->pressure_bar - 1.0), 'f', 1)),
+                add(tr("Deviation from sim.: %1 %").arg(QLocale().toString(100.0 * (p.mean / pred->pressure_bar - 1.0), 'f', 1)),
                     kPressure);
         }
     }
