@@ -155,6 +155,12 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   loads, at least 8 per bullet): on held-out powders velocity 3.30 -> 3.19 %, pressure 12.79 -> 11.53 % (4,368 loads) against the classes. 162 records written
   (79 with friction); all loads: rifle 4.15 % v / 12.24 % p (was 12.68 %), pistol unchanged. `build_loads.py` carries gfriction as well. A Ba refit on
   top adopted no powder.
+  Copied loads (2026-11-16): `build_loads.py` keeps loads that are copies of each other once (`near_duplicates`: same powder, cartridge, bullet
+  weight and kind, charge within 0.3 %, velocity within 0.1 %, pressure within 0.5 % when both have one; the velocity differences of same-charge pairs
+  peak sharply below 0.05 % and spread evenly above). Removed 2,431 rifle and 206 pistol loads: Speer web -> Speer #14 609, Lovex 2019 -> 2020 553,
+  Reload Swiss web / guide 418, Western -> Hodgdon 303, Speer #14 -> Alliant web 167, Winchester -> Lee 110, ... Shotshell loads are not checked:
+  their tables give nominal velocities, and the near-equal pairs differ in wad or primer. Ba refit on the de-duplicated loads: shipped values rifle
+  4.16 % v / 12.28 % p, pistol 7.90 / 14.98 %; adopted Lovex D073.4 (the most copied guide).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
   and writes the records of the powders with at least 40 samples and at most 6 % (Reload Swiss: 6.5 %) velocity error.
   Results: `lovex_fits.csv`, `rs_fits.csv`.

@@ -13,6 +13,8 @@
              per powder energy), pressure (above the permitted maximum), duplicate loads with conflicting velocities, a charge read as grains instead of grams is
              converted. The softer flags (start above maximum load, off the table's trend, bullet density) stay in the data, as the refit procedure decided.
              Shotshell loads get a range check here (velocity, charge, shot mass, pressure).
+   Copied loads (near_duplicates: the same load in another table or source within rounding) are kept once, so a guide that copies another one
+             does not count its loads twice.
    Every rifle and pistol load gets the start pressure gpressure and extra friction gfriction of its bullet as the program uses them (the matching record's, else the construction
              class of start_pressure.py), so the fits and comparisons simulate what the program does; measured rows that have one keep it.
 3. simulate  (with --simulate) analysis/filter_published_outliers.py: loads whose simulated peak pressure is more than --max-dev percent off the published one.
@@ -72,6 +74,52 @@ def split_kept(rows: list[dict], kept: list[dict]) -> tuple[list[dict], int]:
         else:
             dropped.append(r)
     return dropped, changed
+
+
+def near_duplicates(rows: list[dict], measured: set[str]) -> tuple[list[dict], list[dict]]:
+    """Loads that are copies of each other: same powder, cartridge, bullet weight and kind, charge within 0.3 %, velocity within 0.1 % and, when
+    both have one, pressure within 0.5 % (the bullet name, cartridge length and barrel may differ: manuals list one test under several bullets of a
+    weight, and guides copy each other's tables, converting units). Independent tests of the same charge differ by about 2 % in velocity and 6 % in
+    pressure; among the published loads the velocity differences of same-charge pairs peak sharply below 0.05 % (2,436 rifle pairs, 2026-11-16) and
+    spread evenly above. Each group keeps one load: an own measurement first, then one with a pressure, then the first file's.
+    Returns (kept rows in their order, removed rows)."""
+    def rank(r):
+        return (0 if r["source"] in measured else 1, 0 if r.get("pressure_bar") else 1)
+    groups: dict[tuple, list[int]] = collections.defaultdict(list)
+    for i, r in enumerate(rows):
+        try:
+            groups[(r["powder"].upper(), r["caliber"], round(float(r["bullet_gr"]), 1), r["kind"])].append(i)
+        except (KeyError, ValueError):
+            pass
+    drop: dict[int, str] = {}
+    for idx in groups.values():
+        kept: list[int] = []
+        for i in sorted(idx, key=lambda i: (rank(rows[i]), i)):
+            r = rows[i]
+            try:
+                c, v = float(r["charge_g"]), float(r["velocity_ms"])
+            except ValueError:
+                kept.append(i)
+                continue
+            p = float(r["pressure_bar"]) if r.get("pressure_bar") else None
+            twin = None
+            for k in kept:
+                o = rows[k]
+                try:
+                    if abs(float(o["charge_g"]) / c - 1) > 0.003 or abs(float(o["velocity_ms"]) / v - 1) > 0.001:
+                        continue
+                except ValueError:
+                    continue
+                if p and o.get("pressure_bar") and abs(float(o["pressure_bar"]) / p - 1) > 0.005:
+                    continue
+                twin = o
+                break
+            if twin is None:
+                kept.append(i)
+            else:
+                drop[i] = f"copy of a load of {twin['source']}"
+    return ([r for i, r in enumerate(rows) if i not in drop],
+            [{**rows[i], "step": "combine", "reason": "near duplicate", "detail": why} for i, why in drop.items()])
 
 
 def start_values(records: Records, row: dict, cls: str) -> tuple[str, str]:
@@ -137,6 +185,11 @@ def main() -> int:
                     row["gpressure"], row["gfriction"] = start_values(records, row, cls)
                 by_class[cls].append(row)
     print(f"combine: {n_in} loads of {len(files)} files -> " + ", ".join(f"{len(v)} {k}" for k, v in by_class.items()) + f" ({len(seen)} different, {len(removed)} unknown cartridge)")
+    measured = {p.stem for p in files if p.parent == args.measured}
+    for cls in ("rifle", "pistol"):
+        by_class[cls], copies = near_duplicates(by_class[cls], measured)
+        removed += copies
+        print(f"combine: {cls}: {len(copies)} copied loads removed (same load in another table or source, within rounding)")
 
     # check (rifle, pistol): analysis/check_published_loads.py
     combined = []
