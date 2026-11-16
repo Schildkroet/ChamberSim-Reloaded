@@ -151,6 +151,10 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   the solver's 250 bar. Ba refit on that (`refit.sh ... "build groups ba compare"`): shipped values rifle 4.17 % v / 12.67 % p, pistol 7.87 / 14.98 %;
   adopted W760, Accurate No. 9, Longshot, WSF, IMR 7828 SSC, Alliant 2000-MR, Reloder 17 (rifle 4.15 / 12.68 %, pistol 7.86 / 14.99 %; measured loads
   unchanged).
+  Then the validated bullets got own values again (`fit_bullet_start_values.py --validated-only` on the corrected lengths, records with gValid only, rifle
+  loads, at least 8 per bullet): on held-out powders velocity 3.30 -> 3.19 %, pressure 12.79 -> 11.53 % (4,368 loads) against the classes. 162 records written
+  (79 with friction); all loads: rifle 4.15 % v / 12.24 % p (was 12.68 %), pistol unchanged. `build_loads.py` carries gfriction as well. A Ba refit on
+  top adopted no powder.
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
   and writes the records of the powders with at least 40 samples and at most 6 % (Reload Swiss: 6.5 %) velocity error.
   Results: `lovex_fits.csv`, `rs_fits.csv`.

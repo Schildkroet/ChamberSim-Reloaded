@@ -96,13 +96,14 @@
     "gdia": 6.17,
     "glen": 27.2,
     "gmass": 95.0,
-    "gpressure": 250.0,
+    "gpressure": 315.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtailh": 4.2,
     "g1bc": 0.434,
     "g7bc": 0.223,
-    "gValid": true
+    "gValid": true,
+    "gfriction": 40.0
   },
   {
     "mname": "Berger",
@@ -471,7 +472,8 @@
     "gmass": 115.0,
     "gpressure": 250.0,
     "g1bc": 0.289,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -20.0
   },
   {
     "mname": "Berger",
@@ -480,7 +482,7 @@
     "gdia": 5.18,
     "glen": 15.1,
     "gmass": 35.0,
-    "gpressure": 250.0,
+    "gpressure": 240.0,
     "g1bc": 0.179,
     "gValid": true
   },
@@ -674,13 +676,14 @@
     "gdia": 7.82,
     "glen": 40.6,
     "gmass": 215.0,
-    "gpressure": 250.0,
+    "gpressure": 90.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtailh": 6.7,
     "g1bc": 0.691,
     "g7bc": 0.354,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -100.0
   },
   {
     "mname": "Berger",
@@ -966,13 +969,14 @@
     "gdia": 7.82,
     "glen": 40.8,
     "gmass": 230.0,
-    "gpressure": 250.0,
+    "gpressure": 205.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtailh": 6.9,
     "g1bc": 0.71,
     "g7bc": 0.364,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -100.0
   },
   {
     "mname": "Berger",
@@ -996,13 +1000,14 @@
     "gdia": 8.59,
     "glen": 46.2,
     "gmass": 300.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtailh": 7.9,
     "g1bc": 0.822,
     "g7bc": 0.421,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -100.0
   },
   {
     "mname": "Berger",
@@ -1084,13 +1089,14 @@
     "gdia": 7.82,
     "glen": 31.1,
     "gmass": 155.5,
-    "gpressure": 250.0,
+    "gpressure": 195.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtailh": 4.6,
     "g1bc": 0.473,
     "g7bc": 0.242,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -70.0
   },
   {
     "mname": "Berger",
@@ -1128,7 +1134,7 @@
     "gdia": 4.37,
     "glen": 14.4,
     "gmass": 25.0,
-    "gpressure": 250.0,
+    "gpressure": 300.0,
     "g1bc": 0.152,
     "gValid": true
   },
@@ -1236,13 +1242,14 @@
     "gdia": 6.17,
     "glen": 34.2,
     "gmass": 115.0,
-    "gpressure": 250.0,
+    "gpressure": 475.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtailh": 5.0,
     "g1bc": 0.568,
     "g7bc": 0.291,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -75.0
   },
   {
     "mname": "Berger",
@@ -1311,7 +1318,7 @@
     "gdia": 7.04,
     "glen": 31.8,
     "gmass": 140.0,
-    "gpressure": 250.0,
+    "gpressure": 410.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "gtailh": 6.0,
@@ -1326,7 +1333,7 @@
     "gdia": 7.04,
     "glen": 32.9,
     "gmass": 150.0,
-    "gpressure": 250.0,
+    "gpressure": 440.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "gtailh": 5.8,
@@ -1347,7 +1354,8 @@
     "gtailh": 6.2,
     "g1bc": 0.618,
     "g7bc": 0.316,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -50.0
   },
   {
     "mname": "Berger",
@@ -1446,13 +1454,14 @@
     "gdia": 7.82,
     "glen": 34.8,
     "gmass": 190.0,
-    "gpressure": 250.0,
+    "gpressure": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtailh": 5.5,
     "g1bc": 0.566,
     "g7bc": 0.29,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -20.0
   },
   {
     "mname": "Berger",
@@ -1467,7 +1476,8 @@
     "gtailh": 5.3,
     "g1bc": 0.625,
     "g7bc": 0.32,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -35.0
   },
   {
     "mname": "Berger",
@@ -1641,13 +1651,14 @@
     "gdia": 6.71,
     "glen": 33.3,
     "gmass": 130.0,
-    "gpressure": 250.0,
+    "gpressure": 450.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtailh": 5.7,
     "g1bc": 0.562,
     "g7bc": 0.288,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -20.0
   },
   {
     "mname": "Berger",
@@ -1677,7 +1688,8 @@
     "gtailh": 6.2,
     "g1bc": 0.683,
     "g7bc": 0.35,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -100.0
   },
   {
     "mname": "Berger",
@@ -1700,7 +1712,7 @@
     "gdia": 7.82,
     "glen": 31.8,
     "gmass": 168.0,
-    "gpressure": 250.0,
+    "gpressure": 310.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtailh": 4.3,
@@ -1736,7 +1748,8 @@
     "gtailh": 5.6,
     "g1bc": 0.543,
     "g7bc": 0.278,
-    "gValid": true
+    "gValid": true,
+    "gfriction": -50.0
   },
   {
     "mname": "Berger",

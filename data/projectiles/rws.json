@@ -255,7 +255,7 @@
     "glen": 31.1,
     "gValid": true,
     "gmass": 162.0,
-    "gpressure": 250.0,
+    "gpressure": 145.0,
     "gtailtype": 2,
     "gtaildiaA": 7.2,
     "gtaildiaB": 1.0,
@@ -637,10 +637,11 @@
     "glen": 36.9,
     "gValid": true,
     "gmass": 293.0,
-    "gpressure": 250.0,
+    "gpressure": 95.0,
     "gtailtype": 2,
     "gtaildiaA": 9.3,
     "gtaildiaB": 1.0,
-    "gtailh": 4.0
+    "gtailh": 4.0,
+    "gfriction": -45.0
   }
 ]

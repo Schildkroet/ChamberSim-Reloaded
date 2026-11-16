@@ -264,7 +264,8 @@
     "glen": 18.8,
     "gValid": true,
     "gmass": 60.0,
-    "gpressure": 250.0
+    "gpressure": 220.0,
+    "gfriction": -25.0
   },
   {
     "mname": "Sierra",
@@ -294,7 +295,7 @@
     "glen": 22.5,
     "gValid": true,
     "gmass": 100.0,
-    "gpressure": 250.0
+    "gpressure": 90.0
   },
   {
     "mname": "Sierra",
@@ -324,7 +325,8 @@
     "glen": 24.3,
     "gValid": true,
     "gmass": 135.0,
-    "gpressure": 250.0
+    "gpressure": 250.0,
+    "gfriction": -15.0
   },
   {
     "mname": "Sierra",
@@ -356,7 +358,7 @@
     "glen": 18.3,
     "gValid": true,
     "gmass": 55.0,
-    "gpressure": 250.0,
+    "gpressure": 95.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69
   },
@@ -476,7 +478,7 @@
     "glen": 17.9,
     "gValid": true,
     "gmass": 52.0,
-    "gpressure": 250.0,
+    "gpressure": 195.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69
   },
@@ -490,7 +492,8 @@
     "gmass": 70.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.17
+    "gtaildiaA": 6.17,
+    "gfriction": -25.0
   },
   {
     "mname": "Sierra",
@@ -526,7 +529,8 @@
     "gmass": 107.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.71
+    "gtaildiaA": 6.71,
+    "gfriction": -60.0
   },
   {
     "mname": "Sierra",
@@ -550,7 +554,8 @@
     "gmass": 140.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.71
+    "gtaildiaA": 6.71,
+    "gfriction": 5.0
   },
   {
     "mname": "Sierra",
@@ -596,7 +601,7 @@
     "glen": 31.8,
     "gValid": true,
     "gmass": 150.0,
-    "gpressure": 250.0,
+    "gpressure": 330.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21
   },
@@ -646,7 +651,8 @@
     "gmass": 155.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82
+    "gtaildiaA": 7.82,
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -656,9 +662,10 @@
     "glen": 28.3,
     "gValid": true,
     "gmass": 150.0,
-    "gpressure": 250.0,
+    "gpressure": 55.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82
+    "gtaildiaA": 7.82,
+    "gfriction": -20.0
   },
   {
     "mname": "Sierra",
@@ -670,7 +677,8 @@
     "gmass": 168.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82
+    "gtaildiaA": 7.82,
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -718,7 +726,8 @@
     "gmass": 175.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82
+    "gtaildiaA": 7.82,
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -752,9 +761,10 @@
     "glen": 40.3,
     "gValid": true,
     "gmass": 250.0,
-    "gpressure": 250.0,
+    "gpressure": 340.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.59
+    "gtaildiaA": 8.59,
+    "gfriction": -100.0
   },
   {
     "mname": "Sierra",
@@ -932,9 +942,10 @@
     "glen": 32.6,
     "gValid": true,
     "gmass": 123.0,
-    "gpressure": 250.0,
+    "gpressure": 185.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.71
+    "gtaildiaA": 6.71,
+    "gfriction": -50.0
   },
   {
     "mname": "Sierra",
@@ -1148,7 +1159,8 @@
     "glen": 13.2,
     "gValid": true,
     "gmass": 90.0,
-    "gpressure": 250.0
+    "gpressure": 500.0,
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -1568,7 +1580,7 @@
     "glen": 18.4,
     "gValid": true,
     "gmass": 55.0,
-    "gpressure": 250.0,
+    "gpressure": 335.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69
   },
@@ -1630,7 +1642,8 @@
     "gmass": 130.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.04
+    "gtaildiaA": 7.04,
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -1652,7 +1665,7 @@
     "glen": 32.6,
     "gValid": true,
     "gmass": 140.0,
-    "gpressure": 250.0,
+    "gpressure": 430.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04
   },
@@ -1664,7 +1677,7 @@
     "glen": 29.5,
     "gValid": true,
     "gmass": 140.0,
-    "gpressure": 250.0,
+    "gpressure": 155.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21
   },
@@ -1700,7 +1713,7 @@
     "glen": 35.5,
     "gValid": true,
     "gmass": 175.0,
-    "gpressure": 250.0,
+    "gpressure": 110.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21
   },
@@ -1714,7 +1727,8 @@
     "gmass": 150.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82
+    "gtaildiaA": 7.82,
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -1724,9 +1738,10 @@
     "glen": 30.2,
     "gValid": true,
     "gmass": 165.0,
-    "gpressure": 250.0,
+    "gpressure": 470.0,
     "gtailtype": 2,
-    "gtaildiaA": 7.82
+    "gtaildiaA": 7.82,
+    "gfriction": -50.0
   },
   {
     "mname": "Sierra",
@@ -1748,7 +1763,7 @@
     "glen": 35.6,
     "gValid": true,
     "gmass": 200.0,
-    "gpressure": 250.0,
+    "gpressure": 50.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82
   },
@@ -1762,7 +1777,8 @@
     "gmass": 220.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.2
+    "gtaildiaA": 8.2,
+    "gfriction": -10.0
   },
   {
     "mname": "Sierra",
@@ -1786,7 +1802,8 @@
     "gmass": 215.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.59
+    "gtaildiaA": 8.59,
+    "gfriction": -30.0
   },
   {
     "mname": "Sierra",
@@ -1810,7 +1827,8 @@
     "gmass": 250.0,
     "gpressure": 250.0,
     "gtailtype": 2,
-    "gtaildiaA": 9.52
+    "gtaildiaA": 9.52,
+    "gfriction": -40.0
   },
   {
     "mname": "Sierra",
@@ -2580,7 +2598,8 @@
     "glen": 19.0,
     "gValid": true,
     "gmass": 55.0,
-    "gpressure": 250.0
+    "gpressure": 160.0,
+    "gfriction": -90.0
   },
   {
     "mname": "Sierra",
@@ -2604,7 +2623,8 @@
     "glen": 22.2,
     "gValid": true,
     "gmass": 70.0,
-    "gpressure": 250.0
+    "gpressure": 50.0,
+    "gfriction": 115.0
   },
   {
     "mname": "Sierra",

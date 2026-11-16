@@ -100,7 +100,8 @@
     "gtaildiaB": 5.59,
     "gtailh": 2.54,
     "g1bc": 0.637,
-    "g7bc": 0.321
+    "g7bc": 0.321,
+    "gfriction": -45.0
   },
   {
     "mname": "Hornady",
@@ -126,11 +127,12 @@
     "glen": 38.1,
     "gValid": true,
     "gmass": 153.0,
-    "gpressure": 250.0,
+    "gpressure": 235.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.59,
-    "gtailh": 2.54
+    "gtailh": 2.54,
+    "gfriction": -75.0
   },
   {
     "mname": "Hornady",
@@ -1055,7 +1057,8 @@
     "gtaildiaB": 4.5,
     "gtailh": 4.6,
     "g1bc": 0.467,
-    "g7bc": 0.235
+    "g7bc": 0.235,
+    "gfriction": -20.0
   },
   {
     "mname": "Hornady",
@@ -1284,7 +1287,8 @@
     "gtaildiaB": 6.1,
     "gtailh": 5.1,
     "g1bc": 0.67,
-    "g7bc": 0.338
+    "g7bc": 0.338,
+    "gfriction": -80.0
   },
   {
     "mname": "Hornady",
@@ -1310,7 +1314,7 @@
     "glen": 30.1,
     "gValid": true,
     "gmass": 155.0,
-    "gpressure": 250.0,
+    "gpressure": 370.0,
     "gtailtype": 2,
     "gtaildiaA": 7.8,
     "gtaildiaB": 6.8,
@@ -1366,13 +1370,14 @@
     "glen": 39.2,
     "gValid": true,
     "gmass": 208.0,
-    "gpressure": 250.0,
+    "gpressure": 190.0,
     "gtailtype": 2,
     "gtaildiaA": 7.8,
     "gtaildiaB": 6.8,
     "gtailh": 4.1,
     "g1bc": 0.69,
-    "g7bc": 0.348
+    "g7bc": 0.348,
+    "gfriction": -85.0
   },
   {
     "mname": "Hornady",
@@ -1382,13 +1387,14 @@
     "glen": 42.8,
     "gValid": true,
     "gmass": 225.0,
-    "gpressure": 250.0,
+    "gpressure": 230.0,
     "gtailtype": 2,
     "gtaildiaA": 7.8,
     "gtaildiaB": 6.8,
     "gtailh": 4.1,
     "g1bc": 0.777,
-    "g7bc": 0.391
+    "g7bc": 0.391,
+    "gfriction": -70.0
   },
   {
     "mname": "Hornady",
@@ -1410,13 +1416,14 @@
     "glen": 43.8,
     "gValid": true,
     "gmass": 285.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.0,
     "gtailh": 4.6,
     "g1bc": 0.829,
-    "g7bc": 0.417
+    "g7bc": 0.417,
+    "gfriction": -100.0
   },
   {
     "mname": "Hornady",
@@ -1602,13 +1609,14 @@
     "glen": 40.0,
     "gValid": true,
     "gmass": 212.0,
-    "gpressure": 250.0,
+    "gpressure": 230.0,
     "gtailtype": 2,
     "gtaildiaA": 7.8,
     "gtaildiaB": 6.8,
     "gtailh": 4.1,
     "g1bc": 0.663,
-    "g7bc": 0.334
+    "g7bc": 0.334,
+    "gfriction": -100.0
   },
   {
     "mname": "Hornady",
@@ -1867,8 +1875,9 @@
     "glen": 26.5,
     "gValid": true,
     "gmass": 200.0,
-    "gpressure": 250.0,
-    "g1bc": 0.3
+    "gpressure": 260.0,
+    "g1bc": 0.3,
+    "gfriction": -10.0
   },
   {
     "mname": "Hornady",
@@ -1900,8 +1909,9 @@
     "glen": 26.6,
     "gValid": true,
     "gmass": 325.0,
-    "gpressure": 250.0,
-    "g1bc": 0.23
+    "gpressure": 195.0,
+    "g1bc": 0.23,
+    "gfriction": -40.0
   },
   {
     "mname": "Hornady",
@@ -2032,12 +2042,13 @@
     "glen": 26.9,
     "gValid": true,
     "gmass": 100.0,
-    "gpressure": 250.0,
+    "gpressure": 190.0,
     "gtailtype": 2,
     "gtaildiaA": 6.2,
     "gtaildiaB": 5.1,
     "gtailh": 2.5,
-    "g1bc": 0.405
+    "g1bc": 0.405,
+    "gfriction": 130.0
   },
   {
     "mname": "Hornady",
@@ -2154,12 +2165,13 @@
     "glen": 29.2,
     "gValid": true,
     "gmass": 139.0,
-    "gpressure": 250.0,
+    "gpressure": 255.0,
     "gtailtype": 2,
     "gtaildiaA": 7.2,
     "gtaildiaB": 6.3,
     "gtailh": 3.2,
-    "g1bc": 0.453
+    "g1bc": 0.453,
+    "gfriction": -10.0
   },
   {
     "mname": "Hornady",
@@ -2180,7 +2192,7 @@
     "glen": 31.2,
     "gValid": true,
     "gmass": 162.0,
-    "gpressure": 250.0,
+    "gpressure": 360.0,
     "gtailtype": 2,
     "gtaildiaA": 7.2,
     "gtaildiaB": 5.5,
@@ -2236,7 +2248,8 @@
     "gValid": true,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "g1bc": 0.349
+    "g1bc": 0.349,
+    "gfriction": -50.0
   },
   {
     "mname": "Hornady",
@@ -2246,8 +2259,9 @@
     "glen": 23.0,
     "gValid": true,
     "gmass": 150.0,
-    "gpressure": 250.0,
-    "g1bc": 0.186
+    "gpressure": 430.0,
+    "g1bc": 0.186,
+    "gfriction": -10.0
   },
   {
     "mname": "Hornady",
@@ -2257,8 +2271,9 @@
     "glen": 29.3,
     "gValid": true,
     "gmass": 165.0,
-    "gpressure": 250.0,
-    "g1bc": 0.387
+    "gpressure": 220.0,
+    "g1bc": 0.387,
+    "gfriction": -55.0
   },
   {
     "mname": "Hornady",
@@ -2398,7 +2413,8 @@
     "gValid": true,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "g1bc": 0.29
+    "g1bc": 0.29,
+    "gfriction": -80.0
   },
   {
     "mname": "Hornady",
@@ -2419,8 +2435,9 @@
     "glen": 28.0,
     "gValid": true,
     "gmass": 195.0,
-    "gpressure": 250.0,
-    "g1bc": 0.41
+    "gpressure": 350.0,
+    "g1bc": 0.41,
+    "gfriction": -5.0
   },
   {
     "mname": "Hornady",
@@ -2430,8 +2447,9 @@
     "glen": 33.5,
     "gValid": true,
     "gmass": 225.0,
-    "gpressure": 250.0,
-    "g1bc": 0.397
+    "gpressure": 270.0,
+    "g1bc": 0.397,
+    "gfriction": -10.0
   },
   {
     "mname": "Hornady",
@@ -2453,7 +2471,8 @@
     "gValid": true,
     "gmass": 250.0,
     "gpressure": 250.0,
-    "g1bc": 0.431
+    "g1bc": 0.431,
+    "gfriction": -50.0
   },
   {
     "mname": "Hornady",
@@ -2508,7 +2527,8 @@
     "gValid": true,
     "gmass": 286.0,
     "gpressure": 250.0,
-    "g1bc": 0.4
+    "g1bc": 0.4,
+    "gfriction": -90.0
   },
   {
     "mname": "Hornady",
@@ -2529,8 +2549,9 @@
     "glen": 27.4,
     "gValid": true,
     "gmass": 300.0,
-    "gpressure": 250.0,
-    "g1bc": 0.25
+    "gpressure": 245.0,
+    "g1bc": 0.25,
+    "gfriction": -45.0
   },
   {
     "mname": "Hornady",
@@ -2551,8 +2572,9 @@
     "glen": 23.8,
     "gValid": true,
     "gmass": 350.0,
-    "gpressure": 250.0,
-    "g1bc": 0.189
+    "gpressure": 160.0,
+    "g1bc": 0.189,
+    "gfriction": -25.0
   },
   {
     "mname": "Hornady",
@@ -2825,7 +2847,7 @@
     "glen": 33.8,
     "gValid": true,
     "gmass": 140.0,
-    "gpressure": 250.0,
+    "gpressure": 190.0,
     "gtailtype": 2,
     "gtaildiaA": 6.7,
     "gtaildiaB": 5.1,
@@ -2840,7 +2862,7 @@
     "glen": 25.2,
     "gValid": true,
     "gmass": 110.0,
-    "gpressure": 250.0,
+    "gpressure": 420.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "gtaildiaB": 6.29,
@@ -2897,7 +2919,8 @@
     "gtaildiaA": 7.8,
     "gtaildiaB": 6.9,
     "gtailh": 4.1,
-    "g1bc": 0.45
+    "g1bc": 0.45,
+    "gfriction": -25.0
   },
   {
     "mname": "Hornady",
@@ -2957,7 +2980,8 @@
     "gtaildiaB": 6.8,
     "gtailh": 4.1,
     "g1bc": 0.62,
-    "g7bc": 0.311
+    "g7bc": 0.311,
+    "gfriction": -20.0
   },
   {
     "mname": "Hornady",
@@ -3059,8 +3083,9 @@
     "glen": 28.1,
     "gValid": true,
     "gmass": 95.0,
-    "gpressure": 250.0,
-    "g1bc": 0.355
+    "gpressure": 490.0,
+    "g1bc": 0.355,
+    "gfriction": 140.0
   },
   {
     "mname": "Hornady",
@@ -3070,7 +3095,7 @@
     "glen": 30.3,
     "gValid": true,
     "gmass": 117.0,
-    "gpressure": 250.0,
+    "gpressure": 280.0,
     "g1bc": 0.39
   },
   {
@@ -3203,7 +3228,7 @@
     "glen": 26.3,
     "gValid": true,
     "gmass": 125.0,
-    "gpressure": 250.0,
+    "gpressure": 280.0,
     "g1bc": 0.305
   },
   {
@@ -3219,7 +3244,8 @@
     "gtaildiaA": 7.8,
     "gtaildiaB": 6.8,
     "gtailh": 4.1,
-    "g1bc": 0.415
+    "g1bc": 0.415,
+    "gfriction": -60.0
   },
   {
     "mname": "Hornady",
@@ -3281,12 +3307,13 @@
     "glen": 33.7,
     "gValid": true,
     "gmass": 200.0,
-    "gpressure": 250.0,
+    "gpressure": 180.0,
     "gtailtype": 2,
     "gtaildiaA": 8.6,
     "gtaildiaB": 7.0,
     "gtailh": 3.3,
-    "g1bc": 0.455
+    "g1bc": 0.455,
+    "gfriction": -60.0
   },
   {
     "mname": "Hornady",
@@ -3535,10 +3562,11 @@
     "glen": 30.9,
     "gValid": true,
     "gmass": 174.0,
-    "gpressure": 250.0,
+    "gpressure": 240.0,
     "gtailtype": 2,
     "gtaildiaA": 7.89,
-    "g1bc": 0.47
+    "g1bc": 0.47,
+    "gfriction": -30.0
   },
   {
     "mname": "Hornady",
@@ -3581,7 +3609,7 @@
     "glen": 16.3,
     "gValid": true,
     "gmass": 32.0,
-    "gpressure": 250.0,
+    "gpressure": 205.0,
     "g1bc": 0.21
   },
   {
@@ -3633,8 +3661,9 @@
     "glen": 13.2,
     "gValid": true,
     "gmass": 35.0,
-    "gpressure": 250.0,
-    "g1bc": 0.109
+    "gpressure": 290.0,
+    "g1bc": 0.109,
+    "gfriction": -20.0
   },
   {
     "mname": "Hornady",
@@ -3692,12 +3721,13 @@
     "glen": 20.2,
     "gValid": true,
     "gmass": 58.0,
-    "gpressure": 250.0,
+    "gpressure": 210.0,
     "gtailtype": 2,
     "gtaildiaA": 6.2,
     "gtaildiaB": 5.3,
     "gtailh": 1.8,
-    "g1bc": 0.25
+    "g1bc": 0.25,
+    "gfriction": -45.0
   },
   {
     "mname": "Hornady",
@@ -3707,12 +3737,13 @@
     "glen": 21.3,
     "gValid": true,
     "gmass": 65.0,
-    "gpressure": 250.0,
+    "gpressure": 240.0,
     "gtailtype": 2,
     "gtaildiaA": 6.2,
     "gtaildiaB": 5.3,
     "gtailh": 1.8,
-    "g1bc": 0.28
+    "g1bc": 0.28,
+    "gfriction": -50.0
   },
   {
     "mname": "Hornady",
@@ -4007,8 +4038,9 @@
     "glen": 11.4,
     "gValid": true,
     "gmass": 85.0,
-    "gpressure": 250.0,
-    "g1bc": 0.145
+    "gpressure": 500.0,
+    "g1bc": 0.145,
+    "gfriction": -15.0
   },
   {
     "mname": "Hornady",
@@ -4018,7 +4050,7 @@
     "glen": 14.3,
     "gValid": true,
     "gmass": 100.0,
-    "gpressure": 250.0,
+    "gpressure": 500.0,
     "g1bc": 0.17
   },
   {
@@ -4253,8 +4285,9 @@
     "glen": 14.6,
     "gValid": true,
     "gmass": 200.0,
-    "gpressure": 250.0,
-    "g1bc": 0.151
+    "gpressure": 450.0,
+    "g1bc": 0.151,
+    "gfriction": 35.0
   },
   {
     "mname": "Hornady",

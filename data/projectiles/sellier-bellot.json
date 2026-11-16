@@ -342,7 +342,8 @@
     "gtaildiaA": 8.2,
     "gtaildiaB": 7.0,
     "gtailh": 4.4,
-    "descr": "Length, base diameter and boat-tail length measured on a sample bullet"
+    "descr": "Length, base diameter and boat-tail length measured on a sample bullet",
+    "gfriction": -15.0
   },
   {
     "mname": "Sellier & Bellot",

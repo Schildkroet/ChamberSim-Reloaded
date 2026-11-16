@@ -846,7 +846,8 @@
     "gmass": 100.0,
     "gpressure": 350.0,
     "gtailtype": 2,
-    "gtaildiaA": 6.53
+    "gtaildiaA": 6.53,
+    "gfriction": -10.0
   },
   {
     "mname": "Barnes",
@@ -866,7 +867,8 @@
     "glen": 27.4,
     "gValid": true,
     "gmass": 150.0,
-    "gpressure": 350.0
+    "gpressure": 345.0,
+    "gfriction": -10.0
   },
   {
     "mname": "Barnes",
@@ -1430,11 +1432,12 @@
     "glen": 20.7,
     "gValid": true,
     "gmass": 50.0,
-    "gpressure": 350.0,
+    "gpressure": 90.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 5.3,
-    "gtailh": 1.0
+    "gtailh": 1.0,
+    "gfriction": -60.0
   },
   {
     "mname": "Barnes",
@@ -1466,7 +1469,8 @@
     "glen": 26.7,
     "gValid": true,
     "gmass": 110.0,
-    "gpressure": 350.0
+    "gpressure": 130.0,
+    "gfriction": -90.0
   },
   {
     "mname": "Barnes",
@@ -1476,9 +1480,10 @@
     "glen": 32.5,
     "gValid": true,
     "gmass": 160.0,
-    "gpressure": 350.0,
+    "gpressure": 95.0,
     "gtailtype": 2,
-    "gtaildiaA": 8.2
+    "gtaildiaA": 8.2,
+    "gfriction": 10.0
   },
   {
     "mname": "Barnes",
@@ -1488,7 +1493,8 @@
     "glen": 31.0,
     "gValid": true,
     "gmass": 160.0,
-    "gpressure": 350.0
+    "gpressure": 195.0,
+    "gfriction": -70.0
   },
   {
     "mname": "Barnes",
@@ -1556,12 +1562,13 @@
     "glen": 31.4,
     "gValid": true,
     "gmass": 300.0,
-    "gpressure": 350.0,
+    "gpressure": 320.0,
     "gtailtype": 2,
     "gtaildiaA": 11.63,
     "gtaildiaB": 10.2,
     "gtailh": 4.3,
-    "descr": "Length 31.4 mm checked by the user; boat tail estimated (base 0.88 x diameter over 0.37 x diameter, the median of the Barnes records with a measured tail)"
+    "descr": "Length 31.4 mm checked by the user; boat tail estimated (base 0.88 x diameter over 0.37 x diameter, the median of the Barnes records with a measured tail)",
+    "gfriction": -45.0
   },
   {
     "mname": "Barnes",
