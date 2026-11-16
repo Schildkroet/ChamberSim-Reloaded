@@ -2738,6 +2738,7 @@ void GuiTest::ownTitleBarCanBeSwitched()
     // the title follows the window (and names the shown load)
     QVERIFY(w.openLoad(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload")));
     QVERIFY(w.windowTitle().startsWith(u"8x57is"_s));
+    QVERIFY(w.windowTitle().endsWith(u"ChamberSim Reloaded " CSR_VERSION ""_s));  // the program's version
     bool titled = false;
     for (QLabel *l : bar->findChildren<QLabel *>()) titled = titled || l->text() == w.windowTitle();
     QVERIFY(titled);

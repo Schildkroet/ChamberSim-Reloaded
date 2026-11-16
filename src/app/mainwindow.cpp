@@ -422,7 +422,10 @@ void MainWindow::updateActions()
 {
     LoadView *view = currentLoad();
     // the title names the load that is shown (it appears in the title bar and the task switcher)
-    const QString app = tr("ChamberSim Reloaded");
+    // with the program's version (set in main.cpp from CSR_VERSION, the one in CMakeLists.txt)
+    const QString version =
+        QCoreApplication::applicationVersion().isEmpty() ? QStringLiteral(CSR_VERSION) : QCoreApplication::applicationVersion();
+    const QString app = QStringLiteral("%1 %2").arg(tr("ChamberSim Reloaded"), version);
     setWindowTitle(view ? QStringLiteral("%1 – %2").arg(m_tabs->tabText(m_tabs->currentIndex()), app) : app);
     for (QAction *a : m_loadActions) a->setEnabled(view != nullptr);
     if (m_saveAction) m_saveAction->setEnabled(view && (view->isModified() || view->path().isEmpty()));
