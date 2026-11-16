@@ -6,12 +6,12 @@
     "gdia": 7.82,
     "glen": 36.07,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.8,
     "gtaildiaB": 5.8,
     "gtailh": 6.2,
     "g1bc": 0.518,
-    "gpressure": 250.0,
     "g7bc": 0.235,
     "gValid": true
   },
@@ -22,12 +22,12 @@
     "gdia": 8.59,
     "glen": 43.99,
     "gmass": 300.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.1,
     "gtailh": 6.2,
     "g1bc": 0.733,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -37,8 +37,8 @@
     "gdia": 12.95,
     "glen": 68.88,
     "gmass": 750.0,
+    "gpressure": 250.0,
     "g1bc": 0.96,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -48,12 +48,12 @@
     "gdia": 12.95,
     "glen": 59.0,
     "gmass": 800.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 12.0,
     "gtaildiaB": 9.9,
     "gtailh": 8.6,
     "g1bc": 0.98,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -63,8 +63,8 @@
     "gdia": 9.02,
     "glen": 14.1,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "g1bc": 0.118,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -74,8 +74,8 @@
     "gdia": 9.02,
     "glen": 16.89,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "g1bc": 0.144,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -85,8 +85,8 @@
     "gdia": 9.02,
     "glen": 14.1,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "g1bc": 0.118,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -96,8 +96,8 @@
     "gdia": 9.07,
     "glen": 16.89,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "g1bc": 0.147,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -107,8 +107,8 @@
     "gdia": 6.71,
     "glen": 21.23,
     "gmass": 100.0,
-    "g1bc": 0.25,
     "gpressure": 350.0,
+    "g1bc": 0.25,
     "gValid": true
   },
   {
@@ -118,8 +118,8 @@
     "gdia": 7.82,
     "glen": 23.16,
     "gmass": 100.0,
-    "g1bc": 0.17,
     "gpressure": 350.0,
+    "g1bc": 0.17,
     "gValid": true
   },
   {
@@ -157,8 +157,8 @@
     "gdia": 7.9,
     "glen": 12.29,
     "gmass": 57.0,
+    "gpressure": 250.0,
     "g1bc": 0.13,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -168,12 +168,12 @@
     "gdia": 6.71,
     "glen": 33.02,
     "gmass": 144.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.35,
     "gtailh": 5.0,
     "g1bc": 0.636,
-    "gpressure": 250.0,
     "gValid": true
   },
   {
@@ -183,12 +183,12 @@
     "gdia": 7.82,
     "glen": 30.51,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.9,
     "gtailh": 4.2,
     "g1bc": 0.498,
-    "gpressure": 250.0,
     "g7bc": 0.249,
     "gValid": true
   },
@@ -199,8 +199,8 @@
     "gdia": 7.85,
     "glen": 27.94,
     "gmass": 146.0,
+    "gpressure": 250.0,
     "g1bc": 0.395,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -210,12 +210,12 @@
     "gdia": 7.87,
     "glen": 34.8,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.8,
     "gtaildiaB": 5.8,
     "gtailh": 6.2,
     "g1bc": 0.483,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -225,12 +225,12 @@
     "gdia": 7.85,
     "glen": 34.8,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.8,
     "gtaildiaB": 5.8,
     "gtailh": 6.2,
     "g1bc": 0.483,
-    "gpressure": 350.0,
     "g7bc": 0.224,
     "gValid": true
   },
@@ -241,12 +241,12 @@
     "gdia": 7.82,
     "glen": 36.07,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.8,
     "gtaildiaB": 5.8,
     "gtailh": 6.2,
     "g1bc": 0.301,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -256,8 +256,8 @@
     "gdia": 6.17,
     "glen": 23.9,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "g1bc": 0.385,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -267,8 +267,8 @@
     "gdia": 9.07,
     "glen": 16.76,
     "gmass": 158.0,
+    "gpressure": 250.0,
     "g1bc": 0.157,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -278,8 +278,8 @@
     "gdia": 7.85,
     "glen": 14.81,
     "gmass": 93.0,
+    "gpressure": 250.0,
     "g1bc": 0.166,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -289,8 +289,8 @@
     "gdia": 9.02,
     "glen": 15.9,
     "gmass": 124.0,
+    "gpressure": 250.0,
     "g1bc": 0.125,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -300,8 +300,8 @@
     "gdia": 7.85,
     "glen": 12.5,
     "gmass": 75.0,
+    "gpressure": 250.0,
     "g1bc": 0.1277,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -311,8 +311,8 @@
     "gdia": 8.99,
     "glen": 11.99,
     "gmass": 95.0,
+    "gpressure": 250.0,
     "g1bc": 0.1384,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -322,8 +322,8 @@
     "gdia": 6.38,
     "glen": 11.71,
     "gmass": 50.0,
+    "gpressure": 250.0,
     "g1bc": 0.121,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -333,8 +333,8 @@
     "gdia": 9.02,
     "glen": 15.11,
     "gmass": 116.0,
+    "gpressure": 250.0,
     "g1bc": 0.117,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -344,8 +344,8 @@
     "gdia": 6.73,
     "glen": 21.41,
     "gmass": 100.0,
-    "g1bc": 0.25,
     "gpressure": 250.0,
+    "g1bc": 0.25,
     "gValid": true
   },
   {
@@ -355,8 +355,8 @@
     "gdia": 5.69,
     "glen": 18.01,
     "gmass": 55.0,
+    "gpressure": 250.0,
     "g1bc": 0.251,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -366,8 +366,8 @@
     "gdia": 7.85,
     "glen": 22.5,
     "gmass": 123.0,
+    "gpressure": 250.0,
     "g1bc": 0.27,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -377,8 +377,8 @@
     "gdia": 7.82,
     "glen": 22.66,
     "gmass": 123.9,
-    "g1bc": 0.28,
     "gpressure": 250.0,
+    "g1bc": 0.28,
     "gValid": true
   },
   {
@@ -388,8 +388,8 @@
     "gdia": 5.69,
     "glen": 18.01,
     "gmass": 55.0,
+    "gpressure": 250.0,
     "g1bc": 0.245,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -399,8 +399,8 @@
     "gdia": 7.9,
     "glen": 23.01,
     "gmass": 123.0,
+    "gpressure": 250.0,
     "g1bc": 0.257,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -410,8 +410,8 @@
     "gdia": 6.71,
     "glen": 21.23,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "g1bc": 0.25,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -421,8 +421,8 @@
     "gdia": 7.85,
     "glen": 22.68,
     "gmass": 123.0,
+    "gpressure": 250.0,
     "g1bc": 0.27,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -432,8 +432,8 @@
     "gdia": 5.69,
     "glen": 18.01,
     "gmass": 55.0,
+    "gpressure": 250.0,
     "g1bc": 0.251,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -454,8 +454,8 @@
     "gdia": 9.04,
     "glen": 20.32,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "g1bc": 0.157,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -465,8 +465,8 @@
     "gdia": 9.07,
     "glen": 22.5,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "g1bc": 0.175,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -476,12 +476,12 @@
     "gdia": 7.82,
     "glen": 31.5,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.1,
     "gtaildiaB": 6.2,
     "gtailh": 6.2,
     "g1bc": 0.504,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -491,12 +491,12 @@
     "gdia": 7.82,
     "glen": 33.6,
     "gmass": 185.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.95,
     "gtaildiaB": 5.9,
     "gtailh": 6.0,
     "g1bc": 0.506,
-    "gpressure": 350.0,
     "g7bc": 0.254,
     "gValid": true
   },
@@ -507,12 +507,12 @@
     "gdia": 7.82,
     "glen": 31.5,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.1,
     "gtaildiaB": 6.2,
     "gtailh": 6.2,
     "g1bc": 0.502,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -522,12 +522,12 @@
     "gdia": 7.82,
     "glen": 33.6,
     "gmass": 185.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.95,
     "gtaildiaB": 5.9,
     "gtailh": 6.0,
     "g1bc": 0.506,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -537,8 +537,8 @@
     "gdia": 7.82,
     "glen": 22.66,
     "gmass": 123.9,
+    "gpressure": 250.0,
     "g1bc": 0.28,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -548,8 +548,8 @@
     "gdia": 7.82,
     "glen": 33.02,
     "gmass": 185.0,
+    "gpressure": 250.0,
     "g1bc": 0.19,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -559,8 +559,8 @@
     "gdia": 8.59,
     "glen": 38.1,
     "gmass": 260.0,
+    "gpressure": 250.0,
     "g1bc": 0.23,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -570,8 +570,8 @@
     "gdia": 9.3,
     "glen": 35.56,
     "gmass": 270.0,
+    "gpressure": 250.0,
     "g1bc": 0.209,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -581,8 +581,8 @@
     "gdia": 7.82,
     "glen": 24.99,
     "gmass": 130.0,
+    "gpressure": 250.0,
     "g1bc": 0.21,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -592,8 +592,8 @@
     "gdia": 7.82,
     "glen": 25.2,
     "gmass": 105.0,
+    "gpressure": 250.0,
     "g1bc": 0.168,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -603,8 +603,8 @@
     "gdia": 7.85,
     "glen": 25.15,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "g1bc": 0.17,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -614,8 +614,8 @@
     "gdia": 6.17,
     "glen": 24.13,
     "gmass": 77.0,
+    "gpressure": 250.0,
     "g1bc": 0.319,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -625,8 +625,8 @@
     "gdia": 7.82,
     "glen": 24.99,
     "gmass": 73.0,
+    "gpressure": 250.0,
     "g1bc": 0.12,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -636,12 +636,12 @@
     "gdia": 6.17,
     "glen": 32.0,
     "gmass": 105.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtaildiaB": 5.0,
     "gtailh": 5.0,
     "g1bc": 0.472,
-    "gpressure": 350.0,
     "g7bc": 0.236,
     "gValid": true
   },
@@ -652,12 +652,12 @@
     "gdia": 6.17,
     "glen": 27.94,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtaildiaB": 5.0,
     "gtailh": 2.5,
     "g1bc": 0.434,
-    "gpressure": 350.0,
     "g7bc": 0.216,
     "gValid": true
   },
@@ -668,12 +668,12 @@
     "gdia": 5.69,
     "glen": 18.34,
     "gmass": 51.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 5.0,
     "gtailh": 1.2,
     "g1bc": 0.221,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -683,8 +683,8 @@
     "gdia": 6.17,
     "glen": 26.01,
     "gmass": 90.0,
-    "g1bc": 0.23,
     "gpressure": 350.0,
+    "g1bc": 0.23,
     "gValid": true
   },
   {
@@ -708,12 +708,12 @@
     "gdia": 8.59,
     "glen": 37.01,
     "gmass": 250.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 6.96,
     "gtailh": 6.71,
     "g1bc": 0.625,
-    "gpressure": 350.0,
     "g7bc": 0.31,
     "gValid": true
   },
@@ -724,8 +724,8 @@
     "gdia": 7.21,
     "glen": 30.81,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "g1bc": 0.462,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -735,12 +735,12 @@
     "gdia": 7.82,
     "glen": 27.99,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 7.2,
     "gtailh": 4.2,
     "g1bc": 0.434,
-    "gpressure": 350.0,
     "g7bc": 0.217,
     "gValid": true
   },
@@ -751,9 +751,9 @@
     "gdia": 9.14,
     "glen": 17.5,
     "gmass": 146.0,
+    "gpressure": 150.0,
     "gmaterial": "lead",
     "g1bc": 0.163,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -763,9 +763,9 @@
     "gdia": 8.0,
     "glen": 16.51,
     "gmass": 98.0,
+    "gpressure": 150.0,
     "gmaterial": "lead",
     "g1bc": 0.0982,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -775,9 +775,9 @@
     "gdia": 9.12,
     "glen": 19.2,
     "gmass": 159.0,
+    "gpressure": 150.0,
     "gmaterial": "lead",
     "g1bc": 0.158,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -787,9 +787,9 @@
     "gdia": 9.12,
     "glen": 17.6,
     "gmass": 159.0,
+    "gpressure": 150.0,
     "gmaterial": "lead",
     "g1bc": 0.12,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -799,9 +799,9 @@
     "gdia": 9.09,
     "glen": 16.0,
     "gmass": 148.0,
+    "gpressure": 250.0,
     "gmaterial": "lead",
     "g1bc": 0.057,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -811,9 +811,9 @@
     "gdia": 7.98,
     "glen": 14.71,
     "gmass": 98.0,
+    "gpressure": 250.0,
     "gmaterial": "lead",
     "g1bc": 0.041,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -823,8 +823,8 @@
     "gdia": 7.99,
     "glen": 14.7,
     "gmass": 98.0,
-    "gmaterial": "lead",
     "gpressure": 250.0,
+    "gmaterial": "lead",
     "g1bc": 0.041
   },
   {
@@ -834,9 +834,9 @@
     "gdia": 7.98,
     "glen": 12.8,
     "gmass": 83.0,
+    "gpressure": 250.0,
     "gmaterial": "lead",
     "g1bc": 0.029,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -846,8 +846,8 @@
     "gdia": 7.99,
     "glen": 12.8,
     "gmass": 83.0,
-    "gmaterial": "lead",
     "gpressure": 250.0,
+    "gmaterial": "lead",
     "g1bc": 0.029
   },
   {
@@ -857,9 +857,9 @@
     "gdia": 7.95,
     "glen": 13.97,
     "gmass": 93.0,
+    "gpressure": 250.0,
     "gmaterial": "lead",
     "g1bc": 0.0373,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -881,8 +881,8 @@
     "gdia": 7.82,
     "glen": 30.81,
     "gmass": 200.0,
-    "g1bc": 0.344,
     "gpressure": 250.0,
+    "g1bc": 0.344,
     "gValid": true
   },
   {
@@ -892,8 +892,8 @@
     "gdia": 7.04,
     "glen": 30.0,
     "gmass": 160.0,
+    "gpressure": 250.0,
     "g1bc": 0.314,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -903,8 +903,8 @@
     "gdia": 7.82,
     "glen": 28.6,
     "gmass": 185.0,
-    "g1bc": 0.319,
     "gpressure": 250.0,
+    "g1bc": 0.319,
     "gValid": true
   },
   {
@@ -914,8 +914,8 @@
     "gdia": 7.21,
     "glen": 30.3,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "g1bc": 0.322,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -925,8 +925,8 @@
     "gdia": 9.3,
     "glen": 30.0,
     "gmass": 285.0,
-    "g1bc": 0.339,
     "gpressure": 250.0,
+    "g1bc": 0.339,
     "gValid": true
   },
   {
@@ -936,8 +936,8 @@
     "gdia": 6.17,
     "glen": 23.01,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "g1bc": 0.257,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -947,8 +947,8 @@
     "gdia": 6.17,
     "glen": 25.1,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "g1bc": 0.287,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -958,8 +958,8 @@
     "gdia": 7.82,
     "glen": 22.1,
     "gmass": 125.0,
+    "gpressure": 250.0,
     "g1bc": 0.27,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -969,8 +969,8 @@
     "gdia": 7.82,
     "glen": 24.26,
     "gmass": 150.0,
-    "g1bc": 0.33,
     "gpressure": 250.0,
+    "g1bc": 0.33,
     "gValid": true
   },
   {
@@ -980,8 +980,8 @@
     "gdia": 6.71,
     "glen": 31.7,
     "gmass": 155.0,
-    "g1bc": 0.377,
     "gpressure": 250.0,
+    "g1bc": 0.377,
     "gValid": true
   },
   {
@@ -991,8 +991,8 @@
     "gdia": 9.02,
     "glen": 15.75,
     "gmass": 124.0,
+    "gpressure": 250.0,
     "g1bc": 0.112,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1002,8 +1002,8 @@
     "gdia": 9.07,
     "glen": 16.0,
     "gmass": 124.0,
+    "gpressure": 250.0,
     "g1bc": 0.112,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1013,8 +1013,8 @@
     "gdia": 7.82,
     "glen": 31.24,
     "gmass": 185.0,
+    "gpressure": 250.0,
     "g1bc": 0.458,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1024,8 +1024,8 @@
     "gdia": 8.59,
     "glen": 34.49,
     "gmass": 250.0,
+    "gpressure": 250.0,
     "g1bc": 0.459,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1035,8 +1035,8 @@
     "gdia": 7.04,
     "glen": 27.0,
     "gmass": 130.0,
+    "gpressure": 250.0,
     "g1bc": 0.375,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1046,8 +1046,8 @@
     "gdia": 8.59,
     "glen": 34.29,
     "gmass": 230.0,
-    "g1bc": 0.373,
     "gpressure": 350.0,
+    "g1bc": 0.373,
     "gValid": true
   },
   {
@@ -1057,8 +1057,8 @@
     "gdia": 7.82,
     "glen": 31.75,
     "gmass": 170.0,
-    "g1bc": 0.321,
     "gpressure": 350.0,
+    "g1bc": 0.321,
     "gValid": true
   },
   {
@@ -1068,8 +1068,8 @@
     "gdia": 9.3,
     "glen": 33.68,
     "gmass": 220.0,
-    "g1bc": 0.344,
     "gpressure": 350.0,
+    "g1bc": 0.344,
     "gValid": true
   },
   {
@@ -1079,8 +1079,8 @@
     "gdia": 7.82,
     "glen": 31.8,
     "gmass": 180.0,
-    "g1bc": 0.302,
     "gpressure": 350.0,
+    "g1bc": 0.302,
     "gValid": true
   },
   {
@@ -1090,8 +1090,8 @@
     "gdia": 9.3,
     "glen": 35.71,
     "gmass": 270.0,
-    "g1bc": 0.321,
     "gpressure": 350.0,
+    "g1bc": 0.321,
     "gValid": true
   },
   {
@@ -1101,8 +1101,8 @@
     "gdia": 6.71,
     "glen": 32.79,
     "gmass": 140.0,
-    "g1bc": 0.329,
     "gpressure": 350.0,
+    "g1bc": 0.329,
     "gValid": true
   },
   {
@@ -1122,8 +1122,8 @@
     "gdia": 7.21,
     "glen": 32.79,
     "gmass": 160.0,
-    "g1bc": 0.28,
     "gpressure": 350.0,
+    "g1bc": 0.28,
     "gValid": true
   },
   {
@@ -1133,8 +1133,8 @@
     "gdia": 7.82,
     "glen": 33.5,
     "gmass": 201.0,
-    "g1bc": 0.336,
     "gpressure": 350.0,
+    "g1bc": 0.336,
     "gValid": true
   },
   {
@@ -1144,8 +1144,8 @@
     "gdia": 8.2,
     "glen": 28.5,
     "gmass": 181.0,
-    "g1bc": 0.275,
     "gpressure": 350.0,
+    "g1bc": 0.275,
     "gValid": true
   },
   {
@@ -1211,11 +1211,11 @@
     "pname": "Naturalis N566",
     "caliber": ".224",
     "gdia": 5.69,
-    "glen": 15.2,
+    "glen": 19.2,
     "gmass": 50.0,
     "gpressure": 350.0,
     "g1bc": 0.197,
-    "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
+    "descr": "Length estimated from mass, diameter and bullet type (copper), about 10 % uncertain"
   },
   {
     "mname": "Lapua",
@@ -1265,12 +1265,12 @@
     "gdia": 7.82,
     "glen": 31.5,
     "gmass": 167.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.4,
     "gtailh": 4.5,
     "g1bc": 0.446,
-    "gpressure": 250.0,
     "g7bc": 0.223,
     "gValid": true
   },
@@ -1281,12 +1281,12 @@
     "gdia": 7.82,
     "glen": 33.4,
     "gmass": 185.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 5.9,
     "gtailh": 6.0,
     "g1bc": 0.482,
-    "gpressure": 250.0,
     "g7bc": 0.482,
     "gValid": true
   },
@@ -1297,15 +1297,14 @@
     "gdia": 6.71,
     "glen": 34.8,
     "gmass": 139.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.35,
     "gtailh": 5.5,
     "g1bc": 0.578,
-    "gpressure": 275.0,
     "g7bc": 0.29,
-    "gValid": true,
-    "gfriction": 10.0
+    "gValid": true
   },
   {
     "mname": "Lapua",
@@ -1314,14 +1313,13 @@
     "gdia": 6.71,
     "glen": 32.99,
     "gmass": 108.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.36,
     "gtailh": 5.5,
     "g1bc": 0.465,
-    "gpressure": 330.0,
-    "gValid": true,
-    "gfriction": 10.0
+    "gValid": true
   },
   {
     "mname": "Lapua",
@@ -1330,12 +1328,12 @@
     "gdia": 8.59,
     "glen": 40.0,
     "gmass": 250.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.0,
     "gtailh": 6.5,
     "g1bc": 0.648,
-    "gpressure": 350.0,
     "g7bc": 0.322,
     "gValid": true
   },
@@ -1346,12 +1344,11 @@
     "gdia": 8.6,
     "glen": 40.0,
     "gmass": 250.0,
-    "gpressure": 500.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.6,
     "g1bc": 0.648,
-    "g7bc": 0.322,
-    "gfriction": -100.0
+    "g7bc": 0.322
   },
   {
     "mname": "Lapua",
@@ -1360,15 +1357,14 @@
     "gdia": 6.71,
     "glen": 33.1,
     "gmass": 123.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.35,
     "gtailh": 5.5,
     "g1bc": 0.527,
-    "gpressure": 250.0,
     "g7bc": 0.263,
-    "gValid": true,
-    "gfriction": 75.0
+    "gValid": true
   },
   {
     "mname": "Lapua",
@@ -1377,12 +1373,12 @@
     "gdia": 7.82,
     "glen": 32.69,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.7,
     "gtailh": 5.0,
     "g1bc": 0.46,
-    "gpressure": 350.0,
     "g7bc": 0.23,
     "gValid": true
   },
@@ -1393,12 +1389,12 @@
     "gdia": 5.69,
     "glen": 24.51,
     "gmass": 70.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 4.95,
     "gtailh": 3.0,
     "g1bc": 0.321,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1408,12 +1404,12 @@
     "gdia": 6.71,
     "glen": 30.48,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.36,
     "gtailh": 5.5,
     "g1bc": 0.424,
-    "gpressure": 250.0,
     "g7bc": 0.212,
     "gValid": true
   },
@@ -1424,12 +1420,12 @@
     "gdia": 5.69,
     "glen": 25.4,
     "gmass": 77.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 4.95,
     "gtailh": 3.0,
     "g1bc": 0.386,
-    "gpressure": 350.0,
     "g7bc": 0.193,
     "gValid": true
   },
@@ -1440,12 +1436,12 @@
     "gdia": 8.59,
     "glen": 43.99,
     "gmass": 300.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.1,
     "gtailh": 6.2,
     "g1bc": 0.736,
-    "gpressure": 350.0,
     "g7bc": 0.368,
     "gValid": true
   },
@@ -1470,12 +1466,12 @@
     "gdia": 5.69,
     "glen": 24.51,
     "gmass": 69.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 4.95,
     "gtailh": 3.0,
     "g1bc": 0.341,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1485,12 +1481,12 @@
     "gdia": 6.17,
     "glen": 31.83,
     "gmass": 105.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtaildiaB": 5.0,
     "gtailh": 5.0,
     "g1bc": 0.472,
-    "gpressure": 250.0,
     "g7bc": 0.236,
     "gValid": true
   },
@@ -1501,12 +1497,12 @@
     "gdia": 6.17,
     "glen": 27.94,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtaildiaB": 5.0,
     "gtailh": 2.5,
     "g1bc": 0.434,
-    "gpressure": 250.0,
     "gValid": true
   },
   {
@@ -1516,12 +1512,12 @@
     "gdia": 5.69,
     "glen": 24.51,
     "gmass": 69.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 4.95,
     "gtailh": 3.0,
     "g1bc": 0.341,
-    "gpressure": 250.0,
     "gValid": true
   },
   {
@@ -1531,12 +1527,12 @@
     "gdia": 5.69,
     "glen": 25.91,
     "gmass": 77.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 4.95,
     "gtailh": 3.0,
     "g1bc": 0.396,
-    "gpressure": 250.0,
     "gValid": true
   },
   {
@@ -1546,12 +1542,12 @@
     "gdia": 6.71,
     "glen": 34.49,
     "gmass": 136.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.35,
     "gtailh": 5.5,
     "g1bc": 0.661,
-    "gpressure": 250.0,
     "g7bc": 0.332,
     "gValid": true
   },
@@ -1562,12 +1558,12 @@
     "gdia": 6.71,
     "glen": 31.88,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.35,
     "gtailh": 5.5,
     "g1bc": 0.497,
-    "gpressure": 250.0,
     "g7bc": 0.246,
     "gValid": true
   },
@@ -1578,12 +1574,12 @@
     "gdia": 7.82,
     "glen": 33.99,
     "gmass": 175.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.6,
     "gtailh": 5.0,
     "g7bc": 0.247,
-    "gpressure": 250.0,
     "g1bc": 0.49,
     "gValid": true
   },
@@ -1608,12 +1604,12 @@
     "gdia": 7.82,
     "glen": 32.69,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.7,
     "gtailh": 5.0,
     "g1bc": 0.46,
-    "gpressure": 375.0,
     "gValid": true
   },
   {
@@ -1623,12 +1619,12 @@
     "gdia": 7.21,
     "glen": 34.19,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.81,
     "gtaildiaB": 5.88,
     "gtailh": 5.5,
     "g1bc": 0.526,
-    "gpressure": 250.0,
     "gValid": true
   },
   {
@@ -1638,8 +1634,8 @@
     "gdia": 7.21,
     "glen": 38.0,
     "gmass": 180.0,
-    "g1bc": 0.661,
     "gpressure": 250.0,
+    "g1bc": 0.661,
     "g7bc": 0.332,
     "gValid": true,
     "gtailtype": 2,
@@ -1652,12 +1648,12 @@
     "gdia": 7.82,
     "glen": 38.48,
     "gmass": 220.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 5.9,
     "gtailh": 6.0,
     "g1bc": 0.608,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1667,8 +1663,8 @@
     "gdia": 9.07,
     "glen": 16.89,
     "gmass": 158.0,
+    "gpressure": 250.0,
     "g1bc": 0.158,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1678,8 +1674,8 @@
     "gdia": 9.07,
     "glen": 16.89,
     "gmass": 158.0,
+    "gpressure": 250.0,
     "g1bc": 0.156,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1689,8 +1685,8 @@
     "gdia": 5.69,
     "glen": 16.99,
     "gmass": 55.0,
-    "g1bc": 0.202,
     "gpressure": 250.0,
+    "g1bc": 0.202,
     "gValid": true
   },
   {
@@ -1700,8 +1696,8 @@
     "gdia": 7.21,
     "glen": 30.48,
     "gmass": 173.0,
+    "gpressure": 250.0,
     "g1bc": 0.313,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1711,8 +1707,8 @@
     "gdia": 5.69,
     "glen": 15.49,
     "gmass": 50.0,
+    "gpressure": 250.0,
     "g1bc": 0.18,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1722,8 +1718,8 @@
     "gdia": 6.17,
     "glen": 23.11,
     "gmass": 85.0,
+    "gpressure": 250.0,
     "g1bc": 0.295,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1733,8 +1729,8 @@
     "gdia": 5.69,
     "glen": 16.99,
     "gmass": 55.0,
+    "gpressure": 250.0,
     "g1bc": 0.208,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1744,8 +1740,8 @@
     "gdia": 5.69,
     "glen": 16.99,
     "gmass": 55.0,
+    "gpressure": 250.0,
     "g1bc": 0.202,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1755,8 +1751,8 @@
     "gdia": 7.85,
     "glen": 22.1,
     "gmass": 125.0,
+    "gpressure": 250.0,
     "g1bc": 0.2633,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1766,8 +1762,8 @@
     "gdia": 8.2,
     "glen": 27.0,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "g1bc": 0.284,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1777,8 +1773,8 @@
     "gdia": 6.68,
     "glen": 30.73,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "g1bc": 0.45,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1788,8 +1784,8 @@
     "gdia": 6.71,
     "glen": 31.7,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "g1bc": 0.371,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1799,8 +1795,8 @@
     "gdia": 10.95,
     "glen": 17.5,
     "gmass": 240.0,
+    "gpressure": 250.0,
     "g1bc": 0.1366,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1810,8 +1806,8 @@
     "gdia": 7.9,
     "glen": 22.86,
     "gmass": 125.0,
+    "gpressure": 250.0,
     "g1bc": 0.275,
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1821,8 +1817,8 @@
     "gdia": 9.07,
     "glen": 16.51,
     "gmass": 158.0,
+    "gpressure": 150.0,
     "g1bc": 0.12,
-    "gpressure": 350.0,
     "gValid": true
   },
   {

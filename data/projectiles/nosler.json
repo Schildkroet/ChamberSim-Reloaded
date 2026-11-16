@@ -67,8 +67,7 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "g1bc": 0.55,
-    "gfriction": -70.0
+    "g1bc": 0.55
   },
   {
     "mname": "Nosler",
@@ -101,7 +100,7 @@
     "gdia": 7.82,
     "glen": 37.7,
     "gmass": 200.0,
-    "gpressure": 195.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "g1bc": 0.588
@@ -185,11 +184,10 @@
     "gdia": 7.04,
     "glen": 31.6,
     "gmass": 130.0,
-    "gpressure": 60.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
-    "g1bc": 0.435,
-    "gfriction": 30.0
+    "g1bc": 0.435
   },
   {
     "mname": "Nosler",
@@ -201,8 +199,7 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "g1bc": 0.475,
-    "gfriction": -10.0
+    "g1bc": 0.475
   },
   {
     "mname": "Nosler",
@@ -223,11 +220,10 @@
     "gdia": 8.59,
     "glen": 34.0,
     "gmass": 200.0,
-    "gpressure": 450.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "g1bc": 0.414,
-    "gfriction": -100.0
+    "g1bc": 0.414
   },
   {
     "mname": "Nosler",
@@ -272,11 +268,10 @@
     "gdia": 8.59,
     "glen": 31.5,
     "gmass": 180.0,
-    "gpressure": 330.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "g1bc": 0.372,
-    "gfriction": -50.0
+    "g1bc": 0.372
   },
   {
     "mname": "Nosler",
@@ -285,7 +280,7 @@
     "gdia": 6.71,
     "glen": 34.7,
     "gmass": 140.0,
-    "gpressure": 270.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "g1bc": 0.509
@@ -321,11 +316,10 @@
     "gdia": 7.82,
     "glen": 39.9,
     "gmass": 210.0,
-    "gpressure": 200.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "g1bc": 0.661,
-    "gfriction": -90.0
+    "g1bc": 0.661
   },
   {
     "mname": "Nosler",
@@ -349,8 +343,7 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "g1bc": 0.525,
-    "gfriction": -70.0
+    "g1bc": 0.525
   },
   {
     "mname": "Nosler",
@@ -359,11 +352,10 @@
     "gdia": 7.82,
     "glen": 37.6,
     "gmass": 190.0,
-    "gpressure": 230.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "g1bc": 0.597,
-    "gfriction": -100.0
+    "g1bc": 0.597
   },
   {
     "mname": "Nosler",
@@ -456,11 +448,10 @@
     "gdia": 6.71,
     "glen": 34.8,
     "gmass": 129.0,
-    "gpressure": 140.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "g1bc": 0.53,
-    "gfriction": -65.0
+    "g1bc": 0.53
   },
   {
     "mname": "Nosler",
@@ -579,11 +570,10 @@
     "gdia": 6.17,
     "glen": 28.4,
     "gmass": 95.0,
-    "gpressure": 365.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
-    "g1bc": 0.379,
-    "gfriction": 40.0
+    "g1bc": 0.379
   },
   {
     "mname": "Nosler",
@@ -604,7 +594,7 @@
     "gdia": 7.04,
     "glen": 31.0,
     "gmass": 130.0,
-    "gpressure": 500.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "g1bc": 0.433
@@ -628,7 +618,7 @@
     "gdia": 7.21,
     "glen": 31.9,
     "gmass": 140.0,
-    "gpressure": 205.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
     "g1bc": 0.485
@@ -652,7 +642,7 @@
     "gdia": 7.82,
     "glen": 31.0,
     "gmass": 150.0,
-    "gpressure": 300.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "g1bc": 0.435
@@ -700,11 +690,10 @@
     "gdia": 8.59,
     "glen": 34.0,
     "gmass": 200.0,
-    "gpressure": 500.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
-    "g1bc": 0.414,
-    "gfriction": -50.0
+    "g1bc": 0.414
   },
   {
     "mname": "Nosler",
@@ -781,11 +770,10 @@
     "gdia": 6.71,
     "glen": 27.4,
     "gmass": 100.0,
-    "gpressure": 400.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "g1bc": 0.35,
-    "gfriction": -5.0
+    "g1bc": 0.35
   },
   {
     "mname": "Nosler",
@@ -905,8 +893,7 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "g1bc": 0.366,
-    "gfriction": -55.0
+    "g1bc": 0.366
   },
   {
     "mname": "Nosler",
@@ -1007,7 +994,7 @@
     "gdia": 5.69,
     "glen": 19.9,
     "gmass": 40.0,
-    "gpressure": 270.0,
+    "gpressure": 350.0,
     "g1bc": 0.22
   },
   {
@@ -1017,9 +1004,8 @@
     "gdia": 6.17,
     "glen": 24.1,
     "gmass": 55.0,
-    "gpressure": 200.0,
-    "g1bc": 0.288,
-    "gfriction": -15.0
+    "gpressure": 350.0,
+    "g1bc": 0.288
   },
   {
     "mname": "Nosler",
@@ -1144,7 +1130,7 @@
     "gdia": 6.53,
     "glen": 25.8,
     "gmass": 85.0,
-    "gpressure": 245.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.53,
     "g1bc": 0.329
@@ -1190,11 +1176,10 @@
     "gdia": 5.69,
     "glen": 24.9,
     "gmass": 77.0,
-    "gpressure": 170.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
-    "g1bc": 0.34,
-    "gfriction": -10.0
+    "g1bc": 0.34
   },
   {
     "mname": "Nosler",
@@ -1379,11 +1364,10 @@
     "gdia": 7.82,
     "glen": 31.5,
     "gmass": 175.0,
-    "gpressure": 435.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
-    "g1bc": 0.505,
-    "gfriction": -5.0
+    "g1bc": 0.505
   },
   {
     "mname": "Nosler",
@@ -1636,9 +1620,8 @@
     "gdia": 5.69,
     "glen": 20.1,
     "gmass": 60.0,
-    "gpressure": 410.0,
-    "g1bc": 0.228,
-    "gfriction": 15.0
+    "gpressure": 250.0,
+    "g1bc": 0.228
   },
   {
     "mname": "Nosler",
@@ -1697,11 +1680,11 @@
     "gdia": 7.04,
     "glen": 28.8,
     "gmass": 130.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.0,
     "gtaildiaB": 5.1,
     "gtailh": 3.8,
-    "gpressure": 500.0,
     "g1bc": 0.416
   },
   {
@@ -1711,7 +1694,7 @@
     "gdia": 7.04,
     "glen": 31.8,
     "gmass": 150.0,
-    "gpressure": 500.0,
+    "gpressure": 250.0,
     "g1bc": 0.465
   },
   {
@@ -1721,9 +1704,8 @@
     "gdia": 7.04,
     "glen": 33.0,
     "gmass": 160.0,
-    "gpressure": 440.0,
-    "g1bc": 0.434,
-    "gfriction": -5.0
+    "gpressure": 250.0,
+    "g1bc": 0.434
   },
   {
     "mname": "Nosler",
@@ -1742,7 +1724,7 @@
     "gdia": 7.21,
     "glen": 31.0,
     "gmass": 150.0,
-    "gpressure": 295.0,
+    "gpressure": 250.0,
     "g1bc": 0.456
   },
   {
@@ -1762,11 +1744,11 @@
     "gdia": 7.82,
     "glen": 27.9,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.8,
     "gtaildiaB": 4.7,
     "gtailh": 3.8,
-    "gpressure": 250.0,
     "g1bc": 0.387
   },
   {
@@ -1776,11 +1758,11 @@
     "gdia": 7.82,
     "glen": 29.8,
     "gmass": 165.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.8,
     "gtaildiaB": 6.1,
     "gtailh": 3.8,
-    "gpressure": 250.0,
     "g1bc": 0.41
   },
   {
@@ -1830,9 +1812,8 @@
     "gdia": 8.59,
     "glen": 30.5,
     "gmass": 210.0,
-    "gpressure": 500.0,
-    "g1bc": 0.4,
-    "gfriction": -55.0
+    "gpressure": 250.0,
+    "g1bc": 0.4
   },
   {
     "mname": "Nosler",
@@ -1871,9 +1852,8 @@
     "gdia": 7.82,
     "glen": 34.3,
     "gmass": 200.0,
-    "gpressure": 130.0,
-    "g1bc": 0.481,
-    "gfriction": -70.0
+    "gpressure": 250.0,
+    "g1bc": 0.481
   },
   {
     "mname": "Nosler",
@@ -1882,9 +1862,8 @@
     "gdia": 6.17,
     "glen": 27.1,
     "gmass": 100.0,
-    "gpressure": 500.0,
-    "g1bc": 0.384,
-    "gfriction": 120.0
+    "gpressure": 250.0,
+    "g1bc": 0.384
   },
   {
     "mname": "Nosler",
@@ -1893,13 +1872,12 @@
     "gdia": 6.53,
     "glen": 29.8,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.5,
     "gtaildiaB": 4.8,
     "gtailh": 3.7,
-    "gpressure": 150.0,
-    "g1bc": 0.391,
-    "gfriction": 135.0
+    "g1bc": 0.391
   },
   {
     "mname": "Nosler",
@@ -1968,7 +1946,7 @@
     "gdia": 9.52,
     "glen": 29.1,
     "gmass": 260.0,
-    "gpressure": 320.0,
+    "gpressure": 250.0,
     "g1bc": 0.314
   },
   {
@@ -1981,8 +1959,7 @@
     "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
-    "g1bc": 0.658,
-    "gfriction": -20.0
+    "g1bc": 0.658
   },
   {
     "mname": "Nosler",
@@ -1991,7 +1968,7 @@
     "gdia": 5.69,
     "glen": 24.5,
     "gmass": 70.0,
-    "gpressure": 330.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "g1bc": 0.416
@@ -2254,8 +2231,7 @@
     "glen": 19.7,
     "gmass": 250.0,
     "gpressure": 250.0,
-    "g1bc": 0.177,
-    "gfriction": -5.0
+    "g1bc": 0.177
   },
   {
     "mname": "Nosler",
@@ -2304,11 +2280,11 @@
     "gdia": 11.63,
     "glen": 20.4,
     "gmass": 300.0,
+    "gpressure": 250.0,
     "gtailtype": 1,
     "gtaildiaA": 10.0,
     "gtaildiaB": 2.0,
     "gtailh": 0.5,
-    "gpressure": 250.0,
     "g1bc": 0.191
   },
   {
@@ -2318,7 +2294,7 @@
     "gdia": 4.37,
     "glen": 12.7,
     "gmass": 20.0,
-    "gpressure": 245.0,
+    "gpressure": 250.0,
     "g1bc": 0.119
   },
   {
@@ -2418,11 +2394,11 @@
     "gdia": 5.69,
     "glen": 21.1,
     "gmass": 53.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.7,
     "gtaildiaB": 5.1,
     "gtailh": 1.5,
-    "gpressure": 250.0,
     "g1bc": 0.303
   },
   {

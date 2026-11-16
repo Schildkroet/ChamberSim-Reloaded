@@ -6,10 +6,10 @@
     "gdia": 6.71,
     "glen": 23.09,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.6,
     "g1bc": 0.1867,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -19,10 +19,10 @@
     "gdia": 7.04,
     "glen": 23.19,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.2,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -32,10 +32,10 @@
     "gdia": 7.21,
     "glen": 23.09,
     "gmass": 105.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.1,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -45,6 +45,7 @@
     "gdia": 7.82,
     "glen": 22.91,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 7.46,
@@ -52,7 +53,6 @@
     "gdepthmax": 8.4,
     "g1bc": 0.1817,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -62,10 +62,10 @@
     "gdia": 7.82,
     "glen": 26.19,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.7,
     "g1bc": 0.2358,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -75,10 +75,10 @@
     "gdia": 8.2,
     "glen": 26.49,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.5,
     "g1bc": 0.2161,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -88,10 +88,10 @@
     "gdia": 8.59,
     "glen": 26.59,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.6,
     "g1bc": 0.2161,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -101,10 +101,10 @@
     "gdia": 9.3,
     "glen": 23.39,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.4,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -114,10 +114,10 @@
     "gdia": 9.02,
     "glen": 14.3,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gdepthmax": 4.4,
     "g1bc": 0.098,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -127,10 +127,10 @@
     "gdia": 9.02,
     "glen": 13.89,
     "gmass": 85.0,
+    "gpressure": 250.0,
     "gdepthmax": 7.4,
     "g1bc": 0.0982,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -140,10 +140,10 @@
     "gdia": 9.27,
     "glen": 11.99,
     "gmass": 80.0,
+    "gpressure": 250.0,
     "gdepthmax": 7.0,
     "g1bc": 0.098,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -153,6 +153,7 @@
     "gdia": 4.65,
     "glen": 17.81,
     "gmass": 31.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 4.65,
     "gtaildiaB": 3.94,
@@ -160,7 +161,6 @@
     "gdepthmax": 11.9,
     "g1bc": 0.1081,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -170,6 +170,7 @@
     "gdia": 5.18,
     "glen": 16.84,
     "gmass": 35.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.18,
     "gtaildiaB": 4.76,
@@ -177,7 +178,6 @@
     "gdepthmax": 8.65,
     "g1bc": 0.1503,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -187,6 +187,7 @@
     "gdia": 5.59,
     "glen": 15.01,
     "gmass": 35.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.59,
     "gtaildiaB": 5.05,
@@ -194,7 +195,6 @@
     "gdepthmax": 7.0,
     "g1bc": 0.1307,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -204,6 +204,7 @@
     "gdia": 5.59,
     "glen": 22.4,
     "gmass": 50.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.59,
     "gtaildiaB": 4.6,
@@ -211,7 +212,6 @@
     "gdepthmax": 8.9,
     "g1bc": 0.2426,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -221,10 +221,10 @@
     "gdia": 5.64,
     "glen": 13.49,
     "gmass": 32.0,
+    "gpressure": 250.0,
     "gdepthmax": 6.5,
     "g1bc": 0.1179,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -234,10 +234,10 @@
     "gdia": 5.69,
     "glen": 14.6,
     "gmass": 35.0,
+    "gpressure": 250.0,
     "gdepthmax": 6.6,
     "g1bc": 0.1179,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -247,10 +247,10 @@
     "gdia": 5.69,
     "glen": 16.21,
     "gmass": 40.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.2,
     "g1bc": 0.167,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -260,10 +260,10 @@
     "gdia": 5.69,
     "glen": 18.49,
     "gmass": 45.0,
+    "gpressure": 250.0,
     "gdepthmax": 9.0,
     "g1bc": 0.1768,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -273,6 +273,7 @@
     "gdia": 5.69,
     "glen": 20.6,
     "gmass": 51.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 4.74,
@@ -280,7 +281,6 @@
     "gdepthmax": 11.1,
     "g1bc": 0.187,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -290,10 +290,10 @@
     "gdia": 5.69,
     "glen": 24.1,
     "gmass": 60.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.1,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -303,6 +303,7 @@
     "gdia": 5.77,
     "glen": 19.1,
     "gmass": 50.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.77,
     "gtaildiaB": 5.24,
@@ -310,7 +311,6 @@
     "gdepthmax": 11.1,
     "g1bc": 0.1867,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -320,10 +320,10 @@
     "gdia": 5.77,
     "glen": 24.69,
     "gmass": 63.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.0,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -333,10 +333,10 @@
     "gdia": 6.17,
     "glen": 20.95,
     "gmass": 60.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.45,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -346,10 +346,10 @@
     "gdia": 6.17,
     "glen": 25.7,
     "gmass": 75.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.2,
     "g1bc": 0.3045,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -359,10 +359,10 @@
     "gdia": 6.17,
     "glen": 29.31,
     "gmass": 85.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.3,
     "g1bc": 0.3144,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -372,10 +372,10 @@
     "gdia": 6.53,
     "glen": 27.89,
     "gmass": 95.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.9,
     "g1bc": 0.3242,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -385,10 +385,10 @@
     "gdia": 6.63,
     "glen": 33.71,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 18.2,
     "g1bc": 0.4322,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -398,10 +398,10 @@
     "gdia": 6.71,
     "glen": 29.39,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.9,
     "g1bc": 0.3144,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -411,10 +411,10 @@
     "gdia": 6.71,
     "glen": 32.99,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.5,
     "g1bc": 0.4322,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -424,6 +424,7 @@
     "gdia": 6.71,
     "glen": 35.1,
     "gmass": 124.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.64,
@@ -431,7 +432,6 @@
     "gdepthmax": 19.6,
     "g1bc": 0.4617,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -441,6 +441,7 @@
     "gdia": 6.71,
     "glen": 36.3,
     "gmass": 127.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.57,
@@ -448,7 +449,6 @@
     "gdepthmax": 17.8,
     "g1bc": 0.4686,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -458,10 +458,10 @@
     "gdia": 6.71,
     "glen": 24.36,
     "gmass": 85.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.85,
     "g1bc": 0.2652,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -471,10 +471,10 @@
     "gdia": 6.78,
     "glen": 32.41,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.9,
     "g1bc": 0.4322,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -484,6 +484,7 @@
     "gdia": 6.78,
     "glen": 32.41,
     "gmass": 125.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.78,
     "gtaildiaB": 6.2,
@@ -491,7 +492,6 @@
     "gdepthmax": 21.9,
     "g1bc": 0.3085,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -501,10 +501,10 @@
     "gdia": 7.04,
     "glen": 23.57,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.07,
     "g1bc": 0.2456,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -514,10 +514,10 @@
     "gdia": 7.77,
     "glen": 33.91,
     "gmass": 160.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.9,
     "g1bc": 0.393,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -527,10 +527,10 @@
     "gdia": 7.82,
     "glen": 37.39,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "gdepthmax": 20.9,
     "g1bc": 0.4519,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -540,10 +540,10 @@
     "gdia": 7.82,
     "glen": 40.11,
     "gmass": 195.0,
+    "gpressure": 250.0,
     "gdepthmax": 23.6,
     "g1bc": 0.5207,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -553,6 +553,7 @@
     "gdia": 7.82,
     "glen": 44.2,
     "gmass": 210.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.41,
@@ -560,7 +561,6 @@
     "gdepthmax": 23.2,
     "g1bc": 0.5501,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -570,10 +570,10 @@
     "gdia": 8.08,
     "glen": 27.89,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.9,
     "g1bc": 0.2947,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -583,10 +583,10 @@
     "gdia": 8.2,
     "glen": 37.69,
     "gmass": 198.0,
+    "gpressure": 250.0,
     "gdepthmax": 19.7,
     "g1bc": 0.4421,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -596,10 +596,10 @@
     "gdia": 8.59,
     "glen": 27.3,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.3,
     "g1bc": 0.2947,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -609,6 +609,7 @@
     "gdia": 8.59,
     "glen": 36.25,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.08,
@@ -616,7 +617,6 @@
     "gdepthmax": 17.25,
     "g1bc": 0.393,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -626,10 +626,10 @@
     "gdia": 8.59,
     "glen": 40.36,
     "gmass": 230.0,
+    "gpressure": 250.0,
     "gdepthmax": 21.35,
     "g1bc": 0.5207,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -639,6 +639,7 @@
     "gdia": 8.59,
     "glen": 42.7,
     "gmass": 245.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.09,
@@ -646,7 +647,6 @@
     "gdepthmax": 17.2,
     "g1bc": 0.5452,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -656,10 +656,10 @@
     "gdia": 9.09,
     "glen": 22.0,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.0,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -669,10 +669,10 @@
     "gdia": 9.3,
     "glen": 23.55,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.05,
     "g1bc": 0.2063,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -682,10 +682,10 @@
     "gdia": 9.3,
     "glen": 27.05,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.55,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -695,6 +695,7 @@
     "gdia": 9.3,
     "glen": 29.9,
     "gmass": 190.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 9.3,
     "gtaildiaB": 8.47,
@@ -702,7 +703,6 @@
     "gdepthmax": 12.4,
     "g1bc": 0.3242,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -712,6 +712,7 @@
     "gdia": 9.3,
     "glen": 35.31,
     "gmass": 230.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 9.3,
     "gtaildiaB": 7.78,
@@ -719,7 +720,6 @@
     "gdepthmax": 17.3,
     "g1bc": 0.393,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -729,10 +729,10 @@
     "gdia": 9.52,
     "glen": 24.99,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.0,
     "g1bc": 0.226,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -742,10 +742,10 @@
     "gdia": 9.52,
     "glen": 29.95,
     "gmass": 215.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.95,
     "g1bc": 0.2947,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -755,10 +755,10 @@
     "gdia": 10.52,
     "glen": 26.39,
     "gmass": 215.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.4,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -768,6 +768,7 @@
     "gdia": 10.57,
     "glen": 26.01,
     "gmass": 215.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.57,
     "gtaildiaB": 9.86,
@@ -775,7 +776,6 @@
     "gdepthmax": 11.0,
     "g1bc": 0.2387,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -785,10 +785,10 @@
     "gdia": 10.57,
     "glen": 27.89,
     "gmass": 235.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.9,
     "g1bc": 0.255,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -798,10 +798,10 @@
     "gdia": 10.72,
     "glen": 25.1,
     "gmass": 220.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.1,
     "g1bc": 0.1768,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -811,10 +811,10 @@
     "gdia": 10.72,
     "glen": 27.43,
     "gmass": 240.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.93,
     "g1bc": 0.1768,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -824,10 +824,10 @@
     "gdia": 10.74,
     "glen": 27.3,
     "gmass": 240.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.8,
     "g1bc": 0.1768,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -837,10 +837,10 @@
     "gdia": 10.92,
     "glen": 21.11,
     "gmass": 205.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.1,
     "g1bc": 0.1768,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -850,10 +850,10 @@
     "gdia": 11.63,
     "glen": 22.86,
     "gmass": 245.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.85,
     "g1bc": 0.1375,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -863,6 +863,7 @@
     "gdia": 11.63,
     "glen": 27.0,
     "gmass": 260.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 11.63,
     "gtaildiaB": 11.14,
@@ -870,7 +871,6 @@
     "gdepthmax": 11.0,
     "g1bc": 0.2014,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -880,10 +880,10 @@
     "gdia": 11.63,
     "glen": 29.31,
     "gmass": 295.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.8,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -893,6 +893,7 @@
     "gdia": 7.04,
     "glen": 30.4,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "gtaildiaB": 5.98,
@@ -900,7 +901,6 @@
     "gdepthmax": 15.4,
     "g1bc": 0.334,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -910,10 +910,10 @@
     "gdia": 7.21,
     "glen": 30.1,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.1,
     "g1bc": 0.3537,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -923,6 +923,7 @@
     "gdia": 7.21,
     "glen": 35.2,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.22,
     "gtaildiaB": 6.25,
@@ -930,7 +931,6 @@
     "gdepthmax": 17.2,
     "g1bc": 0.4519,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -940,10 +940,10 @@
     "gdia": 7.82,
     "glen": 29.59,
     "gmass": 135.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.1,
     "g1bc": 0.3438,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -953,10 +953,10 @@
     "gdia": 7.82,
     "glen": 32.41,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.9,
     "g1bc": 0.393,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -966,10 +966,10 @@
     "gdia": 7.82,
     "glen": 34.8,
     "gmass": 165.0,
+    "gpressure": 250.0,
     "gdepthmax": 18.3,
     "g1bc": 0.4323,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -979,10 +979,10 @@
     "gdia": 8.2,
     "glen": 27.94,
     "gmass": 145.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.95,
     "g1bc": 0.3144,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -992,10 +992,10 @@
     "gdia": 8.59,
     "glen": 29.79,
     "gmass": 168.0,
+    "gpressure": 250.0,
     "gdepthmax": 14.8,
     "g1bc": 0.344,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1005,6 +1005,7 @@
     "gdia": 8.59,
     "glen": 33.71,
     "gmass": 182.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.07,
@@ -1012,7 +1013,6 @@
     "gdepthmax": 15.2,
     "g1bc": 0.4322,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1022,6 +1022,7 @@
     "gdia": 6.53,
     "glen": 25.25,
     "gmass": 82.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.53,
     "gtaildiaB": 5.51,
@@ -1029,7 +1030,6 @@
     "gdepthmax": 13.25,
     "g1bc": 0.2309,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1039,6 +1039,7 @@
     "gdia": 6.63,
     "glen": 32.99,
     "gmass": 111.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.64,
     "gtaildiaB": 5.58,
@@ -1046,7 +1047,6 @@
     "gdepthmax": 17.5,
     "g1bc": 0.363,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1056,6 +1056,7 @@
     "gdia": 6.71,
     "glen": 32.99,
     "gmass": 113.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.64,
@@ -1063,7 +1064,6 @@
     "gdepthmax": 17.5,
     "g1bc": 0.334,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1073,6 +1073,7 @@
     "gdia": 7.04,
     "glen": 30.4,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "gtaildiaB": 5.97,
@@ -1080,7 +1081,6 @@
     "gdepthmax": 15.5,
     "g1bc": 0.334,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1090,6 +1090,7 @@
     "gdia": 7.04,
     "glen": 35.51,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "gtaildiaB": 5.76,
@@ -1097,7 +1098,6 @@
     "gdepthmax": 20.5,
     "g1bc": 0.4126,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1107,10 +1107,10 @@
     "gdia": 7.21,
     "glen": 30.2,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.2,
     "g1bc": 0.334,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1120,6 +1120,7 @@
     "gdia": 7.21,
     "glen": 35.05,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
     "gtaildiaB": 6.29,
@@ -1127,7 +1128,6 @@
     "gdepthmax": 17.05,
     "g1bc": 0.4028,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1137,10 +1137,10 @@
     "gdia": 7.82,
     "glen": 22.86,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.4,
     "g1bc": 0.2181,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1150,10 +1150,10 @@
     "gdia": 7.82,
     "glen": 25.4,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.9,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1163,6 +1163,7 @@
     "gdia": 7.82,
     "glen": 29.36,
     "gmass": 135.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 7.39,
@@ -1170,7 +1171,6 @@
     "gdepthmax": 12.85,
     "g1bc": 0.324,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1180,10 +1180,10 @@
     "gdia": 7.82,
     "glen": 32.11,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.6,
     "g1bc": 0.3733,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1193,10 +1193,10 @@
     "gdia": 7.82,
     "glen": 34.65,
     "gmass": 165.0,
+    "gpressure": 250.0,
     "gdepthmax": 18.15,
     "g1bc": 0.4126,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1206,10 +1206,10 @@
     "gdia": 8.2,
     "glen": 27.89,
     "gmass": 145.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.9,
     "g1bc": 0.2947,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1219,6 +1219,7 @@
     "gdia": 8.2,
     "glen": 32.54,
     "gmass": 165.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
     "gtaildiaB": 7.37,
@@ -1226,7 +1227,6 @@
     "gdepthmax": 14.55,
     "g1bc": 0.442,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1236,6 +1236,7 @@
     "gdia": 8.59,
     "glen": 29.74,
     "gmass": 168.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.69,
@@ -1243,7 +1244,6 @@
     "gdepthmax": 14.75,
     "g1bc": 0.324,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1253,6 +1253,7 @@
     "gdia": 8.59,
     "glen": 33.55,
     "gmass": 182.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.1,
@@ -1260,7 +1261,6 @@
     "gdepthmax": 15.05,
     "g1bc": 0.391,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1270,6 +1270,7 @@
     "gdia": 8.59,
     "glen": 46.3,
     "gmass": 265.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.08,
@@ -1277,7 +1278,6 @@
     "gdepthmax": 17.3,
     "g1bc": 0.648,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1287,10 +1287,10 @@
     "gdia": 9.3,
     "glen": 29.31,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.8,
     "g1bc": 0.2908,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1300,10 +1300,10 @@
     "gdia": 9.52,
     "glen": 49.2,
     "gmass": 350.0,
+    "gpressure": 250.0,
     "gdepthmax": 22.2,
     "g1bc": 0.6386,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1313,10 +1313,10 @@
     "gdia": 10.49,
     "glen": 26.39,
     "gmass": 215.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.4,
     "g1bc": 0.255,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1326,10 +1326,10 @@
     "gdia": 10.57,
     "glen": 38.1,
     "gmass": 350.0,
+    "gpressure": 250.0,
     "gdepthmax": 23.1,
     "g1bc": 0.2555,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1339,10 +1339,10 @@
     "gdia": 6.71,
     "glen": 24.41,
     "gmass": 84.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.9,
     "g1bc": 0.2289,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1352,10 +1352,10 @@
     "gdia": 10.67,
     "glen": 27.89,
     "gmass": 240.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.9,
     "g1bc": 0.2604,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1365,10 +1365,10 @@
     "gdia": 8.2,
     "glen": 35.2,
     "gmass": 180.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.2,
     "g1bc": 0.3468,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1378,10 +1378,10 @@
     "gdia": 9.3,
     "glen": 23.39,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gdepthmax": 9.9,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1391,10 +1391,10 @@
     "gdia": 9.3,
     "glen": 27.1,
     "gmass": 182.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.6,
     "g1bc": 0.2456,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1404,6 +1404,7 @@
     "gdia": 10.36,
     "glen": 46.2,
     "gmass": 385.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.36,
     "gtaildiaB": 8.62,
@@ -1411,7 +1412,6 @@
     "gdepthmax": 18.2,
     "g1bc": 0.5472,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1421,6 +1421,7 @@
     "gdia": 8.59,
     "glen": 37.21,
     "gmass": 205.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.06,
@@ -1428,7 +1429,6 @@
     "gdepthmax": 15.2,
     "g1bc": 0.2259,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1438,10 +1438,10 @@
     "gdia": 9.3,
     "glen": 35.41,
     "gmass": 225.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.4,
     "g1bc": 0.2446,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1451,6 +1451,7 @@
     "gdia": 10.74,
     "glen": 24.89,
     "gmass": 225.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.75,
     "gtaildiaB": 10.07,
@@ -1458,7 +1459,6 @@
     "gdepthmax": 13.9,
     "g1bc": 0.167,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1468,6 +1468,7 @@
     "gdia": 8.59,
     "glen": 26.95,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 8.01,
@@ -1475,7 +1476,6 @@
     "gdepthmax": 15.55,
     "g1bc": 0.163,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1485,10 +1485,10 @@
     "gdia": 8.86,
     "glen": 25.25,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.85,
     "g1bc": 0.1523,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1498,6 +1498,7 @@
     "gdia": 9.25,
     "glen": 23.7,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 9.25,
     "gtaildiaB": 8.71,
@@ -1505,7 +1506,6 @@
     "gdepthmax": 12.7,
     "g1bc": 0.1621,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1515,10 +1515,10 @@
     "gdia": 9.52,
     "glen": 19.89,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.9,
     "g1bc": 0.1159,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1528,10 +1528,10 @@
     "gdia": 9.52,
     "glen": 22.56,
     "gmass": 165.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.55,
     "g1bc": 0.1366,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1541,10 +1541,10 @@
     "gdia": 10.67,
     "glen": 25.3,
     "gmass": 220.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.3,
     "g1bc": 0.1768,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1554,10 +1554,10 @@
     "gdia": 11.05,
     "glen": 27.2,
     "gmass": 250.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.2,
     "g1bc": 0.1945,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1567,10 +1567,10 @@
     "gdia": 12.95,
     "glen": 22.81,
     "gmass": 305.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.8,
     "g1bc": 0.2162,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1580,10 +1580,10 @@
     "gdia": 12.95,
     "glen": 28.5,
     "gmass": 370.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.5,
     "g1bc": 0.2191,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1593,10 +1593,10 @@
     "gdia": 13.0,
     "glen": 33.81,
     "gmass": 450.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.8,
     "g1bc": 0.28,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1606,6 +1606,7 @@
     "gdia": 10.92,
     "glen": 21.11,
     "gmass": 195.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.92,
     "gtaildiaB": 10.21,
@@ -1613,7 +1614,6 @@
     "gdepthmax": 13.1,
     "g1bc": 0.0943,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1623,10 +1623,10 @@
     "gdia": 11.63,
     "glen": 22.76,
     "gmass": 230.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.75,
     "g1bc": 0.1081,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1636,10 +1636,10 @@
     "gdia": 12.7,
     "glen": 27.0,
     "gmass": 370.0,
+    "gpressure": 250.0,
     "gdepthmax": 18.0,
     "g1bc": 0.1277,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1649,10 +1649,10 @@
     "gdia": 12.95,
     "glen": 22.91,
     "gmass": 295.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.9,
     "g1bc": 0.115,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1662,6 +1662,7 @@
     "gdia": 6.78,
     "glen": 32.0,
     "gmass": 126.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.78,
     "gtaildiaB": 6.18,
@@ -1669,7 +1670,6 @@
     "gdepthmax": 17.0,
     "g1bc": 0.3045,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1679,10 +1679,10 @@
     "gdia": 4.37,
     "glen": 13.49,
     "gmass": 19.0,
+    "gpressure": 250.0,
     "gdepthmax": 7.0,
     "g1bc": 0.0982,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1692,10 +1692,10 @@
     "gdia": 6.17,
     "glen": 25.6,
     "gmass": 75.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.1,
     "g1bc": 0.3045,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1705,10 +1705,10 @@
     "gdia": 7.21,
     "glen": 35.2,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.2,
     "g1bc": 0.442,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1718,6 +1718,7 @@
     "gdia": 7.82,
     "glen": 34.95,
     "gmass": 160.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.53,
@@ -1725,7 +1726,6 @@
     "gdepthmax": 18.45,
     "g1bc": 0.4028,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1735,10 +1735,10 @@
     "gdia": 11.63,
     "glen": 21.11,
     "gmass": 220.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.1,
     "g1bc": 0.1179,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1748,10 +1748,10 @@
     "gdia": 11.63,
     "glen": 21.11,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.1,
     "g1bc": 0.0973,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1761,10 +1761,10 @@
     "gdia": 7.82,
     "glen": 44.2,
     "gmass": 222.0,
+    "gpressure": 250.0,
     "gdepthmax": 23.2,
     "g1bc": 0.5502,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1774,10 +1774,10 @@
     "gdia": 6.17,
     "glen": 22.4,
     "gmass": 70.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.9,
     "g1bc": 0.2751,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1787,10 +1787,10 @@
     "gdia": 7.04,
     "glen": 33.5,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 19.5,
     "g1bc": 0.3242,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 290.0,
     "gValid": true
   },
   {
@@ -1800,6 +1800,7 @@
     "gdia": 6.71,
     "glen": 35.61,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.7,
     "gtaildiaB": 6.14,
@@ -1807,7 +1808,6 @@
     "gdepthmax": 17.6,
     "g1bc": 0.2996,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1817,6 +1817,7 @@
     "gdia": 7.04,
     "glen": 35.41,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.04,
     "gtaildiaB": 6.4,
@@ -1824,7 +1825,6 @@
     "gdepthmax": 17.9,
     "g1bc": 0.28,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1834,6 +1834,7 @@
     "gdia": 7.21,
     "glen": 35.1,
     "gmass": 160.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.22,
     "gtaildiaB": 6.27,
@@ -1841,7 +1842,6 @@
     "gdepthmax": 17.1,
     "g1bc": 0.28,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1851,6 +1851,7 @@
     "gdia": 7.82,
     "glen": 34.19,
     "gmass": 185.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 7.24,
@@ -1858,7 +1859,6 @@
     "gdepthmax": 17.7,
     "g1bc": 0.2603,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1868,10 +1868,10 @@
     "gdia": 6.35,
     "glen": 12.6,
     "gmass": 35.0,
+    "gpressure": 250.0,
     "gdepthmax": 6.1,
     "g1bc": 0.0884,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1881,10 +1881,10 @@
     "gdia": 9.02,
     "glen": 14.25,
     "gmass": 85.0,
+    "gpressure": 250.0,
     "gdepthmax": 7.85,
     "g1bc": 0.0982,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1894,10 +1894,10 @@
     "gdia": 9.02,
     "glen": 17.4,
     "gmass": 95.0,
+    "gpressure": 250.0,
     "gdepthmax": 7.4,
     "g1bc": 0.1277,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1907,10 +1907,10 @@
     "gdia": 10.16,
     "glen": 14.1,
     "gmass": 105.0,
+    "gpressure": 250.0,
     "gdepthmax": 7.1,
     "g1bc": 0.1474,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1920,10 +1920,10 @@
     "gdia": 11.43,
     "glen": 18.19,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gdepthmax": 9.18,
     "g1bc": 0.1474,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1933,10 +1933,10 @@
     "gdia": 6.71,
     "glen": 14.1,
     "gmass": 46.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.1,
     "g1bc": 0.0589,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1946,10 +1946,10 @@
     "gdia": 7.21,
     "glen": 14.4,
     "gmass": 55.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.4,
     "g1bc": 0.059,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1959,10 +1959,10 @@
     "gdia": 7.82,
     "glen": 14.4,
     "gmass": 65.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.4,
     "g1bc": 0.059,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1972,10 +1972,10 @@
     "gdia": 8.2,
     "glen": 16.61,
     "gmass": 85.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.1,
     "g1bc": 0.059,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1985,10 +1985,10 @@
     "gdia": 8.59,
     "glen": 17.2,
     "gmass": 95.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.2,
     "g1bc": 0.059,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -1998,10 +1998,10 @@
     "gdia": 9.3,
     "glen": 17.91,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.4,
     "g1bc": 0.059,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2011,10 +2011,10 @@
     "gdia": 5.69,
     "glen": 16.51,
     "gmass": 40.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.5,
     "g1bc": 0.1523,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2024,6 +2024,7 @@
     "gdia": 5.69,
     "glen": 20.9,
     "gmass": 48.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 5.69,
     "gtaildiaB": 4.8,
@@ -2031,7 +2032,6 @@
     "gdepthmax": 8.9,
     "g1bc": 0.2751,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2041,10 +2041,10 @@
     "gdia": 5.69,
     "glen": 22.05,
     "gmass": 50.0,
+    "gpressure": 250.0,
     "gdepthmax": 9.55,
     "g1bc": 0.265,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2054,10 +2054,10 @@
     "gdia": 5.69,
     "glen": 24.0,
     "gmass": 58.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.0,
     "g1bc": 0.3045,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2067,10 +2067,10 @@
     "gdia": 5.69,
     "glen": 29.39,
     "gmass": 73.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.0,
     "g1bc": 0.4323,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2080,10 +2080,10 @@
     "gdia": 6.17,
     "glen": 16.99,
     "gmass": 47.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.0,
     "g1bc": 0.1572,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2093,6 +2093,7 @@
     "gdia": 6.17,
     "glen": 19.15,
     "gmass": 55.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtaildiaB": 5.76,
@@ -2100,7 +2101,6 @@
     "gdepthmax": 10.15,
     "g1bc": 0.196,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2110,6 +2110,7 @@
     "gdia": 6.17,
     "glen": 29.31,
     "gmass": 82.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.17,
     "gtaildiaB": 5.06,
@@ -2117,7 +2118,6 @@
     "gdepthmax": 13.3,
     "g1bc": 0.418,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2127,10 +2127,10 @@
     "gdia": 6.71,
     "glen": 32.99,
     "gmass": 112.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.5,
     "g1bc": 0.5099,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2140,6 +2140,7 @@
     "gdia": 6.71,
     "glen": 34.8,
     "gmass": 118.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.47,
@@ -2147,7 +2148,6 @@
     "gdepthmax": 16.1,
     "g1bc": 0.5157,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2157,6 +2157,7 @@
     "gdia": 6.71,
     "glen": 34.8,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.47,
@@ -2164,7 +2165,6 @@
     "gdepthmax": 20.3,
     "g1bc": 0.501,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2174,6 +2174,7 @@
     "gdia": 6.71,
     "glen": 36.91,
     "gmass": 127.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.71,
     "gtaildiaB": 5.47,
@@ -2181,7 +2182,6 @@
     "gdepthmax": 18.2,
     "g1bc": 0.5894,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2191,10 +2191,10 @@
     "gdia": 6.71,
     "glen": 24.89,
     "gmass": 85.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.4,
     "g1bc": 0.2751,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2204,10 +2204,10 @@
     "gdia": 7.04,
     "glen": 28.4,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.9,
     "g1bc": 0.3832,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2217,6 +2217,7 @@
     "gdia": 7.21,
     "glen": 34.01,
     "gmass": 133.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.21,
     "gtaildiaB": 6.0,
@@ -2224,7 +2225,6 @@
     "gdepthmax": 18.0,
     "g1bc": 0.4814,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2234,10 +2234,10 @@
     "gdia": 7.21,
     "glen": 36.91,
     "gmass": 145.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.1,
     "g1bc": 0.5797,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2247,10 +2247,10 @@
     "gdia": 7.82,
     "glen": 26.19,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.7,
     "g1bc": 0.2652,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2260,6 +2260,7 @@
     "gdia": 7.82,
     "glen": 29.9,
     "gmass": 130.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.87,
@@ -2267,7 +2268,6 @@
     "gdepthmax": 12.9,
     "g1bc": 0.422,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2277,10 +2277,10 @@
     "gdia": 7.82,
     "glen": 32.0,
     "gmass": 135.0,
+    "gpressure": 250.0,
     "gdepthmax": 14.5,
     "g1bc": 0.4402,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2290,6 +2290,7 @@
     "gdia": 7.82,
     "glen": 33.45,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.51,
@@ -2297,7 +2298,6 @@
     "gdepthmax": 16.45,
     "g1bc": 0.481,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2307,6 +2307,7 @@
     "gdia": 7.82,
     "glen": 36.4,
     "gmass": 165.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.6,
     "gtaildiaB": 6.25,
@@ -2314,7 +2315,6 @@
     "gdepthmax": 18.9,
     "g1bc": 0.5207,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2324,10 +2324,10 @@
     "gdia": 7.82,
     "glen": 42.6,
     "gmass": 200.0,
+    "gpressure": 250.0,
     "gdepthmax": 18.8,
     "g1bc": 0.6287,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2337,10 +2337,10 @@
     "gdia": 7.82,
     "glen": 44.2,
     "gmass": 202.0,
+    "gpressure": 250.0,
     "gdepthmax": 23.2,
     "g1bc": 0.7713,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2350,6 +2350,7 @@
     "gdia": 7.82,
     "glen": 43.46,
     "gmass": 205.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 7.82,
     "gtaildiaB": 6.41,
@@ -2357,7 +2358,6 @@
     "gdepthmax": 16.9,
     "g1bc": 0.727,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2367,10 +2367,10 @@
     "gdia": 8.2,
     "glen": 41.91,
     "gmass": 213.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.9,
     "g1bc": 0.629,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2380,6 +2380,7 @@
     "gdia": 8.59,
     "glen": 36.4,
     "gmass": 193.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.59,
     "gtaildiaB": 7.14,
@@ -2387,7 +2388,6 @@
     "gdepthmax": 17.0,
     "g1bc": 0.5305,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2397,10 +2397,10 @@
     "gdia": 8.59,
     "glen": 40.54,
     "gmass": 225.0,
+    "gpressure": 250.0,
     "gdepthmax": 21.55,
     "g1bc": 0.6189,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2410,10 +2410,10 @@
     "gdia": 8.59,
     "glen": 45.01,
     "gmass": 255.0,
+    "gpressure": 250.0,
     "gdepthmax": 19.5,
     "g1bc": 0.6877,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2423,10 +2423,10 @@
     "gdia": 8.59,
     "glen": 44.6,
     "gmass": 255.0,
+    "gpressure": 250.0,
     "gdepthmax": 25.6,
     "g1bc": 0.6582,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2436,10 +2436,10 @@
     "gdia": 8.59,
     "glen": 46.99,
     "gmass": 270.0,
+    "gpressure": 250.0,
     "gdepthmax": 19.5,
     "g1bc": 0.6975,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2449,10 +2449,10 @@
     "gdia": 9.52,
     "glen": 43.21,
     "gmass": 290.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.8,
     "g1bc": 0.5894,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2462,10 +2462,10 @@
     "gdia": 9.52,
     "glen": 40.31,
     "gmass": 290.0,
+    "gpressure": 250.0,
     "gdepthmax": 24.8,
     "g1bc": 0.4617,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2475,6 +2475,7 @@
     "gdia": 9.52,
     "glen": 46.99,
     "gmass": 325.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 9.53,
     "gtaildiaB": 7.83,
@@ -2482,7 +2483,6 @@
     "gdepthmax": 20.0,
     "g1bc": 0.668,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2492,10 +2492,10 @@
     "gdia": 9.52,
     "glen": 49.2,
     "gmass": 345.0,
+    "gpressure": 250.0,
     "gdepthmax": 22.2,
     "g1bc": 0.727,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2505,10 +2505,10 @@
     "gdia": 9.52,
     "glen": 55.3,
     "gmass": 400.0,
+    "gpressure": 250.0,
     "gdepthmax": 22.3,
     "g1bc": 0.9599,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2518,6 +2518,7 @@
     "gdia": 10.36,
     "glen": 46.51,
     "gmass": 370.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.36,
     "gtaildiaB": 8.79,
@@ -2525,7 +2526,6 @@
     "gdepthmax": 17.5,
     "g1bc": 0.668,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2535,6 +2535,7 @@
     "gdia": 10.36,
     "glen": 48.79,
     "gmass": 395.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.36,
     "gtaildiaB": 8.74,
@@ -2542,7 +2543,6 @@
     "gdepthmax": 19.8,
     "g1bc": 0.7024,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2552,6 +2552,7 @@
     "gdia": 10.36,
     "glen": 51.79,
     "gmass": 419.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.36,
     "gtaildiaB": 8.67,
@@ -2559,7 +2560,6 @@
     "gdepthmax": 22.5,
     "g1bc": 0.7859,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2569,6 +2569,7 @@
     "gdia": 10.57,
     "glen": 48.26,
     "gmass": 400.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 10.57,
     "gtaildiaB": 8.84,
@@ -2576,7 +2577,6 @@
     "gdepthmax": 20.25,
     "g1bc": 0.727,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2586,10 +2586,10 @@
     "gdia": 10.57,
     "glen": 53.01,
     "gmass": 450.0,
+    "gpressure": 250.0,
     "gdepthmax": 21.0,
     "g1bc": 0.776,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2599,6 +2599,7 @@
     "gdia": 11.63,
     "glen": 35.31,
     "gmass": 325.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 11.63,
     "gtaildiaB": 11.07,
@@ -2606,7 +2607,6 @@
     "gdepthmax": 11.3,
     "g1bc": 0.4224,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2616,6 +2616,7 @@
     "gdia": 11.63,
     "glen": 54.51,
     "gmass": 550.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 11.63,
     "gtaildiaB": 9.62,
@@ -2623,7 +2624,6 @@
     "gdepthmax": 23.5,
     "g1bc": 0.776,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2633,10 +2633,10 @@
     "gdia": 12.95,
     "glen": 54.51,
     "gmass": 715.0,
+    "gpressure": 250.0,
     "gdepthmax": 23.5,
     "g1bc": 0.8743,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2646,6 +2646,7 @@
     "gdia": 12.95,
     "glen": 64.21,
     "gmass": 810.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 12.95,
     "gtaildiaB": 10.57,
@@ -2653,7 +2654,6 @@
     "gdepthmax": 29.2,
     "g1bc": 0.943,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2663,10 +2663,10 @@
     "gdia": 4.37,
     "glen": 13.89,
     "gmass": 19.0,
+    "gpressure": 250.0,
     "gdepthmax": 6.9,
     "g1bc": 0.1867,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2676,10 +2676,10 @@
     "gdia": 6.35,
     "glen": 10.79,
     "gmass": 33.0,
+    "gpressure": 250.0,
     "gdepthmax": 3.4,
     "g1bc": 0.0884,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2689,10 +2689,10 @@
     "gdia": 6.35,
     "glen": 12.4,
     "gmass": 40.0,
+    "gpressure": 250.0,
     "gdepthmax": 5.0,
     "g1bc": 0.0884,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2702,10 +2702,10 @@
     "gdia": 6.35,
     "glen": 13.79,
     "gmass": 45.0,
+    "gpressure": 250.0,
     "gdepthmax": 5.0,
     "g1bc": 0.0884,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2715,10 +2715,10 @@
     "gdia": 7.82,
     "glen": 11.2,
     "gmass": 52.0,
+    "gpressure": 250.0,
     "gdepthmax": 3.7,
     "g1bc": 0.0983,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2728,10 +2728,10 @@
     "gdia": 7.82,
     "glen": 16.1,
     "gmass": 80.0,
+    "gpressure": 250.0,
     "gdepthmax": 6.2,
     "g1bc": 0.0983,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2741,10 +2741,10 @@
     "gdia": 9.02,
     "glen": 14.3,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "gdepthmax": 4.4,
     "g1bc": 0.1277,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2754,10 +2754,10 @@
     "gdia": 9.04,
     "glen": 12.09,
     "gmass": 80.0,
+    "gpressure": 250.0,
     "gdepthmax": 4.6,
     "g1bc": 0.1179,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2767,10 +2767,10 @@
     "gdia": 10.16,
     "glen": 13.21,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 5.9,
     "g1bc": 0.1474,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2780,10 +2780,10 @@
     "gdia": 10.16,
     "glen": 15.49,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 8.2,
     "g1bc": 0.1474,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2793,10 +2793,10 @@
     "gdia": 11.43,
     "glen": 16.26,
     "gmass": 175.0,
+    "gpressure": 250.0,
     "gdepthmax": 7.25,
     "g1bc": 0.147,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2806,10 +2806,10 @@
     "gdia": 11.63,
     "glen": 27.1,
     "gmass": 350.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.1,
     "g1bc": 0.3438,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2819,10 +2819,10 @@
     "gdia": 9.3,
     "glen": 26.19,
     "gmass": 215.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.7,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2832,10 +2832,10 @@
     "gdia": 9.52,
     "glen": 29.79,
     "gmass": 265.0,
+    "gpressure": 250.0,
     "gdepthmax": 15.8,
     "g1bc": 0.2947,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2845,10 +2845,10 @@
     "gdia": 10.57,
     "glen": 27.99,
     "gmass": 305.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.0,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2858,10 +2858,10 @@
     "gdia": 10.57,
     "glen": 36.7,
     "gmass": 400.0,
+    "gpressure": 250.0,
     "gdepthmax": 20.5,
     "g1bc": 0.3831,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2871,10 +2871,10 @@
     "gdia": 11.63,
     "glen": 34.19,
     "gmass": 450.0,
+    "gpressure": 250.0,
     "gdepthmax": 18.4,
     "g1bc": 0.393,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2884,10 +2884,10 @@
     "gdia": 6.17,
     "glen": 23.9,
     "gmass": 65.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.1,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2897,10 +2897,10 @@
     "gdia": 6.71,
     "glen": 28.09,
     "gmass": 90.0,
+    "gpressure": 250.0,
     "gdepthmax": 14.2,
     "g1bc": 0.3242,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2910,10 +2910,10 @@
     "gdia": 7.04,
     "glen": 28.3,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gdepthmax": 14.2,
     "g1bc": 0.3242,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2923,10 +2923,10 @@
     "gdia": 7.21,
     "glen": 28.19,
     "gmass": 105.0,
+    "gpressure": 250.0,
     "gdepthmax": 14.2,
     "g1bc": 0.324,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2936,10 +2936,10 @@
     "gdia": 7.82,
     "glen": 31.8,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.3,
     "g1bc": 0.3831,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2949,10 +2949,10 @@
     "gdia": 8.2,
     "glen": 32.0,
     "gmass": 155.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.3,
     "g1bc": 0.3831,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2962,10 +2962,10 @@
     "gdia": 8.59,
     "glen": 33.91,
     "gmass": 175.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.3,
     "g1bc": 0.4126,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2975,10 +2975,10 @@
     "gdia": 9.3,
     "glen": 33.86,
     "gmass": 205.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.3,
     "g1bc": 0.393,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -2988,10 +2988,10 @@
     "gdia": 5.69,
     "glen": 19.89,
     "gmass": 50.0,
+    "gpressure": 250.0,
     "gdepthmax": 10.4,
     "g1bc": 0.059,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3001,10 +3001,10 @@
     "gdia": 7.21,
     "glen": 31.9,
     "gmass": 120.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.9,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3014,10 +3014,10 @@
     "gdia": 7.21,
     "glen": 27.0,
     "gmass": 95.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.0,
     "g1bc": 0.1867,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3027,10 +3027,10 @@
     "gdia": 7.82,
     "glen": 27.89,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.4,
     "g1bc": 0.2063,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3040,10 +3040,10 @@
     "gdia": 7.82,
     "glen": 33.81,
     "gmass": 150.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.3,
     "g1bc": 0.206,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3053,10 +3053,10 @@
     "gdia": 7.82,
     "glen": 40.41,
     "gmass": 190.0,
+    "gpressure": 250.0,
     "gdepthmax": 23.9,
     "g1bc": 0.2456,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3066,10 +3066,10 @@
     "gdia": 8.2,
     "glen": 27.1,
     "gmass": 130.0,
+    "gpressure": 250.0,
     "gdepthmax": 12.7,
     "g1bc": 0.2161,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3079,10 +3079,10 @@
     "gdia": 8.2,
     "glen": 37.49,
     "gmass": 190.0,
+    "gpressure": 250.0,
     "gdepthmax": 21.0,
     "g1bc": 0.2554,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3092,10 +3092,10 @@
     "gdia": 9.3,
     "glen": 27.3,
     "gmass": 175.0,
+    "gpressure": 250.0,
     "gdepthmax": 13.8,
     "g1bc": 0.2259,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3105,10 +3105,10 @@
     "gdia": 7.82,
     "glen": 27.79,
     "gmass": 115.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.3,
     "g1bc": 0.206,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3118,10 +3118,10 @@
     "gdia": 7.82,
     "glen": 32.59,
     "gmass": 145.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.1,
     "g1bc": 0.2063,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3131,10 +3131,10 @@
     "gdia": 7.82,
     "glen": 39.75,
     "gmass": 190.0,
+    "gpressure": 250.0,
     "gdepthmax": 23.25,
     "g1bc": 0.2456,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3144,10 +3144,10 @@
     "gdia": 7.82,
     "glen": 23.5,
     "gmass": 73.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.3,
     "g1bc": 0.0393,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3157,10 +3157,10 @@
     "gdia": 7.82,
     "glen": 23.5,
     "gmass": 95.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.3,
     "g1bc": 0.1768,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3170,10 +3170,10 @@
     "gdia": 8.59,
     "glen": 30.71,
     "gmass": 170.0,
+    "gpressure": 250.0,
     "gdepthmax": 17.7,
     "g1bc": 0.1867,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3183,10 +3183,10 @@
     "gdia": 10.57,
     "glen": 35.99,
     "gmass": 290.0,
+    "gpressure": 250.0,
     "gdepthmax": 16.0,
     "g1bc": 0.17,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3196,10 +3196,10 @@
     "gdia": 11.43,
     "glen": 40.0,
     "gmass": 415.0,
+    "gpressure": 250.0,
     "gdepthmax": 28.5,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3209,10 +3209,10 @@
     "gdia": 11.63,
     "glen": 41.05,
     "gmass": 425.0,
+    "gpressure": 250.0,
     "gdepthmax": 25.55,
     "g1bc": 0.2162,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3222,10 +3222,10 @@
     "gdia": 12.7,
     "glen": 35.1,
     "gmass": 420.0,
+    "gpressure": 250.0,
     "gdepthmax": 22.2,
     "g1bc": 0.1749,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   },
   {
@@ -3235,10 +3235,10 @@
     "gdia": 7.82,
     "glen": 27.71,
     "gmass": 105.0,
+    "gpressure": 250.0,
     "gdepthmax": 11.2,
     "g1bc": 0.1965,
     "descr": "Dimensions and ballistic coefficient (ICAO, G1) from the manufacturer's bullet file (Styria Arms Mayerl, 01-Oct-2026)",
-    "gpressure": 350.0,
     "gValid": true
   }
 ]

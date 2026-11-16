@@ -11,7 +11,11 @@ Pistol and revolver cartridges are not fitted: their start pressure is set by th
 that also appear in handgun loads keep their values (fitted on rifle loads they made the handgun loads worse: velocity 8.9 -> 9.7 %). csr_eval needs the per-row
 columns gpressure and gfriction.
 Checked on held-out powders (values from half of a bullet's powders, errors on the other half, 2026-10-15, 553 bullets with at least 8 loads):
-velocity error 3.87 -> 3.45 %, pressure 25.1 -> 23.7 %, loads over 5 % in pressure 68 -> 59 %. With at least 15 / 40 loads the gains are similar."""
+velocity error 3.87 -> 3.45 %, pressure 25.1 -> 23.7 %, loads over 5 % in pressure 68 -> 59 %. With at least 15 / 40 loads the gains are similar.
+2026-11-16: the values written then were reset to the construction classes of scripts/data/bulletdata/start_pressure.py and the friction removed.
+They had been fitted against bullet lengths of the sample files that were out of date (about 21,000 rows, see rematch_lengths.py --stale) and partly
+made up for them: with the corrected lengths they made the rifle loads worse (shipped powders: velocity 4.17 -> 4.25 %, pressure 12.73 -> 12.88 %
+against the classes). Its record matcher is the old one (first record of the weight); use samples_common.Records.match before running it again."""
 import argparse, collections, csv, glob, json, os, pickle, re, subprocess, sys, tempfile
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor

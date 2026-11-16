@@ -13,6 +13,8 @@
              per powder energy), pressure (above the permitted maximum), duplicate loads with conflicting velocities, a charge read as grains instead of grams is
              converted. The softer flags (start above maximum load, off the table's trend, bullet density) stay in the data, as the refit procedure decided.
              Shotshell loads get a range check here (velocity, charge, shot mass, pressure).
+   Every rifle and pistol load gets the start pressure gpressure of its bullet as the program uses it (the matching record's, else the construction
+             class of start_pressure.py), so the fits and comparisons simulate what the program does; measured rows that have one keep it.
 3. simulate  (with --simulate) analysis/filter_published_outliers.py: loads whose simulated peak pressure is more than --max-dev percent off the published one.
 Output in --out: loads_rifle.csv, loads_pistol.csv, loads_shot.csv (the clean loads, columns of the sources that have them), removed.csv (every dropped load with
 the step and the reason) and report.txt (counts per class, source and reason). The sample files are not changed; run this script again after a source is added or
@@ -34,7 +36,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
 from by_maker import ALIASES  # noqa: E402
-from samples_common import Records  # noqa: E402
+from samples_common import Records, start_class  # noqa: E402
 
 KEY = ("powder", "caliber", "bullet_gr", "kind", "charge_g", "velocity_ms", "col_mm", "shot_mass_g")
 SHOT_KEY = ("gauge", "shot_g", "primer", "wad", "pressure_bar")  # shotshell loads of one charge and velocity differ in these (the files have no caliber or bullet columns)
@@ -72,6 +74,20 @@ def split_kept(rows: list[dict], kept: list[dict]) -> tuple[list[dict], int]:
     return dropped, changed
 
 
+def start_pressure(records: Records, row: dict, cls: str) -> str:
+    """The bullet start pressure (gpressure, bar) the program uses for this load: the matching record's (samples_common.Records.match), else the
+    value of the bullet's construction class (start_pressure.py: lead 150, jacketed 250, brass 290, copper 350). Until 2026-11-16 the fits ran every
+    load with the solver's default 250 bar while the program took the records' values."""
+    maker, btype = records.split(row.get("bullet", ""))
+    try:
+        rec = records.match(maker, btype, float(row["bullet_gr"]), float(row["bullet_dia_mm"])) if maker else None
+    except (KeyError, ValueError):
+        rec = None
+    if rec and rec.get("gpressure"):
+        return f"{rec['gpressure']:g}"
+    return f"{start_class(maker or '', btype, handgun=cls == 'pistol')[0]:g}"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--samples", type=Path, default=HERE / "sources" / "samples")
@@ -84,6 +100,7 @@ def main() -> int:
     ap.add_argument("--python", default=sys.executable)
     args = ap.parse_args()
     records = Records(args.data)
+
     classes = {}
     for rec in {id(c): c for c in records.calibers.values()}.values():
         classes[rec["cipname"]] = "pistol" if str(rec.get("ciptype", "")).startswith("4") else "rifle"
@@ -116,6 +133,8 @@ def main() -> int:
                 if cls is None:
                     removed.append({**row, "step": "combine", "reason": "cartridge not in the project data"})
                     continue
+                if not row.get("gpressure"):
+                    row["gpressure"] = start_pressure(records, row, cls)
                 by_class[cls].append(row)
     print(f"combine: {n_in} loads of {len(files)} files -> " + ", ".join(f"{len(v)} {k}" for k, v in by_class.items()) + f" ({len(seen)} different, {len(removed)} unknown cartridge)")
 

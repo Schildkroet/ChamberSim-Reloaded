@@ -9,14 +9,17 @@ The bullets of Berger, Nosler and Speer with published lengths (469) show that t
     fmj / total metal jacket                     8.15 + 0.44 d     6 %   (photos)
     soft point and other                         5.71 + 6.88 d    11 %
     lead (coated handgun bullets), by shape       RN 8.5, SWC 8.1, flat / truncated cone 9.0, hollow point 8.4, wadcutter 8.7   (4-8 %)
-    hollow-point copper (TSX, E-Tip, ...)        6.65             -   (photos)
+    hollow-point copper (TSX, E-Tip, ...)        6.65             -   (photos; 38 validated rifle records (gValid) 6.6)
+    handgun copper (Barnes TAC-XP, XPB)          6.85             8 %  (the 9 validated handgun records, 2026-11-16)
 
 with d in inch. The lead densities are measured: 63 H&N bullets (bullets_hn_photos.csv), the single standing bullet of the product photos of hn-sport.de with the
 camera elevation (10 deg, as seen) and a scale factor (1.0256) fixed by a caliper measurement of one bullet (TC .458 300 gr HS: 20.0 mm) and the same
 lead alloy density of all of them (measure_standing_bullet.py). They replace the earlier 10.3 (not validated), which made lead
 bullets 15 % too short; the earlier length / width measurement of those angled photos (image_length.py) was too short as well. 2026-10-11: the product photos of grauwolf.net (about 1,400 bullets measured as length / width x diameter, image_length.py)
 confirm the match, hollow-point and soft-point classes (photo / estimate 0.98, 1.01, 1.00) and show copper 20 % and fmj 7 % longer than the earlier
-densities (8.0 and 8.7 + 0.47 d) gave; the two classes were rescaled. The estimate is uncertain by the scatter above; records made with it say so in `descr`.
+densities (8.0 and 8.7 + 0.47 d) gave; the two classes were rescaled. 2026-11-16: Barnes XPB, Lehigh (XD, ...) and Cutting Edge (Raptor, MAXI)
+were estimated as lead-core bullets, about 20 % too short; XPB is in the validated handgun class, Lehigh and Cutting Edge take the copper density
+without a validated record of their own (fits leave them out). Naturalis and MonoFlex are copper (validated records), "lead-free" as well. The estimate is uncertain by the scatter above; records made with it say so in `descr`.
 """
 import math
 import re
@@ -24,8 +27,11 @@ import re
 GRAIN_PER_G = 15.4324
 # (name, regex on the text of the line and style, density a, density b); the first match wins
 CLASSES = [
+    # solid copper before lead ("lead-free"); not a bare "copper", which is also copper-plated lead (Berry's)
+    ("copper handgun", r"\b(tac-?xp|xpb)\b|\bx[- ]?pistol", 6.85, 0.0),  # Barnes "X Pistole" = XPB (German listings)
+    ("copper", r"\b(tsx|ttsx|lrx|cx|gmx|e-?tip|tac-?tx|vor-?tx|monoflex|naturalis|xd|xtreme defen[cs]e|raptor|maxi)\b|lehigh|cutting edge"
+               r"|monolithic|all-copper|lead-?free", 6.65, 0.0),
     ("lead", r"\b(lrn|lfn|wc|swc|lswc|rnfp)\b|wadcutter|round nose lead|lead", 8.9, 0.0),  # by shape: lead_density()
-    ("copper", r"\b(tsx|ttsx|lrx|cx|gmx|e-?tip|tac-?tx|tac-?xp|vor-?tx)\b|monolithic|all-copper", 6.65, 0.0),
     ("fmj", r"fmj|tmj|total metal|full metal|metal jacket", 8.15, 0.44),
     ("match", r"hpbt|otm|vld|hybrid|match|boat|\bbt\b|a-?max|smk|\bsmk\b|lapua", 7.8, -2.35),
     ("hollow", r"jhp|hollow|\bhp\b|xtp|sjhp|\bjhc\b|\bshp\b", 5.66, 7.94),

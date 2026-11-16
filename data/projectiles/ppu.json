@@ -1123,8 +1123,8 @@
     "gdia": 7.94,
     "glen": 15.1,
     "gmass": 98.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -1134,8 +1134,8 @@
     "gdia": 9.12,
     "glen": 16.9,
     "gmass": 145.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -1145,8 +1145,8 @@
     "gdia": 9.04,
     "glen": 14.7,
     "gmass": 124.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -1156,8 +1156,8 @@
     "gdia": 10.45,
     "glen": 20.4,
     "gmass": 230.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -1707,8 +1707,8 @@
     "gdia": 9.08,
     "glen": 19.5,
     "gmass": 158.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -1718,8 +1718,8 @@
     "gdia": 9.08,
     "glen": 19.5,
     "gmass": 158.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {

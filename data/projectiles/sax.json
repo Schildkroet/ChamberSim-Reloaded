@@ -6,6 +6,7 @@
     "gdia": 15.75,
     "glen": 32.7,
     "gmass": 746.9,
+    "gpressure": 350.0,
     "g1bc": 0.21,
     "gValid": true
   },
@@ -16,6 +17,7 @@
     "gdia": 7.82,
     "glen": 33.7,
     "gmass": 162.0,
+    "gpressure": 250.0,
     "g1bc": 0.62,
     "gValid": true
   },
@@ -26,6 +28,7 @@
     "gdia": 6.71,
     "glen": 31.9,
     "gmass": 115.7,
+    "gpressure": 250.0,
     "g1bc": 0.62,
     "gValid": true
   },
@@ -36,6 +39,7 @@
     "gdia": 7.85,
     "glen": 31.3,
     "gmass": 146.6,
+    "gpressure": 250.0,
     "g1bc": 0.58,
     "gValid": true
   },
@@ -46,6 +50,7 @@
     "gdia": 7.85,
     "glen": 33.7,
     "gmass": 162.0,
+    "gpressure": 250.0,
     "g1bc": 0.61,
     "gValid": true
   },
@@ -56,6 +61,7 @@
     "gdia": 9.3,
     "glen": 31.6,
     "gmass": 202.2,
+    "gpressure": 250.0,
     "g1bc": 0.5,
     "gValid": true
   },
@@ -66,6 +72,7 @@
     "gdia": 9.55,
     "glen": 34.9,
     "gmass": 243.8,
+    "gpressure": 250.0,
     "g1bc": 0.56,
     "gValid": true
   },
@@ -76,6 +83,7 @@
     "gdia": 6.86,
     "glen": 31.5,
     "gmass": 120.4,
+    "gpressure": 250.0,
     "g1bc": 0.61,
     "gValid": true
   },
@@ -86,6 +94,7 @@
     "gdia": 8.61,
     "glen": 31.4,
     "gmass": 172.8,
+    "gpressure": 250.0,
     "g1bc": 0.53,
     "gValid": true
   },
@@ -96,6 +105,7 @@
     "gdia": 7.78,
     "glen": 31.2,
     "gmass": 142.0,
+    "gpressure": 250.0,
     "g1bc": 0.57,
     "gValid": true
   },
@@ -106,6 +116,7 @@
     "gdia": 9.3,
     "glen": 36.9,
     "gmass": 243.8,
+    "gpressure": 250.0,
     "g1bc": 0.32,
     "gValid": true
   },
@@ -116,6 +127,7 @@
     "gdia": 9.52,
     "glen": 35.9,
     "gmass": 245.4,
+    "gpressure": 250.0,
     "g1bc": 0.4,
     "gValid": true
   },
@@ -126,6 +138,7 @@
     "gdia": 9.55,
     "glen": 35.9,
     "gmass": 245.4,
+    "gpressure": 250.0,
     "g1bc": 0.31,
     "gValid": true
   },
@@ -136,6 +149,7 @@
     "gdia": 9.55,
     "glen": 32.5,
     "gmass": 214.5,
+    "gpressure": 250.0,
     "g1bc": 0.31,
     "gValid": true
   },
@@ -146,6 +160,7 @@
     "gdia": 10.58,
     "glen": 35.3,
     "gmass": 293.2,
+    "gpressure": 250.0,
     "g1bc": 0.34,
     "gValid": true
   },
@@ -156,6 +171,7 @@
     "gdia": 10.58,
     "glen": 31.2,
     "gmass": 245.4,
+    "gpressure": 250.0,
     "g1bc": 0.26,
     "gValid": true
   },
@@ -166,6 +182,7 @@
     "gdia": 12.04,
     "glen": 35.6,
     "gmass": 378.1,
+    "gpressure": 250.0,
     "g1bc": 0.33,
     "gValid": true
   },
@@ -176,6 +193,7 @@
     "gdia": 12.95,
     "glen": 35.6,
     "gmass": 432.1,
+    "gpressure": 250.0,
     "g1bc": 0.33,
     "gValid": true
   },
@@ -186,6 +204,7 @@
     "gdia": 14.83,
     "glen": 36.1,
     "gmass": 572.5,
+    "gpressure": 250.0,
     "g1bc": 0.32,
     "gValid": true
   },
@@ -196,6 +215,7 @@
     "gdia": 15.75,
     "glen": 36.1,
     "gmass": 635.8,
+    "gpressure": 250.0,
     "g1bc": 0.27,
     "gValid": true
   },
@@ -206,6 +226,7 @@
     "gdia": 10.41,
     "glen": 35.6,
     "gmass": 280.9,
+    "gpressure": 250.0,
     "g1bc": 0.32,
     "gValid": true
   },
@@ -216,6 +237,7 @@
     "gdia": 10.72,
     "glen": 34.3,
     "gmass": 293.2,
+    "gpressure": 250.0,
     "g1bc": 0.37,
     "gValid": true
   },
@@ -226,6 +248,7 @@
     "gdia": 10.72,
     "glen": 28.6,
     "gmass": 229.9,
+    "gpressure": 250.0,
     "g1bc": 0.25,
     "gValid": true
   },
@@ -236,6 +259,7 @@
     "gdia": 11.63,
     "glen": 35.1,
     "gmass": 351.9,
+    "gpressure": 250.0,
     "g1bc": 0.33,
     "gValid": true
   },
@@ -246,6 +270,7 @@
     "gdia": 11.66,
     "glen": 31.3,
     "gmass": 291.7,
+    "gpressure": 250.0,
     "g1bc": 0.27,
     "gValid": true
   },
@@ -256,6 +281,7 @@
     "gdia": 11.66,
     "glen": 35.8,
     "gmass": 350.3,
+    "gpressure": 250.0,
     "g1bc": 0.34,
     "gValid": true
   },
@@ -266,6 +292,7 @@
     "gdia": 10.78,
     "glen": 26.3,
     "gmass": 246.9,
+    "gpressure": 250.0,
     "g1bc": 0.26,
     "gValid": true
   },
@@ -276,6 +303,7 @@
     "gdia": 5.7,
     "glen": 15.0,
     "gmass": 37.0,
+    "gpressure": 250.0,
     "g1bc": 0.15,
     "gValid": true
   },
@@ -286,6 +314,7 @@
     "gdia": 5.79,
     "glen": 19.0,
     "gmass": 46.3,
+    "gpressure": 250.0,
     "g1bc": 0.23,
     "gValid": true
   },
@@ -296,6 +325,7 @@
     "gdia": 6.18,
     "glen": 28.2,
     "gmass": 81.8,
+    "gpressure": 250.0,
     "g1bc": 0.41,
     "gValid": true
   },
@@ -306,6 +336,7 @@
     "gdia": 5.7,
     "glen": 19.0,
     "gmass": 46.3,
+    "gpressure": 250.0,
     "g1bc": 0.22,
     "gValid": true
   },
@@ -316,6 +347,7 @@
     "gdia": 6.17,
     "glen": 27.0,
     "gmass": 77.2,
+    "gpressure": 250.0,
     "g1bc": 0.41,
     "gValid": true
   },
@@ -326,6 +358,7 @@
     "gdia": 11.64,
     "glen": 21.0,
     "gmass": 234.6,
+    "gpressure": 250.0,
     "g1bc": 0.19,
     "gValid": true
   },
@@ -336,6 +369,7 @@
     "gdia": 10.94,
     "glen": 18.8,
     "gmass": 202.2,
+    "gpressure": 250.0,
     "g1bc": 0.2,
     "gValid": true
   },
@@ -346,6 +380,7 @@
     "gdia": 9.52,
     "glen": 50.5,
     "gmass": 338.0,
+    "gpressure": 250.0,
     "g1bc": 0.88,
     "gValid": true
   },
@@ -356,6 +391,7 @@
     "gdia": 10.36,
     "glen": 53.3,
     "gmass": 418.2,
+    "gpressure": 250.0,
     "g1bc": 0.92,
     "gValid": true
   },
@@ -366,6 +402,7 @@
     "gdia": 10.54,
     "glen": 26.8,
     "gmass": 200.6,
+    "gpressure": 250.0,
     "g1bc": 0.29,
     "gValid": true
   },
@@ -376,6 +413,7 @@
     "gdia": 10.54,
     "glen": 26.5,
     "gmass": 200.6,
+    "gpressure": 350.0,
     "g1bc": 0.29,
     "gValid": true
   },
@@ -386,6 +424,7 @@
     "gdia": 12.95,
     "glen": 33.9,
     "gmass": 524.7,
+    "gpressure": 350.0,
     "g1bc": 0.23,
     "gValid": true
   },
@@ -396,6 +435,7 @@
     "gdia": 6.64,
     "glen": 29.4,
     "gmass": 91.1,
+    "gpressure": 250.0,
     "g1bc": 0.41,
     "gValid": true
   },
@@ -406,6 +446,7 @@
     "gdia": 7.92,
     "glen": 29.0,
     "gmass": 121.9,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -416,6 +457,7 @@
     "gdia": 8.09,
     "glen": 28.4,
     "gmass": 125.0,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -426,6 +468,7 @@
     "gdia": 9.27,
     "glen": 30.7,
     "gmass": 152.8,
+    "gpressure": 250.0,
     "g1bc": 0.43,
     "gValid": true
   },
@@ -436,6 +479,7 @@
     "gdia": 6.72,
     "glen": 28.8,
     "gmass": 92.6,
+    "gpressure": 250.0,
     "g1bc": 0.39,
     "gValid": true
   },
@@ -446,6 +490,7 @@
     "gdia": 6.71,
     "glen": 29.4,
     "gmass": 92.6,
+    "gpressure": 250.0,
     "g1bc": 0.41,
     "gValid": true
   },
@@ -456,6 +501,7 @@
     "gdia": 7.25,
     "glen": 28.1,
     "gmass": 103.4,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -466,6 +512,7 @@
     "gdia": 7.85,
     "glen": 29.0,
     "gmass": 123.5,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -476,6 +523,7 @@
     "gdia": 7.85,
     "glen": 33.6,
     "gmass": 154.3,
+    "gpressure": 250.0,
     "g1bc": 0.4,
     "gValid": true
   },
@@ -486,6 +534,7 @@
     "gdia": 8.61,
     "glen": 43.7,
     "gmass": 229.9,
+    "gpressure": 250.0,
     "g1bc": 0.51,
     "gValid": true
   },
@@ -496,6 +545,7 @@
     "gdia": 9.3,
     "glen": 28.0,
     "gmass": 154.3,
+    "gpressure": 250.0,
     "g1bc": 0.28,
     "gValid": true
   },
@@ -506,6 +556,7 @@
     "gdia": 9.52,
     "glen": 26.8,
     "gmass": 154.3,
+    "gpressure": 250.0,
     "g1bc": 0.26,
     "gValid": true
   },
@@ -516,6 +567,7 @@
     "gdia": 9.55,
     "glen": 26.8,
     "gmass": 154.3,
+    "gpressure": 250.0,
     "g1bc": 0.27,
     "gValid": true
   },
@@ -526,6 +578,7 @@
     "gdia": 7.06,
     "glen": 27.5,
     "gmass": 95.7,
+    "gpressure": 250.0,
     "g1bc": 0.28,
     "gValid": true
   },
@@ -536,6 +589,7 @@
     "gdia": 8.61,
     "glen": 28.2,
     "gmass": 138.9,
+    "gpressure": 250.0,
     "g1bc": 0.29,
     "gValid": true
   },
@@ -546,6 +600,7 @@
     "gdia": 9.12,
     "glen": 28.0,
     "gmass": 154.3,
+    "gpressure": 250.0,
     "g1bc": 0.28,
     "gValid": true
   },
@@ -556,6 +611,7 @@
     "gdia": 6.54,
     "glen": 29.6,
     "gmass": 92.6,
+    "gpressure": 250.0,
     "g1bc": 0.37,
     "gValid": true
   },
@@ -566,6 +622,7 @@
     "gdia": 7.78,
     "glen": 29.0,
     "gmass": 120.4,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -576,6 +633,7 @@
     "gdia": 7.85,
     "glen": 28.7,
     "gmass": 121.9,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -586,6 +644,7 @@
     "gdia": 11.78,
     "glen": 35.2,
     "gmass": 986.1,
+    "gpressure": 250.0,
     "g1bc": 0.21,
     "gValid": true
   },
@@ -596,6 +655,7 @@
     "gdia": 6.7,
     "glen": 27.0,
     "gmass": 89.5,
+    "gpressure": 250.0,
     "g1bc": 0.26,
     "gValid": true
   },
@@ -606,6 +666,7 @@
     "gdia": 5.7,
     "glen": 19.0,
     "gmass": 46.3,
+    "gpressure": 250.0,
     "g1bc": 0.25,
     "gValid": true
   },
@@ -616,6 +677,7 @@
     "gdia": 7.06,
     "glen": 28.0,
     "gmass": 101.9,
+    "gpressure": 250.0,
     "g1bc": 0.34,
     "gValid": true
   },
@@ -626,6 +688,7 @@
     "gdia": 6.71,
     "glen": 27.0,
     "gmass": 91.1,
+    "gpressure": 250.0,
     "g1bc": 0.4,
     "gValid": true
   },
@@ -636,6 +699,7 @@
     "gdia": 7.25,
     "glen": 25.0,
     "gmass": 103.4,
+    "gpressure": 250.0,
     "g1bc": 0.21,
     "gValid": true
   },
@@ -646,6 +710,7 @@
     "gdia": 7.85,
     "glen": 25.0,
     "gmass": 121.9,
+    "gpressure": 250.0,
     "g1bc": 0.21,
     "gValid": true
   },
@@ -656,6 +721,7 @@
     "gdia": 9.55,
     "glen": 27.0,
     "gmass": 183.6,
+    "gpressure": 250.0,
     "g1bc": 0.25,
     "gValid": true
   },
@@ -666,6 +732,7 @@
     "gdia": 17.78,
     "glen": 27.9,
     "gmass": 651.2,
+    "gpressure": 250.0,
     "g1bc": 0.12,
     "gValid": true
   },
@@ -676,6 +743,7 @@
     "gdia": 8.09,
     "glen": 31.8,
     "gmass": 121.9,
+    "gpressure": 250.0,
     "g1bc": 0.36,
     "gValid": true
   },
@@ -686,6 +754,7 @@
     "gdia": 7.25,
     "glen": 32.0,
     "gmass": 103.4,
+    "gpressure": 250.0,
     "g1bc": 0.41,
     "gValid": true
   },
@@ -696,6 +765,7 @@
     "gdia": 7.85,
     "glen": 32.5,
     "gmass": 120.4,
+    "gpressure": 250.0,
     "g1bc": 0.4,
     "gValid": true
   },
@@ -706,6 +776,7 @@
     "gdia": 9.3,
     "glen": 32.0,
     "gmass": 159.0,
+    "gpressure": 250.0,
     "g1bc": 0.31,
     "gValid": true
   },
@@ -716,6 +787,7 @@
     "gdia": 9.55,
     "glen": 31.0,
     "gmass": 160.5,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -726,6 +798,7 @@
     "gdia": 8.61,
     "glen": 30.6,
     "gmass": 129.6,
+    "gpressure": 250.0,
     "g1bc": 0.37,
     "gValid": true
   },
@@ -736,6 +809,7 @@
     "gdia": 8.61,
     "glen": 43.7,
     "gmass": 219.1,
+    "gpressure": 250.0,
     "g1bc": 0.66,
     "gValid": true
   },
@@ -746,6 +820,7 @@
     "gdia": 7.78,
     "glen": 32.6,
     "gmass": 120.4,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -756,6 +831,7 @@
     "gdia": 6.17,
     "glen": 26.0,
     "gmass": 69.4,
+    "gpressure": 250.0,
     "g1bc": 0.36,
     "gValid": true
   },
@@ -766,6 +842,7 @@
     "gdia": 9.52,
     "glen": 52.0,
     "gmass": 341.1,
+    "gpressure": 250.0,
     "g1bc": 0.91,
     "gValid": true
   },
@@ -776,6 +853,7 @@
     "gdia": 8.61,
     "glen": 42.6,
     "gmass": 216.1,
+    "gpressure": 250.0,
     "g1bc": 0.64,
     "gValid": true
   },
@@ -786,6 +864,7 @@
     "gdia": 10.36,
     "glen": 53.6,
     "gmass": 419.8,
+    "gpressure": 250.0,
     "g1bc": 0.85,
     "gValid": true
   },
@@ -796,6 +875,7 @@
     "gdia": 12.95,
     "glen": 62.4,
     "gmass": 743.8,
+    "gpressure": 250.0,
     "g1bc": 0.96,
     "gValid": true
   },
@@ -806,6 +886,7 @@
     "gdia": 11.65,
     "glen": 59.0,
     "gmass": 555.6,
+    "gpressure": 250.0,
     "g1bc": 1.02,
     "gValid": true
   },
@@ -816,6 +897,7 @@
     "gdia": 12.95,
     "glen": 51.8,
     "gmass": 598.8,
+    "gpressure": 250.0,
     "g1bc": 0.67,
     "gValid": true
   },
@@ -826,6 +908,7 @@
     "gdia": 8.22,
     "glen": 32.9,
     "gmass": 169.8,
+    "gpressure": 250.0,
     "g1bc": 0.57,
     "gValid": true
   },
@@ -836,6 +919,7 @@
     "gdia": 8.22,
     "glen": 28.4,
     "gmass": 126.5,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -846,6 +930,7 @@
     "gdia": 8.22,
     "glen": 30.6,
     "gmass": 146.6,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -856,6 +941,7 @@
     "gdia": 8.22,
     "glen": 24.5,
     "gmass": 128.1,
+    "gpressure": 250.0,
     "g1bc": 0.18,
     "gValid": true
   },
@@ -866,6 +952,7 @@
     "gdia": 8.22,
     "glen": 31.8,
     "gmass": 126.5,
+    "gpressure": 250.0,
     "g1bc": 0.34,
     "gValid": true
   },
@@ -876,6 +963,7 @@
     "gdia": 7.23,
     "glen": 28.8,
     "gmass": 103.4,
+    "gpressure": 250.0,
     "g1bc": 0.3,
     "gValid": true
   },
@@ -886,6 +974,7 @@
     "gdia": 7.62,
     "glen": 29.7,
     "gmass": 140.4,
+    "gpressure": 250.0,
     "g1bc": 0.25,
     "gValid": true
   }

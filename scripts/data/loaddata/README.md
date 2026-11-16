@@ -129,11 +129,28 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   else an estimated length (`estimate_length.py`). A bullet is the record of the same maker, weight and diameter whose name shares the most words with the
   table's type; the tables' abbreviations (SMK, AB, BT, CC, BTSP, HOTCOR, GS, ...) are expanded per maker (`BULLET_WORDS`), and among records that share
   nothing (or equally much) the one closest to the estimated length wins. Until 2026-11-15 the first record of the weight was taken: Hornady 190 gr BTSP .308
-  got the 42 mm CX (real about 33 mm; 7 loads "charge too high", +40 % pressure), Sierra 180 gr SMK the 28 mm RN Pro-Hunter.
-- `rematch_lengths.py sources/samples/*.csv [--write]` looks up the lengths of existing sample files again with the current matcher (only rows whose length
-  is one of the matcher's candidates; product-number matches, photo lengths and estimates stay; originals to `sources/samples_prematch`). Run 2026-11-15:
-  4,278 rows of 35 files changed. On these rows the shipped powder values gave pressure 11.9 -> 11.3 % rms rifle (3,090 loads), 18.0 -> 14.1 % pistol
-  (bias +9.2 -> -0.4 %, 452 loads); velocity 3.79 -> 3.77 % rifle, 6.90 -> 7.22 % pistol (the powders were fitted with the old lengths).
+  got the 42 mm CX (real about 33 mm; 7 loads "charge too high", +40 % pressure), Sierra 180 gr SMK the 28 mm RN Pro-Hunter. Since 2026-11-16 a record
+  without a common word may only stand in when it has the same construction (copper, brass, lead, jacketed; `start_pressure.py`), else the length is
+  estimated: a GMX took a lead-core record before. `Records.match` returns the record itself; `analysis/compare_physical_published.py --projectiles`
+  uses it for the start values, so the comparison takes the same record as the length.
+- `rematch_lengths.py sources/samples/*.csv [--write] [--estimates] [--stale]` looks up the lengths of existing sample files again with the current
+  matcher (only rows whose length is one of the matcher's candidates; product-number matches, photo lengths and estimates stay; originals to
+  `sources/samples_prematch`). Run 2026-11-15: 4,278 rows of 35 files changed. On these rows the shipped powder values gave pressure 11.9 -> 11.3 % rms
+  rifle (3,090 loads), 18.0 -> 14.1 % pistol (bias +9.2 -> -0.4 %, 452 loads); velocity 3.79 -> 3.77 % rifle, 6.90 -> 7.22 % pistol (the powders were
+  fitted with the old lengths). `--estimates` (2026-11-16, 814 rows): estimates that move into or out of a copper class after `estimate_length.py` learned
+  XPB, Lehigh, Cutting Edge, MonoFlex, Naturalis (were lead-core estimates, about 20 % too short; estimated pistol copper loads -13.4 -> +3.6 % pressure).
+  `--stale` (2026-11-16, 21,391 rows): the sample files keep the record length of their extraction day, and many records were measured or corrected
+  later (Hornady 165 gr GMX 27.8 mm in the samples, a lead-core length; V-MAX 25 gr 15.7 -> 16.0 mm). On the changed rows (shipped values, before a
+  refit): rifle velocity 3.43 -> 3.34 %, pressure 12.73 -> 12.53 % (18,379 loads); pistol velocity 7.75 -> 7.86 %, pressure 16.54 -> 16.08 % (2,200).
+  Solid copper with validated lengths only (gValid, 7 Barnes TSX / TTSX, 53 rifle loads): +7.8 % pressure at 250 bar start pressure, +12.2 % with the
+  records' 280-500 bar; the -5 % of copper loads in general came from wrong lengths, not from engraving (the model needs no copper material).
+  The per-bullet start values of `analysis/fit_bullet_start_values.py` (gpressure / gfriction of 779 records, 2026-10-15) had been fitted against the
+  stale lengths; with the corrected ones they made rifle loads worse (shipped powders: velocity 4.17 -> 4.25 %, pressure 12.73 -> 12.88 % against the
+  construction classes). Reset 2026-11-16 to the classes of `scripts/data/bulletdata/start_pressure.py` (`--write --overwrite`), friction removed (185).
+  `build_loads.py` now gives every load the start pressure the program uses (matching record, else the class); until then the fits ran every load at
+  the solver's 250 bar. Ba refit on that (`refit.sh ... "build groups ba compare"`): shipped values rifle 4.17 % v / 12.67 % p, pistol 7.87 / 14.98 %;
+  adopted W760, Accurate No. 9, Longshot, WSF, IMR 7828 SSC, Alliant 2000-MR, Reloder 17 (rifle 4.15 / 12.68 %, pistol 7.86 / 14.99 %; measured loads
+  unchanged).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
   and writes the records of the powders with at least 40 samples and at most 6 % (Reload Swiss: 6.5 %) velocity error.
   Results: `lovex_fits.csv`, `rs_fits.csv`.

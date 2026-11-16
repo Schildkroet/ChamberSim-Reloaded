@@ -46,9 +46,8 @@
     "gdia": 7.82,
     "glen": 31.0,
     "gmass": 180.0,
-    "gpressure": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
-    "gfriction": -45.0
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -217,9 +216,8 @@
     "gdia": 5.69,
     "glen": 15.5,
     "gmass": 50.0,
-    "gpressure": 415.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain",
-    "gfriction": -10.0
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -228,7 +226,7 @@
     "gdia": 5.69,
     "glen": 17.0,
     "gmass": 55.0,
-    "gpressure": 450.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
   },
   {
@@ -278,9 +276,8 @@
     "gdia": 7.92,
     "glen": 28.5,
     "gmass": 180.0,
-    "gpressure": 340.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain",
-    "gfriction": 45.0
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -299,9 +296,8 @@
     "gdia": 7.82,
     "glen": 29.2,
     "gmass": 180.0,
-    "gpressure": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain",
-    "gfriction": -50.0
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -341,13 +337,12 @@
     "glen": 32.2,
     "gValid": true,
     "gmass": 196.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 8.2,
     "gtaildiaB": 7.0,
     "gtailh": 4.4,
-    "gpressure": 500.0,
-    "descr": "Length, base diameter and boat-tail length measured on a sample bullet",
-    "gfriction": -25.0
+    "descr": "Length, base diameter and boat-tail length measured on a sample bullet"
   },
   {
     "mname": "Sellier & Bellot",
@@ -356,7 +351,7 @@
     "gdia": 6.71,
     "glen": 31.1,
     "gmass": 140.0,
-    "gpressure": 490.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (fmj), about 10 % uncertain"
   },
   {
@@ -564,8 +559,8 @@
     "gdia": 9.07,
     "glen": 17.6,
     "gmass": 158.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -575,8 +570,8 @@
     "gdia": 11.53,
     "glen": 17.2,
     "gmass": 250.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -586,8 +581,8 @@
     "gdia": 9.02,
     "glen": 14.8,
     "gmass": 124.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -597,8 +592,8 @@
     "gdia": 9.07,
     "glen": 18.6,
     "gmass": 158.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -608,12 +603,12 @@
     "gdia": 7.98,
     "glen": 15.2,
     "gmass": 100.0,
+    "gpressure": 150.0,
     "gtailtype": 1,
     "gmaterial": "lead",
     "gtaildiaA": 6.3,
     "gtaildiaB": 5.4,
     "gtailh": 3.6,
-    "gpressure": 150.0,
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -673,11 +668,11 @@
     "gdia": 9.02,
     "glen": 12.4,
     "gmass": 100.0,
+    "gpressure": 250.0,
     "gtailtype": 1,
     "gtaildiaA": 8.0,
     "gtaildiaB": 2.0,
     "gtailh": 0.5,
-    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -727,9 +722,8 @@
     "gdia": 6.17,
     "glen": 29.3,
     "gmass": 100.0,
-    "gpressure": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
-    "gfriction": 110.0
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -759,8 +753,7 @@
     "glen": 31.9,
     "gmass": 131.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
-    "gfriction": 30.0
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -769,11 +762,11 @@
     "gdia": 6.71,
     "glen": 34.1,
     "gmass": 140.0,
+    "gpressure": 250.0,
     "gtailtype": 2,
     "gtaildiaA": 6.7,
     "gtaildiaB": 6.1,
     "gtailh": 2.5,
-    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -863,9 +856,8 @@
     "gdia": 8.08,
     "glen": 31.4,
     "gmass": 196.0,
-    "gpressure": 380.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
-    "gfriction": -100.0
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -884,7 +876,7 @@
     "gdia": 9.3,
     "glen": 33.1,
     "gmass": 285.0,
-    "gpressure": 50.0,
+    "gpressure": 250.0,
     "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
@@ -895,8 +887,7 @@
     "glen": 25.8,
     "gmass": 150.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
-    "gfriction": -60.0
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -936,8 +927,7 @@
     "glen": 30.3,
     "gmass": 196.0,
     "gpressure": 250.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
-    "gfriction": -15.0
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -946,9 +936,8 @@
     "gdia": 7.82,
     "glen": 31.0,
     "gmass": 180.0,
-    "gpressure": 500.0,
-    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain",
-    "gfriction": -50.0
+    "gpressure": 250.0,
+    "descr": "Length estimated from mass, diameter and bullet type (other), about 10 % uncertain"
   },
   {
     "mname": "Sellier & Bellot",
@@ -1087,8 +1076,8 @@
     "gdia": 9.07,
     "glen": 17.1,
     "gmass": 148.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   },
   {
@@ -1098,8 +1087,8 @@
     "gdia": 7.98,
     "glen": 14.9,
     "gmass": 100.0,
-    "gmaterial": "lead",
     "gpressure": 150.0,
+    "gmaterial": "lead",
     "descr": "Length estimated from mass, diameter and bullet type (lead, by shape), about 10 % uncertain"
   }
 ]

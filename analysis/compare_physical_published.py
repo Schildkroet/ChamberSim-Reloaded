@@ -61,19 +61,18 @@ if args.drop_inconsistent > 0:
     gone = inconsistent(rows, args.drop_inconsistent)
     rows = [r for i, r in enumerate(rows) if i not in gone]
 def bullet_columns(directory):
-    """(gpressure, gfriction) per row from the bullet records in `directory` (empty strings without a directory or a matching record)."""
+    """(gpressure, gfriction) per row from the bullet records in `directory` (empty strings without a directory or a matching record).
+    The record is the one samples_common.Records.match picks (the extractors' matcher: abbreviations expanded, a record without a common word
+    only of the same construction); until 2026-11-16 the first record of the weight was taken here."""
     if not directory: return [("", "")] * len(rows)
-    import re
-    sys.path.insert(0, os.path.join(ROOT, "scripts", "data"))
-    import recordfiles
-    recs = [r for _, r in recordfiles.read(directory)]
-    def match(label, gr, dia):  # the record of the load's bullet (maker prefix, mass, diameter; best name overlap), like fit_bullet_start_values.py
-        low = label.lower()
-        c = [p for p in recs if low.startswith(p["mname"].lower()) and abs(p["gmass"] - gr) < 0.8 and abs(p["gdia"] - dia) < 0.06]
-        return max(c, key=lambda p: sum(w in p["pname"].lower() for w in re.findall(r"[a-z0-9]+", low))) if c else None
+    sys.path.insert(0, os.path.join(ROOT, "scripts", "data", "loaddata"))
+    from pathlib import Path
+    from samples_common import Records
+    recs = Records(Path(directory).resolve().parent)
     out = []
     for r in rows:
-        rec = match(r["bullet"], float(r["bullet_gr"]), float(r["bullet_dia_mm"]))
+        maker, btype = recs.split(r["bullet"])
+        rec = recs.match(maker, btype, float(r["bullet_gr"]), float(r["bullet_dia_mm"])) if maker else None
         out.append((str(rec.get("gpressure") or "") if rec else "", str(rec.get("gfriction") or "") if rec else ""))
     return out
 
