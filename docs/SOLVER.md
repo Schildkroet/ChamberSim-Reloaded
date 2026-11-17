@@ -65,8 +65,8 @@
   friction).
   **Pistol and revolver cartridges** (C.I.P. table IV, calibers with at least 100 published loads: 9 mm Luger, .40 S&W, 10 mm, .45 Auto, .38 Super, 357 SIG,
   .38 Special, .357 Magnum, .44 Magnum, .45 Colt, .454 Casull, .460 and .500 S&W, .480 Ruger, ...) get a factor of their own on the powder's physical burn rate
-  (0.93 - 1.21, `data/physical/calibers.json`, `analysis/fit_caliber_scales.py`): auto-loading cartridges burn faster than the powder's value, revolver
-  cartridges a little slower. Since 2026-10-19 rifle calibers with at least 60 published loads have such a factor too (71 of them, 0.92 - 1.21: .30 Super Carry, .327 Federal, 300 Norma, .33 Nosler and 338 Lapua burn about 5 - 10 % faster than the powder's value, 45-70, 9.3 x 62 and 257 Weatherby slower); other calibers use the powder's value. They remain the least accurate class: velocity about 7.8 %, pressure 19 % rms
+  (0.91 - 1.19, `data/physical/calibers.json`, `analysis/fit_caliber_scales.py`; refitted 2026-11-17 for the bearing surface from the mass): auto-loading cartridges burn faster than the powder's value, revolver
+  cartridges a little slower. Since 2026-10-19 rifle calibers with at least 60 published loads have such a factor too (71 of them, 0.93 - 1.26: .30 Super Carry, .327 Federal, 300 Norma, .33 Nosler and 338 Lapua burn about 5 - 10 % faster than the powder's value, 45-70, 9.3 x 62 and 257 Weatherby slower); other calibers use the powder's value. They remain the least accurate class: velocity about 7.8 %, pressure 19 % rms
   (rifle 4.0 % / 14.7 %).
   Accuracy against the published loads: see the table in [ACCURACY.md](ACCURACY.md). The 2026-10-17 refit (new pressure model, ogive
   intrusion, no double-counted jump, Ba refitted with the old form functions, held-out cartridges of 173 powders): velocity 4.85 % rms,
@@ -76,8 +76,8 @@
   Shotshells always keep the original's constants.
 
   **Gas column, bearing surface and volume constants** (2026-11-17). Four corrections towards the textbook model were tested on the published
-  loads; none is used. They are constants of the calibration (`chambrage`, `burnAtBreech`, `noseFromMass`, besides `gasMassShare`,
-  `capacityFactor`, `gasCovolume_cm3g`), off in the shipped set:
+  loads; only the nose length is used (see the next paragraph). They are constants of the calibration (`chambrage`, `burnAtBreech`, `noseFromMass`,
+  besides `gasMassShare`, `capacityFactor`, `gasCovolume_cm3g`), the others off in the shipped set:
   - *Lagrange share 1/3, burning at the mean pressure* instead of 1/4 and the breech pressure.
   - *Chambrage*: in a case wider than the bore the gas moves slower; the moving share is `1/3 x (1 - c (V0/V)^3)`, `c = 1 - (A/Ac)^2`.
   - *Nose length from the bullet's mass* instead of one calibre (the bearing surface of a spitzer is about half of what one calibre gives).
@@ -90,7 +90,7 @@
   | shipped | 5.16 / 14.76 % | 7.07 / 18.40 % | 4.39 / 14.09 % |
   | share 1/3, mean-pressure burning | 5.22 / 14.90 % | 7.12 / 18.47 % | |
   | + chambrage | 5.50 / 15.88 % | 7.12 / 18.48 % | 4.84 / 16.74 % |
-  | + nose from mass | 5.35 / 16.10 % | 8.00 / 18.98 % | 4.92 / 17.02 % |
+  | + nose from mass (sliding stress not refitted) | 5.35 / 16.10 % | 8.00 / 18.98 % | 4.92 / 17.02 % |
   | + capacity 1, covolume 1 | 5.33 / 20.66 % | 8.16 / 33.29 % | 5.26 / 20.33 % |
 
   With eight global constants refitted as well for each variant (`calibrate_published.py`, impetus, heat transfer, sliding stress, start
@@ -100,6 +100,24 @@
   burn exponent -0.2 to -0.3), so none is adopted. The share 1/3 with mean-pressure burning is neutral; with it the pressure error gets a
   trend over the bullet mass (slope 0.05 to 0.09 instead of 0.02), which the fitted pair removes. The volume constants are not a matter of
   the powders: the published pressures need about 15 % more room than the case capacity, whatever the powders' burn rates and forms are.
+
+  **Bearing surface from the bullet's mass** (`noseFromMass` 1, 2026-11-17). The nose is no longer one calibre: its length follows from the
+  volume the bullet lacks against a cylinder of its length (jacketed 10.5, lead 10.9 g/cm3, nose filling 55 % of its cylinder, 0.5 calibre to
+  60 % of the length without the boat tail). Against the one-calibre rule the bearing surface of the published rifle loads is 0.57 x (median;
+  10-90 %: 0.51-0.80), that of the pistol and revolver loads 1.65 x (1.0-2.3: round and flat noses are shorter than one calibre). Everything
+  fitted with the old length was checked and refitted in this order (published loads of `refit.sh build`, 87,000 rifle and 16,000 pistol loads):
+  - the sliding stress (0.70 MPa for both classes): rifles 1.15 MPa (1.0 left the pressure 1.2 % low, 1.4 costs velocity), pistols and revolvers
+    their own `slideStressHandgun_MPa` 0.4 (with 0.7 their pressure bias rose from +2.0 to +4.3 %);
+  - the handgun start resistance (0.6, decaying over the bearing length) and the lead factor (0.45 on the Lyman cast rifle loads): unchanged,
+    other values are not better;
+  - the per-caliber burn factors (`fit_caliber_scales.py`, the same 86 calibers as before) and the powders' Ba (`refit.sh ... "ba compare"`,
+    16 powders adopted);
+  - the start values of the validated bullets (`fit_bullet_start_values.py --validated-only --holdout`): refitted under the new model they are
+    not better on held-out powders (velocity 3.21 against 3.20 %, pressure 11.59 against 11.35 %), so the records keep theirs.
+
+  All clean published loads, velocity / pressure rms (bias), against the one-calibre model with its own fitted values: rifle 4.20 / 12.38 %
+  (-0.3 / -0.1 %) instead of 4.15 / 12.28 % (-0.1 / +0.5 %), pistol 7.75 / 15.05 % (-0.7 / +2.1 %) instead of 7.93 / 14.96 % (-0.6 / +2.0 %);
+  measured loads (`data/measurements`) about the same. The model is at par with the old one, with bearing surfaces that are about right.
 
 Method and numbers: `scripts/data/loaddata/README.md`, `analysis/calibrate_published.py`, `analysis/fit_physical_powders.py`,
 `analysis/fit_caliber_scales.py` (and the experiments that did not help in [ACCURACY.md](ACCURACY.md)).

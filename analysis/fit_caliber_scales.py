@@ -90,6 +90,7 @@ scales.update({c: e["burnScale"] for c, e in existing.items()})
 for c in sorted(scales):
     if c in existing: continue
     sub = [r for r in test if r["caliber"] == c]; e0, e1 = errors(sub, 1.0), errors(sub, scales[c])
+    if np.isnan(rms(e0)): print(f"  {c:20} not simulated: no entry"); continue  # a NaN would make the whole file invalid JSON for the program
     entries.append({"cipname": c, "burnScale": round(scales[c], 4), "n": len(byc[c]), "v_rms_before": round(rms(e0), 2), "v_rms_after": round(rms(e1), 2)})
     print(f"  {c:20} x{scales[c]:.3f}  n={len(sub):5}  velocity rms {rms(e0):5.2f} -> {rms(e1):5.2f} %")
 for k, sel in cls.items():

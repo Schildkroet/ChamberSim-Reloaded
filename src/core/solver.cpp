@@ -481,14 +481,14 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 // space-mean = base + mc a / (3 A), and a gas kinetic energy of mc v^2 / 6, i.e. a share of 1/3 in both the momentum and the energy equation.
 // gasMassShare is 1/4 and the powder burns at the breech pressure: FITTED values, not the classical ones. Checked 2026-11-17 on the published
 // loads (held-out cartridges, Ba, burn form and global constants refitted for each variant): the share 1/3 with burning at the mean pressure
-// is neutral, the chambrage correction (Calibration::chambrage), the nose length from the bullet's mass (noseFromMass) and physical values of
-// capacityFactor / gasCovolume_cm3g (1 and 1 cm3/g) are all worse; they stay as switches, off (docs/SOLVER.md). The Original model keeps the
-// load's Sebert factor.
+// is neutral, the chambrage correction (Calibration::chambrage) and physical values of capacityFactor / gasCovolume_cm3g (1 and 1 cm3/g) are
+// worse; they stay as switches, off (docs/SOLVER.md). The nose length from the bullet's mass (noseFromMass) is on, with the sliding stresses
+// refitted to it. The Original model keeps the load's Sebert factor.
 // The bullet stays at x0 until the gas pressure reaches the start pressure ps; until then the powder burns in the closed case, lit by
 // the primer gas (primerEnergy_J, released over primerTime_ms). The resistance F: start resistance (engravingShare * ps * A, or an
 // absolute engravingPressure_bar * A when that is set; once the bullet has crossed the free run gjump, decaying over
 // engravingLength_mm, else over the bearing length), case-neck friction while the bullet slides out of the neck (neckStress_MPa x
-// pi x D x the remaining seating depth; only when set), friction of the bearing surface (slideStress * pi * D * bearing length), the
+// pi x D x the remaining seating depth; only when set), friction of the bearing surface (slideStress, per class, * pi * D * bearing length), the
 // user's extra friction gfriction [bar] * A (when unlocked) and the air pushed out of the bore (piston-driven shock).
 // Heat transfer: Dittus-Boelter for turbulent pipe flow, h = factor * 0.023 * lambda * Pr^0.4 * mu^-0.8 * D^-0.2 * (rho u)^0.8 with
 // the gas velocity u = v / 2 + heatVelocity_ms (the turbulence of the burning charge, also before the bullet moves), the gas temperature T = p Vgas / (m_gas R), the wetted surface = powder space (a cylinder as long
@@ -720,7 +720,8 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     const double engravePressure = cal.engravingPressure_bar > 0.0 ? cal.engravingPressure_bar * kBar
                                                                    : perClass(cal.engravingShare, cal.engravingShareHandgun) * m.startP;
     m.engraveForce = fit(cal.engravingInterference) * engravePressure * m.A;
-    m.slideForce = cal.slideStress_MPa * fit(cal.slideInterference) * 1e6 * n::pi * bulletDia * m.bearing;
+    m.slideForce =
+        perClass(cal.slideStress_MPa, cal.slideStressHandgun_MPa) * fit(cal.slideInterference) * 1e6 * n::pi * bulletDia * m.bearing;
     if (in.leadBullet) m.slideForce *= std::max(perClass(cal.leadSlideFactor, cal.leadSlideFactorHandgun), 0.0);
     m.extraForce = in.extraFriction_bar * kBar * m.A;
     m.heatCoeff = cal.heatTransferFactor * kDittusBoelter * kGasConductivity * std::pow(kGasPrandtl, 0.4) * std::pow(kGasViscosity, -0.8) *
@@ -1189,7 +1190,13 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.engravingLength_mm = 2.0;
         cal.engravingShareHandgun = 0.6;
         cal.engravingLengthHandgun_mm = 0.0;
-        cal.slideStress_MPa = 0.700469;
+        // 2026-11-17: the bearing surface follows from the bullet's mass (noseFromMass): spitzer bearing surfaces are about 0.57 x, pistol
+        // bullets 1.65 x what the one-calibre nose gave. Both sliding stresses were 0.70 with the one-calibre nose; rifles 1.15 and handguns
+        // 0.4 give back the old pressure level (scan_physical.py, compare_physical_published.py), then the caliber factors and the powders
+        // were refitted (docs/SOLVER.md)
+        cal.noseFromMass = 1.0;
+        cal.slideStress_MPa = 1.15;
+        cal.slideStressHandgun_MPa = 0.4;
         cal.slideInterference = 1.5;  // 2026-10-11: sliding stress +1.5 % per percent of bullet oversize over the groove (scan_physical.py)
         // 2026-11-02: lead bullets (gmaterial "lead") slide with 0.45 x the stress, fitted on the cast-bullet rifle loads of the Lyman Cast
         // Bullet Handbook (3rd and 4th ed., powders' Ba from the jacketed loads; held-out cartridges 7.1 -> 6.3 % velocity rms); the pistol
@@ -1271,6 +1278,7 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"engravingLengthHandgun_mm", &cal.engravingLengthHandgun_mm},
             {"neckStress_MPa", &cal.neckStress_MPa},
             {"slideStress_MPa", &cal.slideStress_MPa},
+            {"slideStressHandgun_MPa", &cal.slideStressHandgun_MPa},
             {"engravingInterference", &cal.engravingInterference},
             {"slideInterference", &cal.slideInterference},
             {"leadSlideFactor", &cal.leadSlideFactor},

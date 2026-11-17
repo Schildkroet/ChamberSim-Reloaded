@@ -192,7 +192,8 @@ struct Calibration
     // bearing length. The start pressure is the model's release threshold, and it is 0.3 x pMax for handguns: this term therefore scales
     // the start resistance with the cartridge class, which is what the published loads are fitted with (see docs/SOLVER.md, 2026-10-17).
     double engravingShare{0.5};
-    double slideStress_MPa{3.0};  // friction stress on the bullet's bearing surface in the bore
+    double slideStress_MPa{3.0};          // friction stress on the bullet's bearing surface in the bore
+    double slideStressHandgun_MPa{-1.0};  // the same for pistol and revolver cartridges (C.I.P. table IV); < 0: the rifle value
     // Absolute engraving pressure of the bullet in the rifling [bar] x bore area = engraving force, independent of the start pressure.
     // 0: engravingShare x start pressure (the fitted form above). A physical engraving force is 200 - 600 bar x bore area; measured on
     // the published loads it does not improve the fit (rifle pressure -0.3 points, pistol pressure +1.2 points).
@@ -233,8 +234,9 @@ struct Calibration
     // 1: the powder burns at the breech pressure, 0: at the space-mean pressure (the Lagrange assumption: the charge is spread over the gas column)
     double burnAtBreech{1.0};
     // 1: the length of the bullet's nose follows from its mass (the volume the bullet lacks against a cylinder of its length, noseLength_m in
-    // solver.cpp), 0: one calibre. The bearing surface (sliding friction) and the seated part of the ogive use it. Off: one calibre
-    // overstates the bearing surface of spitzer bullets about twofold, but the fitted sliding stress goes with it and the estimate fits worse.
+    // solver.cpp), 0: one calibre. The bearing surface (sliding friction) and the seated part of the ogive use it. One calibre overstates the
+    // bearing surface of spitzer bullets about twofold and understates that of round- and flat-nose pistol bullets (the physical profile: on,
+    // with the sliding stresses refitted to it).
     double noseFromMass{0.0};
     double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
     double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature

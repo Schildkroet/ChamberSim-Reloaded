@@ -161,6 +161,10 @@ Both publish measured pressures with every load, so `csr_fitdata --use-pressure`
   Reload Swiss web / guide 418, Western -> Hodgdon 303, Speer #14 -> Alliant web 167, Winchester -> Lee 110, ... Shotshell loads are not checked:
   their tables give nominal velocities, and the near-equal pairs differ in wad or primer. Ba refit on the de-duplicated loads: shipped values rifle
   4.16 % v / 12.28 % p, pistol 7.90 / 14.98 %; adopted Lovex D073.4 (the most copied guide).
+  Bearing surface from the bullet's mass (2026-11-17, `noseFromMass`, docs/SOLVER.md): sliding stress rifle 1.15 / handgun 0.4 MPa, caliber
+  factors refitted (same 86 calibers), Ba refit adopted 16 powders (Alliant 2400, Sport Pistol, H4227, IMR 4007 SSC, IMR 4166, SR 4759, Lovex
+  D032, Norma URP, RS52, RS62, Vectan Ba10, Tubal 3000/5000/7000/8000, N350); bullet start values kept (a refit was not better on held-out
+  powders). Rifle 4.20 % v / 12.38 % p, pistol 7.75 / 15.05 % (before 4.15 / 12.28 and 7.93 / 14.96 %).
 - `published_fit.py samples.csv --maker Lovex --base-from-name --source "..." --write` fits Ba per powder (form function 0 / 0.3 / 0.6)
   and writes the records of the powders with at least 40 samples and at most 6 % (Reload Swiss: 6.5 %) velocity error.
   Results: `lovex_fits.csv`, `rs_fits.csv`.

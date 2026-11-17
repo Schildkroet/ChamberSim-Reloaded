@@ -895,8 +895,8 @@ void CoreTest::physicalModel()
     csr::Calibration otherShare = cal;  // the Lagrange share is used by the model, not the load's Sebert factor
     otherShare.gasMassShare = 0.10;
     QVERIFY(csr::simulate(in, otherShare).maxPressure_bar != r.maxPressure_bar);
-    // the switches of the gas-column model (off in the shipped constants) work and keep the energy balance
-    QVERIFY(cal.chambrage == 0.0 && cal.burnAtBreech == 1.0 && cal.noseFromMass == 0.0);
+    // the switches of the gas-column model (off in the shipped constants) work and keep the energy balance; the nose length from the mass is on
+    QVERIFY(cal.chambrage == 0.0 && cal.burnAtBreech == 1.0 && cal.noseFromMass == 1.0);
     csr::Calibration lagrange = cal;
     lagrange.gasMassShare = 1.0 / 3.0;
     lagrange.burnAtBreech = 0.0;  // the mean pressure is below the breech pressure: slower burning
@@ -912,12 +912,18 @@ void CoreTest::physicalModel()
     straight.seatingDepth_mm = 0.0;
     QVERIFY(csr::simulate(straight, lagrange).ok());
     QCOMPARE(csr::simulate(straight, chambrage).maxPressure_bar, csr::simulate(straight, lagrange).maxPressure_bar);
-    csr::Calibration massNose = cal;  // the nose of a spitzer is longer than one calibre: shorter bearing surface
-    massNose.noseFromMass = 1.0;
-    QVERIFY(csr::bearingLength_m(in, massNose) < csr::bearingLength_m(in, cal));
-    QVERIFY(csr::bearingLength_m(in, massNose) >= 0.3 * in.bulletDiameter_mm * 1e-3);
-    QVERIFY(rel(csr::bearingLength_m(in, cal),
+    csr::Calibration oneCalibre = cal;  // the nose of a spitzer is longer than one calibre: shorter bearing surface
+    oneCalibre.noseFromMass = 0.0;
+    QVERIFY(csr::bearingLength_m(in, cal) < csr::bearingLength_m(in, oneCalibre));
+    QVERIFY(csr::bearingLength_m(in, cal) >= 0.3 * in.bulletDiameter_mm * 1e-3);
+    QVERIFY(rel(csr::bearingLength_m(in, oneCalibre),
                 (in.bulletLength_mm - in.bulletDiameter_mm - (in.tailType == 2 ? in.tailLength_mm : 0.0)) * 1e-3) < 1e-12);
+    csr::SimInput handgunIn = in;  // pistol and revolver cartridges have their own sliding stress
+    handgunIn.handgun = true;
+    csr::Calibration slide = cal;
+    slide.slideStressHandgun_MPa = 2.0 * cal.slideStressHandgun_MPa;
+    QVERIFY(csr::simulate(handgunIn, slide).muzzleVelocity_ms < csr::simulate(handgunIn, cal).muzzleVelocity_ms);
+    QCOMPARE(csr::simulate(in, slide).muzzleVelocity_ms, r.muzzleVelocity_ms);
 
     csr::Calibration instantPrimer = cal;  // a finite primer release changes the start
     instantPrimer.primerTime_ms = 0.0;
@@ -1051,12 +1057,12 @@ void CoreTest::physicalCaliberScale()
     QVERIFY(csr::physicalCaliberScale(u"45-70 Govt."_s, 0.0) < 0.95);
     QCOMPARE(csr::physicalCaliberScale(u"7 x 57"_s, 0.0), 1.0);  // a factor within 1 % of 1 is not stored
 
-    // a rifle load carries the factor of its caliber (the 8 x 57 IS has 1.014, a pistol load keeps the class rule)
+    // a rifle load carries the factor of its caliber (the 8 x 57 IS has 0.98, a pistol load keeps the class rule)
     auto lf = csr::LoadFile::read(QStringLiteral(CSR_FIXTURE_DIR "/8x57is.grtload"));
     QVERIFY(lf);
     const double rifleScale = csr::SimInput::fromLoad(*lf).caliberBurnScale;
     QCOMPARE(rifleScale, csr::physicalCaliberScale(lf->caliberFile.text(u"cipname"), 0.0));
-    QVERIFY(rifleScale > 1.0);
+    QVERIFY(rifleScale < 1.0);
 }
 
 // A boat-tail or hollow-base bullet without tail dimensions gets typical ones, so the base type changes the result; given dimensions stay.
@@ -3012,10 +3018,13 @@ void CoreTest::leadBulletSlidesMoreEasily()
     // the original's model has no material
     const csr::Calibration original = csr::calibrationFor(csr::CalibrationProfile::Original);
     QCOMPARE(csr::simulate(inL, original).muzzleVelocity_ms, csr::simulate(inJ, original).muzzleVelocity_ms);
-    // a handgun's lead bullet: the jacketed friction (factor 1)
+    // a handgun's lead bullet: the jacketed friction (factor 1); the material still sets the density of the nose estimate, so compare with
+    // the one-calibre nose
     csr::SimInput handJ = inJ, handL = inL;
     handJ.handgun = handL.handgun = true;
-    QCOMPARE(csr::simulate(handL, cal).muzzleVelocity_ms, csr::simulate(handJ, cal).muzzleVelocity_ms);
+    csr::Calibration oneCalibre = cal;
+    oneCalibre.noseFromMass = 0.0;
+    QCOMPARE(csr::simulate(handL, oneCalibre).muzzleVelocity_ms, csr::simulate(handJ, oneCalibre).muzzleVelocity_ms);
 
     // *.csrload keeps it, the *.grtload export leaves it out
     const auto own = csr::LoadFile::parse(lead.toXml(csr::FileFormat::Reload));
