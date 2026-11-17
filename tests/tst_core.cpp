@@ -816,7 +816,7 @@ void CoreTest::physicalModel()
     QCOMPARE(csr::calibrationFor(csr::CalibrationProfile::Published).model, csr::SolverModel::Original);  // the empirical constants
     const csr::Calibration cal = csr::calibrationFor(csr::CalibrationProfile::Physical);
     QCOMPARE(cal.model, csr::SolverModel::Physical);
-    QCOMPARE(cal.gasMassShare, 0.25);  // the classical Lagrange share of the mean-pressure momentum and energy equations
+    QCOMPARE(cal.gasMassShare, 0.25);  // fitted, with burning at the breech pressure (Lagrange: 1/3)
     QVERIFY(cal.primerTime_ms > 0.0);
     const csr::SimResult r = csr::simulate(in, cal);
     QVERIFY(r.ok());
@@ -831,7 +831,7 @@ void CoreTest::physicalModel()
             1e-9);
     const csr::SimResult coarse = csr::simulate(in, cal, 200);
     QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-6);
-    QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 0.005);  // only the sampling of the peak
+    QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 1e-4);  // the peak is the integration's own, not the grid's
     csr::Calibration fine = cal;
     fine.integrationTolerance = 1e-9;
     QVERIFY(rel(csr::simulate(in, fine).muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-4);
@@ -895,6 +895,30 @@ void CoreTest::physicalModel()
     csr::Calibration otherShare = cal;  // the Lagrange share is used by the model, not the load's Sebert factor
     otherShare.gasMassShare = 0.10;
     QVERIFY(csr::simulate(in, otherShare).maxPressure_bar != r.maxPressure_bar);
+    // the switches of the gas-column model (off in the shipped constants) work and keep the energy balance
+    QVERIFY(cal.chambrage == 0.0 && cal.burnAtBreech == 1.0 && cal.noseFromMass == 0.0);
+    csr::Calibration lagrange = cal;
+    lagrange.gasMassShare = 1.0 / 3.0;
+    lagrange.burnAtBreech = 0.0;  // the mean pressure is below the breech pressure: slower burning
+    QVERIFY(csr::simulate(in, lagrange).maxPressure_bar < r.maxPressure_bar);
+    csr::Calibration chambrage = lagrange;
+    chambrage.chambrage = 1.0;  // a bottleneck case: less of the charge moves at the start
+    const csr::SimResult wide = csr::simulate(in, chambrage);
+    QVERIFY(wide.ok() && wide.maxPressure_bar != csr::simulate(in, lagrange).maxPressure_bar);
+    QVERIFY(wide.muzzleEnergy_J + wide.heatLoss_J + wide.muzzleFrictionEnergy_J < wide.propellantEnergy_J);
+    csr::SimInput straight = in;  // a case no wider than the bore: no chambrage
+    straight.caseVolume_cm3 = 0.5 * in.boreArea_mm2 * in.startPosition_mm() * 1e-3;
+    straight.charge_g = 0.3 * in.charge_g;
+    straight.seatingDepth_mm = 0.0;
+    QVERIFY(csr::simulate(straight, lagrange).ok());
+    QCOMPARE(csr::simulate(straight, chambrage).maxPressure_bar, csr::simulate(straight, lagrange).maxPressure_bar);
+    csr::Calibration massNose = cal;  // the nose of a spitzer is longer than one calibre: shorter bearing surface
+    massNose.noseFromMass = 1.0;
+    QVERIFY(csr::bearingLength_m(in, massNose) < csr::bearingLength_m(in, cal));
+    QVERIFY(csr::bearingLength_m(in, massNose) >= 0.3 * in.bulletDiameter_mm * 1e-3);
+    QVERIFY(rel(csr::bearingLength_m(in, cal),
+                (in.bulletLength_mm - in.bulletDiameter_mm - (in.tailType == 2 ? in.tailLength_mm : 0.0)) * 1e-3) < 1e-12);
+
     csr::Calibration instantPrimer = cal;  // a finite primer release changes the start
     instantPrimer.primerTime_ms = 0.0;
     QVERIFY(csr::simulate(in, instantPrimer).maxPressure_bar != r.maxPressure_bar);

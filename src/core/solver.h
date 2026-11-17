@@ -220,9 +220,22 @@ struct Calibration
         1.0};  // 1: the physical burn rates are scaled per caliber (physicalCaliberScale), 0: not (fits of the scales)
     double heatTransferFactor{0.5};  // x the Dittus-Boelter coefficient of turbulent pipe flow (heat loss to the walls)
     double heatVelocity_ms{0.0};     // gas velocity of the heat transfer on top of v / 2: turbulence of the burning charge
-    // Share of the charge that moves with the bullet in the physical model's mean-pressure momentum and kinetic-energy equations
-    // (1/4 is the Lagrange value for the volume-average pressure of a linear gas gradient). The Original model uses the load's Sebert factor instead.
+    // Share of the charge that moves with the bullet in the physical model's mean-pressure momentum and kinetic-energy equations. Lagrange
+    // (linear gas velocity, parabolic pressure) gives 1/3; 1/4 is the fitted value that goes with burning at the breech pressure (burnAtBreech).
+    // The Original model uses the load's Sebert factor instead.
     double gasMassShare{0.25};
+    // Chambrage (0: off, 1: on): in a chamber wider than the bore the gas moves slower than in the bore, by the area ratio A / Ac (Ac = powder
+    // space / its length). The moving share of the charge is then gasMassShare x (1 - c (V0 / V)^3) with c = 1 - (A / Ac)^2, V0 the powder
+    // space and V the space behind the bullet: (A / Ac)^2 of the share at the start, the full share after a long travel. The pressure
+    // difference between the breech and the bullet base shrinks the same way (the gas of the chamber hardly accelerates). Off: on the
+    // published loads it is worse (rifle held-out pressure +1 to +2.6 points), also with the powders and the global constants refitted.
+    double chambrage{0.0};
+    // 1: the powder burns at the breech pressure, 0: at the space-mean pressure (the Lagrange assumption: the charge is spread over the gas column)
+    double burnAtBreech{1.0};
+    // 1: the length of the bullet's nose follows from its mass (the volume the bullet lacks against a cylinder of its length, noseLength_m in
+    // solver.cpp), 0: one calibre. The bearing surface (sliding friction) and the seated part of the ogive use it. Off: one calibre
+    // overstates the bearing surface of spitzer bullets about twofold, but the fitted sliding stress goes with it and the estimate fits worse.
+    double noseFromMass{0.0};
     double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
     double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
     double integrationTolerance{1e-7};  // relative error per time step of the adaptive integration
@@ -279,6 +292,13 @@ void setCalibrationProfile(CalibrationProfile profile);
 [[nodiscard]] CalibrationProfile calibrationProfile() noexcept;
 [[nodiscard]] const Calibration &activeCalibration() noexcept;
 
+// The same for the physical model: the part of the ogive nose that is seated in the case is not counted as a full cylinder but
+// as the volume of a tangent ogive (the bullet length fixes the nose length, about one calibre).
+[[nodiscard]] double bulletIntrusionPhysical_m3(const SimInput &in, const Calibration &cal = activeCalibration());
+
+// Length of the bullet's bearing surface in the physical model [m]: the bullet without its boat tail and nose, at least 0.3 calibres.
+[[nodiscard]] double bearingLength_m(const SimInput &in, const Calibration &cal = activeCalibration());
+
 // Named access to every tunable constant (for calibration tools and tests).
 struct NamedParameter
 {
@@ -298,10 +318,6 @@ struct NamedParameter
 
 // Volume of the bullet's part inside the case [m^3] (cylinder minus the boat-tail frustum).
 [[nodiscard]] double bulletIntrusion_m3(const SimInput &in);
-
-// The same for the physical model: the part of the ogive nose that is seated in the case is not counted as a full cylinder but
-// as the volume of a tangent ogive (the bullet length fixes the nose length, about one calibre).
-[[nodiscard]] double bulletIntrusionPhysical_m3(const SimInput &in);
 
 // Simulates the whole ladder. Without a ladder (count below 2) the result has one step, the selected
 // charge. Steps that would have no powder left are omitted. Index 0 is the maximum charge.

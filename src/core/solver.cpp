@@ -289,10 +289,49 @@ double bulletIntrusion_m3(const SimInput &in)
     return inside;
 }
 
+// Nose length of the bullet in the physical model [m]. Without Calibration::noseFromMass: one calibre. With it: from the bullet's mass. A
+// cylinder of the bullet's length and diameter would weigh more than the bullet; what is missing is the boat tail (known) and the nose, which
+// fills kNoseFill of its cylinder (tangent ogive with a small meplat). Limited to 0.5 calibres .. kMaxNoseShare of the length without the
+// tail: solid copper bullets (lighter than the density assumed here) end at the upper limit, which is about their real nose.
+namespace
+{
+constexpr double kNoseFill = 0.55;
+constexpr double kMaxNoseShare = 0.6;
+constexpr double kJacketedDensity_kgm3 = 10500.0;  // lead core in a gilding-metal jacket
+constexpr double kLeadDensity_kgm3 = 10900.0;      // cast or swaged lead alloy
+
+[[nodiscard]] double tailLength_m(const SimInput &in) noexcept
+{
+    return in.tailType == 2 ? in.tailLength_mm * 1e-3 : 0.0;
+}
+
+[[nodiscard]] double noseLength_m(const SimInput &in, const Calibration &cal) noexcept
+{
+    const double D = in.bulletDiameter_mm * 1e-3;
+    const double L = in.bulletLength_mm * 1e-3;
+    const double body = L - tailLength_m(in);  // nose + bearing surface
+    if (cal.noseFromMass <= 0.0 || in.bulletMass_g <= 0.0) return std::min(D, std::max(body - kMinBearingDiameters * D, 0.0));
+    const double area = std::numbers::pi / 4.0 * D * D;
+    // volume the tail and the hollow base lack against the cylinder (bulletIntrusion_m3 of a bullet seated to its full length)
+    SimInput whole = in;
+    whole.seatingDepth_mm = in.bulletLength_mm;
+    const double missing = bulletIntrusion_m3(whole) - in.bulletMass_g * 1e-3 / (in.leadBullet ? kLeadDensity_kgm3 : kJacketedDensity_kgm3);
+    const double nose = missing / (area * (1.0 - kNoseFill));
+    return std::clamp(nose, std::min(0.5 * D, kMaxNoseShare * body), kMaxNoseShare * body);
+}
+}  // namespace
+
+double bearingLength_m(const SimInput &in, const Calibration &cal)
+{
+    const double D = in.bulletDiameter_mm * 1e-3;
+    if (in.bulletLength_mm <= 0.0) return D;  // length unknown: one calibre
+    return std::max(in.bulletLength_mm * 1e-3 - tailLength_m(in) - noseLength_m(in, cal), kMinBearingDiameters * D);
+}
+
 // The bullet's part inside the case for the physical model: the same cylinder as bulletIntrusion_m3, but the part of the ogive
 // nose that is seated in the case is corrected with the exact volume of a tangent ogive. bulletIntrusion_m3() counts the whole
 // seated length as a cylinder of bullet diameter; that overstates the powder-space loss of deeply seated bullets.
-double bulletIntrusionPhysical_m3(const SimInput &in)
+double bulletIntrusionPhysical_m3(const SimInput &in, const Calibration &cal)
 {
     const double inside = bulletIntrusion_m3(in);
     const double D = in.bulletDiameter_mm * 1e-3;
@@ -300,8 +339,8 @@ double bulletIntrusionPhysical_m3(const SimInput &in)
     const double depth = in.seatingDepth_mm * 1e-3;
     if (D <= 0.0 || L <= 0.0 || depth <= 0.0) return inside;
 
-    const double tail = in.tailType == 2 ? in.tailLength_mm * 1e-3 : 0.0;
-    const double bearing = std::max(L - tail - D, kMinBearingDiameters * D);  // the same bearing length as the physical model uses
+    const double tail = tailLength_m(in);
+    const double bearing = bearingLength_m(in, cal);  // the same bearing length as the physical model uses
     const double nose = std::max(L - tail - bearing, 0.0);
     const double noseStart = tail + bearing;
     if (nose <= 1e-12 || depth <= noseStart) return inside;
@@ -436,11 +475,15 @@ void summarize(SimResult &res, const SimInput &in, const Calibration &cal, doubl
 //   U     = impetusFactor * Qex * mc * z + Eprimer * (1 - exp(-t / primerTime)) - 1/2 M v^2 - Q - W
 //   Vgas  = V0 + A (x - x0) - mc (1 - z) / pc - eta * b * mc * z
 //   M dv/dt = A p - F,   M = mp (1 + spin inertia) + gasMassShare * mc
-//   p_burn = p + (1/2 - gasMassShare) * mc * a / A      the breech pressure (Lagrange gradient, linear profile)
+//   p_burn = p + (1/2 - gasMassShare) * mc * a / A      the breech pressure (Lagrange gradient)
 //   dQ/dt = h S (T - Tw),   dW/dt = F v
-// For a linear gas gradient the volume-average pressure drives the momentum with gasMassShare = 1/4 and the breech pressure is
-// p + mc a / (4 A). (The gas kinetic energy of a linear velocity profile is a share of 1/3; the energy balance uses the same 1/4
-// anyway: a separate 1/3 changes no fit result.) The powder burns at the breech pressure. The Original model keeps the load's Sebert factor.
+// Lagrange (gas velocity linear along the column, uniform density) gives a parabolic pressure profile: breech = base + mc a / (2 A), the
+// space-mean = base + mc a / (3 A), and a gas kinetic energy of mc v^2 / 6, i.e. a share of 1/3 in both the momentum and the energy equation.
+// gasMassShare is 1/4 and the powder burns at the breech pressure: FITTED values, not the classical ones. Checked 2026-11-17 on the published
+// loads (held-out cartridges, Ba, burn form and global constants refitted for each variant): the share 1/3 with burning at the mean pressure
+// is neutral, the chambrage correction (Calibration::chambrage), the nose length from the bullet's mass (noseFromMass) and physical values of
+// capacityFactor / gasCovolume_cm3g (1 and 1 cm3/g) are all worse; they stay as switches, off (docs/SOLVER.md). The Original model keeps the
+// load's Sebert factor.
 // The bullet stays at x0 until the gas pressure reaches the start pressure ps; until then the powder burns in the closed case, lit by
 // the primer gas (primerEnergy_J, released over primerTime_ms). The resistance F: start resistance (engravingShare * ps * A, or an
 // absolute engravingPressure_bar * A when that is set; once the bullet has crossed the free run gjump, decaying over
@@ -457,20 +500,35 @@ using PhysState = std::array<double, 6>;  // x [m], v [m/s], z, heat loss Q [J],
 
 struct PhysicalModel
 {
-    double A, D, mBullet, mMove, mc, V0, x0, solid, covolume, theta, eChem, ePrimer, mPrimerGas, startP, jump, bearing;
+    double A, D, mBullet, mc, V0, x0, solid, covolume, theta, eChem, ePrimer, mPrimerGas, startP, jump, bearing;
     double engraveForce, slideForce, extraForce, heatCoeff, heatVelocity, gasR, chamberSurface, burnBa, burnExponent, ignitionTime;
-    double gasMassShare, primerTime, wallTemperature;
+    double gasMassShare, chambrage, primerTime, wallTemperature;  // chambrage: c = 1 - (A / Ac)^2, 0 without
     double neckLength, neckStress, engravingLength;
+    bool burnAtBreech;
     FormFunction phi;
 
     [[nodiscard]] double gasVolume(double x, double z) const noexcept
     {
         return V0 + A * (x - x0) - mc * (1.0 - z) * solid - covolume * mc * z;
     }
+    // powder space / space behind the bullet (1 at the start)
+    [[nodiscard]] double spaceRatio(double x) const noexcept { return V0 / (V0 + A * std::max(x - x0, 0.0)); }
+    // Share of the charge that moves with the bullet (kinetic energy of the gas column = 1/2 share mc v^2) and its derivative over x.
+    [[nodiscard]] double share(double x) const noexcept
+    {
+        const double r = spaceRatio(x);
+        return gasMassShare * (1.0 - chambrage * r * r * r);
+    }
+    [[nodiscard]] double shareSlope(double x) const noexcept
+    {
+        const double r = spaceRatio(x);
+        return x > x0 ? gasMassShare * chambrage * 3.0 * r * r * r * r * A / V0 : 0.0;
+    }
+    [[nodiscard]] double movingMass(double x) const noexcept { return mBullet + share(x) * mc; }
     [[nodiscard]] double primerFraction(double t) const noexcept { return primerTime > 0.0 ? 1.0 - std::exp(-t / primerTime) : 1.0; }
     [[nodiscard]] double gasPressure(const PhysState &y) const noexcept
     {
-        const double e = eChem * mc * y[2] + ePrimer * primerFraction(y[5]) - 0.5 * mMove * y[1] * y[1] - y[3] - y[4];
+        const double e = eChem * mc * y[2] + ePrimer * primerFraction(y[5]) - 0.5 * movingMass(y[0]) * y[1] * y[1] - y[3] - y[4];
         const double vg = gasVolume(y[0], y[2]);
         return vg > 0.0 ? theta * std::max(e, 0.0) / vg : 0.0;
     }
@@ -520,6 +578,15 @@ struct PhysicalModel
         PhysState dy;
         double p, a, force;
     };
+    // Breech pressure minus the space-mean pressure p of the gas column (Lagrange: gas velocity linear in the volume behind it, uniform
+    // density). Without chambrage (0.5 - share) mc a / A; with it the gas of the chamber hardly accelerates and the contraction into the
+    // bore adds a Bernoulli term.
+    [[nodiscard]] double breechExcess(double x, double v, double a) const noexcept
+    {
+        const double r = spaceRatio(x);
+        const double sh = share(x);
+        return mc * a / A * (0.5 * (1.0 - chambrage * r * r) - sh) + 0.5 * mc * v * v * (chambrage * r * r * r / V0 - shareSlope(x) / A);
+    }
     [[nodiscard]] Rates rates(const PhysState &y, bool released) const noexcept
     {
         const double p = gasPressure(y);
@@ -527,20 +594,21 @@ struct PhysicalModel
         if (released)
         {
             force = resistance(y[0], y[1]);
-            a = (A * p - force) / mMove;
+            // energy balance of the moving mass M(x): d/dt (1/2 M v^2) = (A p - F) v, so M a = A p - F - 1/2 M'(x) v^2
+            a = (A * p - force - 0.5 * mc * shareSlope(y[0]) * y[1] * y[1]) / movingMass(y[0]);
             if (y[1] <= 0.0 && a < 0.0) a = 0.0;  // the bullet waits until the gas overcomes the resistance
-            // The powder at the breech burns at the breech pressure; p is the volume-average pressure of the energy balance.
-            pBurn = std::max(p + (0.5 - gasMassShare) * mc * a / A, 0.0);
+            // p is the space-mean pressure of the energy balance; the powder burns at it or at the breech pressure (burnAtBreech)
+            if (burnAtBreech) pBurn = std::max(p + breechExcess(y[0], y[1], a), 0.0);
         }
         const double term = burnPressureTerm(pBurn / kBar, burnExponent);
         const double lit = ignitionTime > 0.0 ? 1.0 - std::exp(-y[5] / ignitionTime) : 1.0;
         const double dz = y[2] >= 1.0 ? 0.0 : burnBa * term * phi(y[2]) * lit;
         return {{y[1], a, dz, heatRate(y, p), force * std::max(y[1], 0.0), 1.0}, p, a, force};
     }
-    // Breech pressure of the Lagrange gradient: the volume-average pressure plus the gas-column term.
-    [[nodiscard]] double breechPressure(const Rates &r, bool released) const noexcept
+    // Breech pressure of the Lagrange gradient: the space-mean pressure plus the gas-column term.
+    [[nodiscard]] double breechPressure(const PhysState &y, const Rates &r, bool released) const noexcept
     {
-        return released ? r.p + (0.5 - gasMassShare) * mc * r.a / A : r.p;
+        return released ? r.p + breechExcess(y[0], y[1], r.a) : r.p;
     }
 };
 
@@ -611,8 +679,8 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.mc = in.charge_g * 1e-3;
     // the moving share of the charge is the calibration's (the Lagrange value), whatever Sebert factor the load holds: the powder burn
     // values are fitted with it; the Original model uses the load's factor (0 included, as the original program does)
-    m.mMove = m.mBullet + cal.gasMassShare * m.mc;
     m.gasMassShare = cal.gasMassShare;
+    m.burnAtBreech = cal.burnAtBreech > 0.0;
     m.x0 = in.startPosition_mm() * 1e-3;
     m.jump = in.bulletJump_mm * 1e-3;
     m.neckLength = std::max(in.seatingDepth_mm * 1e-3, 0.0);
@@ -623,7 +691,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.wallTemperature = in.temperature_C + kKelvinOffset;
     // The free run is not part of the gas volume at rest: the bullet base starts at x0 and gasVolume() adds A (x - x0) while it
     // travels the jump. Adding A * jump here counted the freebore twice.
-    m.V0 = cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - bulletIntrusionPhysical_m3(in);
+    m.V0 = cal.capacityFactor * in.caseVolume_cm3 * 1e-6 - bulletIntrusionPhysical_m3(in, cal);
     m.solid = 1.0 / in.density_kgm3;
     m.covolume = cal.gasCovolume_cm3g * 1e-3 * (in.covolumeEta > 0.0 ? in.covolumeEta : 1.0);
     m.theta = in.kappa - 1.0;
@@ -632,12 +700,17 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     m.gasR = cal.gasConstant_JkgK;
     const double vg0 = m.gasVolume(m.x0, 0.0);
     if (m.V0 <= 0.0 || vg0 <= 0.0 || m.x0 <= 0.0) return res;
+    // chambrage: bore area over the mean area of the powder space (its volume / its length), 1 for a case no wider than the bore
+    const double areaRatio = std::min(m.A * m.x0 / m.V0, 1.0);
+    m.chambrage = std::clamp(cal.chambrage, 0.0, 1.0) * (1.0 - areaRatio * areaRatio);
     m.ePrimer = cal.primerEnergy_J;
     m.mPrimerGas = cal.primerEnergy_J * m.theta / (m.gasR * kPrimerGasTemperature_K);  // primer gas at about 2500 K
-    // bearing surface: the bullet's length without the boat tail and about one calibre of nose (one calibre if the length is unknown)
-    const double tail = in.tailType == 2 ? in.tailLength_mm * 1e-3 : 0.0;
-    m.bearing =
-        std::max(in.bulletLength_mm > 0.0 ? in.bulletLength_mm * 1e-3 - tail - bulletDia : bulletDia, kMinBearingDiameters * bulletDia);
+    // bearing surface: the bullet's length without the boat tail and the nose (one calibre if the length is unknown)
+    {
+        SimInput sized = in;
+        sized.bulletDiameter_mm = bulletDia * 1e3;
+        m.bearing = bearingLength_m(sized, cal);
+    }
     // relative oversize of the bullet over the groove diameter in percent (0 when the caliber has no groove diameter)
     const double oversize = in.grooveDiameter_mm > 0.0 && in.bulletDiameter_mm > 0.0
                                 ? 100.0 * (in.bulletDiameter_mm - in.grooveDiameter_mm) / in.grooveDiameter_mm
@@ -706,7 +779,7 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
     };
     std::vector<Sample> samples;
     const auto sample = [&](double t, const PhysState &s)
-    { samples.push_back({t, s[0], s[1], s[2], m.breechPressure(m.rates(s, true), true)}); };
+    { samples.push_back({t, s[0], s[1], s[2], m.breechPressure(s, m.rates(s, true), true)}); };
     const double dxOut = (xe - m.x0) / (steps - 1);
     double t = 0.0;
     h = kBoreInitialStep_s;
@@ -770,6 +843,8 @@ SimResult simulatePhysical(const SimInput &in, const Calibration &cal, int steps
                               .t_ms = lerp(a.t, b.t) * 1e3});
     }
     summarize(res, in, cal, freeVolume_cm3);  // propellant impulse and recoil with the load's Sebert factor (0..1, 0 included)
+    // the peak of the integration's own steps: the output grid may be coarser than the peak is sharp
+    res.maxPressure_bar = std::max(res.maxPressure_bar, std::ranges::max(samples, {}, &Sample::p).p / kBar);
     res.frictionForce_N = m.slideForce + m.extraForce;
     // The work of that force alone: y[4] also holds the work against the engraving and the air, and the sliding friction only acts once
     // the bullet has crossed the free run, which the reported travel still includes.
@@ -869,7 +944,7 @@ SimResult simulate(const SimInput &in, const Calibration &calibration, int steps
     // 1.2 x bulk density in the volume left after the bullet intrudes into the case (accepted loads reach
     // 1.10, rejected ones start at 1.29). The physical model uses the ogive-corrected intrusion.
     const bool physical = cal.model == SolverModel::Physical && !in.shotshell;
-    const double freeVolume_cm3 = in.caseVolume_cm3 - (physical ? bulletIntrusionPhysical_m3(in) : bulletIntrusion_m3(in)) * 1e6;
+    const double freeVolume_cm3 = in.caseVolume_cm3 - (physical ? bulletIntrusionPhysical_m3(in, cal) : bulletIntrusion_m3(in)) * 1e6;
     if (freeVolume_cm3 <= 0.0 || in.charge_g / freeVolume_cm3 > 1.2 * in.bulkDensity_kgm3 * 1e-3)
     {
         res.status = SimStatus::ChargeTooHigh;
@@ -1094,11 +1169,9 @@ Calibration calibrationFor(CalibrationProfile profile)
             0.3;  // 2026-10-08: pistol and revolver cartridges start at 0.3 x the permitted pressure (>= the load's own value)
         // 2026-11-14: changes of the load's start pressure (psadd, primer) against the neutral load count in full on top of that floor instead of being
         // swallowed by it; a load made or opened without changes gives exactly the old result (published loads unchanged)
-        cal.handgunStartGain = 1.0;
-        // 2026-11-14: the changes of the load's start pressure (psadd, primer) count in full on top of that floor instead of being swallowed by it
         // (a new handgun load starts with psadd 0, so the published-load fits do not change: 7.77 / 16.22 % pistol velocity / pressure rms either way)
         cal.handgunStartGain = 1.0;
-        // 2026-10-17: the physical model uses the classical Lagrange pair (gasMassShare 1/4, breech burn pressure), the
+        // 2026-10-17: the physical model uses a Lagrange-type pair (gasMassShare 1/4, breech burn pressure), the
         // ogive-corrected bullet intrusion and no double-counted jump volume. The per-powder Ba were refitted to the published
         // samples with these equations; the global constants keep the 2026-10-11 values (a joint fit on a subset improved the
         // pressure but lost the start-to-max velocity gain, 0.55 instead of 0.96 of the published).
@@ -1126,7 +1199,7 @@ Calibration calibrationFor(CalibrationProfile profile)
         cal.heatTransferFactor = 0.0618079;
         cal.heatVelocity_ms = 169.199;
         cal.burnExponent = -0.05;
-        cal.gasMassShare = 0.25;  // classical Lagrange value for the mean-pressure momentum and energy equations
+        cal.gasMassShare = 0.25;  // fitted (Lagrange: 1/3, neutral with burning at the mean pressure; see simulatePhysical)
     }
     return cal;
 }
@@ -1207,6 +1280,9 @@ std::vector<NamedParameter> parameters(Calibration &cal)
             {"heatVelocity_ms", &cal.heatVelocity_ms},
             {"bulletInertiaFactor", &cal.bulletInertiaFactor},
             {"gasMassShare", &cal.gasMassShare},
+            {"chambrage", &cal.chambrage},
+            {"burnAtBreech", &cal.burnAtBreech},
+            {"noseFromMass", &cal.noseFromMass},
             {"gasConstant_JkgK", &cal.gasConstant_JkgK},
             {"integrationTolerance", &cal.integrationTolerance}};
 }

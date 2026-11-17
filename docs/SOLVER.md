@@ -15,9 +15,9 @@
   cartridges keep it), the extra friction gfriction [bar] and the air ahead of the bullet act on the bullet; heat loss to the chamber
   and bore walls; the spin (twist) takes energy. The peak pressure no longer depends on the barrel length. The velocity gain with the barrel length (exponent about 0.24 between 16 and 24 inches) is slightly steeper than measured cut-down series (0.21), see docs/ACCURACY.md. Results show the heat loss and
   the work of the sliding friction (the engraving and the air act on the bullet but are not part of that value); a bullet that cannot leave
-  the barrel is reported. The gas moves with a Lagrange share of the charge of 1/4 (the share for the space-averaged pressure of a linear gas gradient) and the powder burns at the breech pressure
-  (the mean pressure plus the gas-column term), so the momentum, energy and reported pressure use one consistent gradient model. The energy balance uses the same 1/4 for
-  the gas kinetic energy, where a linear velocity profile has exactly 1/3; splitting the two changes no fit result (published loads, Ba refitted: 0.01 points in velocity and pressure). The part
+  the barrel is reported. The gas moves with a share of the charge of 1/4 and the powder burns at the breech pressure
+  (the mean pressure plus the gas-column term). Both are **fitted**: the Lagrange gradient (linear gas velocity, parabolic pressure) gives a share of 1/3 in
+  the momentum and the energy equation, and a charge spread over the gas column burns at the mean pressure (see "Gas column, bearing surface and volume constants" below). The part
   of the ogive nose seated in the case is corrected with its real volume, and the free run is not counted twice in the gas volume. The primer releases its energy over a finite time (`primerTime_ms`, 0.05 ms) and the chamber walls are at the load's powder temperature
   (neutral against the published loads: 0.00-0.01 points).
 
@@ -74,6 +74,32 @@
   pistol/revolver 5.87 % / 17.12 % (velocity / pressure rms, shotgun separate). Powders without physical values (own records, edited
   values) use the load's burn rate with a scale (`burnRateScale`) and are less accurate.
   Shotshells always keep the original's constants.
+
+  **Gas column, bearing surface and volume constants** (2026-11-17). Four corrections towards the textbook model were tested on the published
+  loads; none is used. They are constants of the calibration (`chambrage`, `burnAtBreech`, `noseFromMass`, besides `gasMassShare`,
+  `capacityFactor`, `gasCovolume_cm3g`), off in the shipped set:
+  - *Lagrange share 1/3, burning at the mean pressure* instead of 1/4 and the breech pressure.
+  - *Chambrage*: in a case wider than the bore the gas moves slower; the moving share is `1/3 x (1 - c (V0/V)^3)`, `c = 1 - (A/Ac)^2`.
+  - *Nose length from the bullet's mass* instead of one calibre (the bearing surface of a spitzer is about half of what one calibre gives).
+  - *Physical volume constants*: case capacity x 1 (shipped 1.15) and covolume 1.0 cm3/g (shipped 0.8).
+
+  Held-out cartridges, per-caliber burn factors off, velocity / peak pressure rms (each row adds to the one above):
+
+  | variant | rifle, Ba refitted | pistol, Ba refitted | rifle, Ba + form refitted (1/3 of the loads) |
+  |---|---|---|---|
+  | shipped | 5.16 / 14.76 % | 7.07 / 18.40 % | 4.39 / 14.09 % |
+  | share 1/3, mean-pressure burning | 5.22 / 14.90 % | 7.12 / 18.47 % | |
+  | + chambrage | 5.50 / 15.88 % | 7.12 / 18.48 % | 4.84 / 16.74 % |
+  | + nose from mass | 5.35 / 16.10 % | 8.00 / 18.98 % | 4.92 / 17.02 % |
+  | + capacity 1, covolume 1 | 5.33 / 20.66 % | 8.16 / 33.29 % | 5.26 / 20.33 % |
+
+  With eight global constants refitted as well for each variant (`calibrate_published.py`, impetus, heat transfer, sliding stress, start
+  resistance, burn exponent, primer energy; 10 training powders, their held-out cartridges): shipped equations rifle 4.63 / 12.44 %, pistol
+  7.95 / 16.68 %; all corrections with the shipped volume constants 4.97 / 14.55 % and 7.69 / 16.83 %; with the physical volume constants
+  5.02 / 13.26 % and 9.95 / 18.29 %. Every one of these refits runs constants into their limits (impetus 1.1, rifle start resistance 3 x ps,
+  burn exponent -0.2 to -0.3), so none is adopted. The share 1/3 with mean-pressure burning is neutral; with it the pressure error gets a
+  trend over the bullet mass (slope 0.05 to 0.09 instead of 0.02), which the fitted pair removes. The volume constants are not a matter of
+  the powders: the published pressures need about 15 % more room than the case capacity, whatever the powders' burn rates and forms are.
 
 Method and numbers: `scripts/data/loaddata/README.md`, `analysis/calibrate_published.py`, `analysis/fit_physical_powders.py`,
 `analysis/fit_caliber_scales.py` (and the experiments that did not help in [ACCURACY.md](ACCURACY.md)).
