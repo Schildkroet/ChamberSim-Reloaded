@@ -742,7 +742,7 @@ void CoreTest::loadWithoutCaliberRecord()
     csr::writePhysicalBurn(lf->propellant, burn);
     const csr::SimResult r = csr::simulate(csr::SimInput::fromLoad(*lf), csr::calibrationFor(csr::CalibrationProfile::Physical));
     QVERIFY(r.ok());
-    QVERIFY2(r.maxPressure_bar > 2600.0 && r.maxPressure_bar < 3100.0, qPrintable(QString::number(r.maxPressure_bar)));
+    QVERIFY2(r.maxPressure_bar > 2400.0 && r.maxPressure_bar < 3100.0, qPrintable(QString::number(r.maxPressure_bar)));
 }
 
 // Br, Bp, Brp of the original's N150 record (Br and Brp follow from the documented formulas, Bp uses an approximated phi(z1)).
@@ -816,7 +816,7 @@ void CoreTest::physicalModel()
     QCOMPARE(csr::calibrationFor(csr::CalibrationProfile::Published).model, csr::SolverModel::Original);  // the empirical constants
     const csr::Calibration cal = csr::calibrationFor(csr::CalibrationProfile::Physical);
     QCOMPARE(cal.model, csr::SolverModel::Physical);
-    QCOMPARE(cal.gasMassShare, 0.25);  // fitted, with burning at the breech pressure (Lagrange: 1/3)
+    QVERIFY(cal.gasMassShare > 0.2 && cal.gasMassShare < 1.0 / 3.0);  // fitted, with burning at the breech pressure (Lagrange: 1/3)
     QVERIFY(cal.primerTime_ms > 0.0);
     const csr::SimResult r = csr::simulate(in, cal);
     QVERIFY(r.ok());
@@ -830,8 +830,9 @@ void CoreTest::physicalModel()
     QVERIFY(rel(r.muzzleFrictionEnergy_J, r.frictionForce_N * (r.points.back().x_mm - r.points.front().x_mm - in.bulletJump_mm) * 1e-3) <
             1e-9);
     const csr::SimResult coarse = csr::simulate(in, cal, 200);
-    QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-6);
-    QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 1e-4);  // the peak is the integration's own, not the grid's
+    // 1e-5: the case-neck friction ends with a kink where the bullet leaves the neck, which the adaptive steps meet slightly differently
+    QVERIFY(rel(coarse.muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-5);
+    QVERIFY(rel(coarse.maxPressure_bar, r.maxPressure_bar) < 5e-4);  // the peak is the integration's own, not the grid's (neck kink: 2e-4)
     csr::Calibration fine = cal;
     fine.integrationTolerance = 1e-9;
     QVERIFY(rel(csr::simulate(in, fine).muzzleVelocity_ms, r.muzzleVelocity_ms) < 1e-4);
@@ -895,8 +896,9 @@ void CoreTest::physicalModel()
     csr::Calibration otherShare = cal;  // the Lagrange share is used by the model, not the load's Sebert factor
     otherShare.gasMassShare = 0.10;
     QVERIFY(csr::simulate(in, otherShare).maxPressure_bar != r.maxPressure_bar);
-    // the switches of the gas-column model (off in the shipped constants) work and keep the energy balance; the nose length from the mass is on
-    QVERIFY(cal.chambrage == 0.0 && cal.burnAtBreech == 1.0 && cal.noseFromMass == 1.0);
+    // the switches of the gas-column model work and keep the energy balance; the shipped constants take a fraction of the chambrage
+    // (fitted 2026-11-18), burn at the breech pressure and take the nose length from the mass
+    QVERIFY(cal.chambrage > 0.0 && cal.chambrage < 1.0 && cal.burnAtBreech == 1.0 && cal.noseFromMass == 1.0);
     csr::Calibration lagrange = cal;
     lagrange.gasMassShare = 1.0 / 3.0;
     lagrange.burnAtBreech = 0.0;  // the mean pressure is below the breech pressure: slower burning
@@ -924,10 +926,38 @@ void CoreTest::physicalModel()
     slide.slideStressHandgun_MPa = 2.0 * cal.slideStressHandgun_MPa;
     QVERIFY(csr::simulate(handgunIn, slide).muzzleVelocity_ms < csr::simulate(handgunIn, cal).muzzleVelocity_ms);
     QCOMPARE(csr::simulate(in, slide).muzzleVelocity_ms, r.muzzleVelocity_ms);
+    // the classes' own constants: a handgun value acts on pistol and revolver cartridges only, NaN takes the rifle value
+    csr::Calibration impetus = cal;
+    impetus.impetusFactorHandgun = 1.1 * cal.impetusFactor;
+    QVERIFY(csr::simulate(handgunIn, impetus).muzzleVelocity_ms > csr::simulate(handgunIn, csr::handgunCalibration(cal)).muzzleVelocity_ms);
+    QCOMPARE(csr::simulate(in, impetus).muzzleVelocity_ms, r.muzzleVelocity_ms);
+    QCOMPARE(csr::handgunCalibration(impetus).impetusFactor, 1.1 * cal.impetusFactor);
+    csr::Calibration unset = cal;
+    unset.burnExponentHandgun = csr::kSameAsRifle;
+    QCOMPARE(csr::handgunCalibration(unset).burnExponent, cal.burnExponent);
+    bool listed = false;  // the handgun values can be set by name like every constant (csr_eval --set, the fits)
+    for (const auto &p : csr::parameters(impetus)) listed = listed || std::string_view(p.name) == "impetusFactorHandgun";
+    QVERIFY(listed);
 
     csr::Calibration instantPrimer = cal;  // a finite primer release changes the start
     instantPrimer.primerTime_ms = 0.0;
     QVERIFY(csr::simulate(in, instantPrimer).maxPressure_bar != r.maxPressure_bar);
+    QCOMPARE(cal.ignitionFillExponent, 0.0);  // the flame spread does not depend on the fill in the shipped set
+    csr::Calibration fillSpread = cal;
+    fillSpread.ignitionFillExponent = 2.0;
+    QVERIFY(csr::simulate(in, fillSpread).ok() && csr::simulate(in, fillSpread).maxPressure_bar != r.maxPressure_bar);
+    QCOMPARE(cal.heatFillExponent, 0.0);  // neither do the losses
+    QCOMPARE(cal.slideFillExponent, 0.0);
+    // the moving gas share falls with charge / bullet for rifles only (2026-11-18)
+    QVERIFY(cal.gasShareRatioExponent > 0.0);
+    QCOMPARE(csr::handgunCalibration(cal).gasShareRatioExponent, 0.0);
+    for (double csr::Calibration::*k :
+         {&csr::Calibration::heatFillExponent, &csr::Calibration::slideFillExponent, &csr::Calibration::gasShareRatioExponent})
+    {
+        csr::Calibration fillLoss = cal;
+        fillLoss.*k = 1.0;
+        QVERIFY(csr::simulate(in, fillLoss).ok() && csr::simulate(in, fillLoss).muzzleVelocity_ms != r.muzzleVelocity_ms);
+    }
     csr::Calibration noPrimer = cal;  // no primer energy: the powder never reaches the start pressure, reported cleanly
     noPrimer.primerEnergy_J = 0.0;
     QCOMPARE(csr::simulate(in, noPrimer).status, csr::SimStatus::BulletStuck);
@@ -1051,10 +1081,10 @@ void CoreTest::physicalCaliberScale()
     csr::setPhysicalBurnFile(dir.filePath(u"none/propellants.json"_s));
     QCOMPARE(csr::physicalCaliberScale(u"9 mm Luger"_s, 1.0), 1.0);  // no file
     csr::setPhysicalBurnFile(QStringLiteral(CSR_SOURCE_DIR "/data/physical/propellants.json"));
-    QVERIFY(csr::physicalCaliberScale(u"9 mm Luger"_s, 1.0) > 1.05);  // the shipped factors
-    QVERIFY(csr::physicalCaliberScale(u"40 S.& W."_s, 1.0) > 1.05);
+    QVERIFY(csr::physicalCaliberScale(u"9 mm Luger"_s, 1.0) > 1.05);     // the shipped factors
+    QVERIFY(csr::physicalCaliberScale(u"40 S.& W."_s, 1.0) > 1.01);      // the auto-loading cartridges run slow without their factor
     QVERIFY(csr::physicalCaliberScale(u"300 Norma Mag"_s, 0.0) > 1.05);  // rifle calibers have factors too (2026-10-19)
-    QVERIFY(csr::physicalCaliberScale(u"45-70 Govt."_s, 0.0) < 0.95);
+    QVERIFY(csr::physicalCaliberScale(u"45-70 Govt."_s, 0.0) < 0.96);
     QCOMPARE(csr::physicalCaliberScale(u"7 x 57"_s, 0.0), 1.0);  // a factor within 1 % of 1 is not stored
 
     // a rifle load carries the factor of its caliber (the 8 x 57 IS has 0.98, a pistol load keeps the class rule)

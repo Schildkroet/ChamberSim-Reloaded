@@ -3,6 +3,40 @@
 Changes in ChamberSim Reloaded. Pre-built binaries are on the
 [releases page](https://github.com/Schildkroet/ChamberSim-Reloaded/releases).
 
+## 0.18
+
+### Added and changed
+
+- **Physical Model refitted, rifles and handguns separately.** All constants of the model (burning law, gas column,
+  friction, case-neck tension, heat loss, primer, ignition) were fitted together with every powder's burn values,
+  once on the rifle loads and once on the pistol and revolver loads, so each class now has its own set. Peak pressure
+  against the published loads: rifle 11.64 % rms (before 12.57 %), pistol and revolver 14.78 % (before 15.02 %);
+  velocity rifle 4.36 % (before 4.21 %), pistol and revolver 7.77 % (before 7.72 %). Pistol and revolver loads also
+  gain more velocity from the start to the maximum load, closer to the manuals; rifle loads gain a little less
+  (about 1 % less velocity from the start to the maximum charge of a table). Shotgun loads are not concerned.
+- **Bearing surface of the bullet (Physical Model).** The friction of the bullet in the bore acts on its bearing
+  surface, the cylindrical part between the nose and the base. Until now the nose was taken as one calibre long; it
+  now follows from the bullet's weight and length. That roughly halves the bearing surface of a spitzer and makes
+  that of round- and flat-nose pistol bullets longer (a 9 mm 115 gr FMJ: 7.5 mm instead of 5.0 mm), as on the real
+  bullets. The friction stress is refitted to it, separately for rifle and for pistol and revolver cartridges, and so
+  are the per-caliber burn factors and 16 powders. Against the published loads: rifle 4.20 % velocity and 12.38 % peak
+  pressure rms (before 4.15 % / 12.28 %), pistol and revolver 7.75 % / 15.05 % (before 7.93 % / 14.96 %); shotgun
+  loads are not concerned. Loads with long-nosed rifle bullets change most.
+- **Peak pressure (Physical Model)** is the highest pressure the calculation reached, no longer the highest point of
+  the drawn curve, so it no longer depends on the number of curve points (up to 0.4 % higher for fast powders).
+- **Measurements: ignore a shot and add a remark.** An ignored shot stays in the series but is left out of the
+  statistics, the chart mean, the report and the powder fit, and is drawn hollow in the chart. Each shot can carry a
+  remark. Both are kept in the `.csrload`; the *.grtload export leaves the ignored shots out.
+- **Bullet data.** Solid-copper bullets (Barnes XPB, Lehigh, Cutting Edge, MonoFlex, Naturalis and others) were
+  estimated as lead-core bullets and came out about 20 % too short; 23 records are re-estimated. The start pressures
+  of the bullet records follow their construction, and 162 bullets with a validated length have their own start
+  values fitted to the published loads (rifle peak pressure 12.68 % to 12.24 % rms).
+- **Load data.** Hodgdon's Reloading Data Center (308 Winchester) and fixes to the matching of the tables' bullet
+  names to the records (pistol peak pressure 18.0 % to 14.1 % rms on the affected loads). Loads that one guide copies
+  from another are counted once. Refitted powders: Accurate LT-32, Vihtavuori 3N37, W760, Accurate No. 9, Longshot,
+  WSF, IMR 7828 SSC, Alliant 2000-MR, Reloder 17 and Lovex D073.4.
+- **Window title** shows the program version.
+
 ## 0.17
 
 ### Added and changed

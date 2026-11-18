@@ -23,6 +23,7 @@
 
 #include <array>
 #include <cstddef>
+#include <limits>
 #include <vector>
 
 namespace csr
@@ -130,6 +131,7 @@ enum class SolverModel
 // reference runs of the original program; the values are least-squares calibrations against those runs
 // (analysis/calibrate.py) and change when the model or the reference data change. The accuracy table in docs/ACCURACY.md shows
 // how well the current values fit. Names with a unit suffix are in that unit; the others are factors.
+inline constexpr double kSameAsRifle = std::numeric_limits<double>::quiet_NaN();  // a handgun constant that takes the rifle value
 struct Calibration
 {
     // ---- burn rate ----
@@ -188,6 +190,12 @@ struct Calibration
     double primerEnergy_J{50.0};  // energy of the primer gas that lights the powder (20-30 mg of priming compound)
     double primerTime_ms{0.05};   // time constant of the primer gas release (0: the primer energy appears at t = 0)
     double ignitionTime_ms{0.0};  // flame spread: the lit share of the grains is 1 - exp(-t / this) after ignition (0: all at once)
+    // the flame spread time scales with (fill / 0.85)^this, fill = charge / (bulk density x powder space): a full case lights slower (0: off)
+    double ignitionFillExponent{0.0};
+    // the heat loss to the walls and the sliding friction of the bullet scale with (fill / 0.85)^-this (0: off): losses that act mostly
+    // after the peak, so a fuller case gains velocity with the charge without a matching rise in peak pressure (tested 2026-11-17)
+    double heatFillExponent{0.0};
+    double slideFillExponent{0.0};
     // Start resistance of the bullet, fitted (not a physical engraving force): share x start pressure x bore area, decaying over the
     // bearing length. The start pressure is the model's release threshold, and it is 0.3 x pMax for handguns: this term therefore scales
     // the start resistance with the cartridge class, which is what the published loads are fitted with (see docs/SOLVER.md, 2026-10-17).
@@ -225,11 +233,16 @@ struct Calibration
     // (linear gas velocity, parabolic pressure) gives 1/3; 1/4 is the fitted value that goes with burning at the breech pressure (burnAtBreech).
     // The Original model uses the load's Sebert factor instead.
     double gasMassShare{0.25};
+    // the share scales with ((charge / bullet) / 0.3)^-this (0: off): a heavy charge carries less of its kinetic energy than Lagrange's
+    // linear velocity profile (Pidduck-Kent), so the velocity gains more with the charge (physical profile since 2026-11-18: rifles 0.52,
+    // handguns 0)
+    double gasShareRatioExponent{0.0};
     // Chambrage (0: off, 1: on): in a chamber wider than the bore the gas moves slower than in the bore, by the area ratio A / Ac (Ac = powder
     // space / its length). The moving share of the charge is then gasMassShare x (1 - c (V0 / V)^3) with c = 1 - (A / Ac)^2, V0 the powder
     // space and V the space behind the bullet: (A / Ac)^2 of the share at the start, the full share after a long travel. The pressure
-    // difference between the breech and the bullet base shrinks the same way (the gas of the chamber hardly accelerates). Off: on the
-    // published loads it is worse (rifle held-out pressure +1 to +2.6 points), also with the powders and the global constants refitted.
+    // difference between the breech and the bullet base shrinks the same way (the gas of the chamber hardly accelerates). On its own (1) it is
+    // worse on the published loads (rifle held-out pressure +1 to +2.6 points); in the joint refit of 2026-11-18 a fraction is fitted (the
+    // physical profile: rifles 0.15, handguns 0.06).
     double chambrage{0.0};
     // 1: the powder burns at the breech pressure, 0: at the space-mean pressure (the Lagrange assumption: the charge is spread over the gas column)
     double burnAtBreech{1.0};
@@ -241,6 +254,25 @@ struct Calibration
     double bulletInertiaFactor{0.45};   // moment of inertia of the bullet = factor x mass x radius^2 (solid cylinder 0.5)
     double gasConstant_JkgK{340.0};     // specific gas constant of the powder gas (molar mass about 24.5 g/mol): gas temperature
     double integrationTolerance{1e-7};  // relative error per time step of the adaptive integration
+    // Pistol and revolver cartridges (C.I.P. table IV) have their own values of these constants of the physical model: the classes were fitted
+    // separately (2026-11-18). NaN: the value above, as for a rifle cartridge. handgunCalibration() applies them.
+    double burnExponentHandgun{kSameAsRifle};
+    double gasMassShareHandgun{kSameAsRifle};
+    double gasShareRatioExponentHandgun{kSameAsRifle};
+    double chambrageHandgun{kSameAsRifle};
+    double gasCovolumeHandgun_cm3g{kSameAsRifle};
+    double capacityFactorHandgun{kSameAsRifle};
+    double impetusFactorHandgun{kSameAsRifle};
+    double slideInterferenceHandgun{kSameAsRifle};
+    double engravingInterferenceHandgun{kSameAsRifle};
+    double neckStressHandgun_MPa{kSameAsRifle};
+    double heatTransferFactorHandgun{kSameAsRifle};
+    double heatVelocityHandgun_ms{kSameAsRifle};
+    double gasConstantHandgun_JkgK{kSameAsRifle};
+    double primerEnergyHandgun_J{kSameAsRifle};
+    double primerTimeHandgun_ms{kSameAsRifle};
+    double ignitionTimeHandgun_ms{kSameAsRifle};
+    double bulletInertiaFactorHandgun{kSameAsRifle};
 
     // ---- burn law dz/dt = Ba * p[bar] * (p / 1000 bar)^burnExponent * phi(z), identified from the powder sweeps ----
     //   phase 1 (z < z1):   phi = burnIntercept + (burnSlopeA0 * a0 + burnSlopeOffset) * z
@@ -308,6 +340,9 @@ struct NamedParameter
     double *value;
 };
 [[nodiscard]] std::vector<NamedParameter> parameters(Calibration &cal);
+// The constants a pistol or revolver cartridge is simulated with: the handgun values (the ...Handgun members that are not NaN) in place of
+// the rifle values.
+[[nodiscard]] Calibration handgunCalibration(const Calibration &cal);
 
 // Runs the simulation. Original model: over `steps` equal position steps from the start position to the muzzle. Physical model:
 // adaptive in time, the curves resampled to `steps` equal position steps from the start position to the muzzle (both included). The result is not

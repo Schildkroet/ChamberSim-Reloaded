@@ -158,26 +158,26 @@ without a trend). Open: a heat loss that depends on time or gas temperature.
 
 | Test set | Runs | Peak pressure: mean error | max | Muzzle velocity: mean error | max | Curve shape: mean deviation |
 |---|---:|---:|---:|---:|---:|---:|
-| Other cartridges (caliber sweep) | 28 | 54.4 % | 131.9 % | 10.2 % | 19.1 % | 38.0 % |
-| Powders (40 powders, one cartridge) | 40 | 36.9 % | 79.5 % | 7.6 % | 21.9 % | 27.0 % |
-| Charge, bullet weight, start pressure, case volume | 24 | 54.1 % | 112.9 % | 8.1 % | 16.2 % | 31.4 % |
-| Barrel length, twist, Sebert factor | 6 | 56.0 % | 70.6 % | 8.0 % | 10.7 % | 31.3 % |
-| Powder temperature | 27 | 53.6 % | 58.2 % | 8.1 % | 9.6 % | 30.4 % |
-| Bullet friction | 12 | 59.5 % | 80.9 % | 7.4 % | 19.1 % | 37.3 % |
-| Almost closed vessel (very heavy bullet) | 9 | 5.0 % | 17.2 % | 9.7 % | 24.3 % | 12.7 % |
-| Fast powders (burn rate, step length, form function) | 22 | 10.9 % | 72.0 % | 1.3 % | 6.5 % | 12.9 % |
-| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 14 | 11.5 % | 41.5 % | 1.6 % | 6.3 % | 9.9 % |
-| Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 36.8 % | 185.3 % | 7.5 % | 32.7 % | 24.6 % |
-| Pistol and revolver loads with fast powders | 28 | 28.8 % | 84.2 % | 6.1 % | 13.1 % | 26.2 % |
-| Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 33 | 118.8 % | 217.4 % | 1.9 % | 20.2 % | 61.8 % |
-| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 34.9 % | 71.0 % | 7.5 % | 10.6 % | 23.2 % |
-| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 46.2 % | 82.0 % | 6.4 % | 11.7 % | 29.7 % |
-| Loading density (charge, case volume, powder density, Qex) | 22 | 44.3 % | 134.0 % | 6.0 % | 13.5 % | 27.2 % |
-| Slow powders, barrel 150 ... 7620 mm, load ratio 0.6 / 0.95 (burnout batch) | 171 | 69.3 % | 115.1 % | 11.7 % | 45.9 % | 47.8 % |
-| Other | 1 | 25.8 % | 25.8 % | 8.1 % | 8.1 % | 32.8 % |
-| **All runs** | 501 | 54.4 % | 217.4 % | 8.2 % | 45.9 % | 36.1 % |
+| Other cartridges (caliber sweep) | 28 | 61.0 % | 131.6 % | 12.5 % | 21.5 % | 45.8 % |
+| Powders (40 powders, one cartridge) | 40 | 41.3 % | 109.3 % | 8.2 % | 28.2 % | 32.3 % |
+| Charge, bullet weight, start pressure, case volume | 24 | 59.8 % | 144.5 % | 9.6 % | 20.1 % | 38.0 % |
+| Barrel length, twist, Sebert factor | 6 | 60.0 % | 75.0 % | 9.4 % | 12.1 % | 37.2 % |
+| Powder temperature | 27 | 57.5 % | 63.4 % | 9.5 % | 11.0 % | 36.2 % |
+| Bullet friction | 12 | 61.2 % | 77.8 % | 8.3 % | 19.8 % | 42.2 % |
+| Almost closed vessel (very heavy bullet) | 9 | 14.9 % | 38.5 % | 7.4 % | 24.1 % | 12.5 % |
+| Fast powders (burn rate, step length, form function) | 22 | 16.4 % | 102.4 % | 2.1 % | 4.8 % | 16.1 % |
+| Fast-powder probes on the 8x57 (Ba 1..8, form function, start pressure, gas, charge) | 14 | 18.1 % | 46.6 % | 2.3 % | 4.8 % | 12.8 % |
+| Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 49.9 % | 260.8 % | 6.7 % | 33.2 % | 33.1 % |
+| Pistol and revolver loads with fast powders | 28 | 41.3 % | 112.4 % | 5.6 % | 15.1 % | 36.0 % |
+| Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 33 | 178.1 % | 363.4 % | 2.0 % | 29.9 % | 93.2 % |
+| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 25.1 % | 58.0 % | 6.9 % | 9.7 % | 17.9 % |
+| Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 53.0 % | 102.4 % | 7.4 % | 14.0 % | 36.8 % |
+| Loading density (charge, case volume, powder density, Qex) | 22 | 51.4 % | 183.1 % | 6.8 % | 17.5 % | 33.0 % |
+| Slow powders, barrel 150 ... 7620 mm, load ratio 0.6 / 0.95 (burnout batch) | 171 | 83.1 % | 152.1 % | 13.3 % | 50.4 % | 59.1 % |
+| Other | 1 | 60.2 % | 60.2 % | 5.9 % | 5.9 % | 80.8 % |
+| **All runs** | 501 | 66.7 % | 363.4 % | 9.1 % | 50.4 % | 45.4 % |
 
-_Absolute deviations against 502 runs of the original program; updated 2026-11-17 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
+_Absolute deviations against 502 runs of the original program; updated 2026-11-18 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->
 
 Unusual loads, other powders and other cartridges than the ones tested can deviate more. The known weak spot is
