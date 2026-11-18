@@ -29,15 +29,7 @@
 namespace csr
 {
 
-// Burn values of a powder for the physical model (CalibrationProfile::Physical): the burn rate Ba and either the form function
-// (a0, z1, z2) or an effective grain geometry, fitted with that model to the powder's published loads (velocities and measured
-// pressures; analysis/fit_physical_powders.py, analysis/fit_grain_geometry.py). The project's records carry the values of the
-// original program's model; the physical ones are kept apart in data/physical/propellants.json, together with the record values
-// they were fitted for.
-// Shape of the burning surface used by the physical model. Fitted keeps the project's three-phase form function (a0, z1, z2);
-// Ball and Cylinder derive phi(z) from a grain geometry instead. Cylinder is a single-perforated cylinder burning on both ends;
-// grainLd is its length / diameter and grainHole its perforation radius / outer radius (0..1). grainAmplitude scales the
-// normalized geometric surface to the powder's fitted form function (it plays the role of the initial surface ratio).
+// Burning surface in the physical model: Fitted = the form function (a0, z1, z2); Ball, Cylinder = from a grain geometry.
 enum class GrainShape
 {
     Fitted,
@@ -48,6 +40,8 @@ enum class GrainShape
 [[nodiscard]] const char *grainShapeName(GrainShape shape) noexcept;
 [[nodiscard]] GrainShape grainShapeFromName(QStringView name) noexcept;
 
+// Burn values of a powder for the physical model, fitted to its published loads (data/physical/propellants.json, kept apart from the
+// records together with the record values they belong to).
 struct PhysicalBurn
 {
     double Ba{};
@@ -55,38 +49,30 @@ struct PhysicalBurn
     double z1{};
     double z2{};
     GrainShape grain{GrainShape::Fitted};
-    double grainLd{};
-    double grainHole{};
-    double grainAmplitude{1.0};
+    double grainLd{};            // cylinder: length / diameter
+    double grainHole{};          // cylinder: perforation / outer radius
+    double grainAmplitude{1.0};  // scales the relative geometric surface
 };
 
-// The file the values are read from (default ":/data/physical/propellants.json", read once on first use); tools and tests set the
-// source directory's file. Setting it discards what was read.
+// The file of the values (default ":/data/physical/propellants.json", read on first use); setting it discards what was read.
 void setPhysicalBurnFile(const QString &path);
 
-// The physical values of a propellant record (mname, pname, Ba, a0, z1, z2): only when the file has the powder and the record's
-// values are the ones the physical values were fitted for (a changed or other record of the same powder gets none).
+// The physical values of a propellant record, only if its Ba, a0, z1, z2 are the ones they were fitted for.
 [[nodiscard]] std::optional<PhysicalBurn> physicalBurnOf(const QVariantMap &propellant);
 
-// The physical values of a powder by its name, whatever the burn values of the record or load are (they may be the original's, or
-// edited): what a user can be offered for a load that has none that apply.
+// The physical values of a powder by name, whatever the record's values are.
 [[nodiscard]] std::optional<PhysicalBurn> findPhysicalBurn(const QString &maker, const QString &name);
 
-// The factor on the physical burn rates for a pistol or revolver cartridge (data/physical/calibers.json, next to the powder file): the
-// published loads of an auto-loading cartridge (small rim, about 1.1) and of a revolver cartridge (rimmed, about 0.95) are not met by
-// the same burn rate of a powder, a caliber with enough published loads has its own factor. `rimRatio` is the rim over the head diameter
-// (R1 / P1, 0 = unknown), which decides the class of a caliber without an entry. 1 for anything else (the file is missing, ...).
+// Factor on the physical burn rates of a caliber (data/physical/calibers.json next to the powder file); without an entry the class
+// factor by `rimRatio` = R1 / P1 (auto-loading or rimmed; 0: unknown), else 1.
 [[nodiscard]] double physicalCaliberScale(const QString &cipname, double rimRatio);
 
-// In a load file the values are the propellant entries physBa, physA0, physZ1, physZ2, physGrain, physGrainLd, physGrainHole,
-// physGrainAmp and physRef (the record's "Ba a0 z1 z2" they belong to). write() sets them, or removes them for std::nullopt; read()
-// returns them only while the load's Ba, a0, z1 and z2 still equal physRef (after an edit of those values the physical ones no longer
-// apply). A load saved before the grain entries existed keeps the cubic form function.
+// The propellant entries physBa ... physGrainAmp and physRef (the "Ba a0 z1 z2" they belong to). write() removes them for nullopt;
+// read() returns them only while the load's Ba, a0, z1, z2 equal physRef.
 void writePhysicalBurn(EntryList &propellant, const std::optional<PhysicalBurn> &burn);
 [[nodiscard]] std::optional<PhysicalBurn> readPhysicalBurn(const EntryList &propellant);
 
-// Adds the physical values to a load that has none that apply (saved before they existed) when its powder is a project powder with
-// unchanged values. Returns whether it added them.
+// Adds the physical values to a load without applicable ones if its powder is an unchanged project powder; true if added.
 bool attachPhysicalBurn(EntryList &propellant);
 
 }  // namespace csr

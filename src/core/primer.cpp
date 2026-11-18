@@ -19,18 +19,14 @@
 
 #include "primer.h"
 
-#include "log.h"
+#include "lazyfile.h"
 
 #include <QCoreApplication>
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QRegularExpression>
 
 #include <algorithm>
 #include <cmath>
 #include <map>
-#include <mutex>
 
 using namespace Qt::StringLiterals;
 
@@ -49,41 +45,31 @@ namespace
     QT_TRANSLATE_NOOP("csr::primer", ".50 BMG"),
 };
 
-struct Store
+struct Primers
 {
-    std::mutex mutex;
-    QString path{u":/data/physical/primers.json"_s};
-    bool loaded{};
     std::map<QString, double> start;  // bar, per type
-    double volumeExponent{};          // start pressure ~ (V / referenceVolume)^-volumeExponent (0: independent of the case)
+    double volumeExponent{};          // start pressure x (V / referenceVolume)^-volumeExponent
     double referenceVolume_cm3{3.0};
 };
 
-Store &store()
+Primers load(const QString &path)
 {
-    static Store s;
-    return s;
-}
-
-void loadLocked(Store &s)
-{
-    s.loaded = true;
-    s.start.clear();
-    s.volumeExponent = 0.0;
-    QFile f(s.path);
-    if (!f.open(QIODevice::ReadOnly))
-    {
-        LOG_Warn() << "Primer start pressures: cannot read" << s.path << "- every primer starts at" << kReferenceStartPressure_bar << "bar";
-        return;
-    }
-    const QJsonObject o = QJsonDocument::fromJson(f.readAll()).object();
+    Primers p;
+    const QJsonObject o = readJsonObject(path, "Primer start pressures");
     const QJsonObject types = o.value(u"primers"_s).toObject();
     for (auto it = types.begin(); it != types.end(); ++it)
-        if (const double v = it.value().toDouble(); std::isfinite(v) && v > 0.0) s.start[it.key()] = v;
-    s.volumeExponent = o.value(u"volumeExponent"_s).toDouble(0.0);
-    s.referenceVolume_cm3 = o.value(u"referenceVolume_cm3"_s).toDouble(3.0);
-    if (!std::isfinite(s.volumeExponent)) s.volumeExponent = 0.0;
-    if (!(s.referenceVolume_cm3 > 0.0)) s.referenceVolume_cm3 = 3.0;
+        if (const double v = it.value().toDouble(); std::isfinite(v) && v > 0.0) p.start[it.key()] = v;
+    p.volumeExponent = o.value(u"volumeExponent"_s).toDouble(0.0);
+    p.referenceVolume_cm3 = o.value(u"referenceVolume_cm3"_s).toDouble(3.0);
+    if (!std::isfinite(p.volumeExponent)) p.volumeExponent = 0.0;
+    if (!(p.referenceVolume_cm3 > 0.0)) p.referenceVolume_cm3 = 3.0;
+    return p;
+}
+
+LazyFile<Primers> &primers()
+{
+    static LazyFile<Primers> file(u":/data/physical/primers.json"_s, load);
+    return file;
 }
 
 double number(const QVariantMap &m, const char *key)
@@ -124,21 +110,19 @@ QString primerOfCaliber(const QVariantMap &caliber)
 
 double primerStartPressure_bar(const QString &code, double caseVolume_cm3)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    if (!s.loaded) loadLocked(s);
-    const auto it = s.start.find(code);
-    if (it == s.start.end()) return kReferenceStartPressure_bar;
-    if (s.volumeExponent == 0.0 || !(caseVolume_cm3 > 0.0)) return it->second;
-    return it->second * std::pow(caseVolume_cm3 / s.referenceVolume_cm3, -s.volumeExponent);
+    return primers().use(
+        [&](const Primers &p)
+        {
+            const auto it = p.start.find(code);
+            if (it == p.start.end()) return kReferenceStartPressure_bar;
+            if (p.volumeExponent == 0.0 || !(caseVolume_cm3 > 0.0)) return it->second;
+            return it->second * std::pow(caseVolume_cm3 / p.referenceVolume_cm3, -p.volumeExponent);
+        });
 }
 
 void setPrimerFile(const QString &path)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    s.path = path;
-    s.loaded = false;
+    primers().setPath(path);
 }
 
 }  // namespace csr

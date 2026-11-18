@@ -50,6 +50,7 @@ add_library(csrcore STATIC
     shotparts.cpp
     primer.h
     primer.cpp
+    lazyfile.h
 )
 
 target_include_directories(csrcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

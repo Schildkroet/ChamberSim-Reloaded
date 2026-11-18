@@ -45,56 +45,41 @@ struct LoadParams
 [[nodiscard]] double defaultSeatingDepth_mm(const QVariantMap &caliber, const QVariantMap &projectile);
 [[nodiscard]] double defaultCharge_g(const QVariantMap &caliber, const QVariantMap &propellant);
 
-// Fills the tail dimensions of a boat-tail or hollow-base bullet that the projectile section lacks (the base type then has an effect):
-// tail length 0, or for a boat tail a base diameter 0 (a tail ending in a point). Typical proportions of the bullets that have them
-// (medians of 1312 boat tails and 217 hollow bases): boat tail length 0.53 D, diameters D and 0.835 D; hollow base cavity 0.055 D deep,
-// 0.86 D wide at the base, 0.29 D at the top. With `previousDiameter` (the bullet diameter was changed) dimensions that are still the
-// estimates for the previous diameter are estimated anew; entered ones stay. Returns whether a value was set.
+// Fills missing tail dimensions of a boat-tail or hollow-base bullet with typical proportions (boat tail 0.53 D long, D to 0.835 D;
+// hollow base 0.055 D deep, 0.86 D to 0.29 D). With `previousDiameter`, estimates for that diameter are redone. True if set.
 bool completeTail(EntryList &projectile, double previousDiameter = 0.0);
 
-// After the case length (caliber caselen) was changed from `previousLength`: the bullet stays where it is (the cartridge overall length
-// is kept), so the seating depth changes by the same amount, and the case volume (to the mouth) by the bullet's cross-section times
-// the change (the neck's inside); the powder space behind the bullet stays the same. The seating depth does not go below 0 (the
-// overall length then follows). Returns whether anything changed.
+// After a case length change: keeps the overall length and the powder space (seating depth and case volume follow, depth >= 0).
+// True if anything changed.
 bool followCaseLength(EntryList &caliber, EntryList &projectile, double previousLength);
 
-// The primer of a load (primer.h): the caliber section's entries primer (type code, empty: none) and psadd (additional start pressure)
-// give the start pressure ps = 250 bar + psadd, which ps and the projectile's gpressure hold (the original's export and the solver read
-// ps); the physical model adds the primer's offset (primerOffset_bar). A load without the entries (an older file, the original's
-// *.grtload) gets them: the usual primer of its caliber record and its ps - 250 bar, so its start pressure stays exactly the same.
-// Returns whether they were added.
+// Adds the entries primer and psadd (primer.h) to a load without them: the caliber's usual primer and ps - 250 bar, so its start
+// pressure stays the same. True if added.
 bool ensurePrimer(LoadFile &load);
-// A load without a <caliberfile> block (a *.grtload from another tool) gets the record of the caliber it names (CaliberName), which the
-// cartridge drawing, the primer and the pistol calibration need. Returns whether a record was attached.
+// Attaches the caliber record a load names to a load without a <caliberfile> block. True if attached.
 bool attachCaliberRecord(LoadFile &load, const QVariantMap &record);
-// A load of an older version or of the original (*.grtload) gets the bullet material entry (gmaterial) of this program, empty: a jacketed
-// bullet, so its results stay the same. Returns whether it was added (or its description completed).
+// Adds the bullet material entry gmaterial (empty: jacketed) to a load without it. True if added or completed.
 bool ensureBulletMaterial(LoadFile &load);
-// A Sebert factor outside 0..1 (or not a number) is invalid and becomes the default (0.25); every value in 0..1 is kept. Returns whether it changed.
+// A Sebert factor outside 0..1 becomes 0.25. True if changed.
 bool ensureSebert(LoadFile &load);
 // Sets ps and gpressure from psadd; nothing for a load without psadd.
 void updateStartPressure(LoadFile &load);
 // The start pressure [bar] of a load's caliber section: 250 bar + psadd, or ps for a section without psadd.
 [[nodiscard]] double loadStartPressure_bar(const EntryList &caliber);
-// What the physical model adds to that start pressure: the start pressure of the load's primer type - 250 bar (0 without psadd and for
-// shotshells).
+// The physical model's addition to it: the primer type's start pressure - 250 bar (0 without psadd and for shotshells).
 [[nodiscard]] double primerOffset_bar(const EntryList &caliber);
 
-// Replaces one component of an existing load by a database record. Everything else the user has set
-// (gun data, seating depth, charge, temperature, ...) is kept unless `resetDependent` asks for the
-// defaults that belong to the new record: the charge and seating depth for a caliber change, the
-// seating depth for a bullet, the charge for a powder. The title and the overall length are updated.
+// Replaces one component of a load by a database record and keeps the user's other values; `resetDependent` resets the charge and
+// seating depth that depend on it. Updates the title and the overall length.
 void applyCaliber(LoadFile &load, const QVariantMap &caliber, const QStringList &caliberColumns = {}, bool resetDependent = false,
                   const QVariantMap *projectile = nullptr, const QVariantMap *propellant = nullptr);
 void applyProjectile(LoadFile &load, const QVariantMap &projectile, bool resetDependent = false, const QVariantMap *caliber = nullptr);
 void applyPropellant(LoadFile &load, const QVariantMap &propellant, bool resetDependent = false, const QVariantMap *caliber = nullptr);
 
-// The burn and material values (Ba, Qex, k, a0, a1, z1, z2, eta, pc, pcd, tcc, tch) of the load's propellant that differ from `record`
-// (an older state of the database record, or edited in the load); empty when they all agree.
+// The burn and material values of the load's propellant that differ from `record`.
 [[nodiscard]] QStringList propellantDifferences(const EntryList &propellant, const QVariantMap &record);
 
-// Builds a complete load from one record of each table. `caliberColumns` (schema order) keeps the
-// <caliberfile> block in the order of the original; without it the keys are sorted.
+// Builds a load from one record of each table; `caliberColumns` orders the <caliberfile> block (else sorted).
 [[nodiscard]] LoadFile buildLoad(const QVariantMap &caliber, const QVariantMap &projectile, const QVariantMap &propellant,
                                  LoadParams params = {}, const QStringList &caliberColumns = {});
 

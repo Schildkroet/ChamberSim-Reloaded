@@ -19,20 +19,16 @@
 
 #include "physicalpowders.h"
 
-#include "log.h"
+#include "lazyfile.h"
 
-#include <QFile>
 #include <QFileInfo>
 #include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QStringList>
 
 #include <algorithm>
 #include <array>
 #include <cmath>
 #include <map>
-#include <mutex>
 
 using namespace Qt::StringLiterals;
 
@@ -48,23 +44,14 @@ struct PowderEntry
     PhysicalBurn burn;
 };
 
-struct Store
-{
-    std::mutex mutex;
-    QString path{u":/data/physical/propellants.json"_s};
-    bool loaded{};
-    std::map<QString, PowderEntry> entries;  // key: "maker name", lower case
-    bool calibersLoaded{};
-    std::map<QString, double> caliberScales;  // key: cipname, lower case
-    double autoScale{1.0}, rimmedScale{1.0};
-    double rimmedFrom{1.045};  // rim / head diameter from which a handgun cartridge counts as rimmed (revolver)
-};
+using Powders = std::map<QString, PowderEntry>;  // key: keyOf()
 
-Store &store()
+struct CaliberScales
 {
-    static Store s;
-    return s;
-}
+    std::map<QString, double> scales;  // key: cipname, lower case
+    double autoScale{1.0}, rimmedScale{1.0};
+    double rimmedFrom{1.045};  // rim / head diameter from which a cartridge counts as rimmed
+};
 
 QString keyOf(const QString &maker, const QString &name)
 {
@@ -79,33 +66,51 @@ QString keyOf(const QString &maker, const QString &name)
     return std::abs(a - b) <= 1e-6 * std::max({1.0, std::abs(a), std::abs(b)});
 }
 
-void loadLocked(Store &s)
+Powders loadPowders(const QString &path)
 {
-    s.loaded = true;
-    s.entries.clear();
-    QFile f(s.path);
-    if (!f.open(QIODevice::ReadOnly))
-    {
-        LOG_Info() << "Physical burn values: cannot read" << s.path;
-        return;
-    }
-    const QJsonArray list = QJsonDocument::fromJson(f.readAll()).object().value(u"propellants"_s).toArray();
-    for (const auto &item : list)
+    Powders entries;
+    for (const auto &item : readJsonObject(path, "Physical burn values").value(u"propellants"_s).toArray())
     {
         const QJsonObject o = item.toObject();
         const QJsonObject r = o.value(u"record"_s).toObject();
-        s.entries[keyOf(o.value(u"mname"_s).toString(), o.value(u"pname"_s).toString())] = {
+        const QJsonObject grain = o.value(u"grain"_s).toObject();
+        entries[keyOf(o.value(u"mname"_s).toString(), o.value(u"pname"_s).toString())] = {
             .record = {r.value(u"Ba"_s).toDouble(), r.value(u"a0"_s).toDouble(), r.value(u"z1"_s).toDouble(), r.value(u"z2"_s).toDouble()},
             .burn = {.Ba = o.value(u"Ba"_s).toDouble(),
                      .a0 = o.value(u"a0"_s).toDouble(),
                      .z1 = o.value(u"z1"_s).toDouble(),
                      .z2 = o.value(u"z2"_s).toDouble(),
-                     .grain = grainShapeFromName(o.value(u"grain"_s).toObject().value(u"shape"_s).toString()),
-                     .grainLd = o.value(u"grain"_s).toObject().value(u"ld"_s).toDouble(),
-                     .grainHole = o.value(u"grain"_s).toObject().value(u"hole"_s).toDouble(),
-                     .grainAmplitude = o.value(u"grain"_s).toObject().value(u"amplitude"_s).toDouble(1.0)}};
+                     .grain = grainShapeFromName(grain.value(u"shape"_s).toString()),
+                     .grainLd = grain.value(u"ld"_s).toDouble(),
+                     .grainHole = grain.value(u"hole"_s).toDouble(),
+                     .grainAmplitude = grain.value(u"amplitude"_s).toDouble(1.0)}};
     }
-    LOG_Debug() << "Physical burn values:" << s.entries.size() << "powders from" << s.path;
+    LOG_Debug() << "Physical burn values:" << entries.size() << "powders from" << path;
+    return entries;
+}
+
+CaliberScales loadCaliberScales(const QString &path)
+{
+    CaliberScales c;
+    const QJsonObject o = readJsonObject(path, "Caliber burn factors");
+    c.autoScale = o.value(u"autoScale"_s).toDouble(1.0);
+    c.rimmedScale = o.value(u"rimmedScale"_s).toDouble(1.0);
+    c.rimmedFrom = o.value(u"rimmedFrom"_s).toDouble(c.rimmedFrom);
+    for (const auto &item : o.value(u"calibers"_s).toArray())
+        c.scales[item.toObject().value(u"cipname"_s).toString().toLower()] = item.toObject().value(u"burnScale"_s).toDouble(1.0);
+    return c;
+}
+
+LazyFile<Powders> &powders()
+{
+    static LazyFile<Powders> file(u":/data/physical/propellants.json"_s, loadPowders);
+    return file;
+}
+
+LazyFile<CaliberScales> &caliberScales()
+{
+    static LazyFile<CaliberScales> file(u":/data/physical/calibers.json"_s, loadCaliberScales);
+    return file;
 }
 
 QString refText(double Ba, double a0, double z1, double z2)
@@ -137,62 +142,44 @@ GrainShape grainShapeFromName(QStringView name) noexcept
 
 void setPhysicalBurnFile(const QString &path)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    s.path = path;
-    s.loaded = false;
-    s.calibersLoaded = false;
+    powders().setPath(path);
+    caliberScales().setPath(QFileInfo(path).path() + u"/calibers.json"_s);
 }
 
 double physicalCaliberScale(const QString &cipname, double rimRatio)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    if (!s.calibersLoaded)
-    {
-        s.calibersLoaded = true;
-        s.caliberScales.clear();
-        s.autoScale = s.rimmedScale = 1.0;
-        QFile f(QFileInfo(s.path).path() + u"/calibers.json"_s);
-        if (f.open(QIODevice::ReadOnly))
+    return caliberScales().use(
+        [&](const CaliberScales &c)
         {
-            const QJsonObject o = QJsonDocument::fromJson(f.readAll()).object();
-            s.autoScale = o.value(u"autoScale"_s).toDouble(1.0);
-            s.rimmedScale = o.value(u"rimmedScale"_s).toDouble(1.0);
-            s.rimmedFrom = o.value(u"rimmedFrom"_s).toDouble(s.rimmedFrom);
-            for (const auto &item : o.value(u"calibers"_s).toArray())
-                s.caliberScales[item.toObject().value(u"cipname"_s).toString().toLower()] =
-                    item.toObject().value(u"burnScale"_s).toDouble(1.0);
-        }
-    }
-    if (const auto it = s.caliberScales.find(cipname.toLower()); it != s.caliberScales.end()) return it->second;
-    if (rimRatio <= 0.0) return 1.0;
-    return rimRatio >= s.rimmedFrom ? s.rimmedScale : s.autoScale;
+            if (const auto it = c.scales.find(cipname.toLower()); it != c.scales.end()) return it->second;
+            if (rimRatio <= 0.0) return 1.0;
+            return rimRatio >= c.rimmedFrom ? c.rimmedScale : c.autoScale;
+        });
 }
 
 std::optional<PhysicalBurn> physicalBurnOf(const QVariantMap &propellant)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    if (!s.loaded) loadLocked(s);
-    const auto it = s.entries.find(keyOf(propellant.value(u"mname"_s).toString(), propellant.value(u"pname"_s).toString()));
-    if (it == s.entries.end()) return std::nullopt;
-    const auto &r = it->second.record;
     const std::array<double, 4> values{propellant.value(u"Ba"_s).toDouble(), propellant.value(u"a0"_s).toDouble(),
                                        propellant.value(u"z1"_s).toDouble(), propellant.value(u"z2"_s).toDouble()};
-    for (std::size_t i = 0; i < r.size(); ++i)
-        if (!same(r[i], values[i])) return std::nullopt;
-    return it->second.burn;
+    return powders().use(
+        [&](const Powders &p) -> std::optional<PhysicalBurn>
+        {
+            const auto it = p.find(keyOf(propellant.value(u"mname"_s).toString(), propellant.value(u"pname"_s).toString()));
+            if (it == p.end()) return std::nullopt;
+            for (std::size_t i = 0; i < values.size(); ++i)
+                if (!same(it->second.record[i], values[i])) return std::nullopt;
+            return it->second.burn;
+        });
 }
 
 std::optional<PhysicalBurn> findPhysicalBurn(const QString &maker, const QString &name)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    if (!s.loaded) loadLocked(s);
-    const auto it = s.entries.find(keyOf(maker, name));
-    if (it == s.entries.end()) return std::nullopt;
-    return it->second.burn;
+    return powders().use(
+        [&](const Powders &p) -> std::optional<PhysicalBurn>
+        {
+            const auto it = p.find(keyOf(maker, name));
+            return it == p.end() ? std::nullopt : std::optional{it->second.burn};
+        });
 }
 
 void writePhysicalBurn(EntryList &propellant, const std::optional<PhysicalBurn> &burn)

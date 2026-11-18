@@ -976,8 +976,8 @@ void CoreTest::physicalModel()
     csr::SimInput pistol = in;  // handguns have their own start resistance (fitted share x start pressure) and rifles an absolute one
     pistol.handgun = true;
     csr::Calibration sameForBoth = cal;
-    sameForBoth.engravingShareHandgun = -1.0;
-    sameForBoth.engravingLengthHandgun_mm = -1.0;
+    sameForBoth.engravingShareHandgun = csr::kSameAsRifle;
+    sameForBoth.engravingLengthHandgun_mm = csr::kSameAsRifle;
     QVERIFY(csr::simulate(pistol, cal).maxPressure_bar != csr::simulate(pistol, sameForBoth).maxPressure_bar);
     QCOMPARE(csr::simulate(in, cal).maxPressure_bar, csr::simulate(in, sameForBoth).maxPressure_bar);  // rifles are not affected
     // the handgun start pressure holds in every barrel: the peak pressure must not jump with the barrel length (issue #11, 15" -> 16")

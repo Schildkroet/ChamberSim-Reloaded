@@ -30,10 +30,8 @@
 namespace csr
 {
 
-// The pressure of published shotshell loads depends on the shell (hull), the wad and the primer of the load (the shell alone: up to +-20 %
-// at the same velocity), which the shotshell model does not know. A load names them in the caliber entries shothull, shotwad and shotprimer;
-// every part has two factors on the shotshell model (fitted by analysis/fit_shot_factors.py to the Hodgdon, Alliant and Vectan data): the
-// powder space (the volume of the hull, the cushion and gas seal of the wad) and the gas energy. The factors of a load multiply.
+// Shell, wad and primer of a shotshell load (caliber entries shothull, shotwad, shotprimer). Each has a factor on the powder space and on
+// the gas energy (analysis/fit_shot_factors.py); a load's factors multiply.
 enum class ShotPart
 {
     Shell,
@@ -50,31 +48,28 @@ struct ShotPartInfo
     double capacityScale{1.0};  // x Calibration::shotCapacityFactor
     double energyScale{1.0};    // x Calibration::shotEnergyFactor
     int loads{};                // published loads the factors were fitted to
-    // a group of similar parts (low, medium or high pressure) instead of one part: its rank and its members
-    QString groupId;  // parts: the group they belong to
-    bool group{false};
-    QString rank;         // "low", "medium" or "high" (the pressure the parts give)
-    QStringList members;  // all members (names), most loads first
+    QString groupId;            // parts: their group
+    bool group{false};          // a group of similar parts instead of one part
+    QString rank;               // groups: "low", "medium" or "high" pressure
+    QStringList members;        // groups: the member names, most loads first
 };
 
-// The caliber entry that holds the part of a load: "shothull", "shotwad" or "shotprimer".
+// "shothull", "shotwad" or "shotprimer".
 [[nodiscard]] QString shotPartKey(ShotPart part);
 
-// The file the parts are read from (default ":/data/shotshell/parts.json", read once on first use); tools and tests set another one.
+// The file of the parts (default ":/data/shotshell/parts.json", read on first use).
 void setShotPartsFile(const QString &path);
 
 // All parts of a kind, sorted by gauge and name.
 [[nodiscard]] const std::vector<ShotPartInfo> &shotParts(ShotPart part);
 
-// General entries for those who do not know the exact part: groups of parts with a similar effect (id "group-low", "group-medium",
-// "group-high": low-pressure parts first). Held-out loads: three groups of every kind are almost as good as all parts (10.6 % against
-// 10.3 % pressure error).
+// Groups of parts with a similar effect ("group-low", "group-medium", "group-high"), for users who do not know the exact part.
 [[nodiscard]] const std::vector<ShotPartInfo> &shotPartGroups(ShotPart part);
 
-// The part or group with this id, or null (none chosen, or an id this version does not know: the shotshell model's average is used).
+// The part or group with this id, or null (the model's average applies).
 [[nodiscard]] const ShotPartInfo *findShotPart(ShotPart part, const QString &id);
 
-// The factors of the shell, wad and primer a shotshell load names (1 for those it does not name).
+// The factors of the parts a shotshell load names (1 for the others).
 struct ShotFactors
 {
     double capacity{1.0};
@@ -82,9 +77,7 @@ struct ShotFactors
 };
 [[nodiscard]] ShotFactors shotFactorsOf(const EntryList &caliber);
 
-// Prepares the caliber of a shotshell load: adds the entries shothull, shotwad and shotprimer (empty: not chosen) when it has none, and replaces an
-// individual part by the group it belongs to (the program offers the groups; the individual parts are the members listed in their tooltips).
-// Returns whether it changed something.
+// Adds missing part entries (empty) to a shotshell caliber and replaces an individual part by its group. True if changed.
 bool ensureShotParts(EntryList &caliber);
 
 }  // namespace csr

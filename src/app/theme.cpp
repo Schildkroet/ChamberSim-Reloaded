@@ -126,16 +126,11 @@ QColor towardsText(const QPalette &palette, double part)
     return mixed(palette.color(QPalette::Window), palette.color(QPalette::WindowText), part);
 }
 
-// Combo boxes open as a list below the field (at most maxVisibleItems rows, with a scroll bar) instead of the
-// Fusion/GTK popup that covers the field and tries to show every item. A long list (e.g. the countries) does not
-// fit on the screen and gets moved; on Wayland the mouse release then lands outside and closes it at once.
-//
-// Item views: smooth scrolling by pixel in both directions, not by row and column.
-//
-// Dialogs: a visible frame and, with the custom title bar, their own title bar (DialogFrame). Scroll bars: with a dark palette a lighter handle.
-//
-// Check boxes and radio buttons: Fusion draws their frame a little darker than the window, on a dark window an unchecked box is
-// then nearly invisible. With a dark palette the frame is drawn again in a light grey.
+// Application style on top of Fusion:
+//  - combo boxes open as a list below the field (the Fusion/GTK popup of a long list closes at once on Wayland);
+//  - item views scroll by pixel;
+//  - dialogs get a frame and, with the custom title bar, a title bar (DialogFrame);
+//  - dark palette: lighter scroll bar handles and check box / radio button frames (Fusion's are nearly invisible).
 class ListPopupStyle : public QProxyStyle
 {
 public:

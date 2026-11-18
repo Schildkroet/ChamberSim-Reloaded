@@ -26,23 +26,18 @@
 class QDialog;
 class QLabel;
 
-// The own frame of a dialog while the custom title bar is on (TitleBar::stored(), the Linux default; Wayland compositors like GNOME
-// leave the decoration to the program and draw no border): the dialog becomes frameless and gets a title bar (title and close button,
-// taller than the main window's), a border around the whole window (paintWindowBorder) and, unless its size is fixed, edges that resize it.
-// Without the custom title bar only the border over the dialog's content is drawn. Created by the application style when a top-level
-// dialog is polished; it is a child of the dialog and lives as long as the dialog.
+// Frame of a top-level dialog, created by the application style. With the custom title bar (TitleBar::stored()) the dialog is
+// frameless and gets a title bar, a border and resize edges; without it only the border.
 class DialogFrame : public QWidget
 {
     Q_OBJECT
 public:
     static constexpr auto kName = "dialogFrame";
     static void install(QDialog *dialog);
-    // Rounded corners need a translucent window, and on X11 without a compositing window manager that shows black corners: then the
-    // corners stay square. Detected once (X11: owner of the _NET_WM_CM_S0 selection; Wayland, Windows, macOS: always available);
-    // the environment variable CSR_SQUARE_CORNERS forces square corners, as does the setting. `forced` (tests) overrides both for dialogs created later.
+    // Rounded corners need compositing (X11: an owner of _NET_WM_CM_S0; elsewhere always). CSR_SQUARE_CORNERS or the setting force
+    // square corners; `forced` (tests) overrides both for later dialogs.
     [[nodiscard]] static bool roundedCorners();
-    // The user's choice (File > Settings, default on) and whether the screen can show them at all (compositing; the choice is kept
-    // either way). Dialogs that are open keep their corners; the next one follows the choice.
+    // The user's choice (File > Settings, default on) and whether the screen can show them; open dialogs keep theirs.
     [[nodiscard]] static bool roundedStored();
     static void storeRounded(bool on);
     [[nodiscard]] static bool roundedCornersPossible();

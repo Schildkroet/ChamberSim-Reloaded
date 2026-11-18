@@ -29,11 +29,8 @@
 #include <utility>
 #include <vector>
 
-// The project's own records (calibers, projectiles, propellants contributed to the repository): JSON files in
-// data/<calibers|projectiles|propellants>/, each with one record (an object) or several (an array of objects; the
-// projectiles have one file per manufacturer), the values in the units of the database columns (as in the
-// original program's database: bullet mass and case capacity in grains, lengths in mm, pressures in bar, ...).
-// The files are built into the program and loaded into a read-only part of the database at startup.
+// The project's records: JSON files in data/<calibers|projectiles|propellants>/ (one record or an array), in the units of the
+// database columns; built into the program and loaded read-only at startup.
 namespace csr::projectdata
 {
 
@@ -49,12 +46,10 @@ struct Loaded
     QStringList errors;                // "file: problem", one per problem
 };
 
-// Reads and checks every *.json file (one record or an array of them) of a table's folder below `dataDir` (a directory or a resource path like
-// ":/data"). Files with problems are reported and skipped.
+// Reads and checks every *.json file of a table's folder below `dataDir` (directory or ":/data"); files with problems are skipped.
 [[nodiscard]] Loaded load(const QString &dataDir, Table t, const Schema &schema);
 
-// Checks one record (as read from a file): known columns, numbers where the column is numeric, a name, and
-// plausible values for the model (e.g. a burn rate > 0). Returns the problems (empty: fine).
+// The problems of one record: unknown columns, non-numbers, no name, implausible model values.
 [[nodiscard]] QStringList check(Table t, const QVariantMap &record, const Schema &schema);
 
 // A record as the JSON file to contribute: the columns in schema order without the id and the deleted flag.
@@ -63,10 +58,8 @@ struct Loaded
 // "vihtavuori-n150-2021-08-29.json": a file name for a record (lower case, ASCII, from its names).
 [[nodiscard]] QString fileName(Table t, const QVariantMap &record);
 
-// A bullet file: what a manufacturer publishes for this program (docs/BULLET_FILE.md). A JSON object
-//   {"format": "ChamberSimReloaded bullets", "version": 1, "manufacturer": ..., "source": ..., "date": ..., "bullets": [projectile records]}
-// whose records use the units of the database (mm, grains, bar). A plain record or array of records (an exported record, a file of data/projectiles)
-// is read as well.
+// A manufacturer's bullet file (docs/BULLET_FILE.md): {"format": "ChamberSimReloaded bullets", "version": 1, "manufacturer", "source",
+// "date", "bullets": [projectile records]}; a plain record or array is read as well.
 inline constexpr const char *kBulletFileFormat = "ChamberSimReloaded bullets";
 inline constexpr int kBulletFileVersion = 1;
 inline constexpr const char *kBulletFileSuffix = "csrbullets";
@@ -76,9 +69,8 @@ struct BulletFile
     QString manufacturer;
     QString source;  // where the data come from (web address, data sheet); stored in each record's "origin"
     QString date;
-    std::vector<QVariantMap>
-        bullets;         // the usable records (maker filled in, checked); "gValid" is dropped: only the user validates a record
-    QStringList errors;  // "bullet 3 (name): problem", or a problem of the file as a whole (then no bullets)
+    std::vector<QVariantMap> bullets;  // the usable records; "gValid" is dropped (only the user validates)
+    QStringList errors;                // "bullet 3 (name): problem", or a problem of the file as a whole (then no bullets)
 };
 
 // Reads a bullet file; records with problems are reported in `errors` and left out.

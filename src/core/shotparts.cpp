@@ -19,15 +19,11 @@
 
 #include "shotparts.h"
 
-#include "log.h"
+#include "lazyfile.h"
 
-#include <QFile>
 #include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
 
 #include <algorithm>
-#include <mutex>
 
 using namespace Qt::StringLiterals;
 
@@ -42,33 +38,16 @@ constexpr std::size_t index(ShotPart part) noexcept
     return static_cast<std::size_t>(part);
 }
 
-struct Store
+struct Parts
 {
-    std::mutex mutex;
-    QString path{u":/data/shotshell/parts.json"_s};
-    bool loaded{};
     std::array<std::vector<ShotPartInfo>, 3> parts;
     std::array<std::vector<ShotPartInfo>, 3> groups;
 };
 
-Store &store()
+Parts load(const QString &path)
 {
-    static Store s;
-    return s;
-}
-
-void loadLocked(Store &s)
-{
-    s.loaded = true;
-    for (auto &list : s.parts) list.clear();
-    for (auto &list : s.groups) list.clear();
-    QFile f(s.path);
-    if (!f.open(QIODevice::ReadOnly))
-    {
-        LOG_Info() << "Shotshell parts: cannot read" << s.path;
-        return;
-    }
-    const QJsonObject root = QJsonDocument::fromJson(f.readAll()).object();
+    Parts s;
+    const QJsonObject root = readJsonObject(path, "Shotshell parts");
     constexpr std::array<const char16_t *, 3> lists{u"shells", u"wads", u"primers"};
     for (const ShotPart part : kShotParts)
     {
@@ -111,7 +90,14 @@ void loadLocked(Store &s)
         }
     }
     LOG_Debug() << "Shotshell parts:" << s.parts[0].size() << "shells," << s.parts[1].size() << "wads," << s.parts[2].size()
-                << "primers from" << s.path;
+                << "primers from" << path;
+    return s;
+}
+
+LazyFile<Parts> &partsFile()
+{
+    static LazyFile<Parts> file(u":/data/shotshell/parts.json"_s, load);
+    return file;
 }
 
 }  // namespace
@@ -124,26 +110,17 @@ QString shotPartKey(ShotPart part)
 
 void setShotPartsFile(const QString &path)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    s.path = path;
-    s.loaded = false;
+    partsFile().setPath(path);
 }
 
 const std::vector<ShotPartInfo> &shotParts(ShotPart part)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    if (!s.loaded) loadLocked(s);
-    return s.parts[index(part)];  // not changed after loading (tools replace the file before they use it)
+    return partsFile().use([part](const Parts &p) -> const std::vector<ShotPartInfo> & { return p.parts[index(part)]; });
 }
 
 const std::vector<ShotPartInfo> &shotPartGroups(ShotPart part)
 {
-    Store &s = store();
-    const std::scoped_lock lock(s.mutex);
-    if (!s.loaded) loadLocked(s);
-    return s.groups[index(part)];
+    return partsFile().use([part](const Parts &p) -> const std::vector<ShotPartInfo> & { return p.groups[index(part)]; });
 }
 
 const ShotPartInfo *findShotPart(ShotPart part, const QString &id)
