@@ -97,6 +97,15 @@ QString shown(double base, csr::units::Quantity q, int decimals = -1)
     return csr::units::format(base, u, decimals) + u' ' + QString::fromUtf8(u.symbol);
 }
 
+// The value in the other unit system: imperial when the shown unit is the metric one, else metric ("2,710 fps" under "826 m/s").
+QString shownOther(double base, csr::units::Quantity q)
+{
+    using namespace csr::units;
+    const Unit &metric = systemUnit(q, System::Metric);
+    const Unit &u = qstrcmp(UnitPreferences::instance().unitFor(q).id, metric.id) == 0 ? systemUnit(q, System::Imperial) : metric;
+    return format(base, u) + u' ' + QString::fromUtf8(u.symbol);
+}
+
 // A light, paper-like palette: reports and printouts must not depend on the dark theme.
 QPalette printPalette()
 {
@@ -320,6 +329,7 @@ LoadView::LoadView(QWidget *parent)
         captionRow->addWidget(caption, 1);
         cl->addLayout(captionRow);
         cl->addWidget(value);
+        cl->addStretch(1);  // the numbers in one line, also on a card without the second unit line
         m_values[i] = value;
         cardRow->addWidget(card, 1);
     }
@@ -1313,17 +1323,19 @@ void LoadView::showResult()
 
     const csr::SimResult &r = m_result;
     using csr::units::Quantity;
-    // the cards (0-3) show the unit small behind the number
-    const auto put = [this](int i, const QString &text)
+    // the cards (0-3) show the unit small behind the number and the value in the other unit system small below it
+    const auto put = [this](int i, const QString &text, const QString &other = {})
     {
         if (i >= 4) return m_values[static_cast<std::size_t>(i)]->setText(text);
         const qsizetype sp = text.lastIndexOf(u' ');
-        m_values[static_cast<std::size_t>(i)]->setText(
+        QString html =
             sp < 0 ? u"<span style='font-size:xx-large'>%1</span>"_s.arg(text.toHtmlEscaped())
                    : u"<span style='font-size:xx-large'>%1</span> <span style='font-size:large; font-weight:normal'>%2</span>"_s.arg(
-                         text.left(sp).toHtmlEscaped(), text.mid(sp + 1).toHtmlEscaped()));
+                         text.left(sp).toHtmlEscaped(), text.mid(sp + 1).toHtmlEscaped());
+        if (!other.isEmpty()) html += u"<br><span style='font-size:small; font-weight:normal'>%1</span>"_s.arg(other.toHtmlEscaped());
+        m_values[static_cast<std::size_t>(i)]->setText(html);
     };
-    put(0, shown(r.maxPressure_bar, Quantity::Pressure));
+    put(0, shown(r.maxPressure_bar, Quantity::Pressure), shownOther(r.maxPressure_bar, Quantity::Pressure));
     if (const double permitted = m_input.maxPressure_bar; permitted > 0.0 && r.maxPressure_bar > permitted)
     {
         m_overpressureText->setText(tr("<b>Overpressure!</b> The maximum pressure %1 is %2 % above the permitted %3. "
@@ -1334,8 +1346,8 @@ void LoadView::showResult()
         m_values[0]->setStyleSheet(u"color: %1;"_s.arg(QLatin1String(theme::kOverpressureColor)));
     }
     put(4, shown(r.muzzlePressure_bar, Quantity::Pressure));
-    put(2, shown(r.muzzleEnergy_J, Quantity::Energy));
-    put(1, shown(r.muzzleVelocity_ms, Quantity::Velocity));
+    put(2, shown(r.muzzleEnergy_J, Quantity::Energy), shownOther(r.muzzleEnergy_J, Quantity::Energy));
+    put(1, shown(r.muzzleVelocity_ms, Quantity::Velocity), shownOther(r.muzzleVelocity_ms, Quantity::Velocity));
     put(3, tr("%1 ms").arg(num(r.muzzleTime_ms, 4)));
     put(5, r.burnoutInBarrel ? shown(r.burnoutPressure_bar, Quantity::Pressure) : tr("not burnt out"));
     // mean velocity of the powder gases leaving the muzzle (gas impulse / charge mass), as in the report

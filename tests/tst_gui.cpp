@@ -888,8 +888,22 @@ void GuiTest::resultsFollowTheUnitSystem()
     UnitPreferences::instance().setSystem(System::Metric);
     QVERIFY(allText().contains(u" bar"_s));
     QVERIFY(allText().contains(u" m/s"_s));
+    // the cards show the value in the other unit system small below the number
+    const QRegularExpression otherLine(u"<br><span style='font-size:small[^>]*>([^<]*)</span>"_s);
+    const auto otherLines = [&]
+    {
+        QStringList s;
+        for (const auto &m : otherLine.globalMatch(allText())) s << m.captured(1);
+        return s.join(u'\n');
+    };
+    QVERIFY(otherLines().contains(u" psi"_s));
+    QVERIFY(otherLines().contains(u" ft/s"_s));
+    QVERIFY(otherLines().contains(u" ft·lbf"_s));
     UnitPreferences::instance().setSystem(System::Imperial);
-    const QString imperial = allText();
+    QVERIFY(otherLines().contains(u" bar"_s));
+    QVERIFY(otherLines().contains(u" m/s"_s));
+    QVERIFY(otherLines().contains(u" J"_s));
+    const QString imperial = allText().remove(otherLine);
     QVERIFY2(imperial.contains(u" psi"_s), qPrintable(imperial));
     QVERIFY(imperial.contains(u" ft/s"_s));
     QVERIFY(imperial.contains(u" ft·lbf"_s));
