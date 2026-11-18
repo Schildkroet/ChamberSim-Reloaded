@@ -138,7 +138,10 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QChar sepa
 {
     ChronographFile file{.format = ChronographFormat::Labradar, .series = {}};
     ChronographSeries series;
-    double factor = 0.0;
+    double factor = 0.0;       // from a "Units velocity" line
+    double rowFactor = 0.0;    // from the unit row below the table header (";m/s;m/s;...")
+    double statsFactor = 0.0;  // from the "Stats - Average;251.26;m/s" lines
+    std::vector<double> raw;
     int v0 = -1;
     bool inTable = false;
     for (const QString &line : lines)
@@ -149,6 +152,7 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QChar sepa
         {
             if ((f[0] == u"Series No" || f[0] == u"Series Number") && f.size() > 1) series.name = labradarSeriesName(f[1]);
             else if (f[0] == u"Units velocity" && f.size() > 1) factor = velocityFactor(f[1]);
+            else if (f[0].startsWith(u"Stats - ") && f.size() > 2 && statsFactor <= 0.0) statsFactor = velocityFactor(f[2]);
             else if (f[0] == u"Shot ID" || f[0] == u"Shot Number")
             {
                 v0 = labradarVelocityColumn(f);
@@ -165,23 +169,26 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QChar sepa
         f[0].toInt(&idOk);
         if (!idOk)
         {
-            // The unit row below the header (";m/s;m/s;...") gives the unit if there is no "Units velocity" line.
-            if (f[0].isEmpty() && factor <= 0.0 && v0 < f.size()) factor = velocityFactor(f[v0]);
+            if (f[0].isEmpty() && rowFactor <= 0.0 && v0 < f.size()) rowFactor = velocityFactor(f[v0]);
             continue;
         }
         if (v0 >= f.size()) continue;
-        if (const auto v = number(f[v0]); v && *v > 0.0) series.velocities_ms.push_back(*v * factor);
+        if (const auto v = number(f[v0]); v && *v > 0.0) raw.push_back(*v);
     }
+    // the unit: a "Units velocity" line, else the unit row below the table header, else the "Stats - " lines
+    if (factor <= 0.0) factor = rowFactor;
+    if (factor <= 0.0) factor = statsFactor;
     if (factor <= 0.0)
     {
         if (error) *error = tr("The velocity unit of the file is unknown.");
         return std::nullopt;
     }
-    if (series.velocities_ms.empty())
+    if (raw.empty())
     {
         if (error) *error = tr("The file contains no shots.");
         return std::nullopt;
     }
+    for (const double v : raw) series.velocities_ms.push_back(v * factor);
     if (series.name.isEmpty()) series.name = tr("Series");
     file.series.push_back(std::move(series));
     return file;
