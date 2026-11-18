@@ -486,10 +486,11 @@ struct PhysicalModel
         double f = extraForce + airPressure(v) * A;
         const double travel = std::max(x - x0, 0.0);
         const double s = x - x0 - jump;  // travel after the bullet reached the rifling
-        // free run: the case neck holds the bullet (neck friction, or the start resistance as a constant force)
+        // free run: the start resistance as a constant force, plus the neck friction (neck friction alone let the bullet run free at
+        // ~80 bar: -20 % pressure for a 1 mm jump; the fitted loads all have no jump)
         if (s < 0.0)
         {
-            f += neckStress > 0.0 ? neckForce(travel) : engraveForce;
+            f += neckForce(travel) + engraveForce;
             return std::max(f, 0.0);
         }
         f += neckForce(travel);

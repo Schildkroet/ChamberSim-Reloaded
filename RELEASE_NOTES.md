@@ -14,6 +14,10 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
   velocity rifle 4.36 % (before 4.21 %), pistol and revolver 7.77 % (before 7.72 %). Pistol and revolver loads also
   gain more velocity from the start to the maximum load, closer to the manuals; rifle loads gain a little less
   (about 1 % less velocity from the start to the maximum charge of a table). Shotgun loads are not concerned.
+- **Bullet jump (Physical Model).** After the refit, a bullet seated off the lands was held only by the case neck until
+  it reached the rifling: a 1 mm jump lowered the peak pressure by about 20 % and the velocity by 5 %. The start
+  resistance holds it again during the free run (a jump of 0.5 to 4 mm: 1 to 3 % less pressure); loads without a jump
+  are unchanged.
 - **Bearing surface of the bullet (Physical Model).** The friction of the bullet in the bore acts on its bearing
   surface, the cylindrical part between the nose and the base. Until now the nose was taken as one calibre long; it
   now follows from the bullet's weight and length. That roughly halves the bearing surface of a spitzer and makes

@@ -170,12 +170,12 @@ without a trend). Open: a heat loss that depends on time or gas temperature.
 | Powder probes on a 9 mm Luger (Ba 1..32, form function, start pressure, gas, charge) | 34 | 49.9 % | 260.8 % | 6.7 % | 33.2 % | 33.1 % |
 | Pistol and revolver loads with fast powders | 28 | 41.3 % | 112.4 % | 5.6 % | 15.1 % | 36.0 % |
 | Slow powders at low pressure (9 mm Luger: bullet mass, barrel, charge, start pressure, ...) | 33 | 178.1 % | 363.4 % | 2.0 % | 29.9 % | 93.2 % |
-| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 25.1 % | 58.0 % | 6.9 % | 9.7 % | 17.9 % |
+| Bullet jump (0.25 ... 4 mm, 8x57 and 9 mm) | 18 | 40.2 % | 74.2 % | 7.7 % | 11.9 % | 28.8 % |
 | Powder and start-pressure variations of the 8x57 (shotshell batch, flag off) | 12 | 53.0 % | 102.4 % | 7.4 % | 14.0 % | 36.8 % |
 | Loading density (charge, case volume, powder density, Qex) | 22 | 51.4 % | 183.1 % | 6.8 % | 17.5 % | 33.0 % |
 | Slow powders, barrel 150 ... 7620 mm, load ratio 0.6 / 0.95 (burnout batch) | 171 | 83.1 % | 152.1 % | 13.3 % | 50.4 % | 59.1 % |
 | Other | 1 | 60.2 % | 60.2 % | 5.9 % | 5.9 % | 80.8 % |
-| **All runs** | 501 | 66.7 % | 363.4 % | 9.1 % | 50.4 % | 45.4 % |
+| **All runs** | 501 | 67.2 % | 363.4 % | 9.1 % | 50.4 % | 45.8 % |
 
 _Absolute deviations against 502 runs of the original program; updated 2026-11-18 with `tools/update_accuracy.py`. "Curve shape" is the rms relative pressure error along the barrel (where the pressure is above 5 % of its maximum). The charge-too-high rule matches the original for all tested loads._
 <!-- accuracy:end -->

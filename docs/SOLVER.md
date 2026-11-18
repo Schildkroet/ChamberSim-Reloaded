@@ -197,6 +197,13 @@
   308 Win. pressures closer, N340 9 mm Luger 1 to 6 % low (before 0 to 6 % high), N110 .357 Magnum 24 % high (before 16 %). Shotgun loads are not
   concerned (they keep the Original equations).
 
+  **Free run with case-neck friction** (fix, 2026-11-18). With `neckStress_MPa` > 0 the free run (bullet jump) was resisted by the neck
+  friction alone, the start resistance acting only from the lands on: the bullet ran free at ~80 bar, and a 1 mm jump lowered the peak
+  pressure by 20 % and the velocity by 5 % (8x57 IS, N135). No fitted load has a jump, so the fit never saw this branch. The free run now
+  carries the start resistance as a constant force plus the neck friction, as before the refit (0.5-4 mm jump: -1 to -3 % pressure).
+  Results without a jump are unchanged. Own chronograph loads (`own_chrono_loads.csv`, all with a jump; rifle): velocity -5.9 / 7.0 % ->
+  -3.7 / 4.6 % (mean / rms). The original program loses 1-2 % pressure at 1 mm and 9-27 % at 4 mm (`ja_*` reference runs).
+
   **Bearing surface from the bullet's mass** (`noseFromMass` 1, 2026-11-17). The nose is no longer one calibre: its length follows from the
   volume the bullet lacks against a cylinder of its length (jacketed 10.5, lead 10.9 g/cm3, nose filling 55 % of its cylinder, 0.5 calibre to
   60 % of the length without the boat tail). Against the one-calibre rule the bearing surface of the published rifle loads is 0.57 x (median;
