@@ -528,6 +528,30 @@ void CoreTest::chronographFiles()
     };
     checkLx(kLabradarLxSemicolon, u"013 G11 7,5x55 42gr N150 L6=75,8 Hornady HPBT168"_s);  // a name given by the shooter has no "SR" prefix
     checkLx(kLabradarLxComma, u"SR13"_s);
+    // a Labradar LX file with neither a "Units velocity" line nor a unit row below the table header (and duplicate "V-1.00" columns): the
+    // unit is the one of the "Stats - " lines
+    static const QByteArray kLabradarLxNoUnitRow =
+        "sep=;\r\nDevice ID;Labradar;;\r\n\r\nSeries No;45Auto Custom200 5,4 N320;;\r\nTotal number of shots;0005;;\r\n\r\n"
+        "Projectile Weight;0;grain;\r\nTemperature;7.00;degC;\r\n\r\n"
+        "Stats - Average;251.26;m/s;\r\nStats - Max;268.73;m/s;\r\nStats - Min;235.66;m/s;\r\n\r\n"
+        "Shot ID;V0;V9.00;V-1.00;V-1.00;V-1.00;V-1.00;Ke0;Ke9.00;Ke-1.00;Ke-1.00;Ke-1.00;Ke-1.00;PF9.00;Proj. Weight;Date;Time\r\n"
+        "0001;255.87;251.29;-1.00;-1.00;-1.00;-1.00;424.23;409.19;0.01;0.01;0.01;0.01;164.89;200.00;2026-11-12;18:10;\r\n"
+        "0002;266.58;261.72;-1.00;-1.00;-1.00;-1.00;460.48;443.84;0.01;0.01;0.01;0.01;171.73;200.00;2026-11-12;18:11;\r\n"
+        "0003;253.21;248.60;-1.00;-1.00;-1.00;-1.00;415.46;400.46;0.01;0.01;0.01;0.01;163.12;200.00;2026-11-12;18:11;\r\n"
+        "0004;246.80;242.55;-1.00;-1.00;-1.00;-1.00;394.70;381.20;0.01;0.01;0.01;0.01;159.15;200.00;2026-11-12;18:11;\r\n"
+        "0005;235.66;232.07;-1.00;-1.00;-1.00;-1.00;359.88;348.97;0.01;0.01;0.01;0.01;152.27;200.00;2026-11-12;18:12;\r\n";
+    const auto nu = csr::readChronograph(kLabradarLxNoUnitRow, &error);
+    QVERIFY2(nu, qPrintable(error));
+    QCOMPARE(nu->format, csr::ChronographFormat::Labradar);
+    QCOMPARE(nu->series.size(), std::size_t{1});
+    QCOMPARE(nu->series[0].name, u"45Auto Custom200 5,4 N320"_s);
+    QCOMPARE(nu->series[0].velocities_ms, (std::vector<double>{255.87, 266.58, 253.21, 246.80, 235.66}));
+    // ... and without any unit at all the file is refused
+    QByteArray noUnit = kLabradarLxNoUnitRow;
+    noUnit.replace("m/s", "");
+    QVERIFY(!csr::readChronograph(noUnit, &error));
+    QVERIFY(!error.isEmpty());
+
     // without the V0 column there is nothing to read: an error, not a hang in the header
     QVERIFY(!csr::readChronograph("Series Number,13\r\nShot Number,V9.00m\r\n,m/s\r\n1,756.58\r\n", &error));
     QVERIFY(!error.isEmpty());
