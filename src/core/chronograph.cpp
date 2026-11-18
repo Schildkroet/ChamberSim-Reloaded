@@ -134,14 +134,24 @@ QChar labradarSeparator(const QStringList &lines)
     return {};
 }
 
+// The unit of a "Stats - Average;251.26;m/s" line (Average, Max, Min: the muzzle velocity); 0 for any other line. The unit is the last
+// field, as a value written with a decimal comma splits into two fields of a ',' file.
+double labradarStatsFactor(const QStringList &f)
+{
+    if (f[0] != u"Stats - Average" && f[0] != u"Stats - Max" && f[0] != u"Stats - Min") return 0.0;
+    for (qsizetype i = f.size() - 1; i > 1; --i)
+        if (!f[i].isEmpty()) return velocityFactor(f[i]);
+    return 0.0;
+}
+
 std::optional<ChronographFile> readLabradar(const QStringList &lines, QChar separator, QString *error)
 {
     ChronographFile file{.format = ChronographFormat::Labradar, .series = {}};
     ChronographSeries series;
-    double factor = 0.0;       // from a "Units velocity" line
+    double unitsFactor = 0.0;  // from a "Units velocity" line
+    double statsFactor = 0.0;  // from the "Stats - " lines
     double rowFactor = 0.0;    // from the unit row below the table header (";m/s;m/s;...")
-    double statsFactor = 0.0;  // from the "Stats - Average;251.26;m/s" lines
-    std::vector<double> raw;
+    double factor = 0.0;       // the one used, chosen at the first shot
     int v0 = -1;
     bool inTable = false;
     for (const QString &line : lines)
@@ -151,8 +161,8 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QChar sepa
         if (!inTable)
         {
             if ((f[0] == u"Series No" || f[0] == u"Series Number") && f.size() > 1) series.name = labradarSeriesName(f[1]);
-            else if (f[0] == u"Units velocity" && f.size() > 1) factor = velocityFactor(f[1]);
-            else if (f[0].startsWith(u"Stats - ") && f.size() > 2 && statsFactor <= 0.0) statsFactor = velocityFactor(f[2]);
+            else if (f[0] == u"Units velocity" && f.size() > 1) unitsFactor = velocityFactor(f[1]);
+            else if (f[0].startsWith(u"Stats - ") && statsFactor <= 0.0) statsFactor = labradarStatsFactor(f);
             else if (f[0] == u"Shot ID" || f[0] == u"Shot Number")
             {
                 v0 = labradarVelocityColumn(f);
@@ -169,26 +179,28 @@ std::optional<ChronographFile> readLabradar(const QStringList &lines, QChar sepa
         f[0].toInt(&idOk);
         if (!idOk)
         {
+            // The LX writes the units in a row below the table header (empty first field); Report.csv has a "Units velocity" line.
             if (f[0].isEmpty() && rowFactor <= 0.0 && v0 < f.size()) rowFactor = velocityFactor(f[v0]);
             continue;
         }
+        if (factor <= 0.0)
+        {
+            // All unit sources come before the first shot: a "Units velocity" line, else the unit row, else the "Stats - " lines.
+            factor = unitsFactor > 0.0 ? unitsFactor : rowFactor > 0.0 ? rowFactor : statsFactor;
+            if (factor <= 0.0)
+            {
+                if (error) *error = tr("The velocity unit of the file is unknown.");
+                return std::nullopt;
+            }
+        }
         if (v0 >= f.size()) continue;
-        if (const auto v = number(f[v0]); v && *v > 0.0) raw.push_back(*v);
+        if (const auto v = number(f[v0]); v && *v > 0.0) series.velocities_ms.push_back(*v * factor);
     }
-    // the unit: a "Units velocity" line, else the unit row below the table header, else the "Stats - " lines
-    if (factor <= 0.0) factor = rowFactor;
-    if (factor <= 0.0) factor = statsFactor;
-    if (factor <= 0.0)
-    {
-        if (error) *error = tr("The velocity unit of the file is unknown.");
-        return std::nullopt;
-    }
-    if (raw.empty())
+    if (series.velocities_ms.empty())
     {
         if (error) *error = tr("The file contains no shots.");
         return std::nullopt;
     }
-    for (const double v : raw) series.velocities_ms.push_back(v * factor);
     if (series.name.isEmpty()) series.name = tr("Series");
     file.series.push_back(std::move(series));
     return file;

@@ -546,11 +546,33 @@ void CoreTest::chronographFiles()
     QCOMPARE(nu->series.size(), std::size_t{1});
     QCOMPARE(nu->series[0].name, u"45Auto Custom200 5,4 N320"_s);
     QCOMPARE(nu->series[0].velocities_ms, (std::vector<double>{255.87, 266.58, 253.21, 246.80, 235.66}));
+    // ... converted from ft/s ...
+    QByteArray feet = kLabradarLxNoUnitRow;
+    feet.replace("m/s", "ft/s");
+    const auto nf = csr::readChronograph(feet, &error);
+    QVERIFY2(nf, qPrintable(error));
+    const std::vector<double> feetVelocities{255.87, 266.58, 253.21, 246.80, 235.66};
+    QCOMPARE(nf->series[0].velocities_ms.size(), feetVelocities.size());
+    for (std::size_t i = 0; i < feetVelocities.size(); ++i)
+        QCOMPARE_LT(std::abs(nf->series[0].velocities_ms[i] - feetVelocities[i] * 0.3048), 1e-9);
+    // ... taken from the last field of a "Stats - " line whose value has a decimal comma (',' file without the unit row) ...
+    QByteArray commaStats = kLabradarLxComma;
+    commaStats.replace("\r\n,m/s,m/s,J,,,,\r\n", "\r\n").replace("760.57,m/s", "760,57,m/s").replace("762.25,m/s", "762,25,m/s");
+    commaStats.replace("758.11,m/s", "758,11,m/s");
+    QVERIFY(!commaStats.contains(",m/s,m/s"));
+    checkLx(commaStats, u"SR13"_s);
+    // ... a "Stats - " line of another quantity does not give the unit ...
+    QByteArray otherStats = kLabradarLxNoUnitRow;
+    otherStats.replace("Stats - Average;251.26;m/s;", "Stats - Energy;2.1;km/h;").replace("m/s", "");
+    error.clear();
+    QVERIFY(!csr::readChronograph(otherStats, &error));
+    QCOMPARE(error, u"The velocity unit of the file is unknown."_s);
     // ... and without any unit at all the file is refused
     QByteArray noUnit = kLabradarLxNoUnitRow;
     noUnit.replace("m/s", "");
+    error.clear();
     QVERIFY(!csr::readChronograph(noUnit, &error));
-    QVERIFY(!error.isEmpty());
+    QCOMPARE(error, u"The velocity unit of the file is unknown."_s);
 
     // without the V0 column there is nothing to read: an error, not a hang in the header
     QVERIFY(!csr::readChronograph("Series Number,13\r\nShot Number,V9.00m\r\n,m/s\r\n1,756.58\r\n", &error));
