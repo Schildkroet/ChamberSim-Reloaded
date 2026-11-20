@@ -31,6 +31,10 @@ Changes in ChamberSim Reloaded. Pre-built binaries are on the
 - **Measurements: ignore a shot and add a remark.** An ignored shot stays in the series but is left out of the
   statistics, the chart mean, the report and the powder fit, and is drawn hollow in the chart. Each shot can carry a
   remark. Both are kept in the `.csrload`; the *.grtload export leaves the ignored shots out.
+- **Labradar import** reads another Labradar CSV format, with more columns and the velocity unit only in its
+  *Stats* lines (contributed by fzahn). A *Stats* value with a decimal comma no longer hides the unit.
+- **Result cards** show the value in the other unit system in small type below the number: imperial below a metric
+  value, metric below any other unit (pressure, velocity and energy).
 - **Bullet data.** Solid-copper bullets (Barnes XPB, Lehigh, Cutting Edge, MonoFlex, Naturalis and others) were
   estimated as lead-core bullets and came out about 20 % too short; 23 records are re-estimated. The start pressures
   of the bullet records follow their construction, and 162 bullets with a validated length have their own start
