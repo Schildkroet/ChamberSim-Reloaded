@@ -1,0 +1,46 @@
+name: Bug report
+description: Something does not work or a result looks wrong
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the attached load
+        2. Change the charge to ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Help > About, or the release you downloaded.
+      placeholder: "0.19"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options: [Linux (AppImage), Linux (built from source), Windows, Other]
+    validations:
+      required: true
+  - type: dropdown
+    id: model
+    attributes:
+      label: Solver model (for wrong results)
+      options: [Not about results, Physical Model, GRT Tuned, GRT Original]
+  - type: textarea
+    id: files
+    attributes:
+      label: Load file, screenshots, log
+      description: Attach the .csrload/.grtload (zip it if GitHub refuses the extension) and a screenshot. For wrong results, the published or measured values you compare with and their source.

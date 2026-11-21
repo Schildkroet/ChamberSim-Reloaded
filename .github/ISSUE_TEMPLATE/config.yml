@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and load data on Discord
+    url: https://discord.gg/3nm4MY8EUV
+    about: Ask questions, share load data and feedback with other users.
+  - name: User manual
+    url: https://schildkroet.github.io/ChamberSim-Reloaded/
+    about: How to use the program.

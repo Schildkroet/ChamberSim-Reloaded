@@ -41,9 +41,10 @@ tools/grt_*report*.txt
 tests/data/
 user/*
 
-# reverse-engineering notes and the project instructions that describe them
-CLAUDE.md
-.claude/
+# personal agent notes and local Claude Code state (the shared instructions are AGENTS.md, CLAUDE.md, .agents/skills)
+CLAUDE.local.md
+.claude/*
+!.claude/skills
 
 # files exchanged with the VM that runs the original program
 results/

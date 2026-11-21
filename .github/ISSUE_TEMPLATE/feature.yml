@@ -1,0 +1,21 @@
+name: Feature request
+description: A new function, tool or record you would like to see
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What do you want to do
+      description: The task you want to do in the program, and what is missing or hard today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How it could work
+      description: Optional. Menus, fields, results you imagine; sketches or screenshots welcome.
+  - type: textarea
+    id: data
+    attributes:
+      label: Data or sources
+      description: For new calibers, projectiles or propellants, the source of the values (data sheet, C.I.P./SAAMI, own measurements). Values from other programs' databases cannot be used.
