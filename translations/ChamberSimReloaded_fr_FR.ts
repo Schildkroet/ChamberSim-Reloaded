@@ -404,30 +404,30 @@
 <context>
     <name>LoadView</name>
     <message>
-        <location filename="../src/app/loadview.cpp" line="+290"/>
-        <location line="+1083"/>
+        <location filename="../src/app/loadview.cpp" line="+299"/>
+        <location line="+1086"/>
         <source>Maximum pressure</source>
         <translation>Pression maximale</translation>
     </message>
     <message>
-        <location line="-1075"/>
-        <location line="+1076"/>
+        <location line="-1078"/>
+        <location line="+1079"/>
         <source>Muzzle pressure</source>
         <translation>Pression à la bouche</translation>
     </message>
     <message>
-        <location line="-1083"/>
+        <location line="-1086"/>
         <source>Projectile energy</source>
         <translation>Énergie du projectile</translation>
     </message>
     <message>
         <location line="-1"/>
-        <location line="+1085"/>
+        <location line="+1088"/>
         <source>Muzzle velocity</source>
         <translation>Vitesse à la bouche</translation>
     </message>
     <message>
-        <location line="-1084"/>
+        <location line="-1087"/>
         <source>Barrel time (BT)</source>
         <translation>Temps de canon (BT)</translation>
     </message>
@@ -458,12 +458,12 @@
     </message>
     <message>
         <location line="+2"/>
-        <location line="+95"/>
+        <location line="+96"/>
         <source>Load ratio</source>
         <translation>Taux de remplissage</translation>
     </message>
     <message>
-        <location line="-95"/>
+        <location line="-96"/>
         <source>Burnt propellant</source>
         <translation>Poudre brûlée</translation>
     </message>
@@ -478,7 +478,7 @@
         <translation>Pertes chaleur / frottement</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+96"/>
         <location line="+78"/>
         <location line="+765"/>
         <source>Charge</source>
@@ -520,36 +520,36 @@
         <translation>Cartouche &amp;&amp; arme</translation>
     </message>
     <message>
-        <location line="-146"/>
-        <location line="+146"/>
+        <location line="-147"/>
+        <location line="+147"/>
         <location line="+196"/>
         <location line="+597"/>
         <source>Projectile</source>
         <translation>Projectile</translation>
     </message>
     <message>
-        <location line="-938"/>
-        <location line="+145"/>
+        <location line="-939"/>
+        <location line="+146"/>
         <location line="+197"/>
         <location line="+597"/>
         <source>Propellant</source>
         <translation>Poudre</translation>
     </message>
     <message>
-        <location line="-1003"/>
-        <location line="+210"/>
+        <location line="-1004"/>
+        <location line="+211"/>
         <source>Select Caliber</source>
         <translation>Choisir le calibre</translation>
     </message>
     <message>
-        <location line="-210"/>
-        <location line="+210"/>
+        <location line="-211"/>
+        <location line="+211"/>
         <source>Select Projectile</source>
         <translation>Choisir le projectile</translation>
     </message>
     <message>
-        <location line="-210"/>
-        <location line="+210"/>
+        <location line="-211"/>
+        <location line="+211"/>
         <source>Select Propellant</source>
         <translation>Choisir la poudre</translation>
     </message>
@@ -613,7 +613,7 @@
     <message>
         <location line="+484"/>
         <source>Case volume</source>
-        <translation></translation>
+        <translation>Volume de la douille</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -641,7 +641,7 @@
         <translation>Régler aussi la longueur du canon, la profondeur d&apos;enfoncement et la charge sur les valeurs par défaut du nouveau calibre</translation>
     </message>
     <message>
-        <location line="-452"/>
+        <location line="-453"/>
         <source>Bullet lead time (BLT)</source>
         <translation>Temps d&apos;avance du projectile (BLT)</translation>
     </message>
@@ -656,7 +656,7 @@
         <translation>Canon</translation>
     </message>
     <message>
-        <location line="+457"/>
+        <location line="+458"/>
         <source>Show only bullets that fit the caliber</source>
         <translation>Afficher uniquement les balles adaptées au calibre</translation>
     </message>
@@ -797,7 +797,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>&lt;b&gt;Cartouche de chasse :&lt;/b&gt; bourre et colonne de plomb comme projectile (masse plomb + bourre, longueur de la colonne, placée dans le tube, pression de départ = ouverture du sertissage environ 20 bar). Ajusté sur des chargements de fusil publiés : vitesse typiquement 5 à 7 % trop basse ; pression juste en moyenne mais jusqu&apos;à 30 % d&apos;écart selon la poudre - à comparer aux données du fabricant de poudre.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+23"/>
         <source>&lt;b&gt;Overpressure!&lt;/b&gt; The maximum pressure %1 is %2 % above the permitted %3. Do not load this charge.</source>
         <translation>&lt;b&gt;Surpression !&lt;/b&gt; La pression maximale %1 dépasse de %2 % la pression admissible %3. Ne chargez pas cette charge.</translation>
     </message>
@@ -884,12 +884,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     <name>MainWindow</name>
     <message>
         <location filename="../src/app/mainwindow.ui" line="+14"/>
-        <location filename="../src/app/mainwindow.cpp" line="+425"/>
+        <location filename="../src/app/mainwindow.cpp" line="+428"/>
         <source>ChamberSim Reloaded</source>
         <translation>ChamberSim Reloaded</translation>
     </message>
     <message>
-        <location filename="../src/app/mainwindow.cpp" line="-338"/>
+        <location filename="../src/app/mainwindow.cpp" line="-341"/>
         <source>Calibers</source>
         <translation>Calibres</translation>
     </message>
@@ -945,7 +945,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+41"/>
-        <location line="+346"/>
+        <location line="+349"/>
         <location line="+179"/>
         <location line="+14"/>
         <location line="+26"/>
@@ -953,7 +953,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Base de données</translation>
     </message>
     <message>
-        <location line="-526"/>
+        <location line="-529"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -969,7 +969,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="-70"/>
-        <location line="+352"/>
+        <location line="+355"/>
         <location line="+430"/>
         <source>Open load</source>
         <translation>Ouvrir un chargement</translation>
@@ -994,13 +994,13 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Chargements (*.csrload *.grtload);;Chargements ChamberSim Reloaded (*.csrload);;Chargements GRT originaux (*.grtload);;Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location line="-712"/>
+        <location line="-715"/>
         <source>&amp;Save</source>
         <translation>&amp;Enregistrer</translation>
     </message>
     <message>
         <location line="-93"/>
-        <location line="+663"/>
+        <location line="+666"/>
         <location line="+7"/>
         <location line="+37"/>
         <location line="+3"/>
@@ -1010,18 +1010,18 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Importer des projectiles</translation>
     </message>
     <message>
-        <location line="-732"/>
+        <location line="-735"/>
         <source>Add the bullets of a manufacturer&apos;s bullet file (*.%1) to your own records</source>
         <translation>Ajouter les projectiles d&apos;un fichier de projectiles de fabricant (*.%1) à vos propres enregistrements</translation>
     </message>
     <message>
         <location line="+16"/>
-        <location line="+796"/>
+        <location line="+799"/>
         <source>New load</source>
         <translation>Nouveau chargement</translation>
     </message>
     <message>
-        <location line="-794"/>
+        <location line="-797"/>
         <source>Create a load from a caliber, a projectile and a propellant (%1)</source>
         <translation>Créer un chargement à partir d&apos;un calibre, d&apos;un projectile et d&apos;une poudre (%1)</translation>
     </message>
@@ -1068,12 +1068,12 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+10"/>
-        <location line="+499"/>
+        <location line="+502"/>
         <source>Cannot write %1</source>
         <translation>Impossible d&apos;écrire %1</translation>
     </message>
     <message>
-        <location line="-495"/>
+        <location line="-498"/>
         <source>Overlay &amp;reference result…</source>
         <translation>Superposer un &amp;résultat de référence…</translation>
     </message>
@@ -1109,18 +1109,18 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
     </message>
     <message>
         <location line="+1"/>
-        <location line="+156"/>
+        <location line="+159"/>
         <source>&amp;Undo</source>
         <translation>&amp;Annuler</translation>
     </message>
     <message>
-        <location line="-150"/>
-        <location line="+155"/>
+        <location line="-153"/>
+        <location line="+158"/>
         <source>&amp;Redo</source>
         <translation>&amp;Rétablir</translation>
     </message>
     <message>
-        <location line="-147"/>
+        <location line="-150"/>
         <source>&amp;View</source>
         <translation>&amp;Affichage</translation>
     </message>
@@ -1242,7 +1242,7 @@ Vivacité %2, fonction de forme a0 %3, z1 %4, z2 %5. Elles remplacent la vivacit
         <translation>Le manuel d&apos;utilisation ne fait pas partie de cette installation.</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+26"/>
         <source>&amp;Undo %1</source>
         <translation>&amp;Annuler : %1</translation>
     </message>
@@ -1628,13 +1628,13 @@ L&apos;exporter quand même ?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+497"/>
+        <location line="+498"/>
         <location line="+12"/>
         <source>Import chronograph file</source>
         <translation>Importer un fichier de chronographe</translation>
     </message>
     <message>
-        <location line="-508"/>
+        <location line="-509"/>
         <source>Fit to measurements</source>
         <translation>Ajuster aux mesures</translation>
     </message>
@@ -1851,7 +1851,7 @@ L&apos;exporter quand même ?</translation>
         <translation>Cette charge ne peut pas être simulée (ne tient pas dans l&apos;étui ?)</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+37"/>
         <source>&lt;b&gt;Shots of %1&lt;/b&gt; (%2 %3)</source>
         <translation>&lt;b&gt;Tirs de %1&lt;/b&gt; (%2 %3)</translation>
     </message>
@@ -3043,7 +3043,7 @@ pression Δ</translation>
     <message>
         <location line="+19"/>
         <source>&lt;h2&gt;ChamberSim Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Interior ballistics for handloaders&lt;/p&gt;&lt;p&gt;Choose a cartridge, bullet and powder, enter the charge, and see pressure, bullet energy and velocity along the barrel.&lt;/p&gt;&lt;p&gt;A Qt&amp;nbsp;6 re-creation of the workflow of Gordon&apos;s Reloading Tool. It is an independent project and is not affiliated with or supported by the original program or its author.&lt;/p&gt;</source>
-        <translation></translation>
+        <translation>&lt;h2&gt;ChamberSim Reloaded&lt;/h2&gt;&lt;p&gt;&lt;b&gt;Version %1&lt;/b&gt;&lt;br&gt;Balistique intérieure pour le rechargement&lt;/p&gt;&lt;p&gt;Choisissez une cartouche, une ogive et une poudre, saisissez la charge et voyez la pression, l&apos;énergie et la vitesse de l&apos;ogive le long du canon.&lt;/p&gt;&lt;p&gt;Une recréation en Qt&amp;nbsp;6 du déroulement de Gordon&apos;s Reloading Tool. C&apos;est un projet indépendant, ni affilié au programme original ou à son auteur, ni soutenu par eux.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3073,7 +3073,7 @@ pression Δ</translation>
     <message>
         <location line="+10"/>
         <source>&lt;h3&gt;Copyright and license&lt;/h3&gt;&lt;p&gt;Copyright &amp;copy; 2026 Schildkroet&lt;/p&gt;&lt;p&gt;&lt;b&gt;This is free software.&lt;/b&gt; You should not have paid for it. If someone sold it to you, you were cheated: ask for your money back and get the program from the link above.&lt;/p&gt;&lt;p&gt;ChamberSim Reloaded is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. It is distributed in the hope that it will be useful, but without any warranty; see the &lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;GNU General Public License&lt;/a&gt; for details.&lt;/p&gt;&lt;p&gt;The records of the built-in database are licensed under &lt;a href=&quot;https://creativecommons.org/licenses/by-sa/4.0/&quot;&gt;CC BY-SA 4.0&lt;/a&gt;.&lt;/p&gt;</source>
-        <translation></translation>
+        <translation>&lt;h3&gt;Copyright et licence&lt;/h3&gt;&lt;p&gt;Copyright &amp;copy; 2026 Schildkroet&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ceci est un logiciel libre.&lt;/b&gt; Vous n&apos;auriez rien dû payer pour l&apos;obtenir. Si quelqu&apos;un vous l&apos;a vendu, vous avez été trompé : demandez à être remboursé et téléchargez le programme depuis le lien ci-dessus.&lt;/p&gt;&lt;p&gt;ChamberSim Reloaded est un logiciel libre : vous pouvez le redistribuer et/ou le modifier selon les termes de la Licence publique générale GNU publiée par la Free Software Foundation, soit la version 3 de la licence, soit (à votre choix) toute version ultérieure. Il est distribué dans l&apos;espoir qu&apos;il sera utile, mais sans aucune garantie ; voir la &lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;Licence publique générale GNU&lt;/a&gt; pour plus de détails.&lt;/p&gt;&lt;p&gt;Les enregistrements de la base de données intégrée sont placés sous licence &lt;a href=&quot;https://creativecommons.org/licenses/by-sa/4.0/&quot;&gt;CC BY-SA 4.0&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -3120,20 +3120,20 @@ pression Δ</translation>
     </message>
     <message>
         <location line="+15"/>
-        <location line="+79"/>
+        <location line="+98"/>
         <location line="+120"/>
         <location line="+73"/>
         <source>The file contains no shots.</source>
         <translation>Le fichier ne contient aucun tir.</translation>
     </message>
     <message>
-        <location line="-218"/>
+        <location line="-223"/>
         <source>The file has no V0 column.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier n&apos;a pas de colonne V0.</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <location line="+193"/>
+        <location line="+21"/>
+        <location line="+197"/>
         <source>The velocity unit of the file is unknown.</source>
         <translation>L&apos;unité de vitesse du fichier est inconnue.</translation>
     </message>
@@ -3901,7 +3901,7 @@ pression Δ</translation>
 <context>
     <name>csr::primer</name>
     <message>
-        <location filename="../src/core/primer.cpp" line="+45"/>
+        <location filename="../src/core/primer.cpp" line="+41"/>
         <source>Small Pistol</source>
         <translation>Pistolet petite</translation>
     </message>

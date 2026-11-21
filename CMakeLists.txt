@@ -107,7 +107,7 @@ endif()
 # code here (e.g. de_DE), run the `update_translations` target to create/refresh
 # translations/ChamberSimReloaded_<lang>.ts, translate it in Qt Linguist, and rebuild: the .qm files are
 # generated and embedded automatically (resource prefix :/i18n) and show up in View > Language.
-set(CSR_LANGUAGES en_US de_DE fr_FR it_IT)
+set(CSR_LANGUAGES en_US de_DE fr_FR it_IT es_ES sv_SE nb_NO)
 set(CSR_TS_FILES "")
 foreach(lang IN LISTS CSR_LANGUAGES)
     list(APPEND CSR_TS_FILES ${CMAKE_SOURCE_DIR}/translations/ChamberSimReloaded_${lang}.ts)

@@ -57,7 +57,7 @@ stores its own loads in the `.csrload` format.
 - Metric, imperial and original units (also per field), light and dark
   themes, adjustable font size.
 
-- Translations: English, German, French and Italian.
+- Translations: English, German, French, Italian, Spanish, Swedish and Norwegian (Bokmål).
 
 ## How accurate is it?
 
@@ -114,7 +114,7 @@ entry in the settings to bring it back.
       -d, --database <file> the original's (plain) database
       -r, --reference <f>   overlay a reference result (JSON) on the chart
       --calibration <m>     solver model: original|published|physical
-      --language <code>     de_DE, en_US, fr_FR, it_IT
+      --language <code>     de_DE, en_US, es_ES, fr_FR, it_IT, nb_NO, sv_SE
       --theme <t>           light | dark
       --units <system>      metric | imperial | original
       --log-level <level>   debug | info | warning | error

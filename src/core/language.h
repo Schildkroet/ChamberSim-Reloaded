@@ -34,7 +34,7 @@ inline const QString kDefaultLanguage = QStringLiteral("en_US");
 // such as "de-AT" / "de_AT"); `available` are the languages that ship a
 // translation (e.g. "de_DE", "fr_FR"). Matching order per requested entry:
 //   1. exact (de_AT == de_AT)
-//   2. same language, other country (de_AT -> de_DE)
+//   2. same language, other country (de_AT -> de_DE; Norwegian "no"/"nn" -> nb_NO)
 // Returns kDefaultLanguage when nothing matches.
 [[nodiscard]] QString resolveLanguage(const QStringList &requested, const QStringList &available);
 

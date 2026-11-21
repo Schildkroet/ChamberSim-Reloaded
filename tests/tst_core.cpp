@@ -2053,6 +2053,12 @@ void CoreTest::languageResolution_data()
     QTest::newRow("first usable wins") << QStringList{u"ja"_s, u"fr"_s, u"de"_s} << de << u"fr_FR"_s;
     QTest::newRow("english first stops the search") << QStringList{u"en_US"_s, u"de_DE"_s} << de << u"en_US"_s;
     QTest::newRow("nothing shipped") << QStringList{u"de_DE"_s} << none << u"en_US"_s;
+    const QStringList nordic{u"en_US"_s, u"sv_SE"_s, u"nb_NO"_s, u"es_ES"_s};
+    QTest::newRow("bokmal exact") << QStringList{u"nb_NO"_s} << nordic << u"nb_NO"_s;
+    QTest::newRow("norwegian macro language -> bokmal") << QStringList{u"no_NO.UTF-8"_s} << nordic << u"nb_NO"_s;
+    QTest::newRow("nynorsk -> bokmal") << QStringList{u"nn-NO"_s} << nordic << u"nb_NO"_s;
+    QTest::newRow("swedish in finland") << QStringList{u"sv_FI"_s} << nordic << u"sv_SE"_s;
+    QTest::newRow("spanish in mexico") << QStringList{u"es-MX"_s} << nordic << u"es_ES"_s;
 }
 
 void CoreTest::languageResolution()

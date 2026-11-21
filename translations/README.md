@@ -4,7 +4,8 @@ American English (`en_US`) is the **source language and the default**. Source st
 English; no translation file is needed to run in English. `ChamberSimReloaded_en_US.ts` only carries the
 English *plural forms* (`%n entry` / `%n entries`).
 
-Translations: German (`de_DE`), French (`fr_FR`), Italian (`it_IT`).
+Translations: German (`de_DE`), French (`fr_FR`), Italian (`it_IT`), Spanish (`es_ES`), Swedish (`sv_SE`),
+Norwegian Bokmål (`nb_NO`; also chosen for the system languages `no` and `nn`).
 
 The labels of the input panels come from the load files (`descr="case volume"`). The known descriptions are
 translatable in the context `grt::fields` (src/core/fieldnames.cpp); there the translation is the finished label

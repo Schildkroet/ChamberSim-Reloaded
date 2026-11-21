@@ -3134,7 +3134,7 @@ void GuiTest::fitToMeasurementsChangesThePowder()
 // View > Language shows the flag of each language's country (drawn, no image files).
 void GuiTest::languagesHaveFlags()
 {
-    for (const char *lang : {"en_US", "de_DE", "fr_FR", "it_IT"})
+    for (const char *lang : {"en_US", "de_DE", "fr_FR", "it_IT", "es_ES", "sv_SE", "nb_NO"})
     {
         const QIcon icon = flags::forLanguage(QLatin1String(lang));
         QVERIFY2(!icon.isNull(), lang);
@@ -3143,12 +3143,15 @@ void GuiTest::languagesHaveFlags()
         QVERIFY(img.pixelColor(16, 16).alpha() == 255);  // the flag fills the middle
         QVERIFY(img.pixelColor(16, 2).alpha() == 0);     // 3:2 flag in a square icon: transparent above
     }
-    // the colors are the country's: black-red-gold, blue-white-red, green-white-red
+    // the colors are the country's: black-red-gold, blue-white-red, green-white-red, red-yellow-red, blue/yellow, red/white/blue
     const auto at = [](const char *lang, int x, int y)
     { return flags::forLanguage(QLatin1String(lang)).pixmap(48, 48).toImage().pixelColor(x, y); };
     QCOMPARE(at("de_DE", 24, 10), QColor(Qt::black));
     QCOMPARE(at("fr_FR", 6, 24), QColor(0x00, 0x55, 0xa4));
     QCOMPARE(at("it_IT", 6, 24), QColor(0x00, 0x92, 0x46));
+    QCOMPARE(at("es_ES", 24, 24), QColor(0xf1, 0xbf, 0x00));
+    QCOMPARE(at("sv_SE", 6, 12), QColor(0x00, 0x6a, 0xa7));
+    QCOMPARE(at("nb_NO", 6, 12), QColor(0xba, 0x0c, 0x2f));
     QVERIFY(flags::forLanguage(u"xx"_s).isNull());
 
     MainWindow w;
@@ -3167,6 +3170,9 @@ void GuiTest::languagesHaveFlags()
         lang->addAction(flags::forLanguage(u"de_DE"_s), u"Deutsch (test)"_s);
         lang->addAction(flags::forLanguage(u"fr_FR"_s), u"français (test)"_s);
         lang->addAction(flags::forLanguage(u"it_IT"_s), u"italiano (test)"_s);
+        lang->addAction(flags::forLanguage(u"es_ES"_s), u"español (test)"_s);
+        lang->addAction(flags::forLanguage(u"sv_SE"_s), u"svenska (test)"_s);
+        lang->addAction(flags::forLanguage(u"nb_NO"_s), u"norsk bokmål (test)"_s);
         lang->addAction(flags::forLanguage(u"en_US"_s), u"English (test)"_s);
         for (const theme::Mode mode : {theme::Mode::Light, theme::Mode::Dark})
         {

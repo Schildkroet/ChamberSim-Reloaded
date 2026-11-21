@@ -46,7 +46,7 @@ your own responsibility.
 - ↩️ Undo / redo of the edits of a load (Edit menu, Ctrl+Z / Ctrl+Shift+Z); a two-step New load dialog (components, then the load data)
 - 🗂️ Optionally reopens the loads of the last session at start (Settings > Start-up)
 - 📝 Logging (level, console, log file) that you can set in the settings
-- 🌍 Translations: English, German, French, Italian
+- 🌍 Translations: English, German, French, Italian, Spanish, Swedish, Norwegian
 
 ## 🎯 Accuracy
 
@@ -196,6 +196,9 @@ renamed to `.log.1` at 1 MB). The default is Warning, to the console only. For o
 * 🇩🇪 German
 * 🇫🇷 French
 * 🇮🇹 Italian
+* 🇪🇸 Spanish
+* 🇸🇪 Swedish
+* 🇳🇴 Norwegian (Bokmål)
 
 *View ▸ Language* switches the language (after a restart). How to translate: [translations/README.md](translations/README.md).
 

@@ -35,7 +35,12 @@ QString normalizeLanguage(const QString &tag)
 
 QString resolveLanguage(const QStringList &requested, const QStringList &available)
 {
-    const auto languageOf = [](const QString &l) { return l.section(u'_', 0, 0); };
+    // Norwegian: the translation is Bokmål (nb); systems also report the macro language "no" or Nynorsk "nn"
+    const auto languageOf = [](const QString &l)
+    {
+        const QString lang = l.section(u'_', 0, 0);
+        return lang == u"no" || lang == u"nn" ? QStringLiteral("nb") : lang;
+    };
     QStringList avail;
     avail.reserve(available.size());
     std::ranges::transform(available, std::back_inserter(avail), normalizeLanguage);

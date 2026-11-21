@@ -33,7 +33,7 @@ stores its own loads in the `.csrload` format.
 - Metric, imperial and original units (also per field), light and dark
   themes, adjustable font size.
 
-- Translations: English, German, French and Italian.
+- Translations: English, German, French, Italian, Spanish, Swedish and Norwegian (Bokmål).
 
 ## How accurate is it?
 

@@ -27,7 +27,7 @@ Options: `-DCSR_FORMAT_ON_BUILD=OFF` (no clang-format before the build), `-DCSR_
 
 ```bash
 cmake --build --preset debug --target update_translations    # after changing user-visible strings
-linguist translations/ChamberSimReloaded_de_DE.ts                    # translate (de_DE, fr_FR, it_IT; en_US = plural forms only)
+linguist translations/ChamberSimReloaded_de_DE.ts                    # translate (de_DE, fr_FR, it_IT, es_ES, sv_SE, nb_NO; en_US = plural forms only)
 ```
 
 ## ▶️ Run the app
