@@ -1,6 +1,12 @@
 # <img src="packaging/linux/chambersimreloaded.svg" width="48" height="48"> ChamberSim Reloaded
 **Interior ballistics for handloaders — Linux 🐧 / Windows 🪟**
 
+[![CI](https://github.com/Schildkroet/ChamberSim-Reloaded/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Schildkroet/ChamberSim-Reloaded/actions/workflows/build.yml?query=branch%3Amain)
+[![Latest release](https://img.shields.io/github/v/release/Schildkroet/ChamberSim-Reloaded?label=release)](https://github.com/Schildkroet/ChamberSim-Reloaded/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Schildkroet/ChamberSim-Reloaded/total?label=downloads)](https://github.com/Schildkroet/ChamberSim-Reloaded/releases)
+[![License](https://img.shields.io/github/license/Schildkroet/ChamberSim-Reloaded)](LICENSE)
+[![Discord](https://img.shields.io/badge/Discord-join-5865F2?logo=discord&logoColor=white)](https://discord.gg/3nm4MY8EUV)
+
 A Qt 6 / C++20 desktop application for **interior ballistics of handloads**: choose a cartridge, bullet and
 powder, enter the charge, and see pressure, bullet energy and velocity along the barrel, with a load development
 ladder, reports and printouts. It follows the workflow of *Gordon's Reloading Tool*. It saves its loads in its own
