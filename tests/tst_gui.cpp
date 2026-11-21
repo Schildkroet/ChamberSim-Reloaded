@@ -1707,8 +1707,10 @@ void GuiTest::propertyNamesStartWithACapital()
     QCOMPARE(t->item(rowOf(t, u"casevol"_s), 0)->text(), u"Case Volume"_s);
     QCOMPARE(t->item(rowOf(t, u"xe"_s), 0)->text(), u"Xe"_s);
     QCOMPARE(t->item(rowOf(t, u"Dz"_s), 0)->text(), u"Groove Caliber"_s);
-    // the tooltip keeps the exact key of the file
-    QCOMPARE(t->item(rowOf(t, u"casevol"_s), 0)->toolTip(), u"casevol"_s);
+    // the tooltip says what the field means and keeps the exact key of the file
+    QVERIFY(t->item(rowOf(t, u"casevol"_s), 0)->toolTip().contains(u"Capacity of the empty case"_s));
+    QVERIFY(t->item(rowOf(t, u"casevol"_s), 0)->toolTip().contains(u"casevol"_s));
+    QVERIFY(t->item(rowOf(t, u"xe"_s), 0)->toolTip().contains(u"xe"_s));  // a field of another section: only the key
     {
         csr::EntryList l;
         l.entries().push_back({.name = u"laddercnt"_s,
@@ -1740,6 +1742,8 @@ void GuiTest::propertyNamesStartWithACapital()
             QVERIFY2(!it->text().contains(u'('), qPrintable(it->text()));
             const auto words = it->text().split(u' ', Qt::SkipEmptyParts);
             for (const QString &w : words) QVERIFY2(w.at(0).isUpper() || !w.at(0).isLetter(), qPrintable(it->text()));
+            // every field explains itself: the tooltip has a description before the key
+            QVERIFY2(it->toolTip().count(u"<p>"_s) >= 2, qPrintable(it->text() + u": "_s + it->toolTip()));
         }
     QVERIFY(labels > 30);
 }

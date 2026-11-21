@@ -373,7 +373,12 @@ void PropertyPanel::setSections(const std::vector<Section> &sections)
             }
             if (english) capitalizeWords(label);
             auto *name = new QTableWidgetItem(label);
-            name->setToolTip(hint.isEmpty() ? e.name : QStringLiteral("%1\n%2").arg(e.name, hint));
+            // the tooltip: what the field means, the hint of the description and the key of the file (rich text, so it wraps)
+            QString tip;
+            if (const QString help = csr::fieldHelp(s.key, e.name); !help.isEmpty()) tip += u"<p>"_s + help.toHtmlEscaped() + u"</p>"_s;
+            if (!hint.isEmpty()) tip += u"<p>"_s + hint.toHtmlEscaped() + u"</p>"_s;
+            tip += u"<p><small>"_s + e.name.toHtmlEscaped() + u"</small></p>"_s;
+            name->setToolTip(tip);
             name->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
             auto *val = new QTableWidgetItem;
             val->setData(SectionRole, s.id);

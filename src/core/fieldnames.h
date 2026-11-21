@@ -29,4 +29,8 @@ namespace csr
 // when there is no translation (English, or a field this program does not know).
 [[nodiscard]] QString translatedDescription(const QString &descr);
 
+// What a field of the input panels means, in the user's language (the tooltip of its label); empty for an unknown field.
+// `section` is the panel section ("caliber", "gun", "projectile", "propellant"): some keys mean different things there.
+[[nodiscard]] QString fieldHelp(QStringView section, QStringView key);
+
 }  // namespace csr

@@ -2272,7 +2272,7 @@ tryck Δ</translation>
         <translation>Enhet</translation>
     </message>
     <message>
-        <location line="+120"/>
+        <location line="+125"/>
         <source>Click to choose another unit for this field</source>
         <translation>Klicka för att välja en annan enhet för det här fältet</translation>
     </message>
@@ -3561,9 +3561,362 @@ tryck Δ</translation>
     </message>
 </context>
 <context>
+    <name>csr::fieldhelp</name>
+    <message>
+        <location filename="../src/core/fieldnames.cpp" line="+118"/>
+        <source>Name of the cartridge.</source>
+        <translation>Patronens namn.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Maximum overall length of the loaded cartridge, from the case head to the bullet tip (C.I.P. L6).</source>
+        <translation>Största totallängd för den laddade patronen, från hylsans botten till kulans spets (C.I.P. L6).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Length of the case from the head to the mouth (C.I.P. L3).</source>
+        <translation>Hylsans längd från botten till mynningen (C.I.P. L3).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Capacity of the empty case up to the mouth, best measured with water in a fired case of your own brass. One of the most important inputs: a smaller case gives a noticeably higher pressure.</source>
+        <translation>Den tomma hylsans volym upp till mynningen, helst uppmätt med vatten i en avskjuten hylsa av dina egna hylsor. En av de viktigaste uppgifterna: en mindre hylsa ger ett märkbart högre tryck.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Groove diameter of the barrel (C.I.P. Z), usually the bullet diameter.</source>
+        <translation>Pipans räffeldiameter (C.I.P. Z), oftast kulans diameter.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Cross-section of the bore the gas pushes on (C.I.P. Q), from the bore and groove diameters and the number and width of the grooves.</source>
+        <translation>Pipans tvärsnittsarea som gasen trycker på (C.I.P. Q), från fält- och räffeldiametern samt räfflornas antal och bredd.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Permitted maximum pressure of the cartridge (C.I.P. Pmax or SAAMI MAP). The results warn when the simulated peak pressure is above it.</source>
+        <translation>Patronens tillåtna maxtryck (C.I.P. Pmax eller SAAMI MAP). Resultaten varnar när det simulerade topptrycket ligger över det.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>How the maximum pressure of the cartridge is measured (piezo C.I.P., SAAMI, copper crusher); for information.</source>
+        <translation>Hur patronens maxtryck mäts (piezo C.I.P., SAAMI, kopparstuke); för information.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Share of the powder charge that is accelerated together with the bullet (the moving gas column). 0.5 is the usual value.</source>
+        <translation>Den andel av krutmängden som accelereras tillsammans med kulan (den medföljande gaspelaren). 0,5 är det vanliga värdet.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Pressure at which the bullet starts to move: neck tension, crimp and the engraving of the bullet into the rifling.</source>
+        <translation>Trycket vid vilket kulan börjar röra sig: halsspänning, krimpning och kulans inpressning i räfflorna.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Primer size. Its ignition pressure, with the additional start pressure below, gives the start pressure of the load.</source>
+        <translation>Tändhattens storlek. Dess tändtryck ger tillsammans med det extra starttrycket nedan laddningens starttryck.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Start pressure on top of the primer&apos;s: positive for a heavy crimp or a tight neck, negative for a light hold of the bullet. 0 is the usual value.</source>
+        <translation>Starttryck utöver tändhattens: positivt vid kraftig krimpning eller trång hals, negativt när kulan sitter löst. 0 är det vanliga värdet.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Yes for a shotgun shell: the wad and the shot column are the projectile, and hull, wad and primer are chosen below.</source>
+        <translation>Ja för en hagelpatron: förladdningen och hagelpelaren är projektilen, och hylsa, förladdning och tändhatt väljs nedan.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Hull of the shotshell. Hull, wad and primer change the usable capacity and the energy in the simulation.</source>
+        <translation>Hagelpatronens hylsa. Hylsa, förladdning och tändhatt ändrar den användbara volymen och energin i simuleringen.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Wad of the shotshell. Hull, wad and primer change the usable capacity and the energy in the simulation.</source>
+        <translation>Hagelpatronens förladdning. Hylsa, förladdning och tändhatt ändrar den användbara volymen och energin i simuleringen.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Primer of the shotshell. Hull, wad and primer change the usable capacity and the energy in the simulation.</source>
+        <translation>Hagelpatronens tändhatt. Hylsa, förladdning och tändhatt ändrar den användbara volymen och energin i simuleringen.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Name of the gun, for your records.</source>
+        <translation>Vapnets namn, för dina egna anteckningar.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Length of the barrel from the bolt face to the muzzle. A longer barrel gives more velocity.</source>
+        <translation>Pipans längd från slutstycket till mynningen. En längre pipa ger högre hastighet.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Barrel length per full turn of the rifling. Gives the spin of the bullet (revolutions per minute).</source>
+        <translation>Piplängd per hel varv av räfflingen. Ger kulans rotation (varv per minut).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Weight of the gun, for the recoil energy and the recoil velocity.</source>
+        <translation>Vapnets vikt, för rekylenergin och rekylhastigheten.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Distance the bullet travels freely before it touches the rifling (jump to the lands). Usually 0; a longer jump lowers the peak pressure.</source>
+        <translation>Sträckan kulan går fritt innan den når räfflingen (hopp till fälten). Oftast 0; ett längre hopp sänker topptrycket.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Name of the bullet.</source>
+        <translation>Kulans namn.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Manufacturer of the bullet.</source>
+        <translation>Kulans tillverkare.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Product name of the bullet.</source>
+        <translation>Kulans produktnamn.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lot number of the bullets, for your records.</source>
+        <translation>Kulornas partinummer, för dina egna anteckningar.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Diameter of the bullet.</source>
+        <translation>Kulans diameter.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Weight of the bullet. For a shotshell: shot and wad together.</source>
+        <translation>Kulans vikt. För en hagelpatron: hagel och förladdning tillsammans.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Overall length of the bullet. With the seating depth it gives the space the bullet takes in the case. For a shotshell: the length of the wad and shot column.</source>
+        <translation>Kulans totallängd. Tillsammans med sättdjupet ger den det utrymme kulan tar i hylsan. För en hagelpatron: längden på pelaren av förladdning och hagel.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>How deep the bullet sits in the case, from the case mouth to the bullet base. A deeper bullet leaves less room for the powder and raises the pressure.</source>
+        <translation>Hur djupt kulan sitter i hylsan, från hylsans mynning till kulans bas. En djupare kula lämnar mindre plats åt krutet och höjer trycket.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Shape of the bullet base: flat base, hollow base or boat tail. Changes the room the base takes in the case.</source>
+        <translation>Kulbasens form: plan bas, hålbas eller boattail. Ändrar det utrymme basen tar i hylsan.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Length of the boat tail, or depth of the hollow base.</source>
+        <translation>Boattailens längd, eller hålbasens djup.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Diameter where the boat tail or the cavity of the hollow base begins.</source>
+        <translation>Diametern där boattailen eller hålbasens hålighet börjar.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Diameter at the base of the bullet (the end of the boat tail).</source>
+        <translation>Diametern vid kulans bas (boattailens slut).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Extra resistance of the bullet in the barrel, as a pressure. Positive for bullets that are harder to push (e.g. solid copper), negative for easier ones. 0 is the usual value.</source>
+        <translation>Extra motstånd för kulan i pipan, uttryckt som tryck. Positivt för kulor som är tyngre att driva (t.ex. helkoppar), negativt för lättare. 0 är det vanliga värdet.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Jacketed, or lead (cast or swaged): a lead bullet slides through the barrel with less friction.</source>
+        <translation>Mantlad eller bly (gjuten eller pressad): en blykula glider genom pipan med mindre friktion.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Start pressure stored with the bullet; the simulation uses the start pressure of the cartridge.</source>
+        <translation>Starttryck som sparats med kulan; simuleringen använder patronens starttryck.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Ballistic coefficient for the G1 drag model (exterior ballistics; not used here).</source>
+        <translation>Ballistisk koefficient för luftmotståndsmodellen G1 (yttre ballistik; används inte här).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Ballistic coefficient for the G7 drag model (exterior ballistics; not used here).</source>
+        <translation>Ballistisk koefficient för luftmotståndsmodellen G7 (yttre ballistik; används inte här).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Code of the bullet&apos;s type and shape; for information.</source>
+        <translation>Kod för kulans typ och form; för information.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Field of the original program&apos;s record; not used by the simulation.</source>
+        <translation>Fält i originalprogrammets post; används inte av simuleringen.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Manufacturer of the powder.</source>
+        <translation>Krutets tillverkare.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Product name of the powder.</source>
+        <translation>Krutets produktnamn.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lot number of the powder, for your records.</source>
+        <translation>Krutets partinummer, för dina egna anteckningar.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Weight of the powder charge.</source>
+        <translation>Krutmängdens vikt.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Number of charges of the load development ladder. The charge above is the highest; every further step has one ladder step less powder.</source>
+        <translation>Antal krutmängder i laddningsstegen. Krutmängden ovan är den högsta; varje följande steg har ett laddningssteg mindre krut.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Difference in powder weight between two steps of the ladder.</source>
+        <translation>Skillnaden i krutvikt mellan två steg i stegen.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burn rate of the powder in the GRT model: higher is a faster powder. Fitted to measured loads; to match your own chronograph data use Fit to measurements on the Measurements tab.</source>
+        <translation>Krutets förbränningshastighet i GRT-modellen: högre är ett snabbare krut. Anpassad till uppmätta laddningar; för att stämma av mot dina egna kronografdata, använd ”Anpassa till mätningarna” på fliken Mätningar.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Progressivity of the burn in the GRT model: how the burning surface of the grains grows or shrinks while they burn.</source>
+        <translation>Förbränningens progressivitet i GRT-modellen: hur kornens brinnande yta växer eller krymper medan de brinner.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Second coefficient of the progressivity in the GRT model.</source>
+        <translation>Andra progressivitetskoefficienten i GRT-modellen.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burnt fraction of the powder at which the burn law of the GRT model passes into its middle part.</source>
+        <translation>Den förbrända andelen krut där GRT-modellens förbränningslag övergår i sin mellersta del.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Burnt fraction of the powder at which the burn law of the GRT model passes into its last part.</source>
+        <translation>Den förbrända andelen krut där GRT-modellens förbränningslag övergår i sin sista del.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Heat of explosion: the energy one kilogram of the powder releases. More energy gives more velocity and pressure.</source>
+        <translation>Explosionsvärme: energin som ett kilogram krut frigör. Mer energi ger högre hastighet och tryck.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Ratio of the specific heats (cp/cv) of the powder gas, about 1.2 to 1.25.</source>
+        <translation>Förhållandet mellan krutgasens specifika värmekapaciteter (cp/cv), ungefär 1,2 till 1,25.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Covolume of the powder gas: the volume the gas molecules themselves take. It matters at high pressure.</source>
+        <translation>Krutgasens kovolym: den volym som gasmolekylerna själva tar upp. Den spelar roll vid högt tryck.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Density of the powder material itself (not of the loose powder): the room the unburnt grains take.</source>
+        <translation>Densiteten hos själva krutmaterialet (inte det lösa krutet): det utrymme de oförbrända kornen tar.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Bulk density of the loose powder: tells whether the charge fits into the case (load ratio).</source>
+        <translation>Det lösa krutets skrymdensitet: visar om krutmängden får plats i hylsan (fyllnadsgrad).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Temperature of the powder when fired. Warm powder burns faster: higher pressure and velocity.</source>
+        <translation>Krutets temperatur vid skottet. Varmt krut brinner snabbare: högre tryck och hastighet.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change of the burn rate per degree below the reference temperature. 0 for both coefficients: the program&apos;s usual temperature behaviour.</source>
+        <translation>Förbränningshastighetens ändring per grad under referenstemperaturen. 0 för båda koefficienterna: programmets vanliga temperaturbeteende.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Change of the burn rate per degree above the reference temperature. 0 for both coefficients: the program&apos;s usual temperature behaviour.</source>
+        <translation>Förbränningshastighetens ändring per grad över referenstemperaturen. 0 för båda koefficienterna: programmets vanliga temperaturbeteende.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Air pressure of the original program&apos;s files; not used by the simulation.</source>
+        <translation>Lufttryck från originalprogrammets filer; används inte av simuleringen.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reference to the photo of the powder in the database.</source>
+        <translation>Hänvisning till krutets foto i databasen.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Reference to the close-up photo of the powder in the database.</source>
+        <translation>Hänvisning till närbilden av krutet i databasen.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burn rate of this powder in the Physical Model, fitted to published load data. It applies while the GRT values (Ba, a0, z1, z2) are unchanged.</source>
+        <translation>Det här krutets förbränningshastighet i den fysikaliska modellen, anpassad till publicerade laddningsdata. Den gäller så länge GRT-värdena (Ba, a0, z1, z2) är oförändrade.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Progressivity of the burn in the Physical Model, fitted to published load data.</source>
+        <translation>Förbränningens progressivitet i den fysikaliska modellen, anpassad till publicerade laddningsdata.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burnt fraction at which the burn law of the Physical Model passes into its middle part.</source>
+        <translation>Den förbrända andel där den fysikaliska modellens förbränningslag övergår i sin mellersta del.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burnt fraction at which the burn law of the Physical Model passes into its last part.</source>
+        <translation>Den förbrända andel där den fysikaliska modellens förbränningslag övergår i sin sista del.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Grain shape in the Physical Model: ball, cylinder (extruded) or fitted (the burn law of the fit).</source>
+        <translation>Kornform i den fysikaliska modellen: kula (ball), cylinder (cylinder, extruderat) eller anpassad (fitted, anpassningens förbränningslag).</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Length of the grains divided by their diameter (Physical Model).</source>
+        <translation>Kornens längd delad med deras diameter (fysikalisk modell).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Radius of the hole of perforated grains divided by their outer radius (Physical Model).</source>
+        <translation>Hålets radie i perforerade korn delad med deras ytterradie (fysikalisk modell).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>How strongly the burning surface follows the grain geometry (Physical Model); 1: exactly.</source>
+        <translation>Hur starkt den brinnande ytan följer kornets geometri (fysikalisk modell); 1: exakt.</translation>
+    </message>
+</context>
+<context>
     <name>csr::fields</name>
     <message>
-        <location filename="../src/core/fieldnames.cpp" line="+32"/>
+        <location line="-263"/>
         <source>G1 ballistic coefficient</source>
         <translation>Ballistisk koefficient G1</translation>
     </message>
@@ -3896,6 +4249,26 @@ tryck Δ</translation>
         <location line="+1"/>
         <source>physical model: burn-up limit z2</source>
         <translation>Fysikalisk modell: förbränningsgräns z2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: grain surface shape</source>
+        <translation>Fysikalisk modell: kornform</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: grain length / diameter</source>
+        <translation>Fysikalisk modell: kornlängd / diameter</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: grain hole / outer radius</source>
+        <translation>Fysikalisk modell: hålradie / ytterradie</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: geometric surface amplitude</source>
+        <translation>Fysikalisk modell: geometrisk ytamplitud</translation>
     </message>
 </context>
 <context>

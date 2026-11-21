@@ -2272,7 +2272,7 @@ presión Δ</translation>
         <translation>Unidad</translation>
     </message>
     <message>
-        <location line="+120"/>
+        <location line="+125"/>
         <source>Click to choose another unit for this field</source>
         <translation>Haga clic para elegir otra unidad para este campo</translation>
     </message>
@@ -3561,9 +3561,362 @@ presión Δ</translation>
     </message>
 </context>
 <context>
+    <name>csr::fieldhelp</name>
+    <message>
+        <location filename="../src/core/fieldnames.cpp" line="+118"/>
+        <source>Name of the cartridge.</source>
+        <translation>Nombre del cartucho.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Maximum overall length of the loaded cartridge, from the case head to the bullet tip (C.I.P. L6).</source>
+        <translation>Longitud total máxima del cartucho cargado, desde el culote de la vaina hasta la punta del proyectil (C.I.P. L6).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Length of the case from the head to the mouth (C.I.P. L3).</source>
+        <translation>Longitud de la vaina desde el culote hasta la boca (C.I.P. L3).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Capacity of the empty case up to the mouth, best measured with water in a fired case of your own brass. One of the most important inputs: a smaller case gives a noticeably higher pressure.</source>
+        <translation>Capacidad de la vaina vacía hasta la boca, mejor medida con agua en una vaina disparada de sus propias vainas. Uno de los datos más importantes: una vaina más pequeña da una presión notablemente más alta.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Groove diameter of the barrel (C.I.P. Z), usually the bullet diameter.</source>
+        <translation>Diámetro de estrías del cañón (C.I.P. Z), normalmente el diámetro del proyectil.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Cross-section of the bore the gas pushes on (C.I.P. Q), from the bore and groove diameters and the number and width of the grooves.</source>
+        <translation>Sección del ánima sobre la que empuja el gas (C.I.P. Q), a partir de los diámetros de campos y de estrías y del número y la anchura de las estrías.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Permitted maximum pressure of the cartridge (C.I.P. Pmax or SAAMI MAP). The results warn when the simulated peak pressure is above it.</source>
+        <translation>Presión máxima admisible del cartucho (C.I.P. Pmax o SAAMI MAP). Los resultados avisan cuando la presión máxima simulada la supera.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>How the maximum pressure of the cartridge is measured (piezo C.I.P., SAAMI, copper crusher); for information.</source>
+        <translation>Cómo se mide la presión máxima del cartucho (piezoeléctrico C.I.P., SAAMI, crusher de cobre); a título informativo.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Share of the powder charge that is accelerated together with the bullet (the moving gas column). 0.5 is the usual value.</source>
+        <translation>Parte de la carga de pólvora que se acelera junto con el proyectil (la columna de gas en movimiento). 0,5 es el valor habitual.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Pressure at which the bullet starts to move: neck tension, crimp and the engraving of the bullet into the rifling.</source>
+        <translation>Presión a la que el proyectil empieza a moverse: tensión del cuello, engarce y forzamiento del proyectil en las estrías.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Primer size. Its ignition pressure, with the additional start pressure below, gives the start pressure of the load.</source>
+        <translation>Tamaño del pistón. Su presión de ignición, junto con la presión inicial adicional de abajo, da la presión inicial de la carga.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Start pressure on top of the primer&apos;s: positive for a heavy crimp or a tight neck, negative for a light hold of the bullet. 0 is the usual value.</source>
+        <translation>Presión inicial además de la del pistón: positiva con un engarce fuerte o un cuello apretado, negativa si el proyectil está poco sujeto. 0 es el valor habitual.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Yes for a shotgun shell: the wad and the shot column are the projectile, and hull, wad and primer are chosen below.</source>
+        <translation>Sí para un cartucho de escopeta: el taco y la columna de perdigones son el proyectil; vaina, taco y pistón se eligen abajo.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Hull of the shotshell. Hull, wad and primer change the usable capacity and the energy in the simulation.</source>
+        <translation>Vaina del cartucho de escopeta. Vaina, taco y pistón cambian en la simulación la capacidad útil y la energía.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Wad of the shotshell. Hull, wad and primer change the usable capacity and the energy in the simulation.</source>
+        <translation>Taco del cartucho de escopeta. Vaina, taco y pistón cambian en la simulación la capacidad útil y la energía.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Primer of the shotshell. Hull, wad and primer change the usable capacity and the energy in the simulation.</source>
+        <translation>Pistón del cartucho de escopeta. Vaina, taco y pistón cambian en la simulación la capacidad útil y la energía.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Name of the gun, for your records.</source>
+        <translation>Nombre del arma, para sus notas.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Length of the barrel from the bolt face to the muzzle. A longer barrel gives more velocity.</source>
+        <translation>Longitud del cañón desde la cara del cerrojo hasta la boca. Un cañón más largo da más velocidad.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Barrel length per full turn of the rifling. Gives the spin of the bullet (revolutions per minute).</source>
+        <translation>Longitud de cañón por vuelta completa del estriado. Da la velocidad de giro del proyectil (revoluciones por minuto).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Weight of the gun, for the recoil energy and the recoil velocity.</source>
+        <translation>Peso del arma, para la energía y la velocidad de retroceso.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Distance the bullet travels freely before it touches the rifling (jump to the lands). Usually 0; a longer jump lowers the peak pressure.</source>
+        <translation>Distancia que el proyectil recorre libremente antes de tocar las estrías (salto hasta los campos). Normalmente 0; un salto más largo reduce la presión máxima.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Name of the bullet.</source>
+        <translation>Nombre del proyectil.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Manufacturer of the bullet.</source>
+        <translation>Fabricante del proyectil.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Product name of the bullet.</source>
+        <translation>Nombre comercial del proyectil.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lot number of the bullets, for your records.</source>
+        <translation>Número de lote de los proyectiles, para sus notas.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Diameter of the bullet.</source>
+        <translation>Diámetro del proyectil.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Weight of the bullet. For a shotshell: shot and wad together.</source>
+        <translation>Peso del proyectil. En un cartucho de escopeta: perdigones y taco juntos.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Overall length of the bullet. With the seating depth it gives the space the bullet takes in the case. For a shotshell: the length of the wad and shot column.</source>
+        <translation>Longitud total del proyectil. Con la profundidad de asentamiento da el espacio que ocupa el proyectil en la vaina. En un cartucho de escopeta: la longitud de la columna de taco y perdigones.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>How deep the bullet sits in the case, from the case mouth to the bullet base. A deeper bullet leaves less room for the powder and raises the pressure.</source>
+        <translation>Profundidad a la que está asentado el proyectil en la vaina, desde la boca de la vaina hasta la base del proyectil. Un proyectil más hundido deja menos espacio a la pólvora y aumenta la presión.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Shape of the bullet base: flat base, hollow base or boat tail. Changes the room the base takes in the case.</source>
+        <translation>Forma de la base del proyectil: base plana, base hueca o boat tail. Cambia el espacio que ocupa la base en la vaina.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Length of the boat tail, or depth of the hollow base.</source>
+        <translation>Longitud del boat tail, o profundidad de la base hueca.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Diameter where the boat tail or the cavity of the hollow base begins.</source>
+        <translation>Diámetro donde empieza el boat tail o la cavidad de la base hueca.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Diameter at the base of the bullet (the end of the boat tail).</source>
+        <translation>Diámetro en la base del proyectil (el final del boat tail).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Extra resistance of the bullet in the barrel, as a pressure. Positive for bullets that are harder to push (e.g. solid copper), negative for easier ones. 0 is the usual value.</source>
+        <translation>Resistencia adicional del proyectil en el cañón, como presión. Positiva para proyectiles más difíciles de empujar (p. ej. cobre macizo), negativa para los más fáciles. 0 es el valor habitual.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Jacketed, or lead (cast or swaged): a lead bullet slides through the barrel with less friction.</source>
+        <translation>Encamisado, o de plomo (fundido o estampado): un proyectil de plomo se desliza por el cañón con menos fricción.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Start pressure stored with the bullet; the simulation uses the start pressure of the cartridge.</source>
+        <translation>Presión inicial guardada con el proyectil; la simulación usa la presión inicial del cartucho.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Ballistic coefficient for the G1 drag model (exterior ballistics; not used here).</source>
+        <translation>Coeficiente balístico para el modelo de resistencia G1 (balística exterior; no se usa aquí).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Ballistic coefficient for the G7 drag model (exterior ballistics; not used here).</source>
+        <translation>Coeficiente balístico para el modelo de resistencia G7 (balística exterior; no se usa aquí).</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Code of the bullet&apos;s type and shape; for information.</source>
+        <translation>Código del tipo y la forma del proyectil; a título informativo.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Field of the original program&apos;s record; not used by the simulation.</source>
+        <translation>Campo del registro del programa original; la simulación no lo usa.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Manufacturer of the powder.</source>
+        <translation>Fabricante de la pólvora.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Product name of the powder.</source>
+        <translation>Nombre comercial de la pólvora.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lot number of the powder, for your records.</source>
+        <translation>Número de lote de la pólvora, para sus notas.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Weight of the powder charge.</source>
+        <translation>Peso de la carga de pólvora.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Number of charges of the load development ladder. The charge above is the highest; every further step has one ladder step less powder.</source>
+        <translation>Número de cargas de la escalera de cargas. La carga de arriba es la más alta; cada paso siguiente tiene un paso de carga menos de pólvora.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Difference in powder weight between two steps of the ladder.</source>
+        <translation>Diferencia de peso de pólvora entre dos pasos de la escalera.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burn rate of the powder in the GRT model: higher is a faster powder. Fitted to measured loads; to match your own chronograph data use Fit to measurements on the Measurements tab.</source>
+        <translation>Velocidad de combustión de la pólvora en el modelo GRT: mayor es una pólvora más rápida. Ajustada a cargas medidas; para adaptarla a sus propios datos del cronógrafo use «Ajustar a las mediciones» en la pestaña Mediciones.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Progressivity of the burn in the GRT model: how the burning surface of the grains grows or shrinks while they burn.</source>
+        <translation>Progresividad de la combustión en el modelo GRT: cómo crece o disminuye la superficie en combustión de los granos mientras arden.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Second coefficient of the progressivity in the GRT model.</source>
+        <translation>Segundo coeficiente de progresividad del modelo GRT.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burnt fraction of the powder at which the burn law of the GRT model passes into its middle part.</source>
+        <translation>Fracción quemada de la pólvora a la que la ley de combustión del modelo GRT pasa a su parte central.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Burnt fraction of the powder at which the burn law of the GRT model passes into its last part.</source>
+        <translation>Fracción quemada de la pólvora a la que la ley de combustión del modelo GRT pasa a su última parte.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Heat of explosion: the energy one kilogram of the powder releases. More energy gives more velocity and pressure.</source>
+        <translation>Calor de explosión: la energía que libera un kilogramo de pólvora. Más energía da más velocidad y presión.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Ratio of the specific heats (cp/cv) of the powder gas, about 1.2 to 1.25.</source>
+        <translation>Relación de calores específicos (cp/cv) del gas de la pólvora, aprox. 1,2 a 1,25.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Covolume of the powder gas: the volume the gas molecules themselves take. It matters at high pressure.</source>
+        <translation>Covolumen del gas de la pólvora: el volumen que ocupan las propias moléculas del gas. Importa a alta presión.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Density of the powder material itself (not of the loose powder): the room the unburnt grains take.</source>
+        <translation>Densidad del propio material de la pólvora (no de la pólvora suelta): el espacio que ocupan los granos sin quemar.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Bulk density of the loose powder: tells whether the charge fits into the case (load ratio).</source>
+        <translation>Densidad aparente de la pólvora suelta: indica si la carga cabe en la vaina (grado de llenado).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Temperature of the powder when fired. Warm powder burns faster: higher pressure and velocity.</source>
+        <translation>Temperatura de la pólvora al disparar. La pólvora caliente arde más rápido: más presión y velocidad.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change of the burn rate per degree below the reference temperature. 0 for both coefficients: the program&apos;s usual temperature behaviour.</source>
+        <translation>Cambio de la velocidad de combustión por grado por debajo de la temperatura de referencia. 0 en ambos coeficientes: el comportamiento habitual del programa con la temperatura.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Change of the burn rate per degree above the reference temperature. 0 for both coefficients: the program&apos;s usual temperature behaviour.</source>
+        <translation>Cambio de la velocidad de combustión por grado por encima de la temperatura de referencia. 0 en ambos coeficientes: el comportamiento habitual del programa con la temperatura.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Air pressure of the original program&apos;s files; not used by the simulation.</source>
+        <translation>Presión atmosférica de los archivos del programa original; la simulación no la usa.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reference to the photo of the powder in the database.</source>
+        <translation>Referencia a la foto de la pólvora en la base de datos.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Reference to the close-up photo of the powder in the database.</source>
+        <translation>Referencia a la foto de cerca de la pólvora en la base de datos.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burn rate of this powder in the Physical Model, fitted to published load data. It applies while the GRT values (Ba, a0, z1, z2) are unchanged.</source>
+        <translation>Velocidad de combustión de esta pólvora en el Modelo físico, ajustada a datos de carga publicados. Se aplica mientras los valores GRT (Ba, a0, z1, z2) no cambien.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Progressivity of the burn in the Physical Model, fitted to published load data.</source>
+        <translation>Progresividad de la combustión en el Modelo físico, ajustada a datos de carga publicados.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burnt fraction at which the burn law of the Physical Model passes into its middle part.</source>
+        <translation>Fracción quemada a la que la ley de combustión del Modelo físico pasa a su parte central.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Burnt fraction at which the burn law of the Physical Model passes into its last part.</source>
+        <translation>Fracción quemada a la que la ley de combustión del Modelo físico pasa a su última parte.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Grain shape in the Physical Model: ball, cylinder (extruded) or fitted (the burn law of the fit).</source>
+        <translation>Forma del grano en el Modelo físico: esférica (ball), cilindro (cylinder, extruida) o ajustada (fitted, la ley de combustión del ajuste).</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Length of the grains divided by their diameter (Physical Model).</source>
+        <translation>Longitud de los granos dividida por su diámetro (Modelo físico).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Radius of the hole of perforated grains divided by their outer radius (Physical Model).</source>
+        <translation>Radio del orificio de los granos perforados dividido por su radio exterior (Modelo físico).</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>How strongly the burning surface follows the grain geometry (Physical Model); 1: exactly.</source>
+        <translation>Cuánto sigue la superficie en combustión la geometría del grano (Modelo físico); 1: exactamente.</translation>
+    </message>
+</context>
+<context>
     <name>csr::fields</name>
     <message>
-        <location filename="../src/core/fieldnames.cpp" line="+32"/>
+        <location line="-263"/>
         <source>G1 ballistic coefficient</source>
         <translation>Coeficiente balístico G1</translation>
     </message>
@@ -3896,6 +4249,26 @@ presión Δ</translation>
         <location line="+1"/>
         <source>physical model: burn-up limit z2</source>
         <translation>Modelo físico: límite de combustión z2</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: grain surface shape</source>
+        <translation>Modelo físico: forma del grano</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: grain length / diameter</source>
+        <translation>Modelo físico: longitud / diámetro del grano</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: grain hole / outer radius</source>
+        <translation>Modelo físico: radio del orificio / radio exterior</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>physical model: geometric surface amplitude</source>
+        <translation>Modelo físico: amplitud geométrica de la superficie</translation>
     </message>
 </context>
 <context>
