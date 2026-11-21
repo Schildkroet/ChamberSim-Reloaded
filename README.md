@@ -14,6 +14,8 @@ with the `*.grtload` filter exports a load for the original, without the data of
 📖 **Documentation:** [online user manual](https://schildkroet.github.io/ChamberSim-Reloaded/) (also as PDF there; the
 program opens the same manual with *Help ▸ User manual*, F1; *Help ▸ Online documentation* opens the web site).
 
+💬 **Community:** questions, load data and feedback on [Discord](https://discord.gg/3nm4MY8EUV).
+
 ## ⚠️ Safety and disclaimer
 
 **This program is still in beta.** It may contain bugs, and its results can be completely wrong, in pressure as well as
