@@ -20,16 +20,20 @@
 #include "chronograph.h"
 
 #include "numeric.h"
+#include "zipfile.h"
 
 #include <QCoreApplication>
 #include <QDateTime>
 #include <QLocale>
+#include <QRegularExpression>
+#include <QXmlStreamReader>
 #include <QStringList>
 
 #include <algorithm>
 #include <array>
 #include <cstdint>
 #include <cstring>
+#include <map>
 
 using namespace Qt::StringLiterals;
 
@@ -398,6 +402,195 @@ std::optional<ChronographFile> readGarminCsv(const QStringList &lines, QString *
     return ChronographFile{.format = ChronographFormat::GarminXero, .series = {std::move(series)}};
 }
 
+// ---- Garmin ShotView workbook ---------------------------------------------------------------------------------------------------------
+
+// The Garmin app exports its sessions as an .xlsx workbook: one sheet per session with a title line ("Rifle session started at 11:45"),
+// the header "#, Speed (mps), Δ AVG (mps), KE (J), ..." and one row per shot (number first, speed second; a shot without speed has an
+// empty cell), then statistics. Read generically: the zip, the shared strings, the sheets in workbook order.
+const QString kRelationshipsNs = u"http://schemas.openxmlformats.org/officeDocument/2006/relationships"_s;
+
+// "B12" -> column 1 (zero based); -1 if the reference has no letters.
+int cellColumn(const QString &ref)
+{
+    int column = 0, letters = 0;
+    for (const QChar c : ref)
+    {
+        if (!c.isLetter()) break;
+        column = column * 26 + (c.toUpper().unicode() - u'A' + 1);
+        ++letters;
+    }
+    return letters > 0 ? column - 1 : -1;
+}
+
+QStringList xlsxSharedStrings(const QByteArray &xml)
+{
+    QStringList strings;
+    QXmlStreamReader r(xml);
+    QString current;
+    bool inItem = false, inText = false, inPhonetic = false;
+    while (!r.atEnd())
+    {
+        switch (r.readNext())
+        {
+        case QXmlStreamReader::StartElement:
+            if (r.name() == u"si")
+            {
+                inItem = true;
+                current.clear();
+            }
+            else if (r.name() == u"rPh") inPhonetic = true;
+            else if (r.name() == u"t" && inItem && !inPhonetic) inText = true;
+            break;
+        case QXmlStreamReader::Characters:
+            if (inText) current += r.text();
+            break;
+        case QXmlStreamReader::EndElement:
+            if (r.name() == u"t") inText = false;
+            else if (r.name() == u"rPh") inPhonetic = false;
+            else if (r.name() == u"si")
+            {
+                strings << current;
+                inItem = false;
+            }
+            break;
+        default: break;
+        }
+    }
+    return strings;
+}
+
+using SheetCells = std::map<int, std::map<int, QString>>;  // row -> column -> text
+
+SheetCells xlsxSheetCells(const QByteArray &xml, const QStringList &strings)
+{
+    SheetCells cells;
+    QXmlStreamReader r(xml);
+    int row = 0, column = -1;
+    QString type, value;
+    bool inCell = false, inValue = false;
+    while (!r.atEnd())
+    {
+        switch (r.readNext())
+        {
+        case QXmlStreamReader::StartElement:
+            if (r.name() == u"c")
+            {
+                inCell = true;
+                type = r.attributes().value(u"t"_s).toString();
+                value.clear();
+                const QString ref = r.attributes().value(u"r"_s).toString();
+                column = cellColumn(ref);
+                row = ref.mid(ref.indexOf(QRegularExpression(u"\\d"_s))).toInt();
+            }
+            else if (inCell && (r.name() == u"v" || r.name() == u"t")) inValue = true;
+            break;
+        case QXmlStreamReader::Characters:
+            if (inValue) value += r.text();
+            break;
+        case QXmlStreamReader::EndElement:
+            if (r.name() == u"v" || r.name() == u"t") inValue = false;
+            else if (r.name() == u"c")
+            {
+                inCell = false;
+                if (type == u"s")
+                {
+                    bool ok = false;
+                    const int index = value.toInt(&ok);
+                    value = ok && index >= 0 && index < strings.size() ? strings[index] : QString();
+                }
+                if (column >= 0 && row > 0 && !value.trimmed().isEmpty()) cells[row][column] = value.trimmed();
+            }
+            break;
+        default: break;
+        }
+    }
+    return cells;
+}
+
+std::optional<ChronographSeries> xlsxSession(const SheetCells &cells, const QString &sheetName)
+{
+    const auto cell = [&](int row, int column) -> QString
+    {
+        const auto r = cells.find(row);
+        if (r == cells.end()) return {};
+        const auto c = r->second.find(column);
+        return c == r->second.end() ? QString() : c->second;
+    };
+    // the header: "#" and a speed column with its unit in brackets
+    int headerRow = 0;
+    double factor = 0.0;
+    for (const auto &[row, columns] : cells)
+    {
+        const QString speed = cell(row, 1);
+        const qsizetype open = speed.indexOf(u'('), close = speed.indexOf(u')');
+        if (cell(row, 0) == u"#" && open >= 0 && close > open)
+        {
+            factor = velocityFactor(speed.mid(open + 1, close - open - 1));
+            headerRow = row;
+            break;
+        }
+    }
+    if (headerRow == 0 || factor <= 0.0) return std::nullopt;
+    ChronographSeries series;
+    for (auto it = cells.upper_bound(headerRow); it != cells.end(); ++it)
+    {
+        bool numberOk = false;
+        cell(it->first, 0).toInt(&numberOk);
+        if (!numberOk) break;  // the end of the shot table (a blank line, then the statistics)
+        if (const auto v = number(cell(it->first, 1)); v && *v > 0.0) series.velocities_ms.push_back(*v * factor);
+    }
+    if (series.velocities_ms.empty()) return std::nullopt;
+    // "Rifle session started at 11:45" + the date of the sheet name ("..._2026-10-31_11-45_1")
+    series.name = cell(1, 0);
+    if (series.name.isEmpty()) series.name = sheetName;
+    if (const auto m = QRegularExpression(u"(\\d{4}-\\d{2}-\\d{2})"_s).match(sheetName); m.hasMatch())
+        series.name += u", "_s + m.captured(1);
+    return series;
+}
+
+std::optional<ChronographFile> readGarminXlsx(const QByteArray &data, QString *error)
+{
+    const auto fail = [&](const QString &message) -> std::optional<ChronographFile>
+    {
+        if (error) *error = message;
+        return std::nullopt;
+    };
+    const auto workbook = zipEntry(data, u"xl/workbook.xml"_s);
+    if (!workbook) return fail(tr("Not a Garmin Xero, MagnetoSpeed or Labradar file."));
+
+    // sheet name and relationship id, in the order of the workbook
+    std::vector<std::pair<QString, QString>> sheets;
+    QXmlStreamReader wb(*workbook);
+    while (!wb.atEnd())
+        if (wb.readNext() == QXmlStreamReader::StartElement && wb.name() == u"sheet")
+            sheets.emplace_back(wb.attributes().value(u"name"_s).toString(), wb.attributes().value(kRelationshipsNs, u"id"_s).toString());
+    std::map<QString, QString> targets;  // relationship id -> path inside the archive
+    if (const auto rels = zipEntry(data, u"xl/_rels/workbook.xml.rels"_s))
+    {
+        QXmlStreamReader rr(*rels);
+        while (!rr.atEnd())
+            if (rr.readNext() == QXmlStreamReader::StartElement && rr.name() == u"Relationship")
+            {
+                QString target = rr.attributes().value(u"Target"_s).toString();
+                target = target.startsWith(u'/') ? target.mid(1) : u"xl/"_s + target;
+                targets[rr.attributes().value(u"Id"_s).toString()] = target;
+            }
+    }
+    const auto sharedStrings = zipEntry(data, u"xl/sharedStrings.xml"_s);
+    const QStringList strings = sharedStrings ? xlsxSharedStrings(*sharedStrings) : QStringList();
+
+    ChronographFile file{.format = ChronographFormat::GarminXero, .series = {}};
+    for (const auto &[name, id] : sheets)
+    {
+        const auto target = targets.find(id);
+        const auto xml = target != targets.end() ? zipEntry(data, target->second) : std::nullopt;
+        if (!xml) continue;
+        if (auto session = xlsxSession(xlsxSheetCells(*xml, strings), name)) file.series.push_back(std::move(*session));
+    }
+    if (file.series.empty()) return fail(tr("The file contains no shots."));
+    return file;
+}
+
 }  // namespace
 
 QString formatName(ChronographFormat f)
@@ -414,6 +607,7 @@ QString formatName(ChronographFormat f)
 std::optional<ChronographFile> readChronograph(const QByteArray &data, QString *error)
 {
     if (isFit(data)) return readGarminFit(data, error);
+    if (isZip(data)) return readGarminXlsx(data, error);
     QByteArray bytes = data;
     bytes.remove(0, bytes.startsWith("\xEF\xBB\xBF") ? 3 : 0);
     bytes.replace('\0', "");  // the Labradar pads its lines with NUL bytes

@@ -32,6 +32,8 @@ add_library(csrcore STATIC
     dates.cpp
     chronograph.h
     chronograph.cpp
+    zipfile.h
+    zipfile.cpp
     log.h
     log.cpp
     dbfields.h

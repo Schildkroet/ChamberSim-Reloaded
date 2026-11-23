@@ -633,6 +633,26 @@ void CoreTest::chronographFiles()
     QCOMPARE(readFixture("Shotview_a.csv")->series[0].name, u"Marlin,.357, 15,3grs W296, 158,0 gr"_s);
     QVERIFY(!readFixture("broken.fit"));
 
+    // the Excel workbook of the Garmin app: one series per sheet (session)
+    const auto xlsx = readFixture("Shotview_sessions.xlsx");
+    QVERIFY2(xlsx, qPrintable(error));
+    QCOMPARE(xlsx->format, csr::ChronographFormat::GarminXero);
+    QCOMPARE(xlsx->series.size(), std::size_t{3});
+    QCOMPARE(xlsx->series[0].name, u"Rifle session started at 11:45, 2026-10-31"_s);
+    QCOMPARE(xlsx->series[0].velocities_ms.size(), std::size_t{18});
+    QCOMPARE(xlsx->series[0].velocities_ms.front(), 807.2);
+    QCOMPARE(xlsx->series[0].velocities_ms.back(), 805.2);
+    QCOMPARE(xlsx->series[1].velocities_ms.front(), 806.5);
+    QCOMPARE(xlsx->series[2].velocities_ms.size(), std::size_t{18});
+    QCOMPARE(xlsx->series[2].velocities_ms.back(), 802.0);
+    {
+        QFile f(QStringLiteral(CSR_FIXTURE_DIR "/xero/Shotview_sessions.xlsx"));
+        QVERIFY(f.open(QIODevice::ReadOnly));
+        const QByteArray zip = f.readAll();
+        QVERIFY(!csr::readChronograph(zip.left(zip.size() / 2), &error));  // cut off: refused
+        QVERIFY(!csr::readChronograph(QByteArray("PK\x03\x04 not an archive"), &error));
+    }
+
     QVERIFY(!csr::readChronograph("a,b,c\n1,2,3\n", &error));
     QVERIFY(!error.isEmpty());
     QVERIFY(!csr::readChronograph("Series,1, Shots:,0\r\n", &error));

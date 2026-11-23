@@ -11,3 +11,4 @@ Exports of the Garmin Xero C1 Pro and of apps that handle them, used by `CoreTes
   * `Hornady_VMAX_64gr__2024-10-04_18-41-13.csv`, `Shotview_a.csv` – German-language CSV of the Xero app (quoted decimal commas,
     byte order mark in front of the header);
   * `Shotview_i.csv` – English CSV in fps with a PM time stamp; `Shotview_i_de.csv` – German headers, unquoted numbers.
+* `Shotview_sessions.xlsx` – Excel export of the Garmin app (3 rifle sessions of 18 shots, one sheet each); own recording.
